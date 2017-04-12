@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- import jdbc.properties -->
+	<context:property-placeholder location="classpath:/config/jdbc.properties"
+		ignore-unresolvable="true" />
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="clone">
+		<!-- 基本属性driverClassName、 url、user、password -->
+		<property name="driverClassName" value="${jdbc.driverClass}" />
+		<property name="url" value="${jdbc.jdbcUrl}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<!-- 通常来说，只需要修改initialSize、minIdle、maxActive -->
+		<!-- 初始化时建立物理连接的个数，缺省值为0 -->
+		<property name="initialSize" value="${jdbc.initialPoolSize}" />
+		<!-- 最小连接池数量 -->
+		<property name="minIdle" value="${jdbc.minPoolSize}" />
+		<!-- 最大连接池数量，缺省值为8 -->
+		<property name="maxActive" value="${jdbc.maxPoolSize}" />
+
+		<!-- 获取连接时最大等待时间，单位毫秒。配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。 -->
+		<property name="maxWait" value="${jdbc.checkoutTimeout}" />
+
+		<!-- 有些数据库连接的时候有超时限制（MySQL连接在8小时后断开），或者由于网络中断等原因，连接池的连接会出现失效的情况，这时候可以设置一个testWhileIdle参数为true， 如果检测到当前连接不活跃的时间超过了timeBetweenEvictionRunsMillis，则去手动检测一下当前连接的有效性，在保证确实有效后才加以使用。 
+			在检测活跃性时，如果当前的活跃时间大于minEvictableIdleTimeMillis，则认为需要关闭当前连接。当 然，为了保证绝对的可用性，你也可以使用testOnBorrow为true（即在每次获取Connection对象时都检测其可用性），不过这样会影响性能。 -->
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒（3600000:为1小时） -->
+		<property name="timeBetweenEvictionRunsMillis" value="10000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒(300000:为5分钟) -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<!-- 用来检测连接是否有效的sql，要求是一个查询语句。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。 -->
+		<property name="validationQuery" value="${jdbc.validationQuery}" />
+		<!-- 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。建议配置为true，不影响性能，并且保证安全性。 -->
+		<property name="testWhileIdle" value="true" />
+		<!-- 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。缺省值:true -->
+		<property name="testOnBorrow" value="false" />
+		<!-- 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。缺省值:false -->
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<!-- 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql5.5以下的版本中没有PSCache功能，建议关闭掉。5.5及以上版本有PSCache，建议开启。缺省值:false -->
+		<property name="poolPreparedStatements" value="true" />
+		<!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100。 -->
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+		<!-- 解密密码必须要配置的项 -->
+		<!-- <property name="filters" value="config" /> -->
+		<!-- <property name="connectionProperties" value="config.decrypt=true" /> -->
+	</bean>
+
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:/config/MyBatis-Configuration.xml" />
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 打开@transaction注解方式使用事务 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+
+
+	<!-- business service bean configure -->
+
+	<!-- APP ben 配置 ======================================================================================================开始 -->
+	<bean id="appSysMessageDao" class="com.bbpark.dao.app.impl.AppSysMessageDao">
+		<description>系统消息Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appSysMessageService" class="com.bbpark.service.app.impl.AppSysMessageService">
+		<description>系统消息Service</description>
+		<property name="appSysMessageDao" ref="appSysMessageDao" />
+	</bean>
+
+	<bean id="appOrderDao" class="com.bbpark.dao.app.impl.AppOrderDao">
+		<description>订单Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appOrderService" class="com.bbpark.service.app.impl.AppOrderService">
+		<description>订单Service</description>
+		<property name="appOrderDao" ref="appOrderDao" />
+	</bean>
+
+	<bean id="appParkDao" class="com.bbpark.dao.app.impl.AppParkDao">
+		<description>车场Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appParkService" class="com.bbpark.service.app.impl.AppParkService">
+		<description>车场Service</description>
+		<property name="appParkDao" ref="appParkDao" />
+	</bean>
+
+	<bean id="appCouponDao" class="com.bbpark.dao.app.impl.AppCouponDao">
+		<description>代金券Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appCouponService" class="com.bbpark.service.app.impl.AppCouponService">
+		<description>代金券Service</description>
+		<property name="appCouponDao" ref="appCouponDao" />
+	</bean>
+
+	<bean id="appPurseDao" class="com.bbpark.dao.app.impl.AppPurseDao">
+		<description>钱包Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appPurseService" class="com.bbpark.service.app.impl.AppPurseService">
+		<description>钱包Service</description>
+		<property name="appPurseDao" ref="appPurseDao"></property>
+	</bean>
+
+	<bean id="appManagerDao" class="com.bbpark.dao.app.impl.AppManagerDao">
+		<description>系统设置Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appManagerService" class="com.bbpark.service.app.impl.AppManagerService">
+		<description>系统设置Service</description>
+		<property name="appManagerDao" ref="appManagerDao"></property>
+	</bean>
+
+	<bean id="appUserDao" class="com.bbpark.dao.app.impl.AppUserDao">
+		<description>用户Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appUserService" class="com.bbpark.service.app.impl.AppUserService">
+		<description>用户Service</description>
+		<property name="appUserDao" ref="appUserDao"></property>
+	</bean>
+
+	<!-- 车位分享 -->
+	<bean id="appSpaceShareDao" class="com.bbpark.dao.app.impl.AppSpaceShareDao">
+		<description>车位分享Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appSpaceShareService" class="com.bbpark.service.app.impl.AppSpaceShareService">
+		<description>车位分享Service</description>
+		<property name="appSpaceShareDao" ref="appSpaceShareDao"></property>
+	</bean>
+
+	<!-- 车场资讯app -->
+	<bean id="appParkCollectionService" class=" com.bbpark.service.app.impl.AppParkCollectionService">
+		<description>车场Service</description>
+		<property name="appParkCollectionDao" ref="appParkCollectionDao"></property>
+	</bean>
+
+	<bean id="appParkCollectionDao" class="com.bbpark.dao.app.impl.AppParkCollectionDao">
+		<description>车场Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+
+	<bean id="appParkCommentService" class=" com.bbpark.service.app.impl.AppParkCommentService">
+		<description>车场评论Service</description>
+		<property name="appParkCommentDao" ref="appParkCommentDao"></property>
+	</bean>
+
+	<bean id="appParkCommentDao" class="com.bbpark.dao.app.impl.AppParkCommentDao">
+		<description>车位评论Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+
+
+	<!-- 车场资讯app -->
+
+	<!-- app接口重构 ======================================================================================================开始 -->
+	<bean id="appBusinessDao" class="com.bbpark.dao.app.impl.AppBusinessDao">
+		<description>app业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appBusinessService" class="com.bbpark.service.app.impl.AppBusinessService">
+		<description>app业务Service</description>
+		<property name="appBusinessDao" ref="appBusinessDao" />
+	</bean>
+	<!-- app接口重构 ======================================================================================================结束 -->
+
+	<!-- APP ben 配置 ======================================================================================================结束 -->
+
+	<!-- Platform ben 配置 ======================================================================================================开始 -->
+	<bean id="loginDao" class="com.bbpark.dao.platform.impl.LoginDao">
+		<description>用户登陆Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="LoginService" class="com.bbpark.service.platform.impl.LoginService">
+		<description>用户登陆Service</description>
+		<property name="loginDao" ref="loginDao" />
+	</bean>
+
+	<bean id="userDao" class="com.bbpark.dao.platform.impl.UserDao">
+		<description>用户管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+
+	<bean id="userService" class="com.bbpark.service.platform.impl.UserService">
+		<description>用户管理Service</description>
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean id="permissionService" class="com.bbpark.service.platform.impl.PermissionService">
+		<description>权限管理Service</description>
+	</bean>
+
+
+	<bean id="baseItemDao" class="com.bbpark.dao.platform.impl.BaseItemDao">
+		<description>基础资料管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+
+	<bean id="baseItemService" class="com.bbpark.service.platform.impl.BaseItemService">
+		<description>基础资料管理Service</description>
+		<property name="baseItemDao" ref="baseItemDao" />
+	</bean>
+
+	<bean id="sysParamDao" class="com.bbpark.dao.platform.impl.SysParamDao">
+		<description>系统参数Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+
+	<bean id="sysParamService" class="com.bbpark.service.platform.impl.SysParamService">
+		<description>系统参数Service</description>
+		<property name="sysParamDao" ref="sysParamDao" />
+	</bean>
+
+	<!-- 插件逻辑配置 -->
+	<bean id="baseItemPlugInDao" class="com.bbpark.dao.platform.plugin.BaseItemPlugInDao">
+		<description>插件Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="baseItemPlugInFactory" class="com.bbpark.service.platform.plugin.BaseItemPlugInFactory">
+		<description>插件工厂</description>
+	</bean>
+	<!--角色管理 -->
+	<bean id="sysRoleDao" class="com.bbpark.dao.platform.impl.SysRoleDao">
+		<description>角色组Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="sysRoleService" class="com.bbpark.service.platform.impl.SysRoleService">
+		<description>角色组Serviec</description>
+		<property name="sysRoleDao" ref="sysRoleDao" />
+	</bean>
+
+	<!--辅助资料 -->
+	<bean id="assistItemDao" class="com.bbpark.dao.platform.impl.AssistItemDao">
+		<description>辅助资料管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+
+	<bean id="assistService" class="com.bbpark.service.platform.impl.AssistItemService">
+		<description>辅助资料管理Service</description>
+		<property name="assistItemDao" ref="assistItemDao" />
+	</bean>
+
+	<!-- 订单管理 -->
+	<bean id="orderDao" class="com.bbpark.dao.platform.impl.OrderDao">
+		<description>订单管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="orderService" class="com.bbpark.service.platform.impl.OrderService">
+		<description>订单管理Service</description>
+		<property name="baseItemService" ref="baseItemService" />
+		<property name="orderDao" ref="orderDao" />
+	</bean>
+
+	<!-- 优惠管理 -->
+	<bean id="couponDao" class="com.bbpark.dao.platform.impl.CouponDao">
+		<description>优惠管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="couponService" class="com.bbpark.service.platform.impl.CouponService">
+		<description>优惠管理Service</description>
+		<property name="couponDao" ref="couponDao" />
+	</bean>
+
+	<!-- 商家优惠券管理 **PQ临时** -->
+	<bean id="pqMerchantCouponDao" class="com.bbpark.dao.platform.impl.PQMerchantCouponDao">
+		<description>商家优惠券管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="pqMerchantCouponService" class="com.bbpark.service.platform.impl.PQMerchantCouponService">
+		<description>商家优惠券管理Service</description>
+		<property name="pqMerchantCouponDao" ref="pqMerchantCouponDao" />
+	</bean>
+
+	<!-- 财务管理 -->
+	<bean id="financialDao" class="com.bbpark.dao.platform.impl.FinancialDao">
+		<description>财务管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="financialService" class="com.bbpark.service.platform.impl.FinancialService">
+		<description>财务管理Service</description>
+		<property name="financialDao" ref="financialDao" />
+	</bean>
+
+	<!-- 系统设置-收费方案 -->
+	<bean id="chargingDao" class="com.bbpark.dao.platform.impl.ChargingDao">
+		<description>收费方案Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="chargingService" class="com.bbpark.service.platform.impl.ChargingService">
+		<description>收费方案Service</description>
+		<property name="chargingDao" ref="chargingDao" />
+	</bean>
+
+	<!-- 通用token管理 -->
+	<bean id="tokenDao" class="com.bbpark.dao.platform.impl.TokenDao">
+		<description>token管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="tokenService" class="com.bbpark.service.platform.impl.TokenService">
+		<description>token管理Service</description>
+		<property name="tokenDao" ref="tokenDao" />
+	</bean>
+
+	<!-- 用户属性管理：获取用户的查询模板等 -->
+	<bean id="userProfileDao" class="com.bbpark.dao.platform.impl.UserProfileDao">
+		<description>用户属性管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="userProfileService" class="com.bbpark.service.platform.impl.UserProfileService">
+		<description>用户属性管理Service</description>
+		<property name="userProfileDao" ref="userProfileDao" />
+	</bean>
+
+	<!-- 单据模板 -->
+	<bean id="templateDao" class="com.bbpark.dao.platform.impl.TemplateDao">
+		<description>单据模板Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="templateService" class="com.bbpark.service.platform.impl.TemplateService">
+		<description>单据模板Service</description>
+		<property name="templateDao" ref="templateDao" />
+	</bean>
+
+	<!-- 车辆管理 -->
+	<bean id="carDao" class="com.bbpark.dao.platform.impl.CarDao">
+		<description>车辆管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="carService" class="com.bbpark.service.platform.impl.CarService">
+		<description>车辆管理Service</description>
+		<property name="carDao" ref="carDao" />
+		<property name="carStoredService" ref="carStoredService" />
+	</bean>
+
+	<!-- 合作商家 -->
+	<bean id="merchantDao" class="com.bbpark.dao.platform.impl.MerchantDao">
+		<description>合作商家Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="merchantService" class="com.bbpark.service.platform.impl.MerchantService">
+		<description>合作商家Service</description>
+		<property name="merchantDao" ref="merchantDao" />
+	</bean>
+
+	<!-- 车位分享 -->
+	<bean id="spaceShareDao" class="com.bbpark.dao.platform.impl.SpaceShareDao">
+		<description>车位分享Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="spaceShareService" class="com.bbpark.service.platform.impl.SpaceShareService">
+		<description>车位分享Service</description>
+		<property name="spaceShareDao" ref="spaceShareDao" />
+	</bean>
+
+	<!-- 报表 -->
+	<bean id="reportDao" class="com.bbpark.dao.platform.impl.ReportDao">
+		<description>报表Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="reportService" class="com.bbpark.service.platform.impl.ReportService">
+		<description>车位分享Service</description>
+		<property name="reportDao" ref="reportDao" />
+	</bean>
+	<!-- 车场管理 -->
+	<bean id="parkDao" class="com.bbpark.dao.platform.impl.ParkDao">
+		<description>车场管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="parkService" class="com.bbpark.service.platform.impl.ParkService">
+		<description>车位分享Service</description>
+		<property name="parkDao" ref="parkDao" />
+	</bean>
+	<!-- 插件配置 -->
+	<bean id="baseItemPlugDao" class="com.bbpark.service.platform.plugin.impl.BaseItemPlugDao">
+		<description>基础资料插件Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="baseItemPlugService" class="com.bbpark.service.platform.plugin.impl.BaseItemPlugService">
+		<description>基础资料插件Service</description>
+		<property name="baseItemPlugDao" ref="baseItemPlugDao" />
+	</bean>
+	<!-- 物业系统参数 -->
+	<bean id="companyDao" class="com.bbpark.dao.platform.impl.CompanyDao">
+		<description>物业系统参数Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="companyService" class="com.bbpark.service.platform.impl.CompanyService">
+		<description>物业系统参数Service</description>
+		<property name="companyDao" ref="companyDao" />
+	</bean>
+	<!-- 渠道管理参数 -->
+	<bean id="sceneDao" class="com.bbpark.dao.platform.impl.SceneDao">
+		<description>渠道管理参数Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="sceneService" class="com.bbpark.service.platform.impl.SceneService">
+		<description>渠道管理Service</description>
+		<property name="sceneDao" ref="sceneDao" />
+	</bean>
+
+	<!-- 卡片管理 -->
+	<bean id="oilCardDao" class="com.bbpark.dao.platform.impl.OilCardDao">
+		<description>卡片管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="oilCardService" class="com.bbpark.service.platform.impl.OilCardService">
+		<description>卡片管理Service</description>
+		<property name="oilCardDao" ref="oilCardDao" />
+	</bean>
+
+	<!-- 有位临时停车卡管理 -->
+	<bean id="parkCardDao" class="com.bbpark.dao.platform.impl.ParkCardDao">
+		<description>临时停车卡Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="parkCardService" class="com.bbpark.service.platform.impl.ParkCardService">
+		<description>临时停车卡Service</description>
+		<property name="parkCardDao" ref="parkCardDao" />
+	</bean>
+
+	<!-- 车场收费配置数据同步 -->
+	<bean id="parkDataDao" class="com.bbpark.dao.platform.impl.ParkDataDao">
+		<description>车场配收费置数据Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="parkDataService" class="com.bbpark.service.platform.impl.ParkDataService">
+		<description>车场配收费置数据Service</description>
+		<property name="parkDataDao" ref="parkDataDao" />
+	</bean>
+
+	<!-- 车场资讯-车场小时费用批量修改 -->
+	<bean id="batchDao" class="com.bbpark.dao.platform.impl.BatchDao">
+		<description>批量数据Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="batchService" class="com.bbpark.service.platform.impl.BatchService">
+		<description>车场配收费置数据Service</description>
+		<property name="batchDao" ref="batchDao" />
+	</bean>
+
+	<!-- 收费室相关 -->
+	<bean id="caselloDao" class="com.bbpark.dao.platform.impl.CaselloDao">
+		<description>收费室Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="caselloService" class="com.bbpark.service.platform.impl.CaselloService">
+		<description>收费室Service</description>
+		<property name="caselloDao" ref="caselloDao" />
+	</bean>
+
+	<!-- 营销活动 优惠活动 -->
+	<bean id="marketActivityDao" class="com.bbpark.dao.platform.impl.MarketActivityDao">
+		<description>营销活动Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="marketActivityService" class="com.bbpark.service.platform.impl.MarketActivityService">
+		<description>营销活动Service</description>
+		<property name="marketActivityDao" ref="marketActivityDao" />
+	</bean>
+
+	<!-- 公众号活动配置 -->
+	<bean id="activeConfigWechatDao" class="com.bbpark.dao.platform.impl.ActiveConfigWechatDao">
+		<description>公众号活动配置Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="activeConfigWechatService" class="com.bbpark.service.platform.impl.ActiveConfigWechatService">
+		<description>公众号活动配置Service</description>
+		<property name="activeConfigWechatDao" ref="activeConfigWechatDao" />
+	</bean>
+
+	<!-- Platform ben 配置 ======================================================================================================结束 -->
+
+	<!-- access ben 车场接入端配置 =================================================================================================开始 -->
+	<bean id="clientApiDao" class="com.bbpark.dao.access.impl.ClientApiDao">
+		<description>车场端Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="clientApiService" class="com.bbpark.service.access.impl.ClientApiService">
+		<description>车场端Service</description>
+		<property name="clientApiDao" ref="clientApiDao" />
+		<property name="appPurseService" ref="appPurseService" />
+		<property name="appOrderService" ref="appOrderService" />
+		<property name="carService" ref="carService" />
+		<property name="carDao" ref="carDao" />
+	</bean>
+	<!-- 车场端APP -->
+	<bean id="clientAppDao" class="com.bbpark.dao.access.impl.ClientAppDao">
+		<description>车场端APP DAO</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="clientAppService" class="com.bbpark.service.access.impl.ClientAppService">
+		<description>车场端APP Service</description>
+		<property name="clientAppDao" ref="clientAppDao"></property>
+	</bean>
+
+	<!-- 车辆管理 -->
+	<bean id="carStoredDao" class="com.bbpark.dao.platform.impl.CarStoredDao">
+		<description>车辆管理Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="carStoredService" class="com.bbpark.service.platform.impl.CarStoredService">
+		<description>车辆管理Service</description>
+		<property name="carStoredDao" ref="carStoredDao" />
+	</bean>
+	<!-- 车场客户端pad -->
+	<bean id="clientPadDao" class="com.bbpark.dao.access.impl.ClientPadDao">
+		<description>客户端padDao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="clientPadService" class="com.bbpark.service.access.impl.ClientPadService">
+		<description>客户端padService</description>
+		<property name="clientPadDao" ref="clientPadDao" />
+	</bean>
+
+	<!-- access ben 车场接入端配置 =================================================================================================结束 -->
+
+
+	<!-- wechat ben 配置 ======================================================================================================开始 -->
+	<bean id="wechatMerchantDao" class="com.bbpark.dao.wechat.impl.WechatMerchantDao">
+		<description>合作商家Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="wechatMerchantService" class="com.bbpark.service.wechat.impl.WechatMerchantService">
+		<description>合作商家Service</description>
+		<property name="wechatMerchantDao" ref="wechatMerchantDao" />
+	</bean>
+	<bean id="wechatBusinessDao" class="com.bbpark.dao.wechat.impl.WechatBusinessDao">
+		<description>微信业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="wechatBusinessService" class="com.bbpark.service.wechat.impl.WechatBusinessService">
+		<description>微信业务Service</description>
+		<property name="wechatBusinessDao" ref="wechatBusinessDao" />
+	</bean>
+	<bean id="wechatParkCollectionDao" class="com.bbpark.dao.wechat.impl.WechatParkCollectionDao">
+		<description>车场资讯-车场信息Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="wechatParkCollectionService" class="com.bbpark.service.wechat.impl.WechatParkCollectionService">
+		<description>车场资讯-车场信息Service</description>
+		<property name="wechatParkCollectionDao" ref="wechatParkCollectionDao" />
+	</bean>
+	<!-- 车场评论相关 -->
+	<bean id="weChatParkCommentDao" class="com.bbpark.dao.wechat.impl.WeChatParkCommentDao">
+		<description>车场评论业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="WeChatParkCommentService" class="com.bbpark.service.wechat.impl.WeChatParkCommentService">
+		<description>车场评论业务Service</description>
+		<property name="weChatParkCommentDao" ref="weChatParkCommentDao" />
+	</bean>
+
+	<!-- 优惠活动相关 -->
+	<bean id="wechatCouponActivityDao" class="com.bbpark.dao.wechat.impl.WechatCouponActivityDao">
+		<description>优惠活动业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="wechatCouponActivityService" class="com.bbpark.service.wechat.impl.WechatCouponActivityService">
+		<description>优惠活动业务Service</description>
+		<property name="wechatCouponActivityDao" ref="wechatCouponActivityDao" />
+	</bean>
+
+	<!-- 收费室相关 -->
+	<bean id="wechatCaselloDao" class="com.bbpark.dao.wechat.impl.WechatCaselloDao">
+		<description>收费室业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="wechatCaselloService" class="com.bbpark.service.wechat.impl.WechatCaselloService">
+		<description>收费室业务Service</description>
+		<property name="wechatCaselloDao" ref="wechatCaselloDao" />
+	</bean>
+
+	<!-- 优惠活动记录相关 -->
+	<bean id="couponActivityRecordDao" class="com.bbpark.dao.platform.impl.CouponActivityRecordDao">
+		<description>优惠活动记录业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="couponActivityRecordService" class="com.bbpark.service.platform.impl.CouponActivityRecordService">
+		<description>优惠活动记录业务Service</description>
+		<property name="couponActivityRecordDao" ref="couponActivityRecordDao" />
+	</bean>
+
+	<!-- 上报车场相关 -->
+	<bean id="parkCollectionDao" class="com.bbpark.dao.platform.impl.ParkCollectionDao">
+		<description>上报车场业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="parkCollectionService" class="com.bbpark.service.platform.impl.ParkCollectionService">
+		<description>上报车场业务Service</description>
+		<property name="parkCollectionDao" ref="parkCollectionDao" />
+	</bean>
+
+	<!-- 有位动态相关 -->
+	<bean id="appNewsDao" class="com.bbpark.dao.app.impl.AppNewsDao">
+		<description>有位动态业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appNewsService" class="com.bbpark.service.app.impl.AppNewsService">
+		<description>有位动态业务Service</description>
+		<property name="appNewsDao" ref="appNewsDao" />
+	</bean>
+
+	<!-- 推广发现相关 -->
+	<bean id="appDiscoveryDao" class="com.bbpark.dao.app.impl.AppDiscoveryDao">
+		<description>推广发现业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="appDiscoveryService" class="com.bbpark.service.app.impl.AppDiscoveryService">
+		<description>推广发现Service</description>
+		<property name="appDiscoveryDao" ref="appDiscoveryDao" />
+	</bean>
+
+	<!-- 商家电子优惠卷 GZQ临时(合并后删除) -->
+	<bean id="GZQMerchantCouponDao" class="com.bbpark.dao.platform.impl.GZQMerchantCouponDao">
+		<description>商家优惠卷测试业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="GZQMerchantCouponService" class="com.bbpark.service.platform.impl.GZQMerchantCouponService">
+		<description>商家优惠卷测试业务Service</description>
+		<property name="GZQMerchantCouponDao" ref="GZQMerchantCouponDao" />
+	</bean>
+	<!-- 商家电子优惠券信息 GZQ临时(合并后删除) -->
+	<bean id="GZQMerchantCouponInfoDao" class="com.bbpark.dao.platform.impl.GZQMerchantCouponInfoDao">
+		<description>商家电子优惠券信息业务Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+
+
+	<!-- 商家电子优惠券信息 -->
+	<bean id="merchantCouponDao" class="com.bbpark.dao.platform.impl.MerchantCouponDao">
+		<description>商家电子优惠券信息Dao</description>
+		<property name="sqlsession" ref="sqlSession" />
+	</bean>
+	<bean id="merchantCouponService" class="com.bbpark.service.platform.impl.MerchantCouponService">
+		<description>商家电子优惠券信息Service</description>
+		<property name="merchantCouponDao" ref="merchantCouponDao" />
+	</bean>
+
+	<!-- wechat ben 配置 ======================================================================================================结束 -->
+
+	<!-- other ben 配置 ======================================================================================================开始 -->
+	<!-- spring系统启动以后，初始化所有系统参数 -->
+	<!-- <bean class="com.bbpark.util.SystemParamUtil"> -->
+	<!-- <property name="sysParamService" ref="sysParamService"></property> -->
+	<!-- </bean> -->
+	<!-- spring系统启动以后，获取WebApplicationContext容器，提供动态获取实例bean功能 -->
+	<bean class="com.bbpark.util.Environ">
+	</bean>
+	<bean class="com.bbpark.util.unionSdk.AutoLoadServlet" />
+	<!-- other ben 配置 ======================================================================================================结束 -->
+</beans>
