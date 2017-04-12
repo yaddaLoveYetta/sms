@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="../../css/global.debug.css" rel="stylesheet" />
+    <link href="../../css/global_iframe.debug.css" rel="stylesheet" />
+    <link href="../../css/filter.debug.css" rel="stylesheet" />
+    <link href="../../css/sorting.debug.css" rel="stylesheet" />
+    <link href="../../css/jquery-ui.css" rel="stylesheet" />
+
+    <link href="../../css/order/index.debug.css" rel="stylesheet" />
+</head>
+<body class="iframe">
+    <div id="filter-panel"></div>
+
+    <!-- 有数据显示区域，默认display: none -->
+    <div id="have-data" class="have-data">
+
+        <div id="sort-panel" class="sort-panel">
+
+        </div>
+
+        <!-- 通过bt-panel-fixed类实现bt-panel固定顶部 -->
+        <div class="bt-panel">
+
+            <div id="div-button-list" class="btn-box">
+
+            </div>
+
+            <div class="right">
+
+                <div id="div-pager-simple">
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div id="order-list" class="order-list2">
+            <!--
+            <table>
+
+                <thead>
+                    <tr class="item-title">
+                        <td>
+                            <div class="check-all">
+                                <i id="check-all" class="checkbox-all checkbox-all-selected"></i><span id="span-select-type">选择全部</span><i class="pull-down"></i>
+                            </div>
+                        </td>
+                        <td class="good-name-title">宝贝名称</td>
+                        <td class="good-price-title">单价</td>
+                        <td class="good-count-title">数量</td>
+                        <td class="buyer-info-title">买家信息</td>
+                        <td class="remark-title">留言</td>
+                        <td></td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+
+                        <td colspan="4" class="modify-td">
+
+                            <div id="goods-item-sku" class="order-modify-container2 hidden">
+                            #--skuList.begin--#
+                                <ul class="order-modify2">
+                                #--skuGroup.begin--#
+                                #--skuGoodsNo.begin--#
+                                    <li>
+                                        <div class="title">{name}</div>
+                                        <div class="content">
+                                            <input id="skuID" type="text" />
+                                        </div>
+                                    </li>
+                                #--skuGoodsNo.end--#
+
+                                #--skuOption.begin--#
+                                    <li>
+                                        <div class="title">{name}</div>
+                                        <div class="content">
+                                            <ul data-type="sku-selected" data-index="{index}" class="options">
+                                            #--sku-selected.begin--#
+                                                <li data-type="{selectedValue}" class="{selectedClass}">{name}</li>
+                                            #--sku-selected.end--#
+                                            </ul>
+                                        </div>
+                                    </li>
+                                #--skuOption.end--#
+
+                                #--skuAmount.begin--#
+                                    <li>
+                                        <div class="title">{name}</div>
+                                        <input type="text" data-type="amount-spinner" data-index="{index}" value="100" />
+
+                                    </li>
+                                #--skuAmount.end--#
+
+                                #--skuGroup.end--#
+                                    <li class="button-panel">
+                                        <input id="sku-container-confirm" type="button" value="确定" class="sub-bt" />
+                                        <input id="sku-container-cancel" type="button" value="取消" class="cancel-bt" />
+                                    </li>
+                                </ul>
+                            #--skuList.end--#
+                            </div>
+                        </td>
+
+                        <td colspan="2" class="modify-td">
+
+                            <div id="buyer-info-container" class="buyer-info-modify-container2 hidden">
+                            #--buyerInfo.begin--#
+                                <div class="buyer-info-modify2">
+                                    <div class="label-title">地址：</div>
+                                    <div id="div-address-picker" class="address-picker">
+
+                                    </div>
+                                    <textarea id="address-detail" class="address-details"></textarea>
+                                    <div class="label-title">物流公司：</div>
+                                    <ul id="ul-express-company" class="couriers">
+                                    #--express-company.begin--#
+                                        <li data-type="{data-type}" class="{ec-class}" {selected}>{name}</li>
+                                    #--express-company.end--#
+                                    </ul>
+                                    <div class="button-panel">
+                                        <input id="buyer-info-container-confirm" type="button" value="确定" class="sub-bt" />
+                                        <input id="buyer-info-container-cancel" type="button" value="取消" class="cancel-bt" />
+                                    </div>
+                                </div>
+                            #--buyerInfo.end--#
+                            </div>
+                            <div id="seller-remark-container" class="buyer-info-modify-container2 hidden">
+                                <div class="buyer-info-modify2">
+                                    <div class="label-title">卖家备注：</div>
+                                    <textarea id="seller-remark" class="address-details"></textarea>
+                                    <div class="button-panel">
+                                        <input id="seller-remark-container-confirm" type="button" value="确定" class="sub-bt" />
+                                        <input id="seller-remark-container-cancel" type="button" value="取消" class="cancel-bt" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+
+            #--order.begin--#
+                <tbody class="order-content">
+                    <tr class="order-title">
+                        <td colspan="7">
+                            <span class="before-tr">&nbsp;</span>
+                            <span class="list-tabs">
+
+                                <i data-btn-type="check" order-id="{orderID}" btn-index="{index}"  class="checkbox-item checkbox-item-selected"></i>
+                            订单号：<span>{webOrderID}</span>
+                            </span>
+                            <span class="list-tabs">支付时间：<span>{payTime}</span></span>
+                            <span class="list-tabs">实收：<span>￥{payAmount}</span></span>&nbsp;&nbsp;&nbsp;
+                            <span class="list-tabs hign-light">{orderStatus}&nbsp;&nbsp;&nbsp;{isFreeze}</span>
+                            <span class="icon"><i class="icon-star"></i></span>
+                            <span class="icon"><i class="icon-flag"></i></span>
+                        </td>
+                    </tr>
+
+                   #--goodItem.begin--#
+                    <tr class="sep-row ">
+                        <td colspan="4"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="good-item_{goodsIndex}" class="good-item">
+                        <td class="good-img">
+                            <img src="{picPath}" />
+                        </td>
+                        <td class="merge-cols" colspan="3">
+                            <table class="sub-table" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td class="info-detail">
+                                        <div class="good-name">{title}</div>
+
+                                    </td>
+                                    <td class="good-price">
+                                        <span>￥{price}</span>
+                                        <span>(惠)￥{discountAmount}</span>
+                                    </td>
+                                    <td class="good-count">
+                                        <span>{amount}</span>
+                                        <div modify-area="{goodsIndex}" class="modify-area">
+                                            <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                            <span data-good-index="{goodsIndex}"  class="modify-bt-in">修改</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="goods-info" colspan="3">
+                                        <div class="goods-size">
+                                        #--skuName.begin--#
+                                            <span><span>{skuTitle}：</span><span>{skuValue}</span></span>
+                                        #--skuName.end--#
+                                        </div>
+                                        <div>
+                                            #--gift.begin--#
+                                            <span class="icon gift-icon">赠</span>
+                                            #--gift.end--#
+                                            #--absence.begin--#
+                                            <span class="icon lack-icon">缺</span>
+                                            #--absence.end--#
+                                            #--refund.begin--#
+                                            <span class="icon return-icon">退</span>
+                                            #--refund.end--#
+                                            <span class="goods-size">原订单号：81251534(交易关闭)</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    #--logistics-remark.begin--#
+                        <td id="buyer-info_{index}"  class="buyer-info " rowspan="{rowspan}">
+                        #--logistics.begin--#
+                            <div class="buyer-info-container">
+                                <div class="buyer-name">{buyernick}</div>
+                                <div>收货地址：<span>{deliveryStateName} {deliveryCityName} {deliveryDistrictName}{deliveryAddress}</span></div>
+
+                                <div>
+                                    <span class="logistics-company">物流公司：</span>
+                                    <span id="span-logistics-{index}" data-value="{logisticsCompany}" class="courier-name bgcolor-lightgreen">{logisticsCompanyName}</span>
+                                    <span class="icon no-icon">{canReach}</span>
+                                    <span class="icon over-icon">{isOverload}</span>
+                                </div>
+                                <div class="modify-area">
+                                    <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                    <span data-type="modify-logistics" data-index="{index}"  class="modify-bt-in">修改</span>
+                                </div>
+                            </div>
+                        #--logistics.end--#
+                        </td>
+                        <td id="seller-remark_{index}" class="buyer-remark" rowspan="{rowspan}">
+                        #--remark.begin--#
+                            <div class="buyer-info-container">
+
+                                <div>买家备注：<span>{buyerMessage}</span></span></div>
+                                <div>卖家备注：<span>{outerMemo}</span></div>
+
+                                <div class="modify-area">
+                                    <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                    <span data-type="modify-remark" data-index="{index}"  class="modify-bt-in">修改</span>
+                                </div>
+                            </div>
+                        #--remark.end--#
+                        </td>
+                        <td rowspan="{rowspan}">
+                            <span class="list-tabs"><a href="javascript:">详情</a></span>
+
+                            <input data-type="del" order-id="{orderID}" web-order-id="{webOrderID}" type="button" value="删除" class="list-bt" />
+                            <input data-type="split" order-id="{orderID}" web-order-id="{webOrderID}" type="button" value="拆分" class="list-bt" />
+                            <input data-type="freeze" order-id="{orderID}" web-order-id="{webOrderID}" type="button" value="冻结" class="list-bt" />
+                        </td>
+                    #--logistics-remark.end--#
+                    </tr>
+
+                    #--goodItem.end--#
+                    <tr class="sep-row">
+                        <td colspan="4"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            #--order.end--#
+
+            </table>
+            -->
+        </div>
+
+
+
+        <div id="div-pager-normal" class="page-panel">
+
+        </div>
+
+    </div>
+
+
+    <!-- 无数据显示区域，默认display: none -->
+    <div id="no-data" class="no-data">
+        <p class="warm-text">很抱歉，当前暂无数据！</p>
+        <p>您可以尝试 <a href="#">手工录单</a></p>
+    </div>
+
+
+    <div id="lay-progress" class="div_overlay">
+        <div class="div-progress">
+            <span>系统正在努力处理...</span>
+            <div id="divProgressBar"></div>
+        </div>
+    </div>
+
+    <script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+    <script src="../../lib/jquery/jquery-ui-1.11.2.js"></script>
+    <script src="../../lib/miniquery/miniquery.debug.js"></script>
+    <script src="../../lib/kerp/kerp.debug.js"></script>
+    <script src="../../config.js"></script>
+
+    <!--grunt.js.begin-->
+
+    <script src="modules/API.js"></script>
+    <script src="modules/ButtonList.js"></script>
+    <script src="modules/FilterData.js"></script>
+    <script src="../controls/modules/Filter.js"></script>
+    <script src="../controls/modules/Sorting.js"></script>
+    <script src="../controls/modules/ProgressBar.js"></script>
+
+    <script src="modules/OrderListData.js"></script>
+    <script src="modules/OrderList.js"></script>
+    <script src="modules/OrderModel.js"></script>
+    <!--<script src="modules/Sort.js"></script>-->
+    <script src="modules/OrderPagination.js"></script>
+    <script src="modules/Spinner.js"></script>
+    <script src="modules/Address.js"></script>
+    <script src="modules/ExpressCompany.js"></script>
+    <script src="modules/SkuSelect.js"></script>
+    <script src="modules/Sku.js"></script>
+    <script src="modules/BuyerInfo.js"></script>
+    <script src="modules/SellerRemark.js"></script>
+    <script src="order.js"></script>
+
+    <!--grunt.js.end-->
+
+</body>
+</html>

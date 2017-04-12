@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <!--grunt.css.begin-->
+    <link rel="stylesheet" href="../../css/global.debug.css" />
+    <link rel="stylesheet" href="../../css/department_edit/index.debug.css" />
+    <!--grunt.css.end-->
+</head>
+<body class="iframe">
+    <!--按钮区-->
+    <div class="options">
+        <ul class="btn-box">
+            <li><input id="optNew" class="btn" type="button" value="新增" /></li>
+            <li><input id="optAddType" class="btn" type="button" value="新增类别" /></li>
+            <li><input id="optSave" class="btn" type="button" value="保存" /></li>
+            <li><input id="optDisable" class="btn" type="button" value="禁用" /></li>
+            <li><input id="optPrint" class="btn" type="button" value="打印" /></li>
+            <li><input id="optExport" class="btn" type="button" value="引出" /></li>
+            <li><input id="optMore" class="btn" type="button" value="更多" /></li>
+            <li><input id="optQuery" class="btn" type="button" value="按number查询" /></li>
+            <li><input id="optDelete" class="btn" type="button" value="删除" /></li>
+        </ul>
+    </div>
+    <!--主显示区-->
+    <div class="main-content">
+        <!--基本资料-->
+        <div id="div-basic" class="sep-row">
+            <img class="img" src="../../css/department_edit/img/sep.png" />
+            <span class="text">基本资料</span>
+            <div class="line"></div>
+        </div>
+        <div class="content-box">
+            <table class="data-table">
+                <tbody>
+                    <tr>
+                        <td class="col-desc">部门代码：</td>
+                        <td class="col-value">
+                            <input id="bd-number" type="text" value="" />
+                            <span id="bd-number-msg" class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>部门名称：</td>
+                        <td class="col-value">
+                            <input id="bd-name" type="text" value="" />
+                            <span id="bd-name-msg" class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>助记码：</td>
+                        <td class="col-value">
+                            <input id="bd-helpCode" type="text" value="" />
+                            <span id="bd-helpCode-msg" class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>上级部门：</td>
+                        <td class="col-value">
+                            <input id="bd-groupID" type="text" />
+                            <input id="bd-groupID-name" type="text" />
+                            <span id="bd-groupID-msg" class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>备注：</td>
+                        <td class="col-value">
+                            <div class="memo">
+                                <textarea id="bd-memo" cols="50" rows="3"></textarea>
+                                <span id="bd-memo-msg" class="msg"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+    <script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+    <script src="../../lib/miniquery/miniquery.debug.js"></script>
+    <script src="../../lib/kerp/kerp.debug.js"></script>
+    <script src="../../config.js"></script>
+
+    <!--grunt.js.begin-->
+    <script src="modules/Edit.js"></script>
+    <script src="../warehouse_edit/FormEdit.js"></script>
+    <script src="../warehouse_edit/Validate.js"></script>
+    <script src="index.js"></script>
+    <!--grunt.js.end-->
+
+</body>
+</html>

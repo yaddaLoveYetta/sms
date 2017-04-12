@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../css/global.debug.css" rel="stylesheet" />
+    <link href="../../css/order_split/index.debug.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="div-header"><!--<span class="left-align">拆分订单</span>--></div>
+    <div class="div-body">
+        <div class="body-left">
+            <span>商品</span>
+            <ul>
+                <li class="goods-item">
+                    <span class="goods-img">
+                        <img src="../../css/order_split/img/u283.png" />
+                    </span>
+                    <div class="info-detail">
+                        <span>
+                            <span>商品编号：B1251534</span>
+                            <span class="icon gift-icon">赠&nbsp;</span><span class="icon lack-icon">缺&nbsp;</span><span class="icon return-icon">退&nbsp;</span>
+                        </span><br />
+                        <span><span>净含量：30ml &nbsp;</span><span>颜色：肤色</span></span><br />
+                        <span><span>单位：瓶</span><span>数量：2 &nbsp;</span><span>毛重：2KG</span></span><br />
+                        <span>拆分数量：<span class="minus-add">-</span><span><input type="text" value="2" /></span><span class="minus-add">+</span></span><br />
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="body-center">
+            <div class="div-align-center">
+                <span><input type="button" value="拆分至新单" /></span><br />
+                <span><input type="button" value="拆分至指定单" /></span><br />
+                <span><select><option>子订单1</option></select></span>
+            </div>
+        </div>
+        <div class="body-right">
+            <span class="sub-order-title">
+                <span>子订单：1</span>&nbsp;&nbsp;<span>毛重：2kg</span>
+            </span>
+            <ul class="sub-order">
+                <li class="goods-item">
+                    <span class="goods-img">
+                        <img src="../../css/img/u283.png" />
+                    </span>
+                    <div class="info-detail">
+                        <span>
+                            <span>商品编号：B1251534</span>
+                        </span><br />
+                        <span><span>净含量：30ml &nbsp;</span><span>颜色：肤色</span></span><br />
+                        <span><span>单位：瓶</span><span>数量：2 &nbsp;</span></span><br />
+                    </div>
+                </li>
+                <li class="goods-item">
+                    <span class="goods-img">
+                        <img src="../../css/img/u283.png" />
+                    </span>
+                    <div class="info-detail">
+                        <span>
+                            <span>商品编号：B1251534</span>
+                        </span><br />
+                        <span><span>净含量：30ml &nbsp;</span><span>颜色：肤色</span></span><br />
+                        <span><span>单位：瓶</span><span>数量：2 &nbsp;</span></span><br />
+                    </div>
+                </li>
+            </ul>
+            <div class="new-order">
+                <span class="goods-img">
+                    <img src="../../css/img/add.png" />
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="div-footer">
+        <input type="button" value="确定" /> <input type="button" value="取消" />
+    </div>
+</body>
+</html>

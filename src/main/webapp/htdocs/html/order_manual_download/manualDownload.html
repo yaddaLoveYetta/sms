@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <link href="../../css/global.debug.css" rel="stylesheet" />
+    <link href="../../css/global_iframe.debug.css" rel="stylesheet" />
+    <link href="../../lib/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="../../lib/datetimepicker/css/Datetime.debug.css" rel="stylesheet" />
+
+    <link href="../../css/order_manual_download/manualDownload.debug.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="bread-crumbs">
+        <ul id="ul-path">
+            <!--
+                <li>
+                    <ul>
+                        #--breadCrumbs.begin--#
+
+                        <li class="section">{name}</li>
+
+                        #--breadCrumbs.end--#
+                    </ul>
+                </li>
+            -->
+        </ul>
+    </div>
+
+    <div id="div-box">
+        <ul class="box-header ">
+            <li id="li-date" class="selected">按时间下载</li>
+            <li id="li-orderno">按订单下载</li>
+        </ul>
+        <div id="div-date">
+            <ul class="box-body">
+                <li class="time-picker">
+                    <ul class="options">
+                        <li class="time-picker">
+                            <span class="option-title">订单时间：</span>
+                            <div class="time-box">
+                                <div class="datetime-picker time-picker-label">
+                                    <input type="text" id="startTime" class="date-label" />
+                                    <i class="icon-calendar"></i>
+                                </div>
+                                <div class="datetime-picker time-picker-label">
+                                    <input type="text" id="endTime" class="date-label" />
+                                    <i class="icon-calendar"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div id="div-checkbox-shop" class="options">
+                        <!--
+                                    <span class="option-title">
+                                        所属网店：
+                                    </span>
+                                    <ul>
+                                        #--shops.begin--#
+                                        <li class="li-inline"><input type="checkbox" name="shop" value="{value}" />{name}</li>
+                                        #--shops.end--#
+                                </ul>
+                        -->
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="div-orderno" class="div-hidden">
+            <ul class="box-body">
+                <li>
+                    <div id="div-radio-shop" class="options">
+                        <!--
+                                    <span class="option-title">
+                                        所属网店：
+                                    </span>
+                                    <ul>
+                                        #--shops.begin--#
+                                        <li class="li-inline"><input type="radio" name="shop" value="{value}" />{name}</li>
+                                        #--shops.end--#
+                                </ul>
+                        -->
+                    </div>
+                </li>
+                <li class="textarea">
+                    <div class="options">
+                        <span class="option-title">
+                            订单号：
+                        </span>
+                        <span>
+                            <textarea placeholder="以逗号分隔"></textarea>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="bt-panel">
+            <input type="button" value="同步订单" class="right" />
+        </div>
+    </div>
+
+    <script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+    <script src="../../lib/miniquery/miniquery.debug.js"></script>
+    <script src="../../lib/kerp/kerp.debug.js"></script>
+
+    <script src="../../lib/datetimepicker/js/bootstrap-datetimepicker.debug.js"></script>
+    <script src="../../lib/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <script src="../../config.js"></script>
+
+    <script src="modules/ModuleAPI.js"></script>
+    <script src="modules/Path.js"></script>
+    <script src="modules/DatetimePicker.js"></script>
+    <script src="modules/DownloadCriterias.js"></script>
+    <script src="modules/DownloadCriteriasData.js"></script>
+    <script src="modules/ShopData.js"></script>
+    <script src="modules/Shop.js"></script>
+    <script src="manualDownload.js"></script>
+
+</body>
+</html>

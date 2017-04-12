@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="../../css/global.debug.css" />
+    <link rel="stylesheet" href="../../css/goods_edit/index.debug.css" />
+</head>
+<body>
+    <!--按钮区-->
+    <div class="options">
+        <ul class="btn-box">
+            <li><input class="btn" type="button" value="保存" /></li>
+            <li><input class="btn" type="button" value="取消保存" /></li>
+        </ul>
+    </div>
+    <!--页签菜单区-->
+    <div class="rightmenu">
+        <ul class="category">
+            <li class="item item-selected"><a href="#div-basic">基本资料</a></li>
+            <li class="item"><a href="#div-assisprop">辅助属性</a></li>
+            <li class="item"><a href="#div-barcode">条形码</a></li>
+        </ul>
+    </div>
+    <!--主显示区-->
+    <div class="main-content">
+        <!--基本资料-->
+        <div id="div-basic" class="sep-row">
+            <img class="img" src="../../css/goods_edit/img/sep.png" />
+            <span class="text">基本资料</span>
+            <div class="line"></div>
+        </div>
+        <div class="content-box">
+            <table class="data-table">
+                <tbody>
+                    <tr>
+                        <td class="col-desc">商品代码：</td>
+                        <td class="col-value"><input type="text" value="XW2645" /></td>
+                    </tr>
+                    <tr>
+                        <td>商品名称：</td>
+                        <td class="col-value"><input type="text" value="韩风潮流风衣" /></td>
+                    </tr>
+                    <tr>
+                        <td>计量单位：</td>
+                        <td class="col-value"><input type="text" value="件" /></td>
+                    </tr>
+                    <tr>
+                        <td>规格型号：</td>
+                        <td class="col-value"><input type="text" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td>助记码：</td>
+                        <td class="col-value"><input type="text" value="HFCLFY" /></td>
+                    </tr>
+                    <tr>
+                        <td>所属类别：</td>
+                        <td class="col-value">
+                            <div>
+                                <input type="text" value="服装/女装/上装" /><img src="../../css/goods_edit/img/select.png" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>默认仓库：</td>
+                        <td class="col-value">
+                            <input type="text" value="东区服饰仓" /><img src="../../css/goods_edit/img/select.png" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>默认货位：</td>
+                        <td class="col-value">
+                            <input type="text" value="A-12-452" /><img src="../../css/goods_edit/img/select.png" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>禁用：</td>
+                        <td>否</td>
+                    </tr>
+                    <tr>
+                        <td>商品毛重(KG)：</td>
+                        <td class="col-value"><input type="text" value="1.2" /></td>
+                    </tr>
+                    <tr>
+                        <td>商品净重(KG)：</td>
+                        <td class="col-value"><input type="text" value="1.1" /></td>
+                    </tr>
+                    <tr>
+                        <td>参考成本(元)：</td>
+                        <td class="col-value"><input type="text" value="500.00" /></td>
+                    </tr>
+                    <tr>
+                        <td>补差价商品：</td>
+                        <td class="col-value"><input type="checkbox" /></td>
+                    </tr>
+                    <tr>
+                        <td>套装商品：</td>
+                        <td class="col-value"><input type="checkbox" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="goods-img">
+                <img src="../../css/goods_edit/img/goods_main.jpg" />
+                <div>
+                    <div class="change-img">更换图片</div>
+                </div>
+            </div>
+        </div>
+        <div id="div-assisprop" class="sep-row">
+            <img src="../../css/goods_edit/img/sep.png" />
+            <span class="text">辅助属性</span>
+            <div class="line"></div>
+        </div>
+        <!--辅助属性-->
+        <div class="content-box">
+            <div class="goods-prop-modify">
+                <div class="prop-modify">
+                    <div>
+                        <div class="title">颜色</div>
+                        <ul class="items">
+                            <li class="selected">米黄色</li>
+                            <li class="selected">白色</li>
+                            <li>蓝色</li>
+                            <li>黑色</li>
+                            <li>红色</li>
+                            <li>绿色</li>
+                            <li>黄色</li>
+                            <li>橙色</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="title">尺寸</div>
+                        <ul class="items">
+                            <li>160cm</li>
+                            <li>165cm</li>
+                            <li class="selected">170cm</li>
+                            <li>175cm</li>
+                            <li>180cm</li>
+                            <li>185cm</li>
+                            <li>190cm及以上</li>
+                        </ul>
+                    </div>
+                    <div class="btn-box">
+                        <input type="button" value="确定" class="ok" />
+                        <input type="button" value="取消" class="cancle" />
+                    </div>
+                </div>
+            </div>
+            <div class="assis-enable">
+                <div class="left-title">启用辅助属性：</div>
+                <div class="enable">
+                    <input type="checkbox" />
+                </div>
+            </div>
+            <div class="category">
+                <div class="left-title">类别：</div>
+                <ul>
+                    <li><input class="selected" type="button" value="√颜色"></li>
+                    <li><input class="selected" type="button" value="√尺码"></li>
+                    <li><input class="unselected" type="button" value="容量"></li>
+                </ul>
+            </div>
+            <div class="assis-prop">
+                <div class="left-title">辅助属性：</div>
+                <div class="setting">
+                    <div class="head">
+                        <ul>
+                            <li class="h-group">辅助属性组合</li>
+                            <li class="h-code">组合编码</li>
+                            <li class="h-color">颜色</li>
+                            <li class="h-size">尺码</li>
+                            <li class="h-vol">容量</li>
+                            <li class="h-img">图片</li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="item">
+                            <ul>
+                                <li class="li-b-group">
+                                    <div class="b-group">颜色：米黄色|尺码：XXXL</div>
+                                    <div class="modify-area">
+                                        <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                        <span class="modify-bt-in">修改</span>
+                                    </div>
+                                </li>
+                                <li class="li-b-code">
+                                    <input type="text" value="ADEDFSAFEB" />
+                                </li>
+                                <li class="li-b-color">
+                                    <span>米黄色</span>
+                                </li>
+                                <li class="li-b-size">
+                                    <span>XXXL</span>
+                                </li>
+                                <li class="li-b-vol">
+                                    <span>大号</span>
+                                </li>
+                                <li class="li-b-img">
+                                    <div class="b-img">
+                                        <img src="../../css/goods_edit/img/jpg1_80x80.jpg" />
+                                        <div class="btn">
+                                            <span>更换图片</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="li-b-delete">
+                                    <div class="b-delete">
+                                        <div>删除</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item">
+                            <ul>
+                                <li class="li-b-group selected">
+                                    <div class="b-group">
+                                        <span>颜色：米黄色|尺码：XXXL</span>
+                                    </div>
+                                    <div class="modify-area">
+                                        <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                        <span class="modify-bt-in" style="display:block;">修改</span>
+                                    </div>
+                                </li>
+                                <li class="li-b-code">
+                                    <input type="text" value="ADEDFSAFEB" />
+                                </li>
+                                <li class="li-b-color">
+                                    <span>米黄色</span>
+                                </li>
+                                <li class="li-b-size">
+                                    <span>XXXL</span>
+                                </li>
+                                <li class="li-b-vol">
+                                    <span>大号</span>
+                                </li>
+                                <li class="li-b-img">
+                                    <div class="b-img">
+                                        <img src="../../css/goods_edit/img/jpg2_80x80.jpg" />
+                                        <div class="btn">
+                                            <div>更换图片</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="li-b-delete">
+                                    <div class="b-delete">
+                                        <div>删除</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item">
+                            <ul>
+                                <li class="li-b-group">
+                                    <div class="b-group">
+                                        <span>颜色：米黄色|尺码：XXXL</span>
+                                    </div>
+                                    <div class="modify-area">
+                                        <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                        <span class="modify-bt-in">修改</span>
+                                    </div>
+                                </li>
+                                <li class="li-b-code">
+                                    <input type="text" value="ADEDFSAFEB" />
+                                </li>
+                                <li class="li-b-color">
+                                    <span>米黄色</span>
+                                </li>
+                                <li class="li-b-size">
+                                    <span>XXXL</span>
+                                </li>
+                                <li class="li-b-vol">
+                                    <span>大号</span>
+                                </li>
+                                <li class="li-b-img">
+                                    <div class="b-img">
+                                        <img src="../../css/goods_edit/img/jpg3_80x80.jpg" />
+                                        <div class="btn">
+                                            <div>更换图片</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="li-b-delete">
+                                    <div class="b-delete">
+                                        <div>删除</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item">
+                            <ul>
+                                <li class="li-b-group">
+                                    <div class="b-group">
+                                        <span>颜色：米黄色|尺码：XXXL</span>
+                                    </div>
+                                    <div class="modify-area">
+                                        <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                        <span class="modify-bt-in">修改</span>
+                                    </div>
+                                </li>
+                                <li class="li-b-code">
+                                    <input type="text" value="ADEDFSAFEB" />
+                                </li>
+                                <li class="li-b-color">
+                                    <span>米黄色</span>
+                                </li>
+                                <li class="li-b-size">
+                                    <span>XXXL</span>
+                                </li>
+                                <li class="li-b-vol">
+                                    <span>大号</span>
+                                </li>
+                                <li class="li-b-img">
+                                    <div class="b-img">
+                                        <img src="../../css/goods_edit/img/jpg3_80x80.jpg" />
+                                        <div class="btn">
+                                            <div>更换图片</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="li-b-delete">
+                                    <div class="b-delete">
+                                        <div>删除</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <span class="add">添加</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="div-barcode" class="sep-row">
+            <img src="../../css/goods_edit/img/sep.png" />
+            <span class="text">条形码</span>
+            <div class="line"></div>
+        </div>
+        <!--条形码-->
+        <div class="content-box">
+            <div class="barcode">
+                <div class="head">
+                    <ul>
+                        <li class="h-assisprop">辅助属性</li>
+                        <li class="h-barcode">条形码</li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="item">
+                        <ul>
+                            <li class="li-b-assisprop">
+                                <div class="b-assisprop">颜色：米黄色|尺码：XXXL</div>
+                                <div class="modify-area">
+                                    <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                    <span class="modify-bt-in">修改</span>
+                                </div>
+                            </li>
+                            <li class="li-b-barcode">
+                                <input type="text" value="FDFGDFGGSEDB" />
+                            </li>
+                            <li class="li-b-delete">
+                                <div class="b-delete">
+                                    <div>删除</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <span class="add">添加</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+    <script src="../../lib/miniquery/miniquery.debug.js"></script>
+    <script src="../../lib/kerp/kerp.debug.js"></script>
+    <script src="../../config.js"></script>
+
+    <!--grunt.js.begin-->
+    <script src="index.js"></script>
+    <!--grunt.js.end-->
+
+</body>
+</html>

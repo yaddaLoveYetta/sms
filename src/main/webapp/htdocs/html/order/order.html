@@ -1,0 +1,506 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <!--grunt.css.begin-->
+
+    <link href="../../css/global.debug.css" rel="stylesheet" />
+    <link href="../../css/global_iframe.debug.css" rel="stylesheet" />
+    <link href="../../css/order/order.debug.css" rel="stylesheet" />
+    <link href="../../lib/datetimepicker/css/datetimepicker.mod.debug.css" rel="stylesheet" />
+
+    <link href="../../css/filter.debug.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/order/order.debug.css" />
+
+    <!--grunt.css.end-->
+</head>
+<body>
+    <div class="bread-crumbs">
+        <div class="search-box">
+            <i class="serach-icon"></i>
+            <input id="search-order" type="text" placeholder="输入昵称/称号" />
+        </div>
+        <ul id="ul-path">
+            <!--
+                <li>
+                    <ul>
+                        #--breadCrumbs.begin--#
+
+                        <li class="section">{name}</li>
+
+                        #--breadCrumbs.end--#
+                    </ul>
+                </li>
+
+                #--selectedOption.begin--#
+                <li>
+                    <span class="option-selected" data-index="{index}">
+                        {name}：
+                        #--selected.begin--#
+                        <span>{name} </span>
+                        #--selected.end--#
+                </li>
+                #--selectedOption.end--#
+            -->
+        </ul>
+    </div>
+
+    <div id="div-filter-box" class="filter-box ">
+        <ul class="filter-box-header ">
+            <li class="selected">常用条件</li>
+            <li>方案查询</li>
+        </ul>
+
+        <ul id="ul-filter" class="filter-box-body">
+            <!--
+                <li id ="criterias_{index}" class="{hiddenClass}">
+                    <span class="option-title">{name}：</span>
+
+                    <div data-btn-index="{index}" class="select-more">
+
+
+                    #--custom-date-range.begin--#
+                        <div id="custom-time-zone" class="custom-date-time">
+                            <div id="{setting-btn-id}" class="custom-zone" data-group-index="{data-index}">自定义时间段</div>
+
+
+                            <ul id="custome-area" class="custom-area hidden">
+                            #--created-area.begin--#
+                                <li>
+                                #--created-zone.begin--#
+                                    <div class="created-zone" data-tag-index={index}>
+                                        {name}
+                                        <i class="close"></i>
+                                    </div>
+                                #--created-zone.end--#
+                                </li>
+                                <li>
+                                    <select id="{select-id-1}" class="select-date">
+                                        <option>昨天</option>
+                                        <option>今天</option>
+                                    </select>
+                                    <div class="time-setting">
+                                        <input id="{input-id-1}" class="input-time" type="text" />
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <select id="{select-id-2}" class="select-date">
+                                        <option>昨天</option>
+                                        <option selected>今天</option>
+                                    </select>
+                                    <div class="time-setting">
+                                        <input id="{input-id-2}" class="input-time" type="text" />
+
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <input id="{input-id-name}" type="text" class="input-name" value="方案x" />
+                                    <i id="{btn-id}" class="add-icon"></i>
+                                </li>
+                            #--created-area.end--#
+
+                            </ul>
+
+                        </div>
+                        #--custom-date-range.end--#
+
+                        #--more.begin--#
+                            <div data-type="more" class="more-bt">
+                                <i class="more-icon"></i>
+                            </div>
+                        #--more.end--#
+                    </div>
+
+                    <ul id="ul-options_{index}" class="options">
+                        #--option.begin--#
+
+                        #--single.begin--#
+                        <li data-item-index="{index}" class="{hiddenClass} {selected-class}">
+                            <span title="{fullName}">{name}</span>
+                        </li>
+                        #--single.end--#
+
+                        #--dateRange.begin--#
+
+                        #--dateBtn.begin--#
+                        <li date-item-index="{date-index}"  class="{hiddenClass}"><span>{name}</span></li>
+                        #--dateBtn.end--#
+
+                        #--datePicker.begin--#
+                        <li class="time-picker">
+                            <div class="time-box">
+                                <div class="datetime-picker time-picker-label">
+                                    <input type="text" id="startTime" class="date-label" />
+                                    <i class="icon-calendar"></i>
+                                </div>
+                                ~
+                                <div class="datetime-picker time-picker-label">
+                                    <input type="text" id="endTime" class="date-label" />
+                                    <i class="icon-calendar"></i>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        #--datePicker.end--#
+                        #--dateRange.end--#
+
+                        #--input.begin--#
+                        <li class="line">
+                            <input type="text" class="search-input">
+                        </li>
+                        #--input.end--#
+
+                        #--input-range.begin--#
+                        <li class="line">
+                            <input id="{data-range-index1}" type="text" class="search-range">-
+                            <input id="{data-range-index2}" type="text" class="search-range">
+                        </li>
+                        #--input-range.end--#
+
+                        #--area.begin--#
+                        <li class="line">
+                            <div id="{div-address-picker}"></div>
+                        </li>
+                        #--area.end--#
+
+                        #--flags.begin--#
+                        <li>
+                            <i data-flag-index="{value}" class="icon-flag{value}"></i>
+                        </li>
+                        #--flags.end--#
+
+
+                        #--option.end--#
+
+                    </ul>
+                    <div id="div-multi-buttons_{index}" class="multi-commit hidden-bt">
+                        #--multiButton.begin--#
+                        <input type="button" value="确定" data-action="confirm" class="sub-bt" />
+                        <input type="button" value="取消" data-action="cancel" class="cancel-bt" />
+                        #--multiButton.end--#
+                    </div>
+                </li>
+
+            -->
+        </ul>
+
+        <div class="filter-box-footer">
+            <span class="update-time">上次更新时间：<span>2014-08-12 15:23</span></span>
+            <!-- 通过给filter-box加hidden-options-show类和给filter-box-header加filter-header-show类来达到更多效果 -->
+            <span id="show-more-options" class="filter-box-more"></span>
+            <div id="filter-box-setting" class="filter-box-setting">
+                <span id="config-filter" class="filter-box-btn">设置条件</span>
+
+                <ul id="filter-box-options" class="filter-box-options vertical-ul hidden">
+                    <!--
+                        <li class="line">
+                            <div class="filter-box-title">{title}</div>
+                            <ul class="g_options add-criteria">
+                                #--item.begin--#
+                                <li class="item">
+                                    <span data-option-index="{index}" class="option {active-class}">{name}</span>
+                                </li>
+                                #--item.end--#
+                            </ul>
+                        </li>
+                        #--button.begin--#
+                        <li class="line">
+                            <input type="button" value="确定"/>
+                            <input type="button" value="取消"/>
+                        </li>
+                        #--button.end--#
+                    -->
+                </ul>
+            </div>
+            <!--<span id="options-cancel" class="filter-box-btn">取消</span>-->
+            <span id="options-search" class="filter-box-btn search">查询</span>
+        </div>
+    </div>
+
+
+    <div id="have-data" class="have-data">
+
+        <ul id="notification-list" class="notification">
+            <!--
+            <li class="item notification-number-{amount}">
+                <div data-item-index={index} class="block {first-class} {selected-class}">
+                    <span class="amount">
+                        {number}
+                    </span>
+                    <span class="title">
+                        {name}
+                    </span>
+                </div>
+            </li>
+        -->
+        </ul>
+        <div id="sort-panel" class="sort-panel">
+            <!--
+               排序
+               #--sortPanel.begin--#
+               <span data-field="{fieldName}" class="sort-bt">{displayName}</span>
+               #--sortPanel.end--#
+
+               <div id="div-pager-simple" class="right">
+
+               </div>
+            -->
+        </div>
+        <div class="bt-panel">
+            <input data-action-type="checkSelected" type="button" value="审核订单" />
+            <!--<input data-action-type="checkAll" type="button" value="全部审核" />-->
+            <input data-action-type="merge" type="button" value="合并订单" />
+            <!--<input data-action-type="mergeAll" type="button" value="全部合并" />-->
+            <input data-action-type="addGood" type="button" value="添加赠品" />
+            <input data-action-type="validate" type="button" value="一键检测" />
+            <input data-action-type="manualDownload" type="button" value="同步订单" />
+            <input data-action-type="more" type="button" value="更多" class="more" />
+
+        </div>
+
+        <div id="order-list" class="order-list2">
+            <!--
+                <table>
+                    <thead>
+                        <tr class="item-title">
+                            <td>
+                                <div class="check-all">
+                                    <i id="check-all" class="checkbox-all"></i><span id="span-select-type">所有订单</span><div id="div-select-all" class="select-all"></div>
+                                    <div id="div-select-type" class="select-type hidden-panel">
+                                        <ul>
+                                            <li data-select-type="0" id="li-all-pages">所有订单</li>
+                                            <li data-select-type="1" id="li-current-pages">当前页订单</li>
+                                            <li data-select-type="2" id="li-cancel-all">取消全选</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="good-name-title">宝贝名称</td>
+                            <td class="good-price-title">单价</td>
+                            <td class="good-count-title">数量</td>
+                            <td class="buyer-info-title">买家信息</td>
+                            <td class="remark-title">留言</td>
+                            <td class="row-options">操作</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td colspan="4" class="modify-td">
+                                <div id="goods-item-sku" class="order-modify-container2 hidden">
+                                #--skuList.begin--#
+                                    <ul class="order-modify2">
+                                    #--skuGroup.begin--#
+                                    #--skuGoodsNo.begin--#
+                                        <li>
+                                            <div class="title">{name}</div>
+                                            <div class="content">
+                                                <input type="text" />
+                                            </div>
+                                        </li>
+                                    #--skuGoodsNo.end--#
+
+                                    #--skuOption.begin--#
+                                        <li>
+                                            <div class="title">{name}</div>
+                                            <div class="content">
+                                                <ul data-type="sku-selected" data-index="{index}" class="options">
+                                                #--sku-selected.begin--#
+                                                    <li data-type="{selectedValue}" class="{selectedClass}">{name}</li>
+                                                #--sku-selected.end--#
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    #--skuOption.end--#
+
+                                    #--skuAmount.begin--#
+                                        <li>
+                                            <div class="title">{name}</div>
+                                            <input type="text" data-type="amount-spinner" data-index="{index}" value="100" />
+                                        </li>
+                                    #--skuAmount.end--#
+
+                                    #--skuGroup.end--#
+                                        <li class="button-panel">
+                                            <input id="sku-container-confirm" type="button" value="确定" class="sub-bt" />
+                                            <input id="sku-container-cancel" type="button" value="取消" class="cancel-bt" />
+                                        </li>
+                                    </ul>
+                                #--skuList.end--#
+                                </div>
+                            </td>
+
+                            <td colspan="2" class="modify-td">
+                                <div id="buyer-info-container" class="buyer-info-modify-container2 hidden">
+                                #--buyerInfo.begin--#
+                                    <div class="buyer-info-modify2">
+                                        <div class="label-title">地址：</div>
+                                        <div id="div-address-picker" class="address-picker">
+
+                                        </div>
+                                        <textarea id="address-detail" class="address-details"></textarea>
+                                        <div class="label-title">物流公司：</div>
+                                        <ul id="ul-express-company" class="couriers">
+                                        #--express-company.begin--#
+                                            <li data-type="{data-type}" class="{ec-class}" {selected}>{name}</li>
+                                        #--express-company.end--#
+                                        </ul>
+                                        <div class="button-panel">
+                                            <input id="buyer-info-container-confirm" type="button" value="确定" class="sub-bt" />
+                                            <input id="buyer-info-container-cancel" type="button" value="取消" class="cancel-bt" />
+                                        </div>
+                                    </div>
+                                #--buyerInfo.end--#
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+
+                #--order.begin--#
+                    <tbody class="order-content">
+                        <tr class="order-title">
+                            <td colspan="7">
+                                <span class="list-tabs">
+                                    <i data-btn-type="check" order-id="{orderID}" btn-index="{index}" class="checkbox-item"></i>
+                                    订单号：<span>{webOrderID}</span>
+                                </span>
+                                <span class="list-tabs">支付时间：<span>{payTime}</span></span>
+                                <span class="list-tabs">整单实收：<span>{payAmount}</span></span>
+                                <span class="list-tabs hign-light">订单状态：{orderStatus}&nbsp;{transStatusName}&nbsp;
+                                </span>
+                            </td>
+                        </tr>
+
+                        #--goodItem.begin--#
+                        <tr id="good-item_{goodsIndex}" class="good-item">
+                            <td class="good-img">
+                                <img src="{picPath}" />
+                            </td>
+                            <td class="info-detail">
+                                <div class="good-name">{title}</div>
+                                <div class="goods-size">
+                                    #--skuName.begin--#
+                                    <span><span>{skuTitle}：</span><span>{skuValue}</span></span>
+                                    #--skuName.end--#
+                                </div>
+                                <div>
+                                    #--gift.begin--#
+                                    <span class="icon gift-icon">赠</span>
+                                    #--gift.end--#
+
+                                    #--absence.begin--#
+                                    <span class="icon lack-icon">缺</span>
+                                    #--absence.end--#
+
+                                    #--refund.begin--#
+                                    <span class="icon return-icon">退</span>
+                                    #--refund.end--#
+
+                                    #--flag.begin--#
+                                    <span class="icon"><i class="icon-flag"></i></span>
+                                    #--flag.end--#
+                                </div>
+                            </td>
+                            <td class="good-price">
+                                {price}
+                            </td>
+                            <td class="good-count">
+                                <span>{amount}</span>
+                                <div modify-area="{goodsIndex}" class="modify-area">
+                                    <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                    <span data-good-index="{goodsIndex}" class="modify-bt-in">修改</span>
+                                </div>
+                            </td>
+                        #--logistics-remark.begin--#
+                            <td id="buyer-info_{index}" class="buyer-info" rowspan="{rowspan}">
+                             #--logistics.begin--#
+                                <div class="buyer-info-container">
+                                    <div class="buyer-name">{buyernick}</div>
+                                    <div>收货地址：<span>{deliveryStateName} {deliveryCityName} {deliveryDistrictName}{deliveryAddress}</span></div>
+                                    <div>物流公司：<span id="span-logistics-{index}" data-value="{logisticsCompany}" class="courier-name {logisticsClass}">{logisticsCompanyName}</span></div>
+                                    <div class="modify-area">
+                                        <span class="modify-bt-out"><i class="icon-modify"></i></span>
+                                        <span data-type="modify-logistics" data-index="{index}" class="modify-bt-in">修改</span>
+                                    </div>
+                                </div>
+                            #--logistics.end--#
+                            </td>
+                            <td class="buyer-remark" rowspan="{rowspan}">
+                                <div>买家备注：<span>{buyerMessage}</span></div>
+                                <div>卖家备注：<span>{outerMemo}</span></div>
+                            </td>
+                            <td class="row-options"  rowspan="{rowspan}">
+                                <input data-type="del" order-id="{orderID}" type="button" value="删除" class="list-bt" /><br/>
+                                <input data-type="split" order-id="{orderID}" type="button" value="拆分" class="list-bt {hidden-class}" /><br/>
+                                <span class="list-bt"><a href="javascript:">详情</a></span><br/>
+                            </td>
+                        #--logistics-remark.end--#
+                        </tr>
+                        #--goodItem.end--#
+
+                        <tr class="sep-row">
+                            <td colspan="7"></td>
+                        </tr>
+                    </tbody>
+
+                #--order.end--#
+
+                </table>
+
+
+
+
+                -->
+        </div>
+
+        <div id="div-pager-normal" class="page-panel">
+
+        </div>
+    </div>
+
+    <div id="no-data" class="no-data">
+        <p class="warm-text">很抱歉，当前暂无数据！</p>
+        <p>您可以尝试 <a href="#">手工录单</a></p>
+    </div>
+
+
+
+    <script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+    <script src="../../lib/miniquery/miniquery.debug.js"></script>
+    <script src="../../lib/kerp/kerp.debug.js"></script>
+    <script src="../../config.js"></script>
+
+    <!--grunt.js.begin-->
+
+    <script src="modules/API.js"></script>
+    <script src="modules/FilterData.js"></script>
+    <script src="modules/TimeZone.js"></script>
+    <script src="modules/Path.js"></script>
+    <script src="modules/Filter.js"></script>
+    <script src="modules/FilterOptions.js"></script>
+    <script src="modules/Notification.js"></script>
+    <script src="modules/OrderListData.js"></script>
+    <script src="modules/OrderList.js"></script>
+    <script src="modules/OrderModel.js"></script>
+    <script src="modules/Sort.js"></script>
+    <script src="modules/ButtonList.js"></script>
+    <script src="modules/OrderPagination.js"></script>
+    <script src="modules/DatetimePicker.js"></script>
+    <script src="modules/Spinner.js"></script>
+    <script src="modules/Address.js"></script>
+    <script src="modules/ExpressCompany.js"></script>
+    <script src="modules/SkuSelect.js"></script>
+    <script src="modules/Sku.js"></script>
+    <script src="modules/BuyerInfo.js"></script>
+    <script src="order.js"></script>
+
+    <!--grunt.js.end-->
+
+
+</body>
+</html>

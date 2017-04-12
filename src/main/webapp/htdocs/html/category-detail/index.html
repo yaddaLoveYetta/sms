@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="../../css/global.debug.css" />
+    <link rel="stylesheet" href="../../css/category-detail/index.debug.css" />
+</head>
+<body class="iframe">
+    <div class="options">
+        <div id="div-button-list"></div>
+    </div>
+
+    <ul class="details">
+        <li class="item">
+            <div class="title">
+                基本资料
+            </div>
+
+            <div class="data-panel half-table">
+                <table class="on-edit content">
+                    <tr>
+                        <td class="key">分类依据：</td>
+                        <td>
+                            <div id="div-class">
+                                <!--
+                                <select id="bd-classID">
+                                    <option value="">-请选择-</option>
+                                    #--options.begin--#
+                                    <option value="{ID}">{name}</option>
+                                    #--options.end--#
+                                </select>
+                                <span class="error-msg" id="bd-classID-msg"></span>
+                                -->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key">分类代码：</td>
+                        <td>
+                            <input class="edit" type="text" id="bd-number" />
+                            <span class="error-msg" id="bd-number-msg" data-role="error-msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key">分类名称：</td>
+                        <td>
+                            <input class="edit" type="text" id="bd-name" />
+                            <span class="error-msg" id="bd-name-msg" data-role="error-msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key">助记码：</td>
+                        <td>
+                            <input class="edit" type="text" id="bd-helpCode" />
+                            <span class="error-msg" id="bd-helpCode-msg" data-role="error-msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key">上级分类：</td>
+                        <td>
+                            <div id="bd-parentID"></div>
+                            <span class="error-msg" id="bd-parentID-msg" data-role="error-msg"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </li>
+    </ul>
+
+    <script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+    <script src="../../lib/miniquery/miniquery.debug.js"></script>
+    <script src="../../lib/kerp/kerp.debug.js"></script>
+    <script src="../../config.js"></script>
+
+
+    <!--grunt.js.begin-->
+    <script src="../common-bd-edit/FormEdit.js"></script>
+    <script src="../common-bd-edit/Validate.js"></script>
+    <script src="../selector/module/DataSelector.js"></script>
+    <script src="modules/Form/ClassList.js"></script>
+    <script src="modules/Operations/List.js"></script>
+    <script src="modules/Form.js"></script>
+    <script src="modules/Operations.js"></script>
+    <script src="modules/Edit.js"></script>
+    <script src="index.js"></script>
+    <!--grunt.js.end-->
+
+</body>
+</html>

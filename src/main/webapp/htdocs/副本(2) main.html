@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>KIS电商ERP</title>
+    <!--grunt.css.begin-->
+    
+
+    <link href="css/widgets.css" rel="stylesheet" />
+    <link href="css/main/main.debug.css" rel="stylesheet" />
+    <!--grunt.css.end-->
+</head>
+<body>
+
+    <div id="div-sidebar" class="side-bar">
+        <div class="banner"><span class="title">KIS</span> 电商ERP</div>
+        <div class="menu-group">
+        </div>
+        <ul id="ul-sidebar" class="menus">
+            <!--
+
+            <li>
+                <i class="icons" style="background-image: url(css/main/img/icon_order_normal.png);"></i>
+                {name}
+
+            </li>
+            -->
+        </ul>
+        <div class="menus-more menus-1 items-3" style="display: none;">
+            <ul id="ul-sidebar-menus">
+                <li>订单处理</li>
+                <li>订单处理</li>
+                <li>订单处理</li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div id="div-tips" class="msg-box" style="display: none;">
+            <!--
+                <div id="div-tips-content" class="msg-content {type}" >
+                    <div class="floatingBarsG">
+                        #--rotate.begin--#
+                        <div class="blockG rotateG_{order}"></div>
+                        #--rotate.end--#
+                    </div>
+                    <span title="{text}">{text}</span>
+                    <i class="icon-close"></i>
+                </div>
+                -->
+        </div>
+
+        <div class="header">
+            <span class="search-box">
+                <i class="icon-search"></i>
+                <input placeholder="搜订单" />
+            </span>
+            <ul class="user-info">
+                <li>
+                    <span>杨戬</span>
+                    <i class="icon-dropdown"></i>
+                    <div class="user-more">
+                        <div class="box">
+                            <ul>
+                                <li>修改密码</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li><i class="icon-msg"></i><span class="msg">6</span></li>
+            </ul>
+        </div>
+        <div class="tabs">
+            <ol id="ul-page-tabs">
+               
+                <!--
+                <li class="tab{open-class} {actived-class}" data-index="{index}" {draggable} >
+                    {name}<i class="tab-close" title="关闭本页签" ></i>
+                </li>
+                -->
+            </ol>
+            <span class="tab-dropdown"></span>
+            <div class="tab-more">
+                <ul>
+                    <li>订单处理</li>
+                    <li>资料处理</li>
+                    <li>订单追踪</li>
+                    <li>关闭全部</li>
+                </ul>
+            </div>
+        </div>
+        <div id="div-iframes"  class="iframes">
+            <iframe src="../订单处理/html/order/order.html"></iframe>
+        </div>
+    </div>
+
+    
+
+    <!--公共控件用到的各种模板，请不要删除-->
+
+    <!--Samples.SimplePager--!
+        <ul id="{ul-id}" class="page-label">
+            <li class="left-bt {first-disabled-class}" data-button="previous">
+                <i></i>
+            </li>
+            <li>
+                <input value="{current}/{count}" />
+            </li>
+            <li class="right-bt {final-disabled-class}" data-button="next">
+                <i></i>
+            </li>
+        </ul>
+    --Samples.SimplePager-->
+
+    <!--Samples.Pager--!
+        <ul id="{ul-id}" class="pagination footer">
+            <li class="buttons">
+                <ul>
+                    <li class="LR-button {first-disabled-class}" data-button="previous" title="上一页">&lt;</li>
+
+                    #--item.begin--#
+                    <li class="item {active}" {data-no}>{no}</li>
+                    #--item.end--#
+
+                    #--more.begin--#
+                    <li class="item more"></li>
+                    #--more.end--#
+
+                    <li class="LR-button {final-disabled-class}" data-button="next" title="下一页">&gt;</li>
+                </ul>
+            </li>
+            <li class="page-count">
+                共<span>{count}</span>页
+            </li>
+            <li class="page-jump">
+                <span>到第</span>
+                <input id="{txt-id}" type="text" class="page-number" value="{toNo}" {txt-disabled}/><span>页</span>
+                <a href="javascript:" class="jump-button {jump-disabled-class}" data-button="to">确定</a>
+            </li>
+        </ul>
+    --Samples.Pager-->
+
+    <!--Samples.CascadePicker--!
+        <select class="{not-selected}" data-index="{index}">
+            #--item.begin--#
+            <option {selected}>{text}</option>
+            #--item.end--#
+        </select>
+    --Samples.CascadePicker-->
+
+    <!--Samples.Login--!
+        <ul>
+            <li class="input-panel">
+                <span class="icon-user"></span>
+                <input data-field="user" type="text" placeholder="账号/邮箱/用户名" value="{user}"/>
+            </li>
+            <li class="input-panel">
+                <span class="icon-lock"></span>
+                <input data-field="password" type="password" placeholder="密码" />
+            </li>
+            <li class="warm-text">
+                <span data-field="msg" style="display:none;">*账号或密码错误</span>
+            </li>
+        </ul>
+    --Samples.Login-->
+
+
+
+    <script src="lib/jquery/jquery-1.11.1.debug.js"></script>
+    <script src="lib/miniquery/miniquery.debug.js"></script>
+    <script src="lib/kerp/kerp.debug.js"></script>
+   <!-- <script src="lib/seajs/sea.debug.js" id="seajsnode"></script>
+    <script src="lib/art-dialog/dialog-plus.js"></script>-->
+    <script src="config.js"></script>
+
+    <!--grunt.js.begin-->
+
+    <script src="modules/main/MenuData.js"></script>
+    <script src="modules/main/Sidebar.js"></script>
+    <script src="modules/main/Menus.js"></script>
+    <script src="modules/main/PageTabs.js"></script>
+    <script src="modules/main/PageList.js"></script>
+    <script src="modules/main/Iframes.js"></script>
+    <script src="modules/main/Fixer.js"></script>
+    <script src="modules/main/UserInfos.js"></script>
+    <script src="modules/main/Tips.js"></script>
+    <script src="main.js"></script>
+
+    <!--grunt.js.end-->
+
+
+
+</body>
+</html>
