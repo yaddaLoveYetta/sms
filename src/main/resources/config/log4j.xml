@@ -161,10 +161,10 @@
 	<!-- 把INFO信息输出到数据库中 -->
 	<appender name="INFOJDBC" class="org.apache.log4j.jdbc.JDBCAppender">
 		<param name="URL"
-			value="jdbc:mysql://120.24.51.181:3306/bbpark_new?useUincode=true&amp;characterEncoding=utf-8" />
+			value="jdbc:mysql://127.0.0.1:3306/hrp-sms_new?useUincode=true&amp;characterEncoding=utf-8" />
 		<param name="driver" value="com.mysql.jdbc.Driver" />
-		<param name="user" value="ywpark" />
-		<param name="password" value="zaq12wsx" />
+		<param name="user" value="root" />
+		<param name="password" value="" />
 		<param name="sql"
 			value="insert into t_Log(FUserID,FUserName,FIP,FClass,FMothod,FOperateTime,FLogLevel,FMessage) values ('%X{userId}','%X{userName}','%X{ip}','%C','%M','%d{yyyy-MM-dd HH:mm:ss}','%p','%m')" />
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
@@ -192,7 +192,7 @@
 	<!-- </logger> -->
 
 	<!-- 记录该包下所有日志-分文件记录-其中info还记录到数据库中 -->
-	<logger name="com.bbpark" additivity="false">
+	<logger name="com.kingdee.eas.hrp.sms" additivity="false">
 		<level value="debug" />
 <!-- 		<appender-ref ref="INFOJDBC" /> -->
 <!-- 		<appender-ref ref="DEBUGLog" /> -->

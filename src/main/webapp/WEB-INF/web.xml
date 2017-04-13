@@ -9,6 +9,10 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/config/applicationContext.xml</param-value>
 	</context-param>
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>myapp.root</param-value>
+	</context-param>
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -96,7 +100,7 @@
 	<!-- 用于获取用户信息记录到日志中 begin -->
 	<filter>
 		<filter-name>LogResFilter</filter-name>
-		<filter-class>com.bbpark.filter.LogResFilter</filter-class>
+		<filter-class>com.kingdee.eas.hrp.sms.filter.LogResFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LogResFilter</filter-name>
