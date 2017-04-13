@@ -15,6 +15,11 @@
 	<!-- import jdbc.properties -->
 	<context:property-placeholder location="classpath:/config/jdbc.properties"
 		ignore-unresolvable="true" />
+
+	<!-- 指定自动扫描路径 -->
+	<context:component-scan base-package="com.kingdee.eas.hrp.sms" />
+
+	
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="clone">
 		<!-- 基本属性driverClassName、 url、user、password -->
@@ -78,6 +83,7 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
 	<!-- 打开@transaction注解方式使用事务 -->
 	<tx:annotation-driven transaction-manager="txManager" />
 
@@ -86,6 +92,7 @@
 
 	<!-- business service bean configure -->
 
+	<import resource="beans.xml" />
 
-	<!-- other ben 配置 ======================================================================================================结束 -->
+
 </beans>
