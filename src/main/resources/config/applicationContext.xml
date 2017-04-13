@@ -52,7 +52,7 @@
 		<!-- 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql5.5以下的版本中没有PSCache功能，建议关闭掉。5.5及以上版本有PSCache，建议开启。缺省值:false -->
 		<property name="poolPreparedStatements" value="true" />
 		<!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100。 -->
-		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="50" />
 
 		<!-- 解密密码必须要配置的项 -->
 		<!-- <property name="filters" value="config" /> -->
@@ -62,7 +62,7 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:/config/MyBatis-Configuration.xml" />
+		<property name="configLocation" value="classpath:/config/mybatis-conf.xml.xml" />
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
