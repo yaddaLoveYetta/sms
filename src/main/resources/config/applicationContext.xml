@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- import jdbc.properties -->
-	<context:property-placeholder location="classpath:/config/jdbc.properties"
+	<context:property-placeholder location="classpath:/config/jdbc-sqlserver.properties"
 		ignore-unresolvable="true" />
 
 	<!-- 指定自动扫描路径 -->

@@ -25,6 +25,7 @@
 		<log4j.version>1.2.17</log4j.version>
 		<fastjson.version>1.2.7</fastjson.version>
 		<jackson.version>2.8.5</jackson.version>
+		<mssql.jdbc.version>6.1.0.jre8</mssql.jdbc.version>
 	</properties>
 
 	<dependencies>
@@ -82,6 +83,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>${mssql.jdbc.version}</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
