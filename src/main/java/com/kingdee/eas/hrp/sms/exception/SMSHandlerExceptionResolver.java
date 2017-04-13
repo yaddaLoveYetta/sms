@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+
 /**
  * 
  * @ClassName: SMSHandlerExceptionResolver
@@ -24,6 +26,17 @@ public class SMSHandlerExceptionResolver implements HandlerExceptionResolver {
 			Exception ex) {
 
 		// 根据不同错误转向不同页面
+		if (ex instanceof BaseRuntimeException) {
+
+			BaseRuntimeException baseRuntimeException = (BaseRuntimeException) ex;
+
+			ResponseWriteUtil.output(response, baseRuntimeException.getErrCode(), baseRuntimeException.getMessage());
+
+		} else {
+			// 未知错误
+			ResponseWriteUtil.output(response, ex.getMessage());
+
+		}
 
 		return null;
 	}
