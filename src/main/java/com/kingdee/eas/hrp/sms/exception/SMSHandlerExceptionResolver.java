@@ -1,16 +1,13 @@
 package com.kingdee.eas.hrp.sms.exception;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kingdee.eas.hrp.sms.exception.BaseRuntimeException;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
-
 /**
  * 
  * @ClassName: SMSHandlerExceptionResolver
@@ -19,6 +16,7 @@ import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
  * @date 2017年4月13日 下午2:14:39
  *
  */
+
 public class SMSHandlerExceptionResolver implements HandlerExceptionResolver {
 
 	@Override

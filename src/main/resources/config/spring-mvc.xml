@@ -17,6 +17,10 @@
 
 	<!-- 指定自动扫描路径 -->
 	<context:component-scan base-package="com.kingdee.eas.hrp.sms.controller" />
+	
+	<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />  
+	
 	<!-- 添加注解驱动 -->
 	<mvc:annotation-driven />
 

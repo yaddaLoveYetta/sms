@@ -26,6 +26,7 @@
 		<fastjson.version>1.2.7</fastjson.version>
 		<jackson.version>2.8.5</jackson.version>
 		<mssql.jdbc.version>6.1.0.jre8</mssql.jdbc.version>
+		<aspect.version>1.8.10</aspect.version>
 	</properties>
 
 	<dependencies>
@@ -76,6 +77,20 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatisspring.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspect.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspect.version}</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>

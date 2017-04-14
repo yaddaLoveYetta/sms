@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.user.ILogin;
 
 @Controller
@@ -22,6 +23,7 @@ public class LoginController {
 
 	private static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+	@ControllerLog(desc = "登录")
 	@RequestMapping(value = "login")
 	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
