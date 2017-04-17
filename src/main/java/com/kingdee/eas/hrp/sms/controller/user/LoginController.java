@@ -32,8 +32,8 @@ public class LoginController {
 	@RequestMapping(value = "login")
 	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		String username = ParameterUtils.getParameter(request, "username", "");
-		String password = ParameterUtils.getParameter(request, "password", "");
+		String username = ParameterUtils.getParameter(request, "user", "");
+		String password = ParameterUtils.getParameter(request, "pwd", "");
 		int type = ParameterUtils.getParameter(request, "type", -1);
 
 		// logger.debug("{},{}", username, password);

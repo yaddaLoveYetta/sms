@@ -18,7 +18,7 @@
 		<property name="beginningDelimiter" value="[" />
 		<property name="endingDelimiter" value="]" />
 
-	<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
+		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
 
 		<commentGenerator>
 			<property name="suppressDate" value="false" />
@@ -61,6 +61,11 @@
 
 
 		<table tableName="t_user" domainObjectName="User">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		<table tableName="t_formClass" domainObjectName="FormClass">
 
 			<property name="useActualColumnNames" value="true" />
 
