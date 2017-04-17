@@ -4,11 +4,11 @@ define('DatetimePicker', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     function bindEvents() {
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#startTime', {
                 format: 'yyyy-mm-dd hh:ii',
@@ -22,7 +22,7 @@ define('DatetimePicker', function (require, exports, module) {
 
         });
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#endTime', {
                 format: 'yyyy-mm-dd hh:ii',

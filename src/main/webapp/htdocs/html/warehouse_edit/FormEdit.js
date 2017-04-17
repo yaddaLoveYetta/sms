@@ -4,7 +4,7 @@ define('FormEdit', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var Validate = require('Validate');
 
@@ -19,7 +19,7 @@ define('FormEdit', function (require, module, exports) {
 
     function getMetaData(formClassID) {
 
-        var api = KERP.API.get('bos/forminfo', {
+        var api = SMS.API.get('bos/forminfo', {
             action: 'queryByClassID',
             formClassID: formClassID,
             queryType: 1
@@ -44,7 +44,7 @@ define('FormEdit', function (require, module, exports) {
             return;
         }
 
-        KERP.API.get('bos/baseitem', {
+        SMS.API.get('bos/baseitem', {
             action: 'queryByNumber ',
             data: {
                 classID: metaData['formClass']['formClassID'],
@@ -108,7 +108,7 @@ define('FormEdit', function (require, module, exports) {
             items: items
         };
 
-        KERP.API.post('bos/baseitem', {
+        SMS.API.post('bos/baseitem', {
             action: 'delete',
             data: data
 
@@ -254,7 +254,7 @@ define('FormEdit', function (require, module, exports) {
         if (itemID) {
             action = 'update';
         }
-        KERP.API.post('bos/baseitem', {
+        SMS.API.post('bos/baseitem', {
             action: action,
             data: data
 

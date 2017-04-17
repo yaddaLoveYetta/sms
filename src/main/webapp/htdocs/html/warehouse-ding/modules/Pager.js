@@ -8,7 +8,7 @@ define('Pager', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     function render(config) {
@@ -16,7 +16,7 @@ define('Pager', function (require, module, exports) {
         config = $.Object.extend({
             current: 1,                     //当前激活的页码，默认为 1
             error: function (msg) {
-                KERP.Tips.error(msg, 1500);
+                SMS.Tips.error(msg, 1500);
                 this.focus();
             }
 
@@ -26,7 +26,7 @@ define('Pager', function (require, module, exports) {
             
         });
 
-        KERP.SimplePager.create(config);
+        SMS.SimplePager.create(config);
     }
 
 

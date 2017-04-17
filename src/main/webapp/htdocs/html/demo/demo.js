@@ -3,7 +3,7 @@
 
 
 
-; (function ($, MiniQuery, KERP, Data, Header, Demos, Tabs, Panels, Readme) {
+; (function ($, MiniQuery, SMS, Data, Header, Demos, Tabs, Panels, Readme) {
 
 
 
@@ -30,4 +30,4 @@
 
 
 
-})(jQuery, MiniQuery, KERP, Data, Header, Demos, Tabs, Panels, Readme);
+})(jQuery, MiniQuery, SMS, Data, Header, Demos, Tabs, Panels, Readme);

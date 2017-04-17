@@ -6,7 +6,7 @@ define('Query', function (require, module, exports) {
 
 
     var $ = require('$');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var ul = document.getElementById('ul-query');
@@ -17,14 +17,14 @@ define('Query', function (require, module, exports) {
     var maxCount = 3; //显示的最大记录条数
 
 
-    var loading = new KERP.Loading({
+    var loading = new SMS.Loading({
         selector: div,
         container: '#div-loading-query',
     });
 
     function load(fn) {
 
-        var api = new KERP.API('home/query');
+        var api = new SMS.API('home/query');
 
         api.on({
             'success': function (data, json) {
@@ -52,7 +52,7 @@ define('Query', function (require, module, exports) {
 
             list = data.slice(0, maxCount);
 
-            KERP.Template.fill(ul, list, function (item, index) {
+            SMS.Template.fill(ul, list, function (item, index) {
 
                 return {
                     'name': item.name,

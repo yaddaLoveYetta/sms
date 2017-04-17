@@ -1,6 +1,6 @@
 ﻿
 //这里请求一个不存在的 api，以模拟网络错误，会触发 error 事件
-new KERP.API('demo/none', {
+new SMS.API('demo/none', {
 
     pageSize: 10,
     pageNo: 1,

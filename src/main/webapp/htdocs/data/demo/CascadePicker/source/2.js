@@ -1,4 +1,4 @@
-﻿KERP.CascadePicker.create({
+﻿SMS.CascadePicker.create({
     container: '#div-address-picker-2', //容器
     selectedIndexes: [-1, -1, -1],      //初始选中的索引值。 '--请选择--' 对应的索引为 -1
     hideNone: true,                    //是否隐藏空数据的层级

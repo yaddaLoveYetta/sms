@@ -1,6 +1,6 @@
 ﻿
 
-(function ($, MiniQuery, KERP, FilterData, Path, Filter, FilterOptions, TimeZone, DatetimePicker, Notification) {
+(function ($, MiniQuery, SMS, FilterData, Path, Filter, FilterOptions, TimeZone, DatetimePicker, Notification) {
 
 
 
@@ -38,4 +38,4 @@
         }
     });
 
-})(jQuery, MiniQuery, KERP, FilterData, Path, Filter, FilterOptions, TimeZone, DatetimePicker, Notification);
+})(jQuery, MiniQuery, SMS, FilterData, Path, Filter, FilterOptions, TimeZone, DatetimePicker, Notification);

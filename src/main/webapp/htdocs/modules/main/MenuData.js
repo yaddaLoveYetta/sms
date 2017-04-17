@@ -8,7 +8,7 @@ define('MenuData', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var list = [];
@@ -33,7 +33,7 @@ define('MenuData', function (require, module, exports) {
         }
 
 
-        var base = KERP.Url.root() + 'data/sidebar/';
+        var base = SMS.Url.root() + 'data/sidebar/';
 
         $.Script.load({
             url: [

@@ -6,8 +6,8 @@ define('data', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var iframe = KERP.require('Iframe');
+    var SMS = require('SMS');
+    var iframe = SMS.require('Iframe');
 
     var dialog = iframe.getDialog();
     var div = document.getElementById('div_data');
@@ -23,7 +23,7 @@ define('data', function (require, module, exports) {
     //获取数据
     function load(queryStr, fn) {
 
-        KERP.API.get('/bd/assistitem', queryStr, function (data, json) {
+        SMS.API.get('/bd/assistitem', queryStr, function (data, json) {
             fn && fn(data);
         }, function (code, msg, json) {
 
@@ -34,11 +34,11 @@ define('data', function (require, module, exports) {
 
     //上传数据
     function postData(queryStr, fn) {
-        KERP.Tips.loading('数据上传中...');
+        SMS.Tips.loading('数据上传中...');
 
-        KERP.API.post('/bd/assistitem', queryStr, function (data, json) {
+        SMS.API.post('/bd/assistitem', queryStr, function (data, json) {
             fn && fn(data);
-            KERP.Tips.success('数据上传成功！', 1000);
+            SMS.Tips.success('数据上传成功！', 1000);
             dialog.remove();
         }, function (code, msg, json) {
 

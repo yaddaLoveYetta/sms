@@ -4,12 +4,12 @@
 
 //    var $ = require('$');
 //    var MiniQuery = require('MiniQuery');
-//    var KERP = require('KERP');
+//    var SMS = require('SMS');
 
 //    function post(action, data, fn, msg) {
 
 //        //延迟显示。 避免数据很快回来造成的只显示瞬间
-//        KERP.Tips.loading({
+//        SMS.Tips.loading({
 //            text: msg || '数据加载中，请稍后...',
 //            delay: 500
 //        });
@@ -17,17 +17,17 @@
 
 //        var obj = $.extend(action, data);
 
-//        KERP.API.post('eshop/order', obj, function (data, json) { //成功
+//        SMS.API.post('eshop/order', obj, function (data, json) { //成功
 
 //            fn && fn(data, json);
 
 //        }, function (code, msg, json) { //失败
 
-//            KERP.Tips.error(msg, 2000);
+//            SMS.Tips.error(msg, 2000);
 
 //        }, function () { //错误
 
-//            KERP.Tips.error('网络错误，请稍候再试', 2000);
+//            SMS.Tips.error('网络错误，请稍候再试', 2000);
 //        });
 
 //    }
@@ -77,14 +77,14 @@ define('API', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var API = SMS.require('API');
 
     //name: eshop/order, action:check, data:args,
     function post(name, query, data, fn, msg) {
 
         //延迟显示。 避免数据很快回来造成的只显示瞬间
-        KERP.Tips.loading({
+        SMS.Tips.loading({
             text: msg || '数据加载中，请稍后...',
             delay: 500
         });
@@ -105,29 +105,29 @@ define('API', function (require, exports, module) {
         //    },
 
         //    'fail': function (code, msg, json) {
-        //        KERP.Tips.error(msg, 2000);
+        //        SMS.Tips.error(msg, 2000);
 
         //    },
 
         //    'error': function () {
-        //        KERP.Tips.error('网络错误，请稍候再试', 2000);
+        //        SMS.Tips.error('网络错误，请稍候再试', 2000);
         //    },
 
         //});
         //api.post();
 
-        var api = new KERP.API(name, obj).post().success(function (data, json) { //请求成功时触发
+        var api = new SMS.API(name, obj).post().success(function (data, json) { //请求成功时触发
 
-            KERP.Tips.success('数据加载完成', 2000);
+            SMS.Tips.success('数据加载完成', 2000);
             fn && fn(data, json);
 
         }).fail(function (code, msg, json) { //请求失败时触发
 
-            KERP.Tips.error(msg, 2000);
+            SMS.Tips.error(msg, 2000);
 
         }).error(function () { //请求错误时触发
 
-            KERP.Tips.error('网络错误，请稍候再试', 2000);
+            SMS.Tips.error('网络错误，请稍候再试', 2000);
 
         })
 

@@ -4,9 +4,9 @@
 define('Edit', function (require, module, exports) {
     var $ = require('$');
     var MiniQeury = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var Tips = KERP.require('Tips');
+    var Tips = SMS.require('Tips');
     var FormEdit = require('FormEdit');
 
     var itemID = $.Url.getQueryString(window.location.href, 'id') || '';

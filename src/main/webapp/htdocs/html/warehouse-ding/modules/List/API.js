@@ -9,9 +9,9 @@ define('List/API', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var Multitask = KERP.require('Multitask');
+    var Multitask = SMS.require('Multitask');
 
     var Head = require('/Head'); //完整名称为 List/API/Head
     var Body = require('/Body'); //完整名称为 List/API/Body

@@ -3,8 +3,8 @@
 define('List', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var API = SMS.require('API');
 
     var div = document.getElementById('div-list');
     var emitter = MiniQuery.Event.create();
@@ -30,7 +30,7 @@ define('List', function (require, module, exports) {
 
     function load(fn, config) {
 
-        KERP.Tips.loading('数据加载中...');
+        SMS.Tips.loading('数据加载中...');
         pageNo = config.pageNo || 1;
 
         //获取当前页数据
@@ -49,19 +49,19 @@ define('List', function (require, module, exports) {
                 list = data.items.slice(startIndex, endIndex);
 
                 fn && fn(list, data.items.length);
-                KERP.Tips.success('加载成功!', 1000);
+                SMS.Tips.success('加载成功!', 1000);
 
             }
         });
 
-        //KERP.API.get('bd/assistitem', config.query).success(function (data, json) {
+        //SMS.API.get('bd/assistitem', config.query).success(function (data, json) {
         
         //    getSystemTypes(data.items);
 
         //    list = data.items.slice(startIndex, endIndex);
 
         //    fn && fn(list, data.items.length);
-        //    KERP.Tips.success('加载成功!', 1000);
+        //    SMS.Tips.success('加载成功!', 1000);
 
         //});
     }
@@ -79,7 +79,7 @@ define('List', function (require, module, exports) {
         });
 
         if (itemsID == '') {
-            KERP.Tips.warn('请选择删除项！', 1500);
+            SMS.Tips.warn('请选择删除项！', 1500);
         }
         else {
             var query = {
@@ -94,23 +94,23 @@ define('List', function (require, module, exports) {
 
 
                     if (data.items) {
-                        KERP.Tips.error(data.items.join(',') + '删除失败！');
+                        SMS.Tips.error(data.items.join(',') + '删除失败！');
                     }
                     else {
-                        KERP.Tips.success('删除成功！', 1500);
+                        SMS.Tips.success('删除成功！', 1500);
                     }
 
                 }
             });
 
-            //KERP.API.post('bd/assistitem', query).success(function (data, json) {
+            //SMS.API.post('bd/assistitem', query).success(function (data, json) {
 
 
             //    if (data.items) {
-            //        KERP.Tips.error(data.items.join(',') + '删除失败！');
+            //        SMS.Tips.error(data.items.join(',') + '删除失败！');
             //    }
             //    else {
-            //        KERP.Tips.success('删除成功！', 1500);
+            //        SMS.Tips.success('删除成功！', 1500);
             //    }
 
             //});
@@ -187,7 +187,7 @@ define('List', function (require, module, exports) {
             var self = this;
             var index = $(self.parentNode.parentNode).data('index');
 
-            KERP.use('Dialog', function (Dialog) {
+            SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
                     id: 'edit_dialog',
                     title: '编辑',
@@ -243,7 +243,7 @@ define('List', function (require, module, exports) {
         );
 
         if (error) {
-            KERP.Tips.error(tip, 1000);
+            SMS.Tips.error(tip, 1000);
         }
 
         return error;

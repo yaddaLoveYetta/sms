@@ -1,4 +1,4 @@
-﻿KERP.CascadePicker.create({
+﻿SMS.CascadePicker.create({
 
     container: '#div-address-picker-1', //容器
 

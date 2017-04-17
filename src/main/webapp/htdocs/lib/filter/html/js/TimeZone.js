@@ -1,7 +1,7 @@
 ﻿
 
 
-var TimeZone = (function ($, MiniQuery, KERP) {
+var TimeZone = (function ($, MiniQuery, SMS) {
 
     var wrapper = document.getElementById('ul-filter');
 
@@ -47,7 +47,7 @@ var TimeZone = (function ($, MiniQuery, KERP) {
 
     function createTimePidcker(id) {
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#' + id, {
                 format: 'hh:ii',
@@ -102,4 +102,4 @@ var TimeZone = (function ($, MiniQuery, KERP) {
         render: render
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);

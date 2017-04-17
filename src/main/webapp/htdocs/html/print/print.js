@@ -4,7 +4,7 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var API = require('API');
     var FilterData = require('FilterData');
@@ -71,7 +71,7 @@
 
                     API.list(args, function (data) {
 
-                        KERP.Tips.success('数据加载完成', 2000);
+                        SMS.Tips.success('数据加载完成', 2000);
                         OrderList.render(data.orders);
                         OrderPagination.render(data.pager);
                     });

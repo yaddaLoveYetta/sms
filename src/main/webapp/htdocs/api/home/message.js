@@ -1,7 +1,7 @@
 ﻿
 //可以生成很复杂的动态数据，并根据提交的参数进行处理。
 //具有真正模拟后台逻辑的能力。
-KERP.Proxy.response({
+SMS.Proxy.response({
     code: 200,
     msg: 'ok',
     data: [

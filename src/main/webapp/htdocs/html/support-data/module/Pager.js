@@ -5,7 +5,7 @@
 define('Pager', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var div = document.getElementById('div-pager-simple');
 
@@ -17,7 +17,7 @@ define('Pager', function (require, module, exports) {
             hideIfLessThen: 2
         });
 
-        KERP.SimplePager.create(config);
+        SMS.SimplePager.create(config);
     }
 
 

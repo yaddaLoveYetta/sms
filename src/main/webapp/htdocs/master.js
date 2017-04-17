@@ -10,9 +10,9 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var Iframe = KERP.require('Iframe');
+    var Iframe = SMS.require('Iframe');
 
     var MenuData = require('MenuData');
     var Sidebar = require('Sidebar');
@@ -25,7 +25,7 @@
 
 
     //重写
-    $.Object.overwrite(KERP.require('Tips'), Tips);
+    $.Object.overwrite(SMS.require('Tips'), Tips);
 
 
     //侧边栏

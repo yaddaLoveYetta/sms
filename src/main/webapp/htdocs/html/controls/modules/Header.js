@@ -2,7 +2,7 @@
 
 
 
-var Header = (function ($, MiniQuery, KERP) {
+var Header = (function ($, MiniQuery, SMS) {
     
     var div = document.getElementById('div-header');
 
@@ -10,7 +10,7 @@ var Header = (function ($, MiniQuery, KERP) {
     function render(data) {
 
 
-        KERP.Template.fill(div, {
+        SMS.Template.fill(div, {
             'name-display': 'name' in data ? '' : 'display: none;',
             'tips-display': 'tips' in data ? '' : 'display: none;',
             'name': data.name,
@@ -25,4 +25,4 @@ var Header = (function ($, MiniQuery, KERP) {
 
 
 
-})($, MiniQuery, KERP);
+})($, MiniQuery, SMS);

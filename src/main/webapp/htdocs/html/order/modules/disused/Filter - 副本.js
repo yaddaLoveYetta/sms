@@ -5,7 +5,7 @@ define('Filter', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP'); 
+    var SMS = require('SMS'); 
     var TimeZone = require('TimeZone');
 
     var ul = document.getElementById('ul-filter');
@@ -632,7 +632,7 @@ define('Filter', function (require, exports, module) {
 
     function createPicker() {
 
-        return KERP.CascadePicker.create({
+        return SMS.CascadePicker.create({
             container: '#' + pickerId,
             hideNone: true,
             data: 'data/address/array.simple.js',
@@ -649,7 +649,7 @@ define('Filter', function (require, exports, module) {
     }
 
     function createNumberField(id) {
-        KERP.use('NumberField', function (NumberField) {
+        SMS.use('NumberField', function (NumberField) {
 
             var nf = new NumberField('#' + id);
 

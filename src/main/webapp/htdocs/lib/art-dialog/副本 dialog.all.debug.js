@@ -72,7 +72,7 @@ define(function (require) {
 
         // css 文件路径，留空则不会使用 js 自动加载样式
         // 注意：css 只允许加载一个
-        cssUri: './dialog.all.' + KERP.Debug.get() + '.css#',
+        cssUri: './dialog.all.' + SMS.Debug.get() + '.css#',
 
 
 

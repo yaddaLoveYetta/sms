@@ -4,7 +4,7 @@ define('OrderList', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var wrapper = document.getElementById('order-list');
 
@@ -166,7 +166,7 @@ define('OrderList', function (require, exports, module) {
 
             //emitter.fire('split', [orderId]);
 
-            KERP.use('Dialog', function (Dialog) {
+            SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
                     id: 'dialog-split',
                     title: '拆分订单',

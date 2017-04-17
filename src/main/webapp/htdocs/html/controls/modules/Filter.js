@@ -2,7 +2,7 @@ define('Filter', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var index,Filter,Notification,FilterData,Path,DatetimePicker;
 
@@ -216,11 +216,11 @@ define('Filter', function (require, exports, module) {
         }
 
         
-DatetimePicker = (function ($, MiniQuery, KERP) {
+DatetimePicker = (function ($, MiniQuery, SMS) {
 
     function bindEvents() {
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#startTime', {
                 format: 'yyyy-mm-dd hh:ii',
@@ -234,7 +234,7 @@ DatetimePicker = (function ($, MiniQuery, KERP) {
 
         });
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#endTime', {
                 format: 'yyyy-mm-dd hh:ii',
@@ -265,12 +265,12 @@ DatetimePicker = (function ($, MiniQuery, KERP) {
         render: render
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 
 
 
-FilterData = (function ($, MiniQuery, KERP) {
+FilterData = (function ($, MiniQuery, SMS) {
 
     //filterType  0:单选 1:多选 2：时间 3：文本框 4：范围 5：图片 6：省市区
     //shown 0: 隐藏 1：显示
@@ -306,14 +306,14 @@ FilterData = (function ($, MiniQuery, KERP) {
 
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 
 
 
 
 
-var FilterOptions = (function ($, MiniQuery, KERP) {
+var FilterOptions = (function ($, MiniQuery, SMS) {
 
     var emitter = MiniQuery.Event.create();
 
@@ -518,11 +518,11 @@ var FilterOptions = (function ($, MiniQuery, KERP) {
         }
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 
 
-var TimeZone = (function ($, MiniQuery, KERP) {
+var TimeZone = (function ($, MiniQuery, SMS) {
 
     var wrapper = document.getElementById('ul-filter');
 
@@ -568,7 +568,7 @@ var TimeZone = (function ($, MiniQuery, KERP) {
 
     function createTimePidcker(id) {
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#' + id, {
                 format: 'hh:ii',
@@ -623,11 +623,11 @@ var TimeZone = (function ($, MiniQuery, KERP) {
         render: render
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 
 
-Path = (function ($, MiniQuery, KERP) {
+Path = (function ($, MiniQuery, SMS) {
 
     var ul = document.getElementById('ul-path');
 
@@ -800,13 +800,13 @@ Path = (function ($, MiniQuery, KERP) {
         }
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 
 
 
 
-Filter = (function ($, MiniQuery, KERP, TimeZone) {
+Filter = (function ($, MiniQuery, SMS, TimeZone) {
     var ul = document.getElementById('ul-filter');
 
     var showMoreOption = 5;
@@ -1617,7 +1617,7 @@ Filter = (function ($, MiniQuery, KERP, TimeZone) {
 
     function createPicker(item) {
 
-        return KERP.CascadePicker.create({
+        return SMS.CascadePicker.create({
             container: '#' + item.id,
             hideNone: true,
             data: 'data/address/array.simple.js',
@@ -1648,7 +1648,7 @@ Filter = (function ($, MiniQuery, KERP, TimeZone) {
     }
 
     function createNumberField(id) {
-        KERP.use('NumberField', function (NumberField) {
+        SMS.use('NumberField', function (NumberField) {
 
             var nf = new NumberField('#' + id);
 
@@ -1683,11 +1683,11 @@ Filter = (function ($, MiniQuery, KERP, TimeZone) {
         }
     }
 
-})(jQuery, MiniQuery, KERP, TimeZone);
+})(jQuery, MiniQuery, SMS, TimeZone);
 
 
 
-Notification = (function ($, MiniQuery, KERP) {
+Notification = (function ($, MiniQuery, SMS) {
 
     var wrapper = document.getElementById('notification-list');
 
@@ -1767,11 +1767,11 @@ Notification = (function ($, MiniQuery, KERP) {
         }
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 
 
-index = (function ($, MiniQuery, KERP, FilterData, Path, Filter, FilterOptions, TimeZone, DatetimePicker, Notification) {
+index = (function ($, MiniQuery, SMS, FilterData, Path, Filter, FilterOptions, TimeZone, DatetimePicker, Notification) {
 
     function getFilterList(selectedItems) {
 
@@ -1877,7 +1877,7 @@ index = (function ($, MiniQuery, KERP, FilterData, Path, Filter, FilterOptions, 
 
             //API.list(args, function (data) {
 
-            //    KERP.Tips.success('数据加载完成', 2000);
+            //    SMS.Tips.success('数据加载完成', 2000);
             //    OrderList.render(data.orders);
             //    OrderPagination.render(data.pager);
             //});
@@ -1888,7 +1888,7 @@ index = (function ($, MiniQuery, KERP, FilterData, Path, Filter, FilterOptions, 
         getFilterList: getFilterList
     }
 
-})(jQuery, MiniQuery, KERP, FilterData, Path, Filter, FilterOptions, TimeZone, DatetimePicker, Notification);
+})(jQuery, MiniQuery, SMS, FilterData, Path, Filter, FilterOptions, TimeZone, DatetimePicker, Notification);
     }
 
     function getSelectedOptions(){

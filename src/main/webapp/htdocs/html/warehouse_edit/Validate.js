@@ -4,7 +4,7 @@ define('Validate', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     function integer(value) {
         var reg = /^\d+$/;

@@ -18,7 +18,7 @@
 .nav-panel .search-box {
   float: right;
 }
-.nav-panel .search-box .kerp-icon-search {
+.nav-panel .search-box .sms-icon-search {
   background: url(img/icon-search.png) center no-repeat;
   display: inline-block;
   vertical-align: top;
@@ -44,7 +44,7 @@
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
-.nav-panel .search-box .bt-dropdown .kerp-icon-dropdown {
+.nav-panel .search-box .bt-dropdown .sms-icon-dropdown {
   top: 9px;
   left: 7px;
   position: absolute;
@@ -65,7 +65,7 @@
 .options-panel .btn-box {
   float: left;
 }
-.options-panel .btn-box .btn-more .kerp-btn-item {
+.options-panel .btn-box .btn-more .sms-btn-item {
   background: #838383;
 }
 .options-panel .btn-box .btn-more .bt-dropdown {
@@ -131,7 +131,7 @@
   padding-right: 15px;
   display: inline-block;
 }
-.data-table .dropdown-info .kerp-icon-dropdown {
+.data-table .dropdown-info .sms-icon-dropdown {
   position: absolute;
   border: solid;
   border-color: #838383 transparent transparent transparent;

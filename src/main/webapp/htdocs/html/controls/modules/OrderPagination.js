@@ -4,7 +4,7 @@ define('OrderPagination', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     //if (top.location.href == location.href) {
     //    alert('请在主控台中打开本页面');
@@ -26,7 +26,7 @@ define('OrderPagination', function (require, exports, module) {
             size = pager.size || 20;
             total = pager.total || 0;
 
-            KERP.Pagers.create({
+            SMS.Pagers.create({
 
                 //分页控件的容器
                 container: {
@@ -57,7 +57,7 @@ define('OrderPagination', function (require, exports, module) {
 
                 //控件发生错误时会调用该方法，比如输入的页码有错误时
                 error: function (msg) {
-                    KERP.Tips.warn(msg, 2000);
+                    SMS.Tips.warn(msg, 2000);
                 }
 
             });

@@ -4,7 +4,7 @@ define('Sorting', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var Sort,SortOptions;
 
@@ -65,7 +65,7 @@ define('Sorting', function (require, exports, module) {
         }
 
         
-Sort = (function ($, MiniQuery, KERP) {
+Sort = (function ($, MiniQuery, SMS) {
 
     var wrapper = document.getElementById('sort-body');
 
@@ -180,11 +180,11 @@ Sort = (function ($, MiniQuery, KERP) {
     }
 
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 
 
-SortOptions = (function ($, MiniQuery, KERP) {
+SortOptions = (function ($, MiniQuery, SMS) {
 
     var wrapper = document.getElementById('sort-body');
 
@@ -333,10 +333,10 @@ SortOptions = (function ($, MiniQuery, KERP) {
         }
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 
-(function ($, MiniQuery, KERP, Sort, SortOptions) {
+(function ($, MiniQuery, SMS, Sort, SortOptions) {
 
     Sort.render(config.sq);
 
@@ -356,7 +356,7 @@ SortOptions = (function ($, MiniQuery, KERP) {
         }
     });
 
-})(jQuery, MiniQuery, KERP, Sort, SortOptions);
+})(jQuery, MiniQuery, SMS, Sort, SortOptions);
     }
 
 

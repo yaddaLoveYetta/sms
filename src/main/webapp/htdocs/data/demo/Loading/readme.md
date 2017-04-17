@@ -28,7 +28,7 @@ Loading: {
 ####示例代码
 ``` javascript
 //创建一个加载提示器
-var loading = new KERP.Loading({
+var loading = new SMS.Loading({
     selector: '#ul-list',
     container: '#div-loading-todo',
     text: '数据加载中，请稍候...',

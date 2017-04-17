@@ -8,7 +8,7 @@ define('List', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var API = require('/API'); //完整名称为 List/API
 
@@ -25,7 +25,7 @@ define('List', function (require, module, exports) {
 
     function load(pageNo, pageSize, fn) {
 
-        KERP.Tips.loading('数据加载中...');
+        SMS.Tips.loading('数据加载中...');
 
         API.get({
             pageNo: pageNo,
@@ -33,7 +33,7 @@ define('List', function (require, module, exports) {
 
         }, function (data) {
 
-            KERP.Tips.success('数据加载成功', 1500);
+            SMS.Tips.success('数据加载成功', 1500);
 
             var total = data.body.total;
             fn && fn(data, total);

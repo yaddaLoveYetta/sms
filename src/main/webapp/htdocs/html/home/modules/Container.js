@@ -6,7 +6,7 @@ define('Container', function (require, module, exports) {
 
 
     var $ = require('$');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var div = document.getElementById('div-container');
    

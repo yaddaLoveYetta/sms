@@ -2,7 +2,7 @@
 
 
 
-var Tabs = (function ($, MiniQuery, KERP) {
+var Tabs = (function ($, MiniQuery, SMS) {
 
 
 
@@ -102,4 +102,4 @@ var Tabs = (function ($, MiniQuery, KERP) {
     });
 
 
-})($, MiniQuery, KERP);
+})($, MiniQuery, SMS);

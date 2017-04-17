@@ -8,7 +8,7 @@ define('Response/Lines', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var ul = document.getElementById('ul-lines');
     var list = [];
@@ -47,7 +47,7 @@ define('Response/Lines', function (require, module, exports) {
         }
 
         list = getData(code);
-        KERP.Template.fill(ul, list);
+        SMS.Template.fill(ul, list);
     }
 
 

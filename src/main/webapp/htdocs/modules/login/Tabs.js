@@ -6,13 +6,13 @@ define('Tabs', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var tabs = null;
 
     function init(index) {
      
-        tabs = KERP.Tabs.create({
+        tabs = SMS.Tabs.create({
             container: '#li-tabs',
             selector: '>div',
             current: index,

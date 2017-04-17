@@ -4,9 +4,9 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var Iframe = KERP.require('Iframe');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var Iframe = SMS.require('Iframe');
+    var API = SMS.require('API');
 
     var List = require('List');
     var Pager = require('Pager');
@@ -97,7 +97,7 @@
         'delete': function (item, index) {
             var list = List.getSelectedItems();
             if (list.length == 0) {
-                KERP.Tips.error('请选择要删除的项');
+                SMS.Tips.error('请选择要删除的项');
                 return;
             }
             if (confirm('确定删除选择的项')) {
@@ -112,7 +112,7 @@
         'disable': function (item, index) {
             var list = List.getSelectedItems();
             if (list.length == 0) {
-                KERP.Tips.error('请选择要禁用的项');
+                SMS.Tips.error('请选择要禁用的项');
                 return;
             }
             List.forbid(classID, list, 1, function () {
@@ -122,7 +122,7 @@
         'enable': function (item, index) {
             var list = List.getSelectedItems();
             if (list.length == 0) {
-                KERP.Tips.error('请选择要反禁用的项');
+                SMS.Tips.error('请选择要反禁用的项');
                 return;
             }
             List.forbid(classID, list, 0, function () {

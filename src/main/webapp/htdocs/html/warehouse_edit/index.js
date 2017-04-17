@@ -4,9 +4,9 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var Iframe = KERP.require('Iframe');
+    var Iframe = SMS.require('Iframe');
 
     var selectors = require('SelectorList');
     var ButtonList = require('ButtonList');

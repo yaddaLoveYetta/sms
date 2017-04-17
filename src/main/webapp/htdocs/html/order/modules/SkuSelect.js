@@ -4,7 +4,7 @@ define('SkuSelect', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var itemSelected = 'item-selected';
     var wrapper = document.getElementById('order-list');

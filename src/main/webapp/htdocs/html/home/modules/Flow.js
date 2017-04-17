@@ -4,14 +4,14 @@
 define('Flow', function(require, module, exports) {
 
 	var $ = require('$');
-	var KERP = require('KERP');
-	var API = KERP.require('API');
+	var SMS = require('SMS');
+	var API = SMS.require('API');
 
 	var ul = document.getElementById('ul-flow');
 	var list = [];
 	var hasBind = false;
 
-	var loading = new KERP.Loading({
+	var loading = new SMS.Loading({
 		selector : ul,
 		container : '#div-loading-flow',
 	});
@@ -64,7 +64,7 @@ define('Flow', function(require, module, exports) {
 
 			list = data;
 
-			KERP.Template.fill(ul, list, function(item, index) {
+			SMS.Template.fill(ul, list, function(item, index) {
 				return {
 					'index' : index,
 					'name' : item.name,

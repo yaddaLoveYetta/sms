@@ -1,10 +1,10 @@
 
 /*!
-* KIS 电商 ERP 前端开发框架: KERP.js
+* HRP-SMS 供应商平台 前端开发框架: SMS.js
 * 版本: 0.1.0
 */
 //================================================================================================================>
-//开始 kerp.debug.js
+//开始 SMS.debug.js
 ; (function (
     global,
 
@@ -123,7 +123,7 @@
             var $ = require('$');
             var Url = require('Url');
 
-            var url = Url.format('{~}lib/kerp/{0}.{@}.js', id);
+            var url = Url.format('{~}lib/sms/{0}.{@}.js', id);
 
             $.Script.load(url, function () {
                 module = require(id);
@@ -136,7 +136,7 @@
 
         /**
         * 设置或获取对外暴露的模块。
-        * 通过此方法，可以控制指定的模块是否可以通过 KERP.require(id) 来加载到。
+        * 通过此方法，可以控制指定的模块是否可以通过 SMS.require(id) 来加载到。
         * @param {string|Object} id 模块的名称。
             当指定为一个 {} 时，则表示批量设置。
             当指定为一个字符串时，则单个设置。
@@ -1001,7 +1001,7 @@
 
 
         if (window !== top) {
-            return top.KERP.require('Cache');
+            return top.SMS.require('Cache');
         }
 
 
@@ -3688,7 +3688,7 @@
     define('Dialog', function (require, exports, module) {
 
         if (window !== top) {
-            return top.KERP.require('Dialog');
+            return top.SMS.require('Dialog');
         }
 
 
@@ -3766,7 +3766,7 @@
         var MiniQuery = require('MiniQuery');
 
         //这里的模块名称是 Iframe 而非 IframeManager
-        var IframeManager = top.KERP.require('Iframe');
+        var IframeManager = top.SMS.require('Iframe');
 
 
         var iframe = null;  //当前 iframe 页面对象的 iframe DOM 对象。
@@ -3982,9 +3982,9 @@
                 throw new Error('不存在 sn 为 ' + sn + ' 的 iframe 页面');
             }
 
-            var KERP = iframe.contentWindow.KERP;
-            if (KERP) { // iframe 已加载完成
-                var values = KERP.require('Iframe').fire(name, args);
+            var SMS = iframe.contentWindow.SMS;
+            if (SMS) { // iframe 已加载完成
+                var values = SMS.require('Iframe').fire(name, args);
                 return values ? values[values.length - 1] : undefined;
             }
 
@@ -3992,8 +3992,8 @@
             //尚未加载完成
             $(iframe).one('load', function () {
 
-                var KERP = iframe.contentWindow.KERP;
-                KERP.require('Iframe').fire(name, args);
+                var SMS = iframe.contentWindow.SMS;
+                SMS.require('Iframe').fire(name, args);
 
             });
 
@@ -4137,7 +4137,7 @@
         var Tips = require('Tips');
         var Samples = require('Samples');
 
-        var key = 'KERP.Login.user.F5F2BA55218E';
+        var key = 'SMS.Login.user.F5F2BA55218E';
         var sample = Samples.get('Login');
 
 
@@ -4305,7 +4305,7 @@
         */
         function login(data, fnSuccess, fnFail, fnError) {
 
-            var api = new API(defaults.api);
+            var api = new API(defaults.apiLogin);
 
             api.get({
                 'action': defaults.actions['login'],
@@ -5621,7 +5621,7 @@
             //一个内部的共用方法
             function start() {
 
-                var Tips = top.KERP.require('Tips');
+                var Tips = top.SMS.require('Tips');
 
                 if (type) {
                     Tips.add(window, type, text);
@@ -5639,7 +5639,7 @@
             clearTimeout(durationId);
             clearTimeout(delayId);
 
-            top.KERP.require('Tips').close(window);
+            top.SMS.require('Tips').close(window);
         }
 
 
@@ -6030,7 +6030,7 @@
         //ui
         'Iframe': true,
         'IframeManager': false, //这个不要在这里暴露，因为它通过 Iframe 暴露了
-        'Samples': true, //for test for warehouse' KERP.CascadeMenus.js
+        'Samples': true, //for test for warehouse' SMS.CascadeMenus.js
 
         'ButtonList': true,
         'CascadeMenus': false,
@@ -6055,7 +6055,7 @@
 
 
 
-    var KERP = {
+    var SMS = {
 
         //快捷方式
         require: function (id) {
@@ -6064,7 +6064,7 @@
 
         use: function (id, fn) {
 
-            var module = KERP.require(id);
+            var module = SMS.require(id);
             if (!module) {
                 fn && fn(null);
                 return;
@@ -6117,11 +6117,11 @@
     //暴露
     if (typeof global.define == 'function' && (global.define.cmd || global.define.amd)) { //cmd 或 amd
         global.define(function (require) {
-            return KERP;
+            return SMS;
         });
     }
     else { //browser
-        global.KERP = KERP;
+        global.SMS = SMS;
     }
 
 
@@ -6159,5 +6159,5 @@
     String
     /*, undefined */
 );
-//结束文件 kerp.debug.js
+//结束文件 SMS.debug.js
 //<================================================================================================================

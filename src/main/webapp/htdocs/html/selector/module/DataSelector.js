@@ -3,8 +3,8 @@
 define('DataSelector', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var Samples = KERP.require('Samples');
+    var SMS = require('SMS');
+    var Samples = SMS.require('Samples');
 
     var mapper = new $.Mapper();
     var guidKey = $.Mapper.getGuidKey();
@@ -59,7 +59,7 @@ define('DataSelector', function (require, module, exports) {
 
                 var url = $.Url.setQueryString(defaults.targetList[meta.targetType], 'classID', meta.classID);
 
-                KERP.use('Dialog', function (Dialog) {
+                SMS.use('Dialog', function (Dialog) {
                     var dialog = new Dialog({
                         title: meta.title,
                         url: url,

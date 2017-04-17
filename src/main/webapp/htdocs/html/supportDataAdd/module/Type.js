@@ -3,8 +3,8 @@
 define('type', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var API = SMS.require('API');
 
     var p = document.getElementById('p-types');
     var list = [];
@@ -38,7 +38,7 @@ define('type', function (require, module, exports) {
             }
         });
 
-        //KERP.API.get('bd/assistitem', {'action': 'findTypeList'}, function (data, json) {
+        //SMS.API.get('bd/assistitem', {'action': 'findTypeList'}, function (data, json) {
         //    list = data.items;
         //    fn() && fn(data.items);
         //}, function (code, msg, json) {

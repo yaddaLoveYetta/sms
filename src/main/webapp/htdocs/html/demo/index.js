@@ -8,7 +8,7 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var Data = require('Data');
     var Demos = require('Demos');
@@ -36,7 +36,7 @@
 
     $(document).on('dblclick', function () {
 
-        KERP.use('Dialog', function (Dialog) {
+        SMS.use('Dialog', function (Dialog) {
 
             //var data = { };
 

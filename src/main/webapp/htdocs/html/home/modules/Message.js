@@ -6,8 +6,8 @@ define('Message', function (require, module, exports) {
 
 
     var $ = require('$');
-    var KERP = require('KERP');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var API = SMS.require('API');
 
     var div = document.getElementById('div-message');
     var list = [];
@@ -15,7 +15,7 @@ define('Message', function (require, module, exports) {
     var maxCount = 1;
 
 
-    var loading = new KERP.Loading({
+    var loading = new SMS.Loading({
         selector: div,
         container: '#div-loading-message',
     });
@@ -60,7 +60,7 @@ define('Message', function (require, module, exports) {
             }, list[index]);
 
 
-            KERP.Template.fill(div, data);
+            SMS.Template.fill(div, data);
             
             loading.hide();
 

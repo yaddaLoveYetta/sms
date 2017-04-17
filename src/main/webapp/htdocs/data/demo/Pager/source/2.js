@@ -1,5 +1,5 @@
 ﻿//简易分页器
-KERP.SimplePager.create({
+SMS.SimplePager.create({
 
     //分页控件的容器
     container: '#div-pager-simple-2',
@@ -19,6 +19,6 @@ KERP.SimplePager.create({
 
     //控件发生错误时会调用该方法，比如输入的页码有错误时
     error: function (msg) {
-        KERP.Tips.warn(msg, 2000);
+        SMS.Tips.warn(msg, 2000);
     }
 });

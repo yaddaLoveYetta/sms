@@ -1,9 +1,9 @@
 ﻿
-var DatetimePicker = (function ($, MiniQuery, KERP) {
+var DatetimePicker = (function ($, MiniQuery, SMS) {
 
     function bindEvents() {
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#startTime', {
                 format: 'yyyy-mm-dd hh:ii',
@@ -17,7 +17,7 @@ var DatetimePicker = (function ($, MiniQuery, KERP) {
 
         });
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#endTime', {
                 format: 'yyyy-mm-dd hh:ii',
@@ -48,5 +48,5 @@ var DatetimePicker = (function ($, MiniQuery, KERP) {
         render: render
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 

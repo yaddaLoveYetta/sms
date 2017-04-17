@@ -8,7 +8,7 @@ define('Response/Code', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
     var HLJS = window.hljs;
 
     var code = document.getElementById('code-json');

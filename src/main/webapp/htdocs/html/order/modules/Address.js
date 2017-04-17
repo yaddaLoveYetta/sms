@@ -7,7 +7,7 @@ define('Address', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var picker = null;
@@ -15,7 +15,7 @@ define('Address', function (require, exports, module) {
     function create(config) {
 
 
-        picker = KERP.CascadePicker.create({
+        picker = SMS.CascadePicker.create({
             container: '#' + config.id,
             selectedValues: [config.province, config.city, config.district],
             defaultTexts: ['--请选择省份--', '--请选择城市--', '--请选择地区--'],

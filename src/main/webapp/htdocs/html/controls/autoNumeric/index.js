@@ -9,10 +9,10 @@
 
 
 
-; (function ($, MiniQuery, KERP) {
+; (function ($, MiniQuery, SMS) {
 
 
-    KERP.NumberField = (function () {
+    SMS.NumberField = (function () {
 
 
         var mapper = new $.Mapper();
@@ -165,7 +165,7 @@
 
 
 
-    var nf = KERP.NumberField.create('#txt', {
+    var nf = SMS.NumberField.create('#txt', {
 
         currencySign: '$',
         currencyPlace: 'left',
@@ -192,4 +192,4 @@
     //});
 
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);

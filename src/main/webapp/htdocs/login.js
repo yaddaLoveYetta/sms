@@ -2,7 +2,7 @@
 
 
 //控制器
-; (function ($, MiniQuery, KERP) {
+; (function ($, MiniQuery, sms) {
 
 
     var Tabs = require('Tabs');
@@ -19,17 +19,11 @@
             WarnTip.hide();
         },
 
-        'keydown': function () {
+        'keydown': function (event) {
             if (event.keyCode == 13) {
                 Login.login();
             }
         }
     });
 
-
-    
-
-
-
-    
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);

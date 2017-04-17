@@ -6,7 +6,7 @@ define('Edit', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var KERP = require('KERP');
+	var SMS = require('SMS');
 
 	var FormEdit = require('FormEdit');
 
@@ -65,10 +65,10 @@ define('Edit', function(require, module, exports) {
 
 	function saveSuccess(data) {
 		if (itemId) {
-			KERP.Tips.success('数据修改成功', 2000);
+            SMS.Tips.success('数据修改成功', 2000);
 		} else {
 			itemId = data['itemID'];
-			KERP.Tips.success('数据新增成功', 2000);
+            SMS.Tips.success('数据新增成功', 2000);
 		}
 	}
 

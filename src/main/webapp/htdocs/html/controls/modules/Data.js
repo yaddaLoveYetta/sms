@@ -1,16 +1,16 @@
 ﻿
 
 
-var Data = (function ($, MiniQuery, KERP) {
+var Data = (function ($, MiniQuery, SMS) {
 
 
-    var baseUrl = KERP.Url.root() + 'data/demo/';
+    var baseUrl = SMS.Url.root() + 'data/demo/';
 
     
 
     function getUrl(name, url) {
 
-        if (!KERP.Url.check(url)) { //相对 url
+        if (!SMS.Url.check(url)) { //相对 url
             url = baseUrl + name + '/' + url;
         }
 
@@ -89,4 +89,4 @@ var Data = (function ($, MiniQuery, KERP) {
 
 
 
-})($, MiniQuery, KERP);
+})($, MiniQuery, SMS);

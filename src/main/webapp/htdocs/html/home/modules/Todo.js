@@ -6,7 +6,7 @@ define('Todo', function (require, module, exports) {
 
 
     var $ = require('$');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var div = document.getElementById('div-todo');
@@ -30,7 +30,7 @@ define('Todo', function (require, module, exports) {
     var hasBind = false;
 
 
-    var loading = new KERP.Loading({
+    var loading = new SMS.Loading({
         selector: div,
         container: '#div-loading-todo',
         text: '数据加载中，请稍候...',
@@ -39,7 +39,7 @@ define('Todo', function (require, module, exports) {
 
     function load(fn) {
 
-        var api = new KERP.API('home/todo');
+        var api = new SMS.API('home/todo');
 
         api.get();
 
@@ -120,7 +120,7 @@ define('Todo', function (require, module, exports) {
 
             var index = getIndex(row, col);
 
-            var Iframe = KERP.require('Iframe');
+            var Iframe = SMS.require('Iframe');
             Iframe.open(0, 0, {
                 query: {
                     status: index

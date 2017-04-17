@@ -9,10 +9,10 @@
 
 
 
-; (function ($, MiniQuery, KERP) {
+; (function ($, MiniQuery, SMS) {
 
 
-    KERP.use('NumberField', function (NumberField) {
+    SMS.use('NumberField', function (NumberField) {
 
         var nf = new NumberField('#txt', {
 
@@ -34,4 +34,4 @@
     });
 
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);

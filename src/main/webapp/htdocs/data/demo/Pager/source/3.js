@@ -1,5 +1,5 @@
 ﻿//标准分页器
-KERP.Pager.create({
+SMS.Pager.create({
 
     //分页控件的容器
     container: '#div-pager-normal-2',
@@ -19,6 +19,6 @@ KERP.Pager.create({
 
     //控件发生错误时会调用该方法，比如输入的页码有错误时
     error: function (msg) {
-        KERP.Tips.warn(msg, 2000);
+        SMS.Tips.warn(msg, 2000);
     }
 });

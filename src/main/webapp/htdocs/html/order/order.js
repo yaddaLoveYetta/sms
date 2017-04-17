@@ -5,7 +5,7 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var API = require('API');
@@ -45,7 +45,7 @@
         }, function (data) {
             Sku.init(data);
         }, function () {
-            KERP.Tips.success('数据加载完成', 2000);
+            SMS.Tips.success('数据加载完成', 2000);
         }
 
     );
@@ -79,7 +79,7 @@
 
     //        API.list(args, function (data) {
 
-    //            KERP.Tips.success('数据加载完成', 2000);
+    //            SMS.Tips.success('数据加载完成', 2000);
     //            OrderList.render(data.orders);
     //            OrderPagination.render(data.pager);
     //        });
@@ -104,7 +104,7 @@
 
 
     //        API.list(args, function (data) {
-    //            KERP.Tips.success('数据加载完成', 2000);
+    //            SMS.Tips.success('数据加载完成', 2000);
     //            OrderList.render(data.orders);
     //            OrderPagination.render(data.pager);
     //        });
@@ -129,7 +129,7 @@
                     ids: checkItems,
                 };
 
-                KERP.use('Dialog', function (Dialog) {
+                SMS.use('Dialog', function (Dialog) {
                     var dialog = new Dialog({
                         id: 'batch-edit',
                         title: '批量修改',
@@ -151,7 +151,7 @@
 
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
         'click:check': function (item, index) {
@@ -179,7 +179,7 @@
 
                     //}).join('\n');
 
-                    //KERP.Tips.success(msg, 2000);
+                    //SMS.Tips.success(msg, 2000);
 
                     //OrderList.render(data.orders);
                     //OrderPagination.render(data.pager);
@@ -189,7 +189,7 @@
 
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
         'click:insertLabel': function () {
@@ -206,7 +206,7 @@
                     ids: checkItems,
                 };
 
-                KERP.use('Dialog', function (Dialog) {
+                SMS.use('Dialog', function (Dialog) {
                     var dialog = new Dialog({
                         id: 'dialog-split',
                         title: '添加标签',
@@ -227,7 +227,7 @@
                 });
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
         'click:addGift': function () {
@@ -238,7 +238,7 @@
 
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
         'click:delete': function () {
@@ -279,11 +279,11 @@
                 });
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
         'click:download': function () {
-            KERP.use('Dialog', function (Dialog) {
+            SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
                     id: 'download',
                     title: '手工同步订单',
@@ -322,7 +322,7 @@
 
                     //}).join('\n');
 
-                    //KERP.Tips.success(msg, 2000);
+                    //SMS.Tips.success(msg, 2000);
 
                     //OrderList.render(data.orders);
                     //OrderPagination.render(data.pager);
@@ -336,7 +336,7 @@
 
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
 
@@ -363,7 +363,7 @@
 
                     //}).join('\n');
 
-                    //KERP.Tips.success(msg, 2000);
+                    //SMS.Tips.success(msg, 2000);
 
                     //OrderList.render(data.orders);
                     //OrderPagination.render(data.pager);
@@ -377,7 +377,7 @@
 
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
         'click:uncheck': function () {
@@ -404,7 +404,7 @@
 
                     //}).join('\n');
 
-                    //KERP.Tips.success(msg, 2000);
+                    //SMS.Tips.success(msg, 2000);
 
                     //OrderList.render(data.orders);
                     //OrderPagination.render(data.pager);
@@ -417,7 +417,7 @@
 
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
         'click:clearLabel': function () {
@@ -446,7 +446,7 @@
 
                     //}).join('\n');
 
-                    //KERP.Tips.success(msg, 2000);
+                    //SMS.Tips.success(msg, 2000);
 
                     //OrderList.render(data.orders);
                     //OrderPagination.render(data.pager);
@@ -458,7 +458,7 @@
                 });
             }
             else {
-                KERP.Tips.warn('请选择订单', 2000);
+                SMS.Tips.warn('请选择订单', 2000);
             }
         },
     });
@@ -479,7 +479,7 @@
 
                 }).join('\n');
 
-                KERP.Tips.success(msg, 2000);
+                SMS.Tips.success(msg, 2000);
 
                 OrderList.render(data.orders);
                 OrderPagination.render(data.pager);
@@ -503,7 +503,7 @@
 
                 }).join('\n');
 
-                KERP.Tips.success(msg, 2000);
+                SMS.Tips.success(msg, 2000);
 
                 OrderList.render(data.orders);
                 OrderPagination.render(data.pager);
@@ -528,7 +528,7 @@
 
                 }).join('\n');
 
-                KERP.Tips.success(msg, 2000);
+                SMS.Tips.success(msg, 2000);
 
                 OrderList.render(data.orders);
                 OrderPagination.render(data.pager);
@@ -552,7 +552,7 @@
 
             API.list(args, function (data) {
 
-                KERP.Tips.success('数据加载成功', 2000);
+                SMS.Tips.success('数据加载成功', 2000);
                 OrderList.render(data.orders, no);
 
             });
@@ -582,7 +582,7 @@
                 //}).join('\n');
 
 
-                KERP.Tips.success('订单删除成功', 2000);
+                SMS.Tips.success('订单删除成功', 2000);
 
 
                 OrderList.render(list);
@@ -607,7 +607,7 @@
 
                 }).join('\n');
 
-                KERP.Tips.success(msg, 2000);
+                SMS.Tips.success(msg, 2000);
 
                 OrderList.render(data.orders);
                 OrderPagination.render(data.pager);
@@ -633,7 +633,7 @@
 
                 }).join('\n');
 
-                KERP.Tips.success(msg, 2000);
+                SMS.Tips.success(msg, 2000);
 
                 OrderList.render(data.orders);
                 OrderPagination.render(data.pager);
@@ -659,7 +659,7 @@
 
                 }).join('\n');
 
-                KERP.Tips.success(msg, 2000);
+                SMS.Tips.success(msg, 2000);
 
                 OrderList.render(data.orders);
                 OrderPagination.render(data.pager);
@@ -689,7 +689,7 @@
 
                 //var msg = data.orderID + '：' + data.result;
 
-                KERP.Tips.success('保存成功', 2000);
+                SMS.Tips.success('保存成功', 2000);
 
                 document.getElementById('buyer-info_' + index).innerHTML = OrderList.fillBuyerInfo(args2, index);
 
@@ -712,7 +712,7 @@
 
                 //var msg = data.orderID + '：' + data.result;
 
-                KERP.Tips.success('保存成功', 2000);
+                SMS.Tips.success('保存成功', 2000);
 
                 document.getElementById('seller-remark_' + index).innerHTML = OrderList.fillRemark(arg2, index);
 
@@ -747,7 +747,7 @@
 
         API.list(args, function (data) {
 
-            KERP.Tips.success('数据加载完成', 2000);
+            SMS.Tips.success('数据加载完成', 2000);
             OrderList.render(data.orders);
             OrderPagination.render(data.pager);
         });

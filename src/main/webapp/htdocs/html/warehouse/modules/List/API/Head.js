@@ -6,9 +6,9 @@ define('List/API/Head', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var KERP = require('KERP');
+	var SMS = require('SMS');
 
-	var API = KERP.require('API');
+	var API = SMS.require('API');
 
 	var cache = null;
 	var headItems = [];
@@ -47,12 +47,12 @@ define('List/API/Head', function(require, module, exports) {
 		api.on('fail', function(code, msg, json) {
 
 			var s = $.String.format('{0} (错误码: {1})', msg, code);
-			KERP.Tips.error(s);
+			SMS.Tips.error(s);
 
 		});
 
 		api.on('error', function() {
-			KERP.Tips.error('网络繁忙，请稍候再试');
+			SMS.Tips.error('网络繁忙，请稍候再试');
 
 		});
 

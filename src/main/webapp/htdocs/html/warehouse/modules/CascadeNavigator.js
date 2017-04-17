@@ -8,10 +8,10 @@ define('CascadeNavigator', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var API = KERP.require('API');
-    var CascadeNavigator = KERP.require('CascadeNavigator');
+    var API = SMS.require('API');
+    var CascadeNavigator = SMS.require('CascadeNavigator');
     var nav = null;
     var topClassID = 10110;
 
@@ -64,13 +64,13 @@ define('CascadeNavigator', function (require, module, exports) {
         api.on({
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (错误码: {1})', msg, code);
-                KERP.Tips.error(s, 2000);
+                SMS.Tips.error(s, 2000);
                 fn && fn({
                     name: s
                 });
             },
             'error': function () {
-                KERP.Tips.error('网络繁忙，请稍候再试', 2000);
+                SMS.Tips.error('网络繁忙，请稍候再试', 2000);
                 fn && fn({
                     name: '(网络繁忙，请稍候再试)'
                 });

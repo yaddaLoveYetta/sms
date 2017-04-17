@@ -8,7 +8,7 @@ define('Iframes', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var div = document.getElementById('div-iframes');
     var sample = $.String.between(div.innerHTML, '<!--', '-->');
@@ -248,7 +248,7 @@ define('Iframes', function (require, module, exports) {
 
     function render() {
 
-        tabs = KERP.Tabs.create({
+        tabs = SMS.Tabs.create({
             container: div,
             selector: '>iframe',
             activedClass: 'actived',

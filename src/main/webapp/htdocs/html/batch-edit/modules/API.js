@@ -5,14 +5,14 @@ define('API', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var API = SMS.require('API');
 
     //name: eshop/order, action:check, data:args,
     function post(name, action, data, fn, msg) {
 
         //延迟显示。 避免数据很快回来造成的只显示瞬间
-        KERP.Tips.loading({
+        SMS.Tips.loading({
             text: msg || '数据加载中...',
             delay: 500
         });
@@ -29,12 +29,12 @@ define('API', function (require, exports, module) {
             },
 
             'fail': function (code, msg, json) {
-                KERP.Tips.error(msg, 2000);
+                SMS.Tips.error(msg, 2000);
 
             },
 
             'error': function () {
-                KERP.Tips.error('网络错误，请稍候再试', 2000);
+                SMS.Tips.error('网络错误，请稍候再试', 2000);
             },
 
         });

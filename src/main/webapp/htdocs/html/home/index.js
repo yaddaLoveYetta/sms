@@ -6,12 +6,12 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var Iframe = KERP.require('Iframe');
+    var Iframe = SMS.require('Iframe');
 
     //检查登录 
-    if (!KERP.Login.check(true)) {
+    if (!SMS.Login.check(true)) {
         return;
     }
 

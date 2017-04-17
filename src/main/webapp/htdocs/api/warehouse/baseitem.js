@@ -1,4 +1,4 @@
-﻿KERP.Proxy.response(function(data, config) {
+﻿SMS.Proxy.response(function(data, config) {
 	
 	console.log(!data.data.pageSize);
 	if (!data.data.pageSize) {

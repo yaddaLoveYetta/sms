@@ -1,6 +1,6 @@
 ﻿
 
-var Notification = (function ($, MiniQuery, KERP) {
+var Notification = (function ($, MiniQuery, SMS) {
 
     var wrapper = document.getElementById('notification-list');
 
@@ -54,4 +54,4 @@ var Notification = (function ($, MiniQuery, KERP) {
         render: render
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);

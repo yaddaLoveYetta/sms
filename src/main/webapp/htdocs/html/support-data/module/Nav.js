@@ -4,9 +4,9 @@
 define('Nav', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var CascadeNavigator = KERP.require('CascadeNavigator');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var CascadeNavigator = SMS.require('CascadeNavigator');
+    var API = SMS.require('API');
 
     var emitter = MiniQuery.Event.create();
 
@@ -50,7 +50,7 @@ define('Nav', function (require, module, exports) {
             }
         });
 
-        //KERP.API.get('/bd/assistitem', {
+        //SMS.API.get('/bd/assistitem', {
         //    'action': 'findTypeList'
         //}).success(function (data, json) {
         //    tree = getTree(data);

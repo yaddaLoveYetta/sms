@@ -4,9 +4,9 @@
 define('operation', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var iframe = KERP.require('Iframe');
+    var iframe = SMS.require('Iframe');
 
     var dialog = iframe.getDialog();
 
@@ -36,9 +36,9 @@ define('operation', function (require, module, exports) {
             };
 
             if (validators()) {
-                KERP.API.post('/bd/assistitem', postData).success(function (data, json) {
+                SMS.API.post('/bd/assistitem', postData).success(function (data, json) {
                     dialog.remove();
-                    KERP.Tips.success('新增成功！');
+                    SMS.Tips.success('新增成功！');
                 }).fail(function (code, msg, json) {
                     pWarn.innerText = '*' + msg;
                 });

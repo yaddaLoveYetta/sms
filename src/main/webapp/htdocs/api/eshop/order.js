@@ -2,7 +2,7 @@
 
 
 
-KERP.Proxy.response('action', {
+SMS.Proxy.response('action', {
 
     //首页用到的
     'sumOrderStatus': function () {

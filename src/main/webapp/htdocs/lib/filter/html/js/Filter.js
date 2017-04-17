@@ -1,7 +1,7 @@
 ﻿
 
 
-var Filter = (function ($, MiniQuery, KERP, TimeZone) {
+var Filter = (function ($, MiniQuery, SMS, TimeZone) {
     var ul = document.getElementById('ul-filter');
 
     var showMoreOption = 5;
@@ -627,7 +627,7 @@ var Filter = (function ($, MiniQuery, KERP, TimeZone) {
 
     function createPicker() {
 
-        return KERP.CascadePicker.create({
+        return SMS.CascadePicker.create({
             container: '#' + pickerId,
             hideNone: true,
             data: 'data/address/array.simple.js',
@@ -645,7 +645,7 @@ var Filter = (function ($, MiniQuery, KERP, TimeZone) {
     }
 
     function createNumberField(id) {
-        KERP.use('NumberField', function (NumberField) {
+        SMS.use('NumberField', function (NumberField) {
 
             var nf = new NumberField('#' + id);
 
@@ -671,4 +671,4 @@ var Filter = (function ($, MiniQuery, KERP, TimeZone) {
         }
     }
 
-})(jQuery, MiniQuery, KERP, TimeZone);
+})(jQuery, MiniQuery, SMS, TimeZone);

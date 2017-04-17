@@ -8,7 +8,7 @@ define('BuyerInfo', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
     var ExpressCompany = require('ExpressCompany');
 
     var Address = require('Address');
@@ -42,27 +42,27 @@ define('BuyerInfo', function (require, exports, module) {
         var company = $('#ul-express-company').children('[selected]');
 
         if (!province.val() || province.val() == '--请选择省份--') {
-            KERP.Tips.warn('请选择省', 2000);
+            SMS.Tips.warn('请选择省', 2000);
             return;
         }
 
         if (!city.val() || city.val() == '--请选择城市--') {
-            KERP.Tips.warn('请选择市', 2000);
+            SMS.Tips.warn('请选择市', 2000);
             return;
         }
 
         if (!district.val() || district.val() == '--请选择地区--') {
-            KERP.Tips.warn('请选择区', 2000);
+            SMS.Tips.warn('请选择区', 2000);
             return;
         }
 
         if (!detail) {
-            KERP.Tips.warn('请输入详细地址', 2000);
+            SMS.Tips.warn('请输入详细地址', 2000);
             return;
         }
 
         if (!company.attr('data-type')) {
-            KERP.Tips.warn('请选择物流公司', 2000);
+            SMS.Tips.warn('请选择物流公司', 2000);
             return;
         }
 

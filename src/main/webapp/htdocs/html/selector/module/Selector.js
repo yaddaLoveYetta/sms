@@ -4,7 +4,7 @@
 define('selector', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var label;
     var templates = document.getElementById('div-samples');
@@ -60,7 +60,7 @@ define('selector', function (require, module, exports) {
         var url = meta.targetList[config.targetType];
 
         $(div).delegate('[data-role="btn"]', 'click', function () {
-            KERP.use('Dialog', function (Dialog) {
+            SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
                     id: meta.id,
                     title: meta.title,

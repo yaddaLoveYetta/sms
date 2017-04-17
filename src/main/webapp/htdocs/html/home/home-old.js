@@ -1,11 +1,11 @@
 ﻿
 
 
-; (function ($, MiniQuery, KERP, Todo) {
+; (function ($, MiniQuery, SMS, Todo) {
 
 
     //检查登录 
-    if (!KERP.Login.check(true)) {
+    if (!SMS.Login.check(true)) {
         return;
     }
 
@@ -15,9 +15,9 @@
 
     $(document).on('dblclick', function () {
 
-        
 
-        KERP.Login.show();
+
+        SMS.Login.show();
 
  
     });
@@ -25,4 +25,4 @@
 
 
 
-})(jQuery, MiniQuery, KERP, Todo);
+})(jQuery, MiniQuery, SMS, Todo);

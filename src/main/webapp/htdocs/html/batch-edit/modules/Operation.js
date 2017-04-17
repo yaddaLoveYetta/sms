@@ -5,8 +5,8 @@
 define('Operation', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var iframe = KERP.require('Iframe');
+    var SMS = require('SMS');
+    var iframe = SMS.require('Iframe');
 
     var dialog = iframe.getDialog();
     var emitter = MiniQuery.Event.create();

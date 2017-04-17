@@ -1,4 +1,4 @@
-﻿KERP.CascadePicker.create({
+﻿SMS.CascadePicker.create({
     container: '#div-address-picker-5',     //容器
     hideNone: true,                         //是否隐藏空数据的层级
     data: 'data/address/array.simple.js',   //对应的数据文件。

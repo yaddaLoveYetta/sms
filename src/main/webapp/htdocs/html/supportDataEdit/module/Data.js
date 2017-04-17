@@ -6,9 +6,9 @@ define('data', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var iframe = KERP.require('Iframe');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var iframe = SMS.require('Iframe');
+    var API = SMS.require('API');
 
     var dialog = iframe.getDialog();
     var div = document.getElementById('div_data');
@@ -33,7 +33,7 @@ define('data', function (require, module, exports) {
             }
         });
 
-        //KERP.API.get('/bd/assistitem', query, function (data, json) {
+        //SMS.API.get('/bd/assistitem', query, function (data, json) {
         //    fn && fn(data);
         //}, function (code, msg, json) {
 
@@ -46,21 +46,21 @@ define('data', function (require, module, exports) {
     function postData(query, fn) {
         var api = new API('/bd/assistitem');
 
-        KERP.Tips.loading('数据上传中...');
+        SMS.Tips.loading('数据上传中...');
 
         api.post(query);
 
         api.on({
             success: function (data, json) {
                 fn && fn(data);
-                KERP.Tips.success('数据上传成功！', 1000);
+                SMS.Tips.success('数据上传成功！', 1000);
                 dialog.remove();
             },
         });
 
-        //KERP.API.post('/bd/assistitem', query, function (data, json) {
+        //SMS.API.post('/bd/assistitem', query, function (data, json) {
         //    fn && fn(data);
-        //    KERP.Tips.success('数据上传成功！', 1000);
+        //    SMS.Tips.success('数据上传成功！', 1000);
         //    dialog.remove();
         //}, function (code, msg, json) {
 

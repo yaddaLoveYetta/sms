@@ -1,4 +1,4 @@
-﻿KERP.use('Dialog', function (Dialog) {
+﻿SMS.use('Dialog', function (Dialog) {
 
     var dialog = new Dialog({
         id: 'test-dialog',

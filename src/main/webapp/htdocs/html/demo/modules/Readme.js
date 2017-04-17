@@ -5,7 +5,7 @@ define('Readme', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
     var HLJS = window.hljs;
 
 
@@ -17,7 +17,7 @@ define('Readme', function (require, module, exports) {
 
         
 
-        KERP.Template.fill(header, {
+        SMS.Template.fill(header, {
             name: name
         });
 
@@ -25,7 +25,7 @@ define('Readme', function (require, module, exports) {
             return;
         }
 
-        var Seajs = KERP.require('Seajs');
+        var Seajs = SMS.require('Seajs');
 
         Seajs.use('marked', function (marked) {
 

@@ -5,8 +5,8 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var Iframe = KERP.require('Iframe');
+    var SMS = require('SMS');
+    var Iframe = SMS.require('Iframe');
     var ProgressBar = require('ProgressBar');
 
 
@@ -63,7 +63,7 @@
 
             API.batchOrderEdit(args, function (data) {
 
-                KERP.Dialog.use(function (Dialog) {
+                    SMS.Dialog.use(function (Dialog) {
                     var dialog = new Dialog({
                         title: '消息',
                         content: '正在处理，请稍等...',
@@ -71,7 +71,7 @@
 
                     dialog.showModal();
                 });
-                //KERP.use('Dialog', function (Dialog) {
+                //SMS.use('Dialog', function (Dialog) {
                 //    var dialog = new Dialog({
                 //        id: 'action-result',
                 //        title: '操作结果',
@@ -99,7 +99,7 @@
             },
             function (msg) {
                 console.log(msg);
-                KERP.Tips.warn('接口出错', 2000);
+                SMS.Tips.warn('接口出错', 2000);
 
             }
             );

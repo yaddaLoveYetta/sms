@@ -4,8 +4,8 @@ define('FormEdit', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var API = KERP.require('API');
+    var SMS = require('SMS');
+    var API = SMS.require('API');
 
     var Validate = require('Validate');
 
@@ -42,11 +42,11 @@ define('FormEdit', function (require, module, exports) {
             },
 
             'fail': function (code, msg, json) {
-                KERP.Tips.error(msg);
+                SMS.Tips.error(msg);
             },
 
             'error': function () {
-                KERP.Tips.error('网络错误，请稍候再试');
+                SMS.Tips.error('网络错误，请稍候再试');
             }
         });
     }
@@ -71,11 +71,11 @@ define('FormEdit', function (require, module, exports) {
             },
 
             'fail': function (code, msg, json) {
-                KERP.Tips.error(msg);
+                SMS.Tips.error(msg);
             },
 
             'error': function () {
-                KERP.Tips.error('网络错误，请稍候再试');
+                SMS.Tips.error('网络错误，请稍候再试');
             }
         });
     }
@@ -183,17 +183,17 @@ define('FormEdit', function (require, module, exports) {
     function fill(data, fnEntry) {
     	/* old
         if (!metaData || !metaData['formFields'] || !metaData['formFields'][0]) {
-            KERP.Tips.error('元数据错误，请联系管理员');
+            SMS.Tips.error('元数据错误，请联系管理员');
             return;
         }
         */
         if (!metaData || !metaData['formFields']) {
-            KERP.Tips.error('元数据错误，请联系管理员');
+            SMS.Tips.error('元数据错误，请联系管理员');
             return;
         }
 
         if (!data) {
-            KERP.Tips.error('数据错误，请联系管理员');
+            SMS.Tips.error('数据错误，请联系管理员');
             return;
         }
 
@@ -245,13 +245,13 @@ define('FormEdit', function (require, module, exports) {
             fnEntry(data['entry'], metaData);
         }
 
-        KERP.Tips.success('数据加载成功', 2000);
+        SMS.Tips.success('数据加载成功', 2000);
     }
 
     //表体数据的清空，暂未处理
     function clear() {
         if (!metaData || !metaData['formFields'] || !metaData['formFields'][0]) {
-            KERP.Tips.error('元数据错误，请联系管理员');
+            SMS.Tips.error('元数据错误，请联系管理员');
             return;
         }
 
@@ -332,11 +332,11 @@ define('FormEdit', function (require, module, exports) {
             },
 
             'fail': function (code, msg, json) {
-                KERP.Tips.error(msg);
+                SMS.Tips.error(msg);
             },
 
             'error': function () {                
-                KERP.Tips.error('网络错误，请稍候再试');
+                SMS.Tips.error('网络错误，请稍候再试');
 
             }
         });
@@ -344,7 +344,7 @@ define('FormEdit', function (require, module, exports) {
 
     function forbid(classID, itemID, operateType) {
         
-        var api = new KERP.API('bos/baseitem');
+        var api = new SMS.API('bos/baseitem');
         api.get({
             action: 'forbid',
             data: {
@@ -356,16 +356,16 @@ define('FormEdit', function (require, module, exports) {
 
         api.on({
             'success': function (data, json) {
-                KERP.Tips.success(operateType === 1 ? '禁用成功' : '反禁用成功', 2000);
+                SMS.Tips.success(operateType === 1 ? '禁用成功' : '反禁用成功', 2000);
             },
 
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (错误码: {1})', msg, code);
-                KERP.Tips.error(s);
+                SMS.Tips.error(s);
             },
 
             'error': function () {
-                KERP.Tips.error('网络繁忙，请稍候再试');
+                SMS.Tips.error('网络繁忙，请稍候再试');
             }
         });
     }
@@ -392,11 +392,11 @@ define('FormEdit', function (require, module, exports) {
             },
 
             'fail': function (code, msg, json) {
-                KERP.Tips.error(msg);
+                SMS.Tips.error(msg);
             },
 
             'error': function () {
-                KERP.Tips.error('网络错误，请稍候再试');
+                SMS.Tips.error('网络错误，请稍候再试');
             }
         });
 

@@ -9,7 +9,7 @@ define('PageList', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var div = document.getElementById('div-page-list');
@@ -46,7 +46,7 @@ define('PageList', function (require, module, exports) {
 
         var maxIndex = lastIndex();
 
-        KERP.Template.fill(ul, list, function (item, index) {
+        SMS.Template.fill(ul, list, function (item, index) {
             
             return {
                 name: item.name,
@@ -238,7 +238,7 @@ define('PageList', function (require, module, exports) {
             return index < endIndex ? fnTask : hide;
         });
 
-        KERP.require('Multitask').serial(tasks); //串行执行任务队列
+        SMS.require('Multitask').serial(tasks); //串行执行任务队列
 
     }
 

@@ -1,8 +1,8 @@
 ﻿
 
-KERP.Tips.hide();
+SMS.Tips.hide();
 
-var API = KERP.require('API');
+var API = SMS.require('API');
 var api = new API('demo/1');
 
 //请求失败时触发。
@@ -21,7 +21,7 @@ api.on({
     //不管请求完成后是成功、失败、错误，都会触发，会最先触发此类事件。
     'done': function () {
         debugger;
-        KERP.Tips.info('请求完成!', 2000);
+        SMS.Tips.info('请求完成!', 2000);
     },
 
     //请求成功时触发。
@@ -44,7 +44,7 @@ api.on({
     },
 });
 
-KERP.Tips.loading('请求中...');
+SMS.Tips.loading('请求中...');
 
 //发起 GET 请求
 api.get({

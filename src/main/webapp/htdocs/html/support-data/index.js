@@ -3,8 +3,8 @@
 ; (function () {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var Iframe = KERP.require('Iframe');
+    var SMS = require('SMS');
+    var Iframe = SMS.require('Iframe');
 
     var list = require('List');
     var pager = require('Pager');

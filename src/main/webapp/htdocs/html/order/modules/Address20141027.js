@@ -7,7 +7,7 @@
 
 
 
-var Address = (function ($, MiniQuery, KERP) {
+var Address = (function ($, MiniQuery, SMS) {
 
     var data = [
         {
@@ -275,4 +275,4 @@ var Address = (function ($, MiniQuery, KERP) {
 
 
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);

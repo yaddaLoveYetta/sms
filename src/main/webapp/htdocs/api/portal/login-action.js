@@ -5,7 +5,7 @@
 //可以生成很复杂的动态数据，并根据提交的参数进行处理。
 //具有真正模拟后台逻辑的能力。
 
-KERP.Proxy.response('action', { // action 的分支函数
+SMS.Proxy.response('action', { // action 的分支函数
 
     // action='logout' 时
     'logout': function (data, config) {  //注销 

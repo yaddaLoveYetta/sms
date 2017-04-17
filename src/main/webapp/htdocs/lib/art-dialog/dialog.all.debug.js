@@ -157,7 +157,7 @@ define(function (require) {
 
         draggable: true // by micty
 
-    }, KERP.Dialog.config()) );
+    }, SMS.Dialog.config()) );
 
 
 
@@ -1637,8 +1637,8 @@ define(function (require) {
                         api.setData(data);
                     }
 
-                    var Dialog = KERP.require('Dialog');
-                    var IframeManager = KERP.require('Iframe'); //在 top 页面取到的是 IframeManager 
+                    var Dialog = SMS.require('Dialog');
+                    var IframeManager = SMS.require('Iframe'); //在 top 页面取到的是 IframeManager 
 
                     var key = Dialog.getKey(sn, 'dialog');
                     IframeManager.setData(key, api); //把当前 dialog 实例存起来，方便在嵌入的 iframe 中引用

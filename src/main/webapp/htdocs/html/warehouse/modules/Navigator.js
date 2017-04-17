@@ -8,7 +8,7 @@ define('Navigator', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var div = document.getElementById('div-list');
@@ -88,15 +88,15 @@ define('Navigator', function (require, module, exports) {
 
     function load(pageNo, pageSize, fn) {
 
-        KERP.Tips.loading('数据加载中...');
+        SMS.Tips.loading('数据加载中...');
 
-        KERP.API.get('warehouse/list', {
+        SMS.API.get('warehouse/list', {
             pageNo: pageNo || 1,
             pageSize: pageSize,
 
         }, function (data, json) {
 
-            KERP.Tips.success('加载成功', 1500);
+            SMS.Tips.success('加载成功', 1500);
             fn && fn(data.list, data.total);
 
         });

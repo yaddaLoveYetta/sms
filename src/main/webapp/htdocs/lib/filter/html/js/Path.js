@@ -1,6 +1,6 @@
 ﻿
 
-var Path = (function ($, MiniQuery, KERP) {
+var Path = (function ($, MiniQuery, SMS) {
 
     var ul = document.getElementById('ul-path');
 
@@ -172,5 +172,5 @@ var Path = (function ($, MiniQuery, KERP) {
         }
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 

@@ -6,7 +6,8 @@ define('Login', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
+    var WarnTip = require('WarnTip');
 
 
     var btn = document.getElementById('btn-login');
@@ -33,7 +34,7 @@ define('Login', function (require, module, exports) {
         $(btn).addClass('disabled').html('登录中...');
 
 
-        KERP.Login.login({
+        SMS.Login.login({
             user: user,
             password: password,
 
@@ -62,7 +63,7 @@ define('Login', function (require, module, exports) {
 
     function init() {
 
-        var user = KERP.Login.getLast() || {};
+        var user = SMS.Login.getLast() || {};
         user = user.number || '';
 
         if (user) {

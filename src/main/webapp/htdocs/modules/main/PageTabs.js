@@ -8,7 +8,7 @@ define('PageTabs', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var home = document.getElementById('div-tab-home');
@@ -142,7 +142,7 @@ define('PageTabs', function (require, module, exports) {
 
     function bindEvents() {
 
-        tabs = KERP.Tabs.create({
+        tabs = SMS.Tabs.create({
             container: ul,
             selector: '>li',
             current: 0,

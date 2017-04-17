@@ -2,7 +2,7 @@
 
 
 
-var Demos = (function ($, MiniQuery, KERP) {
+var Demos = (function ($, MiniQuery, SMS) {
 
 
     var ul = document.getElementById('ul-demos');
@@ -119,4 +119,4 @@ var Demos = (function ($, MiniQuery, KERP) {
 
 
 
-})($, MiniQuery, KERP);
+})($, MiniQuery, SMS);

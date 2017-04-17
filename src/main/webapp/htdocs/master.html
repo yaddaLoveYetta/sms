@@ -48,7 +48,10 @@
                     <div id="div-user-list" class="setting-more" style="display:none;">
                         <div class="box">
                             <ul>
-                                <li>修改密码</li>
+                                <li id='btn-change-password'>修改密码</li>
+                            </ul>
+                            <ul>
+                                <li id='btn-logout'>注销</li>
                             </ul>
                         </div>
                     </div>
@@ -257,7 +260,7 @@
 
     <!--Samples.DataSelector--!
         #--selector.begin--#
-            <div class="kerp-F7selector">
+            <div clasmssms-F7selector">
                 <input type="text" data-role="label"  /><span data-role="btn"><i></i></span>
             </div>
         #--selector.end--#
@@ -280,15 +283,15 @@
 
     <!--Samples.ButtonList--!
         #--ul.begin--#
-        <ul class="kerp-btns-menu">
+        <ul clasmssms-btns-menu">
             
             #--item.begin--#
-            <li data-index="{index}" class="kerp-btn-item">{text}</li>
+            <li data-index="{index}" clasmssms-btn-item">{text}</li>
             #--item.end--#
 
             #--group.begin--#
-            <li data-index="{index}" class="kerp-btn-menu {css-class}">
-                <button class="kerp-btn-item">{text}</button>
+            <li data-index="{index}" clasmssms-btn-menu {css-class}">
+                <button clasmssms-btn-item">{text}</button>
                 <ol id="{ol-id}{index}" class="btn-more" style="display:none;">
                     #--group.item.begin--#
                     <li data-index="{index}" data-no="{no}">
@@ -309,7 +312,7 @@
 
     <script src="lib/jquery/jquery-1.11.1.debug.js"></script>
     <script src="lib/miniquery/miniquery.debug.js"></script>
-    <script src="lib/kerp/kerp.debug.js"></script>
+    <script src="lib/sms/sms.debug.js"></script>
     <!--<script src="lib/seajs/seajs.mod.debug.js"></script>-->
     <script src="config.js"></script>
 

@@ -8,7 +8,7 @@ define('Request', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
     
     var API = require('/API');
     
@@ -59,7 +59,7 @@ define('Request', function (require, module, exports) {
             disabled = true;
 
 
-            KERP.Tips.loading('请求中，请稍候...');
+            SMS.Tips.loading('请求中，请稍候...');
 
             var name = $('#txt-name').val();
             var data = $('#txt-data').val();

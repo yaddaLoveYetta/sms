@@ -5,8 +5,8 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
-    var Iframe = KERP.require('Iframe');
+    var SMS = require('SMS');
+    var Iframe = SMS.require('Iframe');
 
     var data = require('data');
     var operations = require('operations');
@@ -32,6 +32,6 @@
         });
     }
     else {
-        KERP.Tips.error('错误！没有对应的辅助资料！');
+        SMS.Tips.error('错误！没有对应的辅助资料！');
     }
 })();

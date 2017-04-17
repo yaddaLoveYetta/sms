@@ -1,4 +1,4 @@
-.kerp-selector label {
+.sms-selector label {
   display: inline-block;
   padding: 0 5px;
   min-width: 90px;
@@ -7,14 +7,14 @@
   border: 1px solid #dddddd;
   cursor: text;
 }
-.kerp-selector input {
+.sms-selector input {
   border: 1px solid #dddddd;
   height: 23px;
   width: 80px;
   padding-left: 5px;
   padding-right: 5px;
 }
-.kerp-selector span {
+.sms-selector span {
   cursor: pointer;
   position: relative;
   vertical-align: top;
@@ -23,7 +23,7 @@
   height: 25px;
   width: 25px;
 }
-.kerp-selector span i {
+.sms-selector span i {
   top: 10px;
   left: 6px;
   position: absolute;

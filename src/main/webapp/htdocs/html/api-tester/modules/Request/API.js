@@ -8,25 +8,25 @@ define('Request/API', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var API = KERP.require('API');
+    var API = SMS.require('API');
 
     var events = [];
 
 
     var defaults = {
         'success': function (data, json) {
-            KERP.Tips.success('请求成功', 2000);
+            SMS.Tips.success('请求成功', 2000);
         },
 
         'fail': function (code, msg, json) {
-            KERP.Tips.error('请求失败', 2000);
+            SMS.Tips.error('请求失败', 2000);
 
         },
 
         'error': function () {
-            KERP.Tips.error('请求发生错误!', 2000);
+            SMS.Tips.error('请求发生错误!', 2000);
         },
 
         'done': function () {

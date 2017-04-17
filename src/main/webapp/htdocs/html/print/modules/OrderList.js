@@ -5,7 +5,7 @@ define('OrderList', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var wrapper = document.getElementById('order-list');
 
@@ -95,7 +95,7 @@ define('OrderList', function (require, exports, module) {
 
                 var item = list[ele.getAttribute('data-index')];
 
-                KERP.CascadePicker.create({
+                SMS.CascadePicker.create({
                     container: '#' + ele.id,
                     selectedValues: [item.deliveryStateID, item.deliveryCityID, item.deliveryDistrictID],
                     defaultTexts: ['--请选择省份--', '--请选择城市--', '--请选择地区--'],

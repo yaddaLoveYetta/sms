@@ -1,7 +1,7 @@
 ﻿
 
 
-var FilterOptions = (function ($, MiniQuery, KERP) {
+var FilterOptions = (function ($, MiniQuery, SMS) {
 
     var emitter = MiniQuery.Event.create();
 
@@ -105,4 +105,4 @@ var FilterOptions = (function ($, MiniQuery, KERP) {
         }
     }
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);

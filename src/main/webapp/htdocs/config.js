@@ -1,6 +1,6 @@
 ﻿
 
-; (function ($, MiniQuery, KERP) {
+; (function ($, MiniQuery, SMS) {
 
  
     /**
@@ -8,7 +8,7 @@
     *
     */
 
-    KERP.config({
+    SMS.config({
 
         // Web 站点的根地址
         Url: {
@@ -18,8 +18,8 @@
         //后台接口
         API: {
             //后台接口的基础地址
-            //url: 'http://172.19.113.112:8080/eshoperp/',  //内网
-            //url: 'http://172.20.131.250:8080/eshoperp/',    //外网
+            //url: 'http://127.0.0.1:8081/sms/',  //内网
+            //url: 'http://172.20.131.250:8080/sms/',    //外网
             url:'http://localhost:8080/',  // 测试环境
             codes: {
                  success: 200,
@@ -38,7 +38,7 @@
             'demo/4': 'api/demo/4.js',
 
 
-            'portal/login': [ //当指定为一个数组时，则起作用的是最后一个
+            'user/login': [ //当指定为一个数组时，则起作用的是最后一个
                 'api/portal/login.js',
                 'api/portal/login-action.js',
 
@@ -185,7 +185,8 @@
         },
 
         Login: {
-            api: 'portal/login',
+            apiLogin: 'user/login',
+            apiLoginout: 'user/loginout',
             actions: {
                 login: 'login',
                 logout: 'logout',
@@ -225,9 +226,9 @@
 
     //调试模式下使用。
     //使用 grunt 工具构建页面后，本区代码可以去掉
-    if (KERP.require('Debug').check()) {
+    if (SMS.require('Debug').check()) {
 
-        var Module = KERP.require('Module');
+        var Module = SMS.require('Module');
         var define = Module.define;
 
         define('$', function () {
@@ -238,8 +239,8 @@
             return window.MiniQuery;
         });
 
-        define('KERP', function () {
-            return window.KERP;
+        define('SMS', function () {
+            return window.SMS;
         });
 
         window.define = define;
@@ -248,6 +249,6 @@
     
     
 
-})(jQuery, MiniQuery, KERP);
+})(jQuery, MiniQuery, SMS);
 
 

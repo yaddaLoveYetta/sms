@@ -5,7 +5,7 @@
 define('Operation', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
     var emitter = MiniQuery.Event.create();
 
     var hasBind = false;
@@ -25,7 +25,7 @@ define('Operation', function (require, module, exports) {
         $('#btn-add').bind('click', function () {
             var btn = this;
 
-            KERP.use('Dialog', function (Dialog) {
+            SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
                     id: 'add-dialog',
                     title: '新增',

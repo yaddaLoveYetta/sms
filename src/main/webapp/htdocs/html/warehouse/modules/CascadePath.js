@@ -8,7 +8,7 @@ define('CascadePath', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     
     var emitter = MiniQuery.Event.create();

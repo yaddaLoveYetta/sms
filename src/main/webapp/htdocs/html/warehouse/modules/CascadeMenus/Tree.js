@@ -8,7 +8,7 @@ define('CascadeMenus/Tree', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     //用深度优先的遍历方式把树形结构的数据线性化成一个一维的数组。

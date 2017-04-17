@@ -8,7 +8,7 @@ define('Sidebar', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     
 
@@ -61,7 +61,7 @@ define('Sidebar', function (require, module, exports) {
 
 
 
-        KERP.Template.fill(ul, list, function (item, index) {
+        SMS.Template.fill(ul, list, function (item, index) {
 
             return {
                 'index': index,
@@ -78,7 +78,7 @@ define('Sidebar', function (require, module, exports) {
 
     function bindEvents() {
 
-        tabs = KERP.Tabs.create({
+        tabs = SMS.Tabs.create({
 
             container: ul,
             selector: '>li',

@@ -1,4 +1,4 @@
-﻿var ap3 = new KERP.CascadePicker({
+﻿var ap3 = new SMS.CascadePicker({
     container: '#div-address-picker-3',
     selectedIndexes: [-1, -1, -1],
     hideNone: false,

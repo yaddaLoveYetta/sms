@@ -8,7 +8,7 @@
                 { "text": "JS 代码" }
             ],
             "panels": [
-                { "type": "js", "content": "KERP.Login.show();" }
+                { "type": "js", "content": "SMS.Login.show();" }
             ]
         }
         

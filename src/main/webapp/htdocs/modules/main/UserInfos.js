@@ -8,19 +8,19 @@ define('UserInfos', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
 
     var panel = document.getElementById('li-user-infos');
-    var user = KERP.Login.get();
+    var user = SMS.Login.get();
 
 
     function render() {
 
 
         //批量填充
-        KERP.Template.fill({
+        SMS.Template.fill({
             '#span-user-name': {
                 name: user.name
             },
@@ -36,7 +36,9 @@ define('UserInfos', function (require, module, exports) {
             hide();
         });
 
-
+        $('#btn-change-password').on('click', function() {
+            openChangePwd();
+        });
 
         $('#btn-logout').on('click', function () {
 
@@ -45,7 +47,7 @@ define('UserInfos', function (require, module, exports) {
             $(btn).addClass('disabled');
 
 
-            KERP.Login.logout(function (user, data, json) { //成功
+            SMS.Login.logout(function (user, data, json) { //成功
 
                 location.href = 'login.html';
 

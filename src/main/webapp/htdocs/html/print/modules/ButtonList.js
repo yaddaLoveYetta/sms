@@ -9,9 +9,9 @@ define('ButtonList', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var ButtonList = KERP.require('ButtonList');
+    var ButtonList = SMS.require('ButtonList');
 
     var bl = new ButtonList({
         container: '#div-button-list',
@@ -66,7 +66,7 @@ define('ButtonList', function (require, module, exports) {
             {
                 name: '填写物流单号',
                 click: function () {
-                    KERP.use('Dialog', function (Dialog) {
+                    SMS.use('Dialog', function (Dialog) {
 
                         var dialog = new Dialog({
                             id: 'test-dialog',
@@ -93,7 +93,7 @@ define('ButtonList', function (require, module, exports) {
             {
                 name: '批量修改',
                 click: function () {
-                    KERP.use('Dialog', function (Dialog) {
+                    SMS.use('Dialog', function (Dialog) {
 
                         var dialog = new Dialog({
                             id: 'test-dialog',

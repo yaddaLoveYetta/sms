@@ -1,4 +1,4 @@
-﻿KERP.CascadePicker.create({
+﻿SMS.CascadePicker.create({
     container: '#div-address-picker-4',
     selectedIndexes: [-1, -1, -1],
     hideNone: true,

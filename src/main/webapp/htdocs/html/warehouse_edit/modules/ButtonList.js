@@ -8,9 +8,9 @@ define('ButtonList', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var ButtonList = KERP.require('ButtonList');
+    var ButtonList = SMS.require('ButtonList');
 
     var emitter = MiniQuery.Event.create();
 

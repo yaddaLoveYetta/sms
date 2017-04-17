@@ -8,7 +8,7 @@ define('Menus', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
 
     var ul = document.getElementById('ul-sidebar-menus');
@@ -75,7 +75,7 @@ define('Menus', function (require, module, exports) {
         currentIndex = -1;
         div.className = 'menus-more';
 
-        tabs = KERP.Tabs.create({
+        tabs = SMS.Tabs.create({
             container: ul,
             selector: '>li',
             current: null,
@@ -157,7 +157,7 @@ define('Menus', function (require, module, exports) {
         currentIndex = index;
         list = config.data;
 
-        KERP.Template.fill(ul, list, function (item, index) {
+        SMS.Template.fill(ul, list, function (item, index) {
             return {
                 index: index,
                 name: item.name,

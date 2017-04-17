@@ -2,7 +2,7 @@
 
 
 
-var Panels = (function ($, MiniQuery, KERP, HLJS) {
+var Panels = (function ($, MiniQuery, SMS, HLJS) {
 
 
 
@@ -319,4 +319,4 @@ var Panels = (function ($, MiniQuery, KERP, HLJS) {
     });
 
 
-})($, MiniQuery, KERP, hljs);
+})($, MiniQuery, SMS, hljs);

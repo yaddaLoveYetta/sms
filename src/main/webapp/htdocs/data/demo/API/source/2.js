@@ -2,7 +2,7 @@
 
 
 
-var api = new KERP.API('demo/2', {
+var api = new SMS.API('demo/2', {
 
     pageSize: 10,
     pageNo: 1,

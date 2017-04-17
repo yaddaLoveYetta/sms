@@ -8,11 +8,11 @@ define('ButtonList', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
-    var ButtonList = KERP.require('ButtonList');
-    var Iframe = KERP.require('Iframe');
-    var API = KERP.require('API');
+    var ButtonList = SMS.require('ButtonList');
+    var Iframe = SMS.require('Iframe');
+    var API = SMS.require('API');
 
     var bl = new ButtonList({
         container: '#div-button-list',

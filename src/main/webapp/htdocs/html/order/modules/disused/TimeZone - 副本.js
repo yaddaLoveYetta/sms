@@ -5,7 +5,7 @@ define('TimeZone', function (require, exports, module) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var KERP = require('KERP');
+    var SMS = require('SMS');
 
     var wrapper = document.getElementById('ul-filter');
 
@@ -51,7 +51,7 @@ define('TimeZone', function (require, exports, module) {
 
     function createTimePidcker(id) {
 
-        KERP.use('DateTimePicker', function (DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var dtp = new DateTimePicker('#' + id, {
                 format: 'hh:ii',

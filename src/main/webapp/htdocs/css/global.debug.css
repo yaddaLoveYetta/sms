@@ -1,5 +1,5 @@
 /* 2015-02-03 */ 
-.kerp-F7selector label {
+.sms-F7selector label {
   display: inline-block;
   padding: 0 5px;
   min-width: 90px;
@@ -8,14 +8,14 @@
   border: 1px solid #dddddd;
   cursor: text;
 }
-.kerp-F7selector input {
+.sms-F7selector input {
   border: 1px solid #dddddd;
   height: 23px;
   width: 80px;
   padding-left: 5px;
   padding-right: 5px;
 }
-.kerp-F7selector span {
+.sms-F7selector span {
   cursor: pointer;
   position: relative;
   vertical-align: top;
@@ -24,7 +24,7 @@
   height: 25px;
   width: 25px;
 }
-.kerp-F7selector span i {
+.sms-F7selector span i {
   top: 10px;
   left: 6px;
   position: absolute;
@@ -32,41 +32,41 @@
   border-color: #ffffff transparent transparent transparent;
   border-width: 6px;
 }
-.kerp-btn-menu {
+.sms-btn-menu {
   display: inline-block;
 }
-.kerp-btn-menu .kerp-btn-item {
+.sms-btn-menu .sms-btn-item {
   -webkit-border-top-right-radius: 0;
   border-top-right-radius: 0;
   -webkit-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.kerp-btn-menu .btn-more {
+.sms-btn-menu .btn-more {
   height: 0;
   overflow: hidden;
   position: absolute;
   background: #54add3;
   z-index: 20;
 }
-.kerp-btn-menu .btn-more li {
+.sms-btn-menu .btn-more li {
   text-align: center;
   min-width: 80px;
   background-color: transparent;
   font-size: 14px;
 }
-.kerp-btn-menu .btn-more li:hover {
+.sms-btn-menu .btn-more li:hover {
   background: #3297c2;
 }
-.kerp-btn-menu .btn-more a {
+.sms-btn-menu .btn-more a {
   display: inline-block;
   color: #fff;
   text-decoration: none;
   padding: 2px 0;
 }
-.kerp-btn-menu ol.on {
+.sms-btn-menu ol.on {
   height: auto;
 }
-.kerp-btn-menu .bt-dropdown {
+.sms-btn-menu .bt-dropdown {
   vertical-align: middle;
   display: inline-block;
   height: 25px;
@@ -81,14 +81,14 @@
   -webkit-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-.kerp-btn-menu .bt-dropdown:hover .icon-dropdown {
+.sms-btn-menu .bt-dropdown:hover .icon-dropdown {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-.kerp-btn-menu .bt-dropdown .icon-dropdown {
+.sms-btn-menu .bt-dropdown .icon-dropdown {
   position: absolute;
   border: solid;
   border-color: #ffffff transparent transparent transparent;
@@ -105,21 +105,21 @@
   -webkit-transform-origin: 50% 25%;
   transform-origin: 50% 25%;
 }
-.kerp-btn-menu span.on .icon-dropdown {
+.sms-btn-menu span.on .icon-dropdown {
   -moz-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
   -o-transform: rotate(-180deg);
   -webkit-transform: rotate(-180deg);
   transform: rotate(-180deg);
 }
-.kerp-btn-menu span.on:hover .icon-dropdown {
+.sms-btn-menu span.on:hover .icon-dropdown {
   -moz-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
   -o-transform: rotate(-180deg);
   -webkit-transform: rotate(-180deg);
   transform: rotate(-180deg);
 }
-.kerp-btn-item {
+.sms-btn-item {
   border: none;
   font-size: 14px;
   color: #fff;
@@ -134,7 +134,7 @@
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
-.kerp-btn-item:hover {
+.sms-btn-item:hover {
   text-decoration: none;
   background: #3297c2;
 }
