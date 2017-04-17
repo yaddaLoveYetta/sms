@@ -1,6 +1,4 @@
 ﻿
-
-
 //控制器
 ; (function ($, MiniQuery, sms) {
 
