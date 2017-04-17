@@ -31,30 +31,29 @@ public class UserController {
 
 		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
 		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-		
-//
-//		Map<String, Object> params = new HashMap<String, Object>();
-//		params.put("classID", classID);
-//		params.put("pageSize", pageSize);
-//		params.put("pageNo", pageNo);
-//		params.put("condition", condition);
-//		params.put("orderBy", orderBy);
-//		params.put("orderDirection", "asc");
-//
-//		if (orderBy.equals("")) {
-//			JSONArray orderByArray = new JSONArray();
-//			JSONObject orderByItem = new JSONObject();
-//			orderByItem.put("fieldKey", "FNumber");
-//			orderByItem.put("orderDirection", "ASC");
-//			orderByArray.add(orderByItem);
-//
-//			orderByItem = new JSONObject();
-//			orderByItem.put("fieldKey", "FName");
-//			orderByItem.put("orderDirection", "ASC");
-//			orderByArray.add(orderByItem);
-//
-//			params.put("orderBy", orderByArray.toString());
-//		}
+
+		// Map<String, Object> params = new HashMap<String, Object>();
+		// params.put("classID", classID);
+		// params.put("pageSize", pageSize);
+		// params.put("pageNo", pageNo);
+		// params.put("condition", condition);
+		// params.put("orderBy", orderBy);
+		// params.put("orderDirection", "asc");
+		//
+		// if (orderBy.equals("")) {
+		// JSONArray orderByArray = new JSONArray();
+		// JSONObject orderByItem = new JSONObject();
+		// orderByItem.put("fieldKey", "FNumber");
+		// orderByItem.put("orderDirection", "ASC");
+		// orderByArray.add(orderByItem);
+		//
+		// orderByItem = new JSONObject();
+		// orderByItem.put("fieldKey", "FName");
+		// orderByItem.put("orderDirection", "ASC");
+		// orderByArray.add(orderByItem);
+		//
+		// params.put("orderBy", orderByArray.toString());
+		// }
 
 	}
 }

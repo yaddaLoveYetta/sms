@@ -14,7 +14,9 @@ import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.UserMapper;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
+import com.kingdee.eas.hrp.sms.service.api.user.ILoginService;
 import com.kingdee.eas.hrp.sms.service.api.user.IUserServeice;
+import com.kingdee.eas.hrp.sms.util.Environ;
 
 @Service
 public class UserService implements IUserServeice {
@@ -30,12 +32,12 @@ public class UserService implements IUserServeice {
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
 		UserExample example = new UserExample();
-//		example.setOrderByClause("userId");
+		// example.setOrderByClause("userId");
 		example.setOrderByClause("userId desc ,name asc");
 
-//		Criteria criteria = example.createCriteria();
-//		criteria.andUserIdEqualTo(2);
-		
+		// Criteria criteria = example.createCriteria();
+		// criteria.andUserIdEqualTo(2);
+
 		List<User> list = mapper.selectByExample(example);
 
 		System.out.println(page.getTotal());
