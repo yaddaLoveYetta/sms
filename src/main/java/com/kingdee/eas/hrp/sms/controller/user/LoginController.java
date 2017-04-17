@@ -34,6 +34,7 @@ public class LoginController {
 
 		String username = ParameterUtils.getParameter(request, "username", "");
 		String password = ParameterUtils.getParameter(request, "password", "");
+		int type = ParameterUtils.getParameter(request, "type", -1);
 
 		// logger.debug("{},{}", username, password);
 
@@ -41,8 +42,11 @@ public class LoginController {
 		if ("".equals(username) || "".equals(password)) {
 			throw new BusinessLogicRunTimeException("用户名或密码不能为空!");
 		}
+		if (type < 0) {
+			throw new BusinessLogicRunTimeException("用户类别不能为空！");
+		}
 
-		User user = loginService.login(username, password);
+		User user = loginService.login(username, password, type);
 
 		if (null != user && user.getUserId() > 0) {
 

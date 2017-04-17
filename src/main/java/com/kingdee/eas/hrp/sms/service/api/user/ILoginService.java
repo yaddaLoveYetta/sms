@@ -4,5 +4,5 @@ import com.kingdee.eas.hrp.sms.model.User;
 
 public interface ILoginService {
 
-	User login(String username, String password);
+	User login(String username, String password, int type);
 }

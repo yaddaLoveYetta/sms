@@ -2,9 +2,6 @@ package com.kingdee.eas.hrp.sms.service.impl.user;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
 import com.kingdee.eas.hrp.sms.dao.UserMapper;
@@ -21,15 +18,17 @@ public class LoginService extends BaseService implements ILoginService {
 
 	@ServiceLog(desc = "登录服务")
 	@Override
-	public User login(String username, String password) {
+	public User login(String username, String password, int type) {
 
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
 		UserExample example = new UserExample();
 
 		Criteria criteria = example.createCriteria();
+
 		criteria.andNameEqualTo(username);
 		criteria.andPasswordEqualTo(password);
+		criteria.andTypeEqualTo(type);
 
 		List<User> users = mapper.selectByExample(example);
 
