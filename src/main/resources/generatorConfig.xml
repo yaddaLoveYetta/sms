@@ -19,6 +19,8 @@
 		<property name="endingDelimiter" value="]" />
 
 		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
+		
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 
 		<commentGenerator>
 			<property name="suppressDate" value="false" />
