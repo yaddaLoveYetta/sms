@@ -40,4 +40,18 @@ public class FormClass {
     public void setPrimaryKey(String primaryKey) {
         this.primaryKey = primaryKey == null ? null : primaryKey.trim();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", classId=").append(classId);
+        sb.append(", name=").append(name);
+        sb.append(", tableName=").append(tableName);
+        sb.append(", primaryKey=").append(primaryKey);
+        sb.append("]");
+        return sb.toString();
+    }
 }
