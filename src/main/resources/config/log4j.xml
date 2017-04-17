@@ -63,24 +63,9 @@
 
 	<!-- 把DEBUG信息输出到日志文件 -->
 
-	<appender name="DEBUGLog" class="org.apache.log4j.RollingFileAppender"> 
+	<appender name="DEBUGLog" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="${webapp.root}/logs/debug" />
 		<param name="Append" value="true" />
-		<param name="MaxFileSize" value="1024KB" />
-		<param name="MaxBackupIndex" value="2" />
-		<layout class="org.apache.log4j.PatternLayout">
-		  <param name="ConversionPattern" value="%-5p  %d{MM月dd号 HH:mm}	%X{userId}	%X{userName}  %-36c %M %5L  %m%n" />
-		</layout>
-		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-		<param name="LevelMin" value="DEBUG" />
-		<param name="LevelMax" value="DEBUG" />
-		</filter>
-	</appender>
-
-	<!-- <appender name="DEBUGLog" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="${webapp.root}/logs/debug" />
-		<param name="Append" value="true" />
-		<param name="datePattern" value="'-'yyyy-MM-dd'.log'" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex" value="2" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -90,7 +75,13 @@
 			<param name="LevelMin" value="DEBUG" />
 			<param name="LevelMax" value="DEBUG" />
 		</filter>
-	</appender> -->
+	</appender>
+
+	<!-- <appender name="DEBUGLog" class="org.apache.log4j.DailyRollingFileAppender"> <param name="File" value="${webapp.root}/logs/debug" 
+		/> <param name="Append" value="true" /> <param name="datePattern" value="'-'yyyy-MM-dd'.log'" /> <param name="MaxFileSize" 
+		value="1024KB" /> <param name="MaxBackupIndex" value="2" /> <layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" 
+		value="%-5p %d{MM月dd号 HH:mm} %X{userId} %X{userName} %-36c %M %5L %m%n" /> </layout> <filter class="org.apache.log4j.varia.LevelRangeFilter"> 
+		<param name="LevelMin" value="DEBUG" /> <param name="LevelMax" value="DEBUG" /> </filter> </appender> -->
 
 	<!-- 把INFO信息输出到日志文件 -->
 
@@ -128,10 +119,15 @@
 
 	<!-- 把ERROR信息输出到日志文件 -->
 
-	<!-- <appender name="ERRORLog" class="org.apache.log4j.DailyRollingFileAppender">
+	<!-- <appender name="ERRORLog" class="org.apache.log4j.DailyRollingFileAppender"> <param name="File" value="${webapp.root}/logs/error" 
+		/> <param name="Append" value="true" /> <param name="datePattern" value="'-'yyyy-MM-dd'.log'" /> <param name="MaxFileSize" 
+		value="1024KB" /> <param name="MaxBackupIndex" value="2" /> <layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" 
+		value="%-5p %d{MM月dd号 HH:mm} %-36c %M %5L %m%n" /> </layout> <filter class="org.apache.log4j.varia.LevelRangeFilter"> <param 
+		name="LevelMin" value="ERROR" /> <param name="LevelMax" value="ERROR" /> </filter> </appender> -->
+
+	<appender name="ERRORLog" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="${webapp.root}/logs/error" />
 		<param name="Append" value="true" />
-		<param name="datePattern" value="'-'yyyy-MM-dd'.log'" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex" value="2" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -141,27 +137,12 @@
 			<param name="LevelMin" value="ERROR" />
 			<param name="LevelMax" value="ERROR" />
 		</filter>
-	</appender> -->
-	
-	<appender name="ERRORLog" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${webapp.root}/logs/error" />
-		<param name="Append" value="true" />
-		<param name="MaxFileSize" value="1024KB" />
-		<param name="MaxBackupIndex" value="2" />
-		<layout class="org.apache.log4j.PatternLayout">
-		  <param name="ConversionPattern" value="%-5p  %d{MM月dd号 HH:mm}  %-36c %M %5L  %m%n" />
-		</layout>
-		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-		<param name="LevelMin" value="ERROR" />
-		<param name="LevelMax" value="ERROR" />
-		</filter>
 	</appender>
 
 
 	<!-- 把INFO信息输出到数据库中 -->
 	<appender name="INFOJDBC" class="org.apache.log4j.jdbc.JDBCAppender">
-		<param name="URL"
-			value="jdbc:mysql://127.0.0.1:3306/hrp-sms_new?useUincode=true&amp;characterEncoding=utf-8" />
+		<param name="URL" value="jdbc:mysql://127.0.0.1:3306/hrp-sms_new?useUincode=true&amp;characterEncoding=utf-8" />
 		<param name="driver" value="com.mysql.jdbc.Driver" />
 		<param name="user" value="root" />
 		<param name="password" value="" />
@@ -194,13 +175,18 @@
 	<!-- 记录该包下所有日志-分文件记录-其中info还记录到数据库中 -->
 	<logger name="com.kingdee.eas.hrp.sms" additivity="false">
 		<level value="debug" />
-<!-- 		<appender-ref ref="INFOJDBC" /> -->
-<!-- 		<appender-ref ref="DEBUGLog" /> -->
-<!-- 		<appender-ref ref="INFOLog" /> -->
-<!-- 		<appender-ref ref="WARNLog" /> -->
-<!-- 		<appender-ref ref="ERRORLog" /> -->
+		<!-- <appender-ref ref="INFOJDBC" /> -->
+		<!-- <appender-ref ref="DEBUGLog" /> -->
+		<!-- <appender-ref ref="INFOLog" /> -->
+		<!-- <appender-ref ref="WARNLog" /> -->
+		<!-- <appender-ref ref="ERRORLog" /> -->
 		<appender-ref ref="DEBUG-ERRPRConsole" />
 	</logger>
+
+	<!-- <logger additivity="false"> -->
+	<!-- <level value="debug" /> -->
+	<!-- <appender-ref ref="IBatis" /> -->
+	<!-- </logger> -->
 
 	<!-- 根logger的设置 -->
 

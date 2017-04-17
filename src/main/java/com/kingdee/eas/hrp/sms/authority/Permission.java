@@ -1,4 +1,4 @@
-package com.kingdee.eas.hrp.sms.filter;
+package com.kingdee.eas.hrp.sms.authority;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -10,8 +10,10 @@ import java.lang.annotation.Target;
 /**
  * 系统权限验证注解
  * 
- * @author Administrator
- *
+ * @ClassName Permission
+ * @Description 方法上 有此注解表示要进行权限验证
+ * @author yadda
+ * @date 2017-04-15 20:20:06 星期六
  */
 @Documented
 @Inherited
@@ -37,7 +39,7 @@ public @interface Permission {
 	 * 
 	 * @return
 	 */
-	int objectID(); // 子系统类别
+	int objectId(); // 子系统类别
 
 	/**
 	 * 权限掩码，预置的各类权限项代码

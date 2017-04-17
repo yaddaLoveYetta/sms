@@ -18,16 +18,16 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
-import com.kingdee.eas.hrp.sms.domain.User;
-import com.kingdee.eas.hrp.sms.service.api.sys.ILog;
+import com.kingdee.eas.hrp.sms.model.User;
+import com.kingdee.eas.hrp.sms.service.api.sys.ILogService;
 
 /**
+ * 系统日志统一处理
  * 
- * @ClassName: LogAspect
- * @Description: 日志记录切点类，记录操作日志
+ * @ClassName LogAspect
+ * @Description 日志记录切点类，记录操作日志
  * @author yadda
- * @date 2017年4月14日 下午2:26:21
- *
+ * @date 2017-04-15 20:22:14 星期六
  */
 @Aspect
 @Component
@@ -35,7 +35,7 @@ public class LogAspect {
 
 	// 注入Service用于把日志保存数据库
 	@Resource
-	private ILog logService;
+	private ILogService logService;
 	// 本地异常日志记录对象
 	private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
@@ -58,8 +58,7 @@ public class LogAspect {
 	@Before("controllerAspect()")
 	public void doBefore(JoinPoint joinPoint) {
 
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-				.getRequest();
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		HttpSession session = request.getSession();
 
 		// 读取session中的用户
@@ -71,8 +70,7 @@ public class LogAspect {
 		try {
 			// *========控制台输出=========*//
 			System.out.println("=====前置通知开始=====");
-			System.out.println("请求方法:"
-					+ (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
+			System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
 			System.out.println("方法描述:" + getControllerMethodDesc(joinPoint));
 			System.out.println("请求人:" + user.getName());
 			System.out.println("请求IP:" + ip);
@@ -97,8 +95,8 @@ public class LogAspect {
 
 		} catch (Exception e) {
 			// 记录本地异常日志
-			logger.error("==前置通知异常==");
-			logger.error("异常信息:{}", e.getMessage());
+			// logger.error("==前置通知异常==");
+			// logger.error("异常信息:{}", e.getMessage());
 		}
 	}
 
@@ -111,8 +109,7 @@ public class LogAspect {
 	@AfterThrowing(pointcut = "serviceAspect()", throwing = "e")
 	public void doAfterThrowing(JoinPoint joinPoint, Throwable e) {
 
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-				.getRequest();
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
 		// 读取session中的用户
 		User user = (User) request.getSession().getAttribute("user");
@@ -136,10 +133,9 @@ public class LogAspect {
 			System.out.println("=====异常通知开始=====");
 			System.out.println("异常代码:" + e.getClass().getName());
 			System.out.println("异常信息:" + e.getMessage());
-			System.out.println("异常方法:"
-					+ (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
+			System.out.println("异常方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
 			System.out.println("方法描述:" + getServiceMthodDesc(joinPoint));
-			//System.out.println("请求人:" + user.getName());
+			System.out.println("请求人:" + user.getName());
 			System.out.println("请求IP:" + ip);
 			System.out.println("请求参数:" + params);
 
@@ -166,9 +162,7 @@ public class LogAspect {
 			logger.error("异常信息:{}", ex.getMessage());
 		}
 		/* ==========记录本地异常日志========== */
-		logger.error("异常方法:{}异常代码:{}异常信息:{}参数:{}",
-				joinPoint.getTarget().getClass().getName() + joinPoint.getSignature().getName(), e.getClass().getName(),
-				e.getMessage(), params);
+		logger.error("异常方法:{}异常代码:{}异常信息:{}参数:{}", joinPoint.getTarget().getClass().getName() + joinPoint.getSignature().getName(), e.getClass().getName(), e.getMessage(), params);
 
 	}
 
