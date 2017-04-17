@@ -18,9 +18,8 @@
         //后台接口
         API: {
             //后台接口的基础地址
-            //url: 'http://127.0.0.1:8081/sms/',  //内网
+            url: 'http://127.0.0.1:8081/sms/',  //内网
             //url: 'http://172.20.131.250:8080/sms/',    //外网
-            url:'http://localhost:8080/',  // 测试环境
             codes: {
                  success: 200,
             },
@@ -39,8 +38,8 @@
 
 
             'user/login': [ //当指定为一个数组时，则起作用的是最后一个
-                'api/portal/login.js',
-                'api/portal/login-action.js',
+                //'api/portal/login.js',
+               // 'api/portal/login-action.js',
 
             ],
 

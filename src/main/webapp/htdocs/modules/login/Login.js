@@ -1,6 +1,4 @@
-﻿
-
-//登录模块
+﻿//登录模块
 define('Login', function (require, module, exports) {
 
 
@@ -9,13 +7,15 @@ define('Login', function (require, module, exports) {
     var SMS = require('SMS');
     var WarnTip = require('WarnTip');
 
+    var emitter = MiniQuery.Event.create();
+
 
     var btn = document.getElementById('btn-login');
     var txtUser = document.getElementById('txt-user');
     var txtPassword = document.getElementById('txt-password');
 
 
-    function login() {
+    function login(loginType) {
 
         if ($(btn).hasClass('disabled')) {
             return;
@@ -37,7 +37,7 @@ define('Login', function (require, module, exports) {
         SMS.Login.login({
             user: user,
             password: password,
-
+            type: loginType,
         }, function (user, data, json) { //成功
 
             location.href = 'master.html';
@@ -76,16 +76,20 @@ define('Login', function (require, module, exports) {
 
         $(btn).on('click', function (event) {
 
-            var isOK = login();
-            if (isOK === false) {
-                event.stopPropagation();
-            }
+            event.stopPropagation();
+            emitter.fire('login');
+
+            // var isOK = login();
+            // if (isOK === false) {
+            //     event.stopPropagation();
+            // }
         });
     }
 
     return {
         init: init,
-        login: login
+        login: login,
+        on: emitter.on.bind(emitter),
     };
 });
 
