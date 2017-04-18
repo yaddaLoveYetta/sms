@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -16,9 +13,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.customize.CSysDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
-import com.kingdee.eas.hrp.sms.model.Role;
-import com.kingdee.eas.hrp.sms.model.RoleExample;
-import com.kingdee.eas.hrp.sms.model.RoleExample.Criteria;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
 import com.kingdee.eas.hrp.sms.service.api.user.IRoleService;

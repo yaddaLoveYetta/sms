@@ -60,12 +60,12 @@
 	<mappers>
 
 		<!----------------------------- 生成工具生成Mapper -------------begin---->
-		<mapper resource="mapper/UserMapper.xml" />
+		<mapper resource="mapper/generate/UserMapper.xml" />
 		<!----------------------------- 生成工具生成Mapper ---------------end---->
 		
 		<!----------------------------- 复杂Mapper -------------begin---->
-		<mapper resource="mapper/UserMapper.xml" />
-		<!----------------------------- 生成工具生成Mapper ---------------end---->
+		<mapper resource="mapper/SYS_UserDaoMapper.xml.xml" />
+		<!----------------------------- 复杂Mapper ---------------end---->
 		
 	</mappers>
 
