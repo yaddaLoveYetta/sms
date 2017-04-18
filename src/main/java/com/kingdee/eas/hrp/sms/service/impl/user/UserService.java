@@ -13,6 +13,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.customize.CSysDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
+import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.model.Role;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
 import com.kingdee.eas.hrp.sms.service.api.user.IRoleService;
@@ -81,7 +83,12 @@ public class UserService extends BaseService implements IUserService {
 		IRoleService roleService = Environ.getBean(IRoleService.class);
 
 		// 获取用户角色
-		int roleId = roleService.getRole(userId).getRoleId();
+		Role role = roleService.getRole(userId);
+		if (null == role) {
+			throw new BusinessLogicRunTimeException("用户角色错误，请先给该用户绑定角色！");
+		}
+
+		int roleId = role.getRoleId();
 
 		// 获取该角色所有的权限
 		Map<String, Object> accessMap = roleService.getAccessByRole(roleId);
@@ -98,7 +105,7 @@ public class UserService extends BaseService implements IUserService {
 		for (Map<String, Object> menu : menuList) {
 			String topClassId = menu.get("topClassId").toString();
 			String objectType = menu.get("objectType").toString(); // 菜单对应的objectType - 即菜单要验证的权限类型
-			String objectId = menu.get("objectID").toString(); // 菜单对应的objectID- 即菜单要验证的权限明细
+			String objectId = menu.get("objectId").toString(); // 菜单对应的objectID- 即菜单要验证的权限明细
 			int accessMask = Integer.parseInt(menu.get("accessMask").toString()); // 系统定义的菜单项权限
 
 			String subSysAccess = objectType + "-" + objectId;

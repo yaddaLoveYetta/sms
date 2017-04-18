@@ -37,7 +37,7 @@ public class RoleService extends BaseService implements IRoleService {
 
 		for (AccessControl item : list) {
 
-			accessMap.put(item.getObjectType() + "" + item.getObjectId(), item.getAccessMask());
+			accessMap.put(item.getObjectType() + "-" + item.getObjectId(), item.getAccessMask());
 		}
 
 		return accessMap;

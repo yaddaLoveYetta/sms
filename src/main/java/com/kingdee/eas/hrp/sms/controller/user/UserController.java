@@ -46,7 +46,7 @@ public class UserController {
 		List<Map<String, Object>> sidebars = userService.getSysMenu(type, userId);
 
 		if (sidebars == null || sidebars.size() == 0) {
-			throw new BusinessLogicRunTimeException("用户无任何权限，请先为用户配置权限!");
+			throw new BusinessLogicRunTimeException("用户无任何权限，请先联系管理员为你配置权限!");
 		}
 
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, sidebars);
