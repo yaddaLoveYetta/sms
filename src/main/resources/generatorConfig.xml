@@ -100,7 +100,13 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
+		<table tableName="t_sms_objectAccessType" domainObjectName="ObjectAccessType">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
 		<table tableName="t_sms_role" domainObjectName="Role">
 
 			<property name="useActualColumnNames" value="true" />
