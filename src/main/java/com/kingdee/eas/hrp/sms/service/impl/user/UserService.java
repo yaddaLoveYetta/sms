@@ -1,6 +1,8 @@
 package com.kingdee.eas.hrp.sms.service.impl.user;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -11,18 +13,20 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.kingdee.eas.hrp.sms.dao.RoleMapper;
 import com.kingdee.eas.hrp.sms.dao.UserMapper;
+import com.kingdee.eas.hrp.sms.model.Role;
+import com.kingdee.eas.hrp.sms.model.RoleExample;
+import com.kingdee.eas.hrp.sms.model.RoleExample.Criteria;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
-import com.kingdee.eas.hrp.sms.service.api.user.ILoginService;
-import com.kingdee.eas.hrp.sms.service.api.user.IUserServeice;
+import com.kingdee.eas.hrp.sms.service.api.user.IRoleService;
+import com.kingdee.eas.hrp.sms.service.api.user.IUserService;
+import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.Environ;
 
 @Service
-public class UserService implements IUserServeice {
-
-	@Resource
-	private SqlSession sqlSession;
+public class UserService extends BaseService implements IUserService {
 
 	@Override
 	public List<User> getUserList(int pageNum, int pageSize) {
@@ -69,6 +73,108 @@ public class UserService implements IUserServeice {
 		// assertEquals(false, page.isLastPage());
 		// assertEquals(false, page.isHasPreviousPage());
 		// assertEquals(true, page.isHasNextPage());
+
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getSysMenu(int type, int userId) {
+
+		IUserService userService = Environ.getBean(IUserService.class);
+
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+
+//		IRoleService roleService=Environ.getBean(IRoleService.class);
+//		
+//		// 获取用户角色
+//		int roleID = roleService.getRole(userId).getRoleId();
+//		
+//		// 获取该角色所有的权限
+//		Map<String, Object> accessMap = userService.getAccessByRoleID(roleID);
+//
+//		// 根据用户类别获取所有系统菜单
+//		// 平台用户-t_DataFlowSubSystem中配置为1,供应链用户-t_DataFlowSubSystem中配置为2
+//		int ownerType = type == 50801 ? 1 : type == 50802 ? 2 : 3;
+//
+//		List<Map<String, Object>> menuList = userService.getSysMenu(ownerType);
+//		// 根据用户权限过滤菜单
+//		for (Map<String, Object> menu : menuList) {
+//			String topClassID = menu.get("FTopClassID").toString();
+//			String objectType = menu.get("FObjectType").toString(); // 菜单对应的objectType - 即菜单要验证的权限类型
+//			String objectID = menu.get("FObjectID").toString(); // 菜单对应的objectID- 即菜单要验证的权限明细
+//			int accessMask = Integer.parseInt(menu.get("FAccessMask").toString()); // 系统定义的菜单项权限
+//			String subSysAccess = objectType + "-" + objectID;
+//
+//			// 用户对subSysAccess的权限
+//			int userAccess = 0;
+//			if (accessMap.containsKey(subSysAccess)) {
+//				userAccess = Integer.parseInt(accessMap.get(subSysAccess).toString());
+//			}
+//			// userAccess > 0 处理没有配置子系统权限的情况 ，accessMask > 0 处理没有配置index=0进入页面权限的情况. 0 & any==0
+//			if (userAccess > 0 && accessMask > 0 && (userAccess & accessMask) == accessMask) {
+//				// 有权限
+//				int index = contains(result, topClassID);
+//				if (index >= 0) {
+//					// 已存在顶级菜单
+//					Map<String, Object> item = result.get(index);
+//					Map<String, Object> items = new HashMap<String, Object>();
+//					items.put("topClassID", menu.get("FTopClassID"));
+//					items.put("subSysID", menu.get("FSubSysID"));
+//					items.put("name", menu.get("FName"));
+//					items.put("url", menu.get("FUrl"));
+//					items.put("icon", menu.get("FIcon"));
+//
+//					if (item.containsKey("items")) {
+//						((List<Map<String, Object>>) item.get("items")).add(items);
+//					} else {
+//						List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+//						list.add(items);
+//						item.put("items", list);
+//					}
+//				} else {
+//					Map<String, Object> item = new HashMap<String, Object>();
+//
+//					item.put("topClassID", menu.get("FTopClassID"));
+//					item.put("name", menu.get("FTopClassName"));
+//					item.put("icon", menu.get("FIcon"));
+//
+//					List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+//
+//					Map<String, Object> items = new HashMap<String, Object>();
+//					items.put("topClassID", menu.get("FTopClassID"));
+//					items.put("subSysID", menu.get("FSubSysID"));
+//					items.put("name", menu.get("FName"));
+//					items.put("url", menu.get("FUrl"));
+//					items.put("icon", menu.get("FIcon"));
+//
+//					list.add(items);
+//					item.put("items", list);
+//					result.add(item);
+//				}
+//			}
+//		}
+
+		return result;
+
+	}
+
+
+
+	@Override
+	public User getUser(int userId) {
+
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+		UserExample example = new UserExample();
+		com.kingdee.eas.hrp.sms.model.UserExample.Criteria criteria = example.createCriteria();
+
+		criteria.andUserIdEqualTo(userId);
+
+		List<User> list = mapper.selectByExample(example);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
 
 		return null;
 	}
