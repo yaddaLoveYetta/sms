@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
 
-	<classPathEntry location="D:\java\maven-repo\com\microsoft\sqlserver\mssql-jdbc\6.1.0.jre8\mssql-jdbc-6.1.0.jre8.jar" />
+	<classPathEntry location="D:\maven-repo\com\microsoft\sqlserver\mssql-jdbc\6.1.0.jre8\mssql-jdbc-6.1.0.jre8.jar" />
 
 	<context id="MSSQL_Tables2Java" targetRuntime="MyBatis3">
 
@@ -18,18 +18,12 @@
 		<property name="beginningDelimiter" value="[" />
 		<property name="endingDelimiter" value="]" />
 
-		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
-
-		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+	<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
 
 		<commentGenerator>
 			<property name="suppressDate" value="false" />
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
-
-		<!-- <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://localhost:1433;database=hrp-sms" -->
-		<!-- userId="sa" password="yadda0925"> -->
-		<!-- </jdbcConnection> -->
 
 		<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://10.0.0.180:1433;database=hrp-sms"
 			userId="sa" password="Kingdee123">
@@ -65,36 +59,62 @@
 
 		</javaClientGenerator>
 
-		<table tableName="t_dataFlowSubClass" domainObjectName="DataFlowSubClass">
 
-			<property name="useActualColumnNames" value="true" />
-
-		</table>
-
-		<table tableName="t_dataFlowTopClass" domainObjectName="DataFlowTopClass">
-
-			<property name="useActualColumnNames" value="true" />
-
-		</table>
-
-		<table tableName="t_role" domainObjectName="Role">
-
-			<property name="useActualColumnNames" value="true" />
-
-		</table>
-		
-		<table tableName="t_accessControl" domainObjectName="AccessControl">
-
-			<property name="useActualColumnNames" value="true" />
-
-		</table>
-		
 		<table tableName="t_user" domainObjectName="User">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		<table tableName="t_formClass" domainObjectName="FormClass">
+		
+		<table tableName="t_category" domainObjectName="Category">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_certificate" domainObjectName="Certificate">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_industry" domainObjectName="Industry">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_currency" domainObjectName="Currency">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_settlement" domainObjectName="Settlement">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_pay" domainObjectName="Pay">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_item" domainObjectName="Item">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_taxCategory" domainObjectName="TaxCategory">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_supplier" domainObjectName="Supplier">
 
 			<property name="useActualColumnNames" value="true" />
 

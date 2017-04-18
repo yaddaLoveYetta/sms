@@ -80,22 +80,4 @@ public class User {
     public void setSupplier(Integer supplier) {
         this.supplier = supplier;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", userId=").append(userId);
-        sb.append(", number=").append(number);
-        sb.append(", name=").append(name);
-        sb.append(", password=").append(password);
-        sb.append(", type=").append(type);
-        sb.append(", status=").append(status);
-        sb.append(", role=").append(role);
-        sb.append(", supplier=").append(supplier);
-        sb.append("]");
-        return sb.toString();
-    }
 }
