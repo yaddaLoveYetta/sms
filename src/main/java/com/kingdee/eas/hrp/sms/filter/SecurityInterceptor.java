@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
@@ -49,7 +50,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		@SuppressWarnings("unchecked")
-		Map<String, Object> user = (Map<String, Object>) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 
 		if (user == null) {
 			ResponseWriteUtil.output(response, StatusCode.SESSION_LOST, "会话结束请重新登陆!");

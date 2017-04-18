@@ -61,8 +61,17 @@ public class LogAspect {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		HttpSession session = request.getSession();
 
+		String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
+
+		User user = null;
+
+		if ("/user/login".equalsIgnoreCase(requestUrl)) {
+			user = new User();
+			user.setName(joinPoint.getArgs()[0].toString());
+		} else {
+			user = (User) session.getAttribute("user");
+		}
 		// 读取session中的用户
-		User user = (User) session.getAttribute("user");
 
 		// 请求的IP
 		String ip = request.getRemoteAddr();

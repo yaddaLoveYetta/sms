@@ -60,11 +60,20 @@
 	<mappers>
 
 		<!-- =============================== 生成工具生成Mapper ========================begin=== -->
+
+		<mapper resource="mapper/generate/AccessControlMapper.xml" />
+		<mapper resource="mapper/generate/DataFlowSubClassMapper.xml" />
+		<mapper resource="mapper/generate/DataFlowTopClassMapper.xml" />
+		<mapper resource="mapper/generate/FormClassMapper.xml" />
+		<mapper resource="mapper/generate/FormEntriesMapper.xml" />
+		<mapper resource="mapper/generate/FormFieldsMapper.xml" />
+		<mapper resource="mapper/generate/ObjectTypeMapper.xml" />
+		<mapper resource="mapper/generate/RoleMapper.xml" />
 		<mapper resource="mapper/generate/UserMapper.xml" />
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
 		<!-- =============================== 复杂Mapper ========================begin=== -->
-		<mapper resource="mapper/SYS_UserDaoMapper.xml.xml" />
+		<mapper resource="mapper/SYS_UserDaoMapper.xml" />
 		<!-- =============================== 复杂Mapper =====================end==== -->
 
 	</mappers>
