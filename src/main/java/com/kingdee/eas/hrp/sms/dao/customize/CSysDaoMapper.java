@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.dao.customize;
 import java.util.List;
 import java.util.Map;
 
-public interface CUserDaoMapper {
+public interface CSysDaoMapper {
 	/**
 	 * 根据类别获取菜单数据
 	 * 

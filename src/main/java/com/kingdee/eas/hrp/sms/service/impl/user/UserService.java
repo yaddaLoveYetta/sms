@@ -1,6 +1,7 @@
 package com.kingdee.eas.hrp.sms.service.impl.user;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.kingdee.eas.hrp.sms.dao.customize.CSysDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.model.Role;
 import com.kingdee.eas.hrp.sms.model.RoleExample;
@@ -76,80 +78,85 @@ public class UserService extends BaseService implements IUserService {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Map<String, Object>> getSysMenu(int type, int userId) {
 
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 
-//		IRoleService roleService = Environ.getBean(IRoleService.class);
-//
-//		// 获取用户角色
-//		int roleId = roleService.getRole(userId).getRoleId();
-//
-//		// 获取该角色所有的权限
-//		Map<String, Object> accessMap = roleService.getAccessByRole(roleId);
-//
-//		// 根据用户类别获取所有系统菜单
-//		// 平台用户-t_DataFlowSubSystem中配置为1,供应链用户-t_DataFlowSubSystem中配置为2
-//		int ownerType = type == 50801 ? 1 : type == 50802 ? 2 : 3;
-//
-//		List<Map<String, Object>> menuList = userService.getSysMenu(ownerType);
-//		// 根据用户权限过滤菜单
-//		for (Map<String, Object> menu : menuList) {
-//			String topClassID = menu.get("FTopClassID").toString();
-//			String objectType = menu.get("FObjectType").toString(); // 菜单对应的objectType - 即菜单要验证的权限类型
-//			String objectID = menu.get("FObjectID").toString(); // 菜单对应的objectID- 即菜单要验证的权限明细
-//			int accessMask = Integer.parseInt(menu.get("FAccessMask").toString()); // 系统定义的菜单项权限
-//			String subSysAccess = objectType + "-" + objectID;
-//
-//			// 用户对subSysAccess的权限
-//			int userAccess = 0;
-//			if (accessMap.containsKey(subSysAccess)) {
-//				userAccess = Integer.parseInt(accessMap.get(subSysAccess).toString());
-//			}
-//			// userAccess > 0 处理没有配置子系统权限的情况 ，accessMask > 0 处理没有配置index=0进入页面权限的情况. 0 & any==0
-//			if (userAccess > 0 && accessMask > 0 && (userAccess & accessMask) == accessMask) {
-//				// 有权限
-//				int index = contains(result, topClassID);
-//				if (index >= 0) {
-//					// 已存在顶级菜单
-//					Map<String, Object> item = result.get(index);
-//					Map<String, Object> items = new HashMap<String, Object>();
-//					items.put("topClassID", menu.get("FTopClassID"));
-//					items.put("subSysID", menu.get("FSubSysID"));
-//					items.put("name", menu.get("FName"));
-//					items.put("url", menu.get("FUrl"));
-//					items.put("icon", menu.get("FIcon"));
-//
-//					if (item.containsKey("items")) {
-//						((List<Map<String, Object>>) item.get("items")).add(items);
-//					} else {
-//						List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-//						list.add(items);
-//						item.put("items", list);
-//					}
-//				} else {
-//					Map<String, Object> item = new HashMap<String, Object>();
-//
-//					item.put("topClassID", menu.get("FTopClassID"));
-//					item.put("name", menu.get("FTopClassName"));
-//					item.put("icon", menu.get("FIcon"));
-//
-//					List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-//
-//					Map<String, Object> items = new HashMap<String, Object>();
-//					items.put("topClassID", menu.get("FTopClassID"));
-//					items.put("subSysID", menu.get("FSubSysID"));
-//					items.put("name", menu.get("FName"));
-//					items.put("url", menu.get("FUrl"));
-//					items.put("icon", menu.get("FIcon"));
-//
-//					list.add(items);
-//					item.put("items", list);
-//					result.add(item);
-//				}
-//			}
-//		}
+		IRoleService roleService = Environ.getBean(IRoleService.class);
+
+		// 获取用户角色
+		int roleId = roleService.getRole(userId).getRoleId();
+
+		// 获取该角色所有的权限
+		Map<String, Object> accessMap = roleService.getAccessByRole(roleId);
+
+		// 根据用户类别获取所有系统菜单
+		// 平台用户-t_DataFlowSubSystem中配置为1,供应链用户-t_DataFlowSubSystem中配置为2
+		int ownerType = type == 50801 ? 1 : type == 50802 ? 2 : 3;
+
+		CSysDaoMapper mapper = sqlSession.getMapper(CSysDaoMapper.class);
+
+		List<Map<String, Object>> menuList = mapper.getSysMenu(ownerType);
+
+		// 根据用户权限过滤菜单
+		for (Map<String, Object> menu : menuList) {
+			String topClassId = menu.get("topClassId").toString();
+			String objectType = menu.get("objectType").toString(); // 菜单对应的objectType - 即菜单要验证的权限类型
+			String objectId = menu.get("objectID").toString(); // 菜单对应的objectID- 即菜单要验证的权限明细
+			int accessMask = Integer.parseInt(menu.get("accessMask").toString()); // 系统定义的菜单项权限
+
+			String subSysAccess = objectType + "-" + objectId;
+
+			// 用户对subSysAccess的权限
+			int userAccess = 0;
+			if (accessMap.containsKey(subSysAccess)) {
+				userAccess = Integer.parseInt(accessMap.get(subSysAccess).toString());
+			}
+			// userAccess > 0 处理没有配置子系统权限的情况 ，accessMask > 0 处理没有配置index=0进入页面权限的情况. 0 & any==0
+			if (userAccess > 0 && accessMask > 0 && (userAccess & accessMask) == accessMask) {
+				// 有权限
+				int index = contains(result, topClassId);
+				if (index >= 0) {
+					// 已存在顶级菜单
+					Map<String, Object> item = result.get(index);
+					Map<String, Object> items = new HashMap<String, Object>();
+					items.put("topClassId", menu.get("topClassId"));
+					items.put("subSysId", menu.get("subSysId"));
+					items.put("name", menu.get("name"));
+					items.put("url", menu.get("url"));
+					items.put("icon", menu.get("icon"));
+
+					if (item.containsKey("items")) {
+						((List<Map<String, Object>>) item.get("items")).add(items);
+					} else {
+						List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+						list.add(items);
+						item.put("items", list);
+					}
+				} else {
+					Map<String, Object> item = new HashMap<String, Object>();
+
+					item.put("topClassId", menu.get("topClassId"));
+					item.put("name", menu.get("name"));
+					item.put("icon", menu.get("icon"));
+
+					List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+					Map<String, Object> items = new HashMap<String, Object>();
+					items.put("topClassId", menu.get("topClassId"));
+					items.put("subSysId", menu.get("subSysId"));
+					items.put("name", menu.get("name"));
+					items.put("url", menu.get("url"));
+					items.put("icon", menu.get("icon"));
+
+					list.add(items);
+					item.put("items", list);
+					result.add(item);
+				}
+			}
+		}
 
 		return result;
 
@@ -172,6 +179,24 @@ public class UserService extends BaseService implements IUserService {
 		}
 
 		return null;
+	}
+
+	/**
+	 * 判断list中是否包含指定key的Map子项
+	 * 
+	 * @param list
+	 * @param id
+	 * @return
+	 */
+	private int contains(List<Map<String, Object>> list, String id) {
+
+		for (int i = 0; i < list.size(); i++) {
+			Map<String, Object> map = list.get(i);
+			if (map.get("topClassId").toString().equalsIgnoreCase(id)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }
