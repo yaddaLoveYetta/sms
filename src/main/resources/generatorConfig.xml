@@ -18,7 +18,7 @@
 		<property name="beginningDelimiter" value="[" />
 		<property name="endingDelimiter" value="]" />
 
-	<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
+		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
 
 		<commentGenerator>
 			<property name="suppressDate" value="false" />
@@ -53,68 +53,115 @@
 
 		</sqlMapGenerator>
 
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.kingdee.eas.hrp.sms.dao.generate" targetProject="src/main/java">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.kingdee.eas.hrp.sms.dao.generate"
+			targetProject="src/main/java">
 
 			<property name="enableSubPackages" value="true" />
 
 		</javaClientGenerator>
 
+		<table tableName="t_sms_accessControl" domainObjectName="AccessControl">
 
-		<table tableName="t_user" domainObjectName="User">
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
+		<table tableName="t_sms_dataFlowSubClass" domainObjectName="DataFlowSubClass">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
+		<table tableName="t_sms_dataFlowTopClass" domainObjectName="DataFlowTopClass">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		<table tableName="t_sms_formClass" domainObjectName="FormClass">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
+		<table tableName="t_sms_formEntries" domainObjectName="FormEntries">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
+		<table tableName="t_sms_formFields" domainObjectName="FormFields">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
+		<table tableName="t_sms_objectType" domainObjectName="ObjectType">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
 		
-		<table tableName="t_category" domainObjectName="Category">
+		<table tableName="t_sms_role" domainObjectName="Role">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
-		<table tableName="t_certificate" domainObjectName="Certificate">
+
+		<table tableName="t_sms_user" domainObjectName="User">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
-		<table tableName="t_industry" domainObjectName="Industry">
+
+		<table tableName="t_sms_category" domainObjectName="Category">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
-		<table tableName="t_currency" domainObjectName="Currency">
+
+		<table tableName="t_sms_certificate" domainObjectName="Certificate">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
-		<table tableName="t_settlement" domainObjectName="Settlement">
+
+		<table tableName="t_sms_industry" domainObjectName="Industry">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
-		<table tableName="t_pay" domainObjectName="Pay">
+
+		<table tableName="t_sms_currency" domainObjectName="Currency">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
-		<table tableName="t_item" domainObjectName="Item">
+
+		<table tableName="t_sms_settlement" domainObjectName="Settlement">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
-		<table tableName="t_taxCategory" domainObjectName="TaxCategory">
+
+		<table tableName="t_sms_pay" domainObjectName="Pay">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
-		<table tableName="t_supplier" domainObjectName="Supplier">
+
+		<table tableName="t_sms_item" domainObjectName="Item">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
+		<table tableName="t_sms_taxCategory" domainObjectName="TaxCategory">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
+		<table tableName="t_sms_supplier" domainObjectName="Supplier">
 
 			<property name="useActualColumnNames" value="true" />
 
