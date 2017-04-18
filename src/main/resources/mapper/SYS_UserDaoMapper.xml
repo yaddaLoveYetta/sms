@@ -10,7 +10,7 @@
 		t1.[index],
 		t1.icon,
 		t2.subSysId,
-		t2.Name,
+		t2.name,
 		t2.[index] AS subIndex,
 		t2.url,
 		t2.Icon AS subIcon,
