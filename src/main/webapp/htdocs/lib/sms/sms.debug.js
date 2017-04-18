@@ -4031,7 +4031,7 @@
         function check(jump) {
 
             var user = get();
-            var valid = !!(user && user.userID);
+            var valid = !!(user && user.userId);
 
             if (!valid && jump) {
 

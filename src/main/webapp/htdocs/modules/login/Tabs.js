@@ -11,6 +11,8 @@ define('Tabs', function (require, module, exports) {
 
     function init(index) {
 
+        current = index || 0;
+
         tabs = SMS.Tabs.create({
             container: '#li-tabs',
             selector: '>div',
@@ -29,7 +31,7 @@ define('Tabs', function (require, module, exports) {
     }
 
     function current() {
-        return tabs.current();
+        return tabs.getActivedIndex();
     }
 
 

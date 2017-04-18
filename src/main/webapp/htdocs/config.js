@@ -43,6 +43,8 @@
 
             ],
 
+            //'user/getSidebar':'api/master/sidebar.js',
+
             'bos/baseitem': 'api/warehouse/baseitem.js',
 			'bos/forminfo': 'api/warehouse/warehouse.js',
             'warehouse/list': 'api/warehouse/list.js',

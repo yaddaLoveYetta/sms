@@ -1,8 +1,4 @@
 ﻿
-
-
-
-
 //控制器。 
 //注意：所有模块均对控制器可见。
 ; (function () {
@@ -144,7 +140,7 @@
         }
     });
 
-    
+
     //加载菜单数据
     MenuData.load(function (data) {
 
@@ -165,8 +161,8 @@
             Iframes.add(item);
 
         });
-       
-       
+
+
     });
 
 
@@ -201,7 +197,6 @@
 
 
     });
-
 
 
     PageTabs.render();

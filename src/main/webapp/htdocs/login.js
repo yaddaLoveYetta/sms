@@ -6,9 +6,7 @@
     var Login = require('Login');
     var WarnTip = require('WarnTip');
 
-    var type = 0;
-
-    Tabs.init(type);
+    Tabs.init(0);
     Login.init();
 
 
@@ -19,21 +17,21 @@
 
         'keydown': function (event) {
             if (event.keyCode == 13) {
-                Login.login(Tabs.current == 0 ? 50801 : 50802);
+                Login.login(Tabs.current() == 0 ? 50801 : 50802);
             }
         }
     });
 
     Login.on({
         'login': function () {
-            Login.login(type + 50801);
+            Login.login(Tabs.current() == 0 ? 50801 : 50802);
             // 50801-供应商用户，50802-系统用户
         }
     });
 
     Tabs.on({
         'change': function (index) {
-            type = index;
+            console.log(index);
         }
     });
 

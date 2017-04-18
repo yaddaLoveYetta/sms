@@ -1,14 +1,15 @@
-﻿
-
-
-/**
-* 侧边菜单栏的数据模块
-*/
+﻿/**
+ * 侧边菜单栏的数据模块
+ */
 define('MenuData', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
+    var API=SMS.require("API");
+
+    var Tips = SMS.Tips;
+    var user = SMS.Login.get();
 
 
     var list = [];
@@ -21,54 +22,33 @@ define('MenuData', function (require, module, exports) {
         url: 'html/home/index.html'
     };
 
-
-
     //加载数据。
     //这里采用异步方式，方便以后从服务器端加载。
-    function load(fn) {
+    function load(fn, fnFail, fnError) {
 
         if (ready) {
             fn && fn(list);
             return;
         }
 
+        var api = new API('user/getSidebar');
 
-        var base = SMS.Url.root() + 'data/sidebar/';
+        api.get({
+            'type': user.type,
+            'userId': user.userId,
+        });
 
-        $.Script.load({
-            url: [
-                base + 'Sidebar.js',
-                base + 'moduleFuncs.data.js',
-            ],
+        api.on({
+            'success': function (data, json) {//成功
 
-            onload: function () {
-
-                list = window['__Sidebar__'];
-                var data = window['_modulefuncs'];
-
-
-                //$.Array.each(data, function (group, no) {
-
-                //    $.Array.each(group['funcs'], function (item, index) {
-
-                //        var obj = list[no].items[index];
-                //        if (!obj) {
-                //            obj = list[no].items[index] = {};
-                //        }
-
-                //        obj.name = item.name;
-
-                //    });
-                //});
-
-                
+                list = data;
 
                 //过滤掉 hidden: true 的分组和项
                 list = $.Array.grep(list, function (group, no) {
 
                     var items = group.items;
 
-                    if (group.hidden || !items || items.length == 0) { //过滤分组
+                    if (group.hidden || !items || items.length == 0) {//过滤分组
                         return false;
                     }
 
@@ -84,7 +64,6 @@ define('MenuData', function (require, module, exports) {
                     group.items = items;
                     return true;
                 });
-
 
                 $.Array.each(list, function (group, no) {
 
@@ -106,9 +85,19 @@ define('MenuData', function (require, module, exports) {
 
                 ready = true;
                 fn(list);
-            }
-        });
 
+            },
+            'fail': function (code, msg, json) {
+                //fnFail(code, msg);
+                //Tips.warn(msg);
+                alert(msg);
+            },
+            'error': function () {
+                //fnError('网络繁忙，请重试!');
+                //Tips.error('网络繁忙，请重试!');
+                alert('网络繁忙，请重试!');
+            },
+        });
 
     }
 
@@ -142,7 +131,7 @@ define('MenuData', function (require, module, exports) {
     function getAutoOpens(data) {
 
         data = data || list;
-        
+
         var a = $.Array.map(list, function (group, no) {
 
             var items = group.items;
@@ -154,7 +143,6 @@ define('MenuData', function (require, module, exports) {
 
         return $.Array.reduceDimension(a);
     }
-
 
 
     return {
