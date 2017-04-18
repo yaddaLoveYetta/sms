@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.UserMapper">
+
+	<select id="getSysMenu" parameterType="int" resultType="map">
+		SELECT
+		t1.FTopClassID,
+		t1.FTopClassName,
+		t1.FIndex,
+		t1.FIcon,
+		t2.FSubSysID,
+		t2.FName,
+		t2.FIndex AS
+		FSubIndex,
+		t2.FUrl,
+		t2.FIcon
+		AS
+		FSubIcon,
+		t3.FObjectType,
+		t3.FObjectID,
+		IFNULL(t4.FAccessMask, 0) AS
+		FAccessMask
+		FROM
+		t_DataFlowTopClass t1
+		INNER JOIN
+		t_DataFlowSubSystem t2
+		ON t1.FTopClassID =
+		t2.FTopClassID
+		INNER JOIN t_ObjectType t3 ON
+		t2.FTopClassID =
+		t3.FTopClassID
+		AND
+		t2.FSubSysID =
+		t3.FSubSysID
+		INNER
+		JOIN
+		t_ObjectAccessType t4 ON t3.FObjectType = t4.FObjectType
+		AND
+		t3.FObjectID =
+		t4.FObjectID
+		AND t4.FIndex = 0 -- 只过滤出菜单
+		WHERE
+		t1.FVisible = 1
+		AND t2.FVisible = 1
+		<if test="_parameter !=null">
+			AND t2.FOwnerType &amp; #{type} = #{type}
+		</if>
+		ORDER BY
+		t1.FIndex,
+		t2.FIndex
+	</select>
+</mapper>

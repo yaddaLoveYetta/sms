@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.kingdee.eas.hrp.sms.dao.UserMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ServiceLog;
 import com.kingdee.eas.hrp.sms.model.User;

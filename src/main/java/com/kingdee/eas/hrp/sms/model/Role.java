@@ -50,19 +50,4 @@ public class Role {
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", roleId=").append(roleId);
-        sb.append(", name=").append(name);
-        sb.append(", number=").append(number);
-        sb.append(", type=").append(type);
-        sb.append(", status=").append(status);
-        sb.append("]");
-        return sb.toString();
-    }
 }

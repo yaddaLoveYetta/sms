@@ -70,21 +70,4 @@ public class DataFlowSubClass {
     public void setIcon(String icon) {
         this.icon = icon == null ? null : icon.trim();
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", subSysId=").append(subSysId);
-        sb.append(", topClassId=").append(topClassId);
-        sb.append(", name=").append(name);
-        sb.append(", index=").append(index);
-        sb.append(", visible=").append(visible);
-        sb.append(", url=").append(url);
-        sb.append(", icon=").append(icon);
-        sb.append("]");
-        return sb.toString();
-    }
 }

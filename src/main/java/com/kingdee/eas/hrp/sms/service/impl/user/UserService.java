@@ -13,8 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kingdee.eas.hrp.sms.dao.RoleMapper;
-import com.kingdee.eas.hrp.sms.dao.UserMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.model.Role;
 import com.kingdee.eas.hrp.sms.model.RoleExample;
 import com.kingdee.eas.hrp.sms.model.RoleExample.Criteria;
@@ -80,17 +79,15 @@ public class UserService extends BaseService implements IUserService {
 	@Override
 	public List<Map<String, Object>> getSysMenu(int type, int userId) {
 
-		IUserService userService = Environ.getBean(IUserService.class);
-
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 
-//		IRoleService roleService=Environ.getBean(IRoleService.class);
-//		
+//		IRoleService roleService = Environ.getBean(IRoleService.class);
+//
 //		// 获取用户角色
-//		int roleID = roleService.getRole(userId).getRoleId();
-//		
+//		int roleId = roleService.getRole(userId).getRoleId();
+//
 //		// 获取该角色所有的权限
-//		Map<String, Object> accessMap = userService.getAccessByRoleID(roleID);
+//		Map<String, Object> accessMap = roleService.getAccessByRole(roleId);
 //
 //		// 根据用户类别获取所有系统菜单
 //		// 平台用户-t_DataFlowSubSystem中配置为1,供应链用户-t_DataFlowSubSystem中配置为2
@@ -157,8 +154,6 @@ public class UserService extends BaseService implements IUserService {
 		return result;
 
 	}
-
-
 
 	@Override
 	public User getUser(int userId) {

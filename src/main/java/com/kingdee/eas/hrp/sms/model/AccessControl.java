@@ -40,18 +40,4 @@ public class AccessControl {
     public void setAccessMask(Integer accessMask) {
         this.accessMask = accessMask;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", objectType=").append(objectType);
-        sb.append(", objectId=").append(objectId);
-        sb.append(", roleId=").append(roleId);
-        sb.append(", accessMask=").append(accessMask);
-        sb.append("]");
-        return sb.toString();
-    }
 }
