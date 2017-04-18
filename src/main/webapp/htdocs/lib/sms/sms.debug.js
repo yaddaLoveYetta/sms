@@ -332,6 +332,7 @@
                 }
 
                 var successCode = defaults.codes['success'];
+                var sessionLostCode = defaults.codes['sessionLost'];
                 var fnError = config.error;
 
                 if (xhr.status != successCode) {
@@ -349,6 +350,10 @@
                 if (code == successCode) {
                     var fnSuccess = config.success;
                     fnSuccess && fnSuccess(json['data'] || {}, json, xhr);
+                } else if (code == sessionLostCode) {
+                    $.SessionStorage.remove('SMS.Login.user.F5F2BA55218E'); //只移除会话级的
+                    SMS.Login.check(true);
+                    return;
                 }
                 else {
                     var fnFail = config.fail;
@@ -4188,7 +4193,7 @@
             api.get({
                 'user': data.user,
                 'pwd': MD5.encrypt(data.password),
-                'type':data.type,
+                'type': data.type,
             });
 
             api.on('success', function (data, json) { //成功

@@ -1,12 +1,10 @@
-﻿
+﻿;(function ($, MiniQuery, SMS) {
 
-; (function ($, MiniQuery, SMS) {
 
- 
     /**
-    * 字符串中的 {~} 表示站头的根地址；{@} 表示使用的文件版本 debug 或 min
-    *
-    */
+     * 字符串中的 {~} 表示站头的根地址；{@} 表示使用的文件版本 debug 或 min
+     *
+     */
 
     SMS.config({
 
@@ -21,7 +19,8 @@
             url: 'http://127.0.0.1:8081/sms/',  //内网
             //url: 'http://172.20.131.250:8080/sms/',    //外网
             codes: {
-                 success: 200,
+                success: 200,
+                sessionLost: 10000,
             },
         },
 
@@ -39,22 +38,21 @@
 
             'user/login': [ //当指定为一个数组时，则起作用的是最后一个
                 //'api/portal/login.js',
-               // 'api/portal/login-action.js',
+                // 'api/portal/login-action.js',
 
             ],
 
             //'user/getSidebar':'api/master/sidebar.js',
 
             'bos/baseitem': 'api/warehouse/baseitem.js',
-			'bos/forminfo': 'api/warehouse/warehouse.js',
+            'bos/forminfo': 'api/warehouse/warehouse.js',
             'warehouse/list': 'api/warehouse/list.js',
-			
+
             'home/todo': 'api/home/todo.js',
             'home/flow': 'api/home/flow.js',
             'home/query': 'api/home/query.js',
             'home/message': 'api/home/message.js',
             'bd/assistitem': 'api/bd/assistitem.js',
-
 
 
             'eshop/order': 'api/eshop/order.js'
@@ -162,28 +160,24 @@
             bracket: null,          //输入框失去焦点后，负数的代替展示括号，不指定则原样展示
 
             /** Displayed on empty string
-            * 'empty', - input can be blank
-            * 'zero', - displays zero
-            * 'sign', - displays the currency sign
-            */
+             * 'empty', - input can be blank
+             * 'zero', - displays zero
+             * 'sign', - displays the currency sign
+             */
             empty: 'empty',         //输入框为空时的显示行为
 
             /** controls leading zero behavior
-            * 'allow', - allows leading zeros to be entered. Zeros will be truncated when entering additional digits. On focusout zeros will be deleted.
-            * 'deny', - allows only one leading zero on values less than one
-            * 'keep', - allows leading zeros to be entered. on fousout zeros will be retained.
-            */
+             * 'allow', - allows leading zeros to be entered. Zeros will be truncated when entering additional digits. On focusout zeros will be deleted.
+             * 'deny', - allows only one leading zero on values less than one
+             * 'keep', - allows leading zeros to be entered. on fousout zeros will be retained.
+             */
             leadingZero: 'allow',   //前缀 "0" 的展示行为
             formatted: true,        //控制是否在页面就绪时自动格式化输入框的值，取值: true|false
         },
 
-        DateTimePicker: {
+        DateTimePicker: {},
 
-        },
-
-        Module: {
-
-        },
+        Module: {},
 
         Login: {
             apiLogin: 'user/login',
@@ -221,10 +215,6 @@
     });
 
 
-
-
-
-
     //调试模式下使用。
     //使用 grunt 工具构建页面后，本区代码可以去掉
     if (SMS.require('Debug').check()) {
@@ -247,8 +237,7 @@
         window.define = define;
         window.require = Module.require;
     }
-    
-    
+
 
 })(jQuery, MiniQuery, SMS);
 
