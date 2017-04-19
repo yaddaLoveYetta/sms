@@ -37,6 +37,16 @@ public class Supplier {
 
     private Integer status;
 
+    private Integer certificateId;
+
+    private Integer currencyId;
+
+    private Integer settlementId;
+
+    private Integer payId;
+
+    private Integer itemId;
+
     public Integer getSupplierId() {
         return supplierId;
     }
@@ -179,5 +189,45 @@ public class Supplier {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getCertificateId() {
+        return certificateId;
+    }
+
+    public void setCertificateId(Integer certificateId) {
+        this.certificateId = certificateId;
+    }
+
+    public Integer getCurrencyId() {
+        return currencyId;
+    }
+
+    public void setCurrencyId(Integer currencyId) {
+        this.currencyId = currencyId;
+    }
+
+    public Integer getSettlementId() {
+        return settlementId;
+    }
+
+    public void setSettlementId(Integer settlementId) {
+        this.settlementId = settlementId;
+    }
+
+    public Integer getPayId() {
+        return payId;
+    }
+
+    public void setPayId(Integer payId) {
+        this.payId = payId;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 }

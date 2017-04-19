@@ -1303,6 +1303,306 @@ public class SupplierExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andCertificateIdIsNull() {
+            addCriterion("certificateId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdIsNotNull() {
+            addCriterion("certificateId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdEqualTo(Integer value) {
+            addCriterion("certificateId =", value, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdNotEqualTo(Integer value) {
+            addCriterion("certificateId <>", value, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdGreaterThan(Integer value) {
+            addCriterion("certificateId >", value, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("certificateId >=", value, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdLessThan(Integer value) {
+            addCriterion("certificateId <", value, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdLessThanOrEqualTo(Integer value) {
+            addCriterion("certificateId <=", value, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdIn(List<Integer> values) {
+            addCriterion("certificateId in", values, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdNotIn(List<Integer> values) {
+            addCriterion("certificateId not in", values, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdBetween(Integer value1, Integer value2) {
+            addCriterion("certificateId between", value1, value2, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("certificateId not between", value1, value2, "certificateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdIsNull() {
+            addCriterion("currencyId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdIsNotNull() {
+            addCriterion("currencyId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdEqualTo(Integer value) {
+            addCriterion("currencyId =", value, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdNotEqualTo(Integer value) {
+            addCriterion("currencyId <>", value, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdGreaterThan(Integer value) {
+            addCriterion("currencyId >", value, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("currencyId >=", value, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdLessThan(Integer value) {
+            addCriterion("currencyId <", value, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdLessThanOrEqualTo(Integer value) {
+            addCriterion("currencyId <=", value, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdIn(List<Integer> values) {
+            addCriterion("currencyId in", values, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdNotIn(List<Integer> values) {
+            addCriterion("currencyId not in", values, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdBetween(Integer value1, Integer value2) {
+            addCriterion("currencyId between", value1, value2, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrencyIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("currencyId not between", value1, value2, "currencyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdIsNull() {
+            addCriterion("settlementId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdIsNotNull() {
+            addCriterion("settlementId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdEqualTo(Integer value) {
+            addCriterion("settlementId =", value, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdNotEqualTo(Integer value) {
+            addCriterion("settlementId <>", value, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdGreaterThan(Integer value) {
+            addCriterion("settlementId >", value, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("settlementId >=", value, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdLessThan(Integer value) {
+            addCriterion("settlementId <", value, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdLessThanOrEqualTo(Integer value) {
+            addCriterion("settlementId <=", value, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdIn(List<Integer> values) {
+            addCriterion("settlementId in", values, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdNotIn(List<Integer> values) {
+            addCriterion("settlementId not in", values, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdBetween(Integer value1, Integer value2) {
+            addCriterion("settlementId between", value1, value2, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSettlementIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("settlementId not between", value1, value2, "settlementId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdIsNull() {
+            addCriterion("payId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdIsNotNull() {
+            addCriterion("payId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdEqualTo(Integer value) {
+            addCriterion("payId =", value, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdNotEqualTo(Integer value) {
+            addCriterion("payId <>", value, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdGreaterThan(Integer value) {
+            addCriterion("payId >", value, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("payId >=", value, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdLessThan(Integer value) {
+            addCriterion("payId <", value, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdLessThanOrEqualTo(Integer value) {
+            addCriterion("payId <=", value, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdIn(List<Integer> values) {
+            addCriterion("payId in", values, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdNotIn(List<Integer> values) {
+            addCriterion("payId not in", values, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdBetween(Integer value1, Integer value2) {
+            addCriterion("payId between", value1, value2, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("payId not between", value1, value2, "payId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdIsNull() {
+            addCriterion("itemId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdIsNotNull() {
+            addCriterion("itemId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdEqualTo(Integer value) {
+            addCriterion("itemId =", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdNotEqualTo(Integer value) {
+            addCriterion("itemId <>", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdGreaterThan(Integer value) {
+            addCriterion("itemId >", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("itemId >=", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdLessThan(Integer value) {
+            addCriterion("itemId <", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdLessThanOrEqualTo(Integer value) {
+            addCriterion("itemId <=", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdIn(List<Integer> values) {
+            addCriterion("itemId in", values, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdNotIn(List<Integer> values) {
+            addCriterion("itemId not in", values, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdBetween(Integer value1, Integer value2) {
+            addCriterion("itemId between", value1, value2, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("itemId not between", value1, value2, "itemId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
