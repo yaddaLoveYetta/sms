@@ -5,12 +5,12 @@
 define("List", function (require, module, exports) {
     var $ = require("$");
     var MiniQuery = require("MiniQuery");
-    var YWTC = require("YWTC");
+    var SMS = require("SMS");
     var API = require("/API");
     // 完整名称为 List/API
     var Operation = require("/Operation");
 
-    var Iframe = YWTC.require('Iframe');
+    var Iframe = SMS.require('Iframe');
 
     var dialog = Iframe.getDialog();
     // 完整名称为 List/Operation
@@ -24,14 +24,14 @@ define("List", function (require, module, exports) {
     var index$selected = {};
     // 记录选中的索引
     function load(config, fn) {
-        YWTC.Tips.loading("数据加载中...");
+        SMS.Tips.loading("数据加载中...");
         API.get({
             classID: config.classID,
             pageNo: config.pageNo,
             pageSize: config.pageSize,
             conditions: config.conditions
         }, function (data) {
-            YWTC.Tips.success("数据加载成功", 1500);
+            SMS.Tips.success("数据加载成功", 1500);
             var total = data.body.total;
             fn && fn(data, total);
         });
