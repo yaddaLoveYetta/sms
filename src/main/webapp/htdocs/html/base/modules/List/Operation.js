@@ -1,0 +1,93 @@
+﻿/**
+ * 列表数据操作 模块
+ *
+ */
+define('List/Operation', function(require, module, exports) {
+
+	var $ = require('$');
+	var MiniQuery = require('MiniQuery');
+	var YWTC = require('YWTC');
+
+	var API = YWTC.require('API');
+
+	function del(classID, list, fn) {
+		var items = '';
+		for (var item in list) {
+			if (list[item]) {
+				items += (',' + list[item].primaryValue);
+			}
+		}
+
+		items = items.substr(1);
+
+		var api = new API('baseitem/delItem');
+		api.get({
+
+			'classID' : classID,
+			'items' : items
+
+		});
+
+		api.on({
+			'success' : function(data, json) {
+				YWTC.Tips.success('删除成功', 2000);
+				fn();
+			},
+
+			'fail' : function(code, msg, json) {
+				var s = $.String.format('{0} (错误码: {1})', msg, code);
+				YWTC.Tips.error(s);
+			},
+
+			'error' : function() {
+				YWTC.Tips.error('网络繁忙，请稍候再试');
+			}
+		});
+	}
+
+	function forbid(classID, list, operateType, fn) {
+		var items = '';
+		for (var item in list) {
+			if (list[item]) {
+				items += (',' + list[item].primaryValue);
+			}
+		}
+		items = items.substr(1);
+
+		if (items == '') {
+			return;
+		}
+
+		var api = new API('baseitem/forbid');
+		api.get({
+
+			'classID' : classID,
+			'items' : items,
+			'operateType' : operateType
+
+		});
+
+		api.on({
+			'success' : function(data, json) {
+				YWTC.Tips.success(operateType === 1 ? '禁用成功' : '反禁用成功', 2000);
+				fn();
+			},
+
+			'fail' : function(code, msg, json) {
+				var s = $.String.format('{0} (错误码: {1})', msg, code);
+				YWTC.Tips.error(s);
+			},
+
+			'error' : function() {
+				YWTC.Tips.error('网络繁忙，请稍候再试');
+			}
+		});
+	}
+
+	return {
+		del : del,
+		forbid : forbid,
+	};
+
+});
+

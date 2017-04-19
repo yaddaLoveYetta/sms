@@ -110,7 +110,6 @@ define('Menus', function (require, module, exports) {
             currentItem = item;
             emitter.fire('item.click', [item]);
 
-
         });
 
         hasBind = true;

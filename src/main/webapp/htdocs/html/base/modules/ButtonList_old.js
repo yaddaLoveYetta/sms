@@ -1,0 +1,56 @@
+﻿
+
+/**
+* 菜单组模块
+* 
+*/
+define('ButtonList', function (require, module, exports) {
+
+    var $ = require('$');
+    var MiniQuery = require('MiniQuery');
+    var YWTC = require('YWTC');
+
+    var ButtonList = YWTC.require('ButtonList');
+    var Iframe = YWTC.require('Iframe');
+    var API = YWTC.require('API');
+
+    var bl = new ButtonList({
+        container: '#div-button-list',
+        fields: {
+            text: 'text',
+            child: 'items',
+            callback: 'click',
+            route: 'name',
+        },
+
+        autoClose: true,
+
+        items: [
+            { text: '新增', name: 'add', },
+            { text: '删除', name: 'delete', },
+            { text: '刷新', name: 'refresh', },
+            {
+                text: '禁用',
+                name: 'disable',
+                items: [
+                    { text: '反禁用', name: 'enable', },
+                ],
+            },
+        ],
+    });
+
+    //总事件，最后触发
+    bl.on('click', function (item, index) {
+        console.dir(item);
+    });
+
+    return bl;
+
+});
+
+
+
+
+
+
+    
