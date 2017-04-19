@@ -152,7 +152,7 @@ public class ResponseWriteUtil {
 	public static void output(HttpServletResponse response, Result r) {
 		try {
 			if (logger.isDebugEnabled()) {
-				logger.debug("回应数据[" + r + "]");
+				logger.debug("回应数据" + JSON.toJSONString(r));
 			}
 			response.setContentType("application/json;charset=UTF-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
@@ -182,8 +182,8 @@ public class ResponseWriteUtil {
 			response.setContentType("application/json;charset=UTF-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
 
-//			JSONObject json = JSONObject.fromObject(r, config);
-			
+			// JSONObject json = JSONObject.fromObject(r, config);
+
 			JSONObject json = JSONObject.parseObject(JSON.toJSONString(r));
 
 			String jsonStr = callback + "(" + json.toString() + ")";
