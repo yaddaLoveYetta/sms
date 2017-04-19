@@ -6,9 +6,9 @@ define('List/API/Body', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
+	var SMS = require('SMS');
 
-	var API = YWTC.require('API');
+	var API = SMS.require('API');
 
 	var fields = null;
 
@@ -70,11 +70,11 @@ define('List/API/Body', function(require, module, exports) {
 
 			'fail': function(code, msg, json) {
 				var s = $.String.format('{0} (错误码: {1})', msg, code);
-				YWTC.Tips.error(s);
+				SMS.Tips.error(s);
 			},
 
 			'error': function() {
-				YWTC.Tips.error('网络繁忙，请稍候再试');
+				SMS.Tips.error('网络繁忙，请稍候再试');
 			}
 		});
 

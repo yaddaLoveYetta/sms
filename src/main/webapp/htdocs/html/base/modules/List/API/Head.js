@@ -6,9 +6,9 @@ define('List/API/Head', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
-	var API = YWTC.require('API');
-	var user = YWTC.Login.get();
+	var SMS = require('SMS');
+	var API = SMS.require('API');
+	var user = SMS.Login.get();
 
 	var cache = null;
 	var headItems = [];
@@ -55,12 +55,12 @@ define('List/API/Head', function(require, module, exports) {
 		api.on('fail', function(code, msg, json) {
 
 			var s = $.String.format('{0} (错误码: {1})', msg, code);
-			YWTC.Tips.error(s);
+			SMS.Tips.error(s);
 
 		});
 
 		api.on('error', function() {
-			YWTC.Tips.error('网络繁忙，请稍候再试');
+			SMS.Tips.error('网络繁忙，请稍候再试');
 
 		});
 

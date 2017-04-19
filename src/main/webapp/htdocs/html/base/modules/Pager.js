@@ -6,14 +6,14 @@ define('Pager', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
+	var SMS = require('SMS');
 
 	function render(config) {
 
 		config = $.Object.extend({
 			current : 1, //当前激活的页码，默认为 1
 			error : function(msg) {
-				YWTC.Tips.error(msg, 1500);
+				SMS.Tips.error(msg, 1500);
 				this.focus();
 			}
 		}, config, {
@@ -24,8 +24,8 @@ define('Pager', function(require, module, exports) {
 			},
 		});
 
-		//YWTC.SimplePager.create(config);
-		YWTC.Pagers.create(config);
+		//SMS.SimplePager.create(config);
+		SMS.Pagers.create(config);
 		
 	}
 

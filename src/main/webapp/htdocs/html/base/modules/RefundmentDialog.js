@@ -1,6 +1,6 @@
 define("RefundmentDialog", function(require, module, exports) {
 	var $ = require('$');
-	var API = YWTC.require('API');
+	var API = SMS.require('API');
 
 	var config = {
 		title: '月保退款',

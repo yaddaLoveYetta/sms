@@ -8,7 +8,7 @@ define('CascadeMenus', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
 
     var Tree = require('CascadeMenus/Tree');
 

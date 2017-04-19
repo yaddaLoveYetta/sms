@@ -6,9 +6,9 @@ define('List/Operation', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
+	var SMS = require('SMS');
 
-	var API = YWTC.require('API');
+	var API = SMS.require('API');
 
 	function del(classID, list, fn) {
 		var items = '';
@@ -30,17 +30,17 @@ define('List/Operation', function(require, module, exports) {
 
 		api.on({
 			'success' : function(data, json) {
-				YWTC.Tips.success('删除成功', 2000);
+				SMS.Tips.success('删除成功', 2000);
 				fn();
 			},
 
 			'fail' : function(code, msg, json) {
 				var s = $.String.format('{0} (错误码: {1})', msg, code);
-				YWTC.Tips.error(s);
+				SMS.Tips.error(s);
 			},
 
 			'error' : function() {
-				YWTC.Tips.error('网络繁忙，请稍候再试');
+				SMS.Tips.error('网络繁忙，请稍候再试');
 			}
 		});
 	}
@@ -69,17 +69,17 @@ define('List/Operation', function(require, module, exports) {
 
 		api.on({
 			'success' : function(data, json) {
-				YWTC.Tips.success(operateType === 1 ? '禁用成功' : '反禁用成功', 2000);
+				SMS.Tips.success(operateType === 1 ? '禁用成功' : '反禁用成功', 2000);
 				fn();
 			},
 
 			'fail' : function(code, msg, json) {
 				var s = $.String.format('{0} (错误码: {1})', msg, code);
-				YWTC.Tips.error(s);
+				SMS.Tips.error(s);
 			},
 
 			'error' : function() {
-				YWTC.Tips.error('网络繁忙，请稍候再试');
+				SMS.Tips.error('网络繁忙，请稍候再试');
 			}
 		});
 	}

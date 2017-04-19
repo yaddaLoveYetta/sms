@@ -8,11 +8,11 @@ define('ButtonList', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
 
-    var ButtonList = YWTC.require('ButtonList');
-    var Iframe = YWTC.require('Iframe');
-    var API = YWTC.require('API');
+    var ButtonList = SMS.require('ButtonList');
+    var Iframe = SMS.require('Iframe');
+    var API = SMS.require('API');
 
     var bl = new ButtonList({
         container: '#div-button-list',

@@ -8,7 +8,7 @@ define('ClassMapping', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
 
     function getIndex(classID) {
         var classMappings =

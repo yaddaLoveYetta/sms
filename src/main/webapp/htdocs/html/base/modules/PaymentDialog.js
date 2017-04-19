@@ -1,6 +1,6 @@
 ﻿define("PaymentDialog", function (require, module, exports) {
     var $ = require('$');
-    var API = YWTC.require('API');
+    var API = SMS.require('API');
 
     var config = {
         title: '月租缴费',
@@ -13,17 +13,17 @@
         api.post(payData);
         api.on({
             'success': function (data, json) {
-                YWTC.Tips.success('月租缴费成功！', 1500);
+                SMS.Tips.success('月租缴费成功！', 1500);
                 fn && fn(data, json);
             },
 
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (错误码: {1})', msg, code);
-                YWTC.Tips.error(s);
+                SMS.Tips.error(s);
             },
 
             'error': function () {
-                YWTC.Tips.error('网络繁忙，请稍候再试');
+                SMS.Tips.error('网络繁忙，请稍候再试');
             }
         });
     }
