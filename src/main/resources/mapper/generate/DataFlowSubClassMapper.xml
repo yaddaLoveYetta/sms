@@ -9,6 +9,7 @@
     <result column="visible" jdbcType="BIT" property="visible" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="ownerType" jdbcType="INTEGER" property="ownerType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    subSysId, topClassId, name, index, visible, url, icon
+    subSysId, topClassId, name, index, visible, url, icon, ownerType
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.DataFlowSubClassExample" resultMap="BaseResultMap">
     select
@@ -103,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.DataFlowSubClass">
     insert into t_sms_dataFlowSubClass (subSysId, topClassId, name, 
-      index, visible, url, icon
-      )
+      index, visible, url, icon, 
+      ownerType)
     values (#{subSysId,jdbcType=INTEGER}, #{topClassId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{index,jdbcType=INTEGER}, #{visible,jdbcType=BIT}, #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}
-      )
+      #{index,jdbcType=INTEGER}, #{visible,jdbcType=BIT}, #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{ownerType,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.DataFlowSubClass">
     insert into t_sms_dataFlowSubClass
@@ -133,6 +134,9 @@
       <if test="icon != null">
         icon,
       </if>
+      <if test="ownerType != null">
+        ownerType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="subSysId != null">
@@ -155,6 +159,9 @@
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null">
+        #{ownerType,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -188,6 +195,9 @@
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
+      <if test="record.ownerType != null">
+        ownerType = #{record.ownerType,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +211,8 @@
       index = #{record.index,jdbcType=INTEGER},
       visible = #{record.visible,jdbcType=BIT},
       url = #{record.url,jdbcType=VARCHAR},
-      icon = #{record.icon,jdbcType=VARCHAR}
+      icon = #{record.icon,jdbcType=VARCHAR},
+      ownerType = #{record.ownerType,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +238,9 @@
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
+      <if test="ownerType != null">
+        ownerType = #{ownerType,jdbcType=INTEGER},
+      </if>
     </set>
     where subSysId = #{subSysId,jdbcType=INTEGER}
   </update>
@@ -237,7 +251,8 @@
       index = #{index,jdbcType=INTEGER},
       visible = #{visible,jdbcType=BIT},
       url = #{url,jdbcType=VARCHAR},
-      icon = #{icon,jdbcType=VARCHAR}
+      icon = #{icon,jdbcType=VARCHAR},
+      ownerType = #{ownerType,jdbcType=INTEGER}
     where subSysId = #{subSysId,jdbcType=INTEGER}
   </update>
 </mapper>
