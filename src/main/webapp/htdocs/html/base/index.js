@@ -8,7 +8,9 @@
 
     var List = require('List');
     var Pager = require('Pager');
-    var ButtonList = require('ButtonList');
+    var bl = require('ButtonList');
+    var MessageBox = SMS.require('MessageBox');
+
     // var CascadeNavigator = require('CascadeNavigator');
     var ClassMapping = require('ClassMapping');
 
@@ -64,6 +66,9 @@
             refresh();
         }
     });
+
+
+    var ButtonList = bl.create({});
 
     ButtonList.render();
 
