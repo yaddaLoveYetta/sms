@@ -67,6 +67,7 @@ public class UserController {
 	 * @throws @date
 	 *             2017年4月15日 下午7:49:37
 	 */
+	@RequestMapping(value = "getUserList")
 	public void getUserList(HttpServletRequest request, HttpServletResponse response) {
 
 		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
