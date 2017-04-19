@@ -113,6 +113,12 @@
 
 		</table>
 
+		<table tableName="t_sms_userType" domainObjectName="UserType">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
 		<table tableName="t_sms_user" domainObjectName="User">
 
 			<property name="useActualColumnNames" value="true" />
