@@ -3883,9 +3883,15 @@
             //尚未加载完成
             $(iframe).one('load', function () {
 
-                var SMS = iframe.contentWindow.SMS;
-                SMS.require('Iframe').fire(name, args);
+                var SMS;
+                try {
+                    SMS = iframe.contentWindow.SMS;
+                } catch (e) {
 
+                }
+                if (SMS) { // iframe 已加载完成
+                    SMS.require('Iframe').fire(name, args);
+                }
             });
 
         }
