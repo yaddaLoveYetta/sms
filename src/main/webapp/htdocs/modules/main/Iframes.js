@@ -82,7 +82,12 @@ define('Iframes', function (require, module, exports) {
 
             current = iframe;
 
-            var body = iframe.contentDocument.body;
+            var body;
+            try {
+                body = iframe.contentDocument.body;
+            } catch (e) {
+
+            }
             if (!body) { //IE 下未加载完的为 null
                 return;
             }
