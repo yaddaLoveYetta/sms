@@ -6,10 +6,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.httpclient.Cookie;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -108,6 +113,98 @@ public final class HttpUtil {
 			http.getConnectionManager().shutdown();
 		}
 
+	}
+
+	/**
+	 * 封装sendGet方法,返回Cookie，通常是登录接口调用
+	 * 
+	 * @param url
+	 *            请求地址
+	 * @param hp
+	 *            参数
+	 * @return
+	 */
+	public static Map<String, String> sendPostForCookie(String url, HttpParam hp) {
+
+		Map<String, String> ret = new HashMap<>();
+
+		// ==================================================================
+		org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
+
+		// 模拟登陆，按实际服务器端要求选用 Post 或 Get 请求方式
+		PostMethod postMethod = new PostMethod(url);
+
+		if (hp.hasCookie()) {
+			// 设置cookie内容
+			StringBuilder cookies = new StringBuilder();
+			for (Map.Entry<String, String> entry : hp.getCookieParams().entrySet()) {
+				cookies.append(entry.getKey()).append("=").append(entry.getValue()).append(";");
+			}
+			postMethod.setRequestHeader("cookie", cookies.toString());
+			logger.debug("add cookie:" + cookies.toString());
+		}
+
+		// 请求头
+		if (hp.hasHeader()) {
+			for (Map.Entry<String, String> entry : hp.getHeaderParams().entrySet()) {
+				postMethod.setRequestHeader(entry.getKey(), entry.getValue());
+				logger.debug("add header:" + entry.getKey() + "=" + entry.getValue());
+			}
+		}
+
+		// body参数
+		org.apache.commons.httpclient.NameValuePair[] nameValuePairs = {};
+		if (hp.hasCommom()) {
+			for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
+
+				postMethod.setParameter(entry.getKey(), entry.getValue());
+			}
+		}
+
+		try {
+			// 设置 HttpClient 接收 Cookie,用与浏览器一样的策略
+			client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+			client.executeMethod(postMethod);
+			// 获得登陆后的 Cookie
+			Cookie[] cookies = client.getState().getCookies();
+
+			for (Cookie cookie : cookies) {
+				ret.put(cookie.getName(), cookie.getValue());
+			}
+
+		} catch (Exception e) {
+			postMethod.releaseConnection();
+			System.out.println(e.getMessage());
+		}
+		return ret;
+
+		// =================================================================================
+
+	}
+
+	public static Map<String, String> getCookies(HttpResponse httpResponse) {
+
+		String setCookie = httpResponse.getFirstHeader("Set-Cookie").getValue();
+
+		System.out.println(setCookie);
+
+		return null;
+
+		// cookieStore = new BasicCookieStore();
+		// // JSESSIONID
+		// String setCookie = httpResponse.getFirstHeader("Set-Cookie").getValue();
+		// String JSESSIONID = setCookie.substring("JSESSIONID=".length(), setCookie.indexOf(";"));
+		// System.out.println("JSESSIONID:" + JSESSIONID);
+		// // 新建一个Cookie
+		// BasicClientCookie cookie = new BasicClientCookie("JSESSIONID", JSESSIONID);
+		// cookie.setVersion(0);
+		// cookie.setDomain("127.0.0.1");
+		// cookie.setPath("/CwlProClient");
+		// // cookie.setAttribute(ClientCookie.VERSION_ATTR, "0");
+		// // cookie.setAttribute(ClientCookie.DOMAIN_ATTR, "127.0.0.1");
+		// // cookie.setAttribute(ClientCookie.PORT_ATTR, "8080");
+		// // cookie.setAttribute(ClientCookie.PATH_ATTR, "/CwlProWeb");
+		// cookieStore.addCookie(cookie);
 	}
 
 	/**

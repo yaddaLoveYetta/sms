@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.kingdee.eas.hrp.sms.util.http.HttpParam;
 import com.kingdee.eas.hrp.sms.util.http.HttpUtil;
 
-public class UserControllerTest {
+public class UserControllerTest extends BaseControllerTest {
 
 	@Test
 	public void getUserList() {
@@ -20,7 +20,24 @@ public class UserControllerTest {
 		HttpParam param = HttpParam.init();
 		param.setCommonParams(commonParams);
 
-		Map<String, Object> ret = HttpUtil.sendGetForMap("http://127.0.0.1:8081/sms/user/getUserList", param);
+		param.setCookieParams(cookie);
+
+		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "user/getUserList", param);
+
+		System.out.println(ret);
+
+	}
+
+	@Test
+	public void getSidebar() {
+
+		HttpParam param = HttpParam.init();
+
+		param.setCookieParams(cookie);
+
+		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "user/getSidebar", param);
+
+		System.out.println(ret);
 
 	}
 }

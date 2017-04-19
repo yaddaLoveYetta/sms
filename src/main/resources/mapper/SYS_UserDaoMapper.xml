@@ -13,7 +13,7 @@
 		t2.name,
 		t2.[index] AS subIndex,
 		t2.url,
-		t2.Icon AS subIcon,
+		t2.icon AS subIcon,
 		t3.objectType,
 		t3.objectId,
 		ISNULL(t4.accessMask, 0) AS accessMask

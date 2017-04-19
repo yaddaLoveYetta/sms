@@ -15,6 +15,8 @@ public class DataFlowSubClass {
 
     private String icon;
 
+    private Integer ownerType;
+
     public Integer getSubSysId() {
         return subSysId;
     }
@@ -69,5 +71,13 @@ public class DataFlowSubClass {
 
     public void setIcon(String icon) {
         this.icon = icon == null ? null : icon.trim();
+    }
+
+    public Integer getOwnerType() {
+        return ownerType;
+    }
+
+    public void setOwnerType(Integer ownerType) {
+        this.ownerType = ownerType;
     }
 }

@@ -140,7 +140,7 @@ public class UserService extends BaseService implements IUserService {
 					Map<String, Object> item = new HashMap<String, Object>();
 
 					item.put("topClassId", menu.get("topClassId"));
-					item.put("name", menu.get("name"));
+					item.put("name", menu.get("topClassName"));
 					item.put("icon", menu.get("icon"));
 
 					List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -150,7 +150,7 @@ public class UserService extends BaseService implements IUserService {
 					items.put("subSysId", menu.get("subSysId"));
 					items.put("name", menu.get("name"));
 					items.put("url", menu.get("url"));
-					items.put("icon", menu.get("icon"));
+					items.put("icon", menu.get("subIcon"));
 
 					list.add(items);
 					item.put("items", list);
