@@ -20,6 +20,11 @@
     <result column="createOrganization" jdbcType="VARCHAR" property="createOrganization" />
     <result column="banOrganization" jdbcType="VARCHAR" property="banOrganization" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="certificateId" jdbcType="INTEGER" property="certificateId" />
+    <result column="currencyId" jdbcType="INTEGER" property="currencyId" />
+    <result column="settlementId" jdbcType="INTEGER" property="settlementId" />
+    <result column="payId" jdbcType="INTEGER" property="payId" />
+    <result column="itemId" jdbcType="INTEGER" property="itemId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -82,7 +87,7 @@
   <sql id="Base_Column_List">
     supplierId, supplierName, shortName, taxID, CORP, BRNO, taxCategoryID, taxRate, country, 
     city, province, county, address, industryID, categoryID, createOrganization, banOrganization, 
-    status
+    status, certificateId, currencyId, settlementId, payId, itemId
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -110,15 +115,17 @@
       taxCategoryID, taxRate, country, 
       city, province, county, 
       address, industryID, categoryID, 
-      createOrganization, banOrganization, status
-      )
+      createOrganization, banOrganization, status, 
+      certificateId, currencyId, settlementId, 
+      payId, itemId)
     values (#{supplierId,jdbcType=INTEGER}, #{supplierName,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, 
       #{taxID,jdbcType=INTEGER}, #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, 
       #{taxCategoryID,jdbcType=INTEGER}, #{taxRate,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR}, 
       #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{industryID,jdbcType=VARCHAR}, #{categoryID,jdbcType=INTEGER}, 
-      #{createOrganization,jdbcType=VARCHAR}, #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
-      )
+      #{createOrganization,jdbcType=VARCHAR}, #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{certificateId,jdbcType=INTEGER}, #{currencyId,jdbcType=INTEGER}, #{settlementId,jdbcType=INTEGER}, 
+      #{payId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -177,6 +184,21 @@
       <if test="status != null">
         status,
       </if>
+      <if test="certificateId != null">
+        certificateId,
+      </if>
+      <if test="currencyId != null">
+        currencyId,
+      </if>
+      <if test="settlementId != null">
+        settlementId,
+      </if>
+      <if test="payId != null">
+        payId,
+      </if>
+      <if test="itemId != null">
+        itemId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="supplierId != null">
@@ -232,6 +254,21 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="certificateId != null">
+        #{certificateId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyId != null">
+        #{currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="settlementId != null">
+        #{settlementId,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null">
+        #{payId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -298,6 +335,21 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.certificateId != null">
+        certificateId = #{record.certificateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.currencyId != null">
+        currencyId = #{record.currencyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.settlementId != null">
+        settlementId = #{record.settlementId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payId != null">
+        payId = #{record.payId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemId != null">
+        itemId = #{record.itemId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -322,7 +374,12 @@
       categoryID = #{record.categoryID,jdbcType=INTEGER},
       createOrganization = #{record.createOrganization,jdbcType=VARCHAR},
       banOrganization = #{record.banOrganization,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      certificateId = #{record.certificateId,jdbcType=INTEGER},
+      currencyId = #{record.currencyId,jdbcType=INTEGER},
+      settlementId = #{record.settlementId,jdbcType=INTEGER},
+      payId = #{record.payId,jdbcType=INTEGER},
+      itemId = #{record.itemId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
