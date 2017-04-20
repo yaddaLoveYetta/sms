@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.FormFieldsMapper">
+  <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.FormFields">
+    <result column="classId" jdbcType="INTEGER" property="classId" />
+    <result column="page" jdbcType="INTEGER" property="page" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sqlColumnName" jdbcType="VARCHAR" property="sqlColumnName" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="dataType" jdbcType="INTEGER" property="dataType" />
+    <result column="ctrlType" jdbcType="INTEGER" property="ctrlType" />
+    <result column="ctlIndex" jdbcType="INTEGER" property="ctlIndex" />
+    <result column="index" jdbcType="INTEGER" property="index" />
+    <result column="display" jdbcType="INTEGER" property="display" />
+    <result column="showWidth" jdbcType="INTEGER" property="showWidth" />
+    <result column="lookUpType" jdbcType="INTEGER" property="lookUpType" />
+    <result column="lookUpClassID" jdbcType="INTEGER" property="lookUpClassID" />
+    <result column="srcTable" jdbcType="VARCHAR" property="srcTable" />
+    <result column="srcTableAlisAs" jdbcType="VARCHAR" property="srcTableAlisAs" />
+    <result column="srcField" jdbcType="VARCHAR" property="srcField" />
+    <result column="disPlayField" jdbcType="VARCHAR" property="disPlayField" />
+    <result column="disPlayNum" jdbcType="VARCHAR" property="disPlayNum" />
+    <result column="joinType" jdbcType="VARCHAR" property="joinType" />
+    <result column="filter" jdbcType="VARCHAR" property="filter" />
+    <result column="defaultValue" jdbcType="VARCHAR" property="defaultValue" />
+    <result column="maxValue" jdbcType="NUMERIC" property="maxValue" />
+    <result column="minValue" jdbcType="NUMERIC" property="minValue" />
+    <result column="mustInput" jdbcType="INTEGER" property="mustInput" />
+    <result column="length" jdbcType="INTEGER" property="length" />
+    <result column="lock" jdbcType="INTEGER" property="lock" />
+    <result column="isCondition" jdbcType="INTEGER" property="isCondition" />
+    <result column="isCount" jdbcType="INTEGER" property="isCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    classId, page, [name], sqlColumnName, [key], dataType, ctrlType, ctlIndex, [index], 
+    display, showWidth, lookUpType, lookUpClassID, srcTable, srcTableAlisAs, srcField, 
+    disPlayField, disPlayNum, joinType, [filter], defaultValue, [maxValue], [minValue], 
+    mustInput, [length], [lock], isCondition, isCount
+  </sql>
+  <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.FormFieldsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_sms_formFields
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.FormFieldsExample">
+    delete from t_sms_formFields
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.FormFields">
+    insert into t_sms_formFields (classId, page, [name], 
+      sqlColumnName, [key], dataType, 
+      ctrlType, ctlIndex, [index], 
+      display, showWidth, lookUpType, 
+      lookUpClassID, srcTable, srcTableAlisAs, 
+      srcField, disPlayField, disPlayNum, 
+      joinType, [filter], defaultValue, 
+      [maxValue], [minValue], mustInput, 
+      [length], [lock], isCondition, 
+      isCount)
+    values (#{classId,jdbcType=INTEGER}, #{page,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{sqlColumnName,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{dataType,jdbcType=INTEGER}, 
+      #{ctrlType,jdbcType=INTEGER}, #{ctlIndex,jdbcType=INTEGER}, #{index,jdbcType=INTEGER}, 
+      #{display,jdbcType=INTEGER}, #{showWidth,jdbcType=INTEGER}, #{lookUpType,jdbcType=INTEGER}, 
+      #{lookUpClassID,jdbcType=INTEGER}, #{srcTable,jdbcType=VARCHAR}, #{srcTableAlisAs,jdbcType=VARCHAR}, 
+      #{srcField,jdbcType=VARCHAR}, #{disPlayField,jdbcType=VARCHAR}, #{disPlayNum,jdbcType=VARCHAR}, 
+      #{joinType,jdbcType=VARCHAR}, #{filter,jdbcType=VARCHAR}, #{defaultValue,jdbcType=VARCHAR}, 
+      #{maxValue,jdbcType=NUMERIC}, #{minValue,jdbcType=NUMERIC}, #{mustInput,jdbcType=INTEGER}, 
+      #{length,jdbcType=INTEGER}, #{lock,jdbcType=INTEGER}, #{isCondition,jdbcType=INTEGER}, 
+      #{isCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.FormFields">
+    insert into t_sms_formFields
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        classId,
+      </if>
+      <if test="page != null">
+        page,
+      </if>
+      <if test="name != null">
+        [name],
+      </if>
+      <if test="sqlColumnName != null">
+        sqlColumnName,
+      </if>
+      <if test="key != null">
+        [key],
+      </if>
+      <if test="dataType != null">
+        dataType,
+      </if>
+      <if test="ctrlType != null">
+        ctrlType,
+      </if>
+      <if test="ctlIndex != null">
+        ctlIndex,
+      </if>
+      <if test="index != null">
+        [index],
+      </if>
+      <if test="display != null">
+        display,
+      </if>
+      <if test="showWidth != null">
+        showWidth,
+      </if>
+      <if test="lookUpType != null">
+        lookUpType,
+      </if>
+      <if test="lookUpClassID != null">
+        lookUpClassID,
+      </if>
+      <if test="srcTable != null">
+        srcTable,
+      </if>
+      <if test="srcTableAlisAs != null">
+        srcTableAlisAs,
+      </if>
+      <if test="srcField != null">
+        srcField,
+      </if>
+      <if test="disPlayField != null">
+        disPlayField,
+      </if>
+      <if test="disPlayNum != null">
+        disPlayNum,
+      </if>
+      <if test="joinType != null">
+        joinType,
+      </if>
+      <if test="filter != null">
+        [filter],
+      </if>
+      <if test="defaultValue != null">
+        defaultValue,
+      </if>
+      <if test="maxValue != null">
+        [maxValue],
+      </if>
+      <if test="minValue != null">
+        [minValue],
+      </if>
+      <if test="mustInput != null">
+        mustInput,
+      </if>
+      <if test="length != null">
+        [length],
+      </if>
+      <if test="lock != null">
+        [lock],
+      </if>
+      <if test="isCondition != null">
+        isCondition,
+      </if>
+      <if test="isCount != null">
+        isCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="page != null">
+        #{page,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlColumnName != null">
+        #{sqlColumnName,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null">
+        #{dataType,jdbcType=INTEGER},
+      </if>
+      <if test="ctrlType != null">
+        #{ctrlType,jdbcType=INTEGER},
+      </if>
+      <if test="ctlIndex != null">
+        #{ctlIndex,jdbcType=INTEGER},
+      </if>
+      <if test="index != null">
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="display != null">
+        #{display,jdbcType=INTEGER},
+      </if>
+      <if test="showWidth != null">
+        #{showWidth,jdbcType=INTEGER},
+      </if>
+      <if test="lookUpType != null">
+        #{lookUpType,jdbcType=INTEGER},
+      </if>
+      <if test="lookUpClassID != null">
+        #{lookUpClassID,jdbcType=INTEGER},
+      </if>
+      <if test="srcTable != null">
+        #{srcTable,jdbcType=VARCHAR},
+      </if>
+      <if test="srcTableAlisAs != null">
+        #{srcTableAlisAs,jdbcType=VARCHAR},
+      </if>
+      <if test="srcField != null">
+        #{srcField,jdbcType=VARCHAR},
+      </if>
+      <if test="disPlayField != null">
+        #{disPlayField,jdbcType=VARCHAR},
+      </if>
+      <if test="disPlayNum != null">
+        #{disPlayNum,jdbcType=VARCHAR},
+      </if>
+      <if test="joinType != null">
+        #{joinType,jdbcType=VARCHAR},
+      </if>
+      <if test="filter != null">
+        #{filter,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null">
+        #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="maxValue != null">
+        #{maxValue,jdbcType=NUMERIC},
+      </if>
+      <if test="minValue != null">
+        #{minValue,jdbcType=NUMERIC},
+      </if>
+      <if test="mustInput != null">
+        #{mustInput,jdbcType=INTEGER},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=INTEGER},
+      </if>
+      <if test="lock != null">
+        #{lock,jdbcType=INTEGER},
+      </if>
+      <if test="isCondition != null">
+        #{isCondition,jdbcType=INTEGER},
+      </if>
+      <if test="isCount != null">
+        #{isCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kingdee.eas.hrp.sms.model.FormFieldsExample" resultType="java.lang.Long">
+    select count(*) from t_sms_formFields
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_sms_formFields
+    <set>
+      <if test="record.classId != null">
+        classId = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.page != null">
+        page = #{record.page,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        [name] = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlColumnName != null">
+        sqlColumnName = #{record.sqlColumnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.key != null">
+        [key] = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataType != null">
+        dataType = #{record.dataType,jdbcType=INTEGER},
+      </if>
+      <if test="record.ctrlType != null">
+        ctrlType = #{record.ctrlType,jdbcType=INTEGER},
+      </if>
+      <if test="record.ctlIndex != null">
+        ctlIndex = #{record.ctlIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.index != null">
+        [index] = #{record.index,jdbcType=INTEGER},
+      </if>
+      <if test="record.display != null">
+        display = #{record.display,jdbcType=INTEGER},
+      </if>
+      <if test="record.showWidth != null">
+        showWidth = #{record.showWidth,jdbcType=INTEGER},
+      </if>
+      <if test="record.lookUpType != null">
+        lookUpType = #{record.lookUpType,jdbcType=INTEGER},
+      </if>
+      <if test="record.lookUpClassID != null">
+        lookUpClassID = #{record.lookUpClassID,jdbcType=INTEGER},
+      </if>
+      <if test="record.srcTable != null">
+        srcTable = #{record.srcTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srcTableAlisAs != null">
+        srcTableAlisAs = #{record.srcTableAlisAs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srcField != null">
+        srcField = #{record.srcField,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disPlayField != null">
+        disPlayField = #{record.disPlayField,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disPlayNum != null">
+        disPlayNum = #{record.disPlayNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinType != null">
+        joinType = #{record.joinType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filter != null">
+        [filter] = #{record.filter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultValue != null">
+        defaultValue = #{record.defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxValue != null">
+        [maxValue] = #{record.maxValue,jdbcType=NUMERIC},
+      </if>
+      <if test="record.minValue != null">
+        [minValue] = #{record.minValue,jdbcType=NUMERIC},
+      </if>
+      <if test="record.mustInput != null">
+        mustInput = #{record.mustInput,jdbcType=INTEGER},
+      </if>
+      <if test="record.length != null">
+        [length] = #{record.length,jdbcType=INTEGER},
+      </if>
+      <if test="record.lock != null">
+        [lock] = #{record.lock,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCondition != null">
+        isCondition = #{record.isCondition,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCount != null">
+        isCount = #{record.isCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_sms_formFields
+    set classId = #{record.classId,jdbcType=INTEGER},
+      page = #{record.page,jdbcType=INTEGER},
+      [name] = #{record.name,jdbcType=VARCHAR},
+      sqlColumnName = #{record.sqlColumnName,jdbcType=VARCHAR},
+      [key] = #{record.key,jdbcType=VARCHAR},
+      dataType = #{record.dataType,jdbcType=INTEGER},
+      ctrlType = #{record.ctrlType,jdbcType=INTEGER},
+      ctlIndex = #{record.ctlIndex,jdbcType=INTEGER},
+      [index] = #{record.index,jdbcType=INTEGER},
+      display = #{record.display,jdbcType=INTEGER},
+      showWidth = #{record.showWidth,jdbcType=INTEGER},
+      lookUpType = #{record.lookUpType,jdbcType=INTEGER},
+      lookUpClassID = #{record.lookUpClassID,jdbcType=INTEGER},
+      srcTable = #{record.srcTable,jdbcType=VARCHAR},
+      srcTableAlisAs = #{record.srcTableAlisAs,jdbcType=VARCHAR},
+      srcField = #{record.srcField,jdbcType=VARCHAR},
+      disPlayField = #{record.disPlayField,jdbcType=VARCHAR},
+      disPlayNum = #{record.disPlayNum,jdbcType=VARCHAR},
+      joinType = #{record.joinType,jdbcType=VARCHAR},
+      [filter] = #{record.filter,jdbcType=VARCHAR},
+      defaultValue = #{record.defaultValue,jdbcType=VARCHAR},
+      [maxValue] = #{record.maxValue,jdbcType=NUMERIC},
+      [minValue] = #{record.minValue,jdbcType=NUMERIC},
+      mustInput = #{record.mustInput,jdbcType=INTEGER},
+      [length] = #{record.length,jdbcType=INTEGER},
+      [lock] = #{record.lock,jdbcType=INTEGER},
+      isCondition = #{record.isCondition,jdbcType=INTEGER},
+      isCount = #{record.isCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
