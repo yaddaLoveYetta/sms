@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    userId, number, name, password, type, status, role, supplier
+    userId, [number], [name], [password], [type], [status], [role], supplier
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.UserExample" resultMap="BaseResultMap">
     select
@@ -103,9 +103,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.User">
-    insert into t_sms_user (userId, number, name, 
-      password, type, status, 
-      role, supplier)
+    insert into t_sms_user (userId, [number], [name], 
+      [password], [type], [status], 
+      [role], supplier)
     values (#{userId,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{role,jdbcType=INTEGER}, #{supplier,jdbcType=INTEGER})
@@ -117,22 +117,22 @@
         userId,
       </if>
       <if test="number != null">
-        number,
+        [number],
       </if>
       <if test="name != null">
-        name,
+        [name],
       </if>
       <if test="password != null">
-        password,
+        [password],
       </if>
       <if test="type != null">
-        type,
+        [type],
       </if>
       <if test="status != null">
-        status,
+        [status],
       </if>
       <if test="role != null">
-        role,
+        [role],
       </if>
       <if test="supplier != null">
         supplier,
@@ -178,22 +178,22 @@
         userId = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.number != null">
-        number = #{record.number,jdbcType=VARCHAR},
+        [number] = #{record.number,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+        [password] = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null">
-        type = #{record.type,jdbcType=INTEGER},
+        [type] = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+        [status] = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.role != null">
-        role = #{record.role,jdbcType=INTEGER},
+        [role] = #{record.role,jdbcType=INTEGER},
       </if>
       <if test="record.supplier != null">
         supplier = #{record.supplier,jdbcType=INTEGER},
@@ -206,12 +206,12 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_user
     set userId = #{record.userId,jdbcType=INTEGER},
-      number = #{record.number,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      role = #{record.role,jdbcType=INTEGER},
+      [number] = #{record.number,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
+      [password] = #{record.password,jdbcType=VARCHAR},
+      [type] = #{record.type,jdbcType=INTEGER},
+      [status] = #{record.status,jdbcType=INTEGER},
+      [role] = #{record.role,jdbcType=INTEGER},
       supplier = #{record.supplier,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -221,22 +221,22 @@
     update t_sms_user
     <set>
       <if test="number != null">
-        number = #{number,jdbcType=VARCHAR},
+        [number] = #{number,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+        [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+        [password] = #{password,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
+        [type] = #{type,jdbcType=INTEGER},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        [status] = #{status,jdbcType=INTEGER},
       </if>
       <if test="role != null">
-        role = #{role,jdbcType=INTEGER},
+        [role] = #{role,jdbcType=INTEGER},
       </if>
       <if test="supplier != null">
         supplier = #{supplier,jdbcType=INTEGER},
@@ -246,12 +246,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.User">
     update t_sms_user
-    set number = #{number,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      role = #{role,jdbcType=INTEGER},
+    set [number] = #{number,jdbcType=VARCHAR},
+      [name] = #{name,jdbcType=VARCHAR},
+      [password] = #{password,jdbcType=VARCHAR},
+      [type] = #{type,jdbcType=INTEGER},
+      [status] = #{status,jdbcType=INTEGER},
+      [role] = #{role,jdbcType=INTEGER},
       supplier = #{supplier,jdbcType=INTEGER}
     where userId = #{userId,jdbcType=INTEGER}
   </update>

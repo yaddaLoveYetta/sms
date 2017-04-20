@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    topClassId, topClassName, index, visible, icon
+    topClassId, topClassName, [index], visible, icon
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.DataFlowTopClassExample" resultMap="BaseResultMap">
     select
@@ -100,7 +100,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.DataFlowTopClass">
-    insert into t_sms_dataFlowTopClass (topClassId, topClassName, index, 
+    insert into t_sms_dataFlowTopClass (topClassId, topClassName, [index], 
       visible, icon)
     values (#{topClassId,jdbcType=INTEGER}, #{topClassName,jdbcType=VARCHAR}, #{index,jdbcType=INTEGER}, 
       #{visible,jdbcType=BIT}, #{icon,jdbcType=VARCHAR})
@@ -115,7 +115,7 @@
         topClassName,
       </if>
       <if test="index != null">
-        index,
+        [index],
       </if>
       <if test="visible != null">
         visible,
@@ -158,7 +158,7 @@
         topClassName = #{record.topClassName,jdbcType=VARCHAR},
       </if>
       <if test="record.index != null">
-        index = #{record.index,jdbcType=INTEGER},
+        [index] = #{record.index,jdbcType=INTEGER},
       </if>
       <if test="record.visible != null">
         visible = #{record.visible,jdbcType=BIT},
@@ -175,7 +175,7 @@
     update t_sms_dataFlowTopClass
     set topClassId = #{record.topClassId,jdbcType=INTEGER},
       topClassName = #{record.topClassName,jdbcType=VARCHAR},
-      index = #{record.index,jdbcType=INTEGER},
+      [index] = #{record.index,jdbcType=INTEGER},
       visible = #{record.visible,jdbcType=BIT},
       icon = #{record.icon,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -189,7 +189,7 @@
         topClassName = #{topClassName,jdbcType=VARCHAR},
       </if>
       <if test="index != null">
-        index = #{index,jdbcType=INTEGER},
+        [index] = #{index,jdbcType=INTEGER},
       </if>
       <if test="visible != null">
         visible = #{visible,jdbcType=BIT},
@@ -203,7 +203,7 @@
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.DataFlowTopClass">
     update t_sms_dataFlowTopClass
     set topClassName = #{topClassName,jdbcType=VARCHAR},
-      index = #{index,jdbcType=INTEGER},
+      [index] = #{index,jdbcType=INTEGER},
       visible = #{visible,jdbcType=BIT},
       icon = #{icon,jdbcType=VARCHAR}
     where topClassId = #{topClassId,jdbcType=INTEGER}

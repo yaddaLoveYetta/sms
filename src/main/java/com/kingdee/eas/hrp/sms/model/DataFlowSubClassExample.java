@@ -225,132 +225,132 @@ public class DataFlowSubClassExample {
         }
 
         public Criteria andNameIsNull() {
-            addCriterion("name is null");
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
         public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
         public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 
         public Criteria andIndexIsNull() {
-            addCriterion("index is null");
+            addCriterion("[index] is null");
             return (Criteria) this;
         }
 
         public Criteria andIndexIsNotNull() {
-            addCriterion("index is not null");
+            addCriterion("[index] is not null");
             return (Criteria) this;
         }
 
         public Criteria andIndexEqualTo(Integer value) {
-            addCriterion("index =", value, "index");
+            addCriterion("[index] =", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexNotEqualTo(Integer value) {
-            addCriterion("index <>", value, "index");
+            addCriterion("[index] <>", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexGreaterThan(Integer value) {
-            addCriterion("index >", value, "index");
+            addCriterion("[index] >", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexGreaterThanOrEqualTo(Integer value) {
-            addCriterion("index >=", value, "index");
+            addCriterion("[index] >=", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexLessThan(Integer value) {
-            addCriterion("index <", value, "index");
+            addCriterion("[index] <", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexLessThanOrEqualTo(Integer value) {
-            addCriterion("index <=", value, "index");
+            addCriterion("[index] <=", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexIn(List<Integer> values) {
-            addCriterion("index in", values, "index");
+            addCriterion("[index] in", values, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexNotIn(List<Integer> values) {
-            addCriterion("index not in", values, "index");
+            addCriterion("[index] not in", values, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexBetween(Integer value1, Integer value2) {
-            addCriterion("index between", value1, value2, "index");
+            addCriterion("[index] between", value1, value2, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexNotBetween(Integer value1, Integer value2) {
-            addCriterion("index not between", value1, value2, "index");
+            addCriterion("[index] not between", value1, value2, "index");
             return (Criteria) this;
         }
 

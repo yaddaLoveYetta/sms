@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    topClassId, subSysId, objectType, objectId, name, description
+    topClassId, subSysId, objectType, objectId, [name], description
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.ObjectTypeExample" resultMap="BaseResultMap">
     select
@@ -92,7 +92,7 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.ObjectType">
     insert into t_sms_objectType (topClassId, subSysId, objectType, 
-      objectId, name, description
+      objectId, [name], description
       )
     values (#{topClassId,jdbcType=INTEGER}, #{subSysId,jdbcType=INTEGER}, #{objectType,jdbcType=INTEGER}, 
       #{objectId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
@@ -114,7 +114,7 @@
         objectId,
       </if>
       <if test="name != null">
-        name,
+        [name],
       </if>
       <if test="description != null">
         description,
@@ -163,7 +163,7 @@
         objectId = #{record.objectId,jdbcType=INTEGER},
       </if>
       <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
@@ -179,7 +179,7 @@
       subSysId = #{record.subSysId,jdbcType=INTEGER},
       objectType = #{record.objectType,jdbcType=INTEGER},
       objectId = #{record.objectId,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

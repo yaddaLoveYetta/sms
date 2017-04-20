@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    objectType, objectId, index, name, accessMask, accessUse, ownerType, description
+    objectType, objectId, [index], [name], accessMask, accessUse, ownerType, description
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.ObjectAccessTypeExample" resultMap="BaseResultMap">
     select
@@ -92,13 +92,13 @@
     from t_sms_objectAccessType
     where objectType = #{objectType,jdbcType=INTEGER}
       and objectId = #{objectId,jdbcType=INTEGER}
-      and index = #{index,jdbcType=INTEGER}
+      and [index] = #{index,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.ObjectAccessTypeKey">
     delete from t_sms_objectAccessType
     where objectType = #{objectType,jdbcType=INTEGER}
       and objectId = #{objectId,jdbcType=INTEGER}
-      and index = #{index,jdbcType=INTEGER}
+      and [index] = #{index,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.ObjectAccessTypeExample">
     delete from t_sms_objectAccessType
@@ -107,8 +107,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.ObjectAccessType">
-    insert into t_sms_objectAccessType (objectType, objectId, index, 
-      name, accessMask, accessUse, 
+    insert into t_sms_objectAccessType (objectType, objectId, [index], 
+      [name], accessMask, accessUse, 
       ownerType, description)
     values (#{objectType,jdbcType=INTEGER}, #{objectId,jdbcType=INTEGER}, #{index,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{accessMask,jdbcType=INTEGER}, #{accessUse,jdbcType=INTEGER}, 
@@ -124,10 +124,10 @@
         objectId,
       </if>
       <if test="index != null">
-        index,
+        [index],
       </if>
       <if test="name != null">
-        name,
+        [name],
       </if>
       <if test="accessMask != null">
         accessMask,
@@ -185,10 +185,10 @@
         objectId = #{record.objectId,jdbcType=INTEGER},
       </if>
       <if test="record.index != null">
-        index = #{record.index,jdbcType=INTEGER},
+        [index] = #{record.index,jdbcType=INTEGER},
       </if>
       <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.accessMask != null">
         accessMask = #{record.accessMask,jdbcType=INTEGER},
@@ -211,8 +211,8 @@
     update t_sms_objectAccessType
     set objectType = #{record.objectType,jdbcType=INTEGER},
       objectId = #{record.objectId,jdbcType=INTEGER},
-      index = #{record.index,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      [index] = #{record.index,jdbcType=INTEGER},
+      [name] = #{record.name,jdbcType=VARCHAR},
       accessMask = #{record.accessMask,jdbcType=INTEGER},
       accessUse = #{record.accessUse,jdbcType=INTEGER},
       ownerType = #{record.ownerType,jdbcType=INTEGER},
@@ -225,7 +225,7 @@
     update t_sms_objectAccessType
     <set>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+        [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="accessMask != null">
         accessMask = #{accessMask,jdbcType=INTEGER},
@@ -242,17 +242,17 @@
     </set>
     where objectType = #{objectType,jdbcType=INTEGER}
       and objectId = #{objectId,jdbcType=INTEGER}
-      and index = #{index,jdbcType=INTEGER}
+      and [index] = #{index,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.ObjectAccessType">
     update t_sms_objectAccessType
-    set name = #{name,jdbcType=VARCHAR},
+    set [name] = #{name,jdbcType=VARCHAR},
       accessMask = #{accessMask,jdbcType=INTEGER},
       accessUse = #{accessUse,jdbcType=INTEGER},
       ownerType = #{ownerType,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR}
     where objectType = #{objectType,jdbcType=INTEGER}
       and objectId = #{objectId,jdbcType=INTEGER}
-      and index = #{index,jdbcType=INTEGER}
+      and [index] = #{index,jdbcType=INTEGER}
   </update>
 </mapper>

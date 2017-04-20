@@ -15,6 +15,7 @@
 		<property name="javaFileEncoding" value="UTF-8" />
 		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
 		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+		<property name="autoDelimitKeywords" value="true" />
 		<property name="beginningDelimiter" value="[" />
 		<property name="endingDelimiter" value="]" />
 

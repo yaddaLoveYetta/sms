@@ -90,10 +90,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    classId, page, name, sqlColumnName, key, dataType, ctrlType, ctlIndex, index, display, 
-    showWidth, lookUpType, lookUpClassID, srcTable, srcTableAlisAs, srcField, disPlayField, 
-    disPlayNum, joinType, filter, defaultValue, maxValue, minValue, mustInput, length, 
-    lock, isCondition, isCount
+    classId, page, [name], sqlColumnName, [key], dataType, ctrlType, ctlIndex, [index], 
+    display, showWidth, lookUpType, lookUpClassID, srcTable, srcTableAlisAs, srcField, 
+    disPlayField, disPlayNum, joinType, [filter], defaultValue, [maxValue], [minValue], 
+    mustInput, [length], [lock], isCondition, isCount
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.FormFieldsExample" resultMap="BaseResultMap">
     select
@@ -116,15 +116,15 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.FormFields">
-    insert into t_sms_formFields (classId, page, name, 
-      sqlColumnName, key, dataType, 
-      ctrlType, ctlIndex, index, 
+    insert into t_sms_formFields (classId, page, [name], 
+      sqlColumnName, [key], dataType, 
+      ctrlType, ctlIndex, [index], 
       display, showWidth, lookUpType, 
       lookUpClassID, srcTable, srcTableAlisAs, 
       srcField, disPlayField, disPlayNum, 
-      joinType, filter, defaultValue, 
-      maxValue, minValue, mustInput, 
-      length, lock, isCondition, 
+      joinType, [filter], defaultValue, 
+      [maxValue], [minValue], mustInput, 
+      [length], [lock], isCondition, 
       isCount)
     values (#{classId,jdbcType=INTEGER}, #{page,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{sqlColumnName,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{dataType,jdbcType=INTEGER}, 
@@ -147,13 +147,13 @@
         page,
       </if>
       <if test="name != null">
-        name,
+        [name],
       </if>
       <if test="sqlColumnName != null">
         sqlColumnName,
       </if>
       <if test="key != null">
-        key,
+        [key],
       </if>
       <if test="dataType != null">
         dataType,
@@ -165,7 +165,7 @@
         ctlIndex,
       </if>
       <if test="index != null">
-        index,
+        [index],
       </if>
       <if test="display != null">
         display,
@@ -198,25 +198,25 @@
         joinType,
       </if>
       <if test="filter != null">
-        filter,
+        [filter],
       </if>
       <if test="defaultValue != null">
         defaultValue,
       </if>
       <if test="maxValue != null">
-        maxValue,
+        [maxValue],
       </if>
       <if test="minValue != null">
-        minValue,
+        [minValue],
       </if>
       <if test="mustInput != null">
         mustInput,
       </if>
       <if test="length != null">
-        length,
+        [length],
       </if>
       <if test="lock != null">
-        lock,
+        [lock],
       </if>
       <if test="isCondition != null">
         isCondition,
@@ -328,13 +328,13 @@
         page = #{record.page,jdbcType=INTEGER},
       </if>
       <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.sqlColumnName != null">
         sqlColumnName = #{record.sqlColumnName,jdbcType=VARCHAR},
       </if>
       <if test="record.key != null">
-        key = #{record.key,jdbcType=VARCHAR},
+        [key] = #{record.key,jdbcType=VARCHAR},
       </if>
       <if test="record.dataType != null">
         dataType = #{record.dataType,jdbcType=INTEGER},
@@ -346,7 +346,7 @@
         ctlIndex = #{record.ctlIndex,jdbcType=INTEGER},
       </if>
       <if test="record.index != null">
-        index = #{record.index,jdbcType=INTEGER},
+        [index] = #{record.index,jdbcType=INTEGER},
       </if>
       <if test="record.display != null">
         display = #{record.display,jdbcType=INTEGER},
@@ -379,25 +379,25 @@
         joinType = #{record.joinType,jdbcType=VARCHAR},
       </if>
       <if test="record.filter != null">
-        filter = #{record.filter,jdbcType=VARCHAR},
+        [filter] = #{record.filter,jdbcType=VARCHAR},
       </if>
       <if test="record.defaultValue != null">
         defaultValue = #{record.defaultValue,jdbcType=VARCHAR},
       </if>
       <if test="record.maxValue != null">
-        maxValue = #{record.maxValue,jdbcType=NUMERIC},
+        [maxValue] = #{record.maxValue,jdbcType=NUMERIC},
       </if>
       <if test="record.minValue != null">
-        minValue = #{record.minValue,jdbcType=NUMERIC},
+        [minValue] = #{record.minValue,jdbcType=NUMERIC},
       </if>
       <if test="record.mustInput != null">
         mustInput = #{record.mustInput,jdbcType=INTEGER},
       </if>
       <if test="record.length != null">
-        length = #{record.length,jdbcType=INTEGER},
+        [length] = #{record.length,jdbcType=INTEGER},
       </if>
       <if test="record.lock != null">
-        lock = #{record.lock,jdbcType=INTEGER},
+        [lock] = #{record.lock,jdbcType=INTEGER},
       </if>
       <if test="record.isCondition != null">
         isCondition = #{record.isCondition,jdbcType=INTEGER},
@@ -414,13 +414,13 @@
     update t_sms_formFields
     set classId = #{record.classId,jdbcType=INTEGER},
       page = #{record.page,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       sqlColumnName = #{record.sqlColumnName,jdbcType=VARCHAR},
-      key = #{record.key,jdbcType=VARCHAR},
+      [key] = #{record.key,jdbcType=VARCHAR},
       dataType = #{record.dataType,jdbcType=INTEGER},
       ctrlType = #{record.ctrlType,jdbcType=INTEGER},
       ctlIndex = #{record.ctlIndex,jdbcType=INTEGER},
-      index = #{record.index,jdbcType=INTEGER},
+      [index] = #{record.index,jdbcType=INTEGER},
       display = #{record.display,jdbcType=INTEGER},
       showWidth = #{record.showWidth,jdbcType=INTEGER},
       lookUpType = #{record.lookUpType,jdbcType=INTEGER},
@@ -431,13 +431,13 @@
       disPlayField = #{record.disPlayField,jdbcType=VARCHAR},
       disPlayNum = #{record.disPlayNum,jdbcType=VARCHAR},
       joinType = #{record.joinType,jdbcType=VARCHAR},
-      filter = #{record.filter,jdbcType=VARCHAR},
+      [filter] = #{record.filter,jdbcType=VARCHAR},
       defaultValue = #{record.defaultValue,jdbcType=VARCHAR},
-      maxValue = #{record.maxValue,jdbcType=NUMERIC},
-      minValue = #{record.minValue,jdbcType=NUMERIC},
+      [maxValue] = #{record.maxValue,jdbcType=NUMERIC},
+      [minValue] = #{record.minValue,jdbcType=NUMERIC},
       mustInput = #{record.mustInput,jdbcType=INTEGER},
-      length = #{record.length,jdbcType=INTEGER},
-      lock = #{record.lock,jdbcType=INTEGER},
+      [length] = #{record.length,jdbcType=INTEGER},
+      [lock] = #{record.lock,jdbcType=INTEGER},
       isCondition = #{record.isCondition,jdbcType=INTEGER},
       isCount = #{record.isCount,jdbcType=INTEGER}
     <if test="_parameter != null">

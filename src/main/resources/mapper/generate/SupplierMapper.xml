@@ -87,7 +87,7 @@
   <sql id="Base_Column_List">
     supplierId, supplierName, shortName, taxID, CORP, BRNO, taxCategoryID, taxRate, country, 
     city, province, county, address, industryID, categoryID, createOrganization, banOrganization, 
-    status, certificateId, currencyId, settlementId, payId, itemId
+    [status], certificateId, currencyId, settlementId, payId, itemId
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -125,7 +125,7 @@
       taxCategoryID, taxRate, country, 
       city, province, county, 
       address, industryID, categoryID, 
-      createOrganization, banOrganization, status, 
+      createOrganization, banOrganization, [status], 
       certificateId, currencyId, settlementId, 
       payId, itemId)
     values (#{supplierId,jdbcType=INTEGER}, #{supplierName,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, 
@@ -192,7 +192,7 @@
         banOrganization,
       </if>
       <if test="status != null">
-        status,
+        [status],
       </if>
       <if test="certificateId != null">
         certificateId,
@@ -343,7 +343,7 @@
         banOrganization = #{record.banOrganization,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+        [status] = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.certificateId != null">
         certificateId = #{record.certificateId,jdbcType=INTEGER},
@@ -384,7 +384,7 @@
       categoryID = #{record.categoryID,jdbcType=INTEGER},
       createOrganization = #{record.createOrganization,jdbcType=VARCHAR},
       banOrganization = #{record.banOrganization,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
+      [status] = #{record.status,jdbcType=INTEGER},
       certificateId = #{record.certificateId,jdbcType=INTEGER},
       currencyId = #{record.currencyId,jdbcType=INTEGER},
       settlementId = #{record.settlementId,jdbcType=INTEGER},
@@ -446,7 +446,7 @@
         banOrganization = #{banOrganization,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        [status] = #{status,jdbcType=INTEGER},
       </if>
       <if test="certificateId != null">
         certificateId = #{certificateId,jdbcType=INTEGER},
@@ -484,7 +484,7 @@
       categoryID = #{categoryID,jdbcType=INTEGER},
       createOrganization = #{createOrganization,jdbcType=VARCHAR},
       banOrganization = #{banOrganization,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
+      [status] = #{status,jdbcType=INTEGER},
       certificateId = #{certificateId,jdbcType=INTEGER},
       currencyId = #{currencyId,jdbcType=INTEGER},
       settlementId = #{settlementId,jdbcType=INTEGER},

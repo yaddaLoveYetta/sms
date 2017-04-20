@@ -10,11 +10,11 @@ import com.kingdee.eas.hrp.sms.util.http.HttpUtil;
 
 public abstract class BaseControllerTest {
 
-	protected static String BASE_URL = "http://127.0.0.1:8081/sms/";
+	protected static String BASE_URL = "http://127.0.0.1:8080/sms/";
 	private static String LOGIN_URL = BASE_URL + "user/login";
 	private static String user = "test";
 	private static String pwd = "202cb962ac59075b964b07152d234b70"; // 123
-	private static String type = "50801"; // 管理后台
+	private static String type = "1"; // 管理后台
 
 	protected Map<String, String> cookie = new HashMap<>();
 

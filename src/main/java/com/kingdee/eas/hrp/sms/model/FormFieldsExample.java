@@ -226,72 +226,72 @@ public class FormFieldsExample {
         }
 
         public Criteria andNameIsNull() {
-            addCriterion("name is null");
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
         public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
         public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 
@@ -366,72 +366,72 @@ public class FormFieldsExample {
         }
 
         public Criteria andKeyIsNull() {
-            addCriterion("key is null");
+            addCriterion("[key] is null");
             return (Criteria) this;
         }
 
         public Criteria andKeyIsNotNull() {
-            addCriterion("key is not null");
+            addCriterion("[key] is not null");
             return (Criteria) this;
         }
 
         public Criteria andKeyEqualTo(String value) {
-            addCriterion("key =", value, "key");
+            addCriterion("[key] =", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyNotEqualTo(String value) {
-            addCriterion("key <>", value, "key");
+            addCriterion("[key] <>", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyGreaterThan(String value) {
-            addCriterion("key >", value, "key");
+            addCriterion("[key] >", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyGreaterThanOrEqualTo(String value) {
-            addCriterion("key >=", value, "key");
+            addCriterion("[key] >=", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyLessThan(String value) {
-            addCriterion("key <", value, "key");
+            addCriterion("[key] <", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyLessThanOrEqualTo(String value) {
-            addCriterion("key <=", value, "key");
+            addCriterion("[key] <=", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyLike(String value) {
-            addCriterion("key like", value, "key");
+            addCriterion("[key] like", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyNotLike(String value) {
-            addCriterion("key not like", value, "key");
+            addCriterion("[key] not like", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyIn(List<String> values) {
-            addCriterion("key in", values, "key");
+            addCriterion("[key] in", values, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyNotIn(List<String> values) {
-            addCriterion("key not in", values, "key");
+            addCriterion("[key] not in", values, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyBetween(String value1, String value2) {
-            addCriterion("key between", value1, value2, "key");
+            addCriterion("[key] between", value1, value2, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyNotBetween(String value1, String value2) {
-            addCriterion("key not between", value1, value2, "key");
+            addCriterion("[key] not between", value1, value2, "key");
             return (Criteria) this;
         }
 
@@ -616,62 +616,62 @@ public class FormFieldsExample {
         }
 
         public Criteria andIndexIsNull() {
-            addCriterion("index is null");
+            addCriterion("[index] is null");
             return (Criteria) this;
         }
 
         public Criteria andIndexIsNotNull() {
-            addCriterion("index is not null");
+            addCriterion("[index] is not null");
             return (Criteria) this;
         }
 
         public Criteria andIndexEqualTo(Integer value) {
-            addCriterion("index =", value, "index");
+            addCriterion("[index] =", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexNotEqualTo(Integer value) {
-            addCriterion("index <>", value, "index");
+            addCriterion("[index] <>", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexGreaterThan(Integer value) {
-            addCriterion("index >", value, "index");
+            addCriterion("[index] >", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexGreaterThanOrEqualTo(Integer value) {
-            addCriterion("index >=", value, "index");
+            addCriterion("[index] >=", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexLessThan(Integer value) {
-            addCriterion("index <", value, "index");
+            addCriterion("[index] <", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexLessThanOrEqualTo(Integer value) {
-            addCriterion("index <=", value, "index");
+            addCriterion("[index] <=", value, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexIn(List<Integer> values) {
-            addCriterion("index in", values, "index");
+            addCriterion("[index] in", values, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexNotIn(List<Integer> values) {
-            addCriterion("index not in", values, "index");
+            addCriterion("[index] not in", values, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexBetween(Integer value1, Integer value2) {
-            addCriterion("index between", value1, value2, "index");
+            addCriterion("[index] between", value1, value2, "index");
             return (Criteria) this;
         }
 
         public Criteria andIndexNotBetween(Integer value1, Integer value2) {
-            addCriterion("index not between", value1, value2, "index");
+            addCriterion("[index] not between", value1, value2, "index");
             return (Criteria) this;
         }
 
@@ -1336,72 +1336,72 @@ public class FormFieldsExample {
         }
 
         public Criteria andFilterIsNull() {
-            addCriterion("filter is null");
+            addCriterion("[filter] is null");
             return (Criteria) this;
         }
 
         public Criteria andFilterIsNotNull() {
-            addCriterion("filter is not null");
+            addCriterion("[filter] is not null");
             return (Criteria) this;
         }
 
         public Criteria andFilterEqualTo(String value) {
-            addCriterion("filter =", value, "filter");
+            addCriterion("[filter] =", value, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterNotEqualTo(String value) {
-            addCriterion("filter <>", value, "filter");
+            addCriterion("[filter] <>", value, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterGreaterThan(String value) {
-            addCriterion("filter >", value, "filter");
+            addCriterion("[filter] >", value, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterGreaterThanOrEqualTo(String value) {
-            addCriterion("filter >=", value, "filter");
+            addCriterion("[filter] >=", value, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterLessThan(String value) {
-            addCriterion("filter <", value, "filter");
+            addCriterion("[filter] <", value, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterLessThanOrEqualTo(String value) {
-            addCriterion("filter <=", value, "filter");
+            addCriterion("[filter] <=", value, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterLike(String value) {
-            addCriterion("filter like", value, "filter");
+            addCriterion("[filter] like", value, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterNotLike(String value) {
-            addCriterion("filter not like", value, "filter");
+            addCriterion("[filter] not like", value, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterIn(List<String> values) {
-            addCriterion("filter in", values, "filter");
+            addCriterion("[filter] in", values, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterNotIn(List<String> values) {
-            addCriterion("filter not in", values, "filter");
+            addCriterion("[filter] not in", values, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterBetween(String value1, String value2) {
-            addCriterion("filter between", value1, value2, "filter");
+            addCriterion("[filter] between", value1, value2, "filter");
             return (Criteria) this;
         }
 
         public Criteria andFilterNotBetween(String value1, String value2) {
-            addCriterion("filter not between", value1, value2, "filter");
+            addCriterion("[filter] not between", value1, value2, "filter");
             return (Criteria) this;
         }
 
@@ -1476,122 +1476,122 @@ public class FormFieldsExample {
         }
 
         public Criteria andMaxValueIsNull() {
-            addCriterion("maxValue is null");
+            addCriterion("[maxValue] is null");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueIsNotNull() {
-            addCriterion("maxValue is not null");
+            addCriterion("[maxValue] is not null");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueEqualTo(BigDecimal value) {
-            addCriterion("maxValue =", value, "maxValue");
+            addCriterion("[maxValue] =", value, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueNotEqualTo(BigDecimal value) {
-            addCriterion("maxValue <>", value, "maxValue");
+            addCriterion("[maxValue] <>", value, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueGreaterThan(BigDecimal value) {
-            addCriterion("maxValue >", value, "maxValue");
+            addCriterion("[maxValue] >", value, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("maxValue >=", value, "maxValue");
+            addCriterion("[maxValue] >=", value, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueLessThan(BigDecimal value) {
-            addCriterion("maxValue <", value, "maxValue");
+            addCriterion("[maxValue] <", value, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("maxValue <=", value, "maxValue");
+            addCriterion("[maxValue] <=", value, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueIn(List<BigDecimal> values) {
-            addCriterion("maxValue in", values, "maxValue");
+            addCriterion("[maxValue] in", values, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueNotIn(List<BigDecimal> values) {
-            addCriterion("maxValue not in", values, "maxValue");
+            addCriterion("[maxValue] not in", values, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("maxValue between", value1, value2, "maxValue");
+            addCriterion("[maxValue] between", value1, value2, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMaxValueNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("maxValue not between", value1, value2, "maxValue");
+            addCriterion("[maxValue] not between", value1, value2, "maxValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueIsNull() {
-            addCriterion("minValue is null");
+            addCriterion("[minValue] is null");
             return (Criteria) this;
         }
 
         public Criteria andMinValueIsNotNull() {
-            addCriterion("minValue is not null");
+            addCriterion("[minValue] is not null");
             return (Criteria) this;
         }
 
         public Criteria andMinValueEqualTo(BigDecimal value) {
-            addCriterion("minValue =", value, "minValue");
+            addCriterion("[minValue] =", value, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueNotEqualTo(BigDecimal value) {
-            addCriterion("minValue <>", value, "minValue");
+            addCriterion("[minValue] <>", value, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueGreaterThan(BigDecimal value) {
-            addCriterion("minValue >", value, "minValue");
+            addCriterion("[minValue] >", value, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("minValue >=", value, "minValue");
+            addCriterion("[minValue] >=", value, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueLessThan(BigDecimal value) {
-            addCriterion("minValue <", value, "minValue");
+            addCriterion("[minValue] <", value, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("minValue <=", value, "minValue");
+            addCriterion("[minValue] <=", value, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueIn(List<BigDecimal> values) {
-            addCriterion("minValue in", values, "minValue");
+            addCriterion("[minValue] in", values, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueNotIn(List<BigDecimal> values) {
-            addCriterion("minValue not in", values, "minValue");
+            addCriterion("[minValue] not in", values, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("minValue between", value1, value2, "minValue");
+            addCriterion("[minValue] between", value1, value2, "minValue");
             return (Criteria) this;
         }
 
         public Criteria andMinValueNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("minValue not between", value1, value2, "minValue");
+            addCriterion("[minValue] not between", value1, value2, "minValue");
             return (Criteria) this;
         }
 
@@ -1656,122 +1656,122 @@ public class FormFieldsExample {
         }
 
         public Criteria andLengthIsNull() {
-            addCriterion("length is null");
+            addCriterion("[length] is null");
             return (Criteria) this;
         }
 
         public Criteria andLengthIsNotNull() {
-            addCriterion("length is not null");
+            addCriterion("[length] is not null");
             return (Criteria) this;
         }
 
         public Criteria andLengthEqualTo(Integer value) {
-            addCriterion("length =", value, "length");
+            addCriterion("[length] =", value, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthNotEqualTo(Integer value) {
-            addCriterion("length <>", value, "length");
+            addCriterion("[length] <>", value, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthGreaterThan(Integer value) {
-            addCriterion("length >", value, "length");
+            addCriterion("[length] >", value, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthGreaterThanOrEqualTo(Integer value) {
-            addCriterion("length >=", value, "length");
+            addCriterion("[length] >=", value, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthLessThan(Integer value) {
-            addCriterion("length <", value, "length");
+            addCriterion("[length] <", value, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthLessThanOrEqualTo(Integer value) {
-            addCriterion("length <=", value, "length");
+            addCriterion("[length] <=", value, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthIn(List<Integer> values) {
-            addCriterion("length in", values, "length");
+            addCriterion("[length] in", values, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthNotIn(List<Integer> values) {
-            addCriterion("length not in", values, "length");
+            addCriterion("[length] not in", values, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthBetween(Integer value1, Integer value2) {
-            addCriterion("length between", value1, value2, "length");
+            addCriterion("[length] between", value1, value2, "length");
             return (Criteria) this;
         }
 
         public Criteria andLengthNotBetween(Integer value1, Integer value2) {
-            addCriterion("length not between", value1, value2, "length");
+            addCriterion("[length] not between", value1, value2, "length");
             return (Criteria) this;
         }
 
         public Criteria andLockIsNull() {
-            addCriterion("lock is null");
+            addCriterion("[lock] is null");
             return (Criteria) this;
         }
 
         public Criteria andLockIsNotNull() {
-            addCriterion("lock is not null");
+            addCriterion("[lock] is not null");
             return (Criteria) this;
         }
 
         public Criteria andLockEqualTo(Integer value) {
-            addCriterion("lock =", value, "lock");
+            addCriterion("[lock] =", value, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockNotEqualTo(Integer value) {
-            addCriterion("lock <>", value, "lock");
+            addCriterion("[lock] <>", value, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockGreaterThan(Integer value) {
-            addCriterion("lock >", value, "lock");
+            addCriterion("[lock] >", value, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockGreaterThanOrEqualTo(Integer value) {
-            addCriterion("lock >=", value, "lock");
+            addCriterion("[lock] >=", value, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockLessThan(Integer value) {
-            addCriterion("lock <", value, "lock");
+            addCriterion("[lock] <", value, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockLessThanOrEqualTo(Integer value) {
-            addCriterion("lock <=", value, "lock");
+            addCriterion("[lock] <=", value, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockIn(List<Integer> values) {
-            addCriterion("lock in", values, "lock");
+            addCriterion("[lock] in", values, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockNotIn(List<Integer> values) {
-            addCriterion("lock not in", values, "lock");
+            addCriterion("[lock] not in", values, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockBetween(Integer value1, Integer value2) {
-            addCriterion("lock between", value1, value2, "lock");
+            addCriterion("[lock] between", value1, value2, "lock");
             return (Criteria) this;
         }
 
         public Criteria andLockNotBetween(Integer value1, Integer value2) {
-            addCriterion("lock not between", value1, value2, "lock");
+            addCriterion("[lock] not between", value1, value2, "lock");
             return (Criteria) this;
         }
 
