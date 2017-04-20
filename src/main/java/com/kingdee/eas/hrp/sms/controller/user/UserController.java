@@ -100,4 +100,24 @@ public class UserController {
 		// }
 
 	}
+
+	@RequestMapping(value = "addUser")
+	public void addItem(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+
+		String data = ParameterUtils.getParameter(request, "data", "");
+
+		if (data.equals("")) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
+			return;
+		}
+
+		System.out.println(data);
+
+	}
 }

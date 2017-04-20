@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +15,7 @@ import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+import com.kingdee.eas.hrp.sms.util.SessionUtil;
 
 /**
  * 操作系统单据模板
@@ -46,6 +48,43 @@ public class TemplateController {
 		}
 
 		Map<String, Object> result = templateService.getFormTemplate(classId, 0);
+
+		ResponseWriteUtil.output(response, result);
+
+	}
+
+	/**
+	 * 通过模板获取业务数据
+	 * 
+	 * @Title getItems
+	 * @param request
+	 * @param response
+	 * @return void
+	 * @date 2017-04-20 13:41:06 星期四
+	 */
+	@RequestMapping(value = "getItems")
+	public void getItems(HttpServletRequest request, HttpServletResponse response) {
+
+		int classId = ParameterUtils.getParameter(request, "classId", -1);
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件json
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段json
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10);
+		int pageNo = ParameterUtils.getParameter(request, "pageNo", 1);
+		int userType = SessionUtil.getUserType(request);
+
+		if (classId < 0) {
+			throw new BusinessLogicRunTimeException("参数错误：必须提交classId");
+		}
+
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put("classId", classId);
+		params.put("condition", condition);
+		params.put("orderBy", orderBy);
+		params.put("pageSize", pageSize);
+		params.put("pageNo", pageNo);
+
+		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType);
 
 		ResponseWriteUtil.output(response, result);
 

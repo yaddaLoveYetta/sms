@@ -5,6 +5,8 @@ public class Pay {
 
     private String payName;
 
+    private String number;
+
     public Integer getPayId() {
         return payId;
     }
@@ -19,5 +21,13 @@ public class Pay {
 
     public void setPayName(String payName) {
         this.payName = payName == null ? null : payName.trim();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }

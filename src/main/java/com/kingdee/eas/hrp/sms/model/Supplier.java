@@ -5,8 +5,6 @@ public class Supplier {
 
     private String supplierName;
 
-    private String shortName;
-
     private Integer taxID;
 
     private String CORP;
@@ -47,6 +45,8 @@ public class Supplier {
 
     private Integer itemId;
 
+    private String number;
+
     public Integer getSupplierId() {
         return supplierId;
     }
@@ -61,14 +61,6 @@ public class Supplier {
 
     public void setSupplierName(String supplierName) {
         this.supplierName = supplierName == null ? null : supplierName.trim();
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName == null ? null : shortName.trim();
     }
 
     public Integer getTaxID() {
@@ -229,5 +221,13 @@ public class Supplier {
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }

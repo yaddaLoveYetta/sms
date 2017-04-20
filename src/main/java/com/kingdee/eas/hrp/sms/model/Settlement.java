@@ -5,6 +5,8 @@ public class Settlement {
 
     private String settlementName;
 
+    private String number;
+
     public Integer getSettlementId() {
         return settlementId;
     }
@@ -19,5 +21,13 @@ public class Settlement {
 
     public void setSettlementName(String settlementName) {
         this.settlementName = settlementName == null ? null : settlementName.trim();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +17,16 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,25 +63,29 @@ public final class HttpUtil {
 	 *            参数
 	 * @return
 	 */
+
 	public static String sendGet(String url, HttpParam hp) {
 
-		StringBuilder params = new StringBuilder();
-
-		if (hp.hasCommom()) {
-			params.append(url).append("?");
-
-			for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
-				params.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
-			}
-
-			url = params.substring(0, params.lastIndexOf("&"));
-		}
-
-		HttpClient http = new DefaultHttpClient();
-
+		HttpClient http = null;
 		try {
 
+			if (hp.hasCommom()) {
+
+				List<NameValuePair> list = new ArrayList<NameValuePair>();
+
+				for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
+					list.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+				}
+
+				String params = EntityUtils.toString(new UrlEncodedFormEntity(list, Charset.forName("UTF-8")));
+
+				url = url + "?" + params;
+			}
+
+			http = new DefaultHttpClient();
+
 			HttpGet get = new HttpGet(url);
+
 			logger.debug("send get with url:" + url);
 
 			if (hp.hasCookie()) {
@@ -113,98 +122,6 @@ public final class HttpUtil {
 			http.getConnectionManager().shutdown();
 		}
 
-	}
-
-	/**
-	 * 封装sendGet方法,返回Cookie，通常是登录接口调用
-	 * 
-	 * @param url
-	 *            请求地址
-	 * @param hp
-	 *            参数
-	 * @return
-	 */
-	public static Map<String, String> sendPostForCookie(String url, HttpParam hp) {
-
-		Map<String, String> ret = new HashMap<>();
-
-		// ==================================================================
-		org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
-
-		// 模拟登陆，按实际服务器端要求选用 Post 或 Get 请求方式
-		PostMethod postMethod = new PostMethod(url);
-
-		if (hp.hasCookie()) {
-			// 设置cookie内容
-			StringBuilder cookies = new StringBuilder();
-			for (Map.Entry<String, String> entry : hp.getCookieParams().entrySet()) {
-				cookies.append(entry.getKey()).append("=").append(entry.getValue()).append(";");
-			}
-			postMethod.setRequestHeader("cookie", cookies.toString());
-			logger.debug("add cookie:" + cookies.toString());
-		}
-
-		// 请求头
-		if (hp.hasHeader()) {
-			for (Map.Entry<String, String> entry : hp.getHeaderParams().entrySet()) {
-				postMethod.setRequestHeader(entry.getKey(), entry.getValue());
-				logger.debug("add header:" + entry.getKey() + "=" + entry.getValue());
-			}
-		}
-
-		// body参数
-		org.apache.commons.httpclient.NameValuePair[] nameValuePairs = {};
-		if (hp.hasCommom()) {
-			for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
-
-				postMethod.setParameter(entry.getKey(), entry.getValue());
-			}
-		}
-
-		try {
-			// 设置 HttpClient 接收 Cookie,用与浏览器一样的策略
-			client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-			client.executeMethod(postMethod);
-			// 获得登陆后的 Cookie
-			Cookie[] cookies = client.getState().getCookies();
-
-			for (Cookie cookie : cookies) {
-				ret.put(cookie.getName(), cookie.getValue());
-			}
-
-		} catch (Exception e) {
-			postMethod.releaseConnection();
-			System.out.println(e.getMessage());
-		}
-		return ret;
-
-		// =================================================================================
-
-	}
-
-	public static Map<String, String> getCookies(HttpResponse httpResponse) {
-
-		String setCookie = httpResponse.getFirstHeader("Set-Cookie").getValue();
-
-		System.out.println(setCookie);
-
-		return null;
-
-		// cookieStore = new BasicCookieStore();
-		// // JSESSIONID
-		// String setCookie = httpResponse.getFirstHeader("Set-Cookie").getValue();
-		// String JSESSIONID = setCookie.substring("JSESSIONID=".length(), setCookie.indexOf(";"));
-		// System.out.println("JSESSIONID:" + JSESSIONID);
-		// // 新建一个Cookie
-		// BasicClientCookie cookie = new BasicClientCookie("JSESSIONID", JSESSIONID);
-		// cookie.setVersion(0);
-		// cookie.setDomain("127.0.0.1");
-		// cookie.setPath("/CwlProClient");
-		// // cookie.setAttribute(ClientCookie.VERSION_ATTR, "0");
-		// // cookie.setAttribute(ClientCookie.DOMAIN_ATTR, "127.0.0.1");
-		// // cookie.setAttribute(ClientCookie.PORT_ATTR, "8080");
-		// // cookie.setAttribute(ClientCookie.PATH_ATTR, "/CwlProWeb");
-		// cookieStore.addCookie(cookie);
 	}
 
 	/**
@@ -282,6 +199,7 @@ public final class HttpUtil {
 	 *            参数
 	 * @return string
 	 */
+
 	public static String sendPost(String url, HttpParam hp) {
 
 		HttpClient http = new DefaultHttpClient();
@@ -317,7 +235,10 @@ public final class HttpUtil {
 				}
 			}
 
-			post.setEntity(new UrlEncodedFormEntity(paramList, "uth-8"));
+			// post.setEntity(new UrlEncodedFormEntity(paramList, "uth-8"));
+
+			UrlEncodedFormEntity postEntity = new UrlEncodedFormEntity(paramList, Charset.forName("UTF-8"));
+			post.setEntity(postEntity);
 
 			HttpEntity entity = http.execute(post).getEntity();
 
@@ -379,7 +300,18 @@ public final class HttpUtil {
 				}
 			}
 
-			post.setEntity(new UrlEncodedFormEntity(paramList, "uth-8"));
+			HttpParams httpParams = new BasicHttpParams();
+
+			if (hp.hasCommom()) {
+				for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
+					paramList.add(new org.apache.http.message.BasicNameValuePair(entry.getKey(), entry.getValue()));
+					httpParams.setParameter(entry.getKey(), entry.getValue());
+					logger.debug("add param:" + entry.getKey() + "=" + entry.getValue());
+				}
+			}
+
+			post.setParams(httpParams);
+			// post.setEntity(new UrlEncodedFormEntity(paramList, "uth-8"));
 
 			HttpEntity entity = http.execute(post).getEntity();
 
@@ -528,6 +460,73 @@ public final class HttpUtil {
 				logger.error(ex.getMessage(), ex);
 			}
 		}
+
+	}
+
+	/**
+	 * 封装sendGet方法,返回Cookie，通常是登录接口调用
+	 * 
+	 * @param url
+	 *            请求地址
+	 * @param hp
+	 *            参数
+	 * @return
+	 */
+	public static Map<String, String> sendPostForCookie(String url, HttpParam hp) {
+
+		Map<String, String> ret = new HashMap<>();
+
+		// ==================================================================
+		org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
+
+		// 模拟登陆，按实际服务器端要求选用 Post 或 Get 请求方式
+		PostMethod postMethod = new PostMethod(url);
+
+		if (hp.hasCookie()) {
+			// 设置cookie内容
+			StringBuilder cookies = new StringBuilder();
+			for (Map.Entry<String, String> entry : hp.getCookieParams().entrySet()) {
+				cookies.append(entry.getKey()).append("=").append(entry.getValue()).append(";");
+			}
+			postMethod.setRequestHeader("cookie", cookies.toString());
+			logger.debug("add cookie:" + cookies.toString());
+		}
+
+		// 请求头
+		if (hp.hasHeader()) {
+			for (Map.Entry<String, String> entry : hp.getHeaderParams().entrySet()) {
+				postMethod.setRequestHeader(entry.getKey(), entry.getValue());
+				logger.debug("add header:" + entry.getKey() + "=" + entry.getValue());
+			}
+		}
+
+		// body参数
+		org.apache.commons.httpclient.NameValuePair[] nameValuePairs = {};
+		if (hp.hasCommom()) {
+			for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
+
+				postMethod.setParameter(entry.getKey(), entry.getValue());
+			}
+		}
+
+		try {
+			// 设置 HttpClient 接收 Cookie,用与浏览器一样的策略
+			client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+			client.executeMethod(postMethod);
+			// 获得登陆后的 Cookie
+			Cookie[] cookies = client.getState().getCookies();
+
+			for (Cookie cookie : cookies) {
+				ret.put(cookie.getName(), cookie.getValue());
+			}
+
+		} catch (Exception e) {
+			postMethod.releaseConnection();
+			System.out.println(e.getMessage());
+		}
+		return ret;
+
+		// =================================================================================
 
 	}
 }

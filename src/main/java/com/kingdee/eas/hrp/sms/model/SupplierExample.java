@@ -234,76 +234,6 @@ public class SupplierExample {
             return (Criteria) this;
         }
 
-        public Criteria andShortNameIsNull() {
-            addCriterion("shortName is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameIsNotNull() {
-            addCriterion("shortName is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameEqualTo(String value) {
-            addCriterion("shortName =", value, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameNotEqualTo(String value) {
-            addCriterion("shortName <>", value, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameGreaterThan(String value) {
-            addCriterion("shortName >", value, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameGreaterThanOrEqualTo(String value) {
-            addCriterion("shortName >=", value, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameLessThan(String value) {
-            addCriterion("shortName <", value, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameLessThanOrEqualTo(String value) {
-            addCriterion("shortName <=", value, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameLike(String value) {
-            addCriterion("shortName like", value, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameNotLike(String value) {
-            addCriterion("shortName not like", value, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameIn(List<String> values) {
-            addCriterion("shortName in", values, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameNotIn(List<String> values) {
-            addCriterion("shortName not in", values, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameBetween(String value1, String value2) {
-            addCriterion("shortName between", value1, value2, "shortName");
-            return (Criteria) this;
-        }
-
-        public Criteria andShortNameNotBetween(String value1, String value2) {
-            addCriterion("shortName not between", value1, value2, "shortName");
-            return (Criteria) this;
-        }
-
         public Criteria andTaxIDIsNull() {
             addCriterion("taxID is null");
             return (Criteria) this;
@@ -1601,6 +1531,76 @@ public class SupplierExample {
 
         public Criteria andItemIdNotBetween(Integer value1, Integer value2) {
             addCriterion("itemId not between", value1, value2, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIsNull() {
+            addCriterion("[number] is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIsNotNull() {
+            addCriterion("[number] is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberEqualTo(String value) {
+            addCriterion("[number] =", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotEqualTo(String value) {
+            addCriterion("[number] <>", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberGreaterThan(String value) {
+            addCriterion("[number] >", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("[number] >=", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberLessThan(String value) {
+            addCriterion("[number] <", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberLessThanOrEqualTo(String value) {
+            addCriterion("[number] <=", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberLike(String value) {
+            addCriterion("[number] like", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotLike(String value) {
+            addCriterion("[number] not like", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIn(List<String> values) {
+            addCriterion("[number] in", values, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotIn(List<String> values) {
+            addCriterion("[number] not in", values, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberBetween(String value1, String value2) {
+            addCriterion("[number] between", value1, value2, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotBetween(String value1, String value2) {
+            addCriterion("[number] not between", value1, value2, "number");
             return (Criteria) this;
         }
     }

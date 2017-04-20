@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kingdee.eas.hrp.sms.dao.customize.TemplateDaoMapper">
+
+	<!-- 根据模板查询数据 -->
+	<select id="getItems" parameterType="map" resultType="map">
+		${select}
+		${from}
+		${where}
+		${orderby}
+		<if test="offset!=null">
+			limit ${offset},${pageSize}
+		</if>
+	</select>
+</mapper>

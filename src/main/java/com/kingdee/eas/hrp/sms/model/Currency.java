@@ -5,6 +5,8 @@ public class Currency {
 
     private String currencyName;
 
+    private String number;
+
     public Integer getCurrencyId() {
         return currencyId;
     }
@@ -19,5 +21,13 @@ public class Currency {
 
     public void setCurrencyName(String currencyName) {
         this.currencyName = currencyName == null ? null : currencyName.trim();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }

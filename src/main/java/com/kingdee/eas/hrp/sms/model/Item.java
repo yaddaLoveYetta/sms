@@ -5,6 +5,8 @@ public class Item {
 
     private String itemName;
 
+    private String number;
+
     public Integer getItemId() {
         return itemId;
     }
@@ -19,5 +21,13 @@ public class Item {
 
     public void setItemName(String itemName) {
         this.itemName = itemName == null ? null : itemName.trim();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }

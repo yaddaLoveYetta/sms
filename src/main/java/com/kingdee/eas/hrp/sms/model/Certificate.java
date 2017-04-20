@@ -5,6 +5,8 @@ public class Certificate {
 
     private String certificateName;
 
+    private String number;
+
     public Integer getCertificateId() {
         return certificateId;
     }
@@ -19,5 +21,13 @@ public class Certificate {
 
     public void setCertificateName(String certificateName) {
         this.certificateName = certificateName == null ? null : certificateName.trim();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }

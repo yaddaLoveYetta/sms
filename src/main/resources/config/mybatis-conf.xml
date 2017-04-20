@@ -73,7 +73,8 @@
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
 		<!-- =============================== 复杂Mapper ========================begin=== -->
-		<mapper resource="mapper/SYS_UserDaoMapper.xml" />
+		<mapper resource="mapper/customize/SYS_UserDaoMapper.xml" />
+		<mapper resource="mapper/customize/TemplateDaoMapper.xml" />
 		<!-- =============================== 复杂Mapper =====================end==== -->
 
 	</mappers>

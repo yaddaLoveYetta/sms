@@ -5,6 +5,8 @@ public class Industry {
 
     private String industryName;
 
+    private String number;
+
     public Integer getIndustryId() {
         return industryId;
     }
@@ -19,5 +21,13 @@ public class Industry {
 
     public void setIndustryName(String industryName) {
         this.industryName = industryName == null ? null : industryName.trim();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }
