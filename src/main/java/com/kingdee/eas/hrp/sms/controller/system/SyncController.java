@@ -49,12 +49,12 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		Map<String, JSONObject> eSupplier = syncService.supplier(array);
-		
-		if (eSupplier.isEmpty()) {
+		Map<String, JSONObject> data = syncService.supplier(array);
+
+		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", eSupplier);
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
 		}
 	}
 
@@ -80,10 +80,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.category(array);
+		Map<String, JSONObject> data = syncService.category(array);
 
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		if (data.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
+		}
 	}
 
 	// 查询分类
@@ -109,10 +112,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.certificate(array);
+		Map<String, JSONObject> data = syncService.certificate(array);
 
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		if (data.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
+		}
 	}
 
 	// 查询证书
@@ -137,10 +143,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.industry(array);
+		Map<String, JSONObject> data = syncService.industry(array);
 
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		if (data.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
+		}
 	}
 
 	// 查询行业
@@ -165,10 +174,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.currency(array);
+		Map<String, JSONObject> data = syncService.currency(array);
 
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		if (data.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
+		}
 	}
 
 	// 查询币种
@@ -193,10 +205,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.settlement(array);
+		Map<String, JSONObject> data = syncService.settlement(array);
 
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		if (data.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
+		}
 	}
 
 	// 查询结算方式
@@ -221,10 +236,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.pay(array);
+		Map<String, JSONObject> data = syncService.pay(array);
 
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		if (data.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
+		}
 	}
 
 	// 查询付款方式
@@ -249,10 +267,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.item(array);
+		Map<String, JSONObject> data = syncService.item(array);
 
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		if (data.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
+		}
 	}
 
 	// 查询物料
@@ -277,10 +298,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.taxCategory(array);
+		Map<String, JSONObject> data = syncService.taxCategory(array);
 
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		if (data.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", data);
+		}
 	}
 
 	// 查询税种
