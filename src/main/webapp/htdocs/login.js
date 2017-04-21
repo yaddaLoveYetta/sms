@@ -17,14 +17,14 @@
 
         'keydown': function (event) {
             if (event.keyCode == 13) {
-                Login.login(Tabs.current() == 0 ? 50801 : 50802);
+                Login.login(Tabs.current() == 0 ? 2 : 1);
             }
         }
     });
 
     Login.on({
         'login': function () {
-            Login.login(Tabs.current() == 0 ? 50801 : 50802);
+            Login.login(Tabs.current() == 0 ? 2 : 1);
             // 50801-供应商用户，50802-系统用户
         }
     });
