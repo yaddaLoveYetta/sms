@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -48,10 +49,13 @@ public class SyncController {
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
-		syncService.supplier(array);
-
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
-		return;
+		Map<String, JSONObject> eSupplier = syncService.supplier(array);
+		
+		if (eSupplier.isEmpty()) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "error", eSupplier);
+		}
 	}
 
 	// 查询供应商

@@ -1,8 +1,10 @@
 package com.kingdee.eas.hrp.sms.service.api.sys;
 
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.Certificate;
 import com.kingdee.eas.hrp.sms.model.Currency;
@@ -15,7 +17,7 @@ import com.kingdee.eas.hrp.sms.model.TaxCategory;
 
 public interface ISyncService {
 
-	void supplier(JSONArray list);
+	Map<String, JSONObject> supplier(JSONArray list);
 	void category(JSONArray list);
 	void certificate(JSONArray list);
 	void industry(JSONArray list);

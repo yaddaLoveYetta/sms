@@ -1,6 +1,8 @@
 package com.kingdee.eas.hrp.sms.service.impl.sys;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -45,9 +47,10 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步供应商资料
 	@Override
-	public void supplier(JSONArray list) {
+	public Map<String, JSONObject> supplier(JSONArray list) {
 		SupplierMapper mapper = sqlSession.getMapper(SupplierMapper.class);
 		SupplierExample example = new SupplierExample();
+		Map<String, JSONObject> eSupplier = new HashMap<>();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Supplier supplier = new Supplier();
@@ -80,12 +83,19 @@ public class SyncService extends BaseService implements ISyncService {
 
 			List<Supplier> suppliers = mapper.selectByExample(example);
 			// 数据库存在记录即更新数据，反之插入数据
-			if (null != suppliers && suppliers.size() == 1) {
-				mapper.updateByExample(supplier, example);
-			} else {
-				mapper.insert(supplier);
+			try {
+				if (null != suppliers && suppliers.size() == 1) {
+					mapper.updateByExample(supplier, example);
+
+				} else {
+					int i = mapper.insert(supplier);
+					System.out.println(i);
+				}
+			} catch (Exception e) {
+				eSupplier.put(e.toString(), jo);
 			}
 		}
+		return eSupplier;
 	}
 
 	// 查询供应商资料（list）
