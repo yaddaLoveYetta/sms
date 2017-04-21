@@ -45,6 +45,7 @@
 						<entry value-type="java.lang.String" key="/user/login" value="/user/login" />
 						<entry value-type="java.lang.String" key="/user/addUser" value="/user/addUser" />
 						<entry value-type="java.lang.String" key="/template/getFormTemplate" value="/template/getFormTemplate" />
+						<entry value-type="java.lang.String" key="/template/getItems" value="/template/getItems" />
 					</map>
 				</property>
 			</bean>

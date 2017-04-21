@@ -26,4 +26,20 @@ public class TemplateControllerTest extends BaseControllerTest {
 		System.out.println(ret);
 
 	}
+	
+	@Test
+	public void getItems() {
+
+		Map<String, String> commonParams = new HashMap<String, String>();
+		commonParams.put("classId", "1001");
+
+		HttpParam param = HttpParam.init();
+		param.setCommonParams(commonParams);
+		param.setCookieParams(cookie);
+		
+		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "template/getItems",param);
+
+		System.out.println(ret);
+
+	}
 }

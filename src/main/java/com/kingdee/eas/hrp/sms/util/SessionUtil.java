@@ -1,8 +1,8 @@
 package com.kingdee.eas.hrp.sms.util;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
+
+import com.kingdee.eas.hrp.sms.model.User;
 
 public final class SessionUtil {
 
@@ -12,10 +12,9 @@ public final class SessionUtil {
 	 * @param request
 	 * @return
 	 */
-	public static Map<String, Object> getCurrentUser(HttpServletRequest request) {
+	public static User getCurrentUser(HttpServletRequest request) {
 
-		@SuppressWarnings("unchecked")
-		Map<String, Object> user = (Map<String, Object>) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 		return user;
 	}
 
@@ -26,10 +25,8 @@ public final class SessionUtil {
 	 * @return
 	 */
 	public static int getUserID(HttpServletRequest request) {
-
-		@SuppressWarnings("unchecked")
-		Map<String, Object> user = (Map<String, Object>) request.getSession().getAttribute("user");
-		return (Integer) user.get("userID");
+		User user = (User) request.getSession().getAttribute("user");
+		return user.getUserId();
 	}
 
 	/**
@@ -40,11 +37,9 @@ public final class SessionUtil {
 	 */
 	public static String getUserName(HttpServletRequest request) {
 
-		@SuppressWarnings("unchecked")
-		Map<String, Object> user = (Map<String, Object>) request.getSession().getAttribute("user");
-		return (String) user.get("name");
+		User user = (User) request.getSession().getAttribute("user");
+		return user.getName();
 	}
-
 
 	/**
 	 * 获取当前会话用户类别<br>
@@ -54,9 +49,8 @@ public final class SessionUtil {
 	 */
 	public static int getUserType(HttpServletRequest request) {
 
-		@SuppressWarnings("unchecked")
-		Map<String, Object> user = (Map<String, Object>) request.getSession().getAttribute("user");
-		return (Integer) user.get("type");
+		User user = (User) request.getSession().getAttribute("user");
+		return user.getType();
 
 	}
 
