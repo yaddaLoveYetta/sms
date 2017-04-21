@@ -19,7 +19,10 @@
     var Tips = require('Tips');
     var UserInfos = require('UserInfos');
 
-
+    //检查登录
+    if (!SMS.Login.check(true)) {
+        return;
+    }
     //重写
     $.Object.overwrite(SMS.require('Tips'), Tips);
 
