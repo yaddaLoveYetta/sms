@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -21,6 +23,7 @@ import com.kingdee.eas.hrp.sms.dao.generate.PayMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SettlementMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.TaxCategoryMapper;
+import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.CategoryExample;
 import com.kingdee.eas.hrp.sms.model.Certificate;
@@ -49,6 +52,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步供应商资料
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> supplier(JSONArray list) {
 		SupplierMapper mapper = sqlSession.getMapper(SupplierMapper.class);
 		SupplierExample example = new SupplierExample();
@@ -57,15 +61,16 @@ public class SyncService extends BaseService implements ISyncService {
 			Supplier supplier = new Supplier();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getInteger("industryId")
 						|| null == jo.getInteger("supplierId") || null == jo.getInteger("supplierId")
 						|| null == jo.getInteger("taxCategoryId") || null == jo.getInteger("certificateId")
 						|| null == jo.getInteger("currencyId") || null == jo.getInteger("settlementId")
 						|| null == jo.getInteger("payId") || null == jo.getInteger("itemId")
 						|| null == jo.getInteger("number")) {
-					throw new Exception("ID类字段不能为空");
+					throw new BusinessLogicRunTimeException("ID类字段不能为空");
 				}
-
+				//装载userbean
 				supplier.setAddress(jo.getString("address"));
 				supplier.setBanOrganization(jo.getString("banOrganization"));
 				supplier.setBRNO(jo.getString("BRNO"));
@@ -101,7 +106,8 @@ public class SyncService extends BaseService implements ISyncService {
 					int i = mapper.insert(supplier);
 					System.out.println(i);
 				}
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}
@@ -140,6 +146,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步分类
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> category(JSONArray list) {
 		CategoryMapper mapper = sqlSession.getMapper(CategoryMapper.class);
 		CategoryExample example = new CategoryExample();
@@ -148,10 +155,11 @@ public class SyncService extends BaseService implements ISyncService {
 			Category category = new Category();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
-					throw new Exception("所有字段都不能为空!");
+					throw new BusinessLogicRunTimeException("所有字段都不能为空!");
 				}
-
+				//装载userbean
 				category.setCategoryId(jo.getInteger("categoryId"));
 				category.setName(jo.getString("categoryName"));
 				category.setNumber(jo.getString("number"));
@@ -167,7 +175,8 @@ public class SyncService extends BaseService implements ISyncService {
 					mapper.insert(category);
 				}
 
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}
@@ -206,6 +215,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步证书
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> certificate(JSONArray list) {
 		CertificateMapper mapper = sqlSession.getMapper(CertificateMapper.class);
 		CertificateExample example = new CertificateExample();
@@ -214,10 +224,11 @@ public class SyncService extends BaseService implements ISyncService {
 			Certificate certificate = new Certificate();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
-					throw new Exception("所有字段都不能为空!");
+					throw new BusinessLogicRunTimeException("所有字段都不能为空!");
 				}
-
+				//装载userbean
 				certificate.setCertificateId(jo.getInteger("certificateId"));
 				certificate.setName(jo.getString("certificateName"));
 				certificate.setNumber(jo.getString("number"));
@@ -232,7 +243,8 @@ public class SyncService extends BaseService implements ISyncService {
 				} else {
 					mapper.insert(certificate);
 				}
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}
@@ -271,6 +283,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步行业
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> industry(JSONArray list) {
 		IndustryMapper mapper = sqlSession.getMapper(IndustryMapper.class);
 		IndustryExample example = new IndustryExample();
@@ -279,10 +292,11 @@ public class SyncService extends BaseService implements ISyncService {
 			Industry industry = new Industry();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
-					throw new Exception("所有字段都不能为空!");
+					throw new BusinessLogicRunTimeException("所有字段都不能为空!");
 				}
-
+				//装载userbean
 				industry.setIndustryId(jo.getInteger("industryId"));
 				industry.setName(jo.getString("industryName"));
 				industry.setNumber(jo.getString("number"));
@@ -297,7 +311,8 @@ public class SyncService extends BaseService implements ISyncService {
 				} else {
 					mapper.insert(industry);
 				}
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}
@@ -336,6 +351,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步币别
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> currency(JSONArray list) {
 		CurrencyMapper mapper = sqlSession.getMapper(CurrencyMapper.class);
 		CurrencyExample example = new CurrencyExample();
@@ -344,10 +360,11 @@ public class SyncService extends BaseService implements ISyncService {
 			Currency currency = new Currency();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
-					throw new Exception("所有字段都不能为空!");
+					throw new BusinessLogicRunTimeException("所有字段都不能为空!");
 				}
-
+				//装载userbean
 				currency.setCurrencyId(jo.getInteger("currencyId"));
 				currency.setName(jo.getString("currencyName"));
 				currency.setNumber(jo.getString("number"));
@@ -362,7 +379,8 @@ public class SyncService extends BaseService implements ISyncService {
 				} else {
 					mapper.insert(currency);
 				}
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}
@@ -401,6 +419,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步结算方式
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> settlement(JSONArray list) {
 		SettlementMapper mapper = sqlSession.getMapper(SettlementMapper.class);
 		SettlementExample example = new SettlementExample();
@@ -409,10 +428,11 @@ public class SyncService extends BaseService implements ISyncService {
 			Settlement settlement = new Settlement();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
-					throw new Exception("所有字段都不能为空!");
+					throw new BusinessLogicRunTimeException("所有字段都不能为空!");
 				}
-
+				//装载userbean
 				settlement.setSettlementId(jo.getInteger("settlementId"));
 				settlement.setSettlementName(jo.getString("settlementName"));
 				settlement.setNumber(jo.getString("number"));
@@ -427,7 +447,8 @@ public class SyncService extends BaseService implements ISyncService {
 				} else {
 					mapper.insert(settlement);
 				}
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}
@@ -466,6 +487,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步付款方式
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> pay(JSONArray list) {
 		PayMapper mapper = sqlSession.getMapper(PayMapper.class);
 		PayExample example = new PayExample();
@@ -474,10 +496,11 @@ public class SyncService extends BaseService implements ISyncService {
 			Pay pay = new Pay();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
-					throw new Exception("所有字段都不能为空!");
+					throw new BusinessLogicRunTimeException("所有字段都不能为空!");
 				}
-
+				//装载userbean
 				pay.setPayId(jo.getInteger("payId"));
 				pay.setName(jo.getString("payName"));
 				pay.setNumber(jo.getString("number"));
@@ -492,7 +515,8 @@ public class SyncService extends BaseService implements ISyncService {
 				} else {
 					mapper.insert(pay);
 				}
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}
@@ -531,6 +555,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步物料
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> item(JSONArray list) {
 		ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
 		ItemExample example = new ItemExample();
@@ -539,10 +564,11 @@ public class SyncService extends BaseService implements ISyncService {
 			Item item = new Item();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
-					throw new Exception("所有字段都不能为空!");
+					throw new BusinessLogicRunTimeException("所有字段都不能为空!");
 				}
-
+				//装载userbean
 				item.setItemId(jo.getInteger("itemId"));
 				item.setName(jo.getString("itemName"));
 				item.setNumber(jo.getString("number"));
@@ -557,7 +583,8 @@ public class SyncService extends BaseService implements ISyncService {
 				} else {
 					mapper.insert(item);
 				}
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}
@@ -596,6 +623,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步税种
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, JSONObject> taxCategory(JSONArray list) {
 		TaxCategoryMapper mapper = sqlSession.getMapper(TaxCategoryMapper.class);
 		TaxCategoryExample example = new TaxCategoryExample();
@@ -604,10 +632,11 @@ public class SyncService extends BaseService implements ISyncService {
 			TaxCategory taxCategory = new TaxCategory();
 
 			try {
+				// 参数校验
 				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
-					throw new Exception("所有字段都不能为空!");
+					throw new BusinessLogicRunTimeException("所有字段都不能为空!");
 				}
-
+				//装载userbean
 				taxCategory.setTaxCategoryId(jo.getInteger("taxCategoryId"));
 				taxCategory.setName(jo.getString("taxCategoryName"));
 				taxCategory.setNumber(jo.getString("number"));
@@ -622,7 +651,8 @@ public class SyncService extends BaseService implements ISyncService {
 				} else {
 					mapper.insert(taxCategory);
 				}
-			} catch (Exception e) {
+			} catch (BusinessLogicRunTimeException e) {
+				//参数校验失败，把该条数据放进异常数据返回
 				eJson.put(e.toString(), jo);
 			}
 		}

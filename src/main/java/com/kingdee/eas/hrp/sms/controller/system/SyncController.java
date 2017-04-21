@@ -1,11 +1,5 @@
 package com.kingdee.eas.hrp.sms.controller.system;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.model.Category;
@@ -50,7 +43,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.supplier(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -81,7 +74,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.category(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -113,7 +106,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.certificate(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -144,7 +137,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.industry(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -175,7 +168,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.currency(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -206,7 +199,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.settlement(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -237,7 +230,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.pay(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -268,7 +261,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.item(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -299,7 +292,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.taxCategory(array);
-
+		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
