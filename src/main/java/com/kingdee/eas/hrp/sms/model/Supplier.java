@@ -5,13 +5,13 @@ public class Supplier {
 
     private String supplierName;
 
-    private Integer taxID;
+    private Integer taxId;
 
     private String CORP;
 
     private String BRNO;
 
-    private Integer taxCategoryID;
+    private Integer taxCategoryId;
 
     private Integer taxRate;
 
@@ -25,9 +25,9 @@ public class Supplier {
 
     private String address;
 
-    private String industryID;
+    private Integer industryId;
 
-    private Integer categoryID;
+    private Integer categoryId;
 
     private String createOrganization;
 
@@ -63,12 +63,12 @@ public class Supplier {
         this.supplierName = supplierName == null ? null : supplierName.trim();
     }
 
-    public Integer getTaxID() {
-        return taxID;
+    public Integer getTaxId() {
+        return taxId;
     }
 
-    public void setTaxID(Integer taxID) {
-        this.taxID = taxID;
+    public void setTaxId(Integer taxId) {
+        this.taxId = taxId;
     }
 
     public String getCORP() {
@@ -87,12 +87,12 @@ public class Supplier {
         this.BRNO = BRNO == null ? null : BRNO.trim();
     }
 
-    public Integer getTaxCategoryID() {
-        return taxCategoryID;
+    public Integer getTaxCategoryId() {
+        return taxCategoryId;
     }
 
-    public void setTaxCategoryID(Integer taxCategoryID) {
-        this.taxCategoryID = taxCategoryID;
+    public void setTaxCategoryId(Integer taxCategoryId) {
+        this.taxCategoryId = taxCategoryId;
     }
 
     public Integer getTaxRate() {
@@ -143,20 +143,20 @@ public class Supplier {
         this.address = address == null ? null : address.trim();
     }
 
-    public String getIndustryID() {
-        return industryID;
+    public Integer getIndustryId() {
+        return industryId;
     }
 
-    public void setIndustryID(String industryID) {
-        this.industryID = industryID == null ? null : industryID.trim();
+    public void setIndustryId(Integer industryId) {
+        this.industryId = industryId;
     }
 
-    public Integer getCategoryID() {
-        return categoryID;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryID(Integer categoryID) {
-        this.categoryID = categoryID;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCreateOrganization() {
