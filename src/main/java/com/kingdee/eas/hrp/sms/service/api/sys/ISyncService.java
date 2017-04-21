@@ -18,14 +18,14 @@ import com.kingdee.eas.hrp.sms.model.TaxCategory;
 public interface ISyncService {
 
 	Map<String, JSONObject> supplier(JSONArray list);
-	void category(JSONArray list);
-	void certificate(JSONArray list);
-	void industry(JSONArray list);
-	void currency(JSONArray list);
-	void settlement(JSONArray list);
-	void pay(JSONArray list);
-	void item(JSONArray list);
-	void taxCategory(JSONArray list);
+	Map<String, JSONObject> category(JSONArray list);
+	Map<String, JSONObject> certificate(JSONArray list);
+	Map<String, JSONObject> industry(JSONArray list);
+	Map<String, JSONObject> currency(JSONArray list);
+	Map<String, JSONObject> settlement(JSONArray list);
+	Map<String, JSONObject> pay(JSONArray list);
+	Map<String, JSONObject> item(JSONArray list);
+	Map<String, JSONObject> taxCategory(JSONArray list);
 	List<Supplier> getSupplierList(int pageNum, int pageSize);
 	List<Category> getCategoryList(int pageNum, int pageSize);
 	List<Certificate> getCertificateList(int pageNum, int pageSize);

@@ -45,45 +45,55 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 @Service
 public class SyncService extends BaseService implements ISyncService {
 
+	Map<String, JSONObject> eJson = new HashMap<>();
+
 	// 同步供应商资料
 	@Override
 	public Map<String, JSONObject> supplier(JSONArray list) {
 		SupplierMapper mapper = sqlSession.getMapper(SupplierMapper.class);
 		SupplierExample example = new SupplierExample();
-		Map<String, JSONObject> eSupplier = new HashMap<>();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Supplier supplier = new Supplier();
 
-			supplier.setAddress(jo.getString("address"));
-			supplier.setBanOrganization(jo.getString("banOrganization"));
-			supplier.setBRNO(jo.getString("BRNO"));
-			supplier.setCategoryId(jo.getInteger("categoryId"));
-			supplier.setCity(jo.getString("city"));
-			supplier.setCORP(jo.getString("CORP"));
-			supplier.setCountry(jo.getString("country"));
-			supplier.setCreateOrganization(jo.getString("createOrganization"));
-			supplier.setIndustryId(jo.getInteger("industryId"));
-			supplier.setProvince(jo.getString("province"));
-			supplier.setStatus(jo.getInteger("status"));
-			supplier.setSupplierId(jo.getInteger("supplierId"));
-			supplier.setSupplierName(jo.getString("supplierName"));
-			supplier.setTaxCategoryId(jo.getInteger("taxCategoryId"));
-			supplier.setTaxId(jo.getInteger("taxId"));
-			supplier.setTaxRate(jo.getInteger("taxRate"));
-			supplier.setCertificateId(jo.getInteger("certificateId"));
-			supplier.setCurrencyId(jo.getInteger("currencyId"));
-			supplier.setSettlementId(jo.getInteger("settlementId"));
-			supplier.setPayId(jo.getInteger("payId"));
-			supplier.setItemId(jo.getInteger("itemId"));
-			supplier.setNumber(jo.getString("number"));
-
-			com.kingdee.eas.hrp.sms.model.SupplierExample.Criteria criteria = example.createCriteria();
-			criteria.andSupplierIdEqualTo(jo.getInteger("supplierId"));
-
-			List<Supplier> suppliers = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
 			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getInteger("industryId")
+						|| null == jo.getInteger("supplierId") || null == jo.getInteger("supplierId")
+						|| null == jo.getInteger("taxCategoryId") || null == jo.getInteger("certificateId")
+						|| null == jo.getInteger("currencyId") || null == jo.getInteger("settlementId")
+						|| null == jo.getInteger("payId") || null == jo.getInteger("itemId")
+						|| null == jo.getInteger("number")) {
+					throw new Exception("ID类字段不能为空");
+				}
+
+				supplier.setAddress(jo.getString("address"));
+				supplier.setBanOrganization(jo.getString("banOrganization"));
+				supplier.setBRNO(jo.getString("BRNO"));
+				supplier.setCategoryId(jo.getInteger("categoryId"));
+				supplier.setCity(jo.getString("city"));
+				supplier.setCORP(jo.getString("CORP"));
+				supplier.setCountry(jo.getString("country"));
+				supplier.setCreateOrganization(jo.getString("createOrganization"));
+				supplier.setIndustryId(jo.getInteger("industryId"));
+				supplier.setProvince(jo.getString("province"));
+				supplier.setStatus(jo.getInteger("status"));
+				supplier.setSupplierId(jo.getInteger("supplierId"));
+				supplier.setName(jo.getString("supplierName"));
+				supplier.setTaxCategoryId(jo.getInteger("taxCategoryId"));
+				supplier.setTaxId(jo.getInteger("taxId"));
+				supplier.setTaxRate(jo.getInteger("taxRate"));
+				supplier.setCertificateId(jo.getInteger("certificateId"));
+				supplier.setCurrencyId(jo.getInteger("currencyId"));
+				supplier.setSettlementId(jo.getInteger("settlementId"));
+				supplier.setPayId(jo.getInteger("payId"));
+				supplier.setItemId(jo.getInteger("itemId"));
+				supplier.setNumber(jo.getString("number"));
+
+				com.kingdee.eas.hrp.sms.model.SupplierExample.Criteria criteria = example.createCriteria();
+				criteria.andSupplierIdEqualTo(jo.getInteger("supplierId"));
+
+				List<Supplier> suppliers = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
 				if (null != suppliers && suppliers.size() == 1) {
 					mapper.updateByExample(supplier, example);
 
@@ -92,10 +102,10 @@ public class SyncService extends BaseService implements ISyncService {
 					System.out.println(i);
 				}
 			} catch (Exception e) {
-				eSupplier.put(e.toString(), jo);
+				eJson.put(e.toString(), jo);
 			}
 		}
-		return eSupplier;
+		return eJson;
 	}
 
 	// 查询供应商资料（list）
@@ -130,28 +140,38 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步分类
 	@Override
-	public void category(JSONArray list) {
+	public Map<String, JSONObject> category(JSONArray list) {
 		CategoryMapper mapper = sqlSession.getMapper(CategoryMapper.class);
 		CategoryExample example = new CategoryExample();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Category category = new Category();
 
-			category.setCategoryId(jo.getInteger("categoryId"));
-			category.setCategoryName(jo.getString("categoryName"));
-			category.setNumber(jo.getString("number"));
+			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
+					throw new Exception("所有字段都不能为空!");
+				}
 
-			com.kingdee.eas.hrp.sms.model.CategoryExample.Criteria criteria = example.createCriteria();
-			criteria.andCategoryIdEqualTo(jo.getInteger("categoryId"));
+				category.setCategoryId(jo.getInteger("categoryId"));
+				category.setName(jo.getString("categoryName"));
+				category.setNumber(jo.getString("number"));
 
-			List<Category> categories = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
-			if (null != categories && categories.size() == 1) {
-				mapper.updateByExample(category, example);
-			} else {
-				mapper.insert(category);
+				com.kingdee.eas.hrp.sms.model.CategoryExample.Criteria criteria = example.createCriteria();
+				criteria.andCategoryIdEqualTo(jo.getInteger("categoryId"));
+
+				List<Category> categories = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
+				if (null != categories && categories.size() == 1) {
+					mapper.updateByExample(category, example);
+				} else {
+					mapper.insert(category);
+				}
+
+			} catch (Exception e) {
+				eJson.put(e.toString(), jo);
 			}
 		}
+		return eJson;
 	}
 
 	// 查询分类（list）
@@ -186,28 +206,37 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步证书
 	@Override
-	public void certificate(JSONArray list) {
+	public Map<String, JSONObject> certificate(JSONArray list) {
 		CertificateMapper mapper = sqlSession.getMapper(CertificateMapper.class);
 		CertificateExample example = new CertificateExample();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Certificate certificate = new Certificate();
 
-			certificate.setCertificateId(jo.getInteger("certificateId"));
-			certificate.setCertificateName(jo.getString("certificateName"));
-			certificate.setNumber(jo.getString("number"));
+			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
+					throw new Exception("所有字段都不能为空!");
+				}
 
-			com.kingdee.eas.hrp.sms.model.CertificateExample.Criteria criteria = example.createCriteria();
-			criteria.andCertificateIdEqualTo(jo.getInteger("certificateId"));
+				certificate.setCertificateId(jo.getInteger("certificateId"));
+				certificate.setName(jo.getString("certificateName"));
+				certificate.setNumber(jo.getString("number"));
 
-			List<Certificate> certificates = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
-			if (null != certificates && certificates.size() == 1) {
-				mapper.updateByExample(certificate, example);
-			} else {
-				mapper.insert(certificate);
+				com.kingdee.eas.hrp.sms.model.CertificateExample.Criteria criteria = example.createCriteria();
+				criteria.andCertificateIdEqualTo(jo.getInteger("certificateId"));
+
+				List<Certificate> certificates = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
+				if (null != certificates && certificates.size() == 1) {
+					mapper.updateByExample(certificate, example);
+				} else {
+					mapper.insert(certificate);
+				}
+			} catch (Exception e) {
+				eJson.put(e.toString(), jo);
 			}
 		}
+		return eJson;
 	}
 
 	// 查询证书（list）
@@ -242,28 +271,37 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步行业
 	@Override
-	public void industry(JSONArray list) {
+	public Map<String, JSONObject> industry(JSONArray list) {
 		IndustryMapper mapper = sqlSession.getMapper(IndustryMapper.class);
 		IndustryExample example = new IndustryExample();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Industry industry = new Industry();
 
-			industry.setIndustryId(jo.getInteger("industryId"));
-			industry.setIndustryName(jo.getString("industryName"));
-			industry.setNumber(jo.getString("number"));
+			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
+					throw new Exception("所有字段都不能为空!");
+				}
 
-			com.kingdee.eas.hrp.sms.model.IndustryExample.Criteria criteria = example.createCriteria();
-			criteria.andIndustryIdEqualTo(jo.getInteger("industryId"));
+				industry.setIndustryId(jo.getInteger("industryId"));
+				industry.setName(jo.getString("industryName"));
+				industry.setNumber(jo.getString("number"));
 
-			List<Industry> industries = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
-			if (null != industries && industries.size() == 1) {
-				mapper.updateByExample(industry, example);
-			} else {
-				mapper.insert(industry);
+				com.kingdee.eas.hrp.sms.model.IndustryExample.Criteria criteria = example.createCriteria();
+				criteria.andIndustryIdEqualTo(jo.getInteger("industryId"));
+
+				List<Industry> industries = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
+				if (null != industries && industries.size() == 1) {
+					mapper.updateByExample(industry, example);
+				} else {
+					mapper.insert(industry);
+				}
+			} catch (Exception e) {
+				eJson.put(e.toString(), jo);
 			}
 		}
+		return eJson;
 	}
 
 	// 查询证书（list）
@@ -298,28 +336,37 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步币别
 	@Override
-	public void currency(JSONArray list) {
+	public Map<String, JSONObject> currency(JSONArray list) {
 		CurrencyMapper mapper = sqlSession.getMapper(CurrencyMapper.class);
 		CurrencyExample example = new CurrencyExample();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Currency currency = new Currency();
 
-			currency.setCurrencyId(jo.getInteger("currencyId"));
-			currency.setCurrencyName(jo.getString("currencyName"));
-			currency.setNumber(jo.getString("number"));
+			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
+					throw new Exception("所有字段都不能为空!");
+				}
 
-			com.kingdee.eas.hrp.sms.model.CurrencyExample.Criteria criteria = example.createCriteria();
-			criteria.andCurrencyIdEqualTo(jo.getInteger("currencyId"));
+				currency.setCurrencyId(jo.getInteger("currencyId"));
+				currency.setName(jo.getString("currencyName"));
+				currency.setNumber(jo.getString("number"));
 
-			List<Currency> currencies = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
-			if (null != currencies && currencies.size() == 1) {
-				mapper.updateByExample(currency, example);
-			} else {
-				mapper.insert(currency);
+				com.kingdee.eas.hrp.sms.model.CurrencyExample.Criteria criteria = example.createCriteria();
+				criteria.andCurrencyIdEqualTo(jo.getInteger("currencyId"));
+
+				List<Currency> currencies = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
+				if (null != currencies && currencies.size() == 1) {
+					mapper.updateByExample(currency, example);
+				} else {
+					mapper.insert(currency);
+				}
+			} catch (Exception e) {
+				eJson.put(e.toString(), jo);
 			}
 		}
+		return eJson;
 	}
 
 	// 查询币别（list）
@@ -354,28 +401,37 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步结算方式
 	@Override
-	public void settlement(JSONArray list) {
+	public Map<String, JSONObject> settlement(JSONArray list) {
 		SettlementMapper mapper = sqlSession.getMapper(SettlementMapper.class);
 		SettlementExample example = new SettlementExample();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Settlement settlement = new Settlement();
 
-			settlement.setSettlementId(jo.getInteger("settlementId"));
-			settlement.setSettlementName(jo.getString("settlementName"));
-			settlement.setNumber(jo.getString("number"));
+			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
+					throw new Exception("所有字段都不能为空!");
+				}
 
-			com.kingdee.eas.hrp.sms.model.SettlementExample.Criteria criteria = example.createCriteria();
-			criteria.andSettlementIdEqualTo(jo.getInteger("settlementId"));
+				settlement.setSettlementId(jo.getInteger("settlementId"));
+				settlement.setSettlementName(jo.getString("settlementName"));
+				settlement.setNumber(jo.getString("number"));
 
-			List<Settlement> settlements = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
-			if (null != settlements && settlements.size() == 1) {
-				mapper.updateByExample(settlement, example);
-			} else {
-				mapper.insert(settlement);
+				com.kingdee.eas.hrp.sms.model.SettlementExample.Criteria criteria = example.createCriteria();
+				criteria.andSettlementIdEqualTo(jo.getInteger("settlementId"));
+
+				List<Settlement> settlements = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
+				if (null != settlements && settlements.size() == 1) {
+					mapper.updateByExample(settlement, example);
+				} else {
+					mapper.insert(settlement);
+				}
+			} catch (Exception e) {
+				eJson.put(e.toString(), jo);
 			}
 		}
+		return eJson;
 	}
 
 	// 查询结算方式（list）
@@ -410,28 +466,37 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步付款方式
 	@Override
-	public void pay(JSONArray list) {
+	public Map<String, JSONObject> pay(JSONArray list) {
 		PayMapper mapper = sqlSession.getMapper(PayMapper.class);
 		PayExample example = new PayExample();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Pay pay = new Pay();
 
-			pay.setPayId(jo.getInteger("payId"));
-			pay.setPayName(jo.getString("payName"));
-			pay.setNumber(jo.getString("number"));
+			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
+					throw new Exception("所有字段都不能为空!");
+				}
 
-			com.kingdee.eas.hrp.sms.model.PayExample.Criteria criteria = example.createCriteria();
-			criteria.andPayIdEqualTo(jo.getInteger("payId"));
+				pay.setPayId(jo.getInteger("payId"));
+				pay.setName(jo.getString("payName"));
+				pay.setNumber(jo.getString("number"));
 
-			List<Pay> pays = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
-			if (null != pays && pays.size() == 1) {
-				mapper.updateByExample(pay, example);
-			} else {
-				mapper.insert(pay);
+				com.kingdee.eas.hrp.sms.model.PayExample.Criteria criteria = example.createCriteria();
+				criteria.andPayIdEqualTo(jo.getInteger("payId"));
+
+				List<Pay> pays = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
+				if (null != pays && pays.size() == 1) {
+					mapper.updateByExample(pay, example);
+				} else {
+					mapper.insert(pay);
+				}
+			} catch (Exception e) {
+				eJson.put(e.toString(), jo);
 			}
 		}
+		return eJson;
 	}
 
 	// 查询付款方式（list）
@@ -466,28 +531,37 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步物料
 	@Override
-	public void item(JSONArray list) {
+	public Map<String, JSONObject> item(JSONArray list) {
 		ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
 		ItemExample example = new ItemExample();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			Item item = new Item();
 
-			item.setItemId(jo.getInteger("itemId"));
-			item.setItemName(jo.getString("itemName"));
-			item.setNumber(jo.getString("number"));
+			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
+					throw new Exception("所有字段都不能为空!");
+				}
 
-			com.kingdee.eas.hrp.sms.model.ItemExample.Criteria criteria = example.createCriteria();
-			criteria.andItemIdEqualTo(jo.getInteger("itemId"));
+				item.setItemId(jo.getInteger("itemId"));
+				item.setName(jo.getString("itemName"));
+				item.setNumber(jo.getString("number"));
 
-			List<Item> items = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
-			if (null != items && items.size() == 1) {
-				mapper.updateByExample(item, example);
-			} else {
-				mapper.insert(item);
+				com.kingdee.eas.hrp.sms.model.ItemExample.Criteria criteria = example.createCriteria();
+				criteria.andItemIdEqualTo(jo.getInteger("itemId"));
+
+				List<Item> items = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
+				if (null != items && items.size() == 1) {
+					mapper.updateByExample(item, example);
+				} else {
+					mapper.insert(item);
+				}
+			} catch (Exception e) {
+				eJson.put(e.toString(), jo);
 			}
 		}
+		return eJson;
 	}
 
 	// 查询物料（list）
@@ -522,28 +596,37 @@ public class SyncService extends BaseService implements ISyncService {
 
 	// 同步税种
 	@Override
-	public void taxCategory(JSONArray list) {
+	public Map<String, JSONObject> taxCategory(JSONArray list) {
 		TaxCategoryMapper mapper = sqlSession.getMapper(TaxCategoryMapper.class);
 		TaxCategoryExample example = new TaxCategoryExample();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
 			TaxCategory taxCategory = new TaxCategory();
 
-			taxCategory.setTaxCategoryId(jo.getInteger("taxCategoryId"));
-			taxCategory.setTaxCategoryName(jo.getString("taxCategoryName"));
-			taxCategory.setNumber(jo.getString("number"));
+			try {
+				if (null == jo.getInteger("categoryId") || null == jo.getString("categoryName")) {
+					throw new Exception("所有字段都不能为空!");
+				}
 
-			com.kingdee.eas.hrp.sms.model.TaxCategoryExample.Criteria criteria = example.createCriteria();
-			criteria.andTaxCategoryIdEqualTo(jo.getInteger("taxCategoryId"));
+				taxCategory.setTaxCategoryId(jo.getInteger("taxCategoryId"));
+				taxCategory.setName(jo.getString("taxCategoryName"));
+				taxCategory.setNumber(jo.getString("number"));
 
-			List<TaxCategory> taxCategories = mapper.selectByExample(example);
-			// 数据库存在记录即更新数据，反之插入数据
-			if (null != taxCategories && taxCategories.size() == 1) {
-				mapper.updateByExample(taxCategory, example);
-			} else {
-				mapper.insert(taxCategory);
+				com.kingdee.eas.hrp.sms.model.TaxCategoryExample.Criteria criteria = example.createCriteria();
+				criteria.andTaxCategoryIdEqualTo(jo.getInteger("taxCategoryId"));
+
+				List<TaxCategory> taxCategories = mapper.selectByExample(example);
+				// 数据库存在记录即更新数据，反之插入数据
+				if (null != taxCategories && taxCategories.size() == 1) {
+					mapper.updateByExample(taxCategory, example);
+				} else {
+					mapper.insert(taxCategory);
+				}
+			} catch (Exception e) {
+				eJson.put(e.toString(), jo);
 			}
 		}
+		return eJson;
 	}
 
 	// 查询税种（list）
