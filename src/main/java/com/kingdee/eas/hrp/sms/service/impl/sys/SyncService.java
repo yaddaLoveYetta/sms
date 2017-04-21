@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.generate.CategoryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.CertificateMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.CurrencyMapper;
@@ -51,20 +55,25 @@ public class SyncService extends BaseService implements ISyncService {
 			supplier.setAddress(jo.getString("address"));
 			supplier.setBanOrganization(jo.getString("banOrganization"));
 			supplier.setBRNO(jo.getString("BRNO"));
-			supplier.setCategoryID(jo.getInteger("categoryId"));
+			supplier.setCategoryId(jo.getInteger("categoryId"));
 			supplier.setCity(jo.getString("city"));
 			supplier.setCORP(jo.getString("CORP"));
 			supplier.setCountry(jo.getString("country"));
 			supplier.setCreateOrganization(jo.getString("createOrganization"));
-			supplier.setIndustryID(jo.getString("industryId"));
+			supplier.setIndustryId(jo.getInteger("industryId"));
 			supplier.setProvince(jo.getString("province"));
-			supplier.setShortName(jo.getString("shortName"));
 			supplier.setStatus(jo.getInteger("status"));
 			supplier.setSupplierId(jo.getInteger("supplierId"));
 			supplier.setSupplierName(jo.getString("supplierName"));
-			supplier.setTaxCategoryID(jo.getInteger("taxCategoryId"));
-			supplier.setTaxID(jo.getInteger("taxId"));
+			supplier.setTaxCategoryId(jo.getInteger("taxCategoryId"));
+			supplier.setTaxId(jo.getInteger("taxId"));
 			supplier.setTaxRate(jo.getInteger("taxRate"));
+			supplier.setCertificateId(jo.getInteger("certificateId"));
+			supplier.setCurrencyId(jo.getInteger("currencyId"));
+			supplier.setSettlementId(jo.getInteger("settlementId"));
+			supplier.setPayId(jo.getInteger("payId"));
+			supplier.setItemId(jo.getInteger("itemId"));
+			supplier.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.SupplierExample.Criteria criteria = example.createCriteria();
 			criteria.andSupplierIdEqualTo(jo.getInteger("supplierId"));
@@ -79,6 +88,36 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询供应商资料（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getSupplierList(
+	 * int, int)
+	 */
+	@Override
+	public List<Supplier> getSupplierList(int pageNum, int pageSize) {
+		Page<Supplier> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		SupplierMapper mapper = sqlSession.getMapper(SupplierMapper.class);
+
+		SupplierExample example = new SupplierExample();
+		example.setOrderByClause("supplierId desc ,supplierName asc");
+
+		List<Supplier> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<Supplier> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
+
 	// 同步分类
 	@Override
 	public void category(JSONArray list) {
@@ -90,6 +129,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 			category.setCategoryId(jo.getInteger("categoryId"));
 			category.setCategoryName(jo.getString("categoryName"));
+			category.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.CategoryExample.Criteria criteria = example.createCriteria();
 			criteria.andCategoryIdEqualTo(jo.getInteger("categoryId"));
@@ -104,6 +144,36 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询分类（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getCategoryList(
+	 * int, int)
+	 */
+	@Override
+	public List<Category> getCategoryList(int pageNum, int pageSize) {
+		Page<Category> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		CategoryMapper mapper = sqlSession.getMapper(CategoryMapper.class);
+
+		CategoryExample example = new CategoryExample();
+		example.setOrderByClause("categoryId desc ,categoryName asc");
+
+		List<Category> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<Category> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
+
 	// 同步证书
 	@Override
 	public void certificate(JSONArray list) {
@@ -115,6 +185,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 			certificate.setCertificateId(jo.getInteger("certificateId"));
 			certificate.setCertificateName(jo.getString("certificateName"));
+			certificate.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.CertificateExample.Criteria criteria = example.createCriteria();
 			criteria.andCertificateIdEqualTo(jo.getInteger("certificateId"));
@@ -129,6 +200,36 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询证书（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getCertificateList(
+	 * int, int)
+	 */
+	@Override
+	public List<Certificate> getCertificateList(int pageNum, int pageSize) {
+		Page<Certificate> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		CertificateMapper mapper = sqlSession.getMapper(CertificateMapper.class);
+
+		CertificateExample example = new CertificateExample();
+		example.setOrderByClause("certificateId desc ,certificateName asc");
+
+		List<Certificate> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<Certificate> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
+
 	// 同步行业
 	@Override
 	public void industry(JSONArray list) {
@@ -140,6 +241,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 			industry.setIndustryId(jo.getInteger("industryId"));
 			industry.setIndustryName(jo.getString("industryName"));
+			industry.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.IndustryExample.Criteria criteria = example.createCriteria();
 			criteria.andIndustryIdEqualTo(jo.getInteger("industryId"));
@@ -154,6 +256,36 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询证书（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getIndustryList(
+	 * int, int)
+	 */
+	@Override
+	public List<Industry> getIndustryList(int pageNum, int pageSize) {
+		Page<Industry> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		IndustryMapper mapper = sqlSession.getMapper(IndustryMapper.class);
+
+		IndustryExample example = new IndustryExample();
+		example.setOrderByClause("industryId desc ,industryName asc");
+
+		List<Industry> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<Industry> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
+
 	// 同步币别
 	@Override
 	public void currency(JSONArray list) {
@@ -165,6 +297,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 			currency.setCurrencyId(jo.getInteger("currencyId"));
 			currency.setCurrencyName(jo.getString("currencyName"));
+			currency.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.CurrencyExample.Criteria criteria = example.createCriteria();
 			criteria.andCurrencyIdEqualTo(jo.getInteger("currencyId"));
@@ -179,6 +312,36 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询币别（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getCurrencyList(
+	 * int, int)
+	 */
+	@Override
+	public List<Currency> getCurrencyList(int pageNum, int pageSize) {
+		Page<Currency> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		CurrencyMapper mapper = sqlSession.getMapper(CurrencyMapper.class);
+
+		CurrencyExample example = new CurrencyExample();
+		example.setOrderByClause("currencyId desc ,currencyName asc");
+
+		List<Currency> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<Currency> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
+
 	// 同步结算方式
 	@Override
 	public void settlement(JSONArray list) {
@@ -190,6 +353,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 			settlement.setSettlementId(jo.getInteger("settlementId"));
 			settlement.setSettlementName(jo.getString("settlementName"));
+			settlement.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.SettlementExample.Criteria criteria = example.createCriteria();
 			criteria.andSettlementIdEqualTo(jo.getInteger("settlementId"));
@@ -204,6 +368,36 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询结算方式（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getSettlementList(
+	 * int, int)
+	 */
+	@Override
+	public List<Settlement> getSettlementList(int pageNum, int pageSize) {
+		Page<Settlement> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		SettlementMapper mapper = sqlSession.getMapper(SettlementMapper.class);
+
+		SettlementExample example = new SettlementExample();
+		example.setOrderByClause("settlementId desc ,settlementName asc");
+
+		List<Settlement> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<Settlement> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
+
 	// 同步付款方式
 	@Override
 	public void pay(JSONArray list) {
@@ -215,6 +409,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 			pay.setPayId(jo.getInteger("payId"));
 			pay.setPayName(jo.getString("payName"));
+			pay.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.PayExample.Criteria criteria = example.createCriteria();
 			criteria.andPayIdEqualTo(jo.getInteger("payId"));
@@ -229,6 +424,36 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询付款方式（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getPayList(int,
+	 * int)
+	 */
+	@Override
+	public List<Pay> getPayList(int pageNum, int pageSize) {
+		Page<Pay> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		PayMapper mapper = sqlSession.getMapper(PayMapper.class);
+
+		PayExample example = new PayExample();
+		example.setOrderByClause("payId desc ,payName asc");
+
+		List<Pay> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<Pay> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
+
 	// 同步物料
 	@Override
 	public void item(JSONArray list) {
@@ -240,6 +465,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 			item.setItemId(jo.getInteger("itemId"));
 			item.setItemName(jo.getString("itemName"));
+			item.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.ItemExample.Criteria criteria = example.createCriteria();
 			criteria.andItemIdEqualTo(jo.getInteger("itemId"));
@@ -254,6 +480,36 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询物料（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getItemList(int,
+	 * int)
+	 */
+	@Override
+	public List<Item> getItemList(int pageNum, int pageSize) {
+		Page<Item> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
+
+		ItemExample example = new ItemExample();
+		example.setOrderByClause("itemId desc ,itemName asc");
+
+		List<Item> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<Item> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
+
 	// 同步税种
 	@Override
 	public void taxCategory(JSONArray list) {
@@ -265,6 +521,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 			taxCategory.setTaxCategoryId(jo.getInteger("taxCategoryId"));
 			taxCategory.setTaxCategoryName(jo.getString("taxCategoryName"));
+			taxCategory.setNumber(jo.getString("number"));
 
 			com.kingdee.eas.hrp.sms.model.TaxCategoryExample.Criteria criteria = example.createCriteria();
 			criteria.andTaxCategoryIdEqualTo(jo.getInteger("taxCategoryId"));
@@ -279,4 +536,33 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 	}
 
+	// 查询税种（list）
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.impl.sys.ISyncService#getTaxCategoryList(
+	 * int, int)
+	 */
+	@Override
+	public List<TaxCategory> getTaxCategoryList(int pageNum, int pageSize) {
+		Page<TaxCategory> page = PageHelper.startPage(pageNum, pageSize, true);
+
+		TaxCategoryMapper mapper = sqlSession.getMapper(TaxCategoryMapper.class);
+
+		TaxCategoryExample example = new TaxCategoryExample();
+		example.setOrderByClause("taxCategoryId desc ,taxCategoryName asc");
+
+		List<TaxCategory> list = mapper.selectByExample(example);
+
+		System.out.println(page.getTotal());
+		System.out.println(list.size());
+
+		PageInfo<TaxCategory> pageInfo = new PageInfo<>(list);
+
+		System.out.println(pageInfo.getOrderBy());
+		System.out.println(JSON.toJSONString(list));
+
+		return null;
+	}
 }

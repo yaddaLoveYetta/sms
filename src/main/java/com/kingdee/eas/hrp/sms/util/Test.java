@@ -23,7 +23,7 @@ public class Test {
 		// System.out.println(json.toJSONString());
 
 		String str = "{\"list\": [{ \"categoryID\": 123,\"categoryName\": \"分类\"},{\"categoryID\": 123,\"categoryName\": \"分类\"},{\"categoryID\": 123,\"categoryName\": \"分类\"}],\"size\": 10}";
-
+		
 		JSONObject json = JSON.parseObject(str);
 
 		int size = json.getInteger("size");

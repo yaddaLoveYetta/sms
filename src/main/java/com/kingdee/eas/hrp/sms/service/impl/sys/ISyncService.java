@@ -1,8 +1,7 @@
-package com.kingdee.eas.hrp.sms.service.api.sys;
+package com.kingdee.eas.hrp.sms.service.impl.sys;
 
 import java.util.List;
 
-import com.alibaba.fastjson.JSONArray;
 import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.Certificate;
 import com.kingdee.eas.hrp.sms.model.Currency;
@@ -15,23 +14,31 @@ import com.kingdee.eas.hrp.sms.model.TaxCategory;
 
 public interface ISyncService {
 
-	void supplier(JSONArray list);
-	void category(JSONArray list);
-	void certificate(JSONArray list);
-	void industry(JSONArray list);
-	void currency(JSONArray list);
-	void settlement(JSONArray list);
-	void pay(JSONArray list);
-	void item(JSONArray list);
-	void taxCategory(JSONArray list);
+	// 查询供应商资料（list）
 	List<Supplier> getSupplierList(int pageNum, int pageSize);
+
+	// 查询分类（list）
 	List<Category> getCategoryList(int pageNum, int pageSize);
+
+	// 查询证书（list）
 	List<Certificate> getCertificateList(int pageNum, int pageSize);
+
+	// 查询证书（list）
 	List<Industry> getIndustryList(int pageNum, int pageSize);
-	List<Settlement> getSettlementList(int pageNum, int pageSize);
+
+	// 查询币别（list）
 	List<Currency> getCurrencyList(int pageNum, int pageSize);
+
+	// 查询结算方式（list）
+	List<Settlement> getSettlementList(int pageNum, int pageSize);
+
+	// 查询付款方式（list）
 	List<Pay> getPayList(int pageNum, int pageSize);
+
+	//查询物料（list）
 	List<Item> getItemList(int pageNum, int pageSize);
+
+	//查询税种（list）
 	List<TaxCategory> getTaxCategoryList(int pageNum, int pageSize);
-	
+
 }

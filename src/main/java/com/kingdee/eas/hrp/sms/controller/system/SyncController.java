@@ -1,8 +1,12 @@
 package com.kingdee.eas.hrp.sms.controller.system;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URLDecoder;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
-import com.kingdee.eas.hrp.sms.util.SessionUtil;
+import com.kingdee.eas.hrp.sms.util.ParameterUtils;
+import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 @Controller
 @RequestMapping(value = "/sync/")
@@ -26,216 +32,264 @@ public class SyncController {
 	ISyncService syncService;
 
 	public boolean checkAdminUser(HttpServletRequest request) {
-		if (SessionUtil.getUserType(request) != 50810) {
-			// 非系统工作人员，禁止操作
-			throw new BusinessLogicRunTimeException("非系统工作人员，禁止操作");
-		}
+		// if (SessionUtil.getUserType(request) != 50810) {
+		// // 非系统工作人员，禁止操作
+		// throw new BusinessLogicRunTimeException("非系统工作人员，禁止操作");
+		// }
 		return true;
 	}
 
 	// 同步供应商资料
 	@RequestMapping(value = "supplier")
 	public void smsSupplier(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
-			
-			syncService.supplier(list);
+		// 验证是否系统工作人员
+		checkAdminUser(request);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.supplier(array);
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询供应商
+	@RequestMapping(value = "getSupplierList")
+	public void getSupplierList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		syncService.getSupplierList(pageNum, pageSize);
 	}
 
 	// 同步分类
 	@RequestMapping(value = "category")
 	public void smsCategory(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
-			syncService.category(list);
+		// 验证是否系统工作人员
+		checkAdminUser(request);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.category(array);
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询分类
+	@RequestMapping(value = "getCategoryList")
+	public void getCategoryList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		List<Category> list = syncService.getCategoryList(pageNum, pageSize);
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, list);
 	}
 
 	// 同步证书
 	@RequestMapping(value = "certificate")
 	public void smsCertificate(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
-			syncService.certificate(list);
+		// 验证是否系统工作人员
+		checkAdminUser(request);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.certificate(array);
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询证书
+	@RequestMapping(value = "getCertificateList")
+	public void getCertificateList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		syncService.getCertificateList(pageNum, pageSize);
 	}
 
 	// 同步行业
 	@RequestMapping(value = "industry")
 	public void smsIndustry(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
-			
-			syncService.industry(list);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// 验证是否系统工作人员
+		checkAdminUser(request);
+
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.industry(array);
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询行业
+	@RequestMapping(value = "getIndustryList")
+	public void getIndustryList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		syncService.getIndustryList(pageNum, pageSize);
 	}
 
 	// 同步币别
 	@RequestMapping(value = "currency")
 	public void smsCurrency(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
-			
-			syncService.currency(list);
+		// 验证是否系统工作人员
+		checkAdminUser(request);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.currency(array);
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询币种
+	@RequestMapping(value = "getCurrencyList")
+	public void getCurrencyList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		syncService.getCurrencyList(pageNum, pageSize);
 	}
 
 	// 同步结算方式
 	@RequestMapping(value = "settlement")
 	public void smsSettlement(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
+		// 验证是否系统工作人员
+		checkAdminUser(request);
 
-			syncService.settlement(list);
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.settlement(array);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询结算方式
+	@RequestMapping(value = "getSettlementList")
+	public void getSettlementList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		syncService.getSettlementList(pageNum, pageSize);
 	}
 
 	// 同步付款方式
 	@RequestMapping(value = "pay")
 	public void smsPay(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
+		// 验证是否系统工作人员
+		checkAdminUser(request);
 
-			syncService.pay(list);
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.pay(array);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询付款方式
+	@RequestMapping(value = "getPayList")
+	public void getPayList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		syncService.getPayList(pageNum, pageSize);
 	}
 
 	// 同步物料
 	@RequestMapping(value = "item")
 	public void smsItem(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
+		// 验证是否系统工作人员
+		checkAdminUser(request);
 
-			syncService.item(list);
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.item(array);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询物料
+	@RequestMapping(value = "getItemList")
+	public void getItemList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		syncService.getItemList(pageNum, pageSize);
 	}
 
 	// 同步税种
 	@RequestMapping(value = "taxCategory")
 	public void smsTaxCategory(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//验证是否系统工作人员
-			checkAdminUser(request);
-			
-			InputStream is;
-			is = request.getInputStream();
-			DataInputStream input = new DataInputStream(is);
-			String str = input.readUTF();
-			JSONObject json = JSON.parseObject(str);
-			int size = json.getIntValue("size");
-			JSONArray list = json.getJSONArray("list");
+		// 验证是否系统工作人员
+		checkAdminUser(request);
 
-			syncService.taxCategory(list);
+		String size = ParameterUtils.getParameter(request, "size", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
+		JSONArray array = JSONArray.parseArray(list);
+		syncService.taxCategory(array);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		return;
+	}
+
+	// 查询税种
+	@RequestMapping(value = "getTaxCategoryList")
+	public void getTaxCategoryList(HttpServletRequest request, HttpServletResponse response) {
+
+		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+
+		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+
+		syncService.getTaxCategoryList(pageNum, pageSize);
 	}
 
 }
