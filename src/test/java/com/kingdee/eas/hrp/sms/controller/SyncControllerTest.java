@@ -204,7 +204,7 @@ public class SyncControllerTest extends BaseControllerTest {
 
 		HttpParam param = HttpParam.init();
 		param.setCookieParams(cookie);
-		String str = "[{'supplierId':123,'categoryId':'123','certificateId':'123','currencyId':'123','settlementId':'123','payId':'123','itemId':'123','taxCategoryId':'123','number':'12345'},{'supplierId':123,'categoryId':'123','certificateId':'123','currencyId':'123','settlementId':'123','payId':'123','itemId':'123','taxCategoryId':'123','number':'12345'}]";
+		String str = "[{'supplierId':123,'categoryId':'123','certificateId':'123','industryId':'123','currencyId':'123','settlementId':'123','payId':'123','itemId':'123','taxCategoryId':'123','number':'12345'},{'supplierId':123,'categoryId':'123','certificateId':'123','industryId':'123','currencyId':'123','settlementId':'123','payId':'123','itemId':'123','taxCategoryId':'123','number':'12345'}]";
 		param.addCommon("size", "2");
 		param.addCommon("list", str);
 

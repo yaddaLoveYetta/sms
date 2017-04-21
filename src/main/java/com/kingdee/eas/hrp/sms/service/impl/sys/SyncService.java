@@ -48,9 +48,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void supplier(JSONArray list) {
 		SupplierMapper mapper = sqlSession.getMapper(SupplierMapper.class);
 		SupplierExample example = new SupplierExample();
-		Supplier supplier = new Supplier();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			Supplier supplier = new Supplier();
 
 			supplier.setAddress(jo.getString("address"));
 			supplier.setBanOrganization(jo.getString("banOrganization"));
@@ -123,9 +123,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void category(JSONArray list) {
 		CategoryMapper mapper = sqlSession.getMapper(CategoryMapper.class);
 		CategoryExample example = new CategoryExample();
-		Category category = new Category();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			Category category = new Category();
 
 			category.setCategoryId(jo.getInteger("categoryId"));
 			category.setCategoryName(jo.getString("categoryName"));
@@ -179,9 +179,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void certificate(JSONArray list) {
 		CertificateMapper mapper = sqlSession.getMapper(CertificateMapper.class);
 		CertificateExample example = new CertificateExample();
-		Certificate certificate = new Certificate();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			Certificate certificate = new Certificate();
 
 			certificate.setCertificateId(jo.getInteger("certificateId"));
 			certificate.setCertificateName(jo.getString("certificateName"));
@@ -235,9 +235,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void industry(JSONArray list) {
 		IndustryMapper mapper = sqlSession.getMapper(IndustryMapper.class);
 		IndustryExample example = new IndustryExample();
-		Industry industry = new Industry();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			Industry industry = new Industry();
 
 			industry.setIndustryId(jo.getInteger("industryId"));
 			industry.setIndustryName(jo.getString("industryName"));
@@ -291,9 +291,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void currency(JSONArray list) {
 		CurrencyMapper mapper = sqlSession.getMapper(CurrencyMapper.class);
 		CurrencyExample example = new CurrencyExample();
-		Currency currency = new Currency();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			Currency currency = new Currency();
 
 			currency.setCurrencyId(jo.getInteger("currencyId"));
 			currency.setCurrencyName(jo.getString("currencyName"));
@@ -347,9 +347,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void settlement(JSONArray list) {
 		SettlementMapper mapper = sqlSession.getMapper(SettlementMapper.class);
 		SettlementExample example = new SettlementExample();
-		Settlement settlement = new Settlement();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			Settlement settlement = new Settlement();
 
 			settlement.setSettlementId(jo.getInteger("settlementId"));
 			settlement.setSettlementName(jo.getString("settlementName"));
@@ -403,9 +403,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void pay(JSONArray list) {
 		PayMapper mapper = sqlSession.getMapper(PayMapper.class);
 		PayExample example = new PayExample();
-		Pay pay = new Pay();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			Pay pay = new Pay();
 
 			pay.setPayId(jo.getInteger("payId"));
 			pay.setPayName(jo.getString("payName"));
@@ -459,9 +459,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void item(JSONArray list) {
 		ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
 		ItemExample example = new ItemExample();
-		Item item = new Item();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			Item item = new Item();
 
 			item.setItemId(jo.getInteger("itemId"));
 			item.setItemName(jo.getString("itemName"));
@@ -515,9 +515,9 @@ public class SyncService extends BaseService implements ISyncService {
 	public void taxCategory(JSONArray list) {
 		TaxCategoryMapper mapper = sqlSession.getMapper(TaxCategoryMapper.class);
 		TaxCategoryExample example = new TaxCategoryExample();
-		TaxCategory taxCategory = new TaxCategory();
 		for (Object obj : list) {
 			JSONObject jo = (JSONObject) obj;
+			TaxCategory taxCategory = new TaxCategory();
 
 			taxCategory.setTaxCategoryId(jo.getInteger("taxCategoryId"));
 			taxCategory.setTaxCategoryName(jo.getString("taxCategoryName"));
