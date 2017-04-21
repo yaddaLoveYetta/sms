@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 public class Category {
     private Integer categoryId;
 
-    private String categoryName;
+    private String name;
 
     private String number;
 
@@ -15,12 +15,12 @@ public class Category {
         this.categoryId = categoryId;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName == null ? null : categoryName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getNumber() {

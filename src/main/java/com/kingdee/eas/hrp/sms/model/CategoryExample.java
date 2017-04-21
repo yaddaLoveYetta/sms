@@ -164,73 +164,73 @@ public class CategoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameIsNull() {
-            addCriterion("categoryName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameIsNotNull() {
-            addCriterion("categoryName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameEqualTo(String value) {
-            addCriterion("categoryName =", value, "categoryName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameNotEqualTo(String value) {
-            addCriterion("categoryName <>", value, "categoryName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameGreaterThan(String value) {
-            addCriterion("categoryName >", value, "categoryName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameGreaterThanOrEqualTo(String value) {
-            addCriterion("categoryName >=", value, "categoryName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameLessThan(String value) {
-            addCriterion("categoryName <", value, "categoryName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameLessThanOrEqualTo(String value) {
-            addCriterion("categoryName <=", value, "categoryName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameLike(String value) {
-            addCriterion("categoryName like", value, "categoryName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameNotLike(String value) {
-            addCriterion("categoryName not like", value, "categoryName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameIn(List<String> values) {
-            addCriterion("categoryName in", values, "categoryName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameNotIn(List<String> values) {
-            addCriterion("categoryName not in", values, "categoryName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameBetween(String value1, String value2) {
-            addCriterion("categoryName between", value1, value2, "categoryName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryNameNotBetween(String value1, String value2) {
-            addCriterion("categoryName not between", value1, value2, "categoryName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 

@@ -58,6 +58,9 @@
 		<property name="poolPreparedStatements" value="true" />
 		<!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100。 -->
 		<property name="maxPoolPreparedStatementPerConnectionSize" value="50" />
+		
+		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
 
 		<!-- 解密密码必须要配置的项 -->
 		<!-- <property name="filters" value="config" /> -->

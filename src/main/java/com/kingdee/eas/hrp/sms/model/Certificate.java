@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 public class Certificate {
     private Integer certificateId;
 
-    private String certificateName;
+    private String name;
 
     private String number;
 
@@ -15,12 +15,12 @@ public class Certificate {
         this.certificateId = certificateId;
     }
 
-    public String getCertificateName() {
-        return certificateName;
+    public String getName() {
+        return name;
     }
 
-    public void setCertificateName(String certificateName) {
-        this.certificateName = certificateName == null ? null : certificateName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getNumber() {

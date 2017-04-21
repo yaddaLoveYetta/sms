@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 public class Currency {
     private Integer currencyId;
 
-    private String currencyName;
+    private String name;
 
     private String number;
 
@@ -15,12 +15,12 @@ public class Currency {
         this.currencyId = currencyId;
     }
 
-    public String getCurrencyName() {
-        return currencyName;
+    public String getName() {
+        return name;
     }
 
-    public void setCurrencyName(String currencyName) {
-        this.currencyName = currencyName == null ? null : currencyName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getNumber() {

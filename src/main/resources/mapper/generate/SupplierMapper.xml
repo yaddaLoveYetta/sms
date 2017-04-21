@@ -3,7 +3,7 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Supplier">
     <id column="supplierId" jdbcType="INTEGER" property="supplierId" />
-    <result column="supplierName" jdbcType="VARCHAR" property="supplierName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="taxId" jdbcType="INTEGER" property="taxId" />
     <result column="CORP" jdbcType="VARCHAR" property="CORP" />
     <result column="BRNO" jdbcType="VARCHAR" property="BRNO" />
@@ -85,9 +85,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    supplierId, supplierName, taxId, CORP, BRNO, taxCategoryId, taxRate, country, city, 
-    province, county, address, industryId, categoryId, createOrganization, banOrganization, 
-    [status], certificateId, currencyId, settlementId, payId, itemId, [number]
+    supplierId, [name], taxId, CORP, BRNO, taxCategoryId, taxRate, country, city, province, 
+    county, address, industryId, categoryId, createOrganization, banOrganization, [status], 
+    certificateId, currencyId, settlementId, payId, itemId, [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -120,7 +120,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
-    insert into t_sms_supplier (supplierId, supplierName, taxId, 
+    insert into t_sms_supplier (supplierId, [name], taxId, 
       CORP, BRNO, taxCategoryId, 
       taxRate, country, city, 
       province, county, address, 
@@ -128,7 +128,7 @@
       banOrganization, [status], certificateId, 
       currencyId, settlementId, payId, 
       itemId, [number])
-    values (#{supplierId,jdbcType=INTEGER}, #{supplierName,jdbcType=VARCHAR}, #{taxId,jdbcType=INTEGER}, 
+    values (#{supplierId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=INTEGER}, 
       #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=INTEGER}, 
       #{taxRate,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
@@ -143,8 +143,8 @@
       <if test="supplierId != null">
         supplierId,
       </if>
-      <if test="supplierName != null">
-        supplierName,
+      <if test="name != null">
+        [name],
       </if>
       <if test="taxId != null">
         taxId,
@@ -214,8 +214,8 @@
       <if test="supplierId != null">
         #{supplierId,jdbcType=INTEGER},
       </if>
-      <if test="supplierName != null">
-        #{supplierName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="taxId != null">
         #{taxId,jdbcType=INTEGER},
@@ -294,8 +294,8 @@
       <if test="record.supplierId != null">
         supplierId = #{record.supplierId,jdbcType=INTEGER},
       </if>
-      <if test="record.supplierName != null">
-        supplierName = #{record.supplierName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.taxId != null">
         taxId = #{record.taxId,jdbcType=INTEGER},
@@ -368,7 +368,7 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_supplier
     set supplierId = #{record.supplierId,jdbcType=INTEGER},
-      supplierName = #{record.supplierName,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       taxId = #{record.taxId,jdbcType=INTEGER},
       CORP = #{record.CORP,jdbcType=VARCHAR},
       BRNO = #{record.BRNO,jdbcType=VARCHAR},
@@ -397,8 +397,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     update t_sms_supplier
     <set>
-      <if test="supplierName != null">
-        supplierName = #{supplierName,jdbcType=VARCHAR},
+      <if test="name != null">
+        [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="taxId != null">
         taxId = #{taxId,jdbcType=INTEGER},
@@ -468,7 +468,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     update t_sms_supplier
-    set supplierName = #{supplierName,jdbcType=VARCHAR},
+    set [name] = #{name,jdbcType=VARCHAR},
       taxId = #{taxId,jdbcType=INTEGER},
       CORP = #{CORP,jdbcType=VARCHAR},
       BRNO = #{BRNO,jdbcType=VARCHAR},

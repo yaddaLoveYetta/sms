@@ -164,73 +164,73 @@ public class CurrencyExample {
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameIsNull() {
-            addCriterion("currencyName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameIsNotNull() {
-            addCriterion("currencyName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameEqualTo(String value) {
-            addCriterion("currencyName =", value, "currencyName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameNotEqualTo(String value) {
-            addCriterion("currencyName <>", value, "currencyName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameGreaterThan(String value) {
-            addCriterion("currencyName >", value, "currencyName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameGreaterThanOrEqualTo(String value) {
-            addCriterion("currencyName >=", value, "currencyName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameLessThan(String value) {
-            addCriterion("currencyName <", value, "currencyName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameLessThanOrEqualTo(String value) {
-            addCriterion("currencyName <=", value, "currencyName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameLike(String value) {
-            addCriterion("currencyName like", value, "currencyName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameNotLike(String value) {
-            addCriterion("currencyName not like", value, "currencyName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameIn(List<String> values) {
-            addCriterion("currencyName in", values, "currencyName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameNotIn(List<String> values) {
-            addCriterion("currencyName not in", values, "currencyName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameBetween(String value1, String value2) {
-            addCriterion("currencyName between", value1, value2, "currencyName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyNameNotBetween(String value1, String value2) {
-            addCriterion("currencyName not between", value1, value2, "currencyName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 

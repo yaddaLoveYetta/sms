@@ -164,73 +164,73 @@ public class ItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andItemNameIsNull() {
-            addCriterion("itemName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameIsNotNull() {
-            addCriterion("itemName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameEqualTo(String value) {
-            addCriterion("itemName =", value, "itemName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameNotEqualTo(String value) {
-            addCriterion("itemName <>", value, "itemName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameGreaterThan(String value) {
-            addCriterion("itemName >", value, "itemName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameGreaterThanOrEqualTo(String value) {
-            addCriterion("itemName >=", value, "itemName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameLessThan(String value) {
-            addCriterion("itemName <", value, "itemName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameLessThanOrEqualTo(String value) {
-            addCriterion("itemName <=", value, "itemName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameLike(String value) {
-            addCriterion("itemName like", value, "itemName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameNotLike(String value) {
-            addCriterion("itemName not like", value, "itemName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameIn(List<String> values) {
-            addCriterion("itemName in", values, "itemName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameNotIn(List<String> values) {
-            addCriterion("itemName not in", values, "itemName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameBetween(String value1, String value2) {
-            addCriterion("itemName between", value1, value2, "itemName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andItemNameNotBetween(String value1, String value2) {
-            addCriterion("itemName not between", value1, value2, "itemName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 

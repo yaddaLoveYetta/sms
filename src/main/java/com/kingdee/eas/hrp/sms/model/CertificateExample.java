@@ -164,73 +164,73 @@ public class CertificateExample {
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameIsNull() {
-            addCriterion("certificateName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameIsNotNull() {
-            addCriterion("certificateName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameEqualTo(String value) {
-            addCriterion("certificateName =", value, "certificateName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameNotEqualTo(String value) {
-            addCriterion("certificateName <>", value, "certificateName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameGreaterThan(String value) {
-            addCriterion("certificateName >", value, "certificateName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameGreaterThanOrEqualTo(String value) {
-            addCriterion("certificateName >=", value, "certificateName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameLessThan(String value) {
-            addCriterion("certificateName <", value, "certificateName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameLessThanOrEqualTo(String value) {
-            addCriterion("certificateName <=", value, "certificateName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameLike(String value) {
-            addCriterion("certificateName like", value, "certificateName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameNotLike(String value) {
-            addCriterion("certificateName not like", value, "certificateName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameIn(List<String> values) {
-            addCriterion("certificateName in", values, "certificateName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameNotIn(List<String> values) {
-            addCriterion("certificateName not in", values, "certificateName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameBetween(String value1, String value2) {
-            addCriterion("certificateName between", value1, value2, "certificateName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateNameNotBetween(String value1, String value2) {
-            addCriterion("certificateName not between", value1, value2, "certificateName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 

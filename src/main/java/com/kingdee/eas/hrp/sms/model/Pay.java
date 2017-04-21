@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 public class Pay {
     private Integer payId;
 
-    private String payName;
+    private String name;
 
     private String number;
 
@@ -15,12 +15,12 @@ public class Pay {
         this.payId = payId;
     }
 
-    public String getPayName() {
-        return payName;
+    public String getName() {
+        return name;
     }
 
-    public void setPayName(String payName) {
-        this.payName = payName == null ? null : payName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getNumber() {

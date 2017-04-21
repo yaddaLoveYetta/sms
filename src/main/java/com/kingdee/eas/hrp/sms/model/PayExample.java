@@ -164,73 +164,73 @@ public class PayExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayNameIsNull() {
-            addCriterion("payName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameIsNotNull() {
-            addCriterion("payName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameEqualTo(String value) {
-            addCriterion("payName =", value, "payName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameNotEqualTo(String value) {
-            addCriterion("payName <>", value, "payName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameGreaterThan(String value) {
-            addCriterion("payName >", value, "payName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameGreaterThanOrEqualTo(String value) {
-            addCriterion("payName >=", value, "payName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameLessThan(String value) {
-            addCriterion("payName <", value, "payName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameLessThanOrEqualTo(String value) {
-            addCriterion("payName <=", value, "payName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameLike(String value) {
-            addCriterion("payName like", value, "payName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameNotLike(String value) {
-            addCriterion("payName not like", value, "payName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameIn(List<String> values) {
-            addCriterion("payName in", values, "payName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameNotIn(List<String> values) {
-            addCriterion("payName not in", values, "payName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameBetween(String value1, String value2) {
-            addCriterion("payName between", value1, value2, "payName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPayNameNotBetween(String value1, String value2) {
-            addCriterion("payName not between", value1, value2, "payName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 

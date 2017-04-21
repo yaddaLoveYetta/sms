@@ -3,7 +3,7 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.PayMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Pay">
     <id column="payId" jdbcType="INTEGER" property="payId" />
-    <result column="payName" jdbcType="VARCHAR" property="payName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    payId, payName, [number]
+    payId, [name], [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.PayExample" resultMap="BaseResultMap">
     select
@@ -98,9 +98,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Pay">
-    insert into t_sms_pay (payId, payName, [number]
+    insert into t_sms_pay (payId, [name], [number]
       )
-    values (#{payId,jdbcType=INTEGER}, #{payName,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
+    values (#{payId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Pay">
@@ -109,8 +109,8 @@
       <if test="payId != null">
         payId,
       </if>
-      <if test="payName != null">
-        payName,
+      <if test="name != null">
+        [name],
       </if>
       <if test="number != null">
         [number],
@@ -120,8 +120,8 @@
       <if test="payId != null">
         #{payId,jdbcType=INTEGER},
       </if>
-      <if test="payName != null">
-        #{payName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="record.payId != null">
         payId = #{record.payId,jdbcType=INTEGER},
       </if>
-      <if test="record.payName != null">
-        payName = #{record.payName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
@@ -154,7 +154,7 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_pay
     set payId = #{record.payId,jdbcType=INTEGER},
-      payName = #{record.payName,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -163,8 +163,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Pay">
     update t_sms_pay
     <set>
-      <if test="payName != null">
-        payName = #{payName,jdbcType=VARCHAR},
+      <if test="name != null">
+        [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Pay">
     update t_sms_pay
-    set payName = #{payName,jdbcType=VARCHAR},
+    set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
     where payId = #{payId,jdbcType=INTEGER}
   </update>

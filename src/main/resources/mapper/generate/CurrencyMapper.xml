@@ -3,7 +3,7 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.CurrencyMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Currency">
     <id column="currencyId" jdbcType="INTEGER" property="currencyId" />
-    <result column="currencyName" jdbcType="VARCHAR" property="currencyName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    currencyId, currencyName, [number]
+    currencyId, [name], [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.CurrencyExample" resultMap="BaseResultMap">
     select
@@ -98,9 +98,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Currency">
-    insert into t_sms_currency (currencyId, currencyName, [number]
+    insert into t_sms_currency (currencyId, [name], [number]
       )
-    values (#{currencyId,jdbcType=INTEGER}, #{currencyName,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
+    values (#{currencyId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Currency">
@@ -109,8 +109,8 @@
       <if test="currencyId != null">
         currencyId,
       </if>
-      <if test="currencyName != null">
-        currencyName,
+      <if test="name != null">
+        [name],
       </if>
       <if test="number != null">
         [number],
@@ -120,8 +120,8 @@
       <if test="currencyId != null">
         #{currencyId,jdbcType=INTEGER},
       </if>
-      <if test="currencyName != null">
-        #{currencyName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="record.currencyId != null">
         currencyId = #{record.currencyId,jdbcType=INTEGER},
       </if>
-      <if test="record.currencyName != null">
-        currencyName = #{record.currencyName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
@@ -154,7 +154,7 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_currency
     set currencyId = #{record.currencyId,jdbcType=INTEGER},
-      currencyName = #{record.currencyName,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -163,8 +163,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Currency">
     update t_sms_currency
     <set>
-      <if test="currencyName != null">
-        currencyName = #{currencyName,jdbcType=VARCHAR},
+      <if test="name != null">
+        [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Currency">
     update t_sms_currency
-    set currencyName = #{currencyName,jdbcType=VARCHAR},
+    set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
     where currencyId = #{currencyId,jdbcType=INTEGER}
   </update>

@@ -3,7 +3,7 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.CertificateMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Certificate">
     <id column="certificateId" jdbcType="INTEGER" property="certificateId" />
-    <result column="certificateName" jdbcType="VARCHAR" property="certificateName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    certificateId, certificateName, [number]
+    certificateId, [name], [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.CertificateExample" resultMap="BaseResultMap">
     select
@@ -98,9 +98,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Certificate">
-    insert into t_sms_certificate (certificateId, certificateName, [number]
+    insert into t_sms_certificate (certificateId, [name], [number]
       )
-    values (#{certificateId,jdbcType=INTEGER}, #{certificateName,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
+    values (#{certificateId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Certificate">
@@ -109,8 +109,8 @@
       <if test="certificateId != null">
         certificateId,
       </if>
-      <if test="certificateName != null">
-        certificateName,
+      <if test="name != null">
+        [name],
       </if>
       <if test="number != null">
         [number],
@@ -120,8 +120,8 @@
       <if test="certificateId != null">
         #{certificateId,jdbcType=INTEGER},
       </if>
-      <if test="certificateName != null">
-        #{certificateName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="record.certificateId != null">
         certificateId = #{record.certificateId,jdbcType=INTEGER},
       </if>
-      <if test="record.certificateName != null">
-        certificateName = #{record.certificateName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
@@ -154,7 +154,7 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_certificate
     set certificateId = #{record.certificateId,jdbcType=INTEGER},
-      certificateName = #{record.certificateName,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -163,8 +163,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Certificate">
     update t_sms_certificate
     <set>
-      <if test="certificateName != null">
-        certificateName = #{certificateName,jdbcType=VARCHAR},
+      <if test="name != null">
+        [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Certificate">
     update t_sms_certificate
-    set certificateName = #{certificateName,jdbcType=VARCHAR},
+    set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
     where certificateId = #{certificateId,jdbcType=INTEGER}
   </update>

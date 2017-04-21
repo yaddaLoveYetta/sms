@@ -164,73 +164,73 @@ public class TaxCategoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameIsNull() {
-            addCriterion("taxCategoryName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameIsNotNull() {
-            addCriterion("taxCategoryName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameEqualTo(String value) {
-            addCriterion("taxCategoryName =", value, "taxCategoryName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameNotEqualTo(String value) {
-            addCriterion("taxCategoryName <>", value, "taxCategoryName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameGreaterThan(String value) {
-            addCriterion("taxCategoryName >", value, "taxCategoryName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameGreaterThanOrEqualTo(String value) {
-            addCriterion("taxCategoryName >=", value, "taxCategoryName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameLessThan(String value) {
-            addCriterion("taxCategoryName <", value, "taxCategoryName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameLessThanOrEqualTo(String value) {
-            addCriterion("taxCategoryName <=", value, "taxCategoryName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameLike(String value) {
-            addCriterion("taxCategoryName like", value, "taxCategoryName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameNotLike(String value) {
-            addCriterion("taxCategoryName not like", value, "taxCategoryName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameIn(List<String> values) {
-            addCriterion("taxCategoryName in", values, "taxCategoryName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameNotIn(List<String> values) {
-            addCriterion("taxCategoryName not in", values, "taxCategoryName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameBetween(String value1, String value2) {
-            addCriterion("taxCategoryName between", value1, value2, "taxCategoryName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryNameNotBetween(String value1, String value2) {
-            addCriterion("taxCategoryName not between", value1, value2, "taxCategoryName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 

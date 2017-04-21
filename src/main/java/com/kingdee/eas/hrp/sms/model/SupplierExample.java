@@ -164,73 +164,73 @@ public class SupplierExample {
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameIsNull() {
-            addCriterion("supplierName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameIsNotNull() {
-            addCriterion("supplierName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameEqualTo(String value) {
-            addCriterion("supplierName =", value, "supplierName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameNotEqualTo(String value) {
-            addCriterion("supplierName <>", value, "supplierName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameGreaterThan(String value) {
-            addCriterion("supplierName >", value, "supplierName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameGreaterThanOrEqualTo(String value) {
-            addCriterion("supplierName >=", value, "supplierName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameLessThan(String value) {
-            addCriterion("supplierName <", value, "supplierName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameLessThanOrEqualTo(String value) {
-            addCriterion("supplierName <=", value, "supplierName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameLike(String value) {
-            addCriterion("supplierName like", value, "supplierName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameNotLike(String value) {
-            addCriterion("supplierName not like", value, "supplierName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameIn(List<String> values) {
-            addCriterion("supplierName in", values, "supplierName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameNotIn(List<String> values) {
-            addCriterion("supplierName not in", values, "supplierName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameBetween(String value1, String value2) {
-            addCriterion("supplierName between", value1, value2, "supplierName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNameNotBetween(String value1, String value2) {
-            addCriterion("supplierName not between", value1, value2, "supplierName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 

@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 public class Supplier {
     private Integer supplierId;
 
-    private String supplierName;
+    private String name;
 
     private Integer taxId;
 
@@ -55,12 +55,12 @@ public class Supplier {
         this.supplierId = supplierId;
     }
 
-    public String getSupplierName() {
-        return supplierName;
+    public String getName() {
+        return name;
     }
 
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName == null ? null : supplierName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Integer getTaxId() {

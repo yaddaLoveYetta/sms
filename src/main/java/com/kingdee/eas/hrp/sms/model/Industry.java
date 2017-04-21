@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 public class Industry {
     private Integer industryId;
 
-    private String industryName;
+    private String name;
 
     private String number;
 
@@ -15,12 +15,12 @@ public class Industry {
         this.industryId = industryId;
     }
 
-    public String getIndustryName() {
-        return industryName;
+    public String getName() {
+        return name;
     }
 
-    public void setIndustryName(String industryName) {
-        this.industryName = industryName == null ? null : industryName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getNumber() {

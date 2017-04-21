@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 public class Item {
     private Integer itemId;
 
-    private String itemName;
+    private String name;
 
     private String number;
 
@@ -15,12 +15,12 @@ public class Item {
         this.itemId = itemId;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getName() {
+        return name;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName == null ? null : itemName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getNumber() {

@@ -1,5 +1,8 @@
 package com.kingdee.eas.hrp.sms.service.impl;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,8 +10,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.druid.sql.ast.statement.SQLIfStatement.ElseIf;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -312,6 +318,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @param classId
 	 * @param userType
 	 * @return Map<String,Object>
+	 * @throws SQLException
 	 * @date 2017-04-20 14:15:58 星期四
 	 */
 	@SuppressWarnings("unchecked")
@@ -327,6 +334,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 		FormClass formClass = (FormClass) template.get("formClass");
 		// 子表资料描述信息
 		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
+
+		Map<String, String> map = getDBDelimiter();
+
+		String bDelimiter = map.get("bDelimiter");// 数据库字段-关键字处理
+		String eDelimiter = map.get("eDelimiter");
 
 		if (null == formClass) {
 			throw new BusinessLogicRunTimeException("资料模板不存在");
@@ -365,7 +377,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 		sbFrom.append("FROM " + primaryTableName).append(separator);
 
 		if (isChildTableExist) {
-			sbFrom.append(String.format("INNER JOIN %s ON %s.%s = %s.%s", childTableName, childTableName, foreignKey, primaryTableName, primaryKey)).append(separator);
+			sbFrom.append(
+					String.format("INNER JOIN %s ON %s.%s%s%s = %s.%s%s%s", childTableName, bDelimiter, childTableName, eDelimiter, foreignKey, primaryTableName, bDelimiter, primaryKey, eDelimiter))
+					.append(separator);
 		}
 
 		// 用户类别1：系统用户，2供应商用户
@@ -439,13 +453,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 				if (lookUpType != null && (lookUpType == 1 || lookUpType == 2)) {
 					// 基础资料引用类型
 					// 强制显示关联字段名称
-					sbSelect.append(String.format("%s.%s AS %s,", formFieldLinkedTable, sqlColumnName, key)).append(separator);
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
-					sbSelect.append(String.format("%s.%s AS %s,", srcTableAlis, disPlayField, key + "_DspName")).append(separator);
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key + "_DspName", eDelimiter)).append(separator);
 
 					if (disPlayNum != null && !disPlayNum.trim().equals("")) {
 						// 代码显示字段
-						sbSelect.append(String.format("%s.%s AS %s,", srcTableAlis, disPlayNum, key + "_NmbName")).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayNum, eDelimiter, bDelimiter, key + "_NmbName", eDelimiter)).append(separator);
 					}
 
 					// from 中同时增加关联表
@@ -456,7 +470,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 						sbFrom.append(" as " + srcTableAlisAs);
 					}
 
-					sbFrom.append(String.format(" ON %s.%s = %s.%s", formFieldLinkedTable, sqlColumnName, srcTableAlis, srcField)).append(separator);
+					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
+							.append(separator);
 
 					if (filter != null && !filter.trim().equals("")) {
 						// 表链接有附加条件
@@ -485,7 +500,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 					if (lookUpTypeEx != null && lookUpTypeEx > 0) {
 						// 基础资料的附加属性又是引用类型的情况--取显示字段并关联表
 
-						sbSelect.append(String.format("%s.%s AS %s,", srcTableAlis, nameEx, key)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, nameEx, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
 						// from 中同时增加关联表
 						sbFrom.append(joinTypeEx).append(srcTableEx);
@@ -494,10 +509,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 						sbFrom.append(" as " + srcTableAlis);
 
-						sbFrom.append(String.format(" ON %s.%s = %s.%s", srcTableEx, srcFieldEx, srcTableAlis, srcFieldEx)).append(separator);
+						sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", srcTableEx, bDelimiter, srcFieldEx, eDelimiter, srcTableAlis, bDelimiter, srcFieldEx, eDelimiter)).append(separator);
 					} else {
 						// 普通属性
-						sbSelect.append(String.format("%s.%s AS %s,", srcTableAlis, disPlayField, key)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 					}
 
 				} else if (lookUpType != null && lookUpType == 4) {
@@ -507,9 +522,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 					if (dataType != null && dataType == 2) {
 						// 文本类的关联字段，未防止关联表中无记录，此处取主表字段值-如订单查询FCarNo字段取数
-						sbSelect.append(String.format("%s.%s AS %s,", formFieldLinkedTable, sqlColumnName, key)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 					} else {
-						sbSelect.append(String.format("%s.%s AS %s,", srcTableAlis, disPlayField, key)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 					}
 
 					// from 中同时增加关联表
@@ -520,15 +535,16 @@ public class TemplateService extends BaseService implements ITemplateService {
 						sbFrom.append(" as " + srcTableAlisAs);
 					}
 
-					sbFrom.append(String.format(" ON %s.%s = %s.%s", formFieldLinkedTable, sqlColumnName, srcTableAlis, srcField)).append(separator);
+					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
+							.append(separator);
 				} else if (lookUpType != null && lookUpType == 5) {
 
 					// 普通引用其他表的其他字段-主要为了避免为4即引用他表数据时，需引用多个字段时关联表重复问题。依附于=4时存在,即模板中肯定存在FLookUpType=4的字段模板
 
-					sbSelect.append(String.format("%s.%s AS %s,", srcTableAlis, disPlayField, key)).append(separator);
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
 				} else {
-					sbSelect.append(String.format("%s.%s AS %s,", formFieldLinkedTable, sqlColumnName, key)).append(separator);
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 				}
 			}
 		}
@@ -542,6 +558,59 @@ public class TemplateService extends BaseService implements ITemplateService {
 		statement.put("from", from);
 
 		return statement;
+	}
+
+	/**
+	 * 获取数据库字段关键字处理符号
+	 * 
+	 * @Title getDBDelimiter
+	 * @return String
+	 * @date 2017-04-21 15:48:28 星期五
+	 */
+	private Map<String, String> getDBDelimiter() {
+
+		Map<String, String> ret = new HashMap<String, String>() {
+			{
+				put("bDelimiter", "");
+				put("eDelimiter", "");
+			}
+		};
+		Connection connection = null;
+
+		SqlSessionTemplate st = (SqlSessionTemplate) sqlSession;
+		// Connection connection = SqlSessionUtils.getSqlSession(st.getSqlSessionFactory(), st.getExecutorType(),
+		// st.getPersistenceExceptionTranslator()).getConnection();
+		connection = st.getSqlSessionFactory().openSession().getConnection();
+		try {
+			String dbName = connection.getMetaData().getDatabaseProductName();
+
+			if (dbName.contains("Microsoft")) {
+				// Microsoft SQL Server
+				ret.put("bDelimiter", "[");
+				ret.put("eDelimiter", "]");
+
+			} else if (dbName.contains("MySql")) {
+				// MySql
+				ret.put("bDelimiter", "`");
+				ret.put("eDelimiter", "`");
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+
+			try {
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+		}
+
+		return ret;
+
 	}
 
 	/**

@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 public class TaxCategory {
     private Integer taxCategoryId;
 
-    private String taxCategoryName;
+    private String name;
 
     private String number;
 
@@ -15,12 +15,12 @@ public class TaxCategory {
         this.taxCategoryId = taxCategoryId;
     }
 
-    public String getTaxCategoryName() {
-        return taxCategoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setTaxCategoryName(String taxCategoryName) {
-        this.taxCategoryName = taxCategoryName == null ? null : taxCategoryName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getNumber() {

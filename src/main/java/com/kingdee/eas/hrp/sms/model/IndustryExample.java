@@ -164,73 +164,73 @@ public class IndustryExample {
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameIsNull() {
-            addCriterion("industryName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameIsNotNull() {
-            addCriterion("industryName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameEqualTo(String value) {
-            addCriterion("industryName =", value, "industryName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameNotEqualTo(String value) {
-            addCriterion("industryName <>", value, "industryName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameGreaterThan(String value) {
-            addCriterion("industryName >", value, "industryName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameGreaterThanOrEqualTo(String value) {
-            addCriterion("industryName >=", value, "industryName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameLessThan(String value) {
-            addCriterion("industryName <", value, "industryName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameLessThanOrEqualTo(String value) {
-            addCriterion("industryName <=", value, "industryName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameLike(String value) {
-            addCriterion("industryName like", value, "industryName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameNotLike(String value) {
-            addCriterion("industryName not like", value, "industryName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameIn(List<String> values) {
-            addCriterion("industryName in", values, "industryName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameNotIn(List<String> values) {
-            addCriterion("industryName not in", values, "industryName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameBetween(String value1, String value2) {
-            addCriterion("industryName between", value1, value2, "industryName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andIndustryNameNotBetween(String value1, String value2) {
-            addCriterion("industryName not between", value1, value2, "industryName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 

@@ -3,7 +3,7 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.IndustryMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Industry">
     <id column="industryId" jdbcType="INTEGER" property="industryId" />
-    <result column="industryName" jdbcType="VARCHAR" property="industryName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    industryId, industryName, [number]
+    industryId, [name], [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.IndustryExample" resultMap="BaseResultMap">
     select
@@ -98,9 +98,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Industry">
-    insert into t_sms_industry (industryId, industryName, [number]
+    insert into t_sms_industry (industryId, [name], [number]
       )
-    values (#{industryId,jdbcType=INTEGER}, #{industryName,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
+    values (#{industryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Industry">
@@ -109,8 +109,8 @@
       <if test="industryId != null">
         industryId,
       </if>
-      <if test="industryName != null">
-        industryName,
+      <if test="name != null">
+        [name],
       </if>
       <if test="number != null">
         [number],
@@ -120,8 +120,8 @@
       <if test="industryId != null">
         #{industryId,jdbcType=INTEGER},
       </if>
-      <if test="industryName != null">
-        #{industryName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="record.industryId != null">
         industryId = #{record.industryId,jdbcType=INTEGER},
       </if>
-      <if test="record.industryName != null">
-        industryName = #{record.industryName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
@@ -154,7 +154,7 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_industry
     set industryId = #{record.industryId,jdbcType=INTEGER},
-      industryName = #{record.industryName,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -163,8 +163,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Industry">
     update t_sms_industry
     <set>
-      <if test="industryName != null">
-        industryName = #{industryName,jdbcType=VARCHAR},
+      <if test="name != null">
+        [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Industry">
     update t_sms_industry
-    set industryName = #{industryName,jdbcType=VARCHAR},
+    set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
     where industryId = #{industryId,jdbcType=INTEGER}
   </update>
