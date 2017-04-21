@@ -133,23 +133,27 @@ public final class HttpUtil {
 	 *            参数
 	 * @return Map
 	 */
+	@SuppressWarnings("resource")
 	public static Map<String, Object> sendGetForMap(String url, HttpParam hp) {
 
-		StringBuilder params = new StringBuilder();
+		HttpClient http = null;
+		try {
+			if (hp.hasCommom()) {
 
-		if (hp.hasCommom()) {
-			params.append(url).append("?");
+				List<NameValuePair> list = new ArrayList<NameValuePair>();
 
-			for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
-				params.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+				for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
+					list.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+				}
+
+				String params;
+
+				params = EntityUtils.toString(new UrlEncodedFormEntity(list, Charset.forName("UTF-8")));
+
+				url = url + "?" + params;
 			}
 
-			url = params.substring(0, params.lastIndexOf("&"));
-		}
-
-		HttpClient http = new DefaultHttpClient();
-
-		try {
+			http = new DefaultHttpClient();
 
 			HttpGet get = new HttpGet(url);
 			logger.debug("send get with url:" + url);
@@ -182,6 +186,9 @@ public final class HttpUtil {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+			throw new RuntimeException(e);
+		} catch (ParseException e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		} finally {
@@ -235,10 +242,7 @@ public final class HttpUtil {
 				}
 			}
 
-			// post.setEntity(new UrlEncodedFormEntity(paramList, "uth-8"));
-
-			UrlEncodedFormEntity postEntity = new UrlEncodedFormEntity(paramList, Charset.forName("UTF-8"));
-			post.setEntity(postEntity);
+			post.setEntity(new UrlEncodedFormEntity(paramList, Charset.forName("UTF-8")));
 
 			HttpEntity entity = http.execute(post).getEntity();
 
@@ -300,22 +304,12 @@ public final class HttpUtil {
 				}
 			}
 
-			HttpParams httpParams = new BasicHttpParams();
-
-			if (hp.hasCommom()) {
-				for (Map.Entry<String, String> entry : hp.getCommonParams().entrySet()) {
-					paramList.add(new org.apache.http.message.BasicNameValuePair(entry.getKey(), entry.getValue()));
-					httpParams.setParameter(entry.getKey(), entry.getValue());
-					logger.debug("add param:" + entry.getKey() + "=" + entry.getValue());
-				}
-			}
-
-			post.setParams(httpParams);
-			// post.setEntity(new UrlEncodedFormEntity(paramList, "uth-8"));
+			post.setEntity(new UrlEncodedFormEntity(paramList, Charset.forName("UTF-8")));
 
 			HttpEntity entity = http.execute(post).getEntity();
 
 			return Common.toHashMap(EntityUtils.toString(entity, "utf-8").trim());
+
 		} catch (ClientProtocolException e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
