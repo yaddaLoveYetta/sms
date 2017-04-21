@@ -402,33 +402,33 @@ public class TemplateService extends BaseService implements ITemplateService {
 			for (Iterator<String> it = formFields.keySet().iterator(); it.hasNext();) {
 
 				String fieldKey = it.next();
-				Map<String, Object> formField = (Map<String, Object>) formFields.get(fieldKey);
+				FormFields formField = (FormFields) formFields.get(fieldKey);
 
-				String joinType = (String) formField.get("joinType");
+				String joinType = formField.getJoinType();
 				if (joinType == null || joinType.trim().equals("")) {
 					joinType = "INNER JOIN"; // 默认 INNER JOIN
 				}
 
 				joinType = " " + joinType.trim() + " "; // 两边加一空格，防止模板配置时两边无空格，链接脚本错误
 
-				String filter = (String) formField.get("filter"); // 过滤条件-用于关联表时的附加条件
+				String filter = formField.getFilter(); // 过滤条件-用于关联表时的附加条件
 
-				Integer page = (Integer) formField.get("page");
+				Integer page = formField.getPage();
 				// Integer FItemClassID = (Integer) formField.get("FItemClassID");
-				String name = (String) formField.get("name");
-				String sqlColumnName = (String) formField.get("sqlColumnName");
-				String key = (String) formField.get("key");
-				Integer dataType = (Integer) formField.get("dataType");
-				Integer index = (Integer) formField.get("index");
-				Integer display = (Integer) formField.get("display");
-				Integer lookUpType = (Integer) formField.get("lookUpType");
-				Integer lookUpClassId = (Integer) formField.get("lookUpClassId");
-				String srcTable = (String) formField.get("srcTable");
-				String srcTableAlisAs = (String) formField.get("srcTableAlisAs");
-				String srcField = (String) formField.get("srcField");
-				String disPlayField = (String) formField.get("disPlayField");
-				String disPlayFieldAlisAs = (String) formField.get("disPlayFieldAlisAs");
-				String disPlayNum = (String) formField.get("disPlayNum");
+				String name = formField.getName();
+				String sqlColumnName = formField.getSqlColumnName();
+				String key = formField.getKey();
+				Integer dataType = formField.getDataType();
+				Integer index = formField.getIndex();
+				Integer display = formField.getDisplay();
+				Integer lookUpType = formField.getLookUpType();
+				Integer lookUpClassId = formField.getLookUpClassID();
+				String srcTable = formField.getSrcTable();
+				String srcTableAlisAs = formField.getSrcTableAlisAs();
+				String srcField = formField.getSrcField();
+				String disPlayField = formField.getDisPlayField();
+				// String disPlayFieldAlisAs = formField.getdis
+				String disPlayNum = formField.getDisPlayNum();
 				String srcTableAlis = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
 
 				if (display > 0 && ((display & displayTypeList) != displayTypeList && (display & displayTypeAdd) != displayTypeAdd && (display & displayTypeEdit) != displayTypeEdit)) {
@@ -827,24 +827,14 @@ public class TemplateService extends BaseService implements ITemplateService {
 		StringBuilder sbOrderBy = new StringBuilder();
 		String separator = System.getProperty("line.separator");
 
-		// // 基础资料模板信息
-		// Map<String, Map<String, Object>> templateMap = (Map<String, Map<String, Object>>)
-		// getItemClassTemplateMap(classId, 0);
-		//
-		// @SuppressWarnings("unchecked")
-		// Map<String, Object> itemClassTemplateMap = (Map<String, Object>) templateMap.get("formFields").get("0");
-		//
-		// // 获取基础资料类别信息
-		// Map<String, Object> itemClass = (Map<String, Object>) templateMap.get("formClass");
-
 		// 基础资料模板
-		Map<String, Object> templateMap = getFormTemplate(classId, 1);
+		Map<String, Object> template = getFormTemplate(classId, 1);
 		// 所有字段模板
-		Map<String, Object> itemClassTemplateMap = (Map<String, Object>) ((Map<String, Object>) templateMap.get("formFields")).get("0");
+		Map<String, FormFields> formFieldsAll = getFormFields(classId, -1);
 		// 主表资料描述信息
-		FormClass itemClass = (FormClass) templateMap.get("formClass");
+		FormClass itemClass = (FormClass) template.get("formClass");
 		// 子表资料描述信息
-		Map<String, Object> formEntries = (Map<String, Object>) templateMap.get("formEntries");
+		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
 
 		if (null == itemClass) {
 			throw new BusinessLogicRunTimeException("没有模板数据");
@@ -876,27 +866,28 @@ public class TemplateService extends BaseService implements ITemplateService {
 				orderDirection = orderByItem.getString("orderDirection");
 			}
 
-			if (!itemClassTemplateMap.containsKey(fieldKey)) {
+			if (!formFieldsAll.containsKey(fieldKey)) {
 				// 没有定义模板-忽略
 				continue;
 			}
 
 			@SuppressWarnings("unchecked")
-			Map<String, Object> itemClassTemplate = (Map<String, Object>) itemClassTemplateMap.get(fieldKey);
 
-			String FSQLColumnName = (String) itemClassTemplate.get("FSQLColumnName");
-			Integer FLookUpType = (Integer) itemClassTemplate.get("FLookUpType");
-			String FSrcTable = (String) itemClassTemplate.get("FSrcTable");
-			String FSrcTableAlisAs = (String) itemClassTemplate.get("FSrcTableAlisAs");
-			String FDisPlayField = (String) itemClassTemplate.get("FDisPlayField");
+			FormFields formFields = formFieldsAll.get(fieldKey);
+
+			String sqlColumnName = formFields.getSqlColumnName();
+			Integer lookUpType = formFields.getLookUpType();
+			String srcTable = formFields.getSrcTable();
+			String srcTableAlisAs = formFields.getSrcTableAlisAs();
+			String disPlayField = formFields.getDisPlayField();
 
 			String tableName = primaryTableName;
-			String fieldName = FSQLColumnName;
+			String fieldName = sqlColumnName;
 
-			if (FLookUpType > 0) {
+			if (lookUpType > 0) {
 				// 引用类型字段-找到真实的表，字段
-				tableName = FSrcTableAlisAs == null || FSrcTableAlisAs.equals("") ? FSrcTable : FSrcTableAlisAs;
-				fieldName = FDisPlayField;
+				tableName = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
+				fieldName = disPlayField;
 			}
 
 			sbOrderBy.append(separator).append(String.format("%s.%s %s,", tableName, fieldName, orderDirection));

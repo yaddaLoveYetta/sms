@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
@@ -82,6 +85,25 @@ public class TemplateController {
 		params.put("orderBy", orderBy);
 		params.put("pageSize", pageSize);
 		params.put("pageNo", pageNo);
+
+		// sqlserver ROW_BUMBER分页一定要设置 orderBy--此处指定默认
+		if (orderBy.equals("")) {
+
+			JSONArray orderByArray = new JSONArray();
+			JSONObject orderByItem = new JSONObject(true);
+
+			orderByItem.put("fieldKey", "number");
+			orderByItem.put("orderDirection", "ASC");
+			orderByArray.add(orderByItem);
+
+			orderByItem = new JSONObject();
+			orderByItem.put("fieldKey", "name");
+			orderByItem.put("orderDirection", "ASC");
+			orderByArray.add(orderByItem);
+
+			orderBy = JSON.toJSONString(orderByArray);
+
+		}
 
 		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType);
 
