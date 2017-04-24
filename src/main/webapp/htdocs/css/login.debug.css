@@ -160,6 +160,9 @@ body {
 .login-box .content .login-panel .get-pas {
   /*margin: 16px 20px 0;*/
   font-size: 12px;
+  height: 41px;
+  border-radius: 0px;
+  background-color: white
 }
 .login-box .content .login-panel .get-pas > a {
   color: #a0a9ae;
