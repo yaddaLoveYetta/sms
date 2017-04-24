@@ -164,6 +164,9 @@ body {
 .login-box .content .login-panel .get-pas > a {
   color: #a0a9ae;
   text-decoration: underline;
+  line-height: 40px;
+  float: right;
+  padding-right: 25px;
 }
 .login-box .content .login-panel .login-bt {
   margin: 20px 20px 0;
@@ -172,7 +175,7 @@ body {
   color: white;
   text-align: center;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0px;
 }
 .login-box .content .login-panel .disabled {
   background: #b2bccc;
