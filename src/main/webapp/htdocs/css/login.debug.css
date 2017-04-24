@@ -93,7 +93,7 @@ body {
   border-top-left-radius: 4px;
 }
 .login-box .content .login-panel .right.select-tab {
-  border-top-right-radius: 4px;
+  border-top-right-radius: 0px;
 }
 .login-box .content .login-panel .hover {
   background: #ffffff;
