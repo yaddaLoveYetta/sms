@@ -24,9 +24,9 @@ define('UserInfos', function (require, module, exports) {
             '#span-user-name': {
                 name: user.name
             },
-            '#span-message-count': {
-                value: user.messageCount
-            },
+            // '#span-message-count': {
+            //     value: user.messageCount
+            // },
         });
 
 
