@@ -61,8 +61,10 @@ body {
   text-align: center;
   background: #fcf1ee;
   border: 1px solid #f2b1a2;
-  padding: 8px 16px;
+  /*padding: 8px 16px;*/
   z-index: 2;
+  height: 41px;
+  line-height: 41px;
 }
 .login-box .content .login-panel .warm-box span {
   color: red;
