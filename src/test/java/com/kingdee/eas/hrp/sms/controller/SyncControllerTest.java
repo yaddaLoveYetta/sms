@@ -3,7 +3,9 @@
  */
 package com.kingdee.eas.hrp.sms.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.FixMethodOrder;
@@ -216,5 +218,39 @@ public class SyncControllerTest extends BaseControllerTest {
 	public void b_supplierTest() {
 
 		getList("getSupplierList");
+	}
+
+	@Test
+	public void syncCurrency() {
+
+		String url = BASE_URL + "sync/currency2";
+
+		HttpParam hp = HttpParam.init();
+
+		List<Map<String, Object>> list = new ArrayList<>();
+
+		Map<String, Object> item = new HashMap<>();
+		item.put("id", 1);
+		item.put("name", "人民币");
+		item.put("number", "RMB");
+
+		list.add(item);
+
+		item = new HashMap<>();
+		item.put("id", 2);
+		item.put("name", "美元");
+		item.put("number", "USD");
+
+		list.add(item);
+
+		hp.addCommon("count", "2");
+		hp.addCommon("list", JSON.toJSONString(list));
+
+		System.out.println(JSON.toJSONString(hp));
+
+		Map<String, Object> ss = HttpUtil.sendGetForMap(url, hp);
+
+		System.out.println(ss);
+
 	}
 }

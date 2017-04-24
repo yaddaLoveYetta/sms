@@ -1,10 +1,13 @@
 package com.kingdee.eas.hrp.sms.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
 
+import com.alibaba.fastjson.JSON;
+import com.kingdee.eas.hrp.sms.model.Currency;
 import com.kingdee.eas.hrp.sms.util.http.HttpParam;
 import com.kingdee.eas.hrp.sms.util.http.HttpUtil;
 
@@ -31,6 +34,14 @@ public abstract class BaseControllerTest {
 
 		cookie = cookies;
 
+	}
+
+	public static void main(String[] args) {
+
+		String ss = "[{\"number\":\"RMB\",\"name\":\"人民币\",\"id\":1},{\"number\":\"USD\",\"name\":\"美元\",\"id\":2}]";
+
+		List<Currency> list = JSON.parseArray(ss, Currency.class);
+		System.out.println(list);
 	}
 
 }
