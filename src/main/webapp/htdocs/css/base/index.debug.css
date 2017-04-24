@@ -40,9 +40,9 @@
   border: 1px solid #ddd;
   position: relative;
   cursor: pointer;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
 }
 .nav-panel .search-box .bt-dropdown .sms-icon-dropdown {
   top: 9px;
