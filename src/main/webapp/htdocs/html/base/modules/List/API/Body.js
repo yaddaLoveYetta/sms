@@ -35,21 +35,21 @@ define('List/API/Body', function(require, module, exports) {
 
 		var pageNo = config.pageNo;
 		var api;
-		if (config.classID == 13008) {
-			api = new API('baseitem/getBaseItem_new');
+		if (config.classId == 13008) {
+			api = new API('template/getItems');
 		} else {
-			api = new API('baseitem/getBaseItem');
+			api = new API('template/getItems');
 		}
 		// var api = new API('baseitem/getBaseItem_new');
 		var params = {
-			'classID': config.classID,
+			'classId': config.classId,
 			'pageNo': pageNo,
 			'pageSize': config.pageSize,
 			'condition': conditions.length > 0 ? conditions : '',
 		};
-		if (config.classID == 13006) {
+		if (config.classId == 13006) {
 			params.orderBy = [{
-				fieldKey: 'FCreateTime',
+				fieldKey: 'createTime',
 				orderDirection: 'DESC'
 			}]
 		}
@@ -89,7 +89,7 @@ define('List/API/Body', function(require, module, exports) {
 		return $.Array.keep(list, function(item, index) { // 行
 
 			return {
-				'disabled': item['FStatus'], // 是否禁用
+				'disabled': item['status'], // 是否禁用
 				'data': item,
 				'primaryValue': item[primaryKey], // 主键对应的值
 
@@ -99,8 +99,7 @@ define('List/API/Body', function(require, module, exports) {
 					var value
 						// 后台的一种规定，很蛋疼
 					if (field.lookupType > 0 && field.lookupType < 3) { // lookupType
-						// 不为 0
-						// 时，说明是引用类型
+						// 不为 0时，说明是引用类型
 						key = key + '_DspName';
 						// 此时要显示的字段为 key + '_DspName'
 					}

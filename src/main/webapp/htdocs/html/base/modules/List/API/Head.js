@@ -14,10 +14,10 @@ define('List/API/Head', function(require, module, exports) {
 	var headItems = [];
 	var display;
 	// 字段显示权限-后端FDisPlay定义 1：平台用户显示，2：物业用户显示：3：平台物业用户都显示
-	if (user.type == 50801) {
+	if (user.type == 1) {
 		// 平台用户
 		display = 1; // 00 -- 01 --10 --11
-	} else if (user.type == 50802) {
+	} else if (user.type == 2) {
 		// 物业用户
 		display = 2; // 10
 	} else {
@@ -36,10 +36,10 @@ define('List/API/Head', function(require, module, exports) {
 			return;
 		}
 
-		var api = new API('baseitem/getBaseItemFieldsMap');
+		var api = new API('template/getFormTemplate');
 
 		api.get({
-			classID: config.classID,
+            classId: config.classId,
 			// formatted : true,
 		});
 
@@ -94,20 +94,20 @@ define('List/API/Head', function(require, module, exports) {
 		//表头信息-Map对象
 		$.Object.each(fields, function(key, item) {
 
-			var key = item.FKey;
+			var key = item.key;
 
 			//item = $.Object.extend({}, key$field[key], item);
 
-			var mask = item.FDisplay || 0;
+			var mask = item.display || 0;
 
 			var headItem = {
-				'text': item.FName,
-				'type': item.FDataType,
-				'key': item.FKey,
-				'width': item.FShowWidth,
+				'text': item.name,
+				'type': item.dataType,
+				'key': item.key,
+				'width': item.showWidth,
 				'visible': !!(mask & display), //转成 boolean--字段按用户类别显示
-				'lookupType': item.FLookUpType,
-				'isCount': item.FIsCount,
+				'lookupType': item.lookUpType,
+				'isCount': item.isCount,
 			};
 
 			headItems.push(headItem);
@@ -129,22 +129,22 @@ define('List/API/Head', function(require, module, exports) {
 			var fields = formFields[index];
 			$.Object.each(fields, function(key, item) {
 
-				var key = item.FKey;
+				var key = item.key;
 
 				// item = $.Object.extend({}, key$field[key], item);
 
-				var mask = item.FDisplay || 0;
+				var mask = item.display || 0;
 
 				var headItem = {
-					'text': item.FName,
-					'type': item.FDataType,
-					'key': item.FKey,
-					'width': item.FShowWidth,
+					'text': item.name,
+					'type': item.dataType,
+					'key': item.key,
+					'width': item.showWidth,
 					'visible': !!(mask & display), // 转成 boolean--字段按用户类别显示
-					'lookupType': item.FLookUpType,
-					'dataIndex': item.FIndex,
+					'lookupType': item.lookUpType,
+					'dataIndex': item.index,
 					'isEntry': index != 0,
-					'isCount':item.FIsCount,
+					'isCount':item.isCount,
 					'entryIndex': index
 				};
 
@@ -168,7 +168,7 @@ define('List/API/Head', function(require, module, exports) {
 				//				if (!!(mask & display)) {
 				//					filterItems.push(item)
 				//				}
-				if (item.FIsCondition == 1) { //表示过滤字段
+				if (item.isCondition == 1) { //表示过滤字段
 					filterItems.push(item);
 				}
 			})

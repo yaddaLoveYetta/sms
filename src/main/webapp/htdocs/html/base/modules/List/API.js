@@ -20,12 +20,12 @@ define('List/API', function(require, module, exports) {
 		var tasks = [{
 			fn: Head.get,
 			args: [{
-				'classID': config.classID
+				'classId': config.classId
 			}]
 		}, {
 			fn: Body.get,
 			args: [{
-				'classID': config.classID,
+				'classId': config.classId,
 				'pageNo': config.pageNo,
 				'pageSize': config.pageSize,
 				'conditions': config.conditions,
@@ -41,7 +41,7 @@ define('List/API', function(require, module, exports) {
 			console.dir(list);
 
 			// var headItems = Head.getItems(bodyData['fieldShow'], headData.formFields[0]);  //old
-			if(config.classID==13008){
+			if(config.classId==13008){
 				headItems = Head.getformFildItems(headData.formFields);
 			}else{
 				headItems = Head.getItems(headData.formFields[0]);
@@ -50,12 +50,12 @@ define('List/API', function(require, module, exports) {
 			var filterItems = Head.getFilterItem(headData.formFields);
 
 			//var bodyItems = Body.getItems(bodyData.items, headItems, headData.formClass.primaryKey);//old
-			var bodyItems = Body.getItems(bodyData.list, headItems, headData.formClass.FPrimaryKey);
+			var bodyItems = Body.getItems(bodyData.list, headItems, headData.formClass.primaryKey);
 
 			fn && fn({
 				checkbox: true,
 
-				primaryKey: headData.formClass.FPrimaryKey,
+				primaryKey: headData.formClass.primaryKey,
 
 				//primaryKey : 'FID',
 

@@ -12,8 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.kingdee.eas.hrp.sms.authority.Permission;
+import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.model.Category;
+import com.kingdee.eas.hrp.sms.model.Currency;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
+import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
@@ -43,7 +49,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.supplier(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -74,7 +80,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.category(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -106,7 +112,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.certificate(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -137,7 +143,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.industry(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -168,7 +174,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.currency(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -199,7 +205,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.settlement(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -230,7 +236,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.pay(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -261,7 +267,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.item(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -292,7 +298,7 @@ public class SyncController {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
 		Map<String, JSONObject> data = syncService.taxCategory(array);
-		//如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (data.isEmpty()) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
 		} else {
@@ -311,6 +317,60 @@ public class SyncController {
 		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
 
 		syncService.getTaxCategoryList(pageNum, pageSize);
+	}
+
+	@ControllerLog(desc = "同步币别") // 做日志
+	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步币别") // 权限
+	@RequestMapping(value = "currency2")
+	public void currency(HttpServletRequest request, HttpServletResponse response) {
+		// 验证是否系统工作人员
+		// checkAdminUser(request); // 不需要此逻辑，可通过权限模块控制
+		
+		//提交的json数据格式
+		//		{
+		//			'count':2,
+		//			'list':[
+		//			        	{
+		//			        		'id':1, // 币别内码(表主键)
+		//			        		'name':'人民币', // 币别名称
+		//			        		'number':'RMB', //币别代码
+		//			        	},
+		//			        	{
+		//			        		'id':2,
+		//			        		'name':'美元'，
+		//			        		'number':'USD',
+		//			        	},
+		//			        ]
+		//		}
+
+		int count = ParameterUtils.getParameter(request, "count", 0); // 提交同步的记录数
+		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
+
+		// 基本参数校验
+		if(count<=0){
+			throw new BusinessLogicRunTimeException("必须提交参数count");
+		}
+		if (listStr.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+		listStr=JSONObject.toJSONString(JSONArray.parseArray(listStr),SerializerFeature.WriteClassName);
+		
+		List<Currency> list=JSONObject.parseArray(listStr, Currency.class);
+		
+		if (list.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+		
+		List<Map<String, Object>> ret= syncService.currency(list);
+		
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		if (ret.isEmpty()) {
+			//全部同步成功
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			// 有同步失败记录-返回同步失败，客户端解析失败原因
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR,"同步失败，请查看失败原因", ret);
+		}
 	}
 
 }

@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 /**
  * 用于控制层的日志注解
  * 
- * @ClassName: ControllerLog
- * @Description: 控制层日志记录
+ * @ClassName ControllerLog
+ * @Description 控制层日志记录
  * @author yadda
  * @date 2017年4月14日 下午2:17:29
  *

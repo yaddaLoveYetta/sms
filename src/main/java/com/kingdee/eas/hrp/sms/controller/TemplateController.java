@@ -78,14 +78,6 @@ public class TemplateController {
 			throw new BusinessLogicRunTimeException("参数错误：必须提交classId");
 		}
 
-		Map<String, Object> params = new HashMap<String, Object>();
-
-		params.put("classId", classId);
-		params.put("condition", condition);
-		params.put("orderBy", orderBy);
-		params.put("pageSize", pageSize);
-		params.put("pageNo", pageNo);
-
 		// sqlserver ROW_BUMBER分页一定要设置 orderBy--此处指定默认
 		if (orderBy.equals("")) {
 

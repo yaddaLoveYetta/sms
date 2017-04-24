@@ -26,7 +26,7 @@ define("List", function (require, module, exports) {
     function load(config, fn) {
         SMS.Tips.loading("数据加载中...");
         API.get({
-            classID: config.classID,
+            classId: config.classId,
             pageNo: config.pageNo,
             pageSize: config.pageSize,
             conditions: config.conditions
@@ -75,7 +75,7 @@ define("List", function (require, module, exports) {
         // 清空已选择项
         index$selected = {};
         load({
-            classID: config.classID,
+            classId: config.classId,
             pageNo: config.pageNo,
             pageSize: config.pageSize,
             conditions: config.conditions
@@ -109,7 +109,7 @@ define("List", function (require, module, exports) {
                                 index: index,
                                 key: field.key,
                                 td: field.isEntry ? getHtml("entry", item.value) : getHtml(field.type, item.value),
-                                "number-class": field.key == "FNumber" ? "number" : ""
+                                "number-class": field.key == "number" ? "number" : ""
                             });
                         }).join("")
                     });
@@ -266,12 +266,12 @@ define("List", function (require, module, exports) {
         return primaryKey;
     }
 
-    function forbid(classID, list, operateType, fn) {
-        Operation.forbid(classID, list, operateType, fn);
+    function forbid(classId, list, operateType, fn) {
+        Operation.forbid(classId, list, operateType, fn);
     }
 
-    function del(classID, list, fn) {
-        Operation.del(classID, list, fn);
+    function del(classId, list, fn) {
+        Operation.del(classId, list, fn);
     }
     return {
         load: load,

@@ -95,11 +95,10 @@ public class UserService extends BaseService implements IUserService {
 
 		// 根据用户类别获取所有系统菜单
 		// 平台用户-t_DataFlowSubSystem中配置为1,供应链用户-t_DataFlowSubSystem中配置为2
-		int ownerType = type == 50801 ? 1 : type == 50802 ? 2 : 3;
-
+		
 		CSysDaoMapper mapper = sqlSession.getMapper(CSysDaoMapper.class);
 
-		List<Map<String, Object>> menuList = mapper.getSysMenu(ownerType);
+		List<Map<String, Object>> menuList = mapper.getSysMenu(type);
 
 		// 根据用户权限过滤菜单
 		for (Map<String, Object> menu : menuList) {

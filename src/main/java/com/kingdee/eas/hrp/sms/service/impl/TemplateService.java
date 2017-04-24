@@ -335,10 +335,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// 子表资料描述信息
 		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
 
-		Map<String, String> map = getDBDelimiter();
+		Map<String, String> dbDelimiter = getDBDelimiter();
 
-		String bDelimiter = map.get("bDelimiter");// 数据库字段-关键字处理
-		String eDelimiter = map.get("eDelimiter");
+		String bDelimiter = dbDelimiter.get("bDelimiter");// 数据库字段-关键字处理
+		String eDelimiter = dbDelimiter.get("eDelimiter");
 
 		if (null == formClass) {
 			throw new BusinessLogicRunTimeException("资料模板不存在");
@@ -570,6 +570,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 	private Map<String, String> getDBDelimiter() {
 
 		Map<String, String> ret = new HashMap<String, String>() {
+
+			private static final long serialVersionUID = -2157281653097860908L;
+
 			{
 				put("bDelimiter", "");
 				put("eDelimiter", "");
@@ -640,6 +643,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 		if (null == formClass) {
 			throw new BusinessLogicRunTimeException("没有模板数据");
 		}
+
+		Map<String, String> dbDelimiter = getDBDelimiter();
+
+		String bDelimiter = dbDelimiter.get("bDelimiter");// 数据库字段-关键字处理
+		String eDelimiter = dbDelimiter.get("eDelimiter");
 
 		String primaryTableName = formClass.getTableName();
 		String primaryKey = formClass.getPrimaryKey();
@@ -854,9 +862,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			if (i == 0) {
 				// 第一个条件舍弃前面andOr条件链接符号
-				sbWhere.append(separator).append(String.format("%s %s.%s %s %s %s", leftParenTheses, tableName, fieldName, logicOperator, value, rightParenTheses));
+				sbWhere.append(separator).append(String.format("%s %s.%s%s%s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, value, rightParenTheses));
 			} else {
-				sbWhere.append(separator).append(String.format("%s %s %s.%s %s %s %s", andOr, leftParenTheses, tableName, fieldName, logicOperator, value, rightParenTheses));
+				sbWhere.append(separator)
+						.append(String.format("%s %s %s.%s%s%s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, value, rightParenTheses));
 			}
 
 		}
@@ -909,6 +918,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 			throw new BusinessLogicRunTimeException("没有模板数据");
 		}
 
+		Map<String, String> dbDelimiter = getDBDelimiter();
+
+		String bDelimiter = dbDelimiter.get("bDelimiter");// 数据库字段-关键字处理
+		String eDelimiter = dbDelimiter.get("eDelimiter");
+
 		String primaryTableName = itemClass.getTableName();
 		String primaryKey = itemClass.getPrimaryKey();
 
@@ -959,7 +973,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				fieldName = disPlayField;
 			}
 
-			sbOrderBy.append(separator).append(String.format("%s.%s %s,", tableName, fieldName, orderDirection));
+			sbOrderBy.append(separator).append(String.format("%s.%s%s%s %s,", tableName, bDelimiter, fieldName, eDelimiter, orderDirection));
 
 		}
 

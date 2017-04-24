@@ -21,7 +21,7 @@
     //默认配置
     var defaults = {
         pageSize: 10,
-        typeID: '',
+        typeId: '',
         pageNo: 1,
         hasBreadcrumbs: true,
         multiSelect: true
@@ -37,7 +37,7 @@
         defaults = $.Object.extend(defaults, data);
 
         if (defaults.typeID != '') {
-            conditions = {classID: defaults.typeID};
+            conditions = {classId: defaults.typeId};
         }
 
         dialog.on({
@@ -68,7 +68,49 @@
     });
 
 
-    var ButtonList = bl.create({});
+	var blConfig;
+	if(classId == 1001) { // 用户
+		blConfig = {
+			'items': [{
+				text: '新增',
+				name: 'add',
+			}, {
+				text: '删除',
+				name: 'delete',
+			}, {
+				text: '刷新',
+				name: 'refresh',
+			}]
+		};
+	} else if(classId == 1002) {
+		blConfig = {
+			'items': [{
+				text: '这是一个按钮',
+				name: 'add',
+			}, {
+				text: '这是另一个按钮',
+				name: 'delete',
+			}, {
+				text: '刷新',
+				name: 'refresh',
+			}, {
+				text: '更多',
+				name: 'more',
+				cssClass: 'btn-more',
+				items: [{
+					text: '导出',
+					name: 'export'
+						},
+					{
+						text: '导入',
+						name: 'import'
+					}
+				]
+			}]
+		};
+	}
+	
+    var ButtonList = bl.create(blConfig);
 
     ButtonList.render();
 
@@ -155,7 +197,7 @@
             Iframe.open(index.first, index.second, {
                 query: {
                     id: body.primaryValue,
-                    classID: body.data.classID
+                    classId: body.data.classId
                 }
             });
         },
@@ -176,7 +218,7 @@
                 total: total,
                 change: function (no) {
                     List.render({
-                        classID: classId,
+                        classId: classId,
                         pageNo: no,
                         pageSize: defaults.pageSize,
                         conditions: conditions,
