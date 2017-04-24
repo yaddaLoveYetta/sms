@@ -906,9 +906,9 @@
   height: 22px;
   line-height: 22px;
   margin-left: 10px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
 }
 .page-label li:first-child {
   margin-left: 0;
@@ -984,9 +984,9 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
   color: #282828;
 }
 .pagination .buttons .LR-button:hover {
@@ -1090,19 +1090,19 @@
   height: 12px;
   line-height: 12px;
   -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
 }
 .pagination .page-jump .jump-button {
   display: inline-block;
-  padding: 0 10px;
+  padding: 0 14px;
   background-color: #54add3;
   color: #ffffff;
   text-decoration: none;
   text-align: center;
   -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
 }
 .pagination:before,
 .pagination:after {
