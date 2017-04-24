@@ -124,7 +124,7 @@
   font-size: 14px;
   color: #fff;
   background: #54add3;
-  padding: 0 14px;
+  padding: 0 20px;
   height: 25px;
   line-height: 25px;
   cursor: pointer;
@@ -132,7 +132,7 @@
   text-decoration: none;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 .sms-btn-item:hover {
   text-decoration: none;
