@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -353,9 +354,9 @@ public class SyncController {
 		if (listStr.isEmpty()) {
 			throw new BusinessLogicRunTimeException("没有可同步的数据");
 		}
-		listStr=JSONObject.toJSONString(JSONArray.parseArray(listStr),SerializerFeature.WriteClassName);
+		//listStr=JSONObject.toJSONString(JSONArray.parseArray(listStr),SerializerFeature.WriteClassName);
 		
-		List<Currency> list=JSONObject.parseArray(listStr, Currency.class);
+		List<Currency> list=JSON.parseArray(listStr, Currency.class);
 		
 		if (list.isEmpty()) {
 			throw new BusinessLogicRunTimeException("没有可同步的数据");
