@@ -1,5 +1,4 @@
-﻿
-define('Tree', function (require, module, exports) {
+﻿define('Tree', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -13,7 +12,7 @@ define('Tree', function (require, module, exports) {
     var setting = {
         check: {
             enable: true,
-            chkboxType: { "Y": 'ps', "N": 'ps' }
+            chkboxType: {"Y": 'ps', "N": 'ps'}
         },
         data: {
             simpleData: {
@@ -53,19 +52,29 @@ define('Tree', function (require, module, exports) {
     };
 
     function render(userId, userType, fn) {
+
         getUserPermit(userId, userType, function (data) {
+
             var treeData = [];
+
             $.Array.each(data, function (grp, index) {
+                // 一级菜单
                 var parCheck = false;
+
                 if (grp.subSys) {
+
                     $.Array.each(grp.subSys, function (item, index) {
+                        // 二级子系统
                         var twoCheck = false;
+
                         if (item.accessTypes) {
+
                             $.Array.each(item.accessTypes, function (acc, index) {
+                                // 明细权限项
                                 if (acc.enable == 1) { //子节点选择，所属父节点也需要选中
                                     parCheck = true;
-                                    twoCheck=true;
-                                } 
+                                    twoCheck = true;
+                                }
                                 var accData = {
                                     id: acc.accessIndex + 1,
                                     name: acc.permissionName,
@@ -80,9 +89,9 @@ define('Tree', function (require, module, exports) {
                             });
                         }
                         var itemData = {
-                            id: item.FSubSysID,
-                            name: item.FSubSysName,
-                            pId: grp.FTopClassID,
+                            id: item.subSysId,
+                            name: item.subSysName,
+                            pId: grp.topClassId,
                             checked: twoCheck,
                             open: true
                         };
@@ -90,8 +99,8 @@ define('Tree', function (require, module, exports) {
                     });
                 }
                 var group = {
-                    id: grp.FTopClassID,
-                    name: grp.FTopClassName,
+                    id: grp.topClassId,
+                    name: grp.topClassName,
                     pId: 0,
                     checked: parCheck,
                     open: true
@@ -105,13 +114,13 @@ define('Tree', function (require, module, exports) {
     };
 
 
-    function savePermit(user,fn) {
+    function savePermit(user, fn) {
         if (!user) {
             return;
         }
 
         var roleId = user.roleId;
-        var type=user.type;
+        var type = user.type;
         var nodes = zTree.getCheckedNodes(true);
         var topNodes = $.Array.grep(nodes, function (item, index) {
 
@@ -126,7 +135,7 @@ define('Tree', function (require, module, exports) {
             if (topNode.children) {
                 $.Array.each(topNode.children, function (tNode, index) { //二级节点
                     if (tNode.checked) {
-                    	accessMask = 0;
+                        accessMask = 0;
                         var pData = {};
                         pData.FTopClassID = topNode.id; //顶级节点Id
                         pData.FSubSysID = tNode.id;//二级节点Id
