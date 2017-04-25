@@ -43,7 +43,7 @@
 					<map key-type="java.lang.String">
 						<!-- 如果请求中包含以下路径，则不进行拦截 -->
 						<entry value-type="java.lang.String" key="/user/login" value="/user/login" />
-						<entry value-type="java.lang.String" key="/user/addUser" value="/user/addUser" />
+						<entry value-type="java.lang.String" key="/user/createToken" value="/user/createToken" />
 						<entry value-type="java.lang.String" key="/template/getFormTemplate" value="/template/getFormTemplate" />
 						<entry value-type="java.lang.String" key="/template/getItems" value="/template/getItems" />
 					</map>

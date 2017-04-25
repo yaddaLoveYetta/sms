@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.kingdee.eas.hrp.sms.model.User;
+import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
@@ -48,7 +49,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			// 不拦截的请求
 			return super.preHandle(request, response, handler);
 		}
-
+		
+		
 		User user = (User) request.getSession().getAttribute("user");
 
 		if (user == null) {

@@ -60,4 +60,29 @@ public class LoginController {
 		return;
 
 	}
+
+	@RequestMapping(value = "createToken")
+	public void createToken(HttpServletRequest request, HttpServletResponse response) {
+
+		String username = ParameterUtils.getParameter(request, "user", "");
+		String password = ParameterUtils.getParameter(request, "pwd", "");
+		int type = ParameterUtils.getParameter(request, "type", -1);
+
+		if (username == "" || password == "") {
+			throw new BusinessLogicRunTimeException("用户名或密码不能为空!");
+		}
+		if (type < 0) {
+			throw new BusinessLogicRunTimeException("用户类别不能为空！");
+		}
+
+		// 生成token
+		User user = loginService.createToken(username, password, type);
+		
+		if (null == user) {
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "获取token失败，请重试!");
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, user);
+		}
+
+	}
 }

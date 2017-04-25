@@ -10,6 +10,7 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="role" jdbcType="INTEGER" property="role" />
     <result column="supplier" jdbcType="INTEGER" property="supplier" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    userId, [number], [name], [password], [type], [status], [role], supplier
+    userId, [number], [name], [password], [type], [status], [role], supplier, token
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.UserExample" resultMap="BaseResultMap">
     select
@@ -105,10 +106,12 @@
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.User">
     insert into t_sms_user (userId, [number], [name], 
       [password], [type], [status], 
-      [role], supplier)
+      [role], supplier, token
+      )
     values (#{userId,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{role,jdbcType=INTEGER}, #{supplier,jdbcType=INTEGER})
+      #{role,jdbcType=INTEGER}, #{supplier,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.User">
     insert into t_sms_user
@@ -137,6 +140,9 @@
       <if test="supplier != null">
         supplier,
       </if>
+      <if test="token != null">
+        token,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -162,6 +168,9 @@
       </if>
       <if test="supplier != null">
         #{supplier,jdbcType=INTEGER},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +207,9 @@
       <if test="record.supplier != null">
         supplier = #{record.supplier,jdbcType=INTEGER},
       </if>
+      <if test="record.token != null">
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +224,8 @@
       [type] = #{record.type,jdbcType=INTEGER},
       [status] = #{record.status,jdbcType=INTEGER},
       [role] = #{record.role,jdbcType=INTEGER},
-      supplier = #{record.supplier,jdbcType=INTEGER}
+      supplier = #{record.supplier,jdbcType=INTEGER},
+      token = #{record.token,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +254,9 @@
       <if test="supplier != null">
         supplier = #{supplier,jdbcType=INTEGER},
       </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
     </set>
     where userId = #{userId,jdbcType=INTEGER}
   </update>
@@ -252,7 +268,8 @@
       [type] = #{type,jdbcType=INTEGER},
       [status] = #{status,jdbcType=INTEGER},
       [role] = #{role,jdbcType=INTEGER},
-      supplier = #{supplier,jdbcType=INTEGER}
+      supplier = #{supplier,jdbcType=INTEGER},
+      token = #{token,jdbcType=VARCHAR}
     where userId = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -17,6 +17,8 @@ public class User {
 
     private Integer supplier;
 
+    private String token;
+
     public Integer getUserId() {
         return userId;
     }
@@ -79,5 +81,13 @@ public class User {
 
     public void setSupplier(Integer supplier) {
         this.supplier = supplier;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
     }
 }

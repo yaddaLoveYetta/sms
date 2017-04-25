@@ -46,6 +46,7 @@ public class SyncController {
 		// 验证是否系统工作人员
 		checkAdminUser(request);
 
+		String token = ParameterUtils.getParameter(request, "token", "");
 		String size = ParameterUtils.getParameter(request, "size", "");
 		String list = ParameterUtils.getParameter(request, "list", "");
 		JSONArray array = JSONArray.parseArray(list);
