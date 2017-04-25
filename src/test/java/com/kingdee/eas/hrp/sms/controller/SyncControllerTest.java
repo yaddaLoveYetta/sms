@@ -238,7 +238,7 @@ public class SyncControllerTest extends BaseControllerTest {
 	@Test
 	public void syncCurrency() {
 
-		String url = BASE_URL + "sync/currency2";
+		String url = BASE_URL + "sync/currency";
 
 		HttpParam hp = HttpParam.init();
 
