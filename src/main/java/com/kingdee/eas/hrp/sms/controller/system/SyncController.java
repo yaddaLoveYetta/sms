@@ -40,23 +40,6 @@ public class SyncController {
 	@RequestMapping(value = "currency")
 	public void currency(HttpServletRequest request, HttpServletResponse response) {
 
-		// 提交的json数据格式
-		// {
-		// 'size':2,
-		// 'list':[
-		// {
-		// 'id':1, // 币别内码(表主键)
-		// 'name':'人民币', // 币别名称
-		// 'number':'RMB', //币别代码
-		// },
-		// {
-		// 'id':2,
-		// 'name':'美元'，
-		// 'number':'USD',
-		// },
-		// ]
-		// }
-
 		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
 		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
 
@@ -187,7 +170,7 @@ public class SyncController {
 
 	@ControllerLog(desc = "同步结算方式") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步结算方式") // 权限
-	@RequestMapping(value = "industry")
+	@RequestMapping(value = "settlement")
 	public void settlement(HttpServletRequest request, HttpServletResponse response) {
 
 		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
@@ -253,7 +236,7 @@ public class SyncController {
 
 	@ControllerLog(desc = "同步物料") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步物料") // 权限
-	@RequestMapping(value = "pay")
+	@RequestMapping(value = "item")
 	public void item(HttpServletRequest request, HttpServletResponse response) {
 
 		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
@@ -286,7 +269,7 @@ public class SyncController {
 
 	@ControllerLog(desc = "同步税种") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步税种") // 权限
-	@RequestMapping(value = "pay")
+	@RequestMapping(value = "taxCategory")
 	public void taxCategory(HttpServletRequest request, HttpServletResponse response) {
 
 		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
@@ -319,7 +302,7 @@ public class SyncController {
 
 	@ControllerLog(desc = "同步供应商资料") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步供应商资料") // 权限
-	@RequestMapping(value = "pay")
+	@RequestMapping(value = "supplier")
 	public void supplier(HttpServletRequest request, HttpServletResponse response) {
 
 		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
