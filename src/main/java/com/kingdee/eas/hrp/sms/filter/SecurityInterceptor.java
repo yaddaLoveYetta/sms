@@ -49,7 +49,6 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			return super.preHandle(request, response, handler);
 		}
 
-		@SuppressWarnings("unchecked")
 		User user = (User) request.getSession().getAttribute("user");
 
 		if (user == null) {
