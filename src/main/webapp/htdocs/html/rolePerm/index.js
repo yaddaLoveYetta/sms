@@ -62,7 +62,7 @@
             }
             Tree.render(role.roleId, role.type, function () {
 
-                console.log("tree.itemcount:" + arguments[0].length());
+                console.log("tree.itemcount:" + arguments[0].length);
             });
         }
     });
