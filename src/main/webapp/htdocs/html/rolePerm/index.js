@@ -93,7 +93,7 @@
         List.render({
             pageNo: 1,
             pageSize: defaults.pageSize,
-            classID: classId,
+            classId: classId,
             conditions: conditions,
             multiSelect: defaults.multiSelect
         }, function (total, pageSize) {
