@@ -115,7 +115,7 @@
                     List.render({
                         pageNo: no,
                         pageSize: defaults.pageSize,
-                        classID: classId,
+                        classId: classId,
                         conditions: conditions,
                         multiSelect: defaults.multiSelect
                     });
