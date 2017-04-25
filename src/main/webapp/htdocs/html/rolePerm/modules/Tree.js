@@ -197,7 +197,7 @@
         api.on({
             'success': function (data, json) {
                 fn && fn(data);
-                SMS.Tips.success('保存成功！');
+                SMS.Tips.success('保存成功！',1500);
             },
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (错误码: {1})', msg, code);
