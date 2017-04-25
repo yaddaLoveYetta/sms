@@ -3,7 +3,7 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.SettlementMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Settlement">
     <id column="settlementId" jdbcType="INTEGER" property="settlementId" />
-    <result column="settlementName" jdbcType="VARCHAR" property="settlementName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    settlementId, settlementName, [number]
+    settlementId, [name], [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SettlementExample" resultMap="BaseResultMap">
     select
@@ -98,9 +98,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Settlement">
-    insert into t_sms_settlement (settlementId, settlementName, [number]
+    insert into t_sms_settlement (settlementId, [name], [number]
       )
-    values (#{settlementId,jdbcType=INTEGER}, #{settlementName,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
+    values (#{settlementId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Settlement">
@@ -109,8 +109,8 @@
       <if test="settlementId != null">
         settlementId,
       </if>
-      <if test="settlementName != null">
-        settlementName,
+      <if test="name != null">
+        [name],
       </if>
       <if test="number != null">
         [number],
@@ -120,8 +120,8 @@
       <if test="settlementId != null">
         #{settlementId,jdbcType=INTEGER},
       </if>
-      <if test="settlementName != null">
-        #{settlementName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="record.settlementId != null">
         settlementId = #{record.settlementId,jdbcType=INTEGER},
       </if>
-      <if test="record.settlementName != null">
-        settlementName = #{record.settlementName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
@@ -154,7 +154,7 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_settlement
     set settlementId = #{record.settlementId,jdbcType=INTEGER},
-      settlementName = #{record.settlementName,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -163,8 +163,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Settlement">
     update t_sms_settlement
     <set>
-      <if test="settlementName != null">
-        settlementName = #{settlementName,jdbcType=VARCHAR},
+      <if test="name != null">
+        [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Settlement">
     update t_sms_settlement
-    set settlementName = #{settlementName,jdbcType=VARCHAR},
+    set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
     where settlementId = #{settlementId,jdbcType=INTEGER}
   </update>

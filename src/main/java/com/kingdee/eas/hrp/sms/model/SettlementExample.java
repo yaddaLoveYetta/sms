@@ -164,73 +164,73 @@ public class SettlementExample {
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameIsNull() {
-            addCriterion("settlementName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("[name] is null");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameIsNotNull() {
-            addCriterion("settlementName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("[name] is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameEqualTo(String value) {
-            addCriterion("settlementName =", value, "settlementName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("[name] =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameNotEqualTo(String value) {
-            addCriterion("settlementName <>", value, "settlementName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("[name] <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameGreaterThan(String value) {
-            addCriterion("settlementName >", value, "settlementName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("[name] >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameGreaterThanOrEqualTo(String value) {
-            addCriterion("settlementName >=", value, "settlementName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("[name] >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameLessThan(String value) {
-            addCriterion("settlementName <", value, "settlementName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("[name] <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameLessThanOrEqualTo(String value) {
-            addCriterion("settlementName <=", value, "settlementName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("[name] <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameLike(String value) {
-            addCriterion("settlementName like", value, "settlementName");
+        public Criteria andNameLike(String value) {
+            addCriterion("[name] like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameNotLike(String value) {
-            addCriterion("settlementName not like", value, "settlementName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("[name] not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameIn(List<String> values) {
-            addCriterion("settlementName in", values, "settlementName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("[name] in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameNotIn(List<String> values) {
-            addCriterion("settlementName not in", values, "settlementName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("[name] not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameBetween(String value1, String value2) {
-            addCriterion("settlementName between", value1, value2, "settlementName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("[name] between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andSettlementNameNotBetween(String value1, String value2) {
-            addCriterion("settlementName not between", value1, value2, "settlementName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("[name] not between", value1, value2, "name");
             return (Criteria) this;
         }
 
