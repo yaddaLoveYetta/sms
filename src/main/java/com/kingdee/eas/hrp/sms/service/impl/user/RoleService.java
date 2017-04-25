@@ -6,12 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.dao.customize.RoleDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.AccessControlMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.ObjectTypeMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.RoleMapper;
 import com.kingdee.eas.hrp.sms.model.AccessControl;
 import com.kingdee.eas.hrp.sms.model.AccessControlExample;
+import com.kingdee.eas.hrp.sms.model.ObjectType;
 import com.kingdee.eas.hrp.sms.model.Role;
 import com.kingdee.eas.hrp.sms.model.RoleExample;
 import com.kingdee.eas.hrp.sms.model.RoleExample.Criteria;
@@ -279,6 +284,101 @@ public class RoleService extends BaseService implements IRoleService {
 		}
 
 		return 0;
+	}
+
+	@Override
+	@Transactional
+	public void saveRolePermissions(JSONArray arry, int roleId) {
+
+		List<AccessControl> list = new ArrayList<AccessControl>();
+
+		// 将FTopClassID-FSubSysID 转成权限系统的FObjectType-FObjectID-
+		Map<String, ObjectType> objectTypes = getObjectType();
+		// 保存
+		for (int i = 0; i < arry.size(); i++) {
+
+			JSONObject obj = arry.getJSONObject(i);
+
+			Integer topClassId = obj.getInteger("topClassId");
+			Integer subSysId = obj.getInteger("subSysId");
+
+			String key = String.format("%s-%s", topClassId, subSysId); // 已拼成FObjectType-FObjectID的形式方便取数
+
+			if (objectTypes.containsKey(key)) {
+
+				// 找到对应关系，即后台已配置业务系统与权限系统对应关系
+				ObjectType objectTypeItem = objectTypes.get(key);
+
+				Integer objectType = objectTypeItem.getObjectType();
+				Integer objectId = objectTypeItem.getObjectId();
+
+				// 检查重复
+				boolean isExist = false;
+
+				for (AccessControl accessControl : list) {
+
+					if (accessControl.getObjectType() == objectType && accessControl.getObjectId() == objectId) {
+						// 已存在
+						isExist = true;
+						break;
+					}
+
+				}
+				if (!isExist) {
+					AccessControl accessControl = new AccessControl();
+
+					accessControl.setObjectType(objectType);
+					accessControl.setObjectId(objectId);
+					accessControl.setRoleId(roleId);
+					accessControl.setAccessMask(obj.getInteger("accessMask"));
+
+					list.add(accessControl);
+				}
+
+			} else {
+				// 没有对应关系-忽略
+			}
+
+		}
+
+		AccessControlMapper mapper = sqlSession.getMapper(AccessControlMapper.class);
+
+		AccessControlExample example = new AccessControlExample();
+		com.kingdee.eas.hrp.sms.model.AccessControlExample.Criteria criteria = example.createCriteria();
+		criteria.andRoleIdEqualTo(roleId);
+
+		// 清除角色组权限信息
+		mapper.deleteByExample(example);
+
+		// 保存角色组权限信息
+		for (AccessControl accessControl : list) {
+			// TODO 改批量插入
+			mapper.insert(accessControl);
+
+		}
+
+	}
+
+	/**
+	 * 获取菜单系统与权限系统的对应关系
+	 * 
+	 * @Title getObjectType
+	 * @return Map<String,ObjectType>
+	 * @date 2017-04-25 16:47:49 星期二
+	 */
+	private Map<String, ObjectType> getObjectType() {
+
+		Map<String, ObjectType> ret = new HashMap<String, ObjectType>();
+
+		ObjectTypeMapper mapper = sqlSession.getMapper(ObjectTypeMapper.class);
+
+		List<ObjectType> objectTypes = mapper.selectByExample(null);
+
+		for (ObjectType objectType : objectTypes) {
+
+			ret.put(String.format("%s-%s", objectType.getTopClassId(), objectType.getSubSysId()), objectType);
+		}
+		return ret;
 	}
 
 }
