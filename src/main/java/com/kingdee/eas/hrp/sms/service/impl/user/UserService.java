@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kingdee.eas.hrp.sms.dao.customize.CSysDaoMapper;
+import com.kingdee.eas.hrp.sms.dao.customize.SysDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Role;
@@ -96,7 +96,7 @@ public class UserService extends BaseService implements IUserService {
 		// 根据用户类别获取所有系统菜单
 		// 平台用户-t_DataFlowSubSystem中配置为1,供应链用户-t_DataFlowSubSystem中配置为2
 		
-		CSysDaoMapper mapper = sqlSession.getMapper(CSysDaoMapper.class);
+		SysDaoMapper mapper = sqlSession.getMapper(SysDaoMapper.class);
 
 		List<Map<String, Object>> menuList = mapper.getSysMenu(type);
 
