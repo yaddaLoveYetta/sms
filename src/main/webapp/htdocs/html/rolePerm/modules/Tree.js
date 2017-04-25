@@ -190,7 +190,7 @@
         var postData = $.Object.toJson(data);
 
         api.post({
-            RoleID: roleId,
+            roleId: roleId,
             data: postData
         });
 
