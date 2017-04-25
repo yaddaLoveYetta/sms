@@ -82,7 +82,8 @@
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
 		<!-- =============================== 复杂Mapper ========================begin=== -->
-		<mapper resource="mapper/customize/Platform_UserDaoMapper.xml" />
+		<mapper resource="mapper/customize/Platform_SysDaoMapper.xml" />
+		<mapper resource="mapper/customize/Platform_RoleDaoMapper.xml" />
 		<mapper resource="mapper/customize/TemplateDaoMapper.xml" />
 		<!-- =============================== 复杂Mapper =====================end==== -->
 

@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.api.user;
 
+import java.util.List;
 import java.util.Map;
 
 import com.kingdee.eas.hrp.sms.model.Role;
@@ -24,5 +25,18 @@ public interface IRoleService {
 	 * @date 2017-04-18 11:57:24 星期二
 	 */
 	Role getRole(int roleId);
+
+	/**
+	 * 获取角色所有权限
+	 * 
+	 * @Title getRoleTypePermissions
+	 * @param type
+	 *            角色类别(供应商 or 平台)
+	 * @param type
+	 *            角色id
+	 * @return List<Map<String,Object>>
+	 * @date 2017-04-25 11:25:36 星期二
+	 */
+	List<Map<String, Object>> getRolePermissions(int type, int roleId);
 
 }
