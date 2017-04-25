@@ -221,6 +221,21 @@ public class SyncControllerTest extends BaseControllerTest {
 	}
 
 	@Test
+	public void currency() {
+
+		HttpParam param = HttpParam.init();
+		param.setCookieParams(cookie);
+		// String str =
+		// "[{'currencyId':123,'currencyName':'分类','number':'12345'},{'currencyId':456,'currencyName':'分类','number':'12345'}]";
+		String str = null;
+		param.addCommon("size", "2");
+		param.addCommon("list", str);
+
+		String ret = HttpUtil.sendGet(BASE_URL + "sync/currency2", param);
+		System.out.println(ret);
+	}
+
+	@Test
 	public void syncCurrency() {
 
 		String url = BASE_URL + "sync/currency2";

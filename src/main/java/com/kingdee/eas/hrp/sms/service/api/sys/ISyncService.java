@@ -15,25 +15,12 @@ import com.kingdee.eas.hrp.sms.model.Settlement;
 import com.kingdee.eas.hrp.sms.model.Supplier;
 import com.kingdee.eas.hrp.sms.model.TaxCategory;
 
+/**
+ * @author Sunny
+ *
+ * 2017年4月25日
+ */
 public interface ISyncService {
-
-	Map<String, JSONObject> supplier(JSONArray list);
-
-	Map<String, JSONObject> category(JSONArray list);
-
-	Map<String, JSONObject> certificate(JSONArray list);
-
-	Map<String, JSONObject> industry(JSONArray list);
-
-	Map<String, JSONObject> currency(JSONArray list);
-
-	Map<String, JSONObject> settlement(JSONArray list);
-
-	Map<String, JSONObject> pay(JSONArray list);
-
-	Map<String, JSONObject> item(JSONArray list);
-
-	Map<String, JSONObject> taxCategory(JSONArray list);
 
 	List<Supplier> getSupplierList(int pageNum, int pageSize);
 
@@ -64,4 +51,75 @@ public interface ISyncService {
 	 */
 	List<Map<String, Object>> currency(List<Currency> list);
 
+	/**
+	 * 同步分类
+	 * @Title category
+	 * @param list
+	 * 		  category 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> category(List<Category> list);
+	
+	/**
+	 * 同步证书
+	 * @Title certificate
+	 * @param list
+	 * 		  certificate 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> certificate(List<Certificate> list);
+	
+	/**
+	 * 同步行业
+	 * @Title industry
+	 * @param list
+	 * 		  industry 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> industry(List<Industry> list);
+	
+	/**
+	 * 同步结算方式
+	 * @Title settlement
+	 * @param list
+	 * 		  settlement 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> settlement(List<Settlement> list);
+	
+	/**
+	 * 同步付款方式
+	 * @Title pay
+	 * @param list
+	 * 		  pay 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> pay(List<Pay> list);
+	
+	/**
+	 * 同步物料
+	 * @Title item
+	 * @param list
+	 * 		  item 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> item(List<Item> list);
+	
+	/**
+	 * 同步税种
+	 * @Title taxCategory
+	 * @param list
+	 * 		  taxCategory 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> taxCategory(List<TaxCategory> list);
+
+	/**
+	 * 同步供应商
+	 * @Title supplier
+	 * @param list
+	 * 		  supplier 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> supplier(List<Supplier> list);
 }
