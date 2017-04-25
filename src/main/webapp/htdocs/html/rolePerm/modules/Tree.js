@@ -137,8 +137,8 @@
                     if (tNode.checked) {
                         accessMask = 0;
                         var pData = {};
-                        pData.FTopClassID = topNode.id; //顶级节点Id
-                        pData.FSubSysID = tNode.id;//二级节点Id
+                        pData.topClassId = topNode.id; //顶级节点Id
+                        pData.subSysId = tNode.id;//二级节点Id
                         console.log("-2级节点-" + tNode.name);
                         if (tNode.children) {
                             $.Array.each(tNode.children, function (cNode, index) { //三级节点

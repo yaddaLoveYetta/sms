@@ -8,6 +8,9 @@
     var Pager = require('Pager');
     var Tree = require('Tree');
     var txtSimpleSearch = document.getElementById('txt-simple-search');
+    var optSave = document.getElementById('optSave');
+    var optCancel = document.getElementById('optCancel')
+
     var user = SMS.Login.get();
     var classId = 1003;
     //检查登录
@@ -33,18 +36,20 @@
             return false;
         }
     });
-    $("#optSave").bind("click", function () {
+    $(optSave).bind("click", function () {
+
         var user = List.getSelectedItem();
+
         if (user.number === 'manager') {
             return;
         }
         Tree.savePermit(user, function () {
-            Tree.render(user.FRoleID, user.FRoleType, function () {
+            Tree.render(user.roleId, user.type, function () {
             });
         });
     });
 
-    $("#optCancel").bind("click", function () {
+    $(optCancel).bind("click", function () {
         var role = List.getSelectedItem();
         if (!role) {
             return;
@@ -61,7 +66,6 @@
                 return;
             }
             Tree.render(role.roleId, role.type, function () {
-
                 console.log("tree.itemcount:" + arguments[0].length);
             });
         }
