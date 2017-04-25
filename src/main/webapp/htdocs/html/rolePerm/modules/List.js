@@ -1,143 +1,142 @@
 ﻿/**
  * List 模块
- * 
+ *
  */
-define('List', function(require, module, exports) {
+define('List', function (require, module, exports) {
 
-	var $ = require('$');
-	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
-	var API = YWTC.require('API');
-	var selectedIndex = 0;
+    var $ = require('$');
+    var MiniQuery = require('MiniQuery');
+    var SMS = require('SMS');
+    var API = SMS.require('API');
+    var selectedIndex = 0;
 
-	// 记录选中的索引
-	var emitter = MiniQuery.Event.create();
+    // 记录选中的索引
+    var emitter = MiniQuery.Event.create();
 
-	var div = document.getElementById('tbody');
+    var div = document.getElementById('tbody');
 
-	var samples = $.String.getTemplates(div.innerHTML, [ {
-		name : 'tr',
-		begin : '<!--',
-		end : '-->'
-	}, {
-		name : 'td',
-		begin : '#--td.begin--#',
-		end : '#--td.end--#',
-		outer : '{tds}'
-	} ]);
+    var samples = $.String.getTemplates(div.innerHTML, [{
+        name: 'tr',
+        begin: '<!--',
+        end: '-->'
+    }, {
+        name: 'td',
+        begin: '#--td.begin--#',
+        end: '#--td.end--#',
+        outer: '{tds}'
+    }]);
 
-	var list = [];
+    var list = [];
 
-	function load(config, fn) {
-
-		
-		var conditions = config.conditions;
-		/*
-		var conditions = new Array();
-		for ( var item in config.conditions) {
-			if (config.conditions[item] === '') {
-				continue;
-			}
-			var condition = {
-				'andOr' : 'OR',
-				'leftParenTheses' : '(',
-				'fieldKey' : item,
-				'logicOperator' : 'like',
-				'value' : config.conditions[item],
-				'rightParenTheses' : ')'
-			};
-			conditions.push(condition);
-		}
-		*/
-		var api = new API('baseitem/getBaseItem');
-
-		YWTC.Tips.loading('数据加载中..');
+    function load(config, fn) {
 
 
-		api.post({
-			'classID' : config.classID,
-			'pageNo' : config.pageNo,
-			'pageSize' : config.pageSize,
-			'condition' : conditions.length > 0 ? conditions : '',
-		});
+        var conditions = config.conditions;
+        /*
+         var conditions = new Array();
+         for ( var item in config.conditions) {
+         if (config.conditions[item] === '') {
+         continue;
+         }
+         var condition = {
+         'andOr' : 'OR',
+         'leftParenTheses' : '(',
+         'fieldKey' : item,
+         'logicOperator' : 'like',
+         'value' : config.conditions[item],
+         'rightParenTheses' : ')'
+         };
+         conditions.push(condition);
+         }
+         */
+        var api = new API('template/getItems');
 
-		api.on({
-		    'success': function (data, json) {
-		        YWTC.Tips.success('数据加载成功', 1500);
-				fn && fn(data, json);
-			},
+        SMS.Tips.loading('数据加载中..');
 
-			'fail' : function(code, msg, json) {
-				var s = $.String.format('{0} (错误码: {1})', msg, code);
-				YWTC.Tips.error(s);
-			},
 
-			'error' : function() {
-				YWTC.Tips.error('网络繁忙，请稍候再试');
-			}
-		});
-	}
+        api.post({
+            'classId': config.classId,
+            'pageNo': config.pageNo,
+            'pageSize': config.pageSize,
+            'condition': conditions.length > 0 ? conditions : '',
+        });
 
-	
-	
-	function render(config, fn) {
-		load(config, function(data) {
-			list = data.list;
-			var total = data.count;
+        api.on({
+            'success': function (data, json) {
+                SMS.Tips.success('数据加载成功', 1500);
+                fn && fn(data, json);
+            },
 
-			div.innerHTML = $.Array.keep(
-					list,
-					function(item, no) {
-						return $.String.format(samples.tr, {
-							'index' : no,
-							'tds' : $.String.format(samples.td, {
-								'index' : no,
-								'disabled-class':item.FStatus? 'disabled' : '',
-								'td-FRoleID' : item.FRoleID,
-								'td-FName' : item.FName,
-								'td-FNumber' : item.FNumber,
-								'td-FUserType' : item.FRoleType_DspName,
-								'td-FVisible' : item.FStatus == true ? "是"
-										: "否"
-							})
-						});
-					}).join('');
+            'fail': function (code, msg, json) {
+                var s = $.String.format('{0} (错误码: {1})', msg, code);
+                SMS.Tips.error(s);
+            },
 
-			fn && fn(total, config.pageSize);
-			bindEvents(config.multiSelect);
+            'error': function () {
+                SMS.Tips.error('网络繁忙，请稍候再试');
+            }
+        });
+    }
 
-		});
-	}
 
-	function selectTr(index, checked) {
-		$('tr[data-index=' + index + ']').siblings().removeClass("selected");
-		$('tr[data-index=' + index + ']').toggleClass('selected', checked);
-		selectedIndex = index;
-	}
+    function render(config, fn) {
+        load(config, function (data) {
+            list = data.list;
+            var total = data.count;
 
-	function getSelectedItem() {
-		if (selectedIndex == -1 || selectedIndex >= list.length) {
-			return null;
-		}
-		return list[selectedIndex];
-	}
+            div.innerHTML = $.Array.keep(
+                list,
+                function (item, no) {
+                    return $.String.format(samples.tr, {
+                        'index': no,
+                        'tds': $.String.format(samples.td, {
+                            'index': no,
+                            'disabled-class': item.status ? 'disabled' : '',
+                            'td-roleId': item.roleId,
+                            'td-name': item.name,
+                            'td-number': item.number,
+                            'td-type': item.type_DspName,
+                            'td-visible': item.status == true ? "是"
+                                : "否"
+                        })
+                    });
+                }).join('');
 
-	function bindEvents() {
+            fn && fn(total, config.pageSize);
+            bindEvents(config.multiSelect);
 
-		$(div).delegate('[data-check=item]', 'click', function(event) {
-			var chk = this;
-			var dIndex = +$(this).attr("data-index");
-			selectTr(dIndex, true);
-			emitter.fire('row.click', [ list[dIndex] || null ]);
-		});
-	}
+        });
+    }
 
-	return {
-		render : render,
-		selectTr : selectTr,
-		getSelectedItem : getSelectedItem,
-		on : emitter.on.bind(emitter)
+    function selectTr(index, checked) {
+        $('tr[data-index=' + index + ']').siblings().removeClass("selected");
+        $('tr[data-index=' + index + ']').toggleClass('selected', checked);
+        selectedIndex = index;
+    }
 
-	};
+    function getSelectedItem() {
+        if (selectedIndex == -1 || selectedIndex >= list.length) {
+            return null;
+        }
+        return list[selectedIndex];
+    }
+
+    function bindEvents() {
+
+        $(div).delegate('[data-check=item]', 'click', function (event) {
+            var chk = this;
+            var dIndex = +$(this).attr("data-index");
+            selectTr(dIndex, true);
+            emitter.fire('row.click', [list[dIndex] || null]);
+        });
+    }
+
+    return {
+        render: render,
+        selectTr: selectTr,
+        getSelectedItem: getSelectedItem,
+        on: emitter.on.bind(emitter)
+
+    };
 
 });

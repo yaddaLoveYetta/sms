@@ -1,4 +1,4 @@
-﻿; (function () {
+﻿;(function () {
 
     var $ = require('$');
     var SMS = require('SMS');
@@ -9,7 +9,7 @@
     var Tree = require('Tree');
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var user = SMS.Login.get();
-    var classID = 13005;
+    var classId = 1003;
     //检查登录
     if (!SMS.Login.check(true)) {
         return;
@@ -23,12 +23,12 @@
     };
     $(document).bind('keypress', function (event) {
         if (event.keyCode == 13) {
-        	refresh();
+            refresh();
         }
-        
+
     });
     $(txtSimpleSearch).bind('keypress', function (event) {
-        if (event.keyCode == 13) {          
+        if (event.keyCode == 13) {
             refresh();
             return false;
         }
@@ -49,7 +49,7 @@
         if (!role) {
             return;
         }
-        Tree.render(role.FRoleID, role.FRoleType, function () {
+        Tree.render(role.roleId, role.type, function () {
         });
     });
 
@@ -60,40 +60,40 @@
             if (!role) {
                 return;
             }
-            Tree.render(role.FRoleID, role.FRoleType, function () {
+            Tree.render(role.roleId, role.type, function () {
             });
         }
     });
 
     function refresh() {
-    	  var keyworld = $(txtSimpleSearch).val();
-          conditions = [];
-          if ($.trim(keyworld) !== "") {
-              var condition = {
-                  'andOr': 'and',
-                  'leftParenTheses': '((',
-                  'fieldKey': 'FName',
-                  'logicOperator': 'like',
-                  'value': $(txtSimpleSearch).val(),
-                  'rightParenTheses': ')'
-              };
-              conditions.push(condition);
+        var keyworld = $(txtSimpleSearch).val();
+        conditions = [];
+        if ($.trim(keyworld) !== "") {
+            var condition = {
+                'andOr': 'and',
+                'leftParenTheses': '((',
+                'fieldKey': 'name',
+                'logicOperator': 'like',
+                'value': $(txtSimpleSearch).val(),
+                'rightParenTheses': ')'
+            };
+            conditions.push(condition);
 
-              condition = {
-                  'andOr': 'OR',
-                  'leftParenTheses': '(',
-                  'fieldKey': 'FNumber',
-                  'logicOperator': 'like',
-                  'value': $(txtSimpleSearch).val(),
-                  'rightParenTheses': '))'
-              };
+            condition = {
+                'andOr': 'OR',
+                'leftParenTheses': '(',
+                'fieldKey': 'number',
+                'logicOperator': 'like',
+                'value': $(txtSimpleSearch).val(),
+                'rightParenTheses': '))'
+            };
 
-              conditions.push(condition);
-          }
+            conditions.push(condition);
+        }
         List.render({
             pageNo: 1,
             pageSize: defaults.pageSize,
-            classID: classID,
+            classID: classId,
             conditions: conditions,
             multiSelect: defaults.multiSelect
         }, function (total, pageSize) {
@@ -101,7 +101,7 @@
             if (!topData) {
                 return;
             }
-            Tree.render(topData.FRoleID, topData.FRoleType, function () {
+            Tree.render(topData.roleId, topData.type, function () {
                 List.selectTr(0);
             });
             Pager.render({
@@ -113,7 +113,7 @@
                     List.render({
                         pageNo: no,
                         pageSize: defaults.pageSize,
-                        classID: classID,
+                        classID: classId,
                         conditions: conditions,
                         multiSelect: defaults.multiSelect
                     });

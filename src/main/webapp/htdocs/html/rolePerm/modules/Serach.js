@@ -6,7 +6,7 @@ define('Search', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
+	var SMS = require('SMS');
 	var emitter = MiniQuery.Event.create();
 
 	var btnSearch = document.getElementsByClassName('btnSearch')[0];
@@ -42,7 +42,7 @@ define('Search', function(require, module, exports) {
 			current : 1, //当前激活的页码，默认为 1
 			hideIfLessThen: 2,  //总页数小于该值时，分页器会隐藏。 如果不指定，则一直显示。
 			error : function(msg) {
-				YWTC.Tips.error(msg, 1000);
+				SMS.Tips.error(msg, 1000);
 				this.focus();
 			}
 		}, config, {
@@ -51,7 +51,7 @@ define('Search', function(require, module, exports) {
 
 		});
 
-		YWTC.Pager.create(config);
+		SMS.Pager.create(config);
 	}
 
 	return {

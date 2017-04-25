@@ -3,9 +3,9 @@ define('Tree', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
 
-    var API = YWTC.require('API');
+    var API = SMS.require('API');
 
     var zTree = null;
     var oldPermit = [];
@@ -31,20 +31,20 @@ define('Tree', function (require, module, exports) {
         if (treeNode.isParent) {
             return;
         }
-        var currAcMsk = +treeNode.faccessMask;
-        var currFAccessUse = +treeNode.faccessUse;
+        var currAcMsk = +treeNode.accessMask;
+        var currFAccessUse = +treeNode.accessUse;
         var parentNode = treeNode.getParentNode();
         var currSiblingsNode = parentNode.children;
         if (treeNode.checked) {
             $.Array.each(currSiblingsNode, function (node, index) {
-                var nodelAcMsk = +node.faccessMask;
+                var nodelAcMsk = +node.accessMask;
                 if ((currFAccessUse & nodelAcMsk) == nodelAcMsk) {
                     zTree.checkNode(node, true, true);
                 }
             });
         } else {
             $.Array.each(currSiblingsNode, function (node, index) {
-                var nodeFAccessUse = +node.faccessUse;
+                var nodeFAccessUse = +node.accessUse;
                 if ((currAcMsk | nodeFAccessUse) == currAcMsk) {
                     zTree.checkNode(node, false, true);
                 }
@@ -57,22 +57,22 @@ define('Tree', function (require, module, exports) {
             var treeData = [];
             $.Array.each(data, function (grp, index) {
                 var parCheck = false;
-                if (grp.FSubSys) {
-                    $.Array.each(grp.FSubSys, function (item, index) {
+                if (grp.subSys) {
+                    $.Array.each(grp.subSys, function (item, index) {
                         var twoCheck = false;
-                        if (item.FAccessTypes) {
-                            $.Array.each(item.FAccessTypes, function (acc, index) {
-                                if (acc.FEnable == 1) { //子节点选择，所属父节点也需要选中
+                        if (item.accessTypes) {
+                            $.Array.each(item.accessTypes, function (acc, index) {
+                                if (acc.enable == 1) { //子节点选择，所属父节点也需要选中
                                     parCheck = true;
                                     twoCheck=true;
                                 } 
                                 var accData = {
-                                    id: acc.FAccessIndex + 1,
-                                    name: acc.FPermissionName,
-                                    pId: item.FSubSysID,
-                                    faccessMask: acc.FAccessMask,
-                                    faccessUse: acc.FAccessUse,
-                                    checked: (acc.FEnable == 1),
+                                    id: acc.accessIndex + 1,
+                                    name: acc.permissionName,
+                                    pId: item.subSysId,
+                                    accessMask: acc.accessMask,
+                                    accessUse: acc.accessUse,
+                                    checked: (acc.enable == 1),
                                     open: true
                                 };
                                 treeData.push(accData);
@@ -110,8 +110,8 @@ define('Tree', function (require, module, exports) {
             return;
         }
 
-        var roleId = user.FRoleID;
-        var type=user.FUserType;
+        var roleId = user.roleId;
+        var type=user.type;
         var nodes = zTree.getCheckedNodes(true);
         var topNodes = $.Array.grep(nodes, function (item, index) {
 
@@ -134,12 +134,12 @@ define('Tree', function (require, module, exports) {
                         if (tNode.children) {
                             $.Array.each(tNode.children, function (cNode, index) { //三级节点
                                 if (cNode.checked) {
-                                    accessMask = accessMask | cNode.faccessMask;
+                                    accessMask = accessMask | cNode.accessMask;
                                     console.log("-3级节点-" + cNode.name);
                                 }
                             });
                         }
-                        pData.FAccessMask = accessMask;
+                        pData.accessMask = accessMask;
                         permitData.push(pData);
                     }
                     //pData.FAccessMask = accessMask;
@@ -155,11 +155,11 @@ define('Tree', function (require, module, exports) {
     }
 
 
-    function getUserPermit(roleID, uType, fn) {
+    function getUserPermit(roleId, type, fn) {
         var api = new API('role/getRolePermissions');
         api.get({
-            roleID: roleID,
-            type: uType
+            roleId: roleId,
+            type: type
         });
 
         api.on({
@@ -168,10 +168,10 @@ define('Tree', function (require, module, exports) {
             },
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (错误码: {1})', msg, code);
-                YWTC.Tips.error(s);
+                SMS.Tips.error(s);
             },
             'error': function () {
-                YWTC.Tips.error('网络繁忙，请稍候再试');
+                SMS.Tips.error('网络繁忙，请稍候再试');
             }
         });
     }
@@ -188,14 +188,14 @@ define('Tree', function (require, module, exports) {
         api.on({
             'success': function (data, json) {
                 fn && fn(data);
-                YWTC.Tips.success('保存成功！');
+                SMS.Tips.success('保存成功！');
             },
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (错误码: {1})', msg, code);
-                YWTC.Tips.error(s);
+                SMS.Tips.error(s);
             },
             'error': function () {
-                YWTC.Tips.error('网络繁忙，请稍候再试');
+                SMS.Tips.error('网络繁忙，请稍候再试');
             }
         });
     }
