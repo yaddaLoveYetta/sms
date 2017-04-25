@@ -109,7 +109,7 @@
             });
             $.fn.zTree.init($("#permitTree"), setting, treeData);
             zTree = $.fn.zTree.getZTreeObj("permitTree");
-            fn && fn();
+            fn && fn(treeData);
         });
     };
 
