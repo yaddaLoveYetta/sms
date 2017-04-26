@@ -191,19 +191,17 @@
 
     List.on({
         'click:number': function (data, event) {
-
-            /*            var body = data.body;
-             var index = ClassMapping.getIndex(classId);
-
-             Iframe.open(index.first, index.second, {
-             query: {
-             id: body.primaryValue,
-             classId: body.data.classId
-             }
-             });*/
-
+            // 编辑
             if (dialog) {
                 // 选择界面不触发
+                return;
+            }
+
+            var url = ClassMapping.getEditPage(classId);
+            var name = ClassMapping.getTabName(classId) || '';
+
+            if (!url) {
+                // 没有配置编辑页面或不需要编辑功能
                 return;
             }
 
@@ -211,8 +209,8 @@
 
             Iframe.open({
                 id: classId + '-edit-' + body.primaryValue,
-                name: '编辑-' + ClassMapping.getTabName(classId),
-                url: ClassMapping.getEditPage(classId),
+                name: '编辑-' + name,
+                url: url,
                 query: {
                     'id': body.primaryValue,
                     'classId': classId,
