@@ -185,6 +185,12 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
+		
+		<table tableName="t_sms_purchase_order" domainObjectName="Order">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
 
 	</context>
 </generatorConfiguration> 
