@@ -35,18 +35,18 @@
 	width: 530px;
 }
 
-.kerp-F7selector {
+.sms-F7selector {
 	position: relative;
 }
 
-.kerp-F7selector input {
+.sms-F7selector input {
 	border: 1px solid #dddddd;
 	height: 20px;
 	width: 174px;
 	padding: 5px 28px 5px 8px;
 }
 
-.kerp-F7selector span[data-role="btn"] {
+.sms-F7selector span[data-role="btn"] {
 	vertical-align: top;
 	display: inline-block;
 	background: #ddd;
@@ -59,7 +59,7 @@
 	width: 30px;
 }
 
-.kerp-F7selector span[data-role="btnDisalbe"] {
+.sms-F7selector span[data-role="btnDisalbe"] {
 	vertical-align: top;
 	display: inline-block;
 	background: #ddd;
@@ -72,7 +72,7 @@
 	width: 30px;
 }
 
-.kerp-F7selector span[data-role="btnMap"] {
+.sms-F7selector span[data-role="btnMap"] {
 	vertical-align: top;
 	display: inline-block;
 	background: #ddd;
