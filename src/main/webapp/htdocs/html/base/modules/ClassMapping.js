@@ -40,7 +40,7 @@ define('ClassMapping', function (require, module, exports) {
     }
 
     function getTabName(classId) {
-        return editPageMappings[classId].name || '';
+        return editPageMappings[classId] ? editPageMappings[classId].name || '' : null;
     }
 
     return {
