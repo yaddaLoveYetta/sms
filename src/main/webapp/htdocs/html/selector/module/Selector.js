@@ -142,5 +142,5 @@ define('selector', function (require, module, exports) {
         create: create,
         setData: setData,
         getData: getData
-    };
+    }
 });

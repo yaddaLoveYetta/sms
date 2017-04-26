@@ -5,8 +5,8 @@
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var SMS = require('SMS');
-    var iframe = SMS.require('Iframe');
+    var YWTC = require('YWTC');
+    var iframe = YWTC.require('Iframe');
 
     var selector = require('selector');
 
