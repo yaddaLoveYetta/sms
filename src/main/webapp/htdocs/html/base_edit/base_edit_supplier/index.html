@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<!--grunt.css.begin-->
+<link rel="stylesheet" href="../../../css/global.debug.css" />
+<link rel="stylesheet" href="../../../css/base.css" />
+<link rel="stylesheet" href="../../../css/base_edit/index.debug.css" />
+<link rel="stylesheet" href="../../../css/selector/index.debug.css" />
+
+<!--grunt.css.end-->
+<link href="../../../lib/jqgrid/ui.jqgrid.css" type="text/css"
+	rel="stylesheet">
+<link href="../../../lib/jqgrid/ui.css" type="text/css" rel="stylesheet">
+<link href="../../../lib/jqgrid/common.css" type="text/css"
+	rel="stylesheet">
+</head>
+
+<body class="iframe">
+	<!--按钮区-->
+	<div class="options">
+		<div id="div-button-list" class="btn-box"></div>
+	</div>
+	<!--主显示区-->
+	<div class="main-content">
+		<!--基本资料-->
+		<div id="div-basic" class="sep-row">
+			<img class="img" src="../../../css/base_edit/img/sep.png" /> <span
+				class="text">基本资料</span>
+			<div class="line"></div>
+		</div>
+		<div id="div-content" class="content-box cargroup">
+			<table class="data-table" style="width: auto">
+				<tbody>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>代码：</td>
+						<td class="col-value"><input id="bd-FNumber" type="text"
+							class="edit-input" value="" /> <span id="bd-FNumber-msg"
+							class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>车主：</td>
+						<td class="col-value"><input id="bd-FName" type="text"
+							class="edit-input" value="" /> <span id="bd-FName-msg"
+							class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>物业公司：</td>
+						<td class="col-value">
+							<div class="F7-box" id="bd-FCompany"></div> <span
+							id="bd-FCompany-msg" class="msg"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>车场：</td>
+						<td class="col-value">
+							<div class="F7-box" id="bd-FPark"></div> <span id="bd-FPark-msg"
+							class="msg"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>车辆付费类型：</td>
+						<td class="col-value">
+							<div class="F7-box" id="bd-FPayType"></div> <span
+							id="bd-FPayType-msg" class="msg"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>车辆类别：</td>
+						<td class="col-value">
+							<div class="F7-box" id="bd-FCarType"></div> <span
+							id="bd-FCarType-msg" class="msg"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>开始日期：</td>
+						<td class="col-value"><input id="bd-FBeginDate" type="text"
+							class="edit-input" value="" /> <span id="bd-FBeginDate-msg"
+							class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>结束日期：</td>
+						<td class="col-value"><input id="bd-FEndDate" type="text"
+							class="edit-input" value="" /> <span id="bd-FEndDate-msg"
+							class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10">车辆出入控制数量：</td>
+						<td class="col-value"><input id="bd-FCarNum" type="text"
+							class="edit-input" value="" /> <span id="bd-FCarNum-msg"
+							class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>时段月租开始时间：</td>
+						<td class="col-value"><input id="bd-FPeriodBeginTime"
+							type="text" class="edit-input" value="" /> <span
+							id="bd-FPeriodBeginTime-msg" class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>时段月租结束时间：</td>
+						<td class="col-value"><input id="bd-FPeriodEndTime"
+							type="text" class="edit-input" value="" /> <span
+							id="bd-FPeriodEndTime-msg" class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10">余额：</td>
+						<td class="col-value"><input id="bd-FBalance" type="text"
+							class="edit-input" value="" /> <span id="bd-FBalance-msg"
+							class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10">月租费用：</td>
+						<td class="col-value"><input id="bd-FMonthFee" type="text"
+							class="edit-input" value="" /> <span id="bd-FMonthFee-msg"
+							class="msg"></span></td>
+					</tr>
+					<tr>
+                        <td class="key pr10">联系电话：</td>
+                        <td class="col-value"><input id="bd-FPhone" type="text"
+                            class="edit-input" value="" /> <span id="bd-FPhone-msg"
+                            class="msg"></span></td>
+                    </tr>
+					<tr>
+						<td class="key pr10">备注：</td>
+						<td class="col-value"><textarea rows="5" id="bd-FNote"
+								cols="5" class="inputxare"></textarea> <span id="bd-FNote-msg"
+							class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10">是否禁用：</td>
+						<td class="col-value"><input id="bd-FStatus" type="checkbox"
+							value="" /> <span id="bd-FStatus-msg" class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10">是否同步：</td>
+						<td class="col-value"><input id="bd-FIsSyn" type="checkbox"
+							value="" /> <span id="bd-FIsSyn-msg" class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10">月租费用：</td>
+						<td class="col-value"><input id="bd-FHoursPercent"
+							type="text" class="edit-input" /> <span
+							id="bd-FHoursPercent-msg" class="msg"></span></td>
+					</tr>
+					<tr>
+						<td class="key pr10"><span class="must-mark">*</span>车牌：</td>
+						<td class="col-value">
+							<div id="initCombo" class="dn"></div>
+							<div class="grid-wrap">
+								<!-- jqGrid table -->
+								<table id="bd-grid"></table>
+								<!-- jqGrid 分页 div -->
+								<div id="bd-grid-pager"></div>
+							</div> <span class="error-msg" id="bd-grid-msg"></span>
+						</td>
+					</tr>
+					<tr id="addTips" style="display: none;">
+						<td colspan="2" style="color: red;">提示：
+							月租车、时段月租车添加完成后，为保证月租生效，请进入“月租缴费”界面，填写实际月租时间段及缴费金额。</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="../../../lib/jquery/jquery-1.11.1.debug.js"></script>
+	<script src="../../../lib/miniquery/miniquery.debug.js"></script>
+	<script src="../../../lib/ywtc/ywtc.debug.js"></script>
+	<script src="../../../config.js"></script>
+	<script src="../../../lib/jqgrid/grid.base.js" type="text/javascript"></script>
+	<script src="../../../lib/jqgrid/grid.celledit.js"
+		type="text/javascript"></script>
+	<script src="../../../lib/jqgrid/grid.custom.js" type="text/javascript"></script>
+	<script src="../../../lib/jqgrid/grid.common.js" type="text/javascript"></script>
+	<script src="../../../lib/jqgrid/i18n/grid.locale-cn.js"
+		type="text/javascript"></script>
+	<script src="../../../lib/jqgrid/jquery.combo.js"></script>
+
+	<!--grunt.js.begin-->
+	<script src="../../selector/module/DataSelector.js"></script>
+	<script src="../../common-bd-edit/Validate.js"></script>
+	<script src="../../common-bd-edit/FormEdit.js"></script>
+	<script src="../../common-bd-edit/Edit.js"></script>
+	<script src="../../common-bd-edit/ButtonList.js"></script>
+	<script src="modules/PeriodCarOpt.js?v=2"></script>
+	<script src="modules/Grid.js?v=11"></script>
+	<script src="modules/GridBuilder.js"></script>
+	<script src="modules/Edit.js?v=122"></script>
+	<script src="modules/SelectorList.js"></script>
+	<script src="modules/DatetimePicker.js"></script>
+	<script src="index.js"></script>
+	<!--grunt.js.end-->
+</body>
+
+</html>

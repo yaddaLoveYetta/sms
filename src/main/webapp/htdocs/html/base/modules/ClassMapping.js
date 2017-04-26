@@ -31,7 +31,7 @@ define('ClassMapping', function (require, module, exports) {
         },
         '1005': {
             name: '供应商',
-            url: 'html/base_edit/base_edit_carGroup/index.html'
+            url: 'html/base_edit/base_edit_supplier/index.html'
         },
     }
 
