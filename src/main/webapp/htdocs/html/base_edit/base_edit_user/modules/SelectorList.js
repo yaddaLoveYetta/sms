@@ -58,7 +58,7 @@ define('SelectorList', function (require, module, exports) {
         }
     };
     var supplierSelector = DataSelector.create(config);
-    selectors['supplier'] = supplierContainer;
+    selectors['supplier'] = supplierSelector;
 
     //conditionF7Names: [{ SelectorName: "FCompany", FillterKey: "FCompany" }],   //级联查询条件 多个用逗号分割
 
