@@ -6,7 +6,7 @@ define('SelectorList', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
     var Edit = require("Edit");
 
     var DataSelector = require('DataSelector');
@@ -34,7 +34,11 @@ define('SelectorList', function (require, module, exports) {
         classID: 13005,
         hasBreadcrumbs: true,
         container: roleContainer,
-        conditionF7Names: [{ SelectorName: "FCompany", FillterKey: "FCompany" }, { SelectorName: "FType", FillterKey: "FRoleType", ValueRule: { 50801: 50701, 50802: 50702 } }],   //级联查询条件 多个用逗号分割
+        conditionF7Names: [{SelectorName: "FCompany", FillterKey: "FCompany"}, {
+            SelectorName: "FType",
+            FillterKey: "FRoleType",
+            ValueRule: {50801: 50701, 50802: 50702}
+        }],   //级联查询条件 多个用逗号分割
         title: '角色',
         defaults: {
             pageSize: 8
@@ -69,7 +73,8 @@ define('SelectorList', function (require, module, exports) {
             roleSelector.clearData();
             var typeId = data[0].ID;
             UserTypeOpt.render(typeId);
-        }, 'bd-FCompany.DialogChange': function (data) {
+        },
+        'bd-FCompany.DialogChange': function (data) {
             $("#FCompanyId").val(data[0].ID);
             roleSelector.clearData();
             Edit.cleanGrid();

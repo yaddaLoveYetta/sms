@@ -6,7 +6,7 @@ define('Edit', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
+	var SMS = require('SMS');
 	var FormEdit = require('FormEdit');
 	var UserTypeOpt = require('UserTypeOpt');
 	 var f7Selectors;
@@ -55,11 +55,11 @@ define('Edit', function(require, module, exports) {
 	};
 
 
-	function render(formClassID, itemID, selectors) {
+	function render(formClassId, itemId, selectors) {
 		f7Selectors = selectors;
-		itemId = itemID;
-		baseClassID=formClassID;
-		FormEdit.render(formClassID, itemId, selectors, initGrid);
+		itemId = itemId;
+		baseClassID=formClassId;
+		FormEdit.render(formClassId, itemId, selectors, initGrid);
 	}
 
 	function clear() {
@@ -198,10 +198,10 @@ define('Edit', function(require, module, exports) {
 
 	function saveSuccess(data) {
 		if (itemId) {
-			YWTC.Tips.success('数据修改成功', 2000);
+			SMS.Tips.success('数据修改成功', 2000);
 		} else {
 			itemId = data['itemID'];
-			YWTC.Tips.success('数据新增成功', 2000);
+			SMS.Tips.success('数据新增成功', 2000);
 		}
 		refresh(baseClassID, f7Selectors);
 	}

@@ -6,7 +6,7 @@ define('Grid', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
     //FormEdit.getSelectors
     var FormEdit = require('FormEdit');
 
@@ -14,8 +14,8 @@ define('Grid', function (require, module, exports) {
     var guidKey = $.Mapper.getGuidKey();
 
     /**
-	 * 表格构造器。
-	 */
+     * 表格构造器。
+     */
     function Grid(gridId) {
 
         var id = $.String.random();
@@ -72,7 +72,8 @@ define('Grid', function (require, module, exports) {
             });
         } else {
             newId = data.length + 1;
-        };
+        }
+        ;
 
         bdGrid.jqGrid({
             data: data,
@@ -139,7 +140,8 @@ define('Grid', function (require, module, exports) {
                 var row = bdGrid.jqGrid('getRowData', rowId);
                 if (row[primaryKey]) {
                     deleteRows.push(row);
-                };
+                }
+                ;
 
                 bdGrid.jqGrid("clearGridData");
                 bdGrid.jqGrid('addRowData', 'num_1', {
@@ -153,14 +155,16 @@ define('Grid', function (require, module, exports) {
 
             if (su && row[primaryKey]) {
                 deleteRows.push(row);
-            };
+            }
+            ;
         });
 
         //取消分录编辑状态
         $(document).bind('click.cancel', function (e) {
             if (!$(e.target).closest(".ui-jqgrid-bdiv").length > 0) {
                 saveGrid(bdGrid, cfg.curCell);
-            };
+            }
+            ;
         });
 
         //$('.grid-wrap').on('click', '.ui-icon-ellipsis', function (e) {
@@ -199,7 +203,7 @@ define('Grid', function (require, module, exports) {
                 needConvert: false
             }
         } else {
-            YWTC.Tips.info('请先选择物业公司', 1500);
+            SMS.Tips.info('请先选择物业公司', 1500);
             return false;
         }
         var title = '';
@@ -211,7 +215,7 @@ define('Grid', function (require, module, exports) {
                 break;
         }
 
-        YWTC.use('Dialog', function (Dialog) {
+        SMS.use('Dialog', function (Dialog) {
             var dialog = new Dialog({
                 title: title,
                 url: url,
@@ -219,10 +223,10 @@ define('Grid', function (require, module, exports) {
                 height: 520,
                 button: [{
                     value: '取消',
-                    className: 'ywtc-cancel-btn'
+                    className: 'sms-cancel-btn'
                 }, {
                     value: '确认',
-                    className: 'ywtc-submit-btn',
+                    className: 'sms-submit-btn',
                     callback: function () {
                         this.isSubmit = true;
                     }
@@ -380,7 +384,8 @@ define('Grid', function (require, module, exports) {
 
             //			gridData.push(itemData); 修改需要全部数据，不只是要主键
             gridData.push(row);
-        };
+        }
+        ;
 
         return gridData;
     }
@@ -395,13 +400,13 @@ define('Grid', function (require, module, exports) {
         constructor: Grid,
 
         /*
-		 config.editColumnName
-		 config.colNames
-		 config.colModel
-		 config.width
-		 config.height
-		 config.fnAfterEditCell(rowid, cellname, value, iRow, iCol)
-		 */
+         config.editColumnName
+         config.colNames
+         config.colModel
+         config.width
+         config.height
+         config.fnAfterEditCell(rowid, cellname, value, iRow, iCol)
+         */
         render: function (config, entryData, metaData, entryIndex) {
             var meta = mapper.get(this);
 

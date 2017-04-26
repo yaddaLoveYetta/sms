@@ -2,21 +2,20 @@
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
+	var SMS = require('SMS');
 
-	var Iframe = YWTC.require('Iframe');
+	var Iframe = SMS.require('Iframe');
 
 	var selectors = require('SelectorList');
 	// var ButtonList = require('ButtonList');
 	var bl = require('ButtonList');
 	var Edit = require('Edit');
 	var DatetimePicker = require('DatetimePicker');
-	var itemID = MiniQuery.Url.getQueryString(window.location.href, 'id');
+	var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
 	
-	var ButtonList = bl.create(itemID);
-	var formClassID = 13004;
+	var ButtonList = bl.create(itemId);
+	var formClassId = 1001;
 	// 基础资料类别ID
-
 	// 支持二级事件，二级事件对应 item 中的 name
 	ButtonList.on('click',{
 		'optNew' : function() {
@@ -34,18 +33,18 @@
 			//Edit.refresh(formClassID, selectors);
 		},
 		'optRefresh' : function() {
-			Edit.refresh(formClassID, selectors);
+			Edit.refresh(formClassId, selectors);
 		},
 		'optDisable' : function() {
-			Edit.forbid(formClassID, 1);
+			Edit.forbid(formClassId, 1);
 		},
 		'optUndisable' : function() {
-			Edit.forbid(formClassID, 0);
+			Edit.forbid(formClassId, 0);
 		}
 	});
 
 	DatetimePicker.render();
 	ButtonList.render();
-	Edit.render(formClassID, itemID, selectors);
+	Edit.render(formClassId, itemId, selectors);
 
 })();

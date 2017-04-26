@@ -4,7 +4,7 @@
 define('GridBuilder', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
 
     function getColModel(field) {
         var model = {};
