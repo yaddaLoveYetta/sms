@@ -20,27 +20,27 @@ define('ClassMapping', function (require, module, exports) {
         return classMappings[classId];
     }
 
-    function getEditPage(classId) {
+    var editPageMappings = {
+        '1010': {
+            name: '用户',
+            url: 'html/base_edit/base_edit_user/index.html'
+        },
+        '1003': {
+            name: '角色',
+            url: 'html/base_edit/base_edit_role/index.html'
+        },
+        '1005': {
+            name: '供应商',
+            url: 'html/base_edit/base_edit_carGroup/index.html'
+        },
+    }
 
-        var editPageMappings = {
-            '1010': {
-                name: '用户',
-                url: 'html/base_edit/base_edit_user/index.html'
-            },
-            '1003': {
-                name: '角色',
-                url: 'html/base_edit/base_edit_role/index.html'
-            },
-            '1005': {
-                name: '供应商',
-                url: 'html/base_edit/base_edit_carGroup/index.html'
-            },
-        }
+    function getEditPage(classId) {
         return editPageMappings[classId].url || '';
     }
 
     function getTabName(classId) {
-        return getEditPage[classId].name || '';
+        return editPageMappings[classId].name || '';
     }
 
     return {
