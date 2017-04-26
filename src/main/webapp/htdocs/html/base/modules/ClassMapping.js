@@ -21,7 +21,7 @@ define('ClassMapping', function (require, module, exports) {
     }
 
     var editPageMappings = {
-        '1010': {
+        '1001': {
             name: '用户',
             url: 'html/base_edit/base_edit_user/index.html'
         },
