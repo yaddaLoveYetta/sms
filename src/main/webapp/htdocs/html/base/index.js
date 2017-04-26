@@ -68,48 +68,48 @@
     });
 
 
-	var blConfig;
-	if(classId == 1001) { // 用户
-		blConfig = {
-			'items': [{
-				text: '新增',
-				name: 'add',
-			}, {
-				text: '删除',
-				name: 'delete',
-			}, {
-				text: '刷新',
-				name: 'refresh',
-			}]
-		};
-	} else if(classId == 1002) {
-		blConfig = {
-			'items': [{
-				text: '这是一个按钮',
-				name: 'add',
-			}, {
-				text: '这是另一个按钮',
-				name: 'delete',
-			}, {
-				text: '刷新',
-				name: 'refresh',
-			}, {
-				text: '更多',
-				name: 'more',
-				cssClass: 'btn-more',
-				items: [{
-					text: '导出',
-					name: 'export'
-						},
-					{
-						text: '导入',
-						name: 'import'
-					}
-				]
-			}]
-		};
-	}
-	
+    var blConfig;
+    if (classId == 1001) { // 用户
+        blConfig = {
+            'items': [{
+                text: '新增',
+                name: 'add',
+            }, {
+                text: '删除',
+                name: 'delete',
+            }, {
+                text: '刷新',
+                name: 'refresh',
+            }]
+        };
+    } else if (classId == 1002) {
+        blConfig = {
+            'items': [{
+                text: '这是一个按钮',
+                name: 'add',
+            }, {
+                text: '这是另一个按钮',
+                name: 'delete',
+            }, {
+                text: '刷新',
+                name: 'refresh',
+            }, {
+                text: '更多',
+                name: 'more',
+                cssClass: 'btn-more',
+                items: [{
+                    text: '导出',
+                    name: 'export'
+                },
+                    {
+                        text: '导入',
+                        name: 'import'
+                    }
+                ]
+            }]
+        };
+    }
+
     var ButtonList = bl.create(blConfig);
 
     ButtonList.render();
@@ -191,15 +191,34 @@
 
     List.on({
         'click:number': function (data, event) {
-            var body = data.body;
-            var index = ClassMapping.getIndex(classId);
 
-            Iframe.open(index.first, index.second, {
+            /*            var body = data.body;
+             var index = ClassMapping.getIndex(classId);
+
+             Iframe.open(index.first, index.second, {
+             query: {
+             id: body.primaryValue,
+             classId: body.data.classId
+             }
+             });*/
+
+            if (dialog) {
+                // 选择界面不触发
+                return;
+            }
+
+            var body = data.body;
+
+            Iframe.open({
+                id: classId + '-edit-' + body.primaryValue,
+                name: '编辑-' + ClassMapping.getTabName(classId),
+                url: ClassMapping.getEditPage(classId),
                 query: {
-                    id: body.primaryValue,
-                    classId: body.data.classId
+                    'id': body.primaryValue,
+                    'classId': classId,
                 }
             });
+
         },
     });
 
