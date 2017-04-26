@@ -36,7 +36,7 @@ define('ClassMapping', function (require, module, exports) {
     }
 
     function getEditPage(classId) {
-        return editPageMappings[classId].url || '';
+        return editPageMappings[classId] ? editPageMappings[classId].url || '' : null;
     }
 
     function getTabName(classId) {
