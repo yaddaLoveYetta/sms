@@ -1,7 +1,6 @@
-﻿
-//控制器。 
+﻿//控制器。
 //注意：所有模块均对控制器可见。
-; (function () {
+;(function () {
 
 
     var $ = require('$');
@@ -171,6 +170,7 @@
 
     Iframe.on('open', function (group, index, data) {
 
+        // 已有菜单打开方式
         MenuData.getItem(group, index, function (item) {
 
             if (!item) {
@@ -191,14 +191,35 @@
             Iframes.add(item, true); //强制刷新
         });
 
-        //var item = group;
-        //item.id = $.String.random();
+        //重载以对象传入的方式
+        if (typeof group == 'object') {
+            //alert('此处需要重置打开方式.');
+            open(group);
+            return;
+        }
 
-        //PageTabs.add(item); //安静模式，不触发事件
-        //PageList.add(item); //安静模式，不触发事件
-        //Iframes.add(item, true); //强制刷新
+        function open(item) {
+            if (!item.id) {
+                item.id = $.String.random();
+            }
 
+            var query = item.query;
+            if (query) {
+                //item.url = $.Url.addQueryString(item.url, query);
+                //不能直接修改原对象的 url，否则可能会影响到原来的 url
+                item = $.Object.extend({}, item, {
+                    url: $.Url.addQueryString(item.url, query)
+                });
+            }
 
+            //安静模式，不触发事件
+            PageTabs.add(item);
+            //安静模式，不触发事件
+            PageList.add(item);
+            //安静模式，不触发事件
+            Iframes.add(item);
+
+        }
     });
 
 
@@ -206,8 +227,6 @@
     PageList.render();
     Iframes.render();
     UserInfos.render();
-
-
 
 
 })();
