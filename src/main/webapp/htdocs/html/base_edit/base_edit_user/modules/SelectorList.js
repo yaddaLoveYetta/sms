@@ -14,52 +14,51 @@ define('SelectorList', function (require, module, exports) {
 
     var selectors = {};
 
-    var container = document.getElementById('bd-FCompany');
+    var container = document.getElementById('bd-type');
+
     var config = {
         targetType: 1, //跳转方案
-        classID: 13001,
+        classID: 1002,
         hasBreadcrumbs: true,
         container: container,
-        title: '物业公司',
+        title: '用户类别',
         defaults: {
             pageSize: 8
         }
     };
-    var companySelector = DataSelector.create(config);
-    selectors['FCompany'] = companySelector;
+    var typeSelector = DataSelector.create(config);
 
-    var roleContainer = document.getElementById('bd-FRoleID');
+    selectors['type'] = typeSelector;
+
+    var roleContainer = document.getElementById('bd-role');
     var config = {
         targetType: 1, //跳转方案
-        classID: 13005,
+        classID: 1003,
         hasBreadcrumbs: true,
         container: roleContainer,
-        conditionF7Names: [{SelectorName: "FCompany", FillterKey: "FCompany"}, {
-            SelectorName: "FType",
-            FillterKey: "FRoleType",
-            ValueRule: {50801: 50701, 50802: 50702}
-        }],   //级联查询条件 多个用逗号分割
+        conditionF7Names: [{SelectorName: "FCompany", FillterKey: "FCompany"}],   //级联查询条件 多个用逗号分割
         title: '角色',
         defaults: {
             pageSize: 8
         }
     };
     var roleSelector = DataSelector.create(config);
-    selectors['FRoleID'] = roleSelector;
+    selectors['role'] = roleSelector;
 
 
-    var userTypeContainer = document.getElementById('bd-FType');
-    var userTypeConfig = {
-        targetType: 2, //跳转方案
-        typeID: 508,   //过滤条件-辅助资料类别
-        pageSize: 8,
+    var supplierContainer = document.getElementById('bd-supplier');
+    var config = {
+        targetType: 1, //跳转方案
+        classID: 1005,
         hasBreadcrumbs: true,
-        container: userTypeContainer,
-        title: '用户类别'
+        container: supplierContainer,
+        title: '供应商',
+        defaults: {
+            pageSize: 8
+        }
     };
-    var orderTypeSelector = DataSelector.create(userTypeConfig);
-    selectors['FType'] = orderTypeSelector;
-
+    var supplierSelector = DataSelector.create(config);
+    selectors['supplier'] = supplierContainer;
 
     //conditionF7Names: [{ SelectorName: "FCompany", FillterKey: "FCompany" }],   //级联查询条件 多个用逗号分割
 
@@ -68,9 +67,9 @@ define('SelectorList', function (require, module, exports) {
     DataSelector.DataSelectors = selectors;
     //改变事件捕获
     DataSelector.on({
-        'bd-FType.DialogChange': function (data) {
-            companySelector.clearData();
+        'bd-type.DialogChange': function (data) {
             roleSelector.clearData();
+            supplierSelector.clearData();
             var typeId = data[0].ID;
             UserTypeOpt.render(typeId);
         },
