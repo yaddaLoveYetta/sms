@@ -1046,4 +1046,135 @@ public class TemplateService extends BaseService implements ITemplateService {
 		return retMap;
 
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> getItemById(Integer classId, Integer id, int userType) {
+
+		// 基础资料模板
+		Map<String, Object> template = getFormTemplate(classId, 1);
+
+		// 主表字段模板
+		Map<String, Object> formFields0 = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		// 第一个子表字段模板(如果有)
+		Map<String, Object> formFields1 = new HashMap<String, Object>(); // 第一个子表的字段模板
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) template.get("formClass");
+		// 子表资料描述信息
+		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
+
+		if (null == formClass) {
+
+			throw new BusinessLogicRunTimeException("资料模板不存在");
+		}
+
+		// 主表表名
+		String primaryTableName = formClass.getTableName();
+		// 主表主键
+		String primaryKey = formClass.getPrimaryKey();
+
+		boolean isChildTableExist = false; // 指示是否存在子表，存在时主表需要关联第一个子表查询
+
+		if (!formEntries.isEmpty()) {
+			// 存在关联字表-只关联第一个子表查询
+			isChildTableExist = true;
+			formFields1 = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get("1");
+		}
+
+		// 动态构建select语句
+
+		String select = ""; // 查询字段
+		String from = "";// 查询表
+		String where = ""; // 查询条件
+
+		Map<String, Object> statement = getStatement(classId, userType);
+
+		select = (String) statement.get("select");
+		from = (String) statement.get("from");
+
+		StringBuilder sbWhere = new StringBuilder(); // 查询条件
+		sbWhere.append("WHERE").append(System.getProperty("line.separator")).append(primaryTableName).append("." + primaryKey + "=").append(id);
+
+		where = sbWhere.toString();
+
+		Map<String, Object> statementParam = new HashMap<String, Object>();
+		statementParam.put("select", select.toString());
+		statementParam.put("from", from.toString());
+		statementParam.put("where", where);
+
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+
+		List<Map<String, Object>> data = templateDaoMapper.getItems(statementParam);
+
+		List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
+
+		// 将记录转换成返回接口的格式，将主表关联多行子表记录时，子表记录整合到返回结构"entry"中
+		for (Map<String, Object> item : data) {
+			// 循环每一行
+			Map<String, Object> head = new HashMap<String, Object>();// 主表所有字段
+			Map<String, Object> entries = new HashMap<String, Object>(); // 所有子表entry
+
+			List<Map<String, Object>> formEntryRows = new ArrayList<Map<String, Object>>(); // 第一个子表所有行
+			Map<String, Object> formEntryRow = new HashMap<String, Object>();// 子表每一行的元素
+
+			for (Iterator<Map.Entry<String, Object>> it = item.entrySet().iterator(); it.hasNext();) {
+				// 循环行中的列
+				Map.Entry<String, Object> column = it.next();
+
+				String cName = column.getKey();
+				Object cValue = column.getValue();
+
+				String cNameTrueKey = cName; // 真实的模板key
+
+				if (cName.contains("_")) {
+					// 关联查询字段时携带的_DspName,_NmbName等模板之外的key
+					cNameTrueKey = cName.substring(0, cName.indexOf("_"));
+				}
+
+				if (formFields0.containsKey(cNameTrueKey)) {
+					// formClass即主表字段
+					// formClass.put(cNameTrueKey, cValue);
+
+					// if (!cNameTrueKey.equals(cName)) {
+					// 关联查询字段时携带的_DspName,_NmbName等模板之外的key
+					head.put(cName, item.get(cName));
+					// }
+
+				} else if (isChildTableExist && formFields1.containsKey(cNameTrueKey)) {
+					// formEntries1即第一个子表字段
+					// formEntryRow.put(cNameTrueKey, cValue);
+
+					// if (!cNameTrueKey.equals(cName)) {
+					// 关联查询字段时携带的_DspName,_NmbName等模板之外的key
+					formEntryRow.put(cName, item.get(cName));
+					// }
+				}
+			}
+
+			if (isChildTableExist) {
+				formEntryRows.add(formEntryRow); // 这里formEntryRows也就一行，为了构造{[]}的结构
+				entries.put("1", formEntryRows); // 第一个子表数据
+			}
+
+			head.put("entry", entries);// 将子表已关键字"entry"作为key插入到formClass中
+
+			Map<String, Object> keyInList = isKeyInList(returnList, primaryKey, head.get(primaryKey));
+
+			if (keyInList != null) {
+				// 已存在该条记录，增加子表行
+				((List<Map<String, Object>>) ((Map<String, Object>) keyInList.get("entry")).get("1")).add(formEntryRow);
+			} else {
+				// 不存在该行记录，新增行
+				returnList.add(head);
+			}
+		}
+
+		if (!returnList.isEmpty()) {
+			// 只可能是一条记录
+			returnList.get(0);
+		}
+
+		return null;
+
+	}
 }

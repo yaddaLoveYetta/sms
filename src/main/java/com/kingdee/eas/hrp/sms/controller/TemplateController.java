@@ -1,6 +1,5 @@
 package com.kingdee.eas.hrp.sms.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,6 +17,7 @@ import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
+import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 /**
  * 操作系统单据模板
@@ -98,6 +98,40 @@ public class TemplateController {
 		}
 
 		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType);
+
+		ResponseWriteUtil.output(response, result);
+
+	}
+
+	/**
+	 * 通过内码获取单个基础资料
+	 * 
+	 * @Title getItemById
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-04-26 14:39:30 星期三
+	 */
+	public void getItemById(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1); // 业务类别代码
+		Integer id = ParameterUtils.getParameter(request, "id", -1); // 内码
+		int userType = SessionUtil.getUserType(request);
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+		if (id < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
+			return;
+		}
+
+		Map<String, Object> result = templateService.getItemById(classId, id, userType);
+
+		if (result == null) {
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "资料不存在！");
+			return;
+		}
 
 		ResponseWriteUtil.output(response, result);
 

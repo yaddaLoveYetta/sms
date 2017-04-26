@@ -9,7 +9,7 @@ public class Role {
 
     private Integer type;
 
-    private String status;
+    private Integer status;
 
     public Integer getRoleId() {
         return roleId;
@@ -43,11 +43,11 @@ public class Role {
         this.type = type;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
