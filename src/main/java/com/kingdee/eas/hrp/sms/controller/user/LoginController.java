@@ -79,7 +79,7 @@ public class LoginController {
 		User user = loginService.createToken(username, password, type);
 		
 		if (null == user) {
-			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "获取token失败，请重试!");
+			ResponseWriteUtil.output(response, StatusCode.ACCESS_TOKEN_INVALID, "获取token失败，请重试!");
 		} else {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, user);
 		}
