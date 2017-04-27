@@ -12,9 +12,10 @@
 	var Edit = require('Edit');
 	var DatetimePicker = require('DatetimePicker');
 	var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
-	
+    var formClassId =MiniQuery.Url.getQueryString(window.location.href, 'classId');
+
 	var ButtonList = bl.create(itemId);
-	var formClassId = 1001;
+
 	// 基础资料类别ID
 	// 支持二级事件，二级事件对应 item 中的 name
 	ButtonList.on('click',{
