@@ -1,19 +1,16 @@
 package com.kingdee.eas.hrp.sms.service.impl.order;
 
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Iterator;
 
+import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
-import com.kingdee.eas.hrp.sms.service.api.user.ILoginService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
+@Service
 public class OrderService extends BaseService implements IOrderService{
 	
 	public String order(JSONArray orderArray){
