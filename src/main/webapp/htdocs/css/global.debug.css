@@ -32,6 +32,9 @@
   border-color: transparent transparent transparent transparent;
   border-width: 6px;
 }
+.F7-box{
+  display: inline-block;
+}
 .sms-btn-menu {
   display: inline-block;
 }
