@@ -79,4 +79,16 @@ public interface ITemplateService {
 	 * @date 2017-04-27 14:19:33 星期四
 	 */
 	int addItem(Integer classId, String data);
+
+	/**
+	 * 根基模板修改基础资料
+	 * 
+	 * @Title editItem
+	 * @param classId
+	 * @param id
+	 * @param data
+	 *            void
+	 * @date 2017-04-27 15:40:28 星期四
+	 */
+	void editItem(Integer classId, Integer id, String data);
 }

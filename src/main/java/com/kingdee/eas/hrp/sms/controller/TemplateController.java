@@ -171,4 +171,30 @@ public class TemplateController {
 
 	}
 
+	@RequestMapping(value = "editItem")
+	public void editItem(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		Integer id = ParameterUtils.getParameter(request, "itemId", -1);
+		String data = ParameterUtils.getParameter(request, "data", "");
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+		if (id < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
+			return;
+		}
+		if (data.equals("")) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
+			return;
+		}
+
+		templateService.editItem(classId, id, data);
+
+		ResponseWriteUtil.output(response, "修改成功！");
+
+	}
+
 }
