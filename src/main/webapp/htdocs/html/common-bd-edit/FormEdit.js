@@ -331,7 +331,7 @@
     /**
      * 保存
      * @param {} itemID 项目ID
-     * @param {} fnValidate  验证错误回调函数
+     * @param {} fnValidate  验证错误回调函数-处理页面显示的错误提示
      * @param {} fnSuccess  成功回调函数
      * @param {} entryData //子表数据
      * @param {} customerErrData  //自定义错误消息
@@ -366,7 +366,7 @@
     }
 
     /**
-     * 数据校验
+     * 数据校验-获取表头数据
      * @param isUpdate 编辑or新增
      * @param fnSuccess 成功回调
      * @param fnFail 失败回调
@@ -391,7 +391,7 @@
         for (var item in fields) {
 
             var field = fields[item];
-            var keyName = field['FKey'];
+            var keyName = field['key'];
 
             // var prefix = getPrefix(field['ctrlType']);
             var element = getValueElement(keyName);
@@ -401,15 +401,15 @@
                 continue;
             }
             //successData[keyName] = "";//清空元素的值，重新赋值
-            if (field['FCtrlType'] == 1) { // 数字
+            if (field['ctrlType'] == 1) { // 数字
                 var ne = getElements(keyName);
-                var minVal = +field['FMinValue'];
-                var maxVal = +field['FMaxValue'];
+                var minVal = +field['minValue'];
+                var maxVal = +field['maxValue'];
                 var domValue = ne.val();
                 var widgetData = ne.autoNumeric && ne.autoNumeric("get") || domValue;
                 if (!domValue) {
                     if (isMustFiled(isUpdate, field)) {
-                        var msg = field['FName'] + '为必填项';
+                        var msg = field['name'] + '为必填项';
                         errorData[keyName] = msg;
                         validate = false;
                     } else {
@@ -423,17 +423,17 @@
                 }
                 continue;
             }
-            if (field['FCtrlType'] == 3) { // 多选按钮，无需校验
+            if (field['ctrlType'] == 3) { // 多选按钮，无需校验
                 successData[keyName] = element.checked;
                 continue;
             }
-            if (field['FCtrlType'] == 6) { // F7选择框
+            if (field['ctrlType'] == 6) { // F7选择框
                 var selector = selectors[keyName];
                 var selectorID = selector.getData()[0]['ID'];
 
                 if (!selectorID) {
                     if (isMustFiled(isUpdate, field)) {
-                        var msg = field['FName'] + '为必填项';
+                        var msg = field['name'] + '为必填项';
                         errorData[keyName] = msg;
                         validate = false;
                     } else {
@@ -445,10 +445,10 @@
                 continue;
             }
 
-            if (fields[keyName]['FCtrlType'] == 99) {
+            if (fields[keyName]['ctrlType'] == 99) {
                 // 合作商家基础资料多一个密码字段特殊，蛋疼的处理-写死它，用来判断是否修改-加密
                 if (!element.value && isMustFiled(isUpdate, field)) {
-                    var msg = field['FName'] + '为必填项';
+                    var msg = field['name'] + '为必填项';
                     errorData[keyName] = msg;
                     validate = false;
                 } else {
@@ -461,18 +461,18 @@
 
             if (!element.value) {
                 if (isMustFiled(isUpdate, field)) {
-                    var msg = field['FName'] + '为必填项';
+                    var msg = field['name'] + '为必填项';
                     errorData[keyName] = msg;
                     validate = false;
                 } else {
-                    if (fields[keyName]['FDataType'] == 2 || fields[keyName]['FCtrlType'] == 7) { //文本类型、级联选择器 给空字符串
+                    if (fields[keyName]['dataType'] == 2 || fields[keyName]['ctrlType'] == 7) { //文本类型、级联选择器 给空字符串
                         successData[keyName] = element.value;
                     }
                 }
             } else {
-                var result = validateField(element.value, field['FDataType'], field['FLength'], field['FScale'], field['FCtrlType']);
+                var result = validateField(element.value, field['dataType'], field['length'], field['scale'], field['ctrlType']);
                 if (!result) {
-                    var msg = field['FName'] + '输入内容不合法';
+                    var msg = field['name'] + '输入内容不合法';
                     errorData[keyName] = msg;
                     validate = false;
                 } else {

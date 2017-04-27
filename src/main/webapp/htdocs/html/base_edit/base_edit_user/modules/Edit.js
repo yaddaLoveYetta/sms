@@ -71,26 +71,15 @@ define('Edit', function (require, module, exports) {
     function save() {
 
         var errorData = {};
+        var entryData = {};
 
-        showValidInfo(null, errorData);
+        //showValidInfo(null, errorData);
+        // 如果有表体，校验并获取表体数据--业务特殊校验也在此处理
 
-        var type = f7Selectors["type"].getData()[0].ID;
-
-        if (type == 2) {
-            var supplier = f7Selectors["supplier"].getData()[0].ID;
-
-            if ($.trim(supplier) == "") {
-
-                errorData["supplier"] = $.String.format("物业公司不可为空");
-                //showValidInfo(null, errorData);
-                //return false;
-            }
-        }
-
-        var entry = [];
-        var parkIDs = [];
-        var parkIDExisted = false;
-        /*
+        /*        var entry = [];
+         var parkIDs = [];
+         var parkIDExisted = false;
+         /!*
          'data':{
          FEntryID:0, 新增可不传
          FParkID:1,
@@ -98,70 +87,70 @@ define('Edit', function (require, module, exports) {
          FParkNumber:'001'
          },
          'flag':'1' 0删除, 1新增，2修改
-         */
-        var gridData = parkGrid.getGridDatas();
-        var errorData = {};
-        //新增数据
-        $.Array.each(gridData["add"], function (item, index) {
-            if (!item.FPark || item.FPark == '') {
-                return;
-            }
-            var adData = {
-                data: {
-                    FPark: item.FPark,
-                    FParkName: item.FParkName,
-                    FParkNumber: item.FParkNumber
-                },
-                flag: '1'
-            };
-            entry.push(adData);
-            if (!$.Array.contains(parkIDs, item.FPark)) {
-                parkIDs.push(item.FPark);
-            } else {
-                parkIDExisted = true;
-            }
-        });
-        //修改数据
-        $.Array.each(gridData["update"], function (item, index) {
-            var upData = {
-                data: {
-                    FEntryID: item.FEntryID,
-                    FPark: item.FPark,
-                    FParkName: item.FParkName,
-                    FParkNumber: item.FParkNumber
-                },
-                flag: '2'
-            };
-            entry.push(upData);
-            if (!$.Array.contains(parkIDs, item.FPark)) {
-                parkIDs.push(item.FPark);
-            } else {
-                parkIDExisted = true;
-            }
-        });
-        //删除数据
-        $.Array.each(gridData["delete"], function (item, index) {
-            var delData = {
-                data: {
-                    FEntryID: item.FEntryID,
-                    FPark: item.FPark,
-                    FParkName: item.FParkName,
-                    FParkNumber: item.FParkNumber
-                },
-                flag: '0'
-            };
-            entry.push(delData);
-        });
+         *!/
+         var gridData = parkGrid.getGridDatas();
+         var errorData = {};
+         //新增数据
+         $.Array.each(gridData["add"], function (item, index) {
+         if (!item.FPark || item.FPark == '') {
+         return;
+         }
+         var adData = {
+         data: {
+         FPark: item.FPark,
+         FParkName: item.FParkName,
+         FParkNumber: item.FParkNumber
+         },
+         flag: '1'
+         };
+         entry.push(adData);
+         if (!$.Array.contains(parkIDs, item.FPark)) {
+         parkIDs.push(item.FPark);
+         } else {
+         parkIDExisted = true;
+         }
+         });
+         //修改数据
+         $.Array.each(gridData["update"], function (item, index) {
+         var upData = {
+         data: {
+         FEntryID: item.FEntryID,
+         FPark: item.FPark,
+         FParkName: item.FParkName,
+         FParkNumber: item.FParkNumber
+         },
+         flag: '2'
+         };
+         entry.push(upData);
+         if (!$.Array.contains(parkIDs, item.FPark)) {
+         parkIDs.push(item.FPark);
+         } else {
+         parkIDExisted = true;
+         }
+         });
+         //删除数据
+         $.Array.each(gridData["delete"], function (item, index) {
+         var delData = {
+         data: {
+         FEntryID: item.FEntryID,
+         FPark: item.FPark,
+         FParkName: item.FParkName,
+         FParkNumber: item.FParkNumber
+         },
+         flag: '0'
+         };
+         entry.push(delData);
+         });
 
-        var entryData = {
-            1: entry
-        };
-        var errorData = {};
-        if (parkIDExisted) {
-            errorData["grid"] = "存在相同车场";
-            //showValidInfo(null, errorData);
-            //return;
-        }
+         var entryData = {
+         1: entry
+         };
+         var errorData = {};
+         if (parkIDExisted) {
+         errorData["grid"] = "存在相同车场";
+         //showValidInfo(null, errorData);
+         //return;
+         }*/
 
         FormEdit.save(itemId, showValidInfo, saveSuccess, entryData, errorData);
 
