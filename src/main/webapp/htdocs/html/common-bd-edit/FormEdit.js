@@ -291,15 +291,22 @@
 
     function show(formClassId, itemId, fnEntry) {
 
+
+        if (!metaData || !metaData['formFields'] || !metaData['formClass']) {
+            SMS.Tips.error('元数据错误，请联系管理员');
+            return;
+        }
+
         //控件初始化，控制显示隐藏，只读 等..
         emitter.fire('beforeShow', [metaData]);
         initController(itemId);
 
         if (!itemId) {
 
-            if (!!fnEntry) {
+            if (!!fnEntry && !MiniQuery.Object.isEmpty(metaData['formEntries'])) {
                 fnEntry && fnEntry(null, metaData);
             }
+
             return;
         }
         var api = new API('template/getItemById');
