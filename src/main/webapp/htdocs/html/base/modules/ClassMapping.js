@@ -20,7 +20,7 @@ define('ClassMapping', function (require, module, exports) {
         return classMappings[classId];
     }
 
-    var editPageMappings = {
+    var pageMappings = {
         '1001': {
             name: '用户',
             url: 'html/base_edit/base_edit_user/index.html'
@@ -35,17 +35,18 @@ define('ClassMapping', function (require, module, exports) {
         },
     }
 
-    function getEditPage(classId) {
-        return editPageMappings[classId] ? editPageMappings[classId].url || '' : null;
-    }
 
+
+    function getPage(classId) {
+        return pageMappings[classId] ? pageMappings[classId].url || '' : null;
+    }
     function getTabName(classId) {
-        return editPageMappings[classId] ? editPageMappings[classId].name || '' : null;
+        return pageMappings[classId] ? pageMappings[classId].name || '' : null;
     }
 
     return {
         getIndex: getIndex,
-        getEditPage: getEditPage,
+        getPage: getPage,
         getTabName: getTabName,
     };
 

@@ -117,26 +117,30 @@
     //支持二级事件，二级事件对应 item 中的 name
     ButtonList.on('click', {
         'add': function (item, index) {
-            var index = ClassMapping.getIndex(classId);
-            Iframe.open(index.first, index.second, {
-                query: {}
-            });
-        },
-        'add-category': function (item, index) {
-            if (classId == 10110) {
-                Iframe.open(1, 6, {
+
+            var index = ClassMapping.getIndex(classID);
+            if (index > 0) {
+                // 有菜单项的跳转
+                Iframe.open(index.first, index.second, {
                     query: {}
                 });
-            }
-            else {
-                Iframe.open(1, 6, {
-                    query: {
-                        classID: classId
-                    }
+            } else {
+
+                var url = ClassMapping.getPage(classId);
+                var name = ClassMapping.getTabName(classId) || '';
+
+                if (!url) {
+                    // 没有配置编辑页面或不需要编辑功能
+                    return;
+                }
+                Iframe.open({
+                    id: classId + '-add-',
+                    name: '新增-' + name,
+                    url: url,
                 });
             }
-        },
 
+        },
         'delete': function (item, index) {
             var list = List.getSelectedItems();
             if (list.length == 0) {
@@ -152,40 +156,8 @@
         'refresh': function (item, index) {
             refresh();
         },
-        'disable': function (item, index) {
-            var list = List.getSelectedItems();
-            if (list.length == 0) {
-                SMS.Tips.error('请选择要禁用的项');
-                return;
-            }
-            List.forbid(classId, list, 1, function () {
-                refresh();
-            });
-        },
-        'enable': function (item, index) {
-            var list = List.getSelectedItems();
-            if (list.length == 0) {
-                SMS.Tips.error('请选择要反禁用的项');
-                return;
-            }
-            List.forbid(classId, list, 0, function () {
-                refresh();
-            });
-        },
-        'export': function (item, index) {
-
-        },
-        'import': function (item, index) {
-
-        },
-        'setting': function (item, index) {
-
-        },
         'more': function (item, index) {
             ButtonList.toggle(index);
-        },
-        'copy': function (item, index) {
-
         },
     });
 
@@ -197,7 +169,7 @@
                 return;
             }
 
-            var url = ClassMapping.getEditPage(classId);
+            var url = ClassMapping.getPage(classId);
             var name = ClassMapping.getTabName(classId) || '';
 
             if (!url) {
