@@ -29,7 +29,8 @@
   left: 6px;
   position: absolute;
   border: solid;
-  border-color: #ffffff transparent transparent transparent;
+  /*border-color: #ffffff transparent transparent transparent;*/
+  border-color: transparent transparent transparent transparent;
   border-width: 6px;
 }
 .sms-btn-menu {
