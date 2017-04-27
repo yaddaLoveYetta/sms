@@ -45,6 +45,11 @@ public class StatusCode {
 	public static final int USER_ALREADY_EXIST = 601;
 
 	/**
+	 * 不合法的access_token
+	 */
+	public static final int ACCESS_TOKEN_INVALID = 40001;
+
+	/**
 	 * 非法用戶
 	 */
 	public static final int ILLEGAL_USER = 40002;
