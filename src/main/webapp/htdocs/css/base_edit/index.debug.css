@@ -141,9 +141,11 @@
 }
 
 .main-content .content-box .data-table>tbody>tr .col-value>input {
+	width: 193px;
 	height: 20px;
 	padding: 5px 8px;
 	vertical-align: middle;
+	border: 1px solid #dddddd;
 }
 
 .main-content .content-box .data-table>tbody>tr .col-value>img {
