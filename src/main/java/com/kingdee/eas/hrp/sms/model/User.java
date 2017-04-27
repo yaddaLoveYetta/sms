@@ -1,8 +1,6 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class User {
-    private Integer userId;
-
     private String number;
 
     private String name;
@@ -19,13 +17,7 @@ public class User {
 
     private String token;
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    private Integer userId;
 
     public String getNumber() {
         return number;
@@ -89,5 +81,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token == null ? null : token.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
