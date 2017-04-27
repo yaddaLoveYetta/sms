@@ -118,7 +118,7 @@
     ButtonList.on('click', {
         'add': function (item, index) {
 
-            var index = ClassMapping.getIndex(classID);
+            var index = ClassMapping.getIndex(classId);
             if (index > 0) {
                 // 有菜单项的跳转
                 Iframe.open(index.first, index.second, {
