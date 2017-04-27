@@ -294,7 +294,9 @@
         //控件初始化，控制显示隐藏，只读 等..
         emitter.fire('beforeShow', [metaData]);
         initController(itemId);
+
         if (!itemId) {
+
             if (!!fnEntry) {
                 fnEntry && fnEntry(null, metaData);
             }
@@ -336,31 +338,26 @@
      * @returns {}
      */
     function save(itemID, fnValidate, fnSuccess, entryData, customerErrData) {
+
+        // 编辑OR新增
         var isUpdate = !!itemID;
+
         verifyFields(isUpdate, function (successData) {
-            //月租车（51305、51313、51314、51315）、时段月租车（51309、51310、51311、51312）
-            //保存时不要传参数FBeginDate、FEndDate
-            var carArray = [51305, 51313, 51314, 51315, 51309, 51310, 51311, 51312];
-            var classId = metaData['formClass']['FClassID'];
-            if (classId == 13008) {
-                var payType = successData["FPayType"]
-                if ($.inArray(+payType, carArray) !== -1) {
-                    delete successData["FBeginDate"];
-                    delete successData["FEndDate"];
-                }
-            }
+
             fnValidate(successData);
 
             var data = {};
-            data['classID'] = metaData['formClass']['FClassID'];
+            data['classId'] = metaData['formClass']['classId'];
             data['data'] = successData;
+
             if (entryData) {
                 data['data']['entry'] = entryData;
             }
             if (itemID) {
-                data['itemID'] = itemID;
+                data['itemId'] = itemID;
             }
             submitData(data, fnSuccess);
+
         }, function (successData, errorData) {
             // errorData.push(entryErrorData);
             fnValidate(successData, errorData);
@@ -368,6 +365,13 @@
         }, customerErrData);
     }
 
+    /**
+     * 数据校验
+     * @param isUpdate 编辑or新增
+     * @param fnSuccess 成功回调
+     * @param fnFail 失败回调
+     * @param customerErrData 自定义错误
+     */
     function verifyFields(isUpdate, fnSuccess, fnFail, customerErrData) {
 
         if (!metaData || !metaData['formFields']) {

@@ -1,5 +1,5 @@
 ﻿/**
- * 表头数据模块
+ * 单据数据管理
  *
  */
 define('Edit', function (require, module, exports) {
@@ -10,10 +10,11 @@ define('Edit', function (require, module, exports) {
     var FormEdit = require('FormEdit');
     var UserTypeOpt = require('UserTypeOpt');
     var f7Selectors;
-    var baseClassID;
+    var baseClassId;
     var itemId = '';
+
+    // 带表体单据控件
     var Grid = require('Grid');
-    console.log(Grid)
     var GridBuilder = require('GridBuilder');
     var parkGrid = new Grid('bd-grid');
     var columns = ["FParkNumber"];
@@ -58,7 +59,7 @@ define('Edit', function (require, module, exports) {
     function render(formClassId, itemID, selectors) {
         f7Selectors = selectors;
         itemId = itemID;
-        baseClassID = formClassId;
+        baseClassId = formClassId;
         FormEdit.render(formClassId, itemId, selectors, initGrid);
     }
 
@@ -68,13 +69,19 @@ define('Edit', function (require, module, exports) {
     }
 
     function save() {
+
         var errorData = {};
+
         showValidInfo(null, errorData);
-        var userTypeId = f7Selectors["FType"].getData()[0].ID;
-        if (userTypeId == 50802) {
-            var companyId = f7Selectors["FCompany"].getData()[0].ID;
-            if ($.trim(companyId) == "") {
-                errorData["FCompany"] = $.String.format("物业公司不可为空");
+
+        var type = f7Selectors["type"].getData()[0].ID;
+
+        if (type == 2) {
+            var supplier = f7Selectors["supplier"].getData()[0].ID;
+
+            if ($.trim(supplier) == "") {
+
+                errorData["supplier"] = $.String.format("物业公司不可为空");
                 //showValidInfo(null, errorData);
                 //return false;
             }
@@ -176,8 +183,9 @@ define('Edit', function (require, module, exports) {
     }
 
     function showValidInfo(successData, errorData) {
-        for (var item in successData) {
 
+        for (var item in successData) {
+            // 去掉错误提示
             var msgElement = document.getElementById('bd-' + item + '-msg');
             if ($(msgElement).hasClass('show')) {
                 $(msgElement).toggleClass('show');
@@ -185,6 +193,7 @@ define('Edit', function (require, module, exports) {
             $(msgElement).html('');
         }
         if (errorData) {
+            // 显示错误提示
             for (var item in errorData) {
 
                 var msgElement = document.getElementById('bd-' + item + '-msg');
@@ -203,7 +212,7 @@ define('Edit', function (require, module, exports) {
             itemId = data['itemID'];
             SMS.Tips.success('数据新增成功', 2000);
         }
-        refresh(baseClassID, f7Selectors);
+        refresh(baseClassId, f7Selectors);
     }
 
     FormEdit.on({
