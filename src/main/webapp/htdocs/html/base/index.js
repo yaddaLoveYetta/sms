@@ -137,6 +137,9 @@
                     id: classId + '-add-',
                     name: '新增-' + name,
                     url: url,
+                    query: {
+                        'classId': classId,
+                    }
                 });
             }
 
