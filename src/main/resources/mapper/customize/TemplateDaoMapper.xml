@@ -12,4 +12,20 @@
 			limit ${offset},${pageSize}
 		</if>
 	</select>
+
+	<!-- 增加基础资料 -->
+	<insert id="add" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id">
+		insert into ${tableName} (${
+		fieldStr}) values(${valueStr})
+	</insert>
+
+	<!-- 修改基础资料 -->
+	<update id="edit" parameterType="HashMap">
+		update ${tableName} set ${kvStr} where ${primaryKey}=${FID}
+	</update>
+	<!--删除基础资料 -->
+	<delete id="delete" parameterType="HashMap">
+		delete from ${tableName} where ${primaryKey} in ( ${items}
+		)
+	</delete>
 </mapper>

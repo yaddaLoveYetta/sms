@@ -1,5 +1,8 @@
 package com.kingdee.eas.hrp.sms.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -112,6 +115,7 @@ public class TemplateController {
 	 *            void
 	 * @date 2017-04-26 14:39:30 星期三
 	 */
+	@RequestMapping(value = "getItemById")
 	public void getItemById(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1); // 业务类别代码
@@ -134,6 +138,36 @@ public class TemplateController {
 		}
 
 		ResponseWriteUtil.output(response, result);
+
+	}
+
+	/**
+	 * 新增基础资料
+	 * 
+	 * @Title addItem
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-04-27 14:09:59 星期四
+	 */
+	@RequestMapping(value = "addItem")
+	public void addItem(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		String data = ParameterUtils.getParameter(request, "data", "");
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+
+		if (data.equals("")) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
+			return;
+		}
+
+		int id = templateService.addItem(classId, data);
+		ResponseWriteUtil.output(response, "新增成功！");
 
 	}
 

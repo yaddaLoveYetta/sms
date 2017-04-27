@@ -68,4 +68,15 @@ public interface ITemplateService {
 	 * @date 2017-04-26 14:42:58 星期三
 	 */
 	Map<String, Object> getItemById(Integer classId, Integer id, int userType);
+
+	/**
+	 * 根基模板新增基础资料
+	 * 
+	 * @Title addItem
+	 * @param classId
+	 * @param data
+	 * @return int
+	 * @date 2017-04-27 14:19:33 星期四
+	 */
+	int addItem(Integer classId, String data);
 }

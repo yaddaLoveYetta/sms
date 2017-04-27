@@ -1171,10 +1171,288 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		if (!returnList.isEmpty()) {
 			// 只可能是一条记录
-			returnList.get(0);
+			return returnList.get(0);
 		}
 
 		return null;
 
 	}
+
+	@Override
+	public int addItem(Integer classId, String data) {
+
+		// 基础资料模板
+		Map<String, Object> template = getFormTemplate(classId, 1);
+
+		// 主表字段模板
+		Map<String, Object> formFields = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		// 第一个子表字段模板(如果有)
+		// Map<String, Object> formFields1 = new HashMap<String, Object>(); // 第一个子表的字段模板
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) template.get("formClass");
+		// 子表资料描述信息
+		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
+
+		// 模板参数
+		String primaryTableName = formClass.getTableName();
+
+		JSONObject json = JSONObject.parseObject(data);
+
+		// 准备保存模板
+		Map<String, Object> statement = prepareAddMap(json, formFields, primaryTableName);
+
+		// 插入基础资料
+		// int id = baseItemDao.addItem(statement);
+
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+
+		int id = templateDaoMapper.add(statement);
+
+		// 处理分录数据
+		handleEntryData(classId, id, json);
+
+		return id;
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private Map<String, Object> prepareAddMap(JSONObject data, Map<String, Object> formFields, String primaryTableName) {
+
+		StringBuffer fieldNames = new StringBuffer("");
+		StringBuffer fieldValues = new StringBuffer("");
+
+		for (Iterator<String> iterator = data.keySet().iterator(); iterator.hasNext();) {
+
+			String key = iterator.next();
+			if (key.equals("entry"))
+				continue;
+
+			Map<String, Object> fieldTemplate = (Map<String, Object>) formFields.get(key);
+
+			if (fieldTemplate == null)
+				continue;
+			Integer lookUpType = (Integer) fieldTemplate.get("lookUpType");
+			if (lookUpType == 3)// 引用基础资料的附加属性，无需保存
+				continue;
+
+			String value = data.getString(key);
+			value = handleSqlInjection(value);
+
+			if (value == null || value.equals("")) {
+				continue;
+			}
+			String fieldName = (String) fieldTemplate.get("sqlColumnName");
+			fieldNames.append(",").append(fieldName);
+
+			int dataType = (Integer) fieldTemplate.get("dataType");
+
+			DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);
+
+			switch (typeEnum) {
+			case NUMBER:
+				fieldValues.append(",").append(value);
+				break;
+			case TEXT:
+				fieldValues.append(",'").append(value).append("'");
+				break;
+			case BOOLEAN:
+				fieldValues.append(",").append(value);
+				break;
+			case TIME:
+				fieldValues.append(",'").append(value).append("'");
+				break;
+			default:
+				fieldValues.append(",'").append(value).append("'");
+				break;
+
+			}
+		}
+
+		String fieldStr = fieldNames.length() > 0 ? fieldNames.toString().substring(1) : "";
+		String valueStr = fieldValues.length() > 0 ? fieldValues.toString().substring(1) : "";
+
+		Map<String, Object> ret = new HashMap<String, Object>();
+
+		ret.put("tableName", primaryTableName);
+		ret.put("fieldStr", fieldStr);
+		ret.put("valueStr", valueStr);
+
+		return ret;
+	}
+
+	/**
+	 * 保存或修改表体数据
+	 * 
+	 * @Title handleEntryData
+	 * @param classId
+	 * @param id
+	 * @param data
+	 *            void
+	 * @date 2017-04-27 14:51:05 星期四
+	 */
+	@SuppressWarnings("unchecked")
+	private void handleEntryData(int classId, int id, JSONObject data) {
+
+		// 基础资料模板
+		Map<String, Object> template = getFormTemplate(classId, 1);
+
+		if (data.containsKey("entry")) {
+
+			JSONObject jsonEntry = data.getJSONObject("entry");
+			Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
+
+			for (Iterator<String> iterator = formEntries.keySet().iterator(); iterator.hasNext();) {
+
+				String key = iterator.next(); // key 等于1或2或3...
+				Map<String, Object> formFields = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get(key);
+				JSONArray entryData = jsonEntry.getJSONArray(key);
+				Map<String, Object> formEntry = (Map<String, Object>) formEntries.get(key);
+				// 保存或删除分录数据
+				saveEntry(entryData, formEntry, formFields, id);
+
+			}
+		}
+	}
+
+	/**
+	 * 保存或删除分录数据
+	 * 
+	 * @param entryData
+	 *            分录数据 如：[{
+	 *            'data':{FParkID:3},'flag':'1'},{'data':{FEntryID:4,FParkID:11},'flag':'2'},{'data':{FEntryID:3 , F P a
+	 *            r k I D : 1 } , ' f l a g ' : ' 0 ' } ]
+	 * @param formEntry
+	 *            分录表描述 { "FEntryIndex": 1, "FPrimaryKey": "FEntryID", "FForeignKey": "FID", "FClassID": 13001,
+	 *            "FTableName": "t_PropertyCompanyEntry" }
+	 * @param formFields
+	 *            分录表配置的字段
+	 * @param id
+	 *            分录表外键值，关联主表的主键
+	 * @param userType
+	 *            TODO
+	 */
+	private void saveEntry(JSONArray entryData, Map<String, Object> formEntry, Map<String, Object> formFields, int id) {
+
+		String primaryTableName = (String) formEntry.get("FTableName");
+		String primaryKey = (String) formEntry.get("FPrimaryKey");
+		String foreignKey = (String) formEntry.get("FForeignKey");
+		String items = ""; // 记录删除id，一次性删除
+
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+
+		for (int i = 0; i < entryData.size(); i++) {
+
+			JSONObject entry = entryData.getJSONObject(i);
+			JSONObject data = entry.getJSONObject("data");
+
+			int flag = entry.getInteger("flag");
+
+			if (flag == 1) { // --增加
+
+				// 检查字段
+				// checkFields(formFields, data, primaryKey, flag, userType);
+				// 准备保存模板
+				Map<String, Object> statement = prepareAddMap(data, formFields, primaryTableName);
+				// 外键：模板配置中不需要配置该外键，因为该外键的值在前端时无法获取，只有主表保存后才能在后台获取
+				String fieldStr = statement.get("fieldStr").toString();
+				if (!fieldStr.equals("")) {
+
+					if (fieldStr.indexOf("," + foreignKey) < 0) {
+						fieldStr += "," + foreignKey;
+						String valueStr = statement.get("valueStr").toString() + "," + id;
+						statement.put("fieldStr", fieldStr);
+						statement.put("valueStr", valueStr);
+					}
+					// 插入基础资料分录
+					templateDaoMapper.add(statement);
+
+				}
+			} else if (flag == 2) { // --修改
+
+				// 检查字段
+				// checkFields(formFields, data, primaryKey, flag, userType);
+				// 模板参数
+				int FID = data.getInteger(primaryKey);
+				// 准备保存模板
+				Map<String, Object> statement = prepareEditMap(data, formFields, primaryTableName, primaryKey, FID);
+
+				// 修改基础资料分录
+				templateDaoMapper.edit(statement);
+
+			} else if (flag == 0) { // --删除，组装items
+
+				int FID = data.getInteger(primaryKey);
+				items += "," + FID;
+
+			}
+		}
+
+		if (!items.equals("")) { // --items不为空，则执行删除
+			Map<String, Object> statement = new HashMap<String, Object>();
+			statement.put("tableName", primaryTableName);
+			statement.put("primaryKey", primaryKey);
+			statement.put("items", items.substring(1));
+			templateDaoMapper.del(statement);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private Map<String, Object> prepareEditMap(JSONObject data, Map<String, Object> formFields, String primaryTableName, String primaryKey, int FID) {
+		StringBuffer kvBuffer = new StringBuffer("");
+
+		for (Iterator<String> iterator = data.keySet().iterator(); iterator.hasNext();) {
+
+			String key = iterator.next();
+			if (key.equals("entry"))
+				continue;
+			Map<String, Object> fieldTemplate = (Map<String, Object>) formFields.get(key);
+			if (fieldTemplate == null)
+				continue;
+			Integer FLookUpType = (Integer) fieldTemplate.get("FLookUpType");
+			if (FLookUpType == 3 || FLookUpType == 5)// 引用基础资料的附加属性OR关联普通表携带字段，无需保存
+				continue;
+
+			String value = data.getString(key);
+			value = handleSqlInjection(value);
+
+			String fieldName = (String) fieldTemplate.get("FSQLColumnName");
+			kvBuffer.append(",").append(fieldName).append("=");
+
+			if (value == null || value.equals("")) {
+				kvBuffer.append("null");
+			} else {
+				int dataType = (Integer) fieldTemplate.get("FDataType");
+				DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);
+				switch (typeEnum) {
+				case NUMBER:
+					kvBuffer.append(value);
+					break;
+				case TEXT:
+					kvBuffer.append("'").append(value).append("'");
+					break;
+				case BOOLEAN:
+					kvBuffer.append(value);
+					break;
+				case TIME:
+					kvBuffer.append("'").append(value).append("'");
+					break;
+				default:
+					kvBuffer.append("'").append(value).append("'");
+					break;
+
+				}
+			}
+		}
+
+		String kvStr = kvBuffer.length() > 0 ? kvBuffer.toString().substring(1) : "";
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tableName", primaryTableName);
+		map.put("kvStr", kvStr);
+		map.put("primaryKey", primaryKey);
+		map.put("FID", FID);
+
+		return map;
+	}
+
 }
