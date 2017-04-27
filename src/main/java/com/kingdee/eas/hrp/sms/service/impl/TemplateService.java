@@ -464,7 +464,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, Object> template = getFormTemplate(classId, 1);
 
 		// 主表字段模板
-		Map<String, Object> formFields = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
 		// 第一个子表字段模板(如果有)
 		// Map<String, Object> formFields1 = new HashMap<String, Object>(); // 第一个子表的字段模板
 		// 主表资料描述信息
@@ -503,7 +503,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, Object> template = getFormTemplate(classId, 1);
 
 		// 主表字段模板
-		Map<String, Object> formFields = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
 
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) template.get("formClass");
@@ -1252,7 +1252,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> prepareAddMap(JSONObject data, Map<String, Object> formFields, String primaryTableName) {
+	private Map<String, Object> prepareAddMap(JSONObject data, Map<String, FormFields> formFields, String primaryTableName) {
 
 		StringBuffer fieldNames = new StringBuffer("");
 		StringBuffer fieldValues = new StringBuffer("");
@@ -1263,11 +1263,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 			if (key.equals("entry"))
 				continue;
 
-			Map<String, Object> fieldTemplate = (Map<String, Object>) formFields.get(key);
+			FormFields formField = formFields.get(key);
 
-			if (fieldTemplate == null)
+			if (formField == null)
 				continue;
-			Integer lookUpType = (Integer) fieldTemplate.get("lookUpType");
+			Integer lookUpType = formField.getLookUpType();
 			if (lookUpType == 3)// 引用基础资料的附加属性，无需保存
 				continue;
 
@@ -1277,10 +1277,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 			if (value == null || value.equals("")) {
 				continue;
 			}
-			String fieldName = (String) fieldTemplate.get("sqlColumnName");
+			String fieldName = formField.getSqlColumnName();
 			fieldNames.append(",").append(fieldName);
 
-			int dataType = (Integer) fieldTemplate.get("dataType");
+			int dataType = formField.getDataType();
 
 			DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);
 
@@ -1340,7 +1340,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			for (Iterator<String> iterator = formEntries.keySet().iterator(); iterator.hasNext();) {
 
 				String key = iterator.next(); // key 等于1或2或3...
-				Map<String, Object> formFields = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get(key);
+				Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get(key);
 				JSONArray entryData = jsonEntry.getJSONArray(key);
 				Map<String, Object> formEntry = (Map<String, Object>) formEntries.get(key);
 				// 保存或删除分录数据
@@ -1367,7 +1367,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @param userType
 	 *            TODO
 	 */
-	private void saveEntry(JSONArray entryData, Map<String, Object> formEntry, Map<String, Object> formFields, int id) {
+	private void saveEntry(JSONArray entryData, Map<String, Object> formEntry, Map<String, FormFields> formFields, int id) {
 
 		String primaryTableName = (String) formEntry.get("FTableName");
 		String primaryKey = (String) formEntry.get("FPrimaryKey");
@@ -1433,7 +1433,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> prepareEditMap(JSONObject data, Map<String, Object> formFields, String primaryTableName, String primaryKey, int id) {
+	private Map<String, Object> prepareEditMap(JSONObject data, Map<String, FormFields> formFields, String primaryTableName, String primaryKey, int id) {
 		StringBuffer kvBuffer = new StringBuffer("");
 
 		for (Iterator<String> iterator = data.keySet().iterator(); iterator.hasNext();) {
@@ -1441,23 +1441,25 @@ public class TemplateService extends BaseService implements ITemplateService {
 			String key = iterator.next();
 			if (key.equals("entry"))
 				continue;
-			Map<String, Object> fieldTemplate = (Map<String, Object>) formFields.get(key);
-			if (fieldTemplate == null)
+			FormFields formField = formFields.get(key);
+			if (formField == null)
 				continue;
-			Integer FLookUpType = (Integer) fieldTemplate.get("FLookUpType");
-			if (FLookUpType == 3 || FLookUpType == 5)// 引用基础资料的附加属性OR关联普通表携带字段，无需保存
+
+			Integer lookUpType = formField.getLookUpType();
+
+			if (lookUpType == 3 || lookUpType == 5)// 引用基础资料的附加属性OR关联普通表携带字段，无需保存
 				continue;
 
 			String value = data.getString(key);
 			value = handleSqlInjection(value);
 
-			String fieldName = (String) fieldTemplate.get("FSQLColumnName");
+			String fieldName = formField.getSqlColumnName();
 			kvBuffer.append(",").append(fieldName).append("=");
 
 			if (value == null || value.equals("")) {
 				kvBuffer.append("null");
 			} else {
-				int dataType = (Integer) fieldTemplate.get("FDataType");
+				int dataType = formField.getDataType();
 				DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);
 				switch (typeEnum) {
 				case NUMBER:
