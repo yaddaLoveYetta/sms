@@ -21,7 +21,7 @@
     //默认配置
     var defaults = {
         pageSize: 10,
-        typeID: '',
+        typeId: '',
         pageNo: 1,
         hasBreadcrumbs: true,
         multiSelect: true

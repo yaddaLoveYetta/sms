@@ -31,7 +31,7 @@
         var isFirst = false;
         var meta = {
             container: config.container,
-            typeID: config.typeID,
+            typeId: config.typeId,
             hasBreadcrumbs: config.hasBreadcrumbs,
             targetType: config.targetType,
             supperConditions: config.supperConditions,
@@ -109,7 +109,7 @@
                         width: meta.defaults.width,
                         height: meta.defaults.height,
                         data: {
-                            typeID: meta.typeID || '',
+                            typeId: meta.typeId || '',
                             multiSelect: meta.defaults.multiSelect,
                             pageSize: meta.defaults.pageSize,
                             hasBreadcrumbs: meta.hasBreadcrumbs,
