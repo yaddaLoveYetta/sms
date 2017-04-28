@@ -81,7 +81,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitCurrency(Currency currency) {
 
-		Integer currencyId = currency.getCurrencyId();
+		String currencyId = currency.getId();
 
 		if (null == currencyId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -90,7 +90,7 @@ public class SyncService extends BaseService implements ISyncService {
 		CurrencyMapper mapper = sqlSession.getMapper(CurrencyMapper.class);
 		CurrencyExample example = new CurrencyExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andCurrencyIdEqualTo(currencyId);
+		criteria.andIdEqualTo(currencyId);
 		List<Currency> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
@@ -136,7 +136,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitCategory(Category category) {
 
-		Integer categoryId = category.getCategoryId();
+		String categoryId = category.getId();
 
 		if (null == categoryId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -145,7 +145,7 @@ public class SyncService extends BaseService implements ISyncService {
 		CategoryMapper mapper = sqlSession.getMapper(CategoryMapper.class);
 		CategoryExample example = new CategoryExample();
 		com.kingdee.eas.hrp.sms.model.CategoryExample.Criteria criteria = example.createCriteria();
-		criteria.andCategoryIdEqualTo(categoryId);
+		criteria.andIdEqualTo(categoryId);
 		List<Category> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
@@ -191,7 +191,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitCertificate(Certificate certificate) {
 
-		Integer certificateId = certificate.getCertificateId();
+		String certificateId = certificate.getId();
 
 		if (null == certificateId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -200,7 +200,7 @@ public class SyncService extends BaseService implements ISyncService {
 		CertificateMapper mapper = sqlSession.getMapper(CertificateMapper.class);
 		CertificateExample example = new CertificateExample();
 		com.kingdee.eas.hrp.sms.model.CertificateExample.Criteria criteria = example.createCriteria();
-		criteria.andCertificateIdEqualTo(certificateId);
+		criteria.andIdEqualTo(certificateId);
 		List<Certificate> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
@@ -246,7 +246,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitIndustry(Industry industry) {
 
-		Integer industryId = industry.getIndustryId();
+		String industryId = industry.getId();
 
 		if (null == industryId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -255,7 +255,7 @@ public class SyncService extends BaseService implements ISyncService {
 		IndustryMapper mapper = sqlSession.getMapper(IndustryMapper.class);
 		IndustryExample example = new IndustryExample();
 		com.kingdee.eas.hrp.sms.model.IndustryExample.Criteria criteria = example.createCriteria();
-		criteria.andIndustryIdEqualTo(industryId);
+		criteria.andIdEqualTo(industryId);
 		List<Industry> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
@@ -301,7 +301,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitSettlement(Settlement settlement) {
 
-		Integer settlementId = settlement.getSettlementId();
+		String settlementId = settlement.getId();
 
 		if (null == settlementId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -310,7 +310,7 @@ public class SyncService extends BaseService implements ISyncService {
 		SettlementMapper mapper = sqlSession.getMapper(SettlementMapper.class);
 		SettlementExample example = new SettlementExample();
 		com.kingdee.eas.hrp.sms.model.SettlementExample.Criteria criteria = example.createCriteria();
-		criteria.andSettlementIdEqualTo(settlementId);
+		criteria.andIdEqualTo(settlementId);
 		List<Settlement> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
@@ -356,7 +356,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitPay(Pay pay) {
 
-		Integer payId = pay.getPayId();
+		String payId = pay.getId();
 
 		if (null == payId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -365,7 +365,7 @@ public class SyncService extends BaseService implements ISyncService {
 		PayMapper mapper = sqlSession.getMapper(PayMapper.class);
 		PayExample example = new PayExample();
 		com.kingdee.eas.hrp.sms.model.PayExample.Criteria criteria = example.createCriteria();
-		criteria.andPayIdEqualTo(payId);
+		criteria.andIdEqualTo(payId);
 		List<Pay> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
@@ -411,7 +411,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitItem(Item item) {
 
-		Integer itemId = item.getItemId();
+		String itemId = item.getId();
 
 		if (null == itemId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -420,7 +420,7 @@ public class SyncService extends BaseService implements ISyncService {
 		ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
 		ItemExample example = new ItemExample();
 		com.kingdee.eas.hrp.sms.model.ItemExample.Criteria criteria = example.createCriteria();
-		criteria.andItemIdEqualTo(itemId);
+		criteria.andIdEqualTo(itemId);
 		List<Item> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
@@ -466,7 +466,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitTaxCategory(TaxCategory taxCategory) {
 
-		Integer taxCategoryId = taxCategory.getTaxCategoryId();
+		String taxCategoryId = taxCategory.getId();
 
 		if (null == taxCategoryId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -475,7 +475,7 @@ public class SyncService extends BaseService implements ISyncService {
 		TaxCategoryMapper mapper = sqlSession.getMapper(TaxCategoryMapper.class);
 		TaxCategoryExample example = new TaxCategoryExample();
 		com.kingdee.eas.hrp.sms.model.TaxCategoryExample.Criteria criteria = example.createCriteria();
-		criteria.andTaxCategoryIdEqualTo(taxCategoryId);
+		criteria.andIdEqualTo(taxCategoryId);
 		List<TaxCategory> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
@@ -521,7 +521,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	private void sumbitSupplier(Supplier supplier) {
 
-		Integer supplierId = supplier.getSupplierId();
+		String supplierId = supplier.getId();
 
 		if (null == supplierId) {
 			throw new BusinessLogicRunTimeException("内码为空");
@@ -530,7 +530,7 @@ public class SyncService extends BaseService implements ISyncService {
 		SupplierMapper mapper = sqlSession.getMapper(SupplierMapper.class);
 		SupplierExample example = new SupplierExample();
 		com.kingdee.eas.hrp.sms.model.SupplierExample.Criteria criteria = example.createCriteria();
-		criteria.andSupplierIdEqualTo(supplierId);
+		criteria.andIdEqualTo(supplierId);
 		List<Supplier> selectByExample = mapper.selectByExample(example);
 
 		if (selectByExample.size() > 0) {
