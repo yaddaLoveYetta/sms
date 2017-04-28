@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kingdee.eas.hrp.sms.exception.BaseRuntimeException;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+import com.kingdee.eas.hrp.sms.util.StatusCode;
+
 /**
  * 
  * @ClassName: SMSHandlerExceptionResolver
@@ -20,8 +22,7 @@ import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 public class SMSHandlerExceptionResolver implements HandlerExceptionResolver {
 
 	@Override
-	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
-			Exception ex) {
+	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
 		// 根据不同错误转向不同页面
 		if (ex instanceof BaseRuntimeException) {
@@ -32,7 +33,7 @@ public class SMSHandlerExceptionResolver implements HandlerExceptionResolver {
 
 		} else {
 			// 未知错误
-			ResponseWriteUtil.output(response, ex.getMessage());
+			ResponseWriteUtil.output(response, StatusCode.SYS_BUSY, ex.getMessage());
 
 		}
 
