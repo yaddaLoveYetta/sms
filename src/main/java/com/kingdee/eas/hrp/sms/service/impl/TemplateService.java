@@ -523,7 +523,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 修改前插件事件
 		PlugInFactory factory = new PlugInFactory(classId);
-		PlugInRet result = factory.beforeModify(classId,template, json,userType);
+		PlugInRet result = factory.beforeModify(classId,id,template, json,userType);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());

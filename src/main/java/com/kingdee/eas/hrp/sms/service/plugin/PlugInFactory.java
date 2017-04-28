@@ -193,11 +193,11 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, Map<String, Object> formData, JSONObject data, int userType) {
+	public PlugInRet beforeModify(int classId,int id, Map<String, Object> formData, JSONObject data, int userType) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeModify(classId, formData, data, userType);
+			PlugInRet ret = plugin.beforeModify(classId,id, formData, data, userType);
 			if (ret.getCode() != 200) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;

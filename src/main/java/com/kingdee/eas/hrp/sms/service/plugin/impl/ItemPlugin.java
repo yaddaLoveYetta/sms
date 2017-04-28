@@ -24,21 +24,10 @@ import com.kingdee.eas.hrp.sms.util.Environ;
 
 public class ItemPlugin extends PlugInAdpter {
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String items) {
-		
-		String[] sItems = items.split(",");
-		for(int i=0;i<sItems.length;i++){
-			
-		}
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
-		Set<String> keySet = formFields.keySet();
-		StringBuilder errMsg = new StringBuilder();
-		
-		
-		return super.beforeDelete(classId,formData, items);
+
+		return super.beforeDelete(classId, formData, items);
 	}
 
 	@Override
@@ -48,26 +37,26 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, Map<String, Object> formData, JSONObject data, int userType) {
+	public PlugInRet beforeModify(int classId, int id, Map<String, Object> formData, JSONObject data, int userType) {
 
 		checkMustInput(classId, formData, data, userType);
-		
-		checkIfExistRecord(classId, formData, data, userType);
 
-		return super.beforeModify(classId, formData, data, userType);
+		checkIfExistRecord(classId, id, formData, data, userType);
+
+		return super.beforeModify(classId, id, formData, data, userType);
 	}
 
 	@Override
 	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, int userTyepe) {
 
-		checkMustInput(classId, formData, data, userTyepe);
+		//checkMustInput(classId, formData, data, userTyepe);
 
-		checkIfExistRecord(classId, formData, data, userTyepe);
+		//checkIfExistRecord(classId, formData, data, userTyepe);
 
 		return super.beforeSave(classId, formData, data, userTyepe);
 	}
 
-	private void checkIfExistRecord(int classId, Map<String, Object> formData, JSONObject data, int userTyepe) {
+	private void checkIfExistRecord(int classId, int id, Map<String, Object> formData, JSONObject data, int userTyepe) {
 		SqlSession sqlSession = Environ.getBean(SqlSession.class);
 
 		if (classId == 1001) {
@@ -83,7 +72,7 @@ public class ItemPlugin extends PlugInAdpter {
 			List<User> list = mapper.selectByExample(example);
 			if (list.size() > 0) {
 				User user = list.get(0);
-				if(!user.getUserId().equals(data.getString("userId"))){
+				if (!user.getUserId().equals(data.getInteger("userId"))) {
 					throw new PlugInRuntimeException("该用户已存在");
 				}
 			}
@@ -108,7 +97,7 @@ public class ItemPlugin extends PlugInAdpter {
 			List<UserType> list = mapper.selectByExample(example);
 			if (list.size() > 0) {
 				UserType userType = list.get(0);
-				if(!userType.getTypeId().equals(data.getString("typeId"))){
+				if (!userType.getTypeId().equals(data.getString("typeId"))) {
 					throw new PlugInRuntimeException("该用户类别已存在");
 				}
 			}
@@ -127,7 +116,7 @@ public class ItemPlugin extends PlugInAdpter {
 			List<Role> list = mapper.selectByExample(example);
 			if (list.size() > 0) {
 				Role role = list.get(0);
-				if(!role.getRoleId().equals(data.getString("roleId"))){
+				if (!role.getRoleId().equals(data.getString("roleId"))) {
 					throw new PlugInRuntimeException("该角色已存在");
 				}
 			}
@@ -140,8 +129,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
