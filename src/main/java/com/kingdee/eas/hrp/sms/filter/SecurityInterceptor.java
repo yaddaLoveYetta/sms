@@ -23,6 +23,11 @@ import com.kingdee.eas.hrp.sms.util.StatusCode;
 public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
 	public Map<String, String> allowUrls;// 不拦截的资源
+	public Map<String, String> clientUrls;// 不拦截的资源
+
+	public void setClientUrls(Map<String, String> clientUrls) {
+		this.clientUrls = clientUrls;
+	}
 
 	public void setAllowUrls(Map<String, String> allowUrls) {
 		this.allowUrls = allowUrls;
@@ -49,8 +54,12 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			// 不拦截的请求
 			return super.preHandle(request, response, handler);
 		}
-		
-		
+
+		if (null != clientUrls && clientUrls.containsKey(requestUrl)) {
+			// 不拦截的请求
+			return super.preHandle(request, response, handler);
+		}
+
 		User user = (User) request.getSession().getAttribute("user");
 
 		if (user == null) {
