@@ -24,8 +24,18 @@ import com.kingdee.eas.hrp.sms.util.Environ;
 
 public class ItemPlugin extends PlugInAdpter {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String items) {
+		
+		String[] sItems = items.split(",");
+		for(int i=0;i<sItems.length;i++){
+			
+		}
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
+				.get("formFields")).get("0"); // 主表的字段模板
+		Set<String> keySet = formFields.keySet();
+		StringBuilder errMsg = new StringBuilder();
 		
 		
 		return super.beforeDelete(classId,formData, items);
