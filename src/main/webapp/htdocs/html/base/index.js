@@ -108,6 +108,12 @@
                 ]
             }]
         };
+    } else {
+
+        blConfig = {
+            'items': []
+        };
+
     }
 
     var ButtonList = bl.create(blConfig);

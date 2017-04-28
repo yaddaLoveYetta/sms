@@ -15,8 +15,6 @@
         targetList: {
             1: './html/base/index.html',
             2: './html/support-data/index.html',
-            201:'./html/coupon/index.html',//平台优惠券
-            202:'./html/couponRecord/index.html',//商家优惠券
         }
     };
 
@@ -66,7 +64,7 @@
             var meta = mapper.get(selector);
             $(meta.container).delegate('[data-role="btn"]', 'click', function () {
 
-                var url = $.Url.setQueryString(defaults.targetList[meta.targetType], 'classID', meta.classID);
+                var url = $.Url.setQueryString(defaults.targetList[meta.targetType], 'classId', meta.classID);
 
                 //新增关联查询逻辑 --------------begin--------------
                 var dataSelectors = DataSelector.DataSelectors;
@@ -122,11 +120,11 @@
                         button: [
 		                    {
 		                        value: '取消',
-		                        className: 'ywtc-cancel-btn',
+		                        className: 'sms-cancel-btn',
 		                    },
 		                    {
 		                        value: '确定',
-		                        className: 'ywtc-submit-btn',
+		                        className: 'sms-submit-btn',
 		                        callback: function () { this.isSubmit = true; },
 		                    }
                         ],
