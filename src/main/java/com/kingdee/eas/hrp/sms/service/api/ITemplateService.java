@@ -78,7 +78,7 @@ public interface ITemplateService {
 	 * @return int
 	 * @date 2017-04-27 14:19:33 星期四
 	 */
-	int addItem(Integer classId, String data);
+	int addItem(Integer classId, String data, int userType);
 
 	/**
 	 * 根基模板修改基础资料
@@ -88,7 +88,21 @@ public interface ITemplateService {
 	 * @param id
 	 * @param data
 	 *            void
+	 * @param userType 
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
-	void editItem(Integer classId, Integer id, String data);
+	void editItem(Integer classId, Integer id, String data, int userType);
+
+	/**
+	 * 根基模板删除基础资料
+	 * 
+	 * @Title deleteItem
+	 * @param classId
+	 * @param id
+	 * @param data
+	 *            void
+	 * @param userType 
+	 * @date 2017-04-27 15:40:28 星期四
+	 */
+	void deleteItem(Integer classId, Integer id, String data, int userType);
 }
