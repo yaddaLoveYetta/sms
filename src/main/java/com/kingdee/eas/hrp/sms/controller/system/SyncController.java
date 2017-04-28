@@ -16,10 +16,14 @@ import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.Certificate;
+import com.kingdee.eas.hrp.sms.model.City;
+import com.kingdee.eas.hrp.sms.model.Country;
+import com.kingdee.eas.hrp.sms.model.County;
 import com.kingdee.eas.hrp.sms.model.Currency;
 import com.kingdee.eas.hrp.sms.model.Industry;
 import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.Pay;
+import com.kingdee.eas.hrp.sms.model.Province;
 import com.kingdee.eas.hrp.sms.model.Settlement;
 import com.kingdee.eas.hrp.sms.model.Supplier;
 import com.kingdee.eas.hrp.sms.model.TaxCategory;
@@ -322,6 +326,138 @@ public class SyncController {
 		}
 
 		List<Map<String, Object>> ret = syncService.supplier(list);
+
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		if (ret.isEmpty()) {
+			// 全部同步成功
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			// 有同步失败记录-返回同步失败，客户端解析失败原因
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
+		}
+	}
+	
+	@ControllerLog(desc = "同步国家") // 做日志
+	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步国家") // 权限
+	@RequestMapping(value = "country")
+	public void country(HttpServletRequest request, HttpServletResponse response) {
+
+		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
+		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
+
+		// 基本参数校验
+		if (size <= 0) {
+			throw new BusinessLogicRunTimeException("必须提交参数size");
+		}
+		if (listStr.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+		List<Country> list = JSONObject.parseArray(listStr, Country.class);
+
+		if (list.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+
+		List<Map<String, Object>> ret = syncService.country(list);
+
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		if (ret.isEmpty()) {
+			// 全部同步成功
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			// 有同步失败记录-返回同步失败，客户端解析失败原因
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
+		}
+	}
+	
+	@ControllerLog(desc = "同步城市") // 做日志
+	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步城市") // 权限
+	@RequestMapping(value = "city")
+	public void city(HttpServletRequest request, HttpServletResponse response) {
+
+		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
+		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
+
+		// 基本参数校验
+		if (size <= 0) {
+			throw new BusinessLogicRunTimeException("必须提交参数size");
+		}
+		if (listStr.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+		List<City> list = JSONObject.parseArray(listStr, City.class);
+
+		if (list.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+
+		List<Map<String, Object>> ret = syncService.city(list);
+
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		if (ret.isEmpty()) {
+			// 全部同步成功
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			// 有同步失败记录-返回同步失败，客户端解析失败原因
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
+		}
+	}
+	
+	@ControllerLog(desc = "同步省份") // 做日志
+	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步省份") // 权限
+	@RequestMapping(value = "province")
+	public void province(HttpServletRequest request, HttpServletResponse response) {
+
+		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
+		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
+
+		// 基本参数校验
+		if (size <= 0) {
+			throw new BusinessLogicRunTimeException("必须提交参数size");
+		}
+		if (listStr.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+		List<Province> list = JSONObject.parseArray(listStr, Province.class);
+
+		if (list.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+
+		List<Map<String, Object>> ret = syncService.province(list);
+
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		if (ret.isEmpty()) {
+			// 全部同步成功
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			// 有同步失败记录-返回同步失败，客户端解析失败原因
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
+		}
+	}
+	
+	@ControllerLog(desc = "同步区县") // 做日志
+	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步区县") // 权限
+	@RequestMapping(value = "county")
+	public void county(HttpServletRequest request, HttpServletResponse response) {
+
+		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
+		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
+
+		// 基本参数校验
+		if (size <= 0) {
+			throw new BusinessLogicRunTimeException("必须提交参数size");
+		}
+		if (listStr.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+		List<County> list = JSONObject.parseArray(listStr, County.class);
+
+		if (list.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+
+		List<Map<String, Object>> ret = syncService.county(list);
 
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {

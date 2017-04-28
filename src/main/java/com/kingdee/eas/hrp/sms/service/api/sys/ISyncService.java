@@ -7,10 +7,14 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.Certificate;
+import com.kingdee.eas.hrp.sms.model.City;
+import com.kingdee.eas.hrp.sms.model.Country;
+import com.kingdee.eas.hrp.sms.model.County;
 import com.kingdee.eas.hrp.sms.model.Currency;
 import com.kingdee.eas.hrp.sms.model.Industry;
 import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.Pay;
+import com.kingdee.eas.hrp.sms.model.Province;
 import com.kingdee.eas.hrp.sms.model.Settlement;
 import com.kingdee.eas.hrp.sms.model.Supplier;
 import com.kingdee.eas.hrp.sms.model.TaxCategory;
@@ -122,4 +126,40 @@ public interface ISyncService {
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> supplier(List<Supplier> list);
+
+	/**
+	 * 同步国家
+	 * @Title country
+	 * @param list
+	 * 		  country 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> country(List<Country> list);
+
+	/**
+	 * 同步城市
+	 * @Title city
+	 * @param list
+	 * 		  city 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> city(List<City> list);
+
+	/**
+	 * 同步省份
+	 * @Title province
+	 * @param list
+	 * 		  province 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> province(List<Province> list);
+
+	/**
+	 * 同步区县
+	 * @Title county
+	 * @param list
+	 * 		  county 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> county(List<County> list);
 }

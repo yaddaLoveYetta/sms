@@ -15,10 +15,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.generate.CategoryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.CertificateMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.CityMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.CountryMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.CountyMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.CurrencyMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.IndustryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.PayMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.ProvinceMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SettlementMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.TaxCategoryMapper;
@@ -27,6 +31,12 @@ import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.CategoryExample;
 import com.kingdee.eas.hrp.sms.model.Certificate;
 import com.kingdee.eas.hrp.sms.model.CertificateExample;
+import com.kingdee.eas.hrp.sms.model.City;
+import com.kingdee.eas.hrp.sms.model.CityExample;
+import com.kingdee.eas.hrp.sms.model.Country;
+import com.kingdee.eas.hrp.sms.model.CountryExample;
+import com.kingdee.eas.hrp.sms.model.County;
+import com.kingdee.eas.hrp.sms.model.CountyExample;
 import com.kingdee.eas.hrp.sms.model.Currency;
 import com.kingdee.eas.hrp.sms.model.CurrencyExample;
 import com.kingdee.eas.hrp.sms.model.CurrencyExample.Criteria;
@@ -36,6 +46,8 @@ import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.ItemExample;
 import com.kingdee.eas.hrp.sms.model.Pay;
 import com.kingdee.eas.hrp.sms.model.PayExample;
+import com.kingdee.eas.hrp.sms.model.Province;
+import com.kingdee.eas.hrp.sms.model.ProvinceExample;
 import com.kingdee.eas.hrp.sms.model.Settlement;
 import com.kingdee.eas.hrp.sms.model.SettlementExample;
 import com.kingdee.eas.hrp.sms.model.Supplier;
@@ -539,6 +551,226 @@ public class SyncService extends BaseService implements ISyncService {
 		} else {
 			// 插入
 			mapper.insert(supplier);
+		}
+
+	}
+	
+	@Override
+	public List<Map<String, Object>> country(List<Country> list) {
+
+		// 同步失败的记录
+		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
+
+		for (Country country : list) {
+
+			Map<String, Object> errCountry = new HashMap<String, Object>(); // 记录错误信息
+
+			try {
+				sumbitCountry(country);
+			} catch (Exception e) {
+				errCountry.put("desc", e.getMessage());
+				errCountry.put("country", country);
+				errList.add(errCountry);
+			}
+
+		}
+		return errList;
+	}
+
+	/**
+	 * 提交一条数据到数据库，并提交事务
+	 * 
+	 * @Title sumbit
+	 * @param country
+	 *            void
+	 * @date 2017-04-22 22:30:29 星期六
+	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	private void sumbitCountry(Country country) {
+
+		String countryId = country.getId();
+
+		if (null == countryId) {
+			throw new BusinessLogicRunTimeException("内码为空");
+		}
+
+		CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+		CountryExample example = new CountryExample();
+		com.kingdee.eas.hrp.sms.model.CountryExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(countryId);
+		List<Country> selectByExample = mapper.selectByExample(example);
+
+		if (selectByExample.size() > 0) {
+			// 已经存在
+			mapper.updateByPrimaryKeySelective(country);
+		} else {
+			// 插入
+			mapper.insert(country);
+		}
+
+	}
+	
+	@Override
+	public List<Map<String, Object>> city(List<City> list) {
+
+		// 同步失败的记录
+		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
+
+		for (City city : list) {
+
+			Map<String, Object> errCity = new HashMap<String, Object>(); // 记录错误信息
+
+			try {
+				sumbitCity(city);
+			} catch (Exception e) {
+				errCity.put("desc", e.getMessage());
+				errCity.put("city", city);
+				errList.add(errCity);
+			}
+
+		}
+		return errList;
+	}
+
+	/**
+	 * 提交一条数据到数据库，并提交事务
+	 * 
+	 * @Title sumbit
+	 * @param city
+	 *            void
+	 * @date 2017-04-22 22:30:29 星期六
+	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	private void sumbitCity(City city) {
+
+		String cityId = city.getId();
+
+		if (null == cityId) {
+			throw new BusinessLogicRunTimeException("内码为空");
+		}
+
+		CityMapper mapper = sqlSession.getMapper(CityMapper.class);
+		CityExample example = new CityExample();
+		com.kingdee.eas.hrp.sms.model.CityExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(cityId);
+		List<City> selectByExample = mapper.selectByExample(example);
+
+		if (selectByExample.size() > 0) {
+			// 已经存在
+			mapper.updateByPrimaryKeySelective(city);
+		} else {
+			// 插入
+			mapper.insert(city);
+		}
+
+	}
+	
+	@Override
+	public List<Map<String, Object>> province(List<Province> list) {
+
+		// 同步失败的记录
+		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
+
+		for (Province province : list) {
+
+			Map<String, Object> errProvince = new HashMap<String, Object>(); // 记录错误信息
+
+			try {
+				sumbitProvince(province);
+			} catch (Exception e) {
+				errProvince.put("desc", e.getMessage());
+				errProvince.put("province", province);
+				errList.add(errProvince);
+			}
+
+		}
+		return errList;
+	}
+
+	/**
+	 * 提交一条数据到数据库，并提交事务
+	 * 
+	 * @Title sumbit
+	 * @param province
+	 *            void
+	 * @date 2017-04-22 22:30:29 星期六
+	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	private void sumbitProvince(Province province) {
+
+		String provinceId = province.getId();
+
+		if (null == provinceId) {
+			throw new BusinessLogicRunTimeException("内码为空");
+		}
+
+		ProvinceMapper mapper = sqlSession.getMapper(ProvinceMapper.class);
+		ProvinceExample example = new ProvinceExample();
+		com.kingdee.eas.hrp.sms.model.ProvinceExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(provinceId);
+		List<Province> selectByExample = mapper.selectByExample(example);
+
+		if (selectByExample.size() > 0) {
+			// 已经存在
+			mapper.updateByPrimaryKeySelective(province);
+		} else {
+			// 插入
+			mapper.insert(province);
+		}
+
+	}
+	
+	@Override
+	public List<Map<String, Object>> county(List<County> list) {
+
+		// 同步失败的记录
+		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
+
+		for (County county : list) {
+
+			Map<String, Object> errCounty = new HashMap<String, Object>(); // 记录错误信息
+
+			try {
+				sumbitCounty(county);
+			} catch (Exception e) {
+				errCounty.put("desc", e.getMessage());
+				errCounty.put("county", county);
+				errList.add(errCounty);
+			}
+
+		}
+		return errList;
+	}
+
+	/**
+	 * 提交一条数据到数据库，并提交事务
+	 * 
+	 * @Title sumbit
+	 * @param county
+	 *            void
+	 * @date 2017-04-22 22:30:29 星期六
+	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	private void sumbitCounty(County county) {
+
+		String countyId = county.getId();
+
+		if (null == countyId) {
+			throw new BusinessLogicRunTimeException("内码为空");
+		}
+
+		CountyMapper mapper = sqlSession.getMapper(CountyMapper.class);
+		CountyExample example = new CountyExample();
+		com.kingdee.eas.hrp.sms.model.CountyExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(countyId);
+		List<County> selectByExample = mapper.selectByExample(example);
+
+		if (selectByExample.size() > 0) {
+			// 已经存在
+			mapper.updateByPrimaryKeySelective(county);
+		} else {
+			// 插入
+			mapper.insert(county);
 		}
 
 	}
