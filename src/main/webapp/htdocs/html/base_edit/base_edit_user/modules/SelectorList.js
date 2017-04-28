@@ -36,7 +36,11 @@ define('SelectorList', function (require, module, exports) {
         classID: 1003,
         hasBreadcrumbs: true,
         container: roleContainer,
-        conditionF7Names: [{SelectorName: "FCompany", FillterKey: "FCompany"}],   //级联查询条件 多个用逗号分割
+        conditionF7Names: [{SelectorName: "type", FillterKey: "type"}, {
+            SelectorName: "FType",
+            FillterKey: "FRoleType",
+            ValueRule: {50801: 50701, 50802: 50702}
+        }],   //级联查询条件 多个用逗号分割
         title: '角色',
         defaults: {
             pageSize: 8
