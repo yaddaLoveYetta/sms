@@ -36,9 +36,9 @@
             targetType: config.targetType,
             supperConditions: config.supperConditions,
             title: config.title,
-            conditions:config.conditions||{},
+            conditions: config.conditions || {},
             classID: config.classID || '',
-            checkbox:config.checkbox,
+            checkbox: config.checkbox,
             conditionF7Names: config.conditionF7Names || [], //新增查询条件集合 [{SelectorName:"FCompany",FillterKey: "FCompany", ValueRule: { 50801: 50701, 50802: 50702 } }]
             data: [{
                 'ID': '',
@@ -66,13 +66,44 @@
 
                 var url = $.Url.setQueryString(defaults.targetList[meta.targetType], 'classId', meta.classID);
 
-                //新增关联查询逻辑 --------------begin--------------
+                //新增关联查询条件逻辑 --------------begin--------------
                 var dataSelectors = DataSelector.DataSelectors;
+
                 //获取 对象静态变量
-               // var conditions = {};
                 for (var i = 0; i < meta.conditionF7Names.length; i++) {
+
                     var conditionData = meta.conditionF7Names[i];
-                    var f7Name = conditionData.SelectorName || "";
+
+                    var type = conditionData.type || "";  // 过滤字段类别
+                    var target;
+                    var filterKey;
+                    if (type === 'selector') {
+                         target = conditionData.target || "";
+                         filterKey = conditionData.filterKey || "";
+                    }
+
+                    if (type == "selector" && $.trim(target) !== "" && $.trim(filterKey) !== "") {
+                        // 关联F7控件条件
+                        var value = dataSelectors[target].getData() && dataSelectors[target].getData()[0].ID || 0;
+
+                        if (value === 0) {
+                            delete meta.conditions[target];//清除没必要的或者已经清空的查询条件
+                            continue;
+                            //不是必须关联的 如果所关联的为空则跳过该查询条件
+                        }
+
+                        meta.conditions[conditionData.target] = {
+                            'andOr': 'and',
+                            'leftParenTheses': '(',
+                            'fieldKey': filterKey,
+                            'logicOperator': '=',
+                            'value': value,
+                            'rightParenTheses': ')',
+                            needConvert: false
+                        };
+                    }
+
+           /*         var f7Name = conditionData.SelectorName || "";
                     var fillterKey = conditionData.FillterKey || "";
                     var isNeed = conditionData.IsNeed || false;
                     //默认为false
@@ -81,7 +112,7 @@
                         var id = dataSelectors[f7Name].getData() && dataSelectors[f7Name].getData()[0].ID || 0;
                         //(isNeed === true ? 0 : "");//不是必要条件默认为““：否则默认为0 用于查询区分
                         if (id === 0 && isNeed === false) {
-                        	delete meta.conditions[f7Name];//清除没必要的或者已经清空的查询条件
+                            delete meta.conditions[f7Name];//清除没必要的或者已经清空的查询条件
                             continue;
                             //不是必须关联的 如果所关联的为空则跳过该查询条件
                         }
@@ -97,7 +128,7 @@
                             'rightParenTheses': ')',
                             needConvert: false
                         };
-                    }
+                    }*/
                 }
                 //新增关联查询逻辑 --------------end--------------
 
@@ -115,18 +146,20 @@
                             hasBreadcrumbs: meta.hasBreadcrumbs,
                             conditions: meta.conditions,
                             supperConditions: meta.supperConditions,
-                            checkbox:meta.checkbox
+                            checkbox: meta.checkbox
                         },
                         button: [
-		                    {
-		                        value: '取消',
-		                        className: 'sms-cancel-btn',
-		                    },
-		                    {
-		                        value: '确定',
-		                        className: 'sms-submit-btn',
-		                        callback: function () { this.isSubmit = true; },
-		                    }
+                            {
+                                value: '取消',
+                                className: 'sms-cancel-btn',
+                            },
+                            {
+                                value: '确定',
+                                className: 'sms-submit-btn',
+                                callback: function () {
+                                    this.isSubmit = true;
+                                },
+                            }
                         ],
                         // ok : function() {
                         // this.isSubmit = true;
@@ -227,10 +260,10 @@
         setData: function (data) {
 
             var meta = mapper.get(this);
-            if(meta.container){
-	            var label = $(meta.container).find('[data-role="label"]')[0];
-	            meta.data = data;
-	            label.value = meta.data[0].name;
+            if (meta.container) {
+                var label = $(meta.container).find('[data-role="label"]')[0];
+                meta.data = data;
+                label.value = meta.data[0].name;
             }
 
         },

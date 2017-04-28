@@ -40,8 +40,15 @@
             conditions = {classId: defaults.typeId};
         }
 
+
+        if(data.conditions) {
+            // 新增查询条件
+            $.Object.extend(conditions, data.conditions);
+        }
+
         dialog.on({
-            close: function () {
+            close: function() {
+                //window.top && window.top.$("#div-tips").hide();
                 getData();
             }
         });
