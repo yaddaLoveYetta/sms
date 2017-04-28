@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
@@ -13,11 +14,12 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 @Service
 public class OrderService extends BaseService implements IOrderService{
 	
+	@Override
 	public String order(JSONArray orderArray){
 		Iterator<Object> it = orderArray.iterator();
+			Order order=new Order();
 		 while (it.hasNext()) {
              JSONObject ob = (JSONObject) it.next();
-             Order order=new Order();
              if(ob.getString("supplier_id")!=null){
             	 order.setSupplier_id(ob.getString("supplier_id"));
              }
@@ -27,7 +29,7 @@ public class OrderService extends BaseService implements IOrderService{
              if(ob.getString("buyer_id")!=null){
             	 order.setBuyer_id(ob.getString("buyer_id"));
              }
-             if(ob.getString("material_code")!=null){
+             /*if(ob.getString("material_code")!=null){
             	 order.setMaterial_code(ob.getString("material_code"));
              }
              if(ob.getString("material_name")!=null){
@@ -44,18 +46,15 @@ public class OrderService extends BaseService implements IOrderService{
              }
              if(ob.getInteger("numbers")!=null){
             	 order.setNumbers(ob.getInteger("numbers"));
-             }
+             }*/
              if(ob.getDate("order_time")!=null){
 					order.setOrder_time(ob.getDate("order_time"));
              }
-             if(ob.getDate("delivery_time")!=null){
+            /* if(ob.getDate("delivery_time")!=null){
             	 order.setDelivery_time(ob.getDate("delivery_time"));
-             }
+             }*/
              if(ob.getDate("cutasingle_time")!=null){
             	 order.setCutasingle_time(ob.getDate("cutasingle_time"));
-             }
-             if(ob.getDate("confirm_delivery_time")!=null){
-            	 order.setConfirm_delivery_time(ob.getDate("confirm_delivery_time"));
              }
              if(ob.getInteger("confirm_delivery_numbers")!=null){
             	 order.setConfirm_delivery_numbers(ob.getInteger("confirm_delivery_numbers"));
@@ -70,6 +69,9 @@ public class OrderService extends BaseService implements IOrderService{
             	 order.setConfirm_order(ob.getInteger("confirm_order"));
              }
 		 }
+		 OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		 mapper.insertSelective(order);
+		 
 		return "success";
 	}
 }
