@@ -107,7 +107,7 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_plugins" domainObjectName="Plugins">
 
 			<property name="useActualColumnNames" value="true" />
@@ -120,13 +120,13 @@
 
 		</table>
 
-		<table tableName="t_sms_userType" domainObjectName="UserType">
+		<table tableName="t_sms_user" domainObjectName="User">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
 
-		<table tableName="t_sms_user" domainObjectName="User">
+		<table tableName="t_sms_userType" domainObjectName="UserType">
 
 			<property name="useActualColumnNames" value="true" />
 
@@ -185,13 +185,13 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_unit" domainObjectName="Unit">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_purchase_order" domainObjectName="Order">
 
 			<property name="useActualColumnNames" value="true" />
