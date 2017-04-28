@@ -72,7 +72,7 @@ public class ItemPlugin extends PlugInAdpter {
 			List<User> list = mapper.selectByExample(example);
 			if (list.size() > 0) {
 				User user = list.get(0);
-				if (!user.getUserId().equals(data.getInteger("userId"))) {
+				if (!user.getUserId().equals(id)) {
 					throw new PlugInRuntimeException("该用户已存在");
 				}
 			}
