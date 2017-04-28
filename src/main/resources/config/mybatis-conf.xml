@@ -81,6 +81,10 @@
 		<mapper resource="mapper/generate/TaxCategoryMapper.xml" />
 		<mapper resource="mapper/generate/OrderMapper.xml" />
 		<mapper resource="mapper/generate/PluginsMapper.xml" />
+		<mapper resource="mapper/generate/country.xml" />
+		<mapper resource="mapper/generate/city.xml" />
+		<mapper resource="mapper/generate/province.xml" />
+		<mapper resource="mapper/generate/county.xml" />
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
 		<!-- =============================== 复杂Mapper ========================begin=== -->

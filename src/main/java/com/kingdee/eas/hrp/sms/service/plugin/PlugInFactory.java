@@ -86,7 +86,8 @@ public class PlugInFactory implements IPlugIn {
 				if (isPlugIn(clazz, "com.kingdee.eas.hrp.sms.service.plugin.IPlugIn")) {
 
 					/**
-					 * 从spring中获取插件bean，如果没有则将插件加入到spring中管理-bean注册的名字为插件不包含包名的类名
+					 * 从spring中获取插件bean，如果没有则将插件加入到spring中管理-
+					 * bean注册的名字为插件不包含包名的类名
 					 */
 					String className = clazz.getName();
 					String beanName = className.substring(className.lastIndexOf(".") + 1);
@@ -115,10 +116,12 @@ public class PlugInFactory implements IPlugIn {
 	private void registerBean(String name, Class clazz) {
 
 		// 将applicationContext转换为ConfigurableApplicationContext
-		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) Environ.getApplicationContext();
+		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) Environ
+				.getApplicationContext();
 
 		// 获取bean工厂并转换为DefaultListableBeanFactory
-		DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory();
+		DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext
+				.getBeanFactory();
 
 		// 通过BeanDefinitionBuilder创建bean定义
 		BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(clazz);
@@ -162,11 +165,11 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, int userType) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeSave(classId, formData, data);
+			PlugInRet ret = plugin.beforeSave(classId, formData, data, userType);
 			if (ret.getCode() != 200) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;
@@ -190,11 +193,11 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, JSONObject data) {
+	public PlugInRet beforeModify(int classId, Map<String, Object> formData, JSONObject data, int userType) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeModify(classId, data);
+			PlugInRet ret = plugin.beforeModify(classId, formData, data, userType);
 			if (ret.getCode() != 200) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;
@@ -218,11 +221,11 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeDelete(int classId, String items) {
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String items) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeDelete(classId, items);
+			PlugInRet ret = plugin.beforeDelete(classId, formData, items);
 			if (ret.getCode() != 200) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;

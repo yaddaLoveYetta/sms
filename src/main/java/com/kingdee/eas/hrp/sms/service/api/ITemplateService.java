@@ -104,5 +104,5 @@ public interface ITemplateService {
 	 * @param userType 
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
-	void deleteItem(Integer classId, Integer id, String data, int userType);
+	void deleteItem(Integer classId, Integer id, String data);
 }

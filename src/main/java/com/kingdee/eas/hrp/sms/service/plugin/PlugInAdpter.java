@@ -17,7 +17,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	PlugInRet result = new PlugInRet();
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, int userTyepe) {
 		return result;
 	}
 
@@ -27,7 +27,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, JSONObject data) {
+	public PlugInRet beforeModify(int classId, Map<String, Object> formData, JSONObject data, int userType) {
 		return result;
 	}
 
@@ -37,8 +37,9 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeDelete(int classId, String items) {
-		return result;
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String items) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

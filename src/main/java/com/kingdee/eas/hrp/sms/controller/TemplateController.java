@@ -155,6 +155,7 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String data = ParameterUtils.getParameter(request, "data", "");
+		int userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -166,7 +167,7 @@ public class TemplateController {
 			return;
 		}
 
-		int id = templateService.addItem(classId, data);
+		int id = templateService.addItem(classId, data,userType);
 		ResponseWriteUtil.output(response, "新增成功！");
 
 	}
@@ -177,6 +178,7 @@ public class TemplateController {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		Integer id = ParameterUtils.getParameter(request, "itemId", -1);
 		String data = ParameterUtils.getParameter(request, "data", "");
+		int userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -191,7 +193,7 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.editItem(classId, id, data);
+		templateService.editItem(classId, id, data,userType);
 
 		ResponseWriteUtil.output(response, "修改成功！");
 

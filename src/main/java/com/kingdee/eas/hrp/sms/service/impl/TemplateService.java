@@ -459,7 +459,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public int addItem(Integer classId, String data) {
+	public int addItem(Integer classId, String data,int userType) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
@@ -477,7 +477,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 保存前插件事件
 		PlugInFactory factory = new PlugInFactory(classId);
-		PlugInRet result = factory.beforeSave(classId, template, json);
+		PlugInRet result = factory.beforeSave(classId, template, json,userType);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PluginException(result.getMsg());
@@ -506,7 +506,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public void editItem(Integer classId, Integer id, String data) {
+	public void editItem(Integer classId, Integer id, String data,int userType) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
@@ -523,7 +523,48 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 修改前插件事件
 		PlugInFactory factory = new PlugInFactory(classId);
-		PlugInRet result = factory.beforeModify(classId, json);
+		PlugInRet result = factory.beforeModify(classId,template, json,userType);
+
+		if (result != null && result.getCode() != 200) {
+			throw new PlugInRuntimeException(result.getMsg());
+		}
+
+		String primaryTableName = formClass.getTableName();
+		String primaryKey = formClass.getPrimaryKey();
+
+		// 准备保存模板
+		Map<String, Object> statement = prepareEditMap(json, formFields, primaryTableName, primaryKey, id);
+
+		// 修改基础资料
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+		templateDaoMapper.edit(statement);
+
+		// 处理分录数据
+		handleEntryData(classId, id, json);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public void deleteItem(Integer classId, Integer id, String data) {
+
+		// 基础资料模板
+		Map<String, Object> template = getFormTemplate(classId, 1);
+
+		// 主表字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) template.get("formClass");
+
+		// 模板参数
+
+		JSONObject json = JSONObject.parseObject(data);
+
+		// 删除前事件
+		PlugInFactory factory = new PlugInFactory(classId);
+		PlugInRet result = factory.beforeDelete(classId,template, data);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());

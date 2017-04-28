@@ -197,6 +197,27 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
+		
+		<table tableName="t_sms_country" domainObjectName="Country">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		<table tableName="t_sms_city" domainObjectName="City">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		<table tableName="t_sms_province" domainObjectName="Province">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		<table tableName="t_sms_county" domainObjectName="County">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
 
 	</context>
 </generatorConfiguration> 
