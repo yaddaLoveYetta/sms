@@ -43,6 +43,10 @@ public class StatusCode {
 	 * 用户名已经存在
 	 */
 	public static final int USER_ALREADY_EXIST = 601;
+	/**
+	 * 插件错误
+	 */
+	public static final int PLUGIN_ERROR = 801;
 
 	/**
 	 * 不合法的access_token

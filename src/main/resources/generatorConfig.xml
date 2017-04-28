@@ -107,6 +107,12 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
+		
+		<table tableName="t_sms_plugins" domainObjectName="Plugins">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
 
 		<table tableName="t_sms_role" domainObjectName="Role">
 

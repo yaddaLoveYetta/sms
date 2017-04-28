@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.plugin.PluginException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.druid.sql.ast.statement.SQLIfStatement.ElseIf;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.customize.TemplateDaoMapper;
@@ -26,6 +28,7 @@ import com.kingdee.eas.hrp.sms.dao.generate.FormEntriesMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.FormFieldsMapper;
 import com.kingdee.eas.hrp.sms.domain.DataTypeeEnum;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
 import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormClassExample;
 import com.kingdee.eas.hrp.sms.model.FormClassExample.Criteria;
@@ -34,6 +37,8 @@ import com.kingdee.eas.hrp.sms.model.FormEntriesExample;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.service.plugin.PlugInFactory;
+import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.ValidateUtil;
 
 @Service
@@ -472,10 +477,18 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// 子表资料描述信息
 		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
 
+		JSONObject json = JSONObject.parseObject(data);
+
+		// 保存前插件事件
+		PlugInFactory factory = new PlugInFactory(classId);
+		PlugInRet result = factory.beforeSave(classId, template, json);
+
+		if (result != null && result.getCode() != 200) {
+			throw new PluginException(result.getMsg());
+		}
+
 		// 模板参数
 		String primaryTableName = formClass.getTableName();
-
-		JSONObject json = JSONObject.parseObject(data);
 
 		// 准备保存模板
 		Map<String, Object> statement = prepareAddMap(json, formFields, primaryTableName);
@@ -511,6 +524,14 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// 模板参数
 
 		JSONObject json = JSONObject.parseObject(data);
+
+		// 修改前插件事件
+		PlugInFactory factory = new PlugInFactory(classId);
+		PlugInRet result = factory.beforeModify(classId, json);
+
+		if (result != null && result.getCode() != 200) {
+			throw new PlugInRuntimeException(result.getMsg());
+		}
 
 		String primaryTableName = formClass.getTableName();
 		String primaryKey = formClass.getPrimaryKey();
