@@ -130,7 +130,10 @@
     vertical-align: middle;
 }
 .ui-dialog-button {
-    float: right;
+/*    float: right;
+    white-space: nowrap;*/
+    margin-top: 5px;
+    text-align: center;
     white-space: nowrap;
 }
 .ui-dialog-footer button+button {

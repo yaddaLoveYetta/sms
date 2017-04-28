@@ -1352,3 +1352,30 @@ table {
   border-color: #fff transparent transparent transparent;
   border-width: 6px;
 }
+
+.sms-cancel-btn {
+  min-width: 80px;
+  height: 25px;
+  line-height: 25px;
+  color: #fff !important;
+  background-color: #91a5b3 !important;
+  border: none !important;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0 12px !important;
+}
+.sms-submit-btn {
+  min-width: 80px;
+  height: 25px;
+  line-height: 25px;
+  color: #fff !important;
+  background-color: #54add3 !important;
+  border: none !important;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0 12px !important;
+}
