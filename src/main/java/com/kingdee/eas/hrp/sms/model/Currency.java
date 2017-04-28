@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Currency {
-    private Integer currencyId;
+    private String id;
 
     private String name;
 
     private String number;
 
-    public Integer getCurrencyId() {
-        return currencyId;
+    public String getId() {
+        return id;
     }
 
-    public void setCurrencyId(Integer currencyId) {
-        this.currencyId = currencyId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {

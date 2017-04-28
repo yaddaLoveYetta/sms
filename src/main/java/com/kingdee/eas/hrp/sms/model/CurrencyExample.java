@@ -104,63 +104,73 @@ public class CurrencyExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andCurrencyIdIsNull() {
-            addCriterion("currencyId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdIsNotNull() {
-            addCriterion("currencyId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdEqualTo(Integer value) {
-            addCriterion("currencyId =", value, "currencyId");
+        public Criteria andIdEqualTo(String value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdNotEqualTo(Integer value) {
-            addCriterion("currencyId <>", value, "currencyId");
+        public Criteria andIdNotEqualTo(String value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdGreaterThan(Integer value) {
-            addCriterion("currencyId >", value, "currencyId");
+        public Criteria andIdGreaterThan(String value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("currencyId >=", value, "currencyId");
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdLessThan(Integer value) {
-            addCriterion("currencyId <", value, "currencyId");
+        public Criteria andIdLessThan(String value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdLessThanOrEqualTo(Integer value) {
-            addCriterion("currencyId <=", value, "currencyId");
+        public Criteria andIdLessThanOrEqualTo(String value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdIn(List<Integer> values) {
-            addCriterion("currencyId in", values, "currencyId");
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdNotIn(List<Integer> values) {
-            addCriterion("currencyId not in", values, "currencyId");
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdBetween(Integer value1, Integer value2) {
-            addCriterion("currencyId between", value1, value2, "currencyId");
+        public Criteria andIdIn(List<String> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCurrencyIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("currencyId not between", value1, value2, "currencyId");
+        public Criteria andIdNotIn(List<String> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(String value1, String value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(String value1, String value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

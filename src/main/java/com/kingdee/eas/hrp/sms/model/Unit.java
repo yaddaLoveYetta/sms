@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Unit {
-    private Integer unitId;
+    private String id;
 
     private String name;
 
     private String number;
 
-    public Integer getUnitId() {
-        return unitId;
+    public String getId() {
+        return id;
     }
 
-    public void setUnitId(Integer unitId) {
-        this.unitId = unitId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {

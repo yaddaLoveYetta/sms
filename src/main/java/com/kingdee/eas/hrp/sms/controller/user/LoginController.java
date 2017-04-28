@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.model.User;

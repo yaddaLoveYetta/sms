@@ -104,63 +104,73 @@ public class SupplierExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andSupplierIdIsNull() {
-            addCriterion("supplierId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdIsNotNull() {
-            addCriterion("supplierId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdEqualTo(Integer value) {
-            addCriterion("supplierId =", value, "supplierId");
+        public Criteria andIdEqualTo(String value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdNotEqualTo(Integer value) {
-            addCriterion("supplierId <>", value, "supplierId");
+        public Criteria andIdNotEqualTo(String value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdGreaterThan(Integer value) {
-            addCriterion("supplierId >", value, "supplierId");
+        public Criteria andIdGreaterThan(String value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("supplierId >=", value, "supplierId");
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdLessThan(Integer value) {
-            addCriterion("supplierId <", value, "supplierId");
+        public Criteria andIdLessThan(String value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdLessThanOrEqualTo(Integer value) {
-            addCriterion("supplierId <=", value, "supplierId");
+        public Criteria andIdLessThanOrEqualTo(String value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdIn(List<Integer> values) {
-            addCriterion("supplierId in", values, "supplierId");
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdNotIn(List<Integer> values) {
-            addCriterion("supplierId not in", values, "supplierId");
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdBetween(Integer value1, Integer value2) {
-            addCriterion("supplierId between", value1, value2, "supplierId");
+        public Criteria andIdIn(List<String> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("supplierId not between", value1, value2, "supplierId");
+        public Criteria andIdNotIn(List<String> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(String value1, String value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(String value1, String value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

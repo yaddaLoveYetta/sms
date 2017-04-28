@@ -1,7 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.impl;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,14 +11,11 @@ import java.util.Map;
 
 import org.apache.ibatis.plugin.PluginException;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.druid.sql.ast.statement.SQLIfStatement.ElseIf;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.customize.TemplateDaoMapper;

@@ -10,7 +10,7 @@ public interface ItemMapper {
 
     int deleteByExample(ItemExample example);
 
-    int deleteByPrimaryKey(Integer itemId);
+    int deleteByPrimaryKey(String id);
 
     int insert(Item record);
 
@@ -18,7 +18,7 @@ public interface ItemMapper {
 
     List<Item> selectByExample(ItemExample example);
 
-    Item selectByPrimaryKey(Integer itemId);
+    Item selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Item record, @Param("example") ItemExample example);
 

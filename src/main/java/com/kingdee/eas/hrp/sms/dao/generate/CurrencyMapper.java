@@ -10,7 +10,7 @@ public interface CurrencyMapper {
 
     int deleteByExample(CurrencyExample example);
 
-    int deleteByPrimaryKey(Integer currencyId);
+    int deleteByPrimaryKey(String id);
 
     int insert(Currency record);
 
@@ -18,7 +18,7 @@ public interface CurrencyMapper {
 
     List<Currency> selectByExample(CurrencyExample example);
 
-    Currency selectByPrimaryKey(Integer currencyId);
+    Currency selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Currency record, @Param("example") CurrencyExample example);
 

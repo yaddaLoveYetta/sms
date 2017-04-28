@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Industry {
-    private Integer industryId;
+    private String id;
 
     private String name;
 
     private String number;
 
-    public Integer getIndustryId() {
-        return industryId;
+    public String getId() {
+        return id;
     }
 
-    public void setIndustryId(Integer industryId) {
-        this.industryId = industryId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {

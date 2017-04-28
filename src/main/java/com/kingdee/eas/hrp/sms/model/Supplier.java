@@ -1,7 +1,7 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Supplier {
-    private Integer supplierId;
+    private String id;
 
     private String name;
 
@@ -47,12 +47,12 @@ public class Supplier {
 
     private String number;
 
-    public Integer getSupplierId() {
-        return supplierId;
+    public String getId() {
+        return id;
     }
 
-    public void setSupplierId(Integer supplierId) {
-        this.supplierId = supplierId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {

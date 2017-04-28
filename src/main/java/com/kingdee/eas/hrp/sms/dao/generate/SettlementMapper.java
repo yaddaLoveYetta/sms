@@ -10,7 +10,7 @@ public interface SettlementMapper {
 
     int deleteByExample(SettlementExample example);
 
-    int deleteByPrimaryKey(Integer settlementId);
+    int deleteByPrimaryKey(String id);
 
     int insert(Settlement record);
 
@@ -18,7 +18,7 @@ public interface SettlementMapper {
 
     List<Settlement> selectByExample(SettlementExample example);
 
-    Settlement selectByPrimaryKey(Integer settlementId);
+    Settlement selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Settlement record, @Param("example") SettlementExample example);
 

@@ -10,7 +10,7 @@ public interface CategoryMapper {
 
     int deleteByExample(CategoryExample example);
 
-    int deleteByPrimaryKey(Integer categoryId);
+    int deleteByPrimaryKey(String id);
 
     int insert(Category record);
 
@@ -18,7 +18,7 @@ public interface CategoryMapper {
 
     List<Category> selectByExample(CategoryExample example);
 
-    Category selectByPrimaryKey(Integer categoryId);
+    Category selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Category record, @Param("example") CategoryExample example);
 

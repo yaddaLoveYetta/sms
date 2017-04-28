@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Supplier">
-    <id column="supplierId" jdbcType="INTEGER" property="supplierId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="taxId" jdbcType="INTEGER" property="taxId" />
     <result column="CORP" jdbcType="VARCHAR" property="CORP" />
@@ -85,9 +85,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    supplierId, [name], taxId, CORP, BRNO, taxCategoryId, taxRate, country, city, province, 
-    county, address, industryId, categoryId, createOrganization, banOrganization, [status], 
-    certificateId, currencyId, settlementId, payId, itemId, [number]
+    id, [name], taxId, CORP, BRNO, taxCategoryId, taxRate, country, city, province, county, 
+    address, industryId, categoryId, createOrganization, banOrganization, [status], certificateId, 
+    currencyId, settlementId, payId, itemId, [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -103,15 +103,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_sms_supplier
-    where supplierId = #{supplierId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_sms_supplier
-    where supplierId = #{supplierId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample">
     delete from t_sms_supplier
@@ -120,7 +120,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
-    insert into t_sms_supplier (supplierId, [name], taxId, 
+    insert into t_sms_supplier (id, [name], taxId, 
       CORP, BRNO, taxCategoryId, 
       taxRate, country, city, 
       province, county, address, 
@@ -128,7 +128,7 @@
       banOrganization, [status], certificateId, 
       currencyId, settlementId, payId, 
       itemId, [number])
-    values (#{supplierId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=INTEGER}, 
       #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=INTEGER}, 
       #{taxRate,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
@@ -140,8 +140,8 @@
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="supplierId != null">
-        supplierId,
+      <if test="id != null">
+        id,
       </if>
       <if test="name != null">
         [name],
@@ -211,8 +211,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="supplierId != null">
-        #{supplierId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -291,8 +291,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update t_sms_supplier
     <set>
-      <if test="record.supplierId != null">
-        supplierId = #{record.supplierId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         [name] = #{record.name,jdbcType=VARCHAR},
@@ -367,7 +367,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update t_sms_supplier
-    set supplierId = #{record.supplierId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=VARCHAR},
       [name] = #{record.name,jdbcType=VARCHAR},
       taxId = #{record.taxId,jdbcType=INTEGER},
       CORP = #{record.CORP,jdbcType=VARCHAR},
@@ -464,7 +464,7 @@
         [number] = #{number,jdbcType=VARCHAR},
       </if>
     </set>
-    where supplierId = #{supplierId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     update t_sms_supplier
@@ -490,6 +490,6 @@
       payId = #{payId,jdbcType=INTEGER},
       itemId = #{itemId,jdbcType=INTEGER},
       [number] = #{number,jdbcType=VARCHAR}
-    where supplierId = #{supplierId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

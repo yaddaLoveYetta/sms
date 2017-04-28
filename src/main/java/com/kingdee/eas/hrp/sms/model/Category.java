@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Category {
-    private Integer categoryId;
+    private String id;
 
     private String name;
 
     private String number;
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public String getId() {
+        return id;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {

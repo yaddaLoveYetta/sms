@@ -10,7 +10,7 @@ public interface UnitMapper {
 
     int deleteByExample(UnitExample example);
 
-    int deleteByPrimaryKey(Integer unitId);
+    int deleteByPrimaryKey(String id);
 
     int insert(Unit record);
 
@@ -18,7 +18,7 @@ public interface UnitMapper {
 
     List<Unit> selectByExample(UnitExample example);
 
-    Unit selectByPrimaryKey(Integer unitId);
+    Unit selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Unit record, @Param("example") UnitExample example);
 

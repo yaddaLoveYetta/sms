@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Settlement {
-    private Integer settlementId;
+    private String id;
 
     private String name;
 
     private String number;
 
-    public Integer getSettlementId() {
-        return settlementId;
+    public String getId() {
+        return id;
     }
 
-    public void setSettlementId(Integer settlementId) {
-        this.settlementId = settlementId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {

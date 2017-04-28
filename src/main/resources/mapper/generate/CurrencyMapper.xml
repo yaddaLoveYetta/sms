@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.CurrencyMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Currency">
-    <id column="currencyId" jdbcType="INTEGER" property="currencyId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    currencyId, [name], [number]
+    id, [name], [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.CurrencyExample" resultMap="BaseResultMap">
     select
@@ -81,15 +81,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_sms_currency
-    where currencyId = #{currencyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_sms_currency
-    where currencyId = #{currencyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.CurrencyExample">
     delete from t_sms_currency
@@ -98,16 +98,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Currency">
-    insert into t_sms_currency (currencyId, [name], [number]
+    insert into t_sms_currency (id, [name], [number]
       )
-    values (#{currencyId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Currency">
     insert into t_sms_currency
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="currencyId != null">
-        currencyId,
+      <if test="id != null">
+        id,
       </if>
       <if test="name != null">
         [name],
@@ -117,8 +117,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="currencyId != null">
-        #{currencyId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -137,8 +137,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update t_sms_currency
     <set>
-      <if test="record.currencyId != null">
-        currencyId = #{record.currencyId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         [name] = #{record.name,jdbcType=VARCHAR},
@@ -153,7 +153,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update t_sms_currency
-    set currencyId = #{record.currencyId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=VARCHAR},
       [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -170,12 +170,12 @@
         [number] = #{number,jdbcType=VARCHAR},
       </if>
     </set>
-    where currencyId = #{currencyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Currency">
     update t_sms_currency
     set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
-    where currencyId = #{currencyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -10,7 +10,7 @@ public interface IndustryMapper {
 
     int deleteByExample(IndustryExample example);
 
-    int deleteByPrimaryKey(Integer industryId);
+    int deleteByPrimaryKey(String id);
 
     int insert(Industry record);
 
@@ -18,7 +18,7 @@ public interface IndustryMapper {
 
     List<Industry> selectByExample(IndustryExample example);
 
-    Industry selectByPrimaryKey(Integer industryId);
+    Industry selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Industry record, @Param("example") IndustryExample example);
 

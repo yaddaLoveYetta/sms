@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.CategoryMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Category">
-    <id column="categoryId" jdbcType="INTEGER" property="categoryId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    categoryId, [name], [number]
+    id, [name], [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.CategoryExample" resultMap="BaseResultMap">
     select
@@ -81,15 +81,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_sms_category
-    where categoryId = #{categoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_sms_category
-    where categoryId = #{categoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.CategoryExample">
     delete from t_sms_category
@@ -98,16 +98,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Category">
-    insert into t_sms_category (categoryId, [name], [number]
+    insert into t_sms_category (id, [name], [number]
       )
-    values (#{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Category">
     insert into t_sms_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="categoryId != null">
-        categoryId,
+      <if test="id != null">
+        id,
       </if>
       <if test="name != null">
         [name],
@@ -117,8 +117,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="categoryId != null">
-        #{categoryId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -137,8 +137,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update t_sms_category
     <set>
-      <if test="record.categoryId != null">
-        categoryId = #{record.categoryId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         [name] = #{record.name,jdbcType=VARCHAR},
@@ -153,7 +153,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update t_sms_category
-    set categoryId = #{record.categoryId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=VARCHAR},
       [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -170,12 +170,12 @@
         [number] = #{number,jdbcType=VARCHAR},
       </if>
     </set>
-    where categoryId = #{categoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Category">
     update t_sms_category
     set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
-    where categoryId = #{categoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

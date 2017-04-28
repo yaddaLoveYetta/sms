@@ -104,63 +104,73 @@ public class TaxCategoryExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andTaxCategoryIdIsNull() {
-            addCriterion("taxCategoryId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdIsNotNull() {
-            addCriterion("taxCategoryId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdEqualTo(Integer value) {
-            addCriterion("taxCategoryId =", value, "taxCategoryId");
+        public Criteria andIdEqualTo(String value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdNotEqualTo(Integer value) {
-            addCriterion("taxCategoryId <>", value, "taxCategoryId");
+        public Criteria andIdNotEqualTo(String value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdGreaterThan(Integer value) {
-            addCriterion("taxCategoryId >", value, "taxCategoryId");
+        public Criteria andIdGreaterThan(String value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("taxCategoryId >=", value, "taxCategoryId");
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdLessThan(Integer value) {
-            addCriterion("taxCategoryId <", value, "taxCategoryId");
+        public Criteria andIdLessThan(String value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdLessThanOrEqualTo(Integer value) {
-            addCriterion("taxCategoryId <=", value, "taxCategoryId");
+        public Criteria andIdLessThanOrEqualTo(String value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdIn(List<Integer> values) {
-            addCriterion("taxCategoryId in", values, "taxCategoryId");
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdNotIn(List<Integer> values) {
-            addCriterion("taxCategoryId not in", values, "taxCategoryId");
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdBetween(Integer value1, Integer value2) {
-            addCriterion("taxCategoryId between", value1, value2, "taxCategoryId");
+        public Criteria andIdIn(List<String> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andTaxCategoryIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("taxCategoryId not between", value1, value2, "taxCategoryId");
+        public Criteria andIdNotIn(List<String> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(String value1, String value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(String value1, String value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

@@ -104,63 +104,73 @@ public class CertificateExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andCertificateIdIsNull() {
-            addCriterion("certificateId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdIsNotNull() {
-            addCriterion("certificateId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdEqualTo(Integer value) {
-            addCriterion("certificateId =", value, "certificateId");
+        public Criteria andIdEqualTo(String value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdNotEqualTo(Integer value) {
-            addCriterion("certificateId <>", value, "certificateId");
+        public Criteria andIdNotEqualTo(String value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdGreaterThan(Integer value) {
-            addCriterion("certificateId >", value, "certificateId");
+        public Criteria andIdGreaterThan(String value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("certificateId >=", value, "certificateId");
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdLessThan(Integer value) {
-            addCriterion("certificateId <", value, "certificateId");
+        public Criteria andIdLessThan(String value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdLessThanOrEqualTo(Integer value) {
-            addCriterion("certificateId <=", value, "certificateId");
+        public Criteria andIdLessThanOrEqualTo(String value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdIn(List<Integer> values) {
-            addCriterion("certificateId in", values, "certificateId");
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdNotIn(List<Integer> values) {
-            addCriterion("certificateId not in", values, "certificateId");
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdBetween(Integer value1, Integer value2) {
-            addCriterion("certificateId between", value1, value2, "certificateId");
+        public Criteria andIdIn(List<String> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCertificateIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("certificateId not between", value1, value2, "certificateId");
+        public Criteria andIdNotIn(List<String> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(String value1, String value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(String value1, String value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

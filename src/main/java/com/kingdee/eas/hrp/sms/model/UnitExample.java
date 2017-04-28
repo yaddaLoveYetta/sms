@@ -104,63 +104,73 @@ public class UnitExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andUnitIdIsNull() {
-            addCriterion("unitId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdIsNotNull() {
-            addCriterion("unitId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdEqualTo(Integer value) {
-            addCriterion("unitId =", value, "unitId");
+        public Criteria andIdEqualTo(String value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdNotEqualTo(Integer value) {
-            addCriterion("unitId <>", value, "unitId");
+        public Criteria andIdNotEqualTo(String value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdGreaterThan(Integer value) {
-            addCriterion("unitId >", value, "unitId");
+        public Criteria andIdGreaterThan(String value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("unitId >=", value, "unitId");
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdLessThan(Integer value) {
-            addCriterion("unitId <", value, "unitId");
+        public Criteria andIdLessThan(String value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdLessThanOrEqualTo(Integer value) {
-            addCriterion("unitId <=", value, "unitId");
+        public Criteria andIdLessThanOrEqualTo(String value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdIn(List<Integer> values) {
-            addCriterion("unitId in", values, "unitId");
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdNotIn(List<Integer> values) {
-            addCriterion("unitId not in", values, "unitId");
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdBetween(Integer value1, Integer value2) {
-            addCriterion("unitId between", value1, value2, "unitId");
+        public Criteria andIdIn(List<String> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andUnitIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("unitId not between", value1, value2, "unitId");
+        public Criteria andIdNotIn(List<String> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(String value1, String value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(String value1, String value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

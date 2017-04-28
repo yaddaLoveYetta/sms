@@ -104,63 +104,73 @@ public class PayExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andPayIdIsNull() {
-            addCriterion("payId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdIsNotNull() {
-            addCriterion("payId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdEqualTo(Integer value) {
-            addCriterion("payId =", value, "payId");
+        public Criteria andIdEqualTo(String value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdNotEqualTo(Integer value) {
-            addCriterion("payId <>", value, "payId");
+        public Criteria andIdNotEqualTo(String value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdGreaterThan(Integer value) {
-            addCriterion("payId >", value, "payId");
+        public Criteria andIdGreaterThan(String value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("payId >=", value, "payId");
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdLessThan(Integer value) {
-            addCriterion("payId <", value, "payId");
+        public Criteria andIdLessThan(String value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdLessThanOrEqualTo(Integer value) {
-            addCriterion("payId <=", value, "payId");
+        public Criteria andIdLessThanOrEqualTo(String value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdIn(List<Integer> values) {
-            addCriterion("payId in", values, "payId");
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdNotIn(List<Integer> values) {
-            addCriterion("payId not in", values, "payId");
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdBetween(Integer value1, Integer value2) {
-            addCriterion("payId between", value1, value2, "payId");
+        public Criteria andIdIn(List<String> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andPayIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("payId not between", value1, value2, "payId");
+        public Criteria andIdNotIn(List<String> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(String value1, String value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(String value1, String value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

@@ -10,7 +10,7 @@ public interface CertificateMapper {
 
     int deleteByExample(CertificateExample example);
 
-    int deleteByPrimaryKey(Integer certificateId);
+    int deleteByPrimaryKey(String id);
 
     int insert(Certificate record);
 
@@ -18,7 +18,7 @@ public interface CertificateMapper {
 
     List<Certificate> selectByExample(CertificateExample example);
 
-    Certificate selectByPrimaryKey(Integer certificateId);
+    Certificate selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Certificate record, @Param("example") CertificateExample example);
 

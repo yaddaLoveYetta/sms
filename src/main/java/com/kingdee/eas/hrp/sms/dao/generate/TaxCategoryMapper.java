@@ -10,7 +10,7 @@ public interface TaxCategoryMapper {
 
     int deleteByExample(TaxCategoryExample example);
 
-    int deleteByPrimaryKey(Integer taxCategoryId);
+    int deleteByPrimaryKey(String id);
 
     int insert(TaxCategory record);
 
@@ -18,7 +18,7 @@ public interface TaxCategoryMapper {
 
     List<TaxCategory> selectByExample(TaxCategoryExample example);
 
-    TaxCategory selectByPrimaryKey(Integer taxCategoryId);
+    TaxCategory selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") TaxCategory record, @Param("example") TaxCategoryExample example);
 

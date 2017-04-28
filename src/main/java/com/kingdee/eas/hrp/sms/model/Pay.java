@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Pay {
-    private Integer payId;
+    private String id;
 
     private String name;
 
     private String number;
 
-    public Integer getPayId() {
-        return payId;
+    public String getId() {
+        return id;
     }
 
-    public void setPayId(Integer payId) {
-        this.payId = payId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {

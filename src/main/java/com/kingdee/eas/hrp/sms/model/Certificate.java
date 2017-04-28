@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Certificate {
-    private Integer certificateId;
+    private String id;
 
     private String name;
 
     private String number;
 
-    public Integer getCertificateId() {
-        return certificateId;
+    public String getId() {
+        return id;
     }
 
-    public void setCertificateId(Integer certificateId) {
-        this.certificateId = certificateId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {

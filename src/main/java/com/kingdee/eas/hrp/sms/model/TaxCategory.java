@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class TaxCategory {
-    private Integer taxCategoryId;
+    private String id;
 
     private String name;
 
     private String number;
 
-    public Integer getTaxCategoryId() {
-        return taxCategoryId;
+    public String getId() {
+        return id;
     }
 
-    public void setTaxCategoryId(Integer taxCategoryId) {
-        this.taxCategoryId = taxCategoryId;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getName() {
