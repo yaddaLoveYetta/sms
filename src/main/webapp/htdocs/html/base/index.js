@@ -21,7 +21,7 @@
     //默认配置
     var defaults = {
         pageSize: 10,
-        typeId: '',
+        typeID: '',
         pageNo: 1,
         hasBreadcrumbs: true,
         multiSelect: true
@@ -36,7 +36,7 @@
         var data = dialog.getData();
         defaults = $.Object.extend(defaults, data);
 
-        if (defaults.typeID != '') {
+        if (defaults.typeId != '') {
             conditions = {classId: defaults.typeId};
         }
 
@@ -69,7 +69,12 @@
 
 
     var blConfig;
-    if (classId == 1001) { // 用户
+    if (dialog) {
+        // 对话框中不要工具栏
+        blConfig = {
+            'items': []
+        };
+    } else if (classId == 1001) { // 用户
         blConfig = {
             'items': [{
                 text: '新增',
