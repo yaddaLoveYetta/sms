@@ -152,3 +152,8 @@
 .data-table .disabled .number a {
   color: #ea542a;
 }
+.page-panel {
+  float: right;
+  margin-top: 15px;
+  /* margin-right: 12px; */
+}
