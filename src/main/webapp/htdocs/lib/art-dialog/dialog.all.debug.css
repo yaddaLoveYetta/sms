@@ -55,6 +55,7 @@
 }
 .ui-dialog-header {
     white-space: nowrap;
+    background-color: #5F788E;
     border-bottom: 1px solid #E5E5E5;
 }
 .ui-dialog-close {
@@ -91,12 +92,13 @@
     margin: 0;
     line-height: 1.428571429;
     min-height: 16.428571429px;
-    padding: 15px;
-    overflow:hidden; 
+    padding: 8px;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: bold;
     cursor: default;
+    color: white;
 }
 .ui-dialog-body {
     padding: 20px;
