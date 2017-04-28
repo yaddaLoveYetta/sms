@@ -87,10 +87,10 @@
 
 
 
-		<mapper resource="mapper/generate/country.xml" />
-		<mapper resource="mapper/generate/city.xml" />
-		<mapper resource="mapper/generate/province.xml" />
-		<mapper resource="mapper/generate/county.xml" />
+		<mapper resource="mapper/generate/CountryMapper.xml" />
+		<mapper resource="mapper/generate/CityMapper.xml" />
+		<mapper resource="mapper/generate/ProvinceMapper.xml" />
+		<mapper resource="mapper/generate/CountyMapper.xml" />
 
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
