@@ -157,7 +157,7 @@ define(function (require) {
 
         draggable: true // by micty
 
-    }, SMS.Dialog.config()) );
+    }, YWTC.Dialog.config()));
 
 
 
@@ -185,7 +185,7 @@ define(function (require) {
 
             //生成 dom id，方便查找元素
             var domId = 'div-dialog-' + Math.random().toString().slice(2);
-            this.domId = domId; 
+            this.domId = domId;
 
 
             this.__popup = $('<div />')
@@ -366,6 +366,7 @@ define(function (require) {
             /** 显示模态浮层。参数参见 show() */
             showModal: function () {
                 this.modal = true;
+                this.__dispatchEvent('beforeshowmodal');
                 return this.show.apply(this, arguments);
             },
 
@@ -624,7 +625,7 @@ define(function (require) {
             __zIndex: function () {
 
                 var index = Popup.zIndex++;
-
+                index = index = +_count; //处理2次弹窗 zindex问题
                 // 设置叠加高度
                 this.__popup.css('zIndex', index);
                 this.__backdrop.css('zIndex', index - 1);
@@ -1043,7 +1044,7 @@ define(function (require) {
                 'aria-labelledby': this._$('title')
                     .attr('id', 'title:' + this.id).attr('id'),
                 'aria-describedby': this._$('content')
-                    .attr('id', 'content:' + this.id).attr('id')
+                    .attr('id',this.id).attr('id')
             });
 
 
@@ -1277,6 +1278,7 @@ define(function (require) {
                         that.callbacks[val.id] = val.callback;
 
                         var style = '';
+                        var className = val.className;  //by yadda
 
                         if (val.display === false) {
                             style = ' style="display:none"';
@@ -1290,7 +1292,7 @@ define(function (require) {
                         + ' data-id="' + val.id + '"'
                         + style
                         + (val.disabled ? ' disabled' : '')
-                        + (val.autofocus ? ' autofocus class="ui-dialog-autofocus"' : '')
+                         + (val.autofocus ? ' autofocus class="ui-dialog-autofocus ' + className + '"' : ' class="' + className + '"') //增加按钮自定义样式 by yadda
                         + '>'
                         + val.value
                         + '</button>';
@@ -1637,8 +1639,8 @@ define(function (require) {
                         api.setData(data);
                     }
 
-                    var Dialog = SMS.require('Dialog');
-                    var IframeManager = SMS.require('Iframe'); //在 top 页面取到的是 IframeManager 
+                    var Dialog = YWTC.require('Dialog');
+                    var IframeManager = YWTC.require('Iframe'); //在 top 页面取到的是 IframeManager 
 
                     var key = Dialog.getKey(sn, 'dialog');
                     IframeManager.setData(key, api); //把当前 dialog 实例存起来，方便在嵌入的 iframe 中引用
@@ -1649,7 +1651,7 @@ define(function (require) {
                     });
 
                 })(options.data);
-                
+
 
 
 
@@ -1662,7 +1664,7 @@ define(function (require) {
                     height: '100%',
                     allowtransparency: 'yes',
                     frameborder: 'no',
-                    scrolling: 'no',
+                    scrolling: 'yes',
                     'data-sn': sn, // 分配一个 sn， by micty。
                     'data-type': 'dialog',
 
@@ -1746,7 +1748,7 @@ define(function (require) {
 
             }
 
-            
+
 
         };
 

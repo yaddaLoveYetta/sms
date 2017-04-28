@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * ui-dialog.css
  * Date: 2014-07-03
  * https://github.com/aui/artDialog
@@ -17,7 +17,7 @@
     outline: 0;
     background-clip: padding-box;
     font-family: Helvetica, arial, sans-serif;
-    font-size: 14px;
+    font-size: 12px; 
     line-height: 1.428571429;
     color: #333;
     opacity: 0;
@@ -56,13 +56,13 @@
 .ui-dialog-header {
     white-space: nowrap;
     background-color: #5F788E;
-    border-bottom: 1px solid #E5E5E5;
+    /* border-bottom: 1px solid #E5E5E5; */
 }
 .ui-dialog-close {
     position: relative;
     _position: absolute;
     float: right;
-    top: 13px;
+    top: 6px;
     right: 13px;
     _height: 26px;
     padding: 0 4px;
@@ -93,7 +93,7 @@
     line-height: 1.428571429;
     min-height: 16.428571429px;
     padding: 8px;
-    overflow: hidden;
+    overflow:hidden; 
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: bold;
@@ -101,7 +101,7 @@
     color: white;
 }
 .ui-dialog-body {
-    padding: 20px;
+    padding: 20px 25px;
     text-align: center;
 }
 .ui-dialog-content {
@@ -117,11 +117,11 @@
     background-color: rgb(241, 242, 244);
 }
 .ui-dialog-statusbar {
-    float: left;
+    position: absolute;
     margin-right: 20px;
     padding: 6px 0;
     line-height: 1.428571429;
-    font-size: 14px;
+    font-size: 12px;   
     color: #888;
     white-space: nowrap;
 }
@@ -133,8 +133,6 @@
     vertical-align: middle;
 }
 .ui-dialog-button {
-/*    float: right;
-    white-space: nowrap;*/
     margin-top: 5px;
     text-align: center;
     white-space: nowrap;
@@ -150,7 +148,7 @@
     padding: 6px 12px;
     _margin-left: 5px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 12px;    /* �޸�Ĭ��������С By:ziki*/
     font-weight: normal;
     line-height: 1.428571429;
     text-align: center;
