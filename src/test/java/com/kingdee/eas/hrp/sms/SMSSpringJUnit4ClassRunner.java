@@ -1,4 +1,4 @@
-package com.kingdee.eas.hrp.sms.util;
+package com.kingdee.eas.hrp.sms;
 
 import java.io.FileNotFoundException;
 

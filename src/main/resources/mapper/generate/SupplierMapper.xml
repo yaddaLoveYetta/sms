@@ -4,26 +4,26 @@
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Supplier">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="taxId" jdbcType="INTEGER" property="taxId" />
+    <result column="taxId" jdbcType="VARCHAR" property="taxId" />
     <result column="CORP" jdbcType="VARCHAR" property="CORP" />
     <result column="BRNO" jdbcType="VARCHAR" property="BRNO" />
-    <result column="taxCategoryId" jdbcType="INTEGER" property="taxCategoryId" />
-    <result column="taxRate" jdbcType="INTEGER" property="taxRate" />
+    <result column="taxCategoryId" jdbcType="VARCHAR" property="taxCategoryId" />
+    <result column="taxRate" jdbcType="DECIMAL" property="taxRate" />
     <result column="country" jdbcType="VARCHAR" property="country" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="county" jdbcType="VARCHAR" property="county" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="industryId" jdbcType="INTEGER" property="industryId" />
-    <result column="categoryId" jdbcType="INTEGER" property="categoryId" />
+    <result column="industryId" jdbcType="VARCHAR" property="industryId" />
+    <result column="categoryId" jdbcType="VARCHAR" property="categoryId" />
     <result column="createOrganization" jdbcType="VARCHAR" property="createOrganization" />
     <result column="banOrganization" jdbcType="VARCHAR" property="banOrganization" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="certificateId" jdbcType="INTEGER" property="certificateId" />
-    <result column="currencyId" jdbcType="INTEGER" property="currencyId" />
-    <result column="settlementId" jdbcType="INTEGER" property="settlementId" />
-    <result column="payId" jdbcType="INTEGER" property="payId" />
-    <result column="itemId" jdbcType="INTEGER" property="itemId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="certificateId" jdbcType="VARCHAR" property="certificateId" />
+    <result column="currencyId" jdbcType="VARCHAR" property="currencyId" />
+    <result column="settlementId" jdbcType="VARCHAR" property="settlementId" />
+    <result column="payId" jdbcType="VARCHAR" property="payId" />
+    <result column="itemId" jdbcType="VARCHAR" property="itemId" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -128,14 +128,14 @@
       banOrganization, [status], certificateId, 
       currencyId, settlementId, payId, 
       itemId, [number])
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=INTEGER}, 
-      #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=INTEGER}, 
-      #{taxRate,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=VARCHAR}, 
+      #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=VARCHAR}, 
+      #{taxRate,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{industryId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{createOrganization,jdbcType=VARCHAR}, 
-      #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{certificateId,jdbcType=INTEGER}, 
-      #{currencyId,jdbcType=INTEGER}, #{settlementId,jdbcType=INTEGER}, #{payId,jdbcType=INTEGER}, 
-      #{itemId,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR})
+      #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{createOrganization,jdbcType=VARCHAR}, 
+      #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{certificateId,jdbcType=VARCHAR}, 
+      #{currencyId,jdbcType=VARCHAR}, #{settlementId,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, 
+      #{itemId,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -218,7 +218,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="taxId != null">
-        #{taxId,jdbcType=INTEGER},
+        #{taxId,jdbcType=VARCHAR},
       </if>
       <if test="CORP != null">
         #{CORP,jdbcType=VARCHAR},
@@ -227,10 +227,10 @@
         #{BRNO,jdbcType=VARCHAR},
       </if>
       <if test="taxCategoryId != null">
-        #{taxCategoryId,jdbcType=INTEGER},
+        #{taxCategoryId,jdbcType=VARCHAR},
       </if>
       <if test="taxRate != null">
-        #{taxRate,jdbcType=INTEGER},
+        #{taxRate,jdbcType=DECIMAL},
       </if>
       <if test="country != null">
         #{country,jdbcType=VARCHAR},
@@ -248,10 +248,10 @@
         #{address,jdbcType=VARCHAR},
       </if>
       <if test="industryId != null">
-        #{industryId,jdbcType=INTEGER},
+        #{industryId,jdbcType=VARCHAR},
       </if>
       <if test="categoryId != null">
-        #{categoryId,jdbcType=INTEGER},
+        #{categoryId,jdbcType=VARCHAR},
       </if>
       <if test="createOrganization != null">
         #{createOrganization,jdbcType=VARCHAR},
@@ -260,22 +260,22 @@
         #{banOrganization,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        #{status,jdbcType=INTEGER},
+        #{status,jdbcType=VARCHAR},
       </if>
       <if test="certificateId != null">
-        #{certificateId,jdbcType=INTEGER},
+        #{certificateId,jdbcType=VARCHAR},
       </if>
       <if test="currencyId != null">
-        #{currencyId,jdbcType=INTEGER},
+        #{currencyId,jdbcType=VARCHAR},
       </if>
       <if test="settlementId != null">
-        #{settlementId,jdbcType=INTEGER},
+        #{settlementId,jdbcType=VARCHAR},
       </if>
       <if test="payId != null">
-        #{payId,jdbcType=INTEGER},
+        #{payId,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null">
-        #{itemId,jdbcType=INTEGER},
+        #{itemId,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -298,7 +298,7 @@
         [name] = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.taxId != null">
-        taxId = #{record.taxId,jdbcType=INTEGER},
+        taxId = #{record.taxId,jdbcType=VARCHAR},
       </if>
       <if test="record.CORP != null">
         CORP = #{record.CORP,jdbcType=VARCHAR},
@@ -307,10 +307,10 @@
         BRNO = #{record.BRNO,jdbcType=VARCHAR},
       </if>
       <if test="record.taxCategoryId != null">
-        taxCategoryId = #{record.taxCategoryId,jdbcType=INTEGER},
+        taxCategoryId = #{record.taxCategoryId,jdbcType=VARCHAR},
       </if>
       <if test="record.taxRate != null">
-        taxRate = #{record.taxRate,jdbcType=INTEGER},
+        taxRate = #{record.taxRate,jdbcType=DECIMAL},
       </if>
       <if test="record.country != null">
         country = #{record.country,jdbcType=VARCHAR},
@@ -328,10 +328,10 @@
         address = #{record.address,jdbcType=VARCHAR},
       </if>
       <if test="record.industryId != null">
-        industryId = #{record.industryId,jdbcType=INTEGER},
+        industryId = #{record.industryId,jdbcType=VARCHAR},
       </if>
       <if test="record.categoryId != null">
-        categoryId = #{record.categoryId,jdbcType=INTEGER},
+        categoryId = #{record.categoryId,jdbcType=VARCHAR},
       </if>
       <if test="record.createOrganization != null">
         createOrganization = #{record.createOrganization,jdbcType=VARCHAR},
@@ -340,22 +340,22 @@
         banOrganization = #{record.banOrganization,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
-        [status] = #{record.status,jdbcType=INTEGER},
+        [status] = #{record.status,jdbcType=VARCHAR},
       </if>
       <if test="record.certificateId != null">
-        certificateId = #{record.certificateId,jdbcType=INTEGER},
+        certificateId = #{record.certificateId,jdbcType=VARCHAR},
       </if>
       <if test="record.currencyId != null">
-        currencyId = #{record.currencyId,jdbcType=INTEGER},
+        currencyId = #{record.currencyId,jdbcType=VARCHAR},
       </if>
       <if test="record.settlementId != null">
-        settlementId = #{record.settlementId,jdbcType=INTEGER},
+        settlementId = #{record.settlementId,jdbcType=VARCHAR},
       </if>
       <if test="record.payId != null">
-        payId = #{record.payId,jdbcType=INTEGER},
+        payId = #{record.payId,jdbcType=VARCHAR},
       </if>
       <if test="record.itemId != null">
-        itemId = #{record.itemId,jdbcType=INTEGER},
+        itemId = #{record.itemId,jdbcType=VARCHAR},
       </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
@@ -369,26 +369,26 @@
     update t_sms_supplier
     set id = #{record.id,jdbcType=VARCHAR},
       [name] = #{record.name,jdbcType=VARCHAR},
-      taxId = #{record.taxId,jdbcType=INTEGER},
+      taxId = #{record.taxId,jdbcType=VARCHAR},
       CORP = #{record.CORP,jdbcType=VARCHAR},
       BRNO = #{record.BRNO,jdbcType=VARCHAR},
-      taxCategoryId = #{record.taxCategoryId,jdbcType=INTEGER},
-      taxRate = #{record.taxRate,jdbcType=INTEGER},
+      taxCategoryId = #{record.taxCategoryId,jdbcType=VARCHAR},
+      taxRate = #{record.taxRate,jdbcType=DECIMAL},
       country = #{record.country,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
       province = #{record.province,jdbcType=VARCHAR},
       county = #{record.county,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
-      industryId = #{record.industryId,jdbcType=INTEGER},
-      categoryId = #{record.categoryId,jdbcType=INTEGER},
+      industryId = #{record.industryId,jdbcType=VARCHAR},
+      categoryId = #{record.categoryId,jdbcType=VARCHAR},
       createOrganization = #{record.createOrganization,jdbcType=VARCHAR},
       banOrganization = #{record.banOrganization,jdbcType=VARCHAR},
-      [status] = #{record.status,jdbcType=INTEGER},
-      certificateId = #{record.certificateId,jdbcType=INTEGER},
-      currencyId = #{record.currencyId,jdbcType=INTEGER},
-      settlementId = #{record.settlementId,jdbcType=INTEGER},
-      payId = #{record.payId,jdbcType=INTEGER},
-      itemId = #{record.itemId,jdbcType=INTEGER},
+      [status] = #{record.status,jdbcType=VARCHAR},
+      certificateId = #{record.certificateId,jdbcType=VARCHAR},
+      currencyId = #{record.currencyId,jdbcType=VARCHAR},
+      settlementId = #{record.settlementId,jdbcType=VARCHAR},
+      payId = #{record.payId,jdbcType=VARCHAR},
+      itemId = #{record.itemId,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -401,7 +401,7 @@
         [name] = #{name,jdbcType=VARCHAR},
       </if>
       <if test="taxId != null">
-        taxId = #{taxId,jdbcType=INTEGER},
+        taxId = #{taxId,jdbcType=VARCHAR},
       </if>
       <if test="CORP != null">
         CORP = #{CORP,jdbcType=VARCHAR},
@@ -410,10 +410,10 @@
         BRNO = #{BRNO,jdbcType=VARCHAR},
       </if>
       <if test="taxCategoryId != null">
-        taxCategoryId = #{taxCategoryId,jdbcType=INTEGER},
+        taxCategoryId = #{taxCategoryId,jdbcType=VARCHAR},
       </if>
       <if test="taxRate != null">
-        taxRate = #{taxRate,jdbcType=INTEGER},
+        taxRate = #{taxRate,jdbcType=DECIMAL},
       </if>
       <if test="country != null">
         country = #{country,jdbcType=VARCHAR},
@@ -431,10 +431,10 @@
         address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="industryId != null">
-        industryId = #{industryId,jdbcType=INTEGER},
+        industryId = #{industryId,jdbcType=VARCHAR},
       </if>
       <if test="categoryId != null">
-        categoryId = #{categoryId,jdbcType=INTEGER},
+        categoryId = #{categoryId,jdbcType=VARCHAR},
       </if>
       <if test="createOrganization != null">
         createOrganization = #{createOrganization,jdbcType=VARCHAR},
@@ -443,22 +443,22 @@
         banOrganization = #{banOrganization,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        [status] = #{status,jdbcType=INTEGER},
+        [status] = #{status,jdbcType=VARCHAR},
       </if>
       <if test="certificateId != null">
-        certificateId = #{certificateId,jdbcType=INTEGER},
+        certificateId = #{certificateId,jdbcType=VARCHAR},
       </if>
       <if test="currencyId != null">
-        currencyId = #{currencyId,jdbcType=INTEGER},
+        currencyId = #{currencyId,jdbcType=VARCHAR},
       </if>
       <if test="settlementId != null">
-        settlementId = #{settlementId,jdbcType=INTEGER},
+        settlementId = #{settlementId,jdbcType=VARCHAR},
       </if>
       <if test="payId != null">
-        payId = #{payId,jdbcType=INTEGER},
+        payId = #{payId,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null">
-        itemId = #{itemId,jdbcType=INTEGER},
+        itemId = #{itemId,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
@@ -469,26 +469,26 @@
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     update t_sms_supplier
     set [name] = #{name,jdbcType=VARCHAR},
-      taxId = #{taxId,jdbcType=INTEGER},
+      taxId = #{taxId,jdbcType=VARCHAR},
       CORP = #{CORP,jdbcType=VARCHAR},
       BRNO = #{BRNO,jdbcType=VARCHAR},
-      taxCategoryId = #{taxCategoryId,jdbcType=INTEGER},
-      taxRate = #{taxRate,jdbcType=INTEGER},
+      taxCategoryId = #{taxCategoryId,jdbcType=VARCHAR},
+      taxRate = #{taxRate,jdbcType=DECIMAL},
       country = #{country,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},
       county = #{county,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      industryId = #{industryId,jdbcType=INTEGER},
-      categoryId = #{categoryId,jdbcType=INTEGER},
+      industryId = #{industryId,jdbcType=VARCHAR},
+      categoryId = #{categoryId,jdbcType=VARCHAR},
       createOrganization = #{createOrganization,jdbcType=VARCHAR},
       banOrganization = #{banOrganization,jdbcType=VARCHAR},
-      [status] = #{status,jdbcType=INTEGER},
-      certificateId = #{certificateId,jdbcType=INTEGER},
-      currencyId = #{currencyId,jdbcType=INTEGER},
-      settlementId = #{settlementId,jdbcType=INTEGER},
-      payId = #{payId,jdbcType=INTEGER},
-      itemId = #{itemId,jdbcType=INTEGER},
+      [status] = #{status,jdbcType=VARCHAR},
+      certificateId = #{certificateId,jdbcType=VARCHAR},
+      currencyId = #{currencyId,jdbcType=VARCHAR},
+      settlementId = #{settlementId,jdbcType=VARCHAR},
+      payId = #{payId,jdbcType=VARCHAR},
+      itemId = #{itemId,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>

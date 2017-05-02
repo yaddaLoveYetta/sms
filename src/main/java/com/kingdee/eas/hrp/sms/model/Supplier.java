@@ -1,19 +1,21 @@
 package com.kingdee.eas.hrp.sms.model;
 
+import java.math.BigDecimal;
+
 public class Supplier {
     private String id;
 
     private String name;
 
-    private Integer taxId;
+    private String taxId;
 
     private String CORP;
 
     private String BRNO;
 
-    private Integer taxCategoryId;
+    private String taxCategoryId;
 
-    private Integer taxRate;
+    private BigDecimal taxRate;
 
     private String country;
 
@@ -25,25 +27,25 @@ public class Supplier {
 
     private String address;
 
-    private Integer industryId;
+    private String industryId;
 
-    private Integer categoryId;
+    private String categoryId;
 
     private String createOrganization;
 
     private String banOrganization;
 
-    private Integer status;
+    private String status;
 
-    private Integer certificateId;
+    private String certificateId;
 
-    private Integer currencyId;
+    private String currencyId;
 
-    private Integer settlementId;
+    private String settlementId;
 
-    private Integer payId;
+    private String payId;
 
-    private Integer itemId;
+    private String itemId;
 
     private String number;
 
@@ -63,12 +65,12 @@ public class Supplier {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getTaxId() {
+    public String getTaxId() {
         return taxId;
     }
 
-    public void setTaxId(Integer taxId) {
-        this.taxId = taxId;
+    public void setTaxId(String taxId) {
+        this.taxId = taxId == null ? null : taxId.trim();
     }
 
     public String getCORP() {
@@ -87,19 +89,19 @@ public class Supplier {
         this.BRNO = BRNO == null ? null : BRNO.trim();
     }
 
-    public Integer getTaxCategoryId() {
+    public String getTaxCategoryId() {
         return taxCategoryId;
     }
 
-    public void setTaxCategoryId(Integer taxCategoryId) {
-        this.taxCategoryId = taxCategoryId;
+    public void setTaxCategoryId(String taxCategoryId) {
+        this.taxCategoryId = taxCategoryId == null ? null : taxCategoryId.trim();
     }
 
-    public Integer getTaxRate() {
+    public BigDecimal getTaxRate() {
         return taxRate;
     }
 
-    public void setTaxRate(Integer taxRate) {
+    public void setTaxRate(BigDecimal taxRate) {
         this.taxRate = taxRate;
     }
 
@@ -143,20 +145,20 @@ public class Supplier {
         this.address = address == null ? null : address.trim();
     }
 
-    public Integer getIndustryId() {
+    public String getIndustryId() {
         return industryId;
     }
 
-    public void setIndustryId(Integer industryId) {
-        this.industryId = industryId;
+    public void setIndustryId(String industryId) {
+        this.industryId = industryId == null ? null : industryId.trim();
     }
 
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId == null ? null : categoryId.trim();
     }
 
     public String getCreateOrganization() {
@@ -175,52 +177,52 @@ public class Supplier {
         this.banOrganization = banOrganization == null ? null : banOrganization.trim();
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
-    public Integer getCertificateId() {
+    public String getCertificateId() {
         return certificateId;
     }
 
-    public void setCertificateId(Integer certificateId) {
-        this.certificateId = certificateId;
+    public void setCertificateId(String certificateId) {
+        this.certificateId = certificateId == null ? null : certificateId.trim();
     }
 
-    public Integer getCurrencyId() {
+    public String getCurrencyId() {
         return currencyId;
     }
 
-    public void setCurrencyId(Integer currencyId) {
-        this.currencyId = currencyId;
+    public void setCurrencyId(String currencyId) {
+        this.currencyId = currencyId == null ? null : currencyId.trim();
     }
 
-    public Integer getSettlementId() {
+    public String getSettlementId() {
         return settlementId;
     }
 
-    public void setSettlementId(Integer settlementId) {
-        this.settlementId = settlementId;
+    public void setSettlementId(String settlementId) {
+        this.settlementId = settlementId == null ? null : settlementId.trim();
     }
 
-    public Integer getPayId() {
+    public String getPayId() {
         return payId;
     }
 
-    public void setPayId(Integer payId) {
-        this.payId = payId;
+    public void setPayId(String payId) {
+        this.payId = payId == null ? null : payId.trim();
     }
 
-    public Integer getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setItemId(String itemId) {
+        this.itemId = itemId == null ? null : itemId.trim();
     }
 
     public String getNumber() {
