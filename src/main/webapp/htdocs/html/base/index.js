@@ -41,13 +41,13 @@
         }
 
 
-        if(data.conditions) {
+        if (data.conditions) {
             // 新增查询条件
             $.Object.extend(conditions, data.conditions);
         }
 
         dialog.on({
-            close: function() {
+            close: function () {
                 //window.top && window.top.$("#div-tips").hide();
                 getData();
             }
@@ -118,6 +118,19 @@
                         name: 'import'
                     }
                 ]
+            }]
+        };
+    } else if (classId == 1003) {
+        blConfig = {
+            'items': [{
+                text: '新增',
+                name: 'add',
+            }, {
+                text: '删除',
+                name: 'delete',
+            }, {
+                text: '刷新',
+                name: 'refresh',
             }]
         };
     } else {
