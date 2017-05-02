@@ -28,76 +28,51 @@
         <div class="line"></div>
     </div>
     <div id="div-content" class="content-box">
-        <table class="data-table" style="width: auto;">
-            <tbody>
-            <tr>
-                <td class="key pr10"><span class="must-mark">*</span>代码：</td>
-                <td class="col-value">
-                    <input id="bd-number" type="text" class="edit-input" value=""/>
-                    <span id="bd-number-msg" class="msg"></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="key pr10"><span class="must-mark">*</span>用户名：</td>
-                <td class="col-value">
-                    <input id="bd-name" type="text" class="edit-input" value=""/>
-                    <span id="bd-name-msg" class="msg"></span>
-                </td>
-            </tr>
 
-            <tr>
-                <td class="key pr10"><span class="must-mark">*</span>密码：</td>
-                <td class="col-value">
-                    <input id="bd-password" type="password" class="edit-input" value=""/>
-                    <span id="bd-password-msg" class="msg"></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="key pr10"><span class="must-mark">*</span>用户类别：</td>
-                <td class="col-value">
-                    <div class="F7-box" id="bd-type"></div>
-                    <span id="bd-type-msg" class="msg"></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="key pr10"><span class="must-mark">*</span>角色：</td>
-                <td class="col-value">
-                    <div class="F7-box" id="bd-role"></div>
-                    <span id="bd-role-msg" class="msg"></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="key pr10"><span class="must-mark">*</span>供应商：</td>
-                <td class="col-value">
-                    <input type="hidden" id="supplier" value=""/>
-                    <div class="F7-box" id="bd-supplier"></div>
-                    <span id="bd-supplier-msg" class="msg"></span>
-                </td>
-            </tr>
+        <!--
+       <table class="data-table" style="width: auto;">
+           <tbody>
 
-            <!--            <tr>
-                            <td class="key pr10">是否禁用：</td>
-                            <td class="col-value">
-                                <input id="bd-status" type="checkbox" value=""/>
-                                <span id="bd-status-msg" class="msg"></span></td>
-                        </tr>-->
-            <!--            <tr>
-                            <td class="key pr10">车场：</td>
-                            <td class="col-value">
-                                <div id="initCombo" class="dn">
-                                    <input type="text" class="textbox FParkNumberAuto" name="FParkNumber" autocomplete="off">
-                                </div>
-                                <div class="grid-wrap">
-                                    &lt;!&ndash; jqGrid table &ndash;&gt;
-                                    <table id="bd-grid"></table>
-                                    &lt;!&ndash; jqGrid 分页 div &ndash;&gt;
-                                    <div id="bd-grid-pager"></div>
-                                </div>
-                                <span class="error-msg" id="bd-grid-msg"></span>
-                            </td>
-                        </tr>-->
+            #--tr.begin--#
+
+            #--td.mustInput.begin--#
+           <span class="must-mark">*</span>
+           #--td.mustInput.end--#
+
+           #--tr.text.begin--#
+           <tr>
+               <td class="key pr10">{mustInput}{name}：</td>
+               <td class="col-value">
+                   <input id="bd-{key}" type="text" class="edit-input" value=""/>
+                   <span id="bd-{key}-msg" class="msg"></span>
+               </td>
+           </tr>
+           #--tr.text.end--#
+
+           #--tr.password.begin--#
+           <tr>
+               <td class="key pr10">{mustInput}{name}：</td>
+               <td class="col-value">
+                   <input id="bd-{key}" type="password" class="edit-input" value=""/>
+                   <span id="bd-{key}-msg" class="msg"></span>
+               </td>
+           </tr>
+           #--tr.password.end--#
+
+           #--tr.f7.begin--#
+           <tr>
+               <td class="key pr10">{mustInput}{name}：</td>
+               <td class="col-value">
+                   <div class="F7-box" id="bd-{key}"></div>
+                   <span id="bd-{key}-msg" class="msg"></span>
+               </td>
+           </tr>
+           #--tr.f7.end--#
+
+            #--tr.end--#
             </tbody>
         </table>
+        -->
     </div>
 </div>
 

@@ -10,6 +10,9 @@
     var addressCascadePickerArray = ["FProvince", "FCity", "FDistrict"];
     var user = SMS.Login.get();
 
+    var div = document.getElementById("div-content");
+    var samples = require("Samples")(div);
+
     // 控制业务是否有修改-有修改关闭时进行提示
     var billChanged = false;
     var metaData;
@@ -243,7 +246,7 @@
             if (field['ctrlType'] == 6) {
                 var key1 = keyName;
                 var lookUpType = field['lookUpType'];
-                var classId = field['lookUpClassID'];
+                var classId = field['lookUpClassId'];
                 lockF7(key1, defaultValue, classId, lookUpType, isLock, selectors);
             }
             //锁定处理
@@ -289,6 +292,64 @@
         });
     }
 
+    /**
+     * 根据模板构建页面控件
+     * @param metaData 模板数据
+     */
+    function initPage(metaData) {
+
+        var fields = metaData['formFields'][0];
+
+        div.innerHTML = $.String.format(samples["table"], {
+
+            trs: $.Array.keep(fields, function (item, no) {
+
+                var sample = "";
+
+                if (!item.display) {
+                    return "";
+                }
+
+                var domType = item.ctrlType;
+
+                if (!!domType) {
+                    // 默认文本
+                    domType = 10;
+                }
+
+                /*
+                 1
+                 3
+                 5
+                 6
+                 7
+                 8
+                 9
+                 10
+                 98
+                 99
+                 */
+                switch (domType) {
+                    case 1: // 文本
+                    case 8: // 手机号码
+                    case 9://座机电话
+                    case 10: // 普通文本
+                        sample = samples["text"];
+                        break;
+                    case 6:
+                        sample = samples["f7"];
+                        break;
+                    case 99:
+                        sample = samples["password"];
+                        break;
+                    default:
+                        sample = samples["text"];
+                }
+            }).join(""),
+
+        });
+    }
+
     function show(formClassId, itemId, fnEntry) {
 
 
@@ -297,8 +358,13 @@
             return;
         }
 
-        //控件初始化，控制显示隐藏，只读 等..
         emitter.fire('beforeShow', [metaData]);
+
+        // 填充页面控件
+        initPage(metaData);
+        // 初始化selectors
+        //initSelectors(metaData);
+        //控件初始化，控制显示隐藏，只读 等..
         initController(itemId);
 
         if (!itemId) {
