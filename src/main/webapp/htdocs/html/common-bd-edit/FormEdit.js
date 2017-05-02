@@ -26,7 +26,7 @@
     // fn: 含有表体字段时，暂时通过回调给到调用者呈现
     function render(formClassId, itemId, elements, fnEntry) {
 
-        selectors = elements;
+        // selectors = elements;
         formClassId = formClassId;
         fnEntry = fnEntry;
         getMetaData(formClassId, itemId, fnEntry);
