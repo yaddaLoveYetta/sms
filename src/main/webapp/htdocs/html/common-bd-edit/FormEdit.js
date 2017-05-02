@@ -137,23 +137,23 @@
 
     //------是否必填校验逻辑(因多地方使用所以抽出来) BEGIN-----//
     var isMustFiled = function (isUpdate, field) {
-        var mustInput = field['FMustInput'] || 0;
+        var mustInput = field['mustInput'] || 0;
         var mustInputMask = 0; //是否必填掩码
         if (isUpdate) {
-            //FMustInput  字段显示权限-后端FMustInput定义 4 编辑时平台用户必填，8编辑时候物业用户必填
-            if (user.type == 50801) {
+            //FMustInput  字段显示权限-后端mustInput定义 4 编辑时平台用户必填，8编辑时候物业用户必填
+            if (user.type == 1) {
                 // 平台用户
                 mustInputMask = 2;
-            } else if (user.type == 50802) {
+            } else if (user.type == 2) {
                 //物业用户
                 mustInputMask = 8;
             }
         } else {
-            //FMustInput  字段显示权限-后端FMustInput定义 4 编辑时平台用户必填，8编辑时候物业用户必填
-            if (user.type == 50801) {
+            //FMustInput  字段显示权限-后端mustInput定义 4 编辑时平台用户必填，8编辑时候物业用户必填
+            if (user.type == 1) {
                 // 平台用户
                 mustInputMask = 1;
-            } else if (user.type == 50802) {
+            } else if (user.type == 2) {
                 //物业用户
                 mustInputMask = 4;
             }
