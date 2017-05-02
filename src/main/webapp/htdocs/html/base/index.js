@@ -120,6 +120,10 @@
                 ]
             }]
         };
+
+        blConfig = {
+            'items': []
+        };
     } else if (classId == 1003) {
         blConfig = {
             'items': [{
