@@ -6,6 +6,7 @@
     var API = SMS.require('API');
     var MD5 = SMS.require('MD5');
     var Validate = require('Validate');
+    var DataSelector = require('DataSelector');
     var emitter = MiniQuery.Event.create();
     var addressCascadePickerArray = ["FProvince", "FCity", "FDistrict"];
     var user = SMS.Login.get();
@@ -16,7 +17,7 @@
     // 控制业务是否有修改-有修改关闭时进行提示
     var billChanged = false;
     var metaData;
-    var selectors;
+    var selectors={};
     var password;
     var formClassId;
     // formClassId: 基础资料类别
@@ -349,13 +350,6 @@
                         sample = samples["tr.text"];
                 }
 
-                var formatSample = $.String.format(sample, {
-                    mustInput: item.mustInput ? $.String.format(samples["td.mustInput"], {}) : "",
-                    name: item.name,
-                    key: item.key
-                });
-                console.log(formatSample);
-
                 return $.String.format(sample, {
                     mustInput: item.mustInput ? $.String.format(samples["td.mustInput"], {}) : "",
                     name: item.name,
@@ -366,6 +360,33 @@
 
 
         });
+    }
+
+    // 初始化选择框控件
+    function initSelectors(metaData) {
+
+        var fields = metaData['formFields'][0];
+
+        for (var field in fields) {
+
+            if (field.lookUpType > 0) {
+                // 引用基础资料
+
+                var config = {
+                    targetType: 1, //跳转方案
+                    classID: field.lookupClassID,
+                    hasBreadcrumbs: true,
+                    container: document.getElementById('bd-' + field.key),
+                    title: field.name,
+                    defaults: {
+                        pageSize: 8
+                    }
+                };
+
+                selectors[field.key]= DataSelector.create(config);
+            }
+        }
+
     }
 
     function show(formClassId, itemId, fnEntry) {
@@ -381,7 +402,7 @@
         // 填充页面控件
         initPage(metaData);
         // 初始化selectors
-        //initSelectors(metaData);
+        initSelectors(metaData);
         //控件初始化，控制显示隐藏，只读 等..
         initController(itemId);
 

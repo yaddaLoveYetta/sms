@@ -6,7 +6,7 @@
 
 	var Iframe = SMS.require('Iframe');
 
-	var selectors = require('SelectorList');
+	//var selectors = require('SelectorList');
 
 	var bl = require('ButtonList');
 	var Edit = require('Edit');
@@ -46,6 +46,7 @@
 
 	DatetimePicker.render();
 	ButtonList.render();
-	Edit.render(formClassId, itemId, selectors);
+	//Edit.render(formClassId, itemId, selectors);
+    Edit.render(formClassId, itemId);
 
 })();
