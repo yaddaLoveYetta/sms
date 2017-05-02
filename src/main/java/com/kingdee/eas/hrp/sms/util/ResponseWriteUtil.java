@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
  * response工具类，向浏览器直接写入数据.数据个格式为{code:200,msg:'success',data:object}
@@ -152,14 +153,17 @@ public class ResponseWriteUtil {
 	public static void output(HttpServletResponse response, Result r) {
 		try {
 			if (logger.isDebugEnabled()) {
-				logger.debug("回应数据" + JSON.toJSONString(r));
+				logger.debug("回应数据" + JSONObject.toJSONString(r,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty));
 			}
 			response.setContentType("application/json;charset=UTF-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
 
 			// JSONObject json = JSONObject.fromObject(r, config);
 
-			response.getWriter().write(JSON.toJSONString(r));
+			String str = JSONObject.toJSONString(r,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty);  
+			
+			response.getWriter().write(str);
+			
 			response.getWriter().close();
 
 		} catch (IOException e) {
