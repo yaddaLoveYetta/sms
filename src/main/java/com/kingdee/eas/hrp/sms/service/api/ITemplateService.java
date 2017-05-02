@@ -88,7 +88,7 @@ public interface ITemplateService {
 	 * @param id
 	 * @param data
 	 *            void
-	 * @param userType 
+	 * @param userType
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
 	void editItem(Integer classId, Integer id, String data, int userType);
@@ -101,8 +101,20 @@ public interface ITemplateService {
 	 * @param id
 	 * @param data
 	 *            void
-	 * @param userType 
+	 * @param userType
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
 	void deleteItem(Integer classId, Integer id, String data);
+
+	/**
+	 * 根基模板删除基础资料
+	 * 
+	 * @Title delItem
+	 * @param classId
+	 *            业务类型
+	 * @param items
+	 *            待删除的基础资料内码集合 void
+	 * @date 2017-05-02 17:49:38 星期二
+	 */
+	void delItem(Integer classId, String items);
 }

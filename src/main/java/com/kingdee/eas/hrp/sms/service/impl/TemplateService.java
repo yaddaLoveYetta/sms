@@ -459,7 +459,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public int addItem(Integer classId, String data,int userType) {
+	public int addItem(Integer classId, String data, int userType) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
@@ -477,7 +477,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 保存前插件事件
 		PlugInFactory factory = new PlugInFactory(classId);
-		PlugInRet result = factory.beforeSave(classId, template, json,userType);
+		PlugInRet result = factory.beforeSave(classId, template, json, userType);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PluginException(result.getMsg());
@@ -506,7 +506,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public void editItem(Integer classId, Integer id, String data,int userType) {
+	public void editItem(Integer classId, Integer id, String data, int userType) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
@@ -523,7 +523,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 修改前插件事件
 		PlugInFactory factory = new PlugInFactory(classId);
-		PlugInRet result = factory.beforeModify(classId,id,template, json,userType);
+		PlugInRet result = factory.beforeModify(classId, id, template, json, userType);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());
@@ -543,7 +543,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		handleEntryData(classId, id, json);
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -564,7 +564,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 删除前事件
 		PlugInFactory factory = new PlugInFactory(classId);
-		PlugInRet result = factory.beforeDelete(classId,template, data);
+		PlugInRet result = factory.beforeDelete(classId, template, data);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());
@@ -1350,7 +1350,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				fieldValues.append(",'").append(value).append("'");
 				break;
 			case BOOLEAN:
-				fieldValues.append(",").append(value);
+				boolean b = Boolean.valueOf(value);
+				fieldValues.append(",").append(b ? 1 : 0);
 				break;
 			case TIME:
 				fieldValues.append(",'").append(value).append("'");
@@ -1551,4 +1552,79 @@ public class TemplateService extends BaseService implements ITemplateService {
 		return map;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public void delItem(Integer classId, String items) {
+
+		// 基础资料模板
+		Map<String, Object> template = getFormTemplate(classId, 1);
+		// 所有字段模板
+		Map<String, FormFields> formFieldsAll = getFormFields(classId, -1);
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) template.get("formClass");
+
+		String primaryTableName = formClass.getTableName();
+		String primaryKey = formClass.getPrimaryKey();
+
+		PlugInFactory factory = new PlugInFactory(classId);
+
+		PlugInRet result = factory.beforeDelete(classId, template, items);
+
+		if (result != null && result.getCode() != 200) {
+			throw new PlugInRuntimeException(result.getMsg());
+		}
+
+		// 子表资料描述信息
+		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
+		// 先删除分录数据（子表）
+
+		delEntryData(formEntries, items);
+
+		// 再删除基础资料（主表）
+
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+
+		Map<String, Object> statement = new HashMap<String, Object>();
+		statement.put("tableName", primaryTableName);
+		statement.put("primaryKey", primaryKey);
+		statement.put("items", items);
+		templateDaoMapper.del(statement);
+
+		result = factory.afterDelete(classId, items);
+
+		if (result != null && result.getCode() != 200) {
+			throw new PlugInRuntimeException(result.getMsg());
+		}
+
+	}
+
+	/**
+	 * 处理分录数据
+	 * 
+	 * @param formEntries
+	 *            Entry集合
+	 * @param items
+	 *            主表id值
+	 */
+	private void delEntryData(Map<String, Object> formEntries, String items) {
+
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+
+		for (Iterator<String> iterator = formEntries.keySet().iterator(); iterator.hasNext();) {
+
+			String key = iterator.next(); // key 等于1或2或3...
+			FormEntries formEntry = (FormEntries) formEntries.get(key);
+
+			String tableName = formEntry.getTableName();
+			String foreignKey = formEntry.getForeignKey();
+
+			Map<String, Object> statement = new HashMap<String, Object>();
+
+			statement.put("tableName", tableName);
+			statement.put("primaryKey", foreignKey);
+			statement.put("items", items);
+			templateDaoMapper.del(statement);
+		}
+	}
 }

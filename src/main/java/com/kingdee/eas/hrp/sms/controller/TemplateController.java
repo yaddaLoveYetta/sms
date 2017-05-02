@@ -164,7 +164,7 @@ public class TemplateController {
 			return;
 		}
 
-		int id = templateService.addItem(classId, data,userType);
+		int id = templateService.addItem(classId, data, userType);
 		ResponseWriteUtil.output(response, "新增成功！");
 
 	}
@@ -190,9 +190,30 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.editItem(classId, id, data,userType);
+		templateService.editItem(classId, id, data, userType);
 
 		ResponseWriteUtil.output(response, "修改成功！");
+
+	}
+
+	@RequestMapping(value = "delItem")
+	public void delItem(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		String items = ParameterUtils.getParameter(request, "items", "");
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classID");
+			return;
+		}
+
+		if (items.length() == 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交items");
+			return;
+		}
+
+		templateService.delItem(classId, items);
+		ResponseWriteUtil.output(response, "删除成功！");
 
 	}
 
