@@ -27,6 +27,13 @@ define('Samples', function (require, module, exports) {
                 outer:'{trs}',
             },
             {
+                name: 'tr.checkbox',
+                begin: '#--th.checkbox.begin--#',
+                end: '#--th.checkbox.end--#',
+                outer: '{checkbox}',
+                //fn: trim,
+            },
+            {
                 name: 'td.mustInput',
                 begin: '#--td.mustInput.begin--#',
                 end: '#--td.mustInput.end--#',

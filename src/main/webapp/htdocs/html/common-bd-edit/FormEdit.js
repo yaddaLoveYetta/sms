@@ -336,6 +336,9 @@
                     case 10: // 普通文本
                         sample = samples["tr.text"];
                         break;
+                    case 3: // checkbox
+                        sample = samples["tr.checkbox"];
+                        break;
                     case 6:
                         sample = samples["tr.f7"];
                         break;
