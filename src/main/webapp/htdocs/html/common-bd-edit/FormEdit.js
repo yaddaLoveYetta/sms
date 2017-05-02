@@ -384,7 +384,7 @@
                     }
                 };
 
-                selectors[field.key] = DataSelector.create(config);
+                selectors["'" + field.key + "'"] = DataSelector.create(config);
             }
         }
 
