@@ -345,6 +345,13 @@
                     default:
                         sample = samples["tr.text"];
                 }
+
+                return $.String.format(sample, {
+                    mustInput: item.mustInput ? $.String.format(samples["td.mustInput"], {}) : "",
+                    name: item.name,
+                    key: item.key
+                });
+
             }).join(""),
 
         });
