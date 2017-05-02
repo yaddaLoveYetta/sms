@@ -24,7 +24,7 @@ define('Samples', function (require, module, exports) {
                 name:"tr",
                 begin:'#--tr.begin--#',
                 end:"#--tr.end--#",
-                outer:'trs',
+                outer:'{trs}',
             },
             {
                 name: 'td.mustInput',
