@@ -17,7 +17,7 @@
     // 控制业务是否有修改-有修改关闭时进行提示
     var billChanged = false;
     var metaData;
-    var selectors={};
+    var selectors = {};
     var password;
     var formClassId;
     // formClassId: 基础资料类别
@@ -367,11 +367,12 @@
 
         var fields = metaData['formFields'][0];
 
-        for (var field in fields) {
+        for (var item in fields) {
+
+            var field = fields[item];
 
             if (field.lookUpType > 0) {
                 // 引用基础资料
-
                 var config = {
                     targetType: 1, //跳转方案
                     classID: field.lookupClassID,
@@ -383,7 +384,7 @@
                     }
                 };
 
-                selectors[field.key]= DataSelector.create(config);
+                selectors[field.key] = DataSelector.create(config);
             }
         }
 
