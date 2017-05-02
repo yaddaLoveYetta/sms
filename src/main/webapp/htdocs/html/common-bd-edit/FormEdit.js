@@ -346,6 +346,13 @@
                         sample = samples["tr.text"];
                 }
 
+                var formatSample = $.String.format(sample, {
+                    mustInput: item.mustInput ? $.String.format(samples["td.mustInput"], {}) : "",
+                    name: item.name,
+                    key: item.key
+                });
+                console.log(formatSample);
+
                 return $.String.format(sample, {
                     mustInput: item.mustInput ? $.String.format(samples["td.mustInput"], {}) : "",
                     name: item.name,
@@ -353,6 +360,7 @@
                 });
 
             }).join(""),
+
 
         });
     }
