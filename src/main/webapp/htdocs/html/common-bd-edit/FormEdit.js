@@ -375,7 +375,7 @@
                 // 引用基础资料
                 var config = {
                     targetType: 1, //跳转方案
-                    classID: field.lookupClassID,
+                    classID: field.lookUpClassID,
                     hasBreadcrumbs: true,
                     container: document.getElementById('bd-' + field.key),
                     title: field.name,
