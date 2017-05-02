@@ -27,7 +27,7 @@ define('ClassMapping', function (require, module, exports) {
         },
         '1003': {
             name: '角色',
-            url: 'html/base_edit/base_edit_role/index.html'
+            url: 'html/base_edit/base_edit_user/index.html'
         },
         '1005': {
             name: '供应商',
