@@ -1384,3 +1384,12 @@ table {
   padding: 0 6px;
   color: #f00;
 }
+.edit-input {
+  height: 23px;
+  width: 193px;
+  padding-left: 5px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+}
