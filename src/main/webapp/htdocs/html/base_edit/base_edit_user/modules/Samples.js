@@ -28,8 +28,8 @@ define('Samples', function (require, module, exports) {
             },
             {
                 name: 'tr.checkbox',
-                begin: '#--th.checkbox.begin--#',
-                end: '#--th.checkbox.end--#',
+                begin: '#--tr.checkbox.begin--#',
+                end: '#--tr.checkbox.end--#',
                 outer: '{checkbox}',
                 //fn: trim,
             },
@@ -49,8 +49,8 @@ define('Samples', function (require, module, exports) {
             },
             {
                 name: 'tr.password',
-                begin: ' #--tr.password.begin--#',
-                end: ' #--tr.password.begin--#',
+                begin: '#--tr.password.begin--#',
+                end: '#--tr.password.end--#',
                 outer: '{password}',
                 //fn: trim,
             },
