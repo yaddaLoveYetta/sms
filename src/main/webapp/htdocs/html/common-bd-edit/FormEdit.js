@@ -298,7 +298,7 @@
      */
     function initPage(metaData) {
 
-        var fields = metaData['formFields'][0];
+        var fields = MiniQuery.Object.toArray(metaData['formFields'][0]);
 
         div.innerHTML = $.String.format(samples["table"], {
 
