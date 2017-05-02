@@ -1379,3 +1379,8 @@ table {
   cursor: pointer;
   padding: 0 12px !important;
 }
+.must-mark {
+  font-size: 14px;
+  padding: 0 6px;
+  color: #f00;
+}
