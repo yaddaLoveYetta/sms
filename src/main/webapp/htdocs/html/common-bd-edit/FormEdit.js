@@ -312,7 +312,7 @@
 
                 var domType = item.ctrlType;
 
-                if (!!domType) {
+                if (!domType) {
                     // 默认文本
                     domType = 10;
                 }
