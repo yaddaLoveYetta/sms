@@ -334,16 +334,16 @@
                     case 8: // 手机号码
                     case 9://座机电话
                     case 10: // 普通文本
-                        sample = samples["text"];
+                        sample = samples["tr.text"];
                         break;
                     case 6:
-                        sample = samples["f7"];
+                        sample = samples["tr.f7"];
                         break;
                     case 99:
-                        sample = samples["password"];
+                        sample = samples["tr.password"];
                         break;
                     default:
-                        sample = samples["text"];
+                        sample = samples["tr.text"];
                 }
             }).join(""),
 
