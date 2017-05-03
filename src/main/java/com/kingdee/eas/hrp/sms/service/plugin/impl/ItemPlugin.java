@@ -1,33 +1,116 @@
 package com.kingdee.eas.hrp.sms.service.plugin.impl;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
+import org.apache.ibatis.executor.ReuseExecutor;
 import org.apache.ibatis.session.SqlSession;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.dao.generate.FormFieldsMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.RoleMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserTypeMapper;
 import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
+import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
+import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
 import com.kingdee.eas.hrp.sms.model.Role;
 import com.kingdee.eas.hrp.sms.model.RoleExample;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
 import com.kingdee.eas.hrp.sms.model.UserType;
 import com.kingdee.eas.hrp.sms.model.UserTypeExample;
+import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.service.impl.TemplateService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Environ;
 
 public class ItemPlugin extends PlugInAdpter {
 
-	@Override
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String items) {
+	@Resource
+	private ITemplateService templateService;
 
-		return super.beforeDelete(classId, formData, items);
+	@SuppressWarnings("unchecked")
+	@Override
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
+		
+		ITemplateService templateService =Environ.getBean(ITemplateService.class);
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) formData.get("formClass");
+		String primaryKey = formClass.getPrimaryKey();
+		//装配待删除ID
+		String[] idString = data.split(",");
+		List<String> idList =  Arrays.asList(idString);
+		
+		//查找引用待删除资料的模板
+		SqlSession sqlSession = Environ.getBean(SqlSession.class);
+		FormFieldsMapper mapper = sqlSession.getMapper(FormFieldsMapper.class);
+		FormFieldsExample example = new FormFieldsExample();
+		com.kingdee.eas.hrp.sms.model.FormFieldsExample.Criteria criteria = example.createCriteria();
+
+		criteria.andLookUpClassIDEqualTo(classId);
+
+		List<FormFields> list = mapper.selectByExample(example);
+		Map<String, Object> errorMsg = new HashMap<String, Object>();
+		
+		JSONArray orderByArray = new JSONArray();
+		JSONObject orderByItem = new JSONObject(true);
+
+		orderByItem.put("fieldKey", "number");
+		orderByItem.put("orderDirection", "ASC");
+		orderByArray.add(orderByItem);
+
+		orderByItem = new JSONObject();
+		orderByItem.put("fieldKey", "name");
+		orderByItem.put("orderDirection", "ASC");
+		orderByArray.add(orderByItem);
+
+		String orderBy = JSON.toJSONString(orderByArray);
+
+		for (FormFields ff : list) {
+			Integer citedClassId = ff.getClassId();
+			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10, 1);
+			List<Map<String, Object>> items= (List<Map<String, Object>>) result.get("list");
+			for(Map<String, Object> item:items){
+				//如果此记录被引用，则不删除
+				String id = (String) item.get(primaryKey);
+				if(idList.contains(id)){
+					errorMsg.put(id, id);
+					idList.remove(id);
+				}
+			}
+			
+		}
+		if(!errorMsg.isEmpty()){
+			PlugInRet result = new PlugInRet();
+			result.setCode(501);
+			result.setMsg("以下数据已被引用，不能删除");
+			result.setData(errorMsg);
+			return result;
+		}
+
+		return super.beforeDelete(classId, formData, data);
+	}
+
+	@SuppressWarnings("unchecked")
+	private void checkForeignerKeyData(int classId, Map<String, Object> formData, String item) {
+
+		if (formData.get("formEntries") == null)
+			return;
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
+				.get("formFields")).get("0"); // 主表的字段模板
+		Set<String> keySet = formFields.keySet();
+		StringBuilder errMsg = new StringBuilder();
+
 	}
 
 	@Override
@@ -49,9 +132,11 @@ public class ItemPlugin extends PlugInAdpter {
 	@Override
 	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, int userTyepe) {
 
-		//checkMustInput(classId, formData, data, userTyepe);
+		checkMustInput(classId, formData, data, userTyepe);
 
-		//checkIfExistRecord(classId, formData, data, userTyepe);
+		int id = -1;
+
+		checkIfExistRecord(classId, id, formData, data, userTyepe);
 
 		return super.beforeSave(classId, formData, data, userTyepe);
 	}
@@ -129,7 +214,8 @@ public class ItemPlugin extends PlugInAdpter {
 
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
+				.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
