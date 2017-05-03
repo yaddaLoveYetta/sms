@@ -1528,7 +1528,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 					kvBuffer.append("'").append(value).append("'");
 					break;
 				case BOOLEAN:
-					kvBuffer.append(value);
+					boolean b = Boolean.valueOf(value);
+					kvBuffer.append(b ? 1 : 0);
 					break;
 				case TIME:
 					kvBuffer.append("'").append(value).append("'");
