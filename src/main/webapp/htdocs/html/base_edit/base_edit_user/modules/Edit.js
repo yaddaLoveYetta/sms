@@ -223,6 +223,22 @@ define('Edit', function (require, module, exports) {
         refresh(baseClassId, f7Selectors);
     }
 
+    /**
+     * F7控件初始化时设置个性化条件
+     * @param classId 业务类别
+     * @param key 标识字段的key
+     */
+    function initSelectors(classId, key) {
+
+        var config = {};
+        if (classId == 1001 && key == 'role') {
+            // 用户角色依赖于用户类别
+            config = {
+                conditionF7Names: [{type: "selector", target: 'type', filterKey: "type"}],   //级联查询条件 多个用逗号分割
+            };
+        }
+    }
+
     FormEdit.on({
         "FType.defaultFill": function (data) { //默认数据填充
             var userTypeId = data[0].ID;

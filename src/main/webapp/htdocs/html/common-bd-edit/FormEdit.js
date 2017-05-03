@@ -20,15 +20,22 @@
     var selectors = {};
     var password;
     var formClassId;
-    // classId: 基础资料类别
-    // itemID: 基础资料内码，编辑时使用，新增时传0即可
-    // elements： 特殊控件，需要通过调用者传入
-    // fn: 含有表体字段时，暂时通过回调给到调用者呈现
-    function render(classId, itemId, fnEntry) {
+    var fnEntry;
+    var fnSelectors;
+
+    /**
+     * 表格数据呈现
+     * @param classId 基础资料类别
+     * @param itemId 基础资料内码，编辑时使用，新增时传0即可
+     * @param fnE 含有表体字段时，暂时通过回调给到调用者呈现
+     * @param fnS 含有特殊控件时，特殊控件初始化前回调给调用者做配置
+     */
+    function render(classId, itemId, fnE, fnS) {
 
         // selectors = elements;
         formClassId = classId;
-        fnEntry = fnEntry;
+        fnEntry = fnE;
+        fnSelectors = fnS;
         getMetaData(formClassId, itemId, fnEntry);
 
     }
@@ -375,6 +382,10 @@
                         pageSize: 8
                     }
                 };
+
+                var pConfig = fnS(field.classId, field.key);// 个性化配置
+
+                config = $.Object.extend({}, config, pConfig);
 
                 selectors[field.key] = DataSelector.create(config);
 
