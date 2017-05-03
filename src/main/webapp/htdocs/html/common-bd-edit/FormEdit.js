@@ -24,7 +24,7 @@
     // itemID: 基础资料内码，编辑时使用，新增时传0即可
     // elements： 特殊控件，需要通过调用者传入
     // fn: 含有表体字段时，暂时通过回调给到调用者呈现
-    function render(classId, itemId, elements, fnEntry) {
+    function render(classId, itemId, fnEntry) {
 
         // selectors = elements;
         formClassId = classId;
@@ -386,13 +386,16 @@
 
         //改变事件捕获
         DataSelector.on({
-            'change': function (key,data) {
+            'change': function (key, data) {
                 emitter.fire(key, [data]);
             },
-            'done': function (key,data) {
+            'done': function (key, data) {
                 emitter.fire(key, [data]);
             },
         });
+
+        // 初始化selectors后将selectors抛出，Edit模块中可能需要
+        emitter.fire("afterInitSelectors", [selectors]);
 
     }
 

@@ -3,11 +3,7 @@
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
 	var SMS = require('SMS');
-
 	var Iframe = SMS.require('Iframe');
-
-	//var selectors = require('SelectorList');
-
 	var bl = require('ButtonList');
 	var Edit = require('Edit');
 	var DatetimePicker = require('DatetimePicker');
@@ -22,19 +18,11 @@
 		'optNew' : function() {
 			Edit.clear();
 		},
-		'optAddType' : function() {
-			Iframe.open(1, 6, {
-				query : {
-
-				}
-			});
-		},
 		'optSave' : function() {
 			Edit.save();
-			//Edit.refresh(formClassID, selectors);
 		},
 		'optRefresh' : function() {
-			Edit.refresh(formClassId, selectors);
+			Edit.refresh(formClassId);
 		},
 		'optDisable' : function() {
 			Edit.forbid(formClassId, 1);
@@ -46,7 +34,6 @@
 
 	DatetimePicker.render();
 	ButtonList.render();
-	//Edit.render(formClassId, itemId, selectors);
     Edit.render(formClassId, itemId);
 
 })();

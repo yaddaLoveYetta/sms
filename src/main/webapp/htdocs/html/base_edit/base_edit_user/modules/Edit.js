@@ -75,11 +75,11 @@ define('Edit', function (require, module, exports) {
 
     }
 
-    function render(formClassId, itemID, selectors) {
-        f7Selectors = selectors;
+    function render(formClassId, itemID) {
+
         itemId = itemID;
         baseClassId = formClassId;
-        FormEdit.render(formClassId, itemId, selectors, initGrid);
+        FormEdit.render(formClassId, itemId, initGrid);
     }
 
     function clear() {
@@ -182,12 +182,12 @@ define('Edit', function (require, module, exports) {
         FormEdit.forbid(classID, itemId, operateType);
     }
 
-    function refresh(classID, selectors) {
+    function refresh(classID) {
         if (!itemId) {
             return;
         }
-        cleanGrid();
-        FormEdit.render(classID, itemId, selectors, initGrid);
+        //    cleanGrid();
+        FormEdit.render(classID, itemId, initGrid);
     }
 
     function showValidInfo(successData, errorData) {
@@ -235,7 +235,7 @@ define('Edit', function (require, module, exports) {
     });
 
     FormEdit.on({
-        '1001-bd-type.DialogChange':function (data) {
+        '1001-bd-type.DialogChange': function (data) {
             console.log(data);
         }
     });
