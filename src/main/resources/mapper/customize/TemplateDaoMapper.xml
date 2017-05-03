@@ -24,7 +24,7 @@
 		update ${tableName} set ${kvStr} where ${primaryKey}=${FID}
 	</update>
 	<!--删除基础资料 -->
-	<delete id="delete" parameterType="HashMap">
+	<delete id="del" parameterType="HashMap">
 		delete from ${tableName} where ${primaryKey} in ( ${items}
 		)
 	</delete>
