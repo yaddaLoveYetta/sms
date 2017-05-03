@@ -79,23 +79,6 @@ public class TemplateController {
 		}
 
 		// sqlserver ROW_BUMBER分页一定要设置 orderBy--此处指定默认
-		if (orderBy.equals("")) {
-
-			JSONArray orderByArray = new JSONArray();
-			JSONObject orderByItem = new JSONObject(true);
-
-			orderByItem.put("fieldKey", "number");
-			orderByItem.put("orderDirection", "ASC");
-			orderByArray.add(orderByItem);
-
-			orderByItem = new JSONObject();
-			orderByItem.put("fieldKey", "name");
-			orderByItem.put("orderDirection", "ASC");
-			orderByArray.add(orderByItem);
-
-			orderBy = JSON.toJSONString(orderByArray);
-
-		}
 
 		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType);
 

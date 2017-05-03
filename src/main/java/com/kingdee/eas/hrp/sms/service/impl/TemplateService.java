@@ -14,6 +14,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -154,11 +155,38 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			throw new BusinessLogicRunTimeException("资料模板不存在");
 		}
-
+		
 		// 主表表名
 		String primaryTableName = formClass.getTableName();
 		// 主表主键
 		String primaryKey = formClass.getPrimaryKey();
+		
+		//判断是否是
+		if (orderByString.equals("")&&classId/100==10) {
+
+			JSONArray orderByArray = new JSONArray();
+			JSONObject orderByItem = new JSONObject(true);
+
+			orderByItem.put("fieldKey", "number");
+			orderByItem.put("orderDirection", "ASC");
+			orderByArray.add(orderByItem);
+
+			orderByItem = new JSONObject();
+			orderByItem.put("fieldKey", "name");
+			orderByItem.put("orderDirection", "ASC");
+			orderByArray.add(orderByItem);
+
+			orderByString = JSON.toJSONString(orderByArray);
+
+		}else{
+			JSONArray orderByArray = new JSONArray();
+			JSONObject orderByItem = new JSONObject(true);
+
+			orderByItem.put("fieldKey", primaryKey);
+			orderByItem.put("orderDirection", "ASC");
+			orderByArray.add(orderByItem);
+			orderByString = JSON.toJSONString(orderByArray);
+		}
 
 		boolean isChildTableExist = false; // 指示是否存在子表，存在时主表需要关联第一个子表查询
 
