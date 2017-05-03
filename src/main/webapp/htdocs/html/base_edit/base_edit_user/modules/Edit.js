@@ -79,7 +79,7 @@ define('Edit', function (require, module, exports) {
 
         itemId = itemID;
         baseClassId = formClassId;
-        FormEdit.render(formClassId, itemId, initGrid,initSelectors);
+        FormEdit.render(formClassId, itemId, initGrid, initSelectors);
     }
 
     function clear() {
@@ -257,6 +257,16 @@ define('Edit', function (require, module, exports) {
             // data 当前编辑的空间，selectors所有的F7控件
             selectors['role'].clearData();
             selectors['supplier'].clearData();
+
+            if (data[0].ID == 1) {
+                // 系统用户类别时锁定关联供应商不可用
+                var $supplier = $("#bd-" + key);
+                var inpt = $supplier.find("input");
+                var sbtn = $supplier.find('[data-role="btn"]');
+                $(inpt).attr("disabled", "disabled");
+                $(sbtn).attr("disabled", "disabled");
+                $($supplier).undelegate('[data-role="btn"]', 'click');
+            }
 
         },
     });
