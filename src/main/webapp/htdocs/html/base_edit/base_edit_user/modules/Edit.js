@@ -79,7 +79,7 @@ define('Edit', function (require, module, exports) {
 
         itemId = itemID;
         baseClassId = formClassId;
-        FormEdit.render(formClassId, itemId, initGrid);
+        FormEdit.render(formClassId, itemId, initGrid,initSelectors);
     }
 
     function clear() {
