@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.kingdee.eas.hrp.sms.util.http.HttpParam;
 import com.kingdee.eas.hrp.sms.util.http.HttpUtil;
+import com.sun.media.jfxmedia.control.VideoDataBuffer;
 
 public class TemplateControllerTest extends BaseControllerTest {
 
@@ -41,5 +42,37 @@ public class TemplateControllerTest extends BaseControllerTest {
 
 		System.out.println(ret);
 
+	}
+	
+	@Test
+	public void deleteItems() {
+
+		Map<String, String> commonParams = new HashMap<String, String>();
+		commonParams.put("classId", "1005");
+		commonParams.put("data", "123");
+
+		HttpParam param = HttpParam.init();
+		param.setCommonParams(commonParams);
+		param.setCookieParams(cookie);
+		
+		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "template/deleteItems",param);
+
+		System.out.println(ret);
+
+	}
+	
+	@Test
+	public void delItems(){
+		Map<String, String> commonParams = new HashMap<String, String>();
+		commonParams.put("classId", "1005");
+		commonParams.put("items", "123");
+
+		HttpParam param = HttpParam.init();
+		param.setCommonParams(commonParams);
+		param.setCookieParams(cookie);
+		
+		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "template/delItem",param);
+
+		System.out.println(ret);
 	}
 }
