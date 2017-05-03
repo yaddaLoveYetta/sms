@@ -19,6 +19,7 @@ define('SelectorList', function (require, module, exports) {
     var config = {
         targetType: 1, //跳转方案
         classID: 1002,
+        destClassId:1001,
         hasBreadcrumbs: true,
         container: container,
         title: '用户类别',
@@ -34,6 +35,7 @@ define('SelectorList', function (require, module, exports) {
     var config = {
         targetType: 1, //跳转方案
         classID: 1003,
+        destClassId:1001,
         hasBreadcrumbs: true,
         container: roleContainer,
         conditionF7Names: [{type: "selector",target:'type', filterKey: "type"}],   //级联查询条件 多个用逗号分割
@@ -50,6 +52,7 @@ define('SelectorList', function (require, module, exports) {
     var config = {
         targetType: 1, //跳转方案
         classID: 1005,
+        destClassId:1001,
         hasBreadcrumbs: true,
         container: supplierContainer,
         title: '供应商',

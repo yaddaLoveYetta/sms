@@ -38,6 +38,7 @@
             title: config.title,
             conditions: config.conditions || {},
             classID: config.classID || '',
+            destClassId:config.destClassId || '',
             checkbox: config.checkbox,
             conditionF7Names: config.conditionF7Names || [], //新增查询条件集合 [{SelectorName:"FCompany",FillterKey: "FCompany", ValueRule: { 50801: 50701, 50802: 50702 } }]
             data: [{
@@ -78,8 +79,8 @@
                     var target;
                     var filterKey;
                     if (type === 'selector') {
-                         target = conditionData.target || "";
-                         filterKey = conditionData.filterKey || "";
+                        target = conditionData.target || "";
+                        filterKey = conditionData.filterKey || "";
                     }
 
                     if (type == "selector" && $.trim(target) !== "" && $.trim(filterKey) !== "") {
@@ -103,32 +104,32 @@
                         };
                     }
 
-           /*         var f7Name = conditionData.SelectorName || "";
-                    var fillterKey = conditionData.FillterKey || "";
-                    var isNeed = conditionData.IsNeed || false;
-                    //默认为false
-                    var valueRule = conditionData.ValueRule || {};
-                    if ($.trim(f7Name) !== "" && $.trim(fillterKey) !== "") {
-                        var id = dataSelectors[f7Name].getData() && dataSelectors[f7Name].getData()[0].ID || 0;
-                        //(isNeed === true ? 0 : "");//不是必要条件默认为““：否则默认为0 用于查询区分
-                        if (id === 0 && isNeed === false) {
-                            delete meta.conditions[f7Name];//清除没必要的或者已经清空的查询条件
-                            continue;
-                            //不是必须关联的 如果所关联的为空则跳过该查询条件
-                        }
-                        if (id in valueRule) {//如果有值的转换规则则启用规则
-                            id = valueRule[id];
-                        }
-                        meta.conditions[conditionData.SelectorName] = {
-                            'andOr': 'and',
-                            'leftParenTheses': '(',
-                            'fieldKey': fillterKey,
-                            'logicOperator': '=',
-                            'value': id,
-                            'rightParenTheses': ')',
-                            needConvert: false
-                        };
-                    }*/
+                    /*         var f7Name = conditionData.SelectorName || "";
+                     var fillterKey = conditionData.FillterKey || "";
+                     var isNeed = conditionData.IsNeed || false;
+                     //默认为false
+                     var valueRule = conditionData.ValueRule || {};
+                     if ($.trim(f7Name) !== "" && $.trim(fillterKey) !== "") {
+                     var id = dataSelectors[f7Name].getData() && dataSelectors[f7Name].getData()[0].ID || 0;
+                     //(isNeed === true ? 0 : "");//不是必要条件默认为““：否则默认为0 用于查询区分
+                     if (id === 0 && isNeed === false) {
+                     delete meta.conditions[f7Name];//清除没必要的或者已经清空的查询条件
+                     continue;
+                     //不是必须关联的 如果所关联的为空则跳过该查询条件
+                     }
+                     if (id in valueRule) {//如果有值的转换规则则启用规则
+                     id = valueRule[id];
+                     }
+                     meta.conditions[conditionData.SelectorName] = {
+                     'andOr': 'and',
+                     'leftParenTheses': '(',
+                     'fieldKey': fillterKey,
+                     'logicOperator': '=',
+                     'value': id,
+                     'rightParenTheses': ')',
+                     needConvert: false
+                     };
+                     }*/
                 }
                 //新增关联查询逻辑 --------------end--------------
 
@@ -183,13 +184,15 @@
                             //if (dialog.isSubmit && data[0].hasOwnProperty("ID")) {
                             if (dialog.isSubmit && data[0] && typeof data[0].ID != "undefined") {
                                 if (meta.data[0].ID != data[0].ID) {
-                                    emitter.fire(meta.container.getAttribute("id") + '.DialogChange', [data]);
+                                   // emitter.fire(meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogChange', [data]);
                                     //抛出个值改变事件
+                                    emitter.fire('change', [meta.destClassId + '-' +meta.container.getAttribute("id") + '.DialogChange',data]);
                                 }
                                 meta.data = dialog.getData();
                                 label.value = meta.data[0].number;
-                                emitter.fire(meta.container.getAttribute("id") + '.DialogOk', [meta.data]);
+                                //emitter.fire(meta.destClassId +'-'+ meta.container.getAttribute("id") + '.DialogOk', [meta.data]);
                                 //抛出个确认事件
+                                emitter.fire('done', [meta.destClassId + '-' +meta.container.getAttribute("id") + '.DialogOk',meta.data]);
                                 label.focus();
                                 isFirst = true;
                             } else {

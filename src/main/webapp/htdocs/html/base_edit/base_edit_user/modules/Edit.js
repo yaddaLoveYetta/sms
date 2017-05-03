@@ -234,6 +234,12 @@ define('Edit', function (require, module, exports) {
         }
     });
 
+    FormEdit.on({
+        '1001-bd-type.DialogChange':function (data) {
+            console.log(data);
+        }
+    });
+
     return {
         render: render,
         clear: clear,

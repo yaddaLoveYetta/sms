@@ -20,14 +20,14 @@
     var selectors = {};
     var password;
     var formClassId;
-    // formClassId: 基础资料类别
+    // classId: 基础资料类别
     // itemID: 基础资料内码，编辑时使用，新增时传0即可
     // elements： 特殊控件，需要通过调用者传入
     // fn: 含有表体字段时，暂时通过回调给到调用者呈现
-    function render(formClassId, itemId, elements, fnEntry) {
+    function render(classId, itemId, elements, fnEntry) {
 
         // selectors = elements;
-        formClassId = formClassId;
+        formClassId = classId;
         fnEntry = fnEntry;
         getMetaData(formClassId, itemId, fnEntry);
 
@@ -319,16 +319,7 @@
                 }
 
                 /*
-                 1
-                 3
-                 5
-                 6
-                 7
-                 8
-                 9
-                 10
-                 98
-                 99
+                 1,3,5,6,7,8,9,10,98,99
                  */
                 switch (domType) {
                     case 1: // 文本
@@ -376,6 +367,7 @@
                 var config = {
                     targetType: 1, //跳转方案
                     classID: field.lookUpClassID,
+                    destClassId: field.classId,
                     hasBreadcrumbs: true,
                     container: document.getElementById('bd-' + field.key),
                     title: field.name,
@@ -385,8 +377,22 @@
                 };
 
                 selectors[field.key] = DataSelector.create(config);
+
             }
         }
+
+        //设置 静态变量 用于联动操作
+        DataSelector.DataSelectors = selectors;
+
+        //改变事件捕获
+        DataSelector.on({
+            'change': function (key,data) {
+                emitter.fire(key, [data]);
+            },
+            'done': function (key,data) {
+                emitter.fire(key, [data]);
+            },
+        });
 
     }
 
