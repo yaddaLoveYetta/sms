@@ -706,7 +706,7 @@
             }
         }
 
-        emitter.fire('afterFill', [metaData, data]);
+        emitter.fire('afterFill', [formClassId, metaData, data]);
 
         SMS.Tips.success('数据加载成功', 2000);
     }
