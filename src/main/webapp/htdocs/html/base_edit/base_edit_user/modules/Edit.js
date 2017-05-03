@@ -237,6 +237,7 @@ define('Edit', function (require, module, exports) {
                 conditionF7Names: [{type: "selector", target: 'type', filterKey: "type"}],   //级联查询条件 多个用逗号分割
             };
         }
+        return config;
     }
 
     FormEdit.on({
