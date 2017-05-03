@@ -235,8 +235,12 @@ define('Edit', function (require, module, exports) {
     });
 
     FormEdit.on({
-        '1001-bd-type.DialogChange': function (data) {
-            console.log(data);
+        '1001-bd-type.DialogChange': function (data, selectors) {
+            // 用户编辑时-用户类别变化-将角色及关联供应商清空
+            // data 当前编辑的空间，selectors所有的F7控件
+            selectors['bd-role'].clearData();
+            selectors['bd-supplier'].clearData();
+
         }
     });
 
