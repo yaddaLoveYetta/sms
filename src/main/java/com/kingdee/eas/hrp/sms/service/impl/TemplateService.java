@@ -895,14 +895,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		} finally {
-
-			try {
-				connection.close();
-			} catch (SQLException e) {
-
-				e.printStackTrace();
-			}
 		}
 
 		return ret;
