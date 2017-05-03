@@ -386,7 +386,7 @@
                 var pConfig = {};
 
                 if (!!fnSelectors) {
-                    pConfig = fnS(field.classId, field.key);// 个性化配置
+                    pConfig = fnSelectors(field.classId, field.key);// 个性化配置
                 }
 
                 config = $.Object.extend({}, config, pConfig);
