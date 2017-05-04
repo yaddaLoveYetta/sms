@@ -23,7 +23,6 @@
     <result column="currencyId" jdbcType="VARCHAR" property="currencyId" />
     <result column="settlementId" jdbcType="VARCHAR" property="settlementId" />
     <result column="payId" jdbcType="VARCHAR" property="payId" />
-    <result column="itemId" jdbcType="VARCHAR" property="itemId" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -87,7 +86,7 @@
   <sql id="Base_Column_List">
     id, [name], taxId, CORP, BRNO, taxCategoryId, taxRate, country, city, province, county, 
     address, industryId, categoryId, createOrganization, banOrganization, [status], certificateId, 
-    currencyId, settlementId, payId, itemId, [number]
+    currencyId, settlementId, payId, [number]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -127,7 +126,7 @@
       industryId, categoryId, createOrganization, 
       banOrganization, [status], certificateId, 
       currencyId, settlementId, payId, 
-      itemId, [number])
+      [number])
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=VARCHAR}, 
       #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=VARCHAR}, 
       #{taxRate,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
@@ -135,7 +134,7 @@
       #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{createOrganization,jdbcType=VARCHAR}, 
       #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{certificateId,jdbcType=VARCHAR}, 
       #{currencyId,jdbcType=VARCHAR}, #{settlementId,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, 
-      #{itemId,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR})
+      #{number,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -202,9 +201,6 @@
       </if>
       <if test="payId != null">
         payId,
-      </if>
-      <if test="itemId != null">
-        itemId,
       </if>
       <if test="number != null">
         [number],
@@ -273,9 +269,6 @@
       </if>
       <if test="payId != null">
         #{payId,jdbcType=VARCHAR},
-      </if>
-      <if test="itemId != null">
-        #{itemId,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -354,9 +347,6 @@
       <if test="record.payId != null">
         payId = #{record.payId,jdbcType=VARCHAR},
       </if>
-      <if test="record.itemId != null">
-        itemId = #{record.itemId,jdbcType=VARCHAR},
-      </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
       </if>
@@ -388,7 +378,6 @@
       currencyId = #{record.currencyId,jdbcType=VARCHAR},
       settlementId = #{record.settlementId,jdbcType=VARCHAR},
       payId = #{record.payId,jdbcType=VARCHAR},
-      itemId = #{record.itemId,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -457,9 +446,6 @@
       <if test="payId != null">
         payId = #{payId,jdbcType=VARCHAR},
       </if>
-      <if test="itemId != null">
-        itemId = #{itemId,jdbcType=VARCHAR},
-      </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
       </if>
@@ -488,7 +474,6 @@
       currencyId = #{currencyId,jdbcType=VARCHAR},
       settlementId = #{settlementId,jdbcType=VARCHAR},
       payId = #{payId,jdbcType=VARCHAR},
-      itemId = #{itemId,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>

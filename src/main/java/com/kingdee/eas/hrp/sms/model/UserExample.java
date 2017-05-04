@@ -564,52 +564,62 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andSupplierEqualTo(Integer value) {
+        public Criteria andSupplierEqualTo(String value) {
             addCriterion("supplier =", value, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNotEqualTo(Integer value) {
+        public Criteria andSupplierNotEqualTo(String value) {
             addCriterion("supplier <>", value, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierGreaterThan(Integer value) {
+        public Criteria andSupplierGreaterThan(String value) {
             addCriterion("supplier >", value, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSupplierGreaterThanOrEqualTo(String value) {
             addCriterion("supplier >=", value, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierLessThan(Integer value) {
+        public Criteria andSupplierLessThan(String value) {
             addCriterion("supplier <", value, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierLessThanOrEqualTo(Integer value) {
+        public Criteria andSupplierLessThanOrEqualTo(String value) {
             addCriterion("supplier <=", value, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierIn(List<Integer> values) {
+        public Criteria andSupplierLike(String value) {
+            addCriterion("supplier like", value, "supplier");
+            return (Criteria) this;
+        }
+
+        public Criteria andSupplierNotLike(String value) {
+            addCriterion("supplier not like", value, "supplier");
+            return (Criteria) this;
+        }
+
+        public Criteria andSupplierIn(List<String> values) {
             addCriterion("supplier in", values, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNotIn(List<Integer> values) {
+        public Criteria andSupplierNotIn(List<String> values) {
             addCriterion("supplier not in", values, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierBetween(Integer value1, Integer value2) {
+        public Criteria andSupplierBetween(String value1, String value2) {
             addCriterion("supplier between", value1, value2, "supplier");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierNotBetween(Integer value1, Integer value2) {
+        public Criteria andSupplierNotBetween(String value1, String value2) {
             addCriterion("supplier not between", value1, value2, "supplier");
             return (Criteria) this;
         }

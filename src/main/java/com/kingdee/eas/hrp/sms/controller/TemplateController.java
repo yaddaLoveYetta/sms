@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
@@ -33,7 +34,7 @@ public class TemplateController {
 	@Resource
 	private ITemplateService templateService;
 
-	/**
+	/** 
 	 * 查询基础资料
 	 * 
 	 * @param request
@@ -152,6 +153,15 @@ public class TemplateController {
 
 	}
 
+	/**
+	 * 修改基础资料
+	 * 
+	 * @Title editItem
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-04-27 14:09:59 星期四
+	 */
 	@RequestMapping(value = "editItem")
 	public void editItem(HttpServletRequest request, HttpServletResponse response) {
 
@@ -179,8 +189,63 @@ public class TemplateController {
 
 	}
 
+	/**
+	 * 删除基础资料
+	 * 
+	 * @Title deleteItem
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-04-27 14:09:59 星期四
+	 */
+	@RequestMapping(value = "deleteItems")
+	public void delteItems(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		String data = ParameterUtils.getParameter(request, "data", "");
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+		if (data.equals("")) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
+			return;
+		}
+
+		PlugInRet result = templateService.deleteItem(classId, data);
+
+		if (result == null) {
+			ResponseWriteUtil.output(response, "修改成功！");
+		} else {
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, result.getMsg(), 
+					result.getData());
+		}
+	}
+
 	@RequestMapping(value = "delItem")
 	public void delItem(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		String items = ParameterUtils.getParameter(request, "items", "");
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classID");
+			return;
+		}
+
+		if (items.length() == 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交items");
+			return;
+		}
+
+		templateService.delItem(classId, items);
+		ResponseWriteUtil.output(response, "删除成功！");
+
+	}
+	
+	@RequestMapping(value = "delItemByHRP")
+	public void delItemByHRP(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");

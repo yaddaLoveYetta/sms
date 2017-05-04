@@ -15,7 +15,7 @@ public class User {
 
     private Integer role;
 
-    private Integer supplier;
+    private String supplier;
 
     private String token;
 
@@ -75,12 +75,12 @@ public class User {
         this.role = role;
     }
 
-    public Integer getSupplier() {
+    public String getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(Integer supplier) {
-        this.supplier = supplier;
+    public void setSupplier(String supplier) {
+        this.supplier = supplier == null ? null : supplier.trim();
     }
 
     public String getToken() {

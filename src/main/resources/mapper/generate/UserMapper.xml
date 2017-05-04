@@ -9,7 +9,7 @@
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="role" jdbcType="INTEGER" property="role" />
-    <result column="supplier" jdbcType="INTEGER" property="supplier" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
     <result column="token" jdbcType="VARCHAR" property="token" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -110,7 +110,7 @@
       )
     values (#{userId,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{role,jdbcType=INTEGER}, #{supplier,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}
+      #{role,jdbcType=INTEGER}, #{supplier,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.User">
@@ -167,7 +167,7 @@
         #{role,jdbcType=INTEGER},
       </if>
       <if test="supplier != null">
-        #{supplier,jdbcType=INTEGER},
+        #{supplier,jdbcType=VARCHAR},
       </if>
       <if test="token != null">
         #{token,jdbcType=VARCHAR},
@@ -205,7 +205,7 @@
         [role] = #{record.role,jdbcType=INTEGER},
       </if>
       <if test="record.supplier != null">
-        supplier = #{record.supplier,jdbcType=INTEGER},
+        supplier = #{record.supplier,jdbcType=VARCHAR},
       </if>
       <if test="record.token != null">
         token = #{record.token,jdbcType=VARCHAR},
@@ -224,7 +224,7 @@
       [type] = #{record.type,jdbcType=INTEGER},
       [status] = #{record.status,jdbcType=INTEGER},
       [role] = #{record.role,jdbcType=INTEGER},
-      supplier = #{record.supplier,jdbcType=INTEGER},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
       token = #{record.token,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -252,7 +252,7 @@
         [role] = #{role,jdbcType=INTEGER},
       </if>
       <if test="supplier != null">
-        supplier = #{supplier,jdbcType=INTEGER},
+        supplier = #{supplier,jdbcType=VARCHAR},
       </if>
       <if test="token != null">
         token = #{token,jdbcType=VARCHAR},
@@ -268,7 +268,7 @@
       [type] = #{type,jdbcType=INTEGER},
       [status] = #{status,jdbcType=INTEGER},
       [role] = #{role,jdbcType=INTEGER},
-      supplier = #{supplier,jdbcType=INTEGER},
+      supplier = #{supplier,jdbcType=VARCHAR},
       token = #{token,jdbcType=VARCHAR}
     where userId = #{userId,jdbcType=INTEGER}
   </update>

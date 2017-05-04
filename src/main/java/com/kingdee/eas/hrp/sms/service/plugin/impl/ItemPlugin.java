@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.plugin.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.executor.ReuseExecutor;
 import org.apache.ibatis.session.SqlSession;
 
 import com.alibaba.fastjson.JSON;
@@ -29,7 +29,6 @@ import com.kingdee.eas.hrp.sms.model.UserExample;
 import com.kingdee.eas.hrp.sms.model.UserType;
 import com.kingdee.eas.hrp.sms.model.UserTypeExample;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
-import com.kingdee.eas.hrp.sms.service.impl.TemplateService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Environ;
@@ -46,10 +45,10 @@ public class ItemPlugin extends PlugInAdpter {
 		ITemplateService templateService =Environ.getBean(ITemplateService.class);
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) formData.get("formClass");
-		String primaryKey = formClass.getPrimaryKey();
+		//String primaryKey = formClass.getPrimaryKey();
 		//装配待删除ID
 		String[] idString = data.split(",");
-		List<String> idList =  Arrays.asList(idString);
+		List<String> idList =  new ArrayList<String>(Arrays.asList(idString));
 		
 		//查找引用待删除资料的模板
 		SqlSession sqlSession = Environ.getBean(SqlSession.class);
@@ -78,11 +77,12 @@ public class ItemPlugin extends PlugInAdpter {
 
 		for (FormFields ff : list) {
 			Integer citedClassId = ff.getClassId();
+			String key = ff.getKey();
 			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10, 1);
 			List<Map<String, Object>> items= (List<Map<String, Object>>) result.get("list");
 			for(Map<String, Object> item:items){
 				//如果此记录被引用，则不删除
-				String id = (String) item.get(primaryKey);
+				String id = (String) item.get(key);
 				if(idList.contains(id)){
 					errorMsg.put(id, id);
 					idList.remove(id);

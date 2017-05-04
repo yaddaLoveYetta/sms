@@ -221,11 +221,11 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String items) {
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeDelete(classId, formData, items);
+			PlugInRet ret = plugin.beforeDelete(classId, formData, data);
 			if (ret.getCode() != 200) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;

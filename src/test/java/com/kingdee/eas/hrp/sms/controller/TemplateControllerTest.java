@@ -65,13 +65,28 @@ public class TemplateControllerTest extends BaseControllerTest {
 	public void delItems(){
 		Map<String, String> commonParams = new HashMap<String, String>();
 		commonParams.put("classId", "1005");
-		commonParams.put("items", "123");
+		commonParams.put("items", "456");
 
 		HttpParam param = HttpParam.init();
 		param.setCommonParams(commonParams);
 		param.setCookieParams(cookie);
 		
 		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "template/delItem",param);
+
+		System.out.println(ret);
+	}
+	
+	@Test
+	public void delItemsByHRP(){
+		Map<String, String> commonParams = new HashMap<String, String>();
+		commonParams.put("classId", "1005");
+		commonParams.put("items", "456");
+
+		HttpParam param = HttpParam.init();
+		param.setCommonParams(commonParams);
+		param.setCookieParams(cookie);
+		
+		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "template/delItemByHRP",param);
 
 		System.out.println(ret);
 	}

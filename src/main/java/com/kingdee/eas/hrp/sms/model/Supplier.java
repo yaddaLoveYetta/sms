@@ -45,8 +45,6 @@ public class Supplier {
 
     private String payId;
 
-    private String itemId;
-
     private String number;
 
     public String getId() {
@@ -215,14 +213,6 @@ public class Supplier {
 
     public void setPayId(String payId) {
         this.payId = payId == null ? null : payId.trim();
-    }
-
-    public String getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(String itemId) {
-        this.itemId = itemId == null ? null : itemId.trim();
     }
 
     public String getNumber() {

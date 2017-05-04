@@ -37,8 +37,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String items) {
-		// TODO Auto-generated method stub
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
 		return result;
 	}
 

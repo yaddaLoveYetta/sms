@@ -71,7 +71,7 @@ public class SyncControllerTest extends BaseControllerTest {
 
 		HttpParam param = HttpParam.init();
 		param.setCookieParams(cookie);
-		String str = "[{'industryId':123,'name':'行业1','number':'12345'},{'industryId':456,'name':'行业2','number':'12345'}]";
+		String str = "[{'id':123,'name':'行业1','number':'12345'},{'id':456,'name':'行业2','number':'12345'}]";
 		param.addCommon("size", "2");
 		param.addCommon("list", str);
 
@@ -185,7 +185,7 @@ public class SyncControllerTest extends BaseControllerTest {
 
 		HttpParam param = HttpParam.init();
 		param.setCookieParams(cookie);
-		String str = "[{'supplierId':123,'categoryId':'','certificateId':'123','industryId':'123','currencyId':'123','settlementId':'123','payId':'123','itemId':'123','taxCategoryId':'123','number':'12345'},{'supplierId':456,'categoryId':'123','certificateId':'123','industryId':'123','currencyId':'123','settlementId':'123','payId':'123','itemId':'123','taxCategoryId':'123','number':'12345'}]";
+		String str = "[{'id':123,'categoryId':'','certificateId':'123','industryId':'123','currencyId':'123','settlementId':'123','payId':'123','itemId':'123','taxCategoryId':'123','number':'12345'},{'id':456,'categoryId':'123','certificateId':'123','industryId':'123','currencyId':'123','settlementId':'123','payId':'123','itemId':'123','taxCategoryId':'123','number':'12345'}]";
 		param.addCommon("size", "2");
 		param.addCommon("list", str);
 

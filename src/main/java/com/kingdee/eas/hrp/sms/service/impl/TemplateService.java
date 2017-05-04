@@ -3,6 +3,7 @@ package com.kingdee.eas.hrp.sms.service.impl;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.plugin.PluginException;
+import org.bouncycastle.jcajce.provider.asymmetric.rsa.DigestSignatureSpi.noneRSA;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,7 @@ import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInFactory;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.ValidateUtil;
+import com.sun.mail.handlers.message_rfc822;
 
 @Service
 public class TemplateService extends BaseService implements ITemplateService {
@@ -132,7 +135,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, Object> getItems(int classId, String condition, String orderBy, int pageNo, int pageSize, int userType) {
+	public Map<String, Object> getItems(int classId, String condition, String orderBy, int pageNo, int pageSize,
+			int userType) {
 
 		Map<String, Object> ret = new HashMap<String, Object>();
 
@@ -143,7 +147,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, Object> template = getFormTemplate(classId, 1);
 
 		// 主表字段模板
-		Map<String, Object> formFields0 = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, Object> formFields0 = (Map<String, Object>) ((Map<String, Object>) template.get("formFields"))
+				.get("0"); // 主表的字段模板
 		// 第一个子表字段模板(如果有)
 		Map<String, Object> formFields1 = new HashMap<String, Object>(); // 第一个子表的字段模板
 		// 主表资料描述信息
@@ -330,7 +335,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, Object> template = getFormTemplate(classId, 1);
 
 		// 主表字段模板
-		Map<String, Object> formFields0 = (Map<String, Object>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, Object> formFields0 = (Map<String, Object>) ((Map<String, Object>) template.get("formFields"))
+				.get("0"); // 主表的字段模板
 		// 第一个子表字段模板(如果有)
 		Map<String, Object> formFields1 = new HashMap<String, Object>(); // 第一个子表的字段模板
 		// 主表资料描述信息
@@ -368,7 +374,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 		from = (String) statement.get("from");
 
 		StringBuilder sbWhere = new StringBuilder(); // 查询条件
-		sbWhere.append("WHERE").append(System.getProperty("line.separator")).append(primaryTableName).append("." + primaryKey + "=").append(id);
+		sbWhere.append("WHERE").append(System.getProperty("line.separator")).append(primaryTableName)
+				.append("." + primaryKey + "=").append(id);
 
 		where = sbWhere.toString();
 
@@ -493,9 +500,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, Object> template = getFormTemplate(classId, 1);
 
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template
+				.get("formFields")).get("0"); // 主表的字段模板
 		// 第一个子表字段模板(如果有)
-		// Map<String, Object> formFields1 = new HashMap<String, Object>(); // 第一个子表的字段模板
+		// Map<String, Object> formFields1 = new HashMap<String, Object>(); //
+		// 第一个子表的字段模板
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) template.get("formClass");
 		// 子表资料描述信息
@@ -540,7 +549,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, Object> template = getFormTemplate(classId, 1);
 
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template
+				.get("formFields")).get("0"); // 主表的字段模板
 
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) template.get("formClass");
@@ -575,20 +585,17 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public void deleteItem(Integer classId, Integer id, String data) {
+	public PlugInRet deleteItem(Integer classId, String data) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
 
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template
+				.get("formFields")).get("0"); // 主表的字段模板
 
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) template.get("formClass");
-
-		// 模板参数
-
-		JSONObject json = JSONObject.parseObject(data);
 
 		// 删除前事件
 		PlugInFactory factory = new PlugInFactory(classId);
@@ -600,21 +607,33 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		String primaryTableName = formClass.getTableName();
 		String primaryKey = formClass.getPrimaryKey();
+		FormFields ff = formFields.get(primaryKey);
+		int dataType = ff.getDataType();
 
-		// 准备保存模板
-		Map<String, Object> statement = prepareEditMap(json, formFields, primaryTableName, primaryKey, id);
+		// 准备删除模板
+		Map<String, Object> statement = prepareDeleteMap(data, primaryTableName, primaryKey, result.getData(),
+				dataType);
 
-		// 修改基础资料
+		// 删除基础资料
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
-		templateDaoMapper.edit(statement);
+		templateDaoMapper.del(statement);
+
+		return result;
 
 		// 处理分录数据
-		handleEntryData(classId, id, json);
-
+		// String[] idString = data.split(",");
+		// List<String> idList = Arrays.asList(idString);
+		// for (String id : idList) {
+		// if (result.getData().containsKey(id)){
+		// continue;
+		// }
+		// handleEntryData(classId, id, data);
+		// }
 	}
 
 	/**
-	 * 判断List<Map<String, Object>>中的Map中key为targetKey的元素的值是否为targetValue，是则并返回该元素，否则返回null
+	 * 判断List<Map<String,
+	 * Object>>中的Map中key为targetKey的元素的值是否为targetValue，是则并返回该元素，否则返回null
 	 * 
 	 * @param list
 	 *            List<Map<String, Object>>
@@ -698,8 +717,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 		sbFrom.append("FROM " + primaryTableName).append(separator);
 
 		if (isChildTableExist) {
-			sbFrom.append(
-					String.format("INNER JOIN %s ON %s.%s%s%s = %s.%s%s%s", childTableName, bDelimiter, childTableName, eDelimiter, foreignKey, primaryTableName, bDelimiter, primaryKey, eDelimiter))
+			sbFrom.append(String.format("INNER JOIN %s ON %s.%s%s%s = %s.%s%s%s", childTableName, bDelimiter,
+					childTableName, eDelimiter, foreignKey, primaryTableName, bDelimiter, primaryKey, eDelimiter))
 					.append(separator);
 		}
 
@@ -749,7 +768,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				String filter = formField.getFilter(); // 过滤条件-用于关联表时的附加条件
 
 				Integer page = formField.getPage();
-				// Integer FItemClassID = (Integer) formField.get("FItemClassID");
+				// Integer FItemClassID = (Integer)
+				// formField.get("FItemClassID");
 				String name = formField.getName();
 				String sqlColumnName = formField.getSqlColumnName();
 				String key = formField.getKey();
@@ -766,7 +786,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 				String disPlayNum = formField.getDisPlayNum();
 				String srcTableAlis = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
 
-				if (display > 0 && ((display & displayTypeList) != displayTypeList && (display & displayTypeAdd) != displayTypeAdd && (display & displayTypeEdit) != displayTypeEdit)) {
+				if (display > 0 && ((display & displayTypeList) != displayTypeList
+						&& (display & displayTypeAdd) != displayTypeAdd
+						&& (display & displayTypeEdit) != displayTypeEdit)) {
 					// 因为该函数需要兼容列表及编辑时查询，此处权限放开： 具有列表显示OR新增时显示OR编辑时显示的任意权限即可
 					continue; // 当前用户类别无权限查看该字段
 				}
@@ -774,13 +796,16 @@ public class TemplateService extends BaseService implements ITemplateService {
 				if (lookUpType != null && (lookUpType == 1 || lookUpType == 2)) {
 					// 基础资料引用类型
 					// 强制显示关联字段名称
-					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter,
+							sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
-					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key + "_DspName", eDelimiter)).append(separator);
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField,
+							eDelimiter, bDelimiter, key + "_DspName", eDelimiter)).append(separator);
 
 					if (disPlayNum != null && !disPlayNum.trim().equals("")) {
 						// 代码显示字段
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayNum, eDelimiter, bDelimiter, key + "_NmbName", eDelimiter)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayNum,
+								eDelimiter, bDelimiter, key + "_NmbName", eDelimiter)).append(separator);
 					}
 
 					// from 中同时增加关联表
@@ -791,7 +816,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 						sbFrom.append(" as " + srcTableAlisAs);
 					}
 
-					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
+					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", formFieldLinkedTable, bDelimiter,
+							sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
 							.append(separator);
 
 					if (filter != null && !filter.trim().equals("")) {
@@ -802,7 +828,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				} else if (lookUpType != null && lookUpType == 3) {
 
 					// 引用基础资料的附加属性
-					// lookUpType == 3 即引用基础资料属性的模板中，disPlayField的配置统一认为是被引用基础资料模板中的key，需要二次验证引用资料模板确认查询字段
+					// lookUpType == 3
+					// 即引用基础资料属性的模板中，disPlayField的配置统一认为是被引用基础资料模板中的key，需要二次验证引用资料模板确认查询字段
 
 					// 举例：目标，在车辆信息中显示其车辆类别的车辆付费类型
 					// 基础资料车辆信息中引用另一个基础资料车辆类别，还需要显示基础资料车辆类别的另一个属性"车辆付费类型"，而"车辆付费类型"在车辆类别模板中又是辅助资料引用类型，
@@ -821,7 +848,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 					if (lookUpTypeEx != null && lookUpTypeEx > 0) {
 						// 基础资料的附加属性又是引用类型的情况--取显示字段并关联表
 
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, nameEx, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, nameEx,
+								eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
 						// from 中同时增加关联表
 						sbFrom.append(joinTypeEx).append(srcTableEx);
@@ -830,22 +858,27 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 						sbFrom.append(" as " + srcTableAlis);
 
-						sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", srcTableEx, bDelimiter, srcFieldEx, eDelimiter, srcTableAlis, bDelimiter, srcFieldEx, eDelimiter)).append(separator);
+						sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", srcTableEx, bDelimiter, srcFieldEx,
+								eDelimiter, srcTableAlis, bDelimiter, srcFieldEx, eDelimiter)).append(separator);
 					} else {
 						// 普通属性
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField,
+								eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 					}
 
 				} else if (lookUpType != null && lookUpType == 4) {
 					// 普通引用-引用其他表数据
-					// sbSelect.append(String.format("%s.%s AS %s,", primaryTableName, FSQLColumnName, FKey))
+					// sbSelect.append(String.format("%s.%s AS %s,",
+					// primaryTableName, FSQLColumnName, FKey))
 					// .append(separator);
 
 					if (dataType != null && dataType == 2) {
 						// 文本类的关联字段，未防止关联表中无记录，此处取主表字段值-如订单查询FCarNo字段取数
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter,
+								sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 					} else {
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField,
+								eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 					}
 
 					// from 中同时增加关联表
@@ -856,16 +889,19 @@ public class TemplateService extends BaseService implements ITemplateService {
 						sbFrom.append(" as " + srcTableAlisAs);
 					}
 
-					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
+					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", formFieldLinkedTable, bDelimiter,
+							sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
 							.append(separator);
 				} else if (lookUpType != null && lookUpType == 5) {
 
 					// 普通引用其他表的其他字段-主要为了避免为4即引用他表数据时，需引用多个字段时关联表重复问题。依附于=4时存在,即模板中肯定存在FLookUpType=4的字段模板
 
-					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField,
+							eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
 				} else {
-					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter,
+							sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 				}
 			}
 		}
@@ -902,7 +938,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Connection connection = null;
 
 		SqlSessionTemplate st = (SqlSessionTemplate) sqlSession;
-		// Connection connection = SqlSessionUtils.getSqlSession(st.getSqlSessionFactory(), st.getExecutorType(),
+		// Connection connection =
+		// SqlSessionUtils.getSqlSession(st.getSqlSessionFactory(),
+		// st.getExecutorType(),
 		// st.getPersistenceExceptionTranslator()).getConnection();
 		connection = st.getSqlSessionFactory().openSession().getConnection();
 		try {
@@ -971,7 +1009,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			// 存在关联字表-只关联第一个子表查询
 			childTableName = (String) ((Map<String, Object>) formEntries.get("1")).get("tableName"); // 子表物理表名
-			foreignKey = (String) ((Map<String, Object>) formEntries.get("1")).get("foreignKey");// 子表与主表关联字段(INNER JOIN
+			foreignKey = (String) ((Map<String, Object>) formEntries.get("1")).get("foreignKey");// 子表与主表关联字段(INNER
+																									// JOIN
 
 			if ("".equals(childTableName) || "".equals(foreignKey)) {
 				// 存在子表但子表FormEntries中配置错误
@@ -1120,7 +1159,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				tableName = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
 
 				// 携带基础资料属性的字段过滤
-				// FLookUpType == 3 即引用基础资料属性的模板中，FDisPlayField的配置统一认为是引用基础资料模板中的key，需要二次验证引用资料模板确认查询字段
+				// FLookUpType == 3
+				// 即引用基础资料属性的模板中，FDisPlayField的配置统一认为是引用基础资料模板中的key，需要二次验证引用资料模板确认查询字段
 
 				FormFields formField = getFormField(lookUpClassID, disPlayField);
 
@@ -1175,10 +1215,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			if (i == 0) {
 				// 第一个条件舍弃前面andOr条件链接符号
-				sbWhere.append(separator).append(String.format("%s %s.%s%s%s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, value, rightParenTheses));
+				sbWhere.append(separator).append(String.format("%s %s.%s%s%s %s %s %s", leftParenTheses, tableName,
+						bDelimiter, fieldName, eDelimiter, logicOperator, value, rightParenTheses));
 			} else {
-				sbWhere.append(separator)
-						.append(String.format("%s %s %s.%s%s%s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, value, rightParenTheses));
+				sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s", andOr, leftParenTheses,
+						tableName, bDelimiter, fieldName, eDelimiter, logicOperator, value, rightParenTheses));
 			}
 
 		}
@@ -1286,7 +1327,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				fieldName = disPlayField;
 			}
 
-			sbOrderBy.append(separator).append(String.format("%s.%s%s%s %s,", tableName, bDelimiter, fieldName, eDelimiter, orderDirection));
+			sbOrderBy.append(separator).append(
+					String.format("%s.%s%s%s %s,", tableName, bDelimiter, fieldName, eDelimiter, orderDirection));
 
 		}
 
@@ -1330,7 +1372,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> prepareAddMap(JSONObject data, Map<String, FormFields> formFields, String primaryTableName) {
+	private Map<String, Object> prepareAddMap(JSONObject data, Map<String, FormFields> formFields,
+			String primaryTableName) {
 
 		StringBuffer fieldNames = new StringBuffer("");
 		StringBuffer fieldValues = new StringBuffer("");
@@ -1419,7 +1462,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 			for (Iterator<String> iterator = formEntries.keySet().iterator(); iterator.hasNext();) {
 
 				String key = iterator.next(); // key 等于1或2或3...
-				Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get(key);
+				Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template
+						.get("formFields")).get(key);
 				JSONArray entryData = jsonEntry.getJSONArray(key);
 				Map<String, Object> formEntry = (Map<String, Object>) formEntries.get(key);
 				// 保存或删除分录数据
@@ -1434,11 +1478,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * 
 	 * @param entryData
 	 *            分录数据 如：[{
-	 *            'data':{FParkID:3},'flag':'1'},{'data':{FEntryID:4,FParkID:11},'flag':'2'},{'data':{FEntryID:3 , F P a
-	 *            r k I D : 1 } , ' f l a g ' : ' 0 ' } ]
+	 *            'data':{FParkID:3},'flag':'1'},{'data':{FEntryID:4,FParkID:11}
+	 *            ,'flag':'2'},{'data':{FEntryID:3 , F P a r k I D : 1 } , ' f l
+	 *            a g ' : ' 0 ' } ]
 	 * @param formEntry
-	 *            分录表描述 { "FEntryIndex": 1, "FPrimaryKey": "FEntryID", "FForeignKey": "FID", "FClassID": 13001,
-	 *            "FTableName": "t_PropertyCompanyEntry" }
+	 *            分录表描述 { "FEntryIndex": 1, "FPrimaryKey": "FEntryID",
+	 *            "FForeignKey": "FID", "FClassID": 13001, "FTableName":
+	 *            "t_PropertyCompanyEntry" }
 	 * @param formFields
 	 *            分录表配置的字段
 	 * @param id
@@ -1446,7 +1492,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @param userType
 	 *            TODO
 	 */
-	private void saveEntry(JSONArray entryData, Map<String, Object> formEntry, Map<String, FormFields> formFields, int id) {
+	private void saveEntry(JSONArray entryData, Map<String, Object> formEntry, Map<String, FormFields> formFields,
+			int id) {
 
 		String primaryTableName = (String) formEntry.get("FTableName");
 		String primaryKey = (String) formEntry.get("FPrimaryKey");
@@ -1512,7 +1559,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> prepareEditMap(JSONObject data, Map<String, FormFields> formFields, String primaryTableName, String primaryKey, int id) {
+	private Map<String, Object> prepareEditMap(JSONObject data, Map<String, FormFields> formFields,
+			String primaryTableName, String primaryKey, int id) {
 		StringBuffer kvBuffer = new StringBuffer("");
 
 		for (Iterator<String> iterator = data.keySet().iterator(); iterator.hasNext();) {
@@ -1573,6 +1621,48 @@ public class TemplateService extends BaseService implements ITemplateService {
 		return map;
 	}
 
+	private Map<String, Object> prepareDeleteMap(String data, String primaryTableName, String primaryKey,
+			Map<String, Object> notHandle, int dataType) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		String[] idString = data.split(",");
+		List<String> idList = Arrays.asList(idString);
+
+		StringBuilder items = new StringBuilder();
+		for (String id : idList) {
+			if (notHandle != null) {
+				if (notHandle.containsKey(id))
+					continue;
+			}
+			DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);
+			switch (typeEnum) {
+			case NUMBER:
+				items.append(id).append(",");
+				break;
+			case TEXT:
+				items.append("'").append(id).append("'").append(",");
+				break;
+			case BOOLEAN:
+				items.append(id).append(",");
+				break;
+			case TIME:
+				items.append("'").append(id).append("'").append(",");
+				break;
+			default:
+				items.append("'").append(id).append("'").append(",");
+				break;
+			}
+		}
+		items.deleteCharAt(items.length() - 1);
+
+		map.put("tableName", primaryTableName);
+		map.put("primaryKey", primaryKey);
+		map.put("items", items);
+
+		return map;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -1584,13 +1674,18 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, FormFields> formFieldsAll = getFormFields(classId, -1);
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) template.get("formClass");
+		// 主表字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template
+				.get("formFields")).get("0"); // 主表的字段模板
 
 		String primaryTableName = formClass.getTableName();
 		String primaryKey = formClass.getPrimaryKey();
+		FormFields ff = formFields.get(primaryKey);
+		int dataType = ff.getDataType();
 
+		PlugInRet result = new PlugInRet();
 		PlugInFactory factory = new PlugInFactory(classId);
-
-		PlugInRet result = factory.beforeDelete(classId, template, items);
+		result = factory.beforeDelete(classId, template, items);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());
@@ -1606,10 +1701,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 
-		Map<String, Object> statement = new HashMap<String, Object>();
-		statement.put("tableName", primaryTableName);
-		statement.put("primaryKey", primaryKey);
-		statement.put("items", items);
+		// 准备删除模板
+		Map<String, Object> statement = prepareDeleteMap(items, primaryTableName, primaryKey, result.getData(),
+				dataType);
+		// Map<String, Object> statement = new HashMap<String, Object>();
+		// statement.put("tableName", primaryTableName);
+		// statement.put("primaryKey", primaryKey);
+		// statement.put("items", items);
 		templateDaoMapper.del(statement);
 
 		result = factory.afterDelete(classId, items);

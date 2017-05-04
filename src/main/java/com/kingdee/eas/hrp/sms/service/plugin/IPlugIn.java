@@ -72,11 +72,11 @@ public interface IPlugIn {
 	 * 
 	 * @param classId
 	 *            业务类型
-	 * @param items
+	 * @param data
 	 *            删除的内码集合
 	 * @return
 	 */
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String items);
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data);
 
 	/**
 	 * 基础资料删除后操作

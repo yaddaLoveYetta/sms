@@ -1,23 +1,15 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class Role {
-    private Integer roleId;
-
     private String name;
 
     private String number;
 
     private Integer type;
 
-    private Integer status;
+    private Byte status;
 
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
+    private Integer roleId;
 
     public String getName() {
         return name;
@@ -43,11 +35,19 @@ public class Role {
         this.type = type;
     }
 
-    public Integer getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 }

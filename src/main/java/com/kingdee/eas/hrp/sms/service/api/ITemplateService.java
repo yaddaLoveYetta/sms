@@ -2,7 +2,9 @@ package com.kingdee.eas.hrp.sms.service.api;
 
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.model.FormFields;
+import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 
 public interface ITemplateService {
 
@@ -97,14 +99,14 @@ public interface ITemplateService {
 	 * 根基模板删除基础资料
 	 * 
 	 * @Title deleteItem
-	 * @param classId
 	 * @param id
 	 * @param data
 	 *            void
 	 * @param userType
+	 * @return 
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
-	void deleteItem(Integer classId, Integer id, String data);
+	PlugInRet deleteItem(Integer classId, String data);
 
 	/**
 	 * 根基模板删除基础资料
