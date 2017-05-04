@@ -95,7 +95,7 @@ define('Edit', function (require, module, exports) {
         if (classId == 1001) {
             // 用户信息特殊校验逻辑
             // 供应商用户必须关联供应商
-            if ((f7Selectors['type'].getData()[0].ID || 0 == 2) && (f7Selectors['supplier'].getData()[0].ID || 0 == 0)) {
+            if ((f7Selectors['type'].getData()[0].ID || 0) == 2 && (f7Selectors['supplier'].getData()[0].ID || 0) == 0) {
                 errorData["supplier"] = $.String.format("供应商不可为空");
             }
         }
