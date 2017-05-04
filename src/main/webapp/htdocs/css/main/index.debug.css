@@ -440,7 +440,7 @@ body {
   display: none;
 }
 .content .iframes .actived {
-  display: initial;
+  display: block;
 }
 .msg-box {
   position: fixed;
