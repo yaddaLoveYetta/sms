@@ -115,7 +115,7 @@
             });
         }
         if (isDisabled) { // 是否锁定
-            selectors(key).lock();
+            selectors[key].lock();
         }
     };
 
