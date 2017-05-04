@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.sun.jersey.api.json.JSONConfigurated;
 
 /**
  * response工具类，向浏览器直接写入数据.数据个格式为{code:200,msg:'success',data:object}
@@ -152,15 +153,18 @@ public class ResponseWriteUtil {
 
 	public static void output(HttpServletResponse response, Result r) {
 		try {
+			//json日期格式化
+			JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
 			if (logger.isDebugEnabled()) {
-				logger.debug("回应数据" + JSONObject.toJSONString(r,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty));
+				logger.debug("回应数据" + JSONObject.toJSONString(r,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty,SerializerFeature.WriteDateUseDateFormat));
 			}
+			
 			response.setContentType("application/json;charset=UTF-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
 
 			// JSONObject json = JSONObject.fromObject(r, config);
-
-			String str = JSONObject.toJSONString(r,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty);  
+			
+			String str = JSONObject.toJSONString(r,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty,SerializerFeature.WriteDateUseDateFormat);  
 			
 			response.getWriter().write(str);
 			
