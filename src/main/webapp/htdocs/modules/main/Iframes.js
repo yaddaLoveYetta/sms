@@ -159,8 +159,8 @@ define('Iframes', function (require, module, exports) {
 
         list.push(item);
 
-        var url = $.Url.randomQueryString(item.url); //增加一个随机 key，以确保缓存失效
-
+        //var url = $.Url.randomQueryString(item.url); //增加一个随机 key，以确保缓存失效
+        var url = MiniQuery.Url.randomQueryString(item.url);
         //填充
         var html = $.String.format(sample, {
             'sn': item.id, //
