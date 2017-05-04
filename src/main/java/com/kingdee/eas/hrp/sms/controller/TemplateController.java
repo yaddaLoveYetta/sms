@@ -34,7 +34,7 @@ public class TemplateController {
 	@Resource
 	private ITemplateService templateService;
 
-	/** 
+	/**
 	 * 查询基础资料
 	 * 
 	 * @param request
@@ -100,13 +100,13 @@ public class TemplateController {
 	public void getItemById(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1); // 业务类别代码
-		Integer id = ParameterUtils.getParameter(request, "id", -1); // 内码
+		String id = ParameterUtils.getParameter(request, "id", ""); // 内码
 		int userType = SessionUtil.getUserType(request);
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
 			return;
 		}
-		if (id < 0) {
+		if (id == null || id.equals("")) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
 			return;
 		}
@@ -189,40 +189,6 @@ public class TemplateController {
 
 	}
 
-	/**
-	 * 删除基础资料
-	 * 
-	 * @Title deleteItem
-	 * @param request
-	 * @param response
-	 *            void
-	 * @date 2017-04-27 14:09:59 星期四
-	 */
-	@RequestMapping(value = "deleteItems")
-	public void delteItems(HttpServletRequest request, HttpServletResponse response) {
-
-		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
-		String data = ParameterUtils.getParameter(request, "data", "");
-
-		if (classId < 0) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
-			return;
-		}
-		if (data.equals("")) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
-			return;
-		}
-
-		PlugInRet result = templateService.deleteItem(classId, data);
-
-		if (result == null) {
-			ResponseWriteUtil.output(response, "修改成功！");
-		} else {
-			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, result.getMsg(), 
-					result.getData());
-		}
-	}
-
 	@RequestMapping(value = "delItem")
 	public void delItem(HttpServletRequest request, HttpServletResponse response) {
 
@@ -243,7 +209,7 @@ public class TemplateController {
 		ResponseWriteUtil.output(response, "删除成功！");
 
 	}
-	
+
 	@RequestMapping(value = "delItemByHRP")
 	public void delItemByHRP(HttpServletRequest request, HttpServletResponse response) {
 

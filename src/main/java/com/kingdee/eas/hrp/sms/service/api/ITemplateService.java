@@ -63,13 +63,13 @@ public interface ITemplateService {
 	 * @param classId
 	 *            业务类别
 	 * @param id
-	 *            内码(主键)
+	 *            内码(主键) EAS表主键竟然用字符串
 	 * @param userType
 	 *            用户类型
 	 * @return Map<String,Object>
 	 * @date 2017-04-26 14:42:58 星期三
 	 */
-	Map<String, Object> getItemById(Integer classId, Integer id, int userType);
+	Map<String, Object> getItemById(Integer classId, String id, int userType);
 
 	/**
 	 * 根基模板新增基础资料
