@@ -71,55 +71,35 @@
 
     //-----------F7处理逻辑Begin-------------//
     var getF7Data = function (itemId, classId, lookUpType, fn) {
-        var api;
 
-        if (lookUpType == 1) { //
-            api = new API('baseitem/getBaseItemByID');
 
-            api.get({
-                'classID': classId,
-                'ID': itemId
-            });
-            api.on({
-                'success': function (data, json) {
-                    fn && fn(data, json);
-                },
+        var api = new API('template/getItemById');
 
-                'fail': function (code, msg, json) {
-                    SMS.Tips.error(msg);
-                },
+        api.get({
+            'classId': classId,
+            'id': itemId
+        });
+        api.on({
+            'success': function (data, json) {
+                fn && fn(data, json);
+            },
 
-                'error': function () {
-                    SMS.Tips.error('网络错误，请稍候再试');
-                }
-            });
-        }
-        if (lookUpType == 2) { //
-            api = new API('assistitem/getItemByID');
-            api.post({
-                itemID: itemId
-            });
-            api.on({
-                'success': function (data, json) {
-                    fn && fn(data, json);
-                },
+            'fail': function (code, msg, json) {
+                SMS.Tips.error(msg);
+            },
 
-                'fail': function (code, msg, json) {
-                    SMS.Tips.error(msg);
-                },
+            'error': function () {
+                SMS.Tips.error('网络错误，请稍候再试');
+            }
+        });
 
-                'error': function () {
-                    SMS.Tips.error('网络错误，请稍候再试');
-                }
-            });
-        }
     };
 
     var setF7Data = function (data, key, selectors) {
         var selectorData = [{
-            ID: data.FID,
-            number: data.FNumber,
-            name: data.FName
+            ID: data.ID,
+            number: data.number,
+            name: data.name
         }];
         selectors[key].setData(selectorData);
         emitter.fire(key + '.defaultFill', [selectorData]);
@@ -135,12 +115,7 @@
             });
         }
         if (isDisabled) { // 是否锁定
-            var ftype = $("#bd-" + key);
-            var inpt = ftype.find("input");
-            var sbtn = ftype.find('[data-role="btn"]');
-            $(inpt).attr("disabled", "disabled");
-            $(sbtn).attr("disabled", "disabled");
-            $(ftype).undelegate('[data-role="btn"]', 'click');
+            selectors(key).lock();
         }
     };
 
@@ -194,40 +169,41 @@
             }
 
             var mask = field["display"] || 0;
-            var flockMaskDisplay = 0;
+            var lockMaskDisplay = 0;
             var display = 0;
             if (isUpdate) {
-                flockMaskDisplay = 2;
+                lockMaskDisplay = 2;
 
                 //display 字段显示权限-后端FDisPlay定义 4：编辑时对于平台用户显示，8：编辑时对于供应商用户显示：12：平台供应商用户都显示
-                //flockMaskDisplay  字段显示权限-后端FLock定义 4 编辑时平台用户锁定，8编辑时候供应商用户锁定
+                //lockMaskDisplay  字段显示权限-后端FLock定义 4 编辑时平台用户锁定，8编辑时候供应商用户锁定
                 if (user.type == 1) {
                     // 平台用户
                     display = 4;
-                    flockMaskDisplay = 2;
+                    lockMaskDisplay = 2;
                 } else if (user.type == 2) {
                     //供应商用户
                     display = 8;
-                    flockMaskDisplay = 8;
+                    lockMaskDisplay = 8;
                 }
             } else {
                 // 字段显示权限-后端FDisPlay定义 16：新增时对于平台用户显示，32：新增时对于供应商用户显示：48：平台供应商用户都显示
-                //flockMaskDisplay  字段显示权限-后端FLock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
+                //lockMaskDisplay  字段显示权限-后端FLock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
                 if (user.type == 1) {
                     // 平台用户
                     display = 16;
-                    flockMaskDisplay = 1;
+                    lockMaskDisplay = 1;
                 } else if (user.type == 2) {
                     //物业用户
                     display = 32;
-                    flockMaskDisplay = 4;
+                    lockMaskDisplay = 4;
                 }
             }
-            var flockMask = field['lock'] || 0;
-            var isLock = !!(flockMask & flockMaskDisplay);
+            var lockMask = field['lock'] || 0;
             //是否锁定
-            var isRemove = !(mask & display);
+            var isLock = !!(lockMask & lockMaskDisplay);
             //是否 移除
+            var isRemove = !(mask & display);
+
             //if (field['FCtrlType'] == 1) {
             //    element.autoNumeric('init');
             //}
