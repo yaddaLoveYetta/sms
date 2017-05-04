@@ -103,33 +103,6 @@
                             needConvert: false
                         };
                     }
-
-                    /*         var f7Name = conditionData.SelectorName || "";
-                     var fillterKey = conditionData.FillterKey || "";
-                     var isNeed = conditionData.IsNeed || false;
-                     //默认为false
-                     var valueRule = conditionData.ValueRule || {};
-                     if ($.trim(f7Name) !== "" && $.trim(fillterKey) !== "") {
-                     var id = dataSelectors[f7Name].getData() && dataSelectors[f7Name].getData()[0].ID || 0;
-                     //(isNeed === true ? 0 : "");//不是必要条件默认为““：否则默认为0 用于查询区分
-                     if (id === 0 && isNeed === false) {
-                     delete meta.conditions[f7Name];//清除没必要的或者已经清空的查询条件
-                     continue;
-                     //不是必须关联的 如果所关联的为空则跳过该查询条件
-                     }
-                     if (id in valueRule) {//如果有值的转换规则则启用规则
-                     id = valueRule[id];
-                     }
-                     meta.conditions[conditionData.SelectorName] = {
-                     'andOr': 'and',
-                     'leftParenTheses': '(',
-                     'fieldKey': fillterKey,
-                     'logicOperator': '=',
-                     'value': id,
-                     'rightParenTheses': ')',
-                     needConvert: false
-                     };
-                     }*/
                 }
                 //新增关联查询逻辑 --------------end--------------
 
@@ -287,6 +260,7 @@
                 $(this).attr("disabled", "disabled");
             });
             $(meta.container).find('[data-role="btn"]').each(function () {
+                $(this).attr("data-role", "btnDisalbe");
                 $(this).attr("disabled", "disabled");
             });
 
@@ -300,7 +274,8 @@
             $(meta.container).find('input').each(function () {
                 $(this).removeAttr("disabled");
             });
-            $(meta.container).find('[data-role="btn"]').each(function () {
+            $(meta.container).find('[data-role="btnDisalbe"]').each(function () {
+                $(this).attr("data-role", "btn");
                 $(this).removeAttr("disabled");
             });
         },
