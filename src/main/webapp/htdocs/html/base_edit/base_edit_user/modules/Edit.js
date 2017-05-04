@@ -10,7 +10,7 @@ define('Edit', function (require, module, exports) {
     var FormEdit = require('FormEdit');
     var UserTypeOpt = require('UserTypeOpt');
     var f7Selectors;
-    var baseClassId;
+    var classId;
     var itemId = '';
 
     // 带表体单据控件
@@ -78,7 +78,7 @@ define('Edit', function (require, module, exports) {
     function render(formClassId, itemID) {
 
         itemId = itemID;
-        baseClassId = formClassId;
+        classId = formClassId;
         FormEdit.render(formClassId, itemId, initGrid, initSelectors);
     }
 
@@ -149,7 +149,7 @@ define('Edit', function (require, module, exports) {
             itemId = data['itemID'];
             SMS.Tips.success('数据新增成功', 2000);
         }
-        refresh(baseClassId, f7Selectors);
+        refresh(classId, f7Selectors);
     }
 
     /**
