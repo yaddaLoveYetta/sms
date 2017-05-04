@@ -250,12 +250,7 @@ define('Edit', function (require, module, exports) {
             if (classId == 1001) {
                 // 用户编辑填充页面数据后-对于用户类别是系统用户的用户-锁定关联供应商控件不可用
                 if (FormEdit.getSelectors('type').getData()[0]['ID'] == 1) {
-                    var $supplier = $("#bd-supplier");
-                    var inpt = $supplier.find("input");
-                    var sbtn = $supplier.find('[data-role="btn"]');
-                    $(inpt).attr("disabled", "disabled");
-                    $(sbtn).attr("disabled", "disabled");
-                    $($supplier).undelegate('[data-role="btn"]', 'click');
+                    FormEdit.getSelectors('type').lock();
                 }
             }
             UserTypeOpt.render(data.FType);
@@ -272,12 +267,6 @@ define('Edit', function (require, module, exports) {
             if (data[0].ID == 1) {
                 // 系统用户类别时锁定关联供应商不可用
                 selectors['supplier'].lock();
-/*                var $supplier = $("#bd-supplier");
-                var inpt = $supplier.find("input");
-                var sbtn = $supplier.find('[data-role="btn"]');
-                $(inpt).attr("disabled", "disabled");
-                $(sbtn).attr("disabled", "disabled");
-                $($supplier).undelegate('[data-role="btn"]', 'click');*/
             }else {
                 selectors['supplier'].unlock();
             }
