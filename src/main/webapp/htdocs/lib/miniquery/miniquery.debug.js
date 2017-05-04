@@ -6524,7 +6524,7 @@ define('excore/Url', function (require, module, exports) {
             }
 
             var $Object = require('Object');
-            var obj = $Object.parseQueryString(qs);
+            var obj = $Object.parseQueryString(qs,true);
 
             if (key === undefined) { //未指定键，获取整个 Object 对象
                 return obj;
