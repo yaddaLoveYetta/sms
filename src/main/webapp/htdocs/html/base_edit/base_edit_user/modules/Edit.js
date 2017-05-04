@@ -279,7 +279,7 @@ define('Edit', function (require, module, exports) {
                 $(sbtn).attr("disabled", "disabled");
                 $($supplier).undelegate('[data-role="btn"]', 'click');*/
             }else {
-
+                selectors['supplier'].unlock();
             }
 
         },

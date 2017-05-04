@@ -38,7 +38,7 @@
             title: config.title,
             conditions: config.conditions || {},
             classID: config.classID || '',
-            destClassId:config.destClassId || '',
+            destClassId: config.destClassId || '',
             checkbox: config.checkbox,
             conditionF7Names: config.conditionF7Names || [], //新增查询条件集合 [{SelectorName:"FCompany",FillterKey: "FCompany", ValueRule: { 50801: 50701, 50802: 50702 } }]
             data: [{
@@ -184,15 +184,15 @@
                             //if (dialog.isSubmit && data[0].hasOwnProperty("ID")) {
                             if (dialog.isSubmit && data[0] && typeof data[0].ID != "undefined") {
                                 if (meta.data[0].ID != data[0].ID) {
-                                   // emitter.fire(meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogChange', [data]);
+                                    // emitter.fire(meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogChange', [data]);
                                     //抛出个值改变事件
-                                    emitter.fire('change', [meta.destClassId + '-' +meta.container.getAttribute("id") + '.DialogChange',data]);
+                                    emitter.fire('change', [meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogChange', data]);
                                 }
                                 meta.data = dialog.getData();
                                 label.value = meta.data[0].number;
                                 //emitter.fire(meta.destClassId +'-'+ meta.container.getAttribute("id") + '.DialogOk', [meta.data]);
                                 //抛出个确认事件
-                                emitter.fire('done', [meta.destClassId + '-' +meta.container.getAttribute("id") + '.DialogOk',meta.data]);
+                                emitter.fire('done', [meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogOk', meta.data]);
                                 label.focus();
                                 isFirst = true;
                             } else {
@@ -277,30 +277,45 @@
             $(meta.container).undelegate();
             meta.data = [];
         },
-        lock:function () {
+        lock: function () {
 
             var meta = mapper.get(this);
 
-            $(meta.container).find('input').each(function() {
+            $(meta.container).undelegate('[data-role="btn"]', 'click');
+
+            $(meta.container).find('input').each(function () {
                 $(this).attr("disabled", "disabled");
             });
-            $(meta.container).find('[data-role="btn"]').each(function() {
+            $(meta.container).find('[data-role="btn"]').each(function () {
                 $(this).attr("disabled", "disabled");
             });
 
-/*            $(document).ready(function(e) {
-                $("#Div1 input[type=text]").each(function() {
-                    var v = $(this).val();
-                });
+            /*            $(document).ready(function(e) {
+             $("#Div1 input[type=text]").each(function() {
+             var v = $(this).val();
+             });
+             });
+
+             var $supplier = $("#bd-supplier");
+             var inpt = $supplier.find("input");
+             var sbtn = $supplier.find('[data-role="btn"]');
+             $(inpt).attr("disabled", "disabled");
+             $(sbtn).attr("disabled", "disabled");
+             $($supplier).undelegate('[data-role="btn"]', 'click');*/
+
+        },
+        unlock: function () {
+
+            var meta = mapper.get(this);
+
+            $(meta.container).delegate('[data-role="btn"]', 'click');
+
+            $(meta.container).find('input').each(function () {
+                $(this).removeAttr("disabled");
             });
-
-            var $supplier = $("#bd-supplier");
-            var inpt = $supplier.find("input");
-            var sbtn = $supplier.find('[data-role="btn"]');
-            $(inpt).attr("disabled", "disabled");
-            $(sbtn).attr("disabled", "disabled");
-            $($supplier).undelegate('[data-role="btn"]', 'click');*/
-
+            $(meta.container).find('[data-role="btn"]').each(function () {
+                $(this).removeAttr("disabled");
+            });
         },
         clearData: function () {
             //新增文本清空设置空数据
