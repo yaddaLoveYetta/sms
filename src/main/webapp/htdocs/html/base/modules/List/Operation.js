@@ -20,7 +20,7 @@ define('List/Operation', function(require, module, exports) {
 
 		items = items.substr(1);
 
-		var api = new API('baseitem/delItem');
+		var api = new API('template/delItem');
 		api.get({
 
 			'classId' : classId,
