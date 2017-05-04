@@ -1687,10 +1687,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 		PlugInFactory factory = new PlugInFactory(classId);
 		result = factory.beforeDelete(classId, template, items);
 
-		if (result != null && result.getCode() != 200) {
-			throw new PlugInRuntimeException(result.getMsg());
-		}
-
 		// 子表资料描述信息
 		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
 		// 先删除分录数据（子表）
@@ -1709,6 +1705,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// statement.put("primaryKey", primaryKey);
 		// statement.put("items", items);
 		templateDaoMapper.del(statement);
+		
+		if (result != null && result.getCode() != 200) {
+			throw new PlugInRuntimeException(result.getMsg());
+		}
 
 		result = factory.afterDelete(classId, items);
 

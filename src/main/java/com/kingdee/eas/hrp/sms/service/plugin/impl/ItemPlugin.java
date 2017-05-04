@@ -90,27 +90,20 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 			
 		}
+		PlugInRet result = new PlugInRet();
 		if(!errorMsg.isEmpty()){
-			PlugInRet result = new PlugInRet();
 			result.setCode(501);
 			result.setMsg("以下数据已被引用，不能删除");
 			result.setData(errorMsg);
 			return result;
+		}else{
+			result.setCode(200);
+			result.setMsg("ok");
+			errorMsg.put("-1", "-1");
+			result.setData(errorMsg);
 		}
 
 		return super.beforeDelete(classId, formData, data);
-	}
-
-	@SuppressWarnings("unchecked")
-	private void checkForeignerKeyData(int classId, Map<String, Object> formData, String item) {
-
-		if (formData.get("formEntries") == null)
-			return;
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
-		Set<String> keySet = formFields.keySet();
-		StringBuilder errMsg = new StringBuilder();
-
 	}
 
 	@Override
