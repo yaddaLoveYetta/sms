@@ -277,7 +277,7 @@
             $(meta.container).undelegate();
             meta.data = [];
         },
-        look:function () {
+        lock:function () {
 
             var meta = mapper.get(this);
 
