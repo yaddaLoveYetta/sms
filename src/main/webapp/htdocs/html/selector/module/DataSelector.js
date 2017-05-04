@@ -281,7 +281,7 @@
 
             var meta = mapper.get(this);
 
-            $(meta.container).undelegate('[data-role="btn"]', 'click');
+            //$(meta.container).undelegate('[data-role="btn"]', 'click');
 
             $(meta.container).find('input').each(function () {
                 $(this).attr("disabled", "disabled");
@@ -290,25 +290,12 @@
                 $(this).attr("disabled", "disabled");
             });
 
-            /*            $(document).ready(function(e) {
-             $("#Div1 input[type=text]").each(function() {
-             var v = $(this).val();
-             });
-             });
-
-             var $supplier = $("#bd-supplier");
-             var inpt = $supplier.find("input");
-             var sbtn = $supplier.find('[data-role="btn"]');
-             $(inpt).attr("disabled", "disabled");
-             $(sbtn).attr("disabled", "disabled");
-             $($supplier).undelegate('[data-role="btn"]', 'click');*/
-
         },
         unlock: function () {
 
             var meta = mapper.get(this);
 
-            $(meta.container).delegate('[data-role="btn"]', 'click');
+            //$(meta.container).delegate('[data-role="btn"]', 'click');
 
             $(meta.container).find('input').each(function () {
                 $(this).removeAttr("disabled");
