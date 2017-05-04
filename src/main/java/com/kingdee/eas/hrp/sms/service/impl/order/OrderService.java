@@ -26,17 +26,16 @@ public class OrderService extends BaseService implements IOrderService{
 			try{
 			//录入订单抬头
             	order.setId(orderjson.getString("id"));
-				order.setLine_numbers(orderjson.getInteger("line_numbers"));
-				order.setSupplier_name(orderjson.getString("supplier_name"));
-				order.setPurchase_order_no(orderjson.getString("purchase_order_no"));
-			if(orderjson.getString("order_time")!=null){
-				order.setOrder_time(sft.parse(orderjson.getString("order_time")));
+				order.setLineNumbers(orderjson.getInteger("lineNumbers"));
+				order.setSupplierName(orderjson.getString("supplierName"));
+			if(orderjson.getString("orderTime")!=null){
+				order.setOrderTime(sft.parse(orderjson.getString("orderTime")));
 			}
-			if(orderjson.getString("cutasingle_time")!=null){
-				order.setCutasingle_time(sft.parse(orderjson.getString("cutasingle_time")));
+			if(orderjson.getString("cutasingleTime")!=null){
+				order.setCutasingleTime(sft.parse(orderjson.getString("cutasingleTime")));
 			}
-				order.setBuyer_id(orderjson.getString("buyer_id"));
-				order.setPurchasing_mode(orderjson.getInteger("purchasing_mode"));
+				order.setBuyer(orderjson.getString("buyer"));
+				order.setPurchasingMode(orderjson.getInteger("purchasing_mode"));
 				order.setTax(orderjson.getInteger("tax"));
 				OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 				orderMapper.insertSelective(order);
@@ -45,16 +44,16 @@ public class OrderService extends BaseService implements IOrderService{
 			JSONArray materialJson = orderjson.getJSONArray("entry");
 			for(int j=0;j<materialJson.size();j++){
 				JSONObject materialObject = JSONObject.parseObject(JSON.toJSONString(materialJson.get(j)));
-				material.setMaterial_code(materialObject.getString("material_code"));
-				material.setMaterial_name(materialObject.getString("material_name"));
+				material.setMaterialCode(materialObject.getString("materialCode"));
+				material.setMaterialName(materialObject.getString("materialName"));
 				material.setSpecifications(materialObject.getString("specifications"));
-				material.setBasic_unit_measurement(materialObject.getString("basic_unit_measurement"));
+				material.setBasicUnitMeasurement(materialObject.getString("basicUnitMeasurement"));
 				material.setPrice(materialObject.getBigDecimal("price"));
 				material.setNumbers(materialObject.getInteger("numbers"));
-			if(materialObject.getString("delivery_time")!=null){
-				material.setDelivery_time(sft.parse(materialObject.getString("delivery_time")));
+			if(materialObject.getString("deliveryTime")!=null){
+				material.setDeliveryTime(sft.parse(materialObject.getString("deliveryTime")));
 			}
-				material.setOrder_id(order.getId());	
+				material.setOrderId(order.getId());	
 				MaterialMapper materialMapper = sqlSession.getMapper(MaterialMapper.class);
 				materialMapper.insertSelective(material);
 			

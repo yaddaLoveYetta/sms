@@ -3,14 +3,14 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.MaterialMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Material">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="material_code" jdbcType="VARCHAR" property="material_code" />
-    <result column="material_name" jdbcType="VARCHAR" property="material_name" />
+    <result column="materialCode" jdbcType="VARCHAR" property="materialCode" />
+    <result column="materialName" jdbcType="VARCHAR" property="materialName" />
     <result column="specifications" jdbcType="VARCHAR" property="specifications" />
-    <result column="basic_unit_measurement" jdbcType="VARCHAR" property="basic_unit_measurement" />
+    <result column="basicUnitMeasurement" jdbcType="VARCHAR" property="basicUnitMeasurement" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="numbers" jdbcType="INTEGER" property="numbers" />
-    <result column="delivery_time" jdbcType="TIMESTAMP" property="delivery_time" />
-    <result column="order_id" jdbcType="VARCHAR" property="order_id" />
+    <result column="deliveryTime" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="orderId" jdbcType="VARCHAR" property="orderId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, material_code, material_name, specifications, basic_unit_measurement, price, 
-    numbers, delivery_time, order_id
+    id, materialCode, materialName, specifications, basicUnitMeasurement, price, numbers, 
+    deliveryTime, orderId
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.MaterialExample" resultMap="BaseResultMap">
     select
@@ -105,14 +105,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Material">
-    insert into t_sms_material_information (id, material_code, material_name, 
-      specifications, basic_unit_measurement, 
-      price, numbers, delivery_time, 
-      order_id)
-    values (#{id,jdbcType=INTEGER}, #{material_code,jdbcType=VARCHAR}, #{material_name,jdbcType=VARCHAR}, 
-      #{specifications,jdbcType=VARCHAR}, #{basic_unit_measurement,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{numbers,jdbcType=INTEGER}, #{delivery_time,jdbcType=TIMESTAMP}, 
-      #{order_id,jdbcType=VARCHAR})
+    insert into t_sms_material_information (id, materialCode, materialName, 
+      specifications, basicUnitMeasurement, price, 
+      numbers, deliveryTime, orderId
+      )
+    values (#{id,jdbcType=INTEGER}, #{materialCode,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, 
+      #{specifications,jdbcType=VARCHAR}, #{basicUnitMeasurement,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{numbers,jdbcType=INTEGER}, #{deliveryTime,jdbcType=TIMESTAMP}, #{orderId,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Material">
     insert into t_sms_material_information
@@ -120,17 +120,17 @@
       <if test="id != null">
         id,
       </if>
-      <if test="material_code != null">
-        material_code,
+      <if test="materialCode != null">
+        materialCode,
       </if>
-      <if test="material_name != null">
-        material_name,
+      <if test="materialName != null">
+        materialName,
       </if>
       <if test="specifications != null">
         specifications,
       </if>
-      <if test="basic_unit_measurement != null">
-        basic_unit_measurement,
+      <if test="basicUnitMeasurement != null">
+        basicUnitMeasurement,
       </if>
       <if test="price != null">
         price,
@@ -138,28 +138,28 @@
       <if test="numbers != null">
         numbers,
       </if>
-      <if test="delivery_time != null">
-        delivery_time,
+      <if test="deliveryTime != null">
+        deliveryTime,
       </if>
-      <if test="order_id != null">
-        order_id,
+      <if test="orderId != null">
+        orderId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="material_code != null">
-        #{material_code,jdbcType=VARCHAR},
+      <if test="materialCode != null">
+        #{materialCode,jdbcType=VARCHAR},
       </if>
-      <if test="material_name != null">
-        #{material_name,jdbcType=VARCHAR},
+      <if test="materialName != null">
+        #{materialName,jdbcType=VARCHAR},
       </if>
       <if test="specifications != null">
         #{specifications,jdbcType=VARCHAR},
       </if>
-      <if test="basic_unit_measurement != null">
-        #{basic_unit_measurement,jdbcType=VARCHAR},
+      <if test="basicUnitMeasurement != null">
+        #{basicUnitMeasurement,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
@@ -167,11 +167,11 @@
       <if test="numbers != null">
         #{numbers,jdbcType=INTEGER},
       </if>
-      <if test="delivery_time != null">
-        #{delivery_time,jdbcType=TIMESTAMP},
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="order_id != null">
-        #{order_id,jdbcType=VARCHAR},
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -187,17 +187,17 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.material_code != null">
-        material_code = #{record.material_code,jdbcType=VARCHAR},
+      <if test="record.materialCode != null">
+        materialCode = #{record.materialCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.material_name != null">
-        material_name = #{record.material_name,jdbcType=VARCHAR},
+      <if test="record.materialName != null">
+        materialName = #{record.materialName,jdbcType=VARCHAR},
       </if>
       <if test="record.specifications != null">
         specifications = #{record.specifications,jdbcType=VARCHAR},
       </if>
-      <if test="record.basic_unit_measurement != null">
-        basic_unit_measurement = #{record.basic_unit_measurement,jdbcType=VARCHAR},
+      <if test="record.basicUnitMeasurement != null">
+        basicUnitMeasurement = #{record.basicUnitMeasurement,jdbcType=VARCHAR},
       </if>
       <if test="record.price != null">
         price = #{record.price,jdbcType=DECIMAL},
@@ -205,11 +205,11 @@
       <if test="record.numbers != null">
         numbers = #{record.numbers,jdbcType=INTEGER},
       </if>
-      <if test="record.delivery_time != null">
-        delivery_time = #{record.delivery_time,jdbcType=TIMESTAMP},
+      <if test="record.deliveryTime != null">
+        deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.order_id != null">
-        order_id = #{record.order_id,jdbcType=VARCHAR},
+      <if test="record.orderId != null">
+        orderId = #{record.orderId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -219,14 +219,14 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_material_information
     set id = #{record.id,jdbcType=INTEGER},
-      material_code = #{record.material_code,jdbcType=VARCHAR},
-      material_name = #{record.material_name,jdbcType=VARCHAR},
+      materialCode = #{record.materialCode,jdbcType=VARCHAR},
+      materialName = #{record.materialName,jdbcType=VARCHAR},
       specifications = #{record.specifications,jdbcType=VARCHAR},
-      basic_unit_measurement = #{record.basic_unit_measurement,jdbcType=VARCHAR},
+      basicUnitMeasurement = #{record.basicUnitMeasurement,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DECIMAL},
       numbers = #{record.numbers,jdbcType=INTEGER},
-      delivery_time = #{record.delivery_time,jdbcType=TIMESTAMP},
-      order_id = #{record.order_id,jdbcType=VARCHAR}
+      deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      orderId = #{record.orderId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -234,17 +234,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Material">
     update t_sms_material_information
     <set>
-      <if test="material_code != null">
-        material_code = #{material_code,jdbcType=VARCHAR},
+      <if test="materialCode != null">
+        materialCode = #{materialCode,jdbcType=VARCHAR},
       </if>
-      <if test="material_name != null">
-        material_name = #{material_name,jdbcType=VARCHAR},
+      <if test="materialName != null">
+        materialName = #{materialName,jdbcType=VARCHAR},
       </if>
       <if test="specifications != null">
         specifications = #{specifications,jdbcType=VARCHAR},
       </if>
-      <if test="basic_unit_measurement != null">
-        basic_unit_measurement = #{basic_unit_measurement,jdbcType=VARCHAR},
+      <if test="basicUnitMeasurement != null">
+        basicUnitMeasurement = #{basicUnitMeasurement,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
@@ -252,25 +252,25 @@
       <if test="numbers != null">
         numbers = #{numbers,jdbcType=INTEGER},
       </if>
-      <if test="delivery_time != null">
-        delivery_time = #{delivery_time,jdbcType=TIMESTAMP},
+      <if test="deliveryTime != null">
+        deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="order_id != null">
-        order_id = #{order_id,jdbcType=VARCHAR},
+      <if test="orderId != null">
+        orderId = #{orderId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Material">
     update t_sms_material_information
-    set material_code = #{material_code,jdbcType=VARCHAR},
-      material_name = #{material_name,jdbcType=VARCHAR},
+    set materialCode = #{materialCode,jdbcType=VARCHAR},
+      materialName = #{materialName,jdbcType=VARCHAR},
       specifications = #{specifications,jdbcType=VARCHAR},
-      basic_unit_measurement = #{basic_unit_measurement,jdbcType=VARCHAR},
+      basicUnitMeasurement = #{basicUnitMeasurement,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       numbers = #{numbers,jdbcType=INTEGER},
-      delivery_time = #{delivery_time,jdbcType=TIMESTAMP},
-      order_id = #{order_id,jdbcType=VARCHAR}
+      deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
+      orderId = #{orderId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

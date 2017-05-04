@@ -3,18 +3,17 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.OrderMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Order">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="line_numbers" jdbcType="INTEGER" property="line_numbers" />
-    <result column="supplier_id" jdbcType="VARCHAR" property="supplier_id" />
-    <result column="supplier_name" jdbcType="VARCHAR" property="supplier_name" />
-    <result column="purchase_order_no" jdbcType="VARCHAR" property="purchase_order_no" />
-    <result column="order_time" jdbcType="TIMESTAMP" property="order_time" />
-    <result column="buyer_id" jdbcType="VARCHAR" property="buyer_id" />
-    <result column="purchasing_mode" jdbcType="INTEGER" property="purchasing_mode" />
+    <result column="lineNumbers" jdbcType="INTEGER" property="lineNumbers" />
+    <result column="supplierId" jdbcType="VARCHAR" property="supplierId" />
+    <result column="supplierName" jdbcType="VARCHAR" property="supplierName" />
+    <result column="orderTime" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="buyer" jdbcType="VARCHAR" property="buyer" />
+    <result column="purchasingMode" jdbcType="INTEGER" property="purchasingMode" />
     <result column="tax" jdbcType="INTEGER" property="tax" />
-    <result column="cutasingle_time" jdbcType="TIMESTAMP" property="cutasingle_time" />
-    <result column="confirm_delivery_time" jdbcType="TIMESTAMP" property="confirm_delivery_time" />
-    <result column="confirm_delivery_numbers" jdbcType="INTEGER" property="confirm_delivery_numbers" />
-    <result column="confirm_order" jdbcType="INTEGER" property="confirm_order" />
+    <result column="cutasingleTime" jdbcType="TIMESTAMP" property="cutasingleTime" />
+    <result column="confirmDeliveryTime" jdbcType="TIMESTAMP" property="confirmDeliveryTime" />
+    <result column="confirmDeliveryNumbers" jdbcType="INTEGER" property="confirmDeliveryNumbers" />
+    <result column="confirmOrder" jdbcType="INTEGER" property="confirmOrder" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,9 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, line_numbers, supplier_id, supplier_name, purchase_order_no, order_time, buyer_id, 
-    purchasing_mode, tax, cutasingle_time, confirm_delivery_time, confirm_delivery_numbers, 
-    confirm_order
+    id, lineNumbers, supplierId, supplierName, orderTime, buyer, purchasingMode, tax, 
+    cutasingleTime, confirmDeliveryTime, confirmDeliveryNumbers, confirmOrder
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderExample" resultMap="BaseResultMap">
     select
@@ -110,18 +108,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Order">
-    insert into t_sms_purchase_order (id, line_numbers, supplier_id, 
-      supplier_name, purchase_order_no, order_time, 
-      buyer_id, purchasing_mode, tax, 
-      cutasingle_time, confirm_delivery_time, 
-      confirm_delivery_numbers, confirm_order
-      )
-    values (#{id,jdbcType=VARCHAR}, #{line_numbers,jdbcType=INTEGER}, #{supplier_id,jdbcType=VARCHAR}, 
-      #{supplier_name,jdbcType=VARCHAR}, #{purchase_order_no,jdbcType=VARCHAR}, #{order_time,jdbcType=TIMESTAMP}, 
-      #{buyer_id,jdbcType=VARCHAR}, #{purchasing_mode,jdbcType=INTEGER}, #{tax,jdbcType=INTEGER}, 
-      #{cutasingle_time,jdbcType=TIMESTAMP}, #{confirm_delivery_time,jdbcType=TIMESTAMP}, 
-      #{confirm_delivery_numbers,jdbcType=INTEGER}, #{confirm_order,jdbcType=INTEGER}
-      )
+    insert into t_sms_purchase_order (id, lineNumbers, supplierId, 
+      supplierName, orderTime, buyer, 
+      purchasingMode, tax, cutasingleTime, 
+      confirmDeliveryTime, confirmDeliveryNumbers, 
+      confirmOrder)
+    values (#{id,jdbcType=VARCHAR}, #{lineNumbers,jdbcType=INTEGER}, #{supplierId,jdbcType=VARCHAR}, 
+      #{supplierName,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{buyer,jdbcType=VARCHAR}, 
+      #{purchasingMode,jdbcType=INTEGER}, #{tax,jdbcType=INTEGER}, #{cutasingleTime,jdbcType=TIMESTAMP}, 
+      #{confirmDeliveryTime,jdbcType=TIMESTAMP}, #{confirmDeliveryNumbers,jdbcType=INTEGER}, 
+      #{confirmOrder,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     insert into t_sms_purchase_order
@@ -129,82 +125,76 @@
       <if test="id != null">
         id,
       </if>
-      <if test="line_numbers != null">
-        line_numbers,
+      <if test="lineNumbers != null">
+        lineNumbers,
       </if>
-      <if test="supplier_id != null">
-        supplier_id,
+      <if test="supplierId != null">
+        supplierId,
       </if>
-      <if test="supplier_name != null">
-        supplier_name,
+      <if test="supplierName != null">
+        supplierName,
       </if>
-      <if test="purchase_order_no != null">
-        purchase_order_no,
+      <if test="orderTime != null">
+        orderTime,
       </if>
-      <if test="order_time != null">
-        order_time,
+      <if test="buyer != null">
+        buyer,
       </if>
-      <if test="buyer_id != null">
-        buyer_id,
-      </if>
-      <if test="purchasing_mode != null">
-        purchasing_mode,
+      <if test="purchasingMode != null">
+        purchasingMode,
       </if>
       <if test="tax != null">
         tax,
       </if>
-      <if test="cutasingle_time != null">
-        cutasingle_time,
+      <if test="cutasingleTime != null">
+        cutasingleTime,
       </if>
-      <if test="confirm_delivery_time != null">
-        confirm_delivery_time,
+      <if test="confirmDeliveryTime != null">
+        confirmDeliveryTime,
       </if>
-      <if test="confirm_delivery_numbers != null">
-        confirm_delivery_numbers,
+      <if test="confirmDeliveryNumbers != null">
+        confirmDeliveryNumbers,
       </if>
-      <if test="confirm_order != null">
-        confirm_order,
+      <if test="confirmOrder != null">
+        confirmOrder,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="line_numbers != null">
-        #{line_numbers,jdbcType=INTEGER},
+      <if test="lineNumbers != null">
+        #{lineNumbers,jdbcType=INTEGER},
       </if>
-      <if test="supplier_id != null">
-        #{supplier_id,jdbcType=VARCHAR},
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
       </if>
-      <if test="supplier_name != null">
-        #{supplier_name,jdbcType=VARCHAR},
+      <if test="supplierName != null">
+        #{supplierName,jdbcType=VARCHAR},
       </if>
-      <if test="purchase_order_no != null">
-        #{purchase_order_no,jdbcType=VARCHAR},
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="order_time != null">
-        #{order_time,jdbcType=TIMESTAMP},
+      <if test="buyer != null">
+        #{buyer,jdbcType=VARCHAR},
       </if>
-      <if test="buyer_id != null">
-        #{buyer_id,jdbcType=VARCHAR},
-      </if>
-      <if test="purchasing_mode != null">
-        #{purchasing_mode,jdbcType=INTEGER},
+      <if test="purchasingMode != null">
+        #{purchasingMode,jdbcType=INTEGER},
       </if>
       <if test="tax != null">
         #{tax,jdbcType=INTEGER},
       </if>
-      <if test="cutasingle_time != null">
-        #{cutasingle_time,jdbcType=TIMESTAMP},
+      <if test="cutasingleTime != null">
+        #{cutasingleTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="confirm_delivery_time != null">
-        #{confirm_delivery_time,jdbcType=TIMESTAMP},
+      <if test="confirmDeliveryTime != null">
+        #{confirmDeliveryTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="confirm_delivery_numbers != null">
-        #{confirm_delivery_numbers,jdbcType=INTEGER},
+      <if test="confirmDeliveryNumbers != null">
+        #{confirmDeliveryNumbers,jdbcType=INTEGER},
       </if>
-      <if test="confirm_order != null">
-        #{confirm_order,jdbcType=INTEGER},
+      <if test="confirmOrder != null">
+        #{confirmOrder,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -220,41 +210,38 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.line_numbers != null">
-        line_numbers = #{record.line_numbers,jdbcType=INTEGER},
+      <if test="record.lineNumbers != null">
+        lineNumbers = #{record.lineNumbers,jdbcType=INTEGER},
       </if>
-      <if test="record.supplier_id != null">
-        supplier_id = #{record.supplier_id,jdbcType=VARCHAR},
+      <if test="record.supplierId != null">
+        supplierId = #{record.supplierId,jdbcType=VARCHAR},
       </if>
-      <if test="record.supplier_name != null">
-        supplier_name = #{record.supplier_name,jdbcType=VARCHAR},
+      <if test="record.supplierName != null">
+        supplierName = #{record.supplierName,jdbcType=VARCHAR},
       </if>
-      <if test="record.purchase_order_no != null">
-        purchase_order_no = #{record.purchase_order_no,jdbcType=VARCHAR},
+      <if test="record.orderTime != null">
+        orderTime = #{record.orderTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.order_time != null">
-        order_time = #{record.order_time,jdbcType=TIMESTAMP},
+      <if test="record.buyer != null">
+        buyer = #{record.buyer,jdbcType=VARCHAR},
       </if>
-      <if test="record.buyer_id != null">
-        buyer_id = #{record.buyer_id,jdbcType=VARCHAR},
-      </if>
-      <if test="record.purchasing_mode != null">
-        purchasing_mode = #{record.purchasing_mode,jdbcType=INTEGER},
+      <if test="record.purchasingMode != null">
+        purchasingMode = #{record.purchasingMode,jdbcType=INTEGER},
       </if>
       <if test="record.tax != null">
         tax = #{record.tax,jdbcType=INTEGER},
       </if>
-      <if test="record.cutasingle_time != null">
-        cutasingle_time = #{record.cutasingle_time,jdbcType=TIMESTAMP},
+      <if test="record.cutasingleTime != null">
+        cutasingleTime = #{record.cutasingleTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.confirm_delivery_time != null">
-        confirm_delivery_time = #{record.confirm_delivery_time,jdbcType=TIMESTAMP},
+      <if test="record.confirmDeliveryTime != null">
+        confirmDeliveryTime = #{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.confirm_delivery_numbers != null">
-        confirm_delivery_numbers = #{record.confirm_delivery_numbers,jdbcType=INTEGER},
+      <if test="record.confirmDeliveryNumbers != null">
+        confirmDeliveryNumbers = #{record.confirmDeliveryNumbers,jdbcType=INTEGER},
       </if>
-      <if test="record.confirm_order != null">
-        confirm_order = #{record.confirm_order,jdbcType=INTEGER},
+      <if test="record.confirmOrder != null">
+        confirmOrder = #{record.confirmOrder,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -264,18 +251,17 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_purchase_order
     set id = #{record.id,jdbcType=VARCHAR},
-      line_numbers = #{record.line_numbers,jdbcType=INTEGER},
-      supplier_id = #{record.supplier_id,jdbcType=VARCHAR},
-      supplier_name = #{record.supplier_name,jdbcType=VARCHAR},
-      purchase_order_no = #{record.purchase_order_no,jdbcType=VARCHAR},
-      order_time = #{record.order_time,jdbcType=TIMESTAMP},
-      buyer_id = #{record.buyer_id,jdbcType=VARCHAR},
-      purchasing_mode = #{record.purchasing_mode,jdbcType=INTEGER},
+      lineNumbers = #{record.lineNumbers,jdbcType=INTEGER},
+      supplierId = #{record.supplierId,jdbcType=VARCHAR},
+      supplierName = #{record.supplierName,jdbcType=VARCHAR},
+      orderTime = #{record.orderTime,jdbcType=TIMESTAMP},
+      buyer = #{record.buyer,jdbcType=VARCHAR},
+      purchasingMode = #{record.purchasingMode,jdbcType=INTEGER},
       tax = #{record.tax,jdbcType=INTEGER},
-      cutasingle_time = #{record.cutasingle_time,jdbcType=TIMESTAMP},
-      confirm_delivery_time = #{record.confirm_delivery_time,jdbcType=TIMESTAMP},
-      confirm_delivery_numbers = #{record.confirm_delivery_numbers,jdbcType=INTEGER},
-      confirm_order = #{record.confirm_order,jdbcType=INTEGER}
+      cutasingleTime = #{record.cutasingleTime,jdbcType=TIMESTAMP},
+      confirmDeliveryTime = #{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
+      confirmDeliveryNumbers = #{record.confirmDeliveryNumbers,jdbcType=INTEGER},
+      confirmOrder = #{record.confirmOrder,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -283,59 +269,55 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     update t_sms_purchase_order
     <set>
-      <if test="line_numbers != null">
-        line_numbers = #{line_numbers,jdbcType=INTEGER},
+      <if test="lineNumbers != null">
+        lineNumbers = #{lineNumbers,jdbcType=INTEGER},
       </if>
-      <if test="supplier_id != null">
-        supplier_id = #{supplier_id,jdbcType=VARCHAR},
+      <if test="supplierId != null">
+        supplierId = #{supplierId,jdbcType=VARCHAR},
       </if>
-      <if test="supplier_name != null">
-        supplier_name = #{supplier_name,jdbcType=VARCHAR},
+      <if test="supplierName != null">
+        supplierName = #{supplierName,jdbcType=VARCHAR},
       </if>
-      <if test="purchase_order_no != null">
-        purchase_order_no = #{purchase_order_no,jdbcType=VARCHAR},
+      <if test="orderTime != null">
+        orderTime = #{orderTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="order_time != null">
-        order_time = #{order_time,jdbcType=TIMESTAMP},
+      <if test="buyer != null">
+        buyer = #{buyer,jdbcType=VARCHAR},
       </if>
-      <if test="buyer_id != null">
-        buyer_id = #{buyer_id,jdbcType=VARCHAR},
-      </if>
-      <if test="purchasing_mode != null">
-        purchasing_mode = #{purchasing_mode,jdbcType=INTEGER},
+      <if test="purchasingMode != null">
+        purchasingMode = #{purchasingMode,jdbcType=INTEGER},
       </if>
       <if test="tax != null">
         tax = #{tax,jdbcType=INTEGER},
       </if>
-      <if test="cutasingle_time != null">
-        cutasingle_time = #{cutasingle_time,jdbcType=TIMESTAMP},
+      <if test="cutasingleTime != null">
+        cutasingleTime = #{cutasingleTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="confirm_delivery_time != null">
-        confirm_delivery_time = #{confirm_delivery_time,jdbcType=TIMESTAMP},
+      <if test="confirmDeliveryTime != null">
+        confirmDeliveryTime = #{confirmDeliveryTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="confirm_delivery_numbers != null">
-        confirm_delivery_numbers = #{confirm_delivery_numbers,jdbcType=INTEGER},
+      <if test="confirmDeliveryNumbers != null">
+        confirmDeliveryNumbers = #{confirmDeliveryNumbers,jdbcType=INTEGER},
       </if>
-      <if test="confirm_order != null">
-        confirm_order = #{confirm_order,jdbcType=INTEGER},
+      <if test="confirmOrder != null">
+        confirmOrder = #{confirmOrder,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     update t_sms_purchase_order
-    set line_numbers = #{line_numbers,jdbcType=INTEGER},
-      supplier_id = #{supplier_id,jdbcType=VARCHAR},
-      supplier_name = #{supplier_name,jdbcType=VARCHAR},
-      purchase_order_no = #{purchase_order_no,jdbcType=VARCHAR},
-      order_time = #{order_time,jdbcType=TIMESTAMP},
-      buyer_id = #{buyer_id,jdbcType=VARCHAR},
-      purchasing_mode = #{purchasing_mode,jdbcType=INTEGER},
+    set lineNumbers = #{lineNumbers,jdbcType=INTEGER},
+      supplierId = #{supplierId,jdbcType=VARCHAR},
+      supplierName = #{supplierName,jdbcType=VARCHAR},
+      orderTime = #{orderTime,jdbcType=TIMESTAMP},
+      buyer = #{buyer,jdbcType=VARCHAR},
+      purchasingMode = #{purchasingMode,jdbcType=INTEGER},
       tax = #{tax,jdbcType=INTEGER},
-      cutasingle_time = #{cutasingle_time,jdbcType=TIMESTAMP},
-      confirm_delivery_time = #{confirm_delivery_time,jdbcType=TIMESTAMP},
-      confirm_delivery_numbers = #{confirm_delivery_numbers,jdbcType=INTEGER},
-      confirm_order = #{confirm_order,jdbcType=INTEGER}
+      cutasingleTime = #{cutasingleTime,jdbcType=TIMESTAMP},
+      confirmDeliveryTime = #{confirmDeliveryTime,jdbcType=TIMESTAMP},
+      confirmDeliveryNumbers = #{confirmDeliveryNumbers,jdbcType=INTEGER},
+      confirmOrder = #{confirmOrder,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

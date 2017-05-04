@@ -5,29 +5,27 @@ import java.util.Date;
 public class Order {
     private String id;
 
-    private Integer line_numbers;
+    private Integer lineNumbers;
 
-    private String supplier_id;
+    private String supplierId;
 
-    private String supplier_name;
+    private String supplierName;
 
-    private String purchase_order_no;
+    private Date orderTime;
 
-    private Date order_time;
+    private String buyer;
 
-    private String buyer_id;
-
-    private Integer purchasing_mode;
+    private Integer purchasingMode;
 
     private Integer tax;
 
-    private Date cutasingle_time;
+    private Date cutasingleTime;
 
-    private Date confirm_delivery_time;
+    private Date confirmDeliveryTime;
 
-    private Integer confirm_delivery_numbers;
+    private Integer confirmDeliveryNumbers;
 
-    private Integer confirm_order;
+    private Integer confirmOrder;
 
     public String getId() {
         return id;
@@ -37,60 +35,52 @@ public class Order {
         this.id = id == null ? null : id.trim();
     }
 
-    public Integer getLine_numbers() {
-        return line_numbers;
+    public Integer getLineNumbers() {
+        return lineNumbers;
     }
 
-    public void setLine_numbers(Integer line_numbers) {
-        this.line_numbers = line_numbers;
+    public void setLineNumbers(Integer lineNumbers) {
+        this.lineNumbers = lineNumbers;
     }
 
-    public String getSupplier_id() {
-        return supplier_id;
+    public String getSupplierId() {
+        return supplierId;
     }
 
-    public void setSupplier_id(String supplier_id) {
-        this.supplier_id = supplier_id == null ? null : supplier_id.trim();
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId == null ? null : supplierId.trim();
     }
 
-    public String getSupplier_name() {
-        return supplier_name;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setSupplier_name(String supplier_name) {
-        this.supplier_name = supplier_name == null ? null : supplier_name.trim();
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName == null ? null : supplierName.trim();
     }
 
-    public String getPurchase_order_no() {
-        return purchase_order_no;
+    public Date getOrderTime() {
+        return orderTime;
     }
 
-    public void setPurchase_order_no(String purchase_order_no) {
-        this.purchase_order_no = purchase_order_no == null ? null : purchase_order_no.trim();
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
     }
 
-    public Date getOrder_time() {
-        return order_time;
+    public String getBuyer() {
+        return buyer;
     }
 
-    public void setOrder_time(Date order_time) {
-        this.order_time = order_time;
+    public void setBuyer(String buyer) {
+        this.buyer = buyer == null ? null : buyer.trim();
     }
 
-    public String getBuyer_id() {
-        return buyer_id;
+    public Integer getPurchasingMode() {
+        return purchasingMode;
     }
 
-    public void setBuyer_id(String buyer_id) {
-        this.buyer_id = buyer_id == null ? null : buyer_id.trim();
-    }
-
-    public Integer getPurchasing_mode() {
-        return purchasing_mode;
-    }
-
-    public void setPurchasing_mode(Integer purchasing_mode) {
-        this.purchasing_mode = purchasing_mode;
+    public void setPurchasingMode(Integer purchasingMode) {
+        this.purchasingMode = purchasingMode;
     }
 
     public Integer getTax() {
@@ -101,35 +91,35 @@ public class Order {
         this.tax = tax;
     }
 
-    public Date getCutasingle_time() {
-        return cutasingle_time;
+    public Date getCutasingleTime() {
+        return cutasingleTime;
     }
 
-    public void setCutasingle_time(Date cutasingle_time) {
-        this.cutasingle_time = cutasingle_time;
+    public void setCutasingleTime(Date cutasingleTime) {
+        this.cutasingleTime = cutasingleTime;
     }
 
-    public Date getConfirm_delivery_time() {
-        return confirm_delivery_time;
+    public Date getConfirmDeliveryTime() {
+        return confirmDeliveryTime;
     }
 
-    public void setConfirm_delivery_time(Date confirm_delivery_time) {
-        this.confirm_delivery_time = confirm_delivery_time;
+    public void setConfirmDeliveryTime(Date confirmDeliveryTime) {
+        this.confirmDeliveryTime = confirmDeliveryTime;
     }
 
-    public Integer getConfirm_delivery_numbers() {
-        return confirm_delivery_numbers;
+    public Integer getConfirmDeliveryNumbers() {
+        return confirmDeliveryNumbers;
     }
 
-    public void setConfirm_delivery_numbers(Integer confirm_delivery_numbers) {
-        this.confirm_delivery_numbers = confirm_delivery_numbers;
+    public void setConfirmDeliveryNumbers(Integer confirmDeliveryNumbers) {
+        this.confirmDeliveryNumbers = confirmDeliveryNumbers;
     }
 
-    public Integer getConfirm_order() {
-        return confirm_order;
+    public Integer getConfirmOrder() {
+        return confirmOrder;
     }
 
-    public void setConfirm_order(Integer confirm_order) {
-        this.confirm_order = confirm_order;
+    public void setConfirmOrder(Integer confirmOrder) {
+        this.confirmOrder = confirmOrder;
     }
 }
