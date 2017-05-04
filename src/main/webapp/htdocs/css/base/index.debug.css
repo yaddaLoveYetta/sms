@@ -78,6 +78,7 @@
   margin-top: 10px;
   width: 100%;
   text-align: left;
+  table-layout: fixed;
 }
 .data-table thead tr {
   border-bottom: 1px solid #dddfe5;
@@ -156,4 +157,8 @@
   float: right;
   margin-top: 15px;
   /* margin-right: 12px; */
+}
+.table-panel {
+  overflow-x: auto;
+  overflow-y: hidden;
 }

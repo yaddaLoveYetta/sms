@@ -249,7 +249,7 @@ define('Edit', function (require, module, exports) {
 
             if (classId == 1001) {
                 // 用户编辑填充页面数据后-对于用户类别是系统用户的用户-锁定关联供应商控件不可用
-                if (FormEdit.getSelectors('type')[0].ID == 1) {
+                if (FormEdit.getSelectors('type').getData()[0]['ID'] == 1) {
                     var $supplier = $("#bd-supplier");
                     var inpt = $supplier.find("input");
                     var sbtn = $supplier.find('[data-role="btn"]');

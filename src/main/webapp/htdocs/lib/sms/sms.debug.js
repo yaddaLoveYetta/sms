@@ -5857,7 +5857,7 @@
         'Url': true,
         'Multitask': true,
         'Tree': true,
-
+        'MD5':true,
         'Seajs': true,
 
         //api
@@ -5915,7 +5915,7 @@
         config: require('Config').set,
 
         //crypto
-        //'MD5': require('MD5'),
+        'MD5': require('MD5'),
 
 
         'Cache': require('Cache'),
