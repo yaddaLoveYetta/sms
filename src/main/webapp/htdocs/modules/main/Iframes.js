@@ -143,7 +143,8 @@ define('Iframes', function (require, module, exports) {
         if (index >= 0) { //已存在该项
 
             if (forceRefresh) {
-                var url = $.Url.randomQueryString(item.url); //增加一个随机 key，以确保缓存失效
+                //var url = $.Url.randomQueryString(item.url); //增加一个随机 key，以确保缓存失效
+                var url = MiniQuery.Url.randomQueryString(item.url);
                 var iframe = getIframe(item);
                 iframe.src = url;
             }
