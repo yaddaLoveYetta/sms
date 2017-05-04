@@ -95,15 +95,13 @@ public class ItemPlugin extends PlugInAdpter {
 			result.setCode(501);
 			result.setMsg("以下数据已被引用，不能删除");
 			result.setData(errorMsg);
-			return result;
 		}else{
 			result.setCode(200);
 			result.setMsg("ok");
 			errorMsg.put("-1", "-1");
 			result.setData(errorMsg);
 		}
-
-		return super.beforeDelete(classId, formData, data);
+		return result;
 	}
 
 	@Override

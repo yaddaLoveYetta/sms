@@ -226,7 +226,7 @@ public class PlugInFactory implements IPlugIn {
 		for (IPlugIn plugin : plugIns) {
 
 			PlugInRet ret = plugin.beforeDelete(classId, formData, data);
-			if (ret.getCode() != 200) {
+			if (ret.getCode() != 200||ret.getData()!=null) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;
 			}

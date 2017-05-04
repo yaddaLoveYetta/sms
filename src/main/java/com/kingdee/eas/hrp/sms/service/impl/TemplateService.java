@@ -160,14 +160,14 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			throw new BusinessLogicRunTimeException("资料模板不存在");
 		}
-		
+
 		// 主表表名
 		String primaryTableName = formClass.getTableName();
 		// 主表主键
 		String primaryKey = formClass.getPrimaryKey();
-		
-		//判断是否是
-		if (orderByString.equals("")&&classId/100==10) {
+
+		// 判断是否是
+		if (orderByString.equals("") && classId / 100 == 10) {
 
 			JSONArray orderByArray = new JSONArray();
 			JSONObject orderByItem = new JSONObject(true);
@@ -183,7 +183,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			orderByString = JSON.toJSONString(orderByArray);
 
-		}else{
+		} else {
 			JSONArray orderByArray = new JSONArray();
 			JSONObject orderByItem = new JSONObject(true);
 
@@ -1654,11 +1654,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 				break;
 			}
 		}
-		items.deleteCharAt(items.length() - 1);
+		if (items.length()!=0) {
+			items.deleteCharAt(items.length() - 1);
 
-		map.put("tableName", primaryTableName);
-		map.put("primaryKey", primaryKey);
-		map.put("items", items);
+			map.put("tableName", primaryTableName);
+			map.put("primaryKey", primaryKey);
+			map.put("items", items);
+		}
 
 		return map;
 	}
@@ -1670,8 +1672,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
-		// 所有字段模板
-		Map<String, FormFields> formFieldsAll = getFormFields(classId, -1);
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) template.get("formClass");
 		// 主表字段模板
@@ -1704,8 +1704,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// statement.put("tableName", primaryTableName);
 		// statement.put("primaryKey", primaryKey);
 		// statement.put("items", items);
-		templateDaoMapper.del(statement);
-		
+		if (!statement.isEmpty()) {
+			templateDaoMapper.del(statement);
+		}
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());
 		}
