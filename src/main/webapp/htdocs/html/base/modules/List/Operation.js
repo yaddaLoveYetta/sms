@@ -10,7 +10,7 @@ define('List/Operation', function(require, module, exports) {
 
 	var API = SMS.require('API');
 
-	function del(classID, list, fn) {
+	function del(classId, list, fn) {
 		var items = '';
 		for (var item in list) {
 			if (list[item]) {
@@ -23,7 +23,7 @@ define('List/Operation', function(require, module, exports) {
 		var api = new API('baseitem/delItem');
 		api.get({
 
-			'classID' : classID,
+			'classId' : classId,
 			'items' : items
 
 		});
@@ -45,7 +45,7 @@ define('List/Operation', function(require, module, exports) {
 		});
 	}
 
-	function forbid(classID, list, operateType, fn) {
+	function forbid(classId, list, operateType, fn) {
 		var items = '';
 		for (var item in list) {
 			if (list[item]) {
@@ -58,10 +58,10 @@ define('List/Operation', function(require, module, exports) {
 			return;
 		}
 
-		var api = new API('baseitem/forbid');
+		var api = new API('template/forbid');
 		api.get({
 
-			'classID' : classID,
+			'classId' : classId,
 			'items' : items,
 			'operateType' : operateType
 

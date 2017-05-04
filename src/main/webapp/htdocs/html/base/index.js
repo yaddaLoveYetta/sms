@@ -180,7 +180,9 @@
 
         },
         'delete': function (item, index) {
+            
             var list = List.getSelectedItems();
+
             if (list.length == 0) {
                 SMS.Tips.error('请选择要删除的项');
                 return;

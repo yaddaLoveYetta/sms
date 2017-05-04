@@ -258,7 +258,7 @@ define("List", function (require, module, exports) {
         return a;
     }
 
-    function getfilterItems() {
+    function getFilterItems() {
         return list.filterItems;
     }
 
@@ -280,7 +280,7 @@ define("List", function (require, module, exports) {
         getSelectedItems: getSelectedItems,
         getPrimaryKey: getPrimaryKey,
         del: del,
-        getfilterItems: getfilterItems,
+        getFilterItems: getFilterItems,
         forbid: forbid
     };
 });
