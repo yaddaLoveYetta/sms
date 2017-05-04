@@ -98,19 +98,6 @@ public interface ITemplateService {
 	/**
 	 * 根基模板删除基础资料
 	 * 
-	 * @Title deleteItem
-	 * @param id
-	 * @param data
-	 *            void
-	 * @param userType
-	 * @return 
-	 * @date 2017-04-27 15:40:28 星期四
-	 */
-	PlugInRet deleteItem(Integer classId, String data);
-
-	/**
-	 * 根基模板删除基础资料
-	 * 
 	 * @Title delItem
 	 * @param classId
 	 *            业务类型

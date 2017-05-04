@@ -581,53 +581,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public PlugInRet deleteItem(Integer classId, String data) {
-
-		// 基础资料模板
-		Map<String, Object> template = getFormTemplate(classId, 1);
-
-		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
-
-		// 主表资料描述信息
-		FormClass formClass = (FormClass) template.get("formClass");
-
-		// 删除前事件
-		PlugInFactory factory = new PlugInFactory(classId);
-		PlugInRet result = factory.beforeDelete(classId, template, data);
-
-		if (result != null && result.getCode() != 200) {
-			throw new PlugInRuntimeException(result.getMsg());
-		}
-
-		String primaryTableName = formClass.getTableName();
-		String primaryKey = formClass.getPrimaryKey();
-		FormFields ff = formFields.get(primaryKey);
-		int dataType = ff.getDataType();
-
-		// 准备删除模板
-		Map<String, Object> statement = prepareDeleteMap(data, primaryTableName, primaryKey, result.getData(), dataType);
-
-		// 删除基础资料
-		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
-		templateDaoMapper.del(statement);
-
-		return result;
-
-		// 处理分录数据
-		// String[] idString = data.split(",");
-		// List<String> idList = Arrays.asList(idString);
-		// for (String id : idList) {
-		// if (result.getData().containsKey(id)){
-		// continue;
-		// }
-		// handleEntryData(classId, id, data);
-		// }
-	}
-
 	/**
 	 * 判断List<Map<String, Object>>中的Map中key为targetKey的元素的值是否为targetValue，是则并返回该元素，否则返回null
 	 * 
