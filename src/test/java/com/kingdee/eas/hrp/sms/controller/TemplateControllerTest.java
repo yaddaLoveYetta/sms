@@ -45,23 +45,6 @@ public class TemplateControllerTest extends BaseControllerTest {
 	}
 	
 	@Test
-	public void deleteItems() {
-
-		Map<String, String> commonParams = new HashMap<String, String>();
-		commonParams.put("classId", "1005");
-		commonParams.put("data", "123");
-
-		HttpParam param = HttpParam.init();
-		param.setCommonParams(commonParams);
-		param.setCookieParams(cookie);
-		
-		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "template/deleteItems",param);
-
-		System.out.println(ret);
-
-	}
-	
-	@Test
 	public void delItems(){
 		Map<String, String> commonParams = new HashMap<String, String>();
 		commonParams.put("classId", "1005");

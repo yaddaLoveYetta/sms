@@ -1623,10 +1623,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 准备删除模板
 		Map<String, Object> statement = prepareDeleteMap(items, primaryTableName, primaryKey, result.getData(), dataType);
-		// Map<String, Object> statement = new HashMap<String, Object>();
-		// statement.put("tableName", primaryTableName);
-		// statement.put("primaryKey", primaryKey);
-		// statement.put("items", items);
 		if (!statement.isEmpty()) {
 			templateDaoMapper.del(statement);
 		}
