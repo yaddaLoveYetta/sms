@@ -235,7 +235,7 @@
     function refresh() {
 
         var keyworld = $(txtSimpleSearch).val()
-
+        conditions = {};
         if ($.trim(keyworld) !== "") {
             conditions['name'] = {
                 'andOr': 'AND',
