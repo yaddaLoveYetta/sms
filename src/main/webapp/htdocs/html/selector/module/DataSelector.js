@@ -277,6 +277,31 @@
             $(meta.container).undelegate();
             meta.data = [];
         },
+        look:function () {
+
+            var meta = mapper.get(this);
+
+            $(meta.container).find('input').each(function() {
+                $(this).attr("disabled", "disabled");
+            });
+            $(meta.container).find('[data-role="btn"]').each(function() {
+                $(this).attr("disabled", "disabled");
+            });
+
+/*            $(document).ready(function(e) {
+                $("#Div1 input[type=text]").each(function() {
+                    var v = $(this).val();
+                });
+            });
+
+            var $supplier = $("#bd-supplier");
+            var inpt = $supplier.find("input");
+            var sbtn = $supplier.find('[data-role="btn"]');
+            $(inpt).attr("disabled", "disabled");
+            $(sbtn).attr("disabled", "disabled");
+            $($supplier).undelegate('[data-role="btn"]', 'click');*/
+
+        },
         clearData: function () {
             //新增文本清空设置空数据
             var f7DefaultData = [{

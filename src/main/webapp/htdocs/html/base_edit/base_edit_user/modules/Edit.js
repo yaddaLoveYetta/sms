@@ -271,12 +271,15 @@ define('Edit', function (require, module, exports) {
 
             if (data[0].ID == 1) {
                 // 系统用户类别时锁定关联供应商不可用
-                var $supplier = $("#bd-supplier");
+                selectors['supplier'].lock();
+/*                var $supplier = $("#bd-supplier");
                 var inpt = $supplier.find("input");
                 var sbtn = $supplier.find('[data-role="btn"]');
                 $(inpt).attr("disabled", "disabled");
                 $(sbtn).attr("disabled", "disabled");
-                $($supplier).undelegate('[data-role="btn"]', 'click');
+                $($supplier).undelegate('[data-role="btn"]', 'click');*/
+            }else {
+
             }
 
         },
