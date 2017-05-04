@@ -69,7 +69,7 @@
 
     $(txtSimpleSearch).bind('keypress', function (event) {
         if (event.keyCode == 13) {
-            conditions['name'] = $(txtSimpleSearch).val();
+            /*conditions['name'] = $(txtSimpleSearch).val();*/
             refresh();
         }
     });
@@ -180,7 +180,7 @@
 
         },
         'delete': function (item, index) {
-            
+
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
@@ -233,6 +233,28 @@
     });
 
     function refresh() {
+
+        var keyworld = $(txtSimpleSearch).val()
+
+        if ($.trim(keyworld) !== "") {
+            conditions['name'] = {
+                'andOr': 'AND',
+                'leftParenTheses': '((',
+                'fieldKey': 'name',
+                'logicOperator': 'like',
+                'value': keyworld,
+                'rightParenTheses': ')'
+            };
+            conditions['number'] = {
+                'andOr': 'OR',
+                'leftParenTheses': '(',
+                'fieldKey': 'number',
+                'logicOperator': 'like',
+                'value': keyworld,
+                'rightParenTheses': '))'
+            };
+        }
+
         console.log('render');
         List.render({
             classId: classId,
