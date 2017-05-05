@@ -159,13 +159,13 @@
                                 if (meta.data[0].ID != data[0].ID) {
                                     // emitter.fire(meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogChange', [data]);
                                     //抛出个值改变事件
-                                    emitter.fire('change', [meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogChange', meta.container.getAttribute("id"), data]);
+                                    emitter.fire('change', [meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogChange', data]);
                                 }
                                 meta.data = dialog.getData();
                                 label.value = meta.data[0].number;
                                 //emitter.fire(meta.destClassId +'-'+ meta.container.getAttribute("id") + '.DialogOk', [meta.data]);
                                 //抛出个确认事件
-                                emitter.fire('done', [meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogOk', meta.container.getAttribute("id"), meta.data]);
+                                emitter.fire('done', [meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogOk', meta.data]);
                                 label.focus();
                                 isFirst = true;
                             } else {

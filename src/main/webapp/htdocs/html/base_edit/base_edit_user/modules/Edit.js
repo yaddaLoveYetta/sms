@@ -187,13 +187,13 @@ define('Edit', function (require, module, exports) {
     });
 
     FormEdit.on({
-        '1001-bd-type.DialogChange': function (key, data, selectors) {
+        '1001-bd-type.DialogChange': function (data, selectors) {
             // 用户编辑时-用户类别变化-将角色及关联供应商清空
             // key 事件触发控件,data 当前编辑的控件数据，selectors所有的F7控件
             selectors['role'].clearData();
             selectors['supplier'].clearData();
 
-            var element = '#' + key;
+            var element = '#bd-supplier';
 
             if (data[0].ID == 1) {
                 // 系统用户类别时锁定关联供应商不可用
