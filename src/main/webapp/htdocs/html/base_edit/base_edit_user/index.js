@@ -12,6 +12,10 @@
 
 	var ButtonList = bl.create(itemId);
 
+    //检查登录
+    if (!SMS.Login.check(true)) {
+        return;
+    }
 	// 基础资料类别ID
 	// 支持二级事件，二级事件对应 item 中的 name
 	ButtonList.on('click',{

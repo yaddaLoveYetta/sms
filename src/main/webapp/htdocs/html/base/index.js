@@ -18,6 +18,12 @@
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
 
+
+    //检查登录
+    if (!SMS.Login.check(true)) {
+        return;
+    }
+
     //默认配置
     var defaults = {
         pageSize: 10,
@@ -236,7 +242,7 @@
 
         var keyworld = $(txtSimpleSearch).val()
         conditions['name'] = "";
-		conditions['number'] = "";
+        conditions['number'] = "";
         if ($.trim(keyworld) !== "") {
             conditions['name'] = {
                 'andOr': 'AND',
