@@ -100,35 +100,18 @@
                 name: 'refresh',
             }]
         };
-    } else if (classId == 1002) {
+    } else if (classId == 1005) {
         blConfig = {
             'items': [{
-                text: '这是一个按钮',
+                text: '新增',
                 name: 'add',
             }, {
-                text: '这是另一个按钮',
+                text: '删除',
                 name: 'delete',
             }, {
                 text: '刷新',
                 name: 'refresh',
-            }, {
-                text: '更多',
-                name: 'more',
-                cssClass: 'btn-more',
-                items: [{
-                    text: '导出',
-                    name: 'export'
-                },
-                    {
-                        text: '导入',
-                        name: 'import'
-                    }
-                ]
             }]
-        };
-
-        blConfig = {
-            'items': []
         };
     } else if (classId == 1003) {
         blConfig = {
