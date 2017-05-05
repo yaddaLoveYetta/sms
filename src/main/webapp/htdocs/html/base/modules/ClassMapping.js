@@ -23,15 +23,15 @@ define('ClassMapping', function (require, module, exports) {
     var pageMappings = {
         '1001': {
             name: '用户',
-            url: 'html/base_edit/base_edit_user/index.html'
+            url: 'html/base_edit/index.html'
         },
         '1003': {
             name: '角色',
-            url: 'html/base_edit/base_edit_user/index.html'
+            url: 'html/base_edit/index.html'
         },
         '1005': {
             name: '供应商',
-            url: 'html/base_edit/base_edit_user/index.html'
+            url: 'html/base_edit/index.html'
         },
     }
 
