@@ -103,6 +103,7 @@ public interface ITemplateService {
 	 *            业务类型
 	 * @param items
 	 *            待删除的基础资料内码集合 void
+	 * @return 
 	 * @date 2017-05-02 17:49:38 星期二
 	 */
 	void delItem(Integer classId, String items);

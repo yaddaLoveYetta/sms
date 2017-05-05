@@ -206,6 +206,7 @@ public class TemplateController {
 		}
 
 		templateService.delItem(classId, items);
+
 		ResponseWriteUtil.output(response, "删除成功！");
 
 	}

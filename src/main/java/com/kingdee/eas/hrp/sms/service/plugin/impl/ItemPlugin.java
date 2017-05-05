@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
-import org.hamcrest.core.Is;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -44,8 +43,6 @@ public class ItemPlugin extends PlugInAdpter {
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
 
 		ITemplateService templateService = Environ.getBean(ITemplateService.class);
-		// 主表资料描述信息
-		FormClass formClass = (FormClass) formData.get("formClass");
 		// String primaryKey = formClass.getPrimaryKey();
 		// 装配待删除ID
 		String[] idString = data.split(",");
@@ -85,24 +82,26 @@ public class ItemPlugin extends PlugInAdpter {
 				// 如果此记录被引用，则不删除
 				String id = (String) item.get(key);
 				if (idList.contains(id)) {
-					errorMsg.put(id, id);
-					idList.remove(id);
+//					errorMsg.put(id, id);
+//					idList.remove(id);
+					throw new PlugInRuntimeException("内码："+item.get("name")+"已被引用，无法删除");
 				}
 			}
 
 		}
-		PlugInRet result = new PlugInRet();
-		if (!errorMsg.isEmpty()) {
-			result.setCode(501);
-			result.setMsg("以下数据已被引用，不能删除");
-			result.setData(errorMsg);
-		} else {
-			result.setCode(200);
-			result.setMsg("ok");
-			errorMsg.put("-1", "-1");
-			result.setData(errorMsg);
-		}
-		return result;
+//		PlugInRet result = new PlugInRet();
+//		if (!errorMsg.isEmpty()) {
+//			result.setCode(501);
+//			result.setMsg("以下数据已被引用，不能删除");
+//			result.setData(errorMsg);
+//		} else {
+//			result.setCode(200);
+//			result.setMsg("ok");
+//			errorMsg.put("-1", "-1");
+//			result.setData(errorMsg);
+//		}
+//		return result;
+		return super.beforeDelete(classId, formData, data);
 	}
 
 	@Override
