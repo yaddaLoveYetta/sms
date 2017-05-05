@@ -55,9 +55,9 @@
 
 		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
 		<!-- 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql5.5以下的版本中没有PSCache功能，建议关闭掉。5.5及以上版本有PSCache，建议开启。缺省值:false -->
-		<property name="poolPreparedStatements" value="true" />
+		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
 		<!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100。 -->
-		<property name="maxPoolPreparedStatementPerConnectionSize" value="10" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.maxPoolPreparedStatementPerConnectionSize}" />
 		
 		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" />
 		<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
