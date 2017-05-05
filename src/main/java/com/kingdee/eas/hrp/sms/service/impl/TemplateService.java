@@ -871,32 +871,32 @@ public class TemplateService extends BaseService implements ITemplateService {
 			}
 		};
 		
-		sqlSession.getConnection();
-		
-		Connection connection = null;
-
-		SqlSessionTemplate st = (SqlSessionTemplate) sqlSession;
-
-		connection = st.getSqlSessionFactory().openSession().getConnection();
-		try {
-			String dbName = connection.getMetaData().getDatabaseProductName();
-
-			if (dbName.contains("Microsoft")) {
-				// Microsoft SQL Server
-				ret.put("bDelimiter", "[");
-				ret.put("eDelimiter", "]");
-
-			} else if (dbName.contains("MySql")) {
-				// MySql
-				ret.put("bDelimiter", "`");
-				ret.put("eDelimiter", "`");
-
-			}
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
+//		sqlSession.getConnection();
+//		
+//		Connection connection = null;
+//
+//		SqlSessionTemplate st = (SqlSessionTemplate) sqlSession;
+//
+//		connection = st.getSqlSessionFactory().openSession().getConnection();
+//		try {
+//			String dbName = connection.getMetaData().getDatabaseProductName();
+//
+//			if (dbName.contains("Microsoft")) {
+//				// Microsoft SQL Server
+//				ret.put("bDelimiter", "[");
+//				ret.put("eDelimiter", "]");
+//
+//			} else if (dbName.contains("MySql")) {
+//				// MySql
+//				ret.put("bDelimiter", "`");
+//				ret.put("eDelimiter", "`");
+//
+//			}
+//
+//		} catch (SQLException e) {
+//
+//			e.printStackTrace();
+//		}
 
 		return ret;
 
