@@ -208,7 +208,6 @@ define('Edit', function (require, module, exports) {
                 selectors['supplier'].unlock();
 
                 //如果是必填需要添加 红色 * 号
-                var element = '#' + key;
                 if ($(element).parents("td").siblings().find(".must-mark").length <= 0) { //如果不存在
                     var html = $(element).parents("td").siblings().html();
                     $(element).parents("td").siblings().html("<span class=\"must-mark\">*</span>" + html);
