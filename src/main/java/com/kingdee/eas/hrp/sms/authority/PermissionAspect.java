@@ -13,11 +13,9 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.kingdee.eas.hrp.sms.exception.BaseRuntimeException;
 import com.kingdee.eas.hrp.sms.exception.PermissionDeniedRuntimeTimeException;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.sys.IPermissionService;
-import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 /**
  * 系统权限统一检验
