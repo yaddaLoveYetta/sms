@@ -534,7 +534,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		int id = templateDaoMapper.add(statement);
 
 		// 处理分录数据
-		handleEntryData(classId, id, json);
+		handleEntryData(classId, String.valueOf(id), json);
 
 		return id;
 
@@ -543,7 +543,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public void editItem(Integer classId, Integer id, String data, int userType) {
+	public void editItem(Integer classId, String id, String data, int userType) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
@@ -1381,7 +1381,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @date 2017-04-27 14:51:05 星期四
 	 */
 	@SuppressWarnings("unchecked")
-	private void handleEntryData(int classId, int id, JSONObject data) {
+	private void handleEntryData(int classId, String id, JSONObject data) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
@@ -1420,7 +1420,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @param userType
 	 *            TODO
 	 */
-	private void saveEntry(JSONArray entryData, Map<String, Object> formEntry, Map<String, FormFields> formFields, int id) {
+	private void saveEntry(JSONArray entryData, Map<String, Object> formEntry, Map<String, FormFields> formFields, String id) {
 
 		String primaryTableName = (String) formEntry.get("FTableName");
 		String primaryKey = (String) formEntry.get("FPrimaryKey");
@@ -1461,7 +1461,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				// 检查字段
 				// checkFields(formFields, data, primaryKey, flag, userType);
 				// 模板参数
-				int FID = data.getInteger(primaryKey);
+				String FID = data.getString(primaryKey);
 				// 准备保存模板
 				Map<String, Object> statement = prepareEditMap(data, formFields, primaryTableName, primaryKey, FID);
 
@@ -1486,7 +1486,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> prepareEditMap(JSONObject data, Map<String, FormFields> formFields, String primaryTableName, String primaryKey, int id) {
+	private Map<String, Object> prepareEditMap(JSONObject data, Map<String, FormFields> formFields, String primaryTableName, String primaryKey, String id) {
 		StringBuffer kvBuffer = new StringBuffer("");
 
 		for (Iterator<String> iterator = data.keySet().iterator(); iterator.hasNext();) {

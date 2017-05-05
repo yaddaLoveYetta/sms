@@ -54,7 +54,7 @@ public interface IPlugIn {
 	 *            业务数据
 	 * @return
 	 */
-	public PlugInRet beforeModify(int classId, int id,Map<String, Object> formData, JSONObject data, int userType);
+	public PlugInRet beforeModify(int classId, String id,Map<String, Object> formData, JSONObject data, int userType);
 
 	/**
 	 * 基础资料修改后操作

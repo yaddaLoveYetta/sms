@@ -193,7 +193,7 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId,int id, Map<String, Object> formData, JSONObject data, int userType) {
+	public PlugInRet beforeModify(int classId,String id, Map<String, Object> formData, JSONObject data, int userType) {
 
 		for (IPlugIn plugin : plugIns) {
 

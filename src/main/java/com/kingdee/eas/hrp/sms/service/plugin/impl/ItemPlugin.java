@@ -41,16 +41,16 @@ public class ItemPlugin extends PlugInAdpter {
 	@SuppressWarnings("unchecked")
 	@Override
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
-		
-		ITemplateService templateService =Environ.getBean(ITemplateService.class);
+
+		ITemplateService templateService = Environ.getBean(ITemplateService.class);
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) formData.get("formClass");
-		//String primaryKey = formClass.getPrimaryKey();
-		//装配待删除ID
+		// String primaryKey = formClass.getPrimaryKey();
+		// 装配待删除ID
 		String[] idString = data.split(",");
-		List<String> idList =  new ArrayList<String>(Arrays.asList(idString));
-		
-		//查找引用待删除资料的模板
+		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
+
+		// 查找引用待删除资料的模板
 		SqlSession sqlSession = Environ.getBean(SqlSession.class);
 		FormFieldsMapper mapper = sqlSession.getMapper(FormFieldsMapper.class);
 		FormFieldsExample example = new FormFieldsExample();
@@ -60,7 +60,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 		List<FormFields> list = mapper.selectByExample(example);
 		Map<String, Object> errorMsg = new HashMap<String, Object>();
-		
+
 		JSONArray orderByArray = new JSONArray();
 		JSONObject orderByItem = new JSONObject(true);
 
@@ -79,23 +79,23 @@ public class ItemPlugin extends PlugInAdpter {
 			Integer citedClassId = ff.getClassId();
 			String key = ff.getKey();
 			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10, 1);
-			List<Map<String, Object>> items= (List<Map<String, Object>>) result.get("list");
-			for(Map<String, Object> item:items){
-				//如果此记录被引用，则不删除
+			List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("list");
+			for (Map<String, Object> item : items) {
+				// 如果此记录被引用，则不删除
 				String id = (String) item.get(key);
-				if(idList.contains(id)){
+				if (idList.contains(id)) {
 					errorMsg.put(id, id);
 					idList.remove(id);
 				}
 			}
-			
+
 		}
 		PlugInRet result = new PlugInRet();
-		if(!errorMsg.isEmpty()){
+		if (!errorMsg.isEmpty()) {
 			result.setCode(501);
 			result.setMsg("以下数据已被引用，不能删除");
 			result.setData(errorMsg);
-		}else{
+		} else {
 			result.setCode(200);
 			result.setMsg("ok");
 			errorMsg.put("-1", "-1");
@@ -111,7 +111,7 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, int id, Map<String, Object> formData, JSONObject data, int userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, int userType) {
 
 		checkMustInput(classId, formData, data, userType);
 
@@ -125,14 +125,14 @@ public class ItemPlugin extends PlugInAdpter {
 
 		checkMustInput(classId, formData, data, userTyepe);
 
-		int id = -1;
+		String id = "-1";
 
 		checkIfExistRecord(classId, id, formData, data, userTyepe);
 
 		return super.beforeSave(classId, formData, data, userTyepe);
 	}
 
-	private void checkIfExistRecord(int classId, int id, Map<String, Object> formData, JSONObject data, int userTyepe) {
+	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data, int userTyepe) {
 		SqlSession sqlSession = Environ.getBean(SqlSession.class);
 
 		if (classId == 1001) {
@@ -205,8 +205,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {

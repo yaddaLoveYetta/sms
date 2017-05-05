@@ -166,7 +166,7 @@ public class TemplateController {
 	public void editItem(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
-		Integer id = ParameterUtils.getParameter(request, "itemId", -1);
+		String id = ParameterUtils.getParameter(request, "itemId", "");
 		String data = ParameterUtils.getParameter(request, "data", "");
 		int userType = SessionUtil.getUserType(request);
 
@@ -174,7 +174,7 @@ public class TemplateController {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
 			return;
 		}
-		if (id < 0) {
+		if (null==id || "".equals(id)) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
 			return;
 		}

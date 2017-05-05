@@ -93,7 +93,7 @@ public interface ITemplateService {
 	 * @param userType
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
-	void editItem(Integer classId, Integer id, String data, int userType);
+	void editItem(Integer classId, String id, String data, int userType);
 
 	/**
 	 * 根基模板删除基础资料
