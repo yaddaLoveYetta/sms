@@ -377,11 +377,11 @@
 
         //改变事件捕获
         DataSelector.on({
-            'change': function (key, data) {
-                emitter.fire(key, [data, selectors]);
+            'change': function (buildKey, key, data) {
+                emitter.fire(buildKey, [key, data, selectors]);
             },
-            'done': function (key, data) {
-                emitter.fire(key, [data, selectors]);
+            'done': function (buildKey, key, data) {
+                emitter.fire(buildKey, [key, data, selectors]);
             },
         });
 

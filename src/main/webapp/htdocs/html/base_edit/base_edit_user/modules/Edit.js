@@ -187,17 +187,32 @@ define('Edit', function (require, module, exports) {
     });
 
     FormEdit.on({
-        '1001-bd-type.DialogChange': function (data, selectors) {
+        '1001-bd-type.DialogChange': function (key, data, selectors) {
             // 用户编辑时-用户类别变化-将角色及关联供应商清空
-            // data 当前编辑的空间，selectors所有的F7控件
+            // key 事件触发控件,data 当前编辑的控件数据，selectors所有的F7控件
             selectors['role'].clearData();
             selectors['supplier'].clearData();
+
+            var element = '#' + key;
 
             if (data[0].ID == 1) {
                 // 系统用户类别时锁定关联供应商不可用
                 selectors['supplier'].lock();
+
+                if ($(element).parents("td").siblings().find(".must-mark")) {
+                    $(element).parents("td").siblings().find(".must-mark").remove();
+                }
+
             } else {
+                // 供应商用户类别时关联供应商可用且必录
                 selectors['supplier'].unlock();
+
+                //如果是必填需要添加 红色 * 号
+                var element = '#' + key;
+                if ($(element).parents("td").siblings().find(".must-mark").length <= 0) { //如果不存在
+                    var html = $(element).parents("td").siblings().html();
+                    $(element).parents("td").siblings().html("<span class=\"must-mark\">*</span>" + html);
+                }
             }
 
         },
