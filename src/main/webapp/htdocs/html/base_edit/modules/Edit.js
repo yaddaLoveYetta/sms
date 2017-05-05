@@ -13,8 +13,8 @@ define('Edit', function (require, module, exports) {
     var itemId = '';
 
     // 带表体单据控件
-    var Grid = require('html/base_edit/modules/Grid');
-    var GridBuilder = require('html/base_edit/modules/GridBuilder');
+    var Grid = require('Grid');
+    var GridBuilder = require('GridBuilder');
     var parkGrid = new Grid('bd-grid');
     var columns = ["FParkNumber"];
     var isNeedOpt = true; //Jqgrid是否可操作
