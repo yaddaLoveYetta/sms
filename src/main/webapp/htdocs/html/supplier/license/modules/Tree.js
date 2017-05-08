@@ -33,7 +33,7 @@ define('Tree', function (require, module, exports) {
             SMS.use('Tree', function (zTree) {
 
                 var tree = new zTree({
-                    selector: container,
+                    selector: '#tree',
                     data: data,
                 });
 
