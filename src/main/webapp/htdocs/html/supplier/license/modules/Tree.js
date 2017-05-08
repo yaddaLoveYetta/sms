@@ -26,7 +26,7 @@ define('Tree', function (require, module, exports) {
     function render() {
 
 
-        SMS.use('DateTimePicker', function(DateTimePicker) {
+        SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var startTime = new DateTimePicker(container, {
                 format: 'yyyy-mm-dd hh:ii:ss',
@@ -36,6 +36,7 @@ define('Tree', function (require, module, exports) {
                 startView: 'month',
                 minView: 'hour',
             });
+        });
 
         load(function (data) {
             SMS.use('zTree', function (zTree) {
