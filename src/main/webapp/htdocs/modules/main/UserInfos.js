@@ -66,8 +66,8 @@ define('UserInfos', function (require, module, exports) {
 
     function openChangePwd() {
 
-        var width = 500;
-        var height = 121;
+        var width = 400;
+        var height = 130;
         SMS.use('Dialog', function (Dialog) {
             var dialog = new Dialog({
                 id: 'changePassword',
