@@ -124,7 +124,7 @@
                 autoNumeric: 'autoNumeric/autoNumeric.{@}.js',
                 'datetimepicker-css': 'datetimepicker/css/datetimepicker.mod.{@}.css#',
                 'datetimepicker-js': 'datetimepicker/js/datetimepicker.mod.{@}.js',
-                'zTree-js': 'zTree/js/jquery.ztree.all-3.5.js?r=' + Math.random(),
+                'zTree-js': 'ztree/js/jquery.ztree.all-3.5.js?r=' + Math.random(),
                 'zTree-css':'ztree/css/zTreeStyle/zTreeStyle.css',
             }
         },

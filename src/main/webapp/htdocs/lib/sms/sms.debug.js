@@ -6025,7 +6025,7 @@
                     'zTree-js',
                     'zTree-css',
                 ], function () {
-                    fn && fn(zTree);
+                    fn && fn(Tree);
                 });
 
             },
