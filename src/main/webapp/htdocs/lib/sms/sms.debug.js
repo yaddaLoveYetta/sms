@@ -5845,7 +5845,7 @@
      * zTree选择器类。
      * @author yadda
      */
-    define('zTree', function (require, exports, module) {
+    define('Tree', function (require, exports, module) {
 
         var $ = require('$');
         var Seajs = require('Seajs');
@@ -5885,19 +5885,20 @@
         /**
          * 构造函数。
          */
-        function zTree(selector, config, data) {
+        function Tree(selector, config, data) {
 
             if ($.Object.isPlain(selector)) { // 重载 DateTimePicker( config )
                 config = selector;
                 selector = config.selector;
-                data=config.data;
+                data = config.data;
                 delete config.selector; //删除，避免对原始造成不可知的副作用
                 delete config.data; //删除，避免对原始造成不可知的副作用
             }
 
             config = $.Object.extend({}, defaults, config);
 
-            var $this = $.zTree($(selector), config, data);
+            //var $this = $.zTree($(selector), config, data);
+            var $this = $(selector).zTree(config, data);
 
             var meta = {
                 $this: $this,
@@ -5908,8 +5909,8 @@
         }
 
 
-        zTree.prototype = { //实例方法
-            constructor: zTree,
+        Tree.prototype = { //实例方法
+            constructor: Tree,
 
             on: function (name, fn) {
                 var meta = mapper.get(this);
@@ -6086,7 +6087,7 @@
         'Pagers': true,
         'NumberField': true,
         'DateTimePicker': true,
-        'zTree':true,
+        'zTree': true,
     });
 
 
