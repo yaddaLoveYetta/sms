@@ -28,7 +28,10 @@ define('Tree', function (require, module, exports) {
         load(function (data) {
             SMS.use('zTree', function (zTree) {
 
-                var totalSpace = new zTree('container');
+                var totalSpace = new zTree({
+                    selector: container,
+                    data: data,
+                });
 
             });
         });
