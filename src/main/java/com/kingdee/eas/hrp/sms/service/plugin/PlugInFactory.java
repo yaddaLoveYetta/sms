@@ -165,7 +165,7 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, int userType) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userType) {
 
 		for (IPlugIn plugin : plugIns) {
 
@@ -179,7 +179,7 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet afterSave(int classId, int id, JSONObject data) {
+	public PlugInRet afterSave(int classId, String id, JSONObject data) {
 
 		for (IPlugIn plugin : plugIns) {
 
@@ -193,7 +193,7 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId,String id, Map<String, Object> formData, JSONObject data, int userType) {
+	public PlugInRet beforeModify(int classId,String id, Map<String, Object> formData, JSONObject data, String userType) {
 
 		for (IPlugIn plugin : plugIns) {
 

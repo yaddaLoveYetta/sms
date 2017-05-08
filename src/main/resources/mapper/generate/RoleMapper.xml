@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.RoleMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Role">
+    <id column="roleId" jdbcType="VARCHAR" property="roleId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
-    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="roleId" jdbcType="INTEGER" property="roleId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    [name], [number], [type], [status], roleId
+    roleId, [name], [number], [type], [status]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.RoleExample" resultMap="BaseResultMap">
     select
@@ -83,6 +83,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sms_role
+    where roleId = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_sms_role
+    where roleId = #{roleId,jdbcType=VARCHAR}
+  </delete>
   <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.RoleExample">
     delete from t_sms_role
     <if test="_parameter != null">
@@ -90,14 +100,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Role">
-    insert into t_sms_role ([name], [number], [type], 
-      [status], roleId)
-    values (#{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{status,jdbcType=TINYINT}, #{roleId,jdbcType=INTEGER})
+    insert into t_sms_role (roleId, [name], [number], 
+      [type], [status])
+    values (#{roleId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Role">
     insert into t_sms_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        roleId,
+      </if>
       <if test="name != null">
         [name],
       </if>
@@ -110,11 +123,11 @@
       <if test="status != null">
         [status],
       </if>
-      <if test="roleId != null">
-        roleId,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -122,13 +135,10 @@
         #{number,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
-        #{type,jdbcType=INTEGER},
+        #{type,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -141,6 +151,9 @@
   <update id="updateByExampleSelective" parameterType="map">
     update t_sms_role
     <set>
+      <if test="record.roleId != null">
+        roleId = #{record.roleId,jdbcType=VARCHAR},
+      </if>
       <if test="record.name != null">
         [name] = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -148,13 +161,10 @@
         [number] = #{record.number,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null">
-        [type] = #{record.type,jdbcType=INTEGER},
+        [type] = #{record.type,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
         [status] = #{record.status,jdbcType=TINYINT},
-      </if>
-      <if test="record.roleId != null">
-        roleId = #{record.roleId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -163,13 +173,39 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update t_sms_role
-    set [name] = #{record.name,jdbcType=VARCHAR},
+    set roleId = #{record.roleId,jdbcType=VARCHAR},
+      [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR},
-      [type] = #{record.type,jdbcType=INTEGER},
-      [status] = #{record.status,jdbcType=TINYINT},
-      roleId = #{record.roleId,jdbcType=INTEGER}
+      [type] = #{record.type,jdbcType=VARCHAR},
+      [status] = #{record.status,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Role">
+    update t_sms_role
+    <set>
+      <if test="name != null">
+        [name] = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        [number] = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        [type] = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        [status] = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where roleId = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Role">
+    update t_sms_role
+    set [name] = #{name,jdbcType=VARCHAR},
+      [number] = #{number,jdbcType=VARCHAR},
+      [type] = #{type,jdbcType=VARCHAR},
+      [status] = #{status,jdbcType=TINYINT}
+    where roleId = #{roleId,jdbcType=VARCHAR}
   </update>
 </mapper>

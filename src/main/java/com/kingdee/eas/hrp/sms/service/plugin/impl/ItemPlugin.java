@@ -19,7 +19,6 @@ import com.kingdee.eas.hrp.sms.dao.generate.RoleMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserTypeMapper;
 import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
-import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
 import com.kingdee.eas.hrp.sms.model.Role;
@@ -57,7 +56,6 @@ public class ItemPlugin extends PlugInAdpter {
 		criteria.andLookUpClassIDEqualTo(classId);
 
 		List<FormFields> list = mapper.selectByExample(example);
-		Map<String, Object> errorMsg = new HashMap<String, Object>();
 
 		JSONArray orderByArray = new JSONArray();
 		JSONObject orderByItem = new JSONObject(true);
@@ -76,31 +74,19 @@ public class ItemPlugin extends PlugInAdpter {
 		for (FormFields ff : list) {
 			Integer citedClassId = ff.getClassId();
 			String key = ff.getKey();
-			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10, 1);
+			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10, "QpXq24FxxE6c3lvHMPyYCxACEAI=");
 			List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("list");
 			for (Map<String, Object> item : items) {
 				// 如果此记录被引用，则不删除
 				String id = (String) item.get(key);
 				if (idList.contains(id)) {
-//					errorMsg.put(id, id);
-//					idList.remove(id);
-					throw new PlugInRuntimeException("内码："+item.get("name")+"已被引用，无法删除");
+
+					throw new PlugInRuntimeException("内码：" + item.get("name") + "已被引用，无法删除");
 				}
 			}
 
 		}
-//		PlugInRet result = new PlugInRet();
-//		if (!errorMsg.isEmpty()) {
-//			result.setCode(501);
-//			result.setMsg("以下数据已被引用，不能删除");
-//			result.setData(errorMsg);
-//		} else {
-//			result.setCode(200);
-//			result.setMsg("ok");
-//			errorMsg.put("-1", "-1");
-//			result.setData(errorMsg);
-//		}
-//		return result;
+
 		return super.beforeDelete(classId, formData, data);
 	}
 
@@ -111,7 +97,7 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, int userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
 
 		checkMustInput(classId, formData, data, userType);
 
@@ -121,7 +107,7 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, int userTyepe) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
 
 		checkMustInput(classId, formData, data, userTyepe);
 
@@ -132,7 +118,8 @@ public class ItemPlugin extends PlugInAdpter {
 		return super.beforeSave(classId, formData, data, userTyepe);
 	}
 
-	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data, int userTyepe) {
+	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data, String userTyepe) {
+
 		SqlSession sqlSession = Environ.getBean(SqlSession.class);
 
 		if (classId == 1001) {
@@ -145,7 +132,7 @@ public class ItemPlugin extends PlugInAdpter {
 			criteria.andNameEqualTo(data.getString("name"));
 			criteria.andNumberEqualTo(data.getString("number"));
 
-			criteria.andUserIdNotEqualTo(Integer.parseInt(id));// 排除自身
+			criteria.andUserIdNotEqualTo(id);// 排除自身
 
 			List<User> list = mapper.selectByExample(example);
 			if (list.size() > 0) {
@@ -155,7 +142,7 @@ public class ItemPlugin extends PlugInAdpter {
 				}
 			}
 
-			if (data.getIntValue("type") == 2) {
+			if (data.getString("type").equals("B3sMo22ZLkWApjO/oEeDOxACEAI=")) {
 				if (data.getString("supplier") == null || data.getString("supplier").equals("")) {
 					throw new PlugInRuntimeException("业务用户必须选择一个供应商");
 				}
@@ -172,7 +159,7 @@ public class ItemPlugin extends PlugInAdpter {
 			criteria.andNameEqualTo(data.getString("name"));
 			criteria.andNumberEqualTo(data.getString("number"));
 
-			criteria.andTypeIdNotEqualTo(Integer.parseInt(id));// 排除自身
+			criteria.andTypeIdNotEqualTo(id);// 排除自身
 
 			List<UserType> list = mapper.selectByExample(example);
 			if (list.size() > 0) {
@@ -205,7 +192,7 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void checkMustInput(int classId, Map<String, Object> formData, JSONObject data, int userTyepe) {
+	private void checkMustInput(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
 
 		boolean flag = false;
 		// 主表字段模板
@@ -216,7 +203,7 @@ public class ItemPlugin extends PlugInAdpter {
 			flag = false;
 			FormFields ff = formFields.get(key);
 			int mustInput = ff.getMustInput();
-			if (userTyepe == 1) {
+			if (("QpXq24FxxE6c3lvHMPyYCxACEAI=").equals(userTyepe)) {
 				if ((mustInput & 4) == 1 && (mustInput & 8) == 1) {
 					flag = true;
 				}

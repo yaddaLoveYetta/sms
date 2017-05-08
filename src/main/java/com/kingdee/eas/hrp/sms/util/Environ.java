@@ -5,10 +5,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 /**
- * 此工具类为service提供动态获取实例bean功能
+ * 此工具类为service提供动态获取实例bean可能
  * 
- * @author Administrator
- *
+ * @ClassName Environ
+ * @author yadda
+ * @date 2017-04-10 20:01:55
  */
 public class Environ implements ApplicationContextAware {
 
@@ -48,7 +49,6 @@ public class Environ implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		// TODO Auto-generated method stub
 		Environ.ctx = applicationContext;
 	}
 }

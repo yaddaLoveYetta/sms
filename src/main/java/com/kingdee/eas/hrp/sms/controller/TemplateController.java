@@ -73,7 +73,7 @@ public class TemplateController {
 		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段json
 		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10);
 		int pageNo = ParameterUtils.getParameter(request, "pageNo", 1);
-		int userType = SessionUtil.getUserType(request);
+		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			throw new BusinessLogicRunTimeException("参数错误：必须提交classId");
@@ -101,7 +101,7 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1); // 业务类别代码
 		String id = ParameterUtils.getParameter(request, "id", ""); // 内码
-		int userType = SessionUtil.getUserType(request);
+		String userType = SessionUtil.getUserType(request);
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
 			return;
@@ -136,7 +136,7 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String data = ParameterUtils.getParameter(request, "data", "");
-		int userType = SessionUtil.getUserType(request);
+		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -148,7 +148,7 @@ public class TemplateController {
 			return;
 		}
 
-		int id = templateService.addItem(classId, data, userType);
+		String id = templateService.addItem(classId, data, userType);
 		ResponseWriteUtil.output(response, "新增成功！");
 
 	}
@@ -168,7 +168,7 @@ public class TemplateController {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String id = ParameterUtils.getParameter(request, "itemId", "");
 		String data = ParameterUtils.getParameter(request, "data", "");
-		int userType = SessionUtil.getUserType(request);
+		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");

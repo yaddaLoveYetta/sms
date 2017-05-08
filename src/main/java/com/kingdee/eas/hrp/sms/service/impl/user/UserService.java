@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.ExtendedSSLSession;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
@@ -17,6 +20,7 @@ import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Role;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
+import com.kingdee.eas.hrp.sms.model.UserExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.user.IRoleService;
 import com.kingdee.eas.hrp.sms.service.api.user.IUserService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
@@ -76,29 +80,37 @@ public class UserService extends BaseService implements IUserService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Map<String, Object>> getSysMenu(int type, int userId) {
+	public List<Map<String, Object>> getSysMenu(String type, String userId) {
 
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 
 		IRoleService roleService = Environ.getBean(IRoleService.class);
 
 		// 获取用户角色
-		Role role = roleService.getRole(userId);
+		Role role = roleService.getRole(getUser(userId).getRole());
 		if (null == role) {
 			throw new BusinessLogicRunTimeException("用户角色错误，请先给该用户绑定角色！");
 		}
 
-		int roleId = role.getRoleId();
+		String roleId = role.getRoleId();
 
 		// 获取该角色所有的权限
 		Map<String, Object> accessMap = roleService.getAccessByRole(roleId);
 
 		// 根据用户类别获取所有系统菜单
 		// 平台用户-t_DataFlowSubSystem中配置为1,供应链用户-t_DataFlowSubSystem中配置为2
-		
+
 		SysDaoMapper mapper = sqlSession.getMapper(SysDaoMapper.class);
 
-		List<Map<String, Object>> menuList = mapper.getSysMenu(type);
+		int roleControl = 3;// 两者都可用
+		if (role.getType().equals("Ro9iCuOsVEmznmE+YZSi7hAEEAQ=")) {
+			// 系统角色
+			roleControl = 1;
+		} else if (role.getType().equals("f1sGInqJq0aUNY5MmpKM8RAEEAQ=")) {
+			// 供应商角色
+			roleControl = 2;
+		}
+		List<Map<String, Object>> menuList = mapper.getSysMenu(roleControl);
 
 		// 根据用户权限过滤菜单
 		for (Map<String, Object> menu : menuList) {
@@ -163,7 +175,7 @@ public class UserService extends BaseService implements IUserService {
 	}
 
 	@Override
-	public User getUser(int userId) {
+	public User getUser(String userId) {
 
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
@@ -197,6 +209,38 @@ public class UserService extends BaseService implements IUserService {
 			}
 		}
 		return -1;
+	}
+
+	@Override
+	@Transactional
+	public boolean editPwd(String userId, String oldpwd, String newpwd) {
+
+		User user = null;
+
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andPasswordEqualTo(oldpwd);
+		criteria.andUserIdEqualTo(userId);
+
+		List<User> list = mapper.selectByExample(example);
+
+		if (!list.isEmpty()) {
+			user = list.get(0);
+		}
+
+		if (null == user)
+			throw new BusinessLogicRunTimeException("原密码错误");
+
+		if (user.getPassword().equals(newpwd))
+			throw new BusinessLogicRunTimeException("新密码不可与原密码相同");
+
+		user.setPassword(newpwd);
+
+		mapper.updateByPrimaryKey(user);
+
+		return true;
 	}
 
 }

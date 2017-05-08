@@ -20,7 +20,7 @@ public class LoginService extends BaseService implements ILoginService {
 
 	@ServiceLog(desc = "登录服务")
 	@Override
-	public User login(String username, String password, int type) {
+	public User login(String username, String password, String type) {
 
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
@@ -44,7 +44,7 @@ public class LoginService extends BaseService implements ILoginService {
 
 	@Override
 	@Transactional
-	public User createToken(String username, String password, int type) {
+	public User createToken(String username, String password, String type) {
 
 		User user = login(username, password, type);
 

@@ -7,6 +7,7 @@
     <result column="tableName" jdbcType="VARCHAR" property="tableName" />
     <result column="foreignKey" jdbcType="VARCHAR" property="foreignKey" />
     <result column="primaryKey" jdbcType="VARCHAR" property="primaryKey" />
+    <result column="bosType" jdbcType="VARCHAR" property="bosType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    classId, entryIndex, tableName, foreignKey, primaryKey
+    classId, entryIndex, tableName, foreignKey, primaryKey, bosType
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.FormEntriesExample" resultMap="BaseResultMap">
     select
@@ -103,9 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.FormEntries">
     insert into t_sms_formEntries (classId, entryIndex, tableName, 
-      foreignKey, primaryKey)
+      foreignKey, primaryKey, bosType
+      )
     values (#{classId,jdbcType=INTEGER}, #{entryIndex,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, 
-      #{foreignKey,jdbcType=VARCHAR}, #{primaryKey,jdbcType=VARCHAR})
+      #{foreignKey,jdbcType=VARCHAR}, #{primaryKey,jdbcType=VARCHAR}, #{bosType,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.FormEntries">
     insert into t_sms_formEntries
@@ -125,6 +128,9 @@
       <if test="primaryKey != null">
         primaryKey,
       </if>
+      <if test="bosType != null">
+        bosType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="classId != null">
@@ -141,6 +147,9 @@
       </if>
       <if test="primaryKey != null">
         #{primaryKey,jdbcType=VARCHAR},
+      </if>
+      <if test="bosType != null">
+        #{bosType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,6 +177,9 @@
       <if test="record.primaryKey != null">
         primaryKey = #{record.primaryKey,jdbcType=VARCHAR},
       </if>
+      <if test="record.bosType != null">
+        bosType = #{record.bosType,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -179,7 +191,8 @@
       entryIndex = #{record.entryIndex,jdbcType=INTEGER},
       tableName = #{record.tableName,jdbcType=VARCHAR},
       foreignKey = #{record.foreignKey,jdbcType=VARCHAR},
-      primaryKey = #{record.primaryKey,jdbcType=VARCHAR}
+      primaryKey = #{record.primaryKey,jdbcType=VARCHAR},
+      bosType = #{record.bosType,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -196,6 +209,9 @@
       <if test="primaryKey != null">
         primaryKey = #{primaryKey,jdbcType=VARCHAR},
       </if>
+      <if test="bosType != null">
+        bosType = #{bosType,jdbcType=VARCHAR},
+      </if>
     </set>
     where classId = #{classId,jdbcType=INTEGER}
       and entryIndex = #{entryIndex,jdbcType=INTEGER}
@@ -204,7 +220,8 @@
     update t_sms_formEntries
     set tableName = #{tableName,jdbcType=VARCHAR},
       foreignKey = #{foreignKey,jdbcType=VARCHAR},
-      primaryKey = #{primaryKey,jdbcType=VARCHAR}
+      primaryKey = #{primaryKey,jdbcType=VARCHAR},
+      bosType = #{bosType,jdbcType=VARCHAR}
     where classId = #{classId,jdbcType=INTEGER}
       and entryIndex = #{entryIndex,jdbcType=INTEGER}
   </update>

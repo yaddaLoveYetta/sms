@@ -15,7 +15,7 @@ public interface IRoleService {
 	 * @param roleID
 	 * @return
 	 */
-	Map<String, Object> getAccessByRole(int roleId);
+	Map<String, Object> getAccessByRole(String roleId);
 
 	/**
 	 * 获取角色信息
@@ -26,7 +26,7 @@ public interface IRoleService {
 	 * @return Role
 	 * @date 2017-04-18 11:57:24 星期二
 	 */
-	Role getRole(int roleId);
+	Role getRole(String roleId);
 
 	/**
 	 * 获取角色所有权限
@@ -34,12 +34,12 @@ public interface IRoleService {
 	 * @Title getRoleTypePermissions
 	 * @param type
 	 *            角色类别(供应商 or 平台)
-	 * @param type
+	 * @param roleId
 	 *            角色id
 	 * @return List<Map<String,Object>>
 	 * @date 2017-04-25 11:25:36 星期二
 	 */
-	List<Map<String, Object>> getRolePermissions(int type, int roleId);
+	List<Map<String, Object>> getRolePermissions(String type, String roleId);
 
 	/**
 	 * 保存角色权限
@@ -51,6 +51,6 @@ public interface IRoleService {
 	 *            角色id void
 	 * @date 2017-04-25 16:33:34 星期二
 	 */
-	void saveRolePermissions(JSONArray arry, int roleId);
+	void saveRolePermissions(JSONArray arry, String roleId);
 
 }

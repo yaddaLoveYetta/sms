@@ -37,15 +37,16 @@ public class RoleController {
 	@RequestMapping(value = "getRolePermissions")
 	public void getRolePermissions(HttpServletRequest request, HttpServletResponse response) {
 
-		int type = ParameterUtils.getParameter(request, "type", -1); // 角色类别 1:员工,2:供应商
-		int roleID = ParameterUtils.getParameter(request, "roleId", -1); // 角色ID
+		String type = ParameterUtils.getParameter(request, "type", ""); // 角色类别
+																		// Ro9iCuOsVEmznmE+YZSi7hAEEAQ=:员工,f1sGInqJq0aUNY5MmpKM8RAEEAQ=:供应商
+		String roleId = ParameterUtils.getParameter(request, "roleId", ""); // 角色ID
 
-		if (type == -1 || roleID == -1) {
+		if (("").equals(type) || ("").equals(roleId)) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "未提交角色类别[type]或角色ID[roleID]");
 			return;
 		}
 
-		List<Map<String, Object>> rolePermissions = roleService.getRolePermissions(type, roleID);
+		List<Map<String, Object>> rolePermissions = roleService.getRolePermissions(type, roleId);
 
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, rolePermissions);
 
@@ -63,11 +64,11 @@ public class RoleController {
 	@RequestMapping(value = "saveRolePerMissions")
 	public void saveRolePerMissions(HttpServletRequest request, HttpServletResponse response) {
 
-		int roleId = ParameterUtils.getParameter(request, "roleId", -1);
+		String roleId = ParameterUtils.getParameter(request, "roleId", "");
 		String data = ParameterUtils.getParameter(request, "data", "");
 
-		if (data == null || "".equals(data) || roleId == -1) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "提交数据不能为空");
+		if (data == null || "".equals(data) || "".equals(roleId)) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "提交数据不完整");
 			return;
 		}
 

@@ -1,18 +1,18 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class UserType {
-    private Integer typeId;
+    private String typeId;
 
     private String number;
 
     private String name;
 
-    public Integer getTypeId() {
+    public String getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setTypeId(String typeId) {
+        this.typeId = typeId == null ? null : typeId.trim();
     }
 
     public String getNumber() {

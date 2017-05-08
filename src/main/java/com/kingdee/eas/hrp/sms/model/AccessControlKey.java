@@ -5,7 +5,7 @@ public class AccessControlKey {
 
     private Integer objectId;
 
-    private Integer roleId;
+    private String roleId;
 
     public Integer getObjectType() {
         return objectType;
@@ -23,11 +23,11 @@ public class AccessControlKey {
         this.objectId = objectId;
     }
 
-    public Integer getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId == null ? null : roleId.trim();
     }
 }

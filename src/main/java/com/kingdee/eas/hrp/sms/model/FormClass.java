@@ -9,6 +9,8 @@ public class FormClass {
 
     private String primaryKey;
 
+    private String bosType;
+
     public Integer getClassId() {
         return classId;
     }
@@ -39,5 +41,13 @@ public class FormClass {
 
     public void setPrimaryKey(String primaryKey) {
         this.primaryKey = primaryKey == null ? null : primaryKey.trim();
+    }
+
+    public String getBosType() {
+        return bosType;
+    }
+
+    public void setBosType(String bosType) {
+        this.bosType = bosType == null ? null : bosType.trim();
     }
 }

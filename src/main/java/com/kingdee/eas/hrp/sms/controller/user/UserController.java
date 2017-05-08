@@ -39,8 +39,8 @@ public class UserController {
 			throw new BusinessLogicRunTimeException("用户信息错误，请重新登陆！");
 		}
 
-		int type = user.getType();
-		int userId = user.getUserId();
+		String type = user.getType();
+		String userId = user.getUserId();
 
 		// 获取用户菜单
 		List<Map<String, Object>> sidebars = userService.getSysMenu(type, userId);
@@ -56,68 +56,29 @@ public class UserController {
 	}
 
 	/**
+	 * 修改密码<br>
+	 * 业务逻辑：<br>
+	 * 用户提交的验证码正确且手机号码未其注册时预留的手机号码才可以重置密码
 	 * 
-	 * @Title getUserList
-	 * @Description 获取用户列表
-	 * @param @param
-	 *            request
-	 * @param @param
-	 *            response
-	 * @return void
-	 * @throws @date
-	 *             2017年4月15日 下午7:49:37
+	 * @param request
+	 *            user:用户名 <br>
+	 *            oldPwd:原密码 newPwd:新密码 MD5加密<br>
+	 * @param response
 	 */
-	@RequestMapping(value = "getUserList")
-	public void getUserList(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "editPwd")
+	public void editPwd(HttpServletRequest request, HttpServletResponse response) {
 
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+		String userId = ParameterUtils.getParameter(request, "userId", "");// 用户名
+		String oldpwd = ParameterUtils.getParameter(request, "oldpwd", "");// 原密码
+		String newpwd = ParameterUtils.getParameter(request, "newpwd", "");// 新密码
 
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		// Map<String, Object> params = new HashMap<String, Object>();
-		// params.put("classID", classID);
-		// params.put("pageSize", pageSize);
-		// params.put("pageNo", pageNo);
-		// params.put("condition", condition);
-		// params.put("orderBy", orderBy);
-		// params.put("orderDirection", "asc");
-		//
-		// if (orderBy.equals("")) {
-		// JSONArray orderByArray = new JSONArray();
-		// JSONObject orderByItem = new JSONObject();
-		// orderByItem.put("fieldKey", "FNumber");
-		// orderByItem.put("orderDirection", "ASC");
-		// orderByArray.add(orderByItem);
-		//
-		// orderByItem = new JSONObject();
-		// orderByItem.put("fieldKey", "FName");
-		// orderByItem.put("orderDirection", "ASC");
-		// orderByArray.add(orderByItem);
-		//
-		// params.put("orderBy", orderByArray.toString());
-		// }
-
-	}
-
-	@RequestMapping(value = "addUser")
-	public void addItem(HttpServletRequest request, HttpServletResponse response) {
-
-		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
-		if (classId < 0) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+		if (userService.editPwd(userId, oldpwd, newpwd)) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "密码修改成功，请退出重新登录！");
 			return;
-		}
+		} else
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "原密码错误！");
 
-		String data = ParameterUtils.getParameter(request, "data", "");
-
-		if (data.equals("")) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
-			return;
-		}
-
-		System.out.println(data);
+		return;
 
 	}
 }

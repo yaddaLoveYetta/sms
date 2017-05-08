@@ -30,7 +30,7 @@ public interface IPlugIn {
 	 *            业务数据
 	 * @return
 	 */
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, int userTyepe);
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userTyepe);
 
 	/**
 	 * 基础资料新增后操作
@@ -43,7 +43,7 @@ public interface IPlugIn {
 	 *            业务数据
 	 * @return
 	 */
-	public PlugInRet afterSave(int classId, int id, JSONObject data);
+	public PlugInRet afterSave(int classId, String id, JSONObject data);
 
 	/**
 	 * 基础资料修改前操作
@@ -54,7 +54,7 @@ public interface IPlugIn {
 	 *            业务数据
 	 * @return
 	 */
-	public PlugInRet beforeModify(int classId, String id,Map<String, Object> formData, JSONObject data, int userType);
+	public PlugInRet beforeModify(int classId, String id,Map<String, Object> formData, JSONObject data, String userType);
 
 	/**
 	 * 基础资料修改后操作

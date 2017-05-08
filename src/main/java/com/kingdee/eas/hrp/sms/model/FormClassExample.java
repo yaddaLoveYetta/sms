@@ -373,6 +373,76 @@ public class FormClassExample {
             addCriterion("primaryKey not between", value1, value2, "primaryKey");
             return (Criteria) this;
         }
+
+        public Criteria andBosTypeIsNull() {
+            addCriterion("bosType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeIsNotNull() {
+            addCriterion("bosType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeEqualTo(String value) {
+            addCriterion("bosType =", value, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeNotEqualTo(String value) {
+            addCriterion("bosType <>", value, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeGreaterThan(String value) {
+            addCriterion("bosType >", value, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("bosType >=", value, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeLessThan(String value) {
+            addCriterion("bosType <", value, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeLessThanOrEqualTo(String value) {
+            addCriterion("bosType <=", value, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeLike(String value) {
+            addCriterion("bosType like", value, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeNotLike(String value) {
+            addCriterion("bosType not like", value, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeIn(List<String> values) {
+            addCriterion("bosType in", values, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeNotIn(List<String> values) {
+            addCriterion("bosType not in", values, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeBetween(String value1, String value2) {
+            addCriterion("bosType between", value1, value2, "bosType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBosTypeNotBetween(String value1, String value2) {
+            addCriterion("bosType not between", value1, value2, "bosType");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

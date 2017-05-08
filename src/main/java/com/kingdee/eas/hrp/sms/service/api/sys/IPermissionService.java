@@ -19,7 +19,7 @@ public interface IPermissionService {
 	 * @return boolean
 	 * @date 2017-04-15 21:00:53 星期六
 	 */
-	boolean checkPermissionByUserId(int userId, int objectType, int objectId, int accessMask);
+	boolean checkPermissionByUserId(String userId, int objectType, int objectId, int accessMask);
 
 	/**
 	 * 权限判断

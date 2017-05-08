@@ -1,7 +1,7 @@
 package com.kingdee.eas.hrp.sms.model;
 
 public class User {
-    private Integer userId;
+    private String userId;
 
     private String number;
 
@@ -9,22 +9,22 @@ public class User {
 
     private String password;
 
-    private Integer type;
+    private String type;
 
-    private Integer status;
+    private Byte status;
 
-    private Integer role;
+    private String role;
 
     private String supplier;
 
     private String token;
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     public String getNumber() {
@@ -51,28 +51,28 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
-    public Integer getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
-    public Integer getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
     }
 
     public String getSupplier() {

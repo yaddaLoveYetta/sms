@@ -10,7 +10,7 @@ public interface UserTypeMapper {
 
     int deleteByExample(UserTypeExample example);
 
-    int deleteByPrimaryKey(Integer typeId);
+    int deleteByPrimaryKey(String typeId);
 
     int insert(UserType record);
 
@@ -18,7 +18,7 @@ public interface UserTypeMapper {
 
     List<UserType> selectByExample(UserTypeExample example);
 
-    UserType selectByPrimaryKey(Integer typeId);
+    UserType selectByPrimaryKey(String typeId);
 
     int updateByExampleSelective(@Param("record") UserType record, @Param("example") UserTypeExample example);
 

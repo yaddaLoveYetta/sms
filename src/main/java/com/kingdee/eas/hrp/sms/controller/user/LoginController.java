@@ -35,7 +35,7 @@ public class LoginController {
 
 		String username = ParameterUtils.getParameter(request, "user", "");
 		String password = ParameterUtils.getParameter(request, "pwd", "");
-		int type = ParameterUtils.getParameter(request, "type", -1);
+		String type = ParameterUtils.getParameter(request, "type", "");
 
 		// logger.debug("{},{}", username, password);
 
@@ -43,13 +43,13 @@ public class LoginController {
 		if ("".equals(username) || "".equals(password)) {
 			throw new BusinessLogicRunTimeException("用户名或密码不能为空!");
 		}
-		if (type < 0) {
+		if ("".equals(type)) {
 			throw new BusinessLogicRunTimeException("用户类别不能为空！");
 		}
 
 		User user = loginService.login(username, password, type);
 
-		if (null != user && user.getUserId() > 0) {
+		if (null != user) {
 
 			// session保存用户信息
 			request.getSession(true).setAttribute("user", user);
@@ -62,23 +62,33 @@ public class LoginController {
 
 	}
 
+	@RequestMapping(value = "loginout")
+	public void loginout(HttpServletRequest request, HttpServletResponse response) {
+
+		request.getSession().removeAttribute("user");
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS);
+		logger.info("注销成功!");
+		return;
+
+	}
+
 	@RequestMapping(value = "createToken")
 	public void createToken(HttpServletRequest request, HttpServletResponse response) {
 
 		String username = ParameterUtils.getParameter(request, "user", "");
 		String password = ParameterUtils.getParameter(request, "pwd", "");
-		int type = ParameterUtils.getParameter(request, "type", -1);
+		String type = ParameterUtils.getParameter(request, "type", "");
 
 		if (username == "" || password == "") {
 			throw new BusinessLogicRunTimeException("用户名或密码不能为空!");
 		}
-		if (type < 0) {
+		if ("".equals(type)) {
 			throw new BusinessLogicRunTimeException("用户类别不能为空！");
 		}
 
 		// 生成token
 		User user = loginService.createToken(username, password, type);
-		
+
 		if (null == user) {
 			ResponseWriteUtil.output(response, StatusCode.ACCESS_TOKEN_INVALID, "获取token失败，请重试!");
 		} else {

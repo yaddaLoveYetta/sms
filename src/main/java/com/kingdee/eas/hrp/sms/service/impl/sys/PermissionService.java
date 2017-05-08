@@ -8,7 +8,7 @@ import com.kingdee.eas.hrp.sms.service.api.sys.IPermissionService;
 public class PermissionService implements IPermissionService {
 
 	@Override
-	public boolean checkPermissionByUserId(int userId, int objectType, int objectId, int accessMask) {
+	public boolean checkPermissionByUserId(String userId, int objectType, int objectId, int accessMask) {
 		// TODO Auto-generated method stub
 		return false;
 	}

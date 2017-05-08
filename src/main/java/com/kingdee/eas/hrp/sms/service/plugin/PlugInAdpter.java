@@ -17,17 +17,17 @@ public abstract class PlugInAdpter implements IPlugIn {
 	PlugInRet result = new PlugInRet();
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, int userTyepe) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
 		return result;
 	}
 
 	@Override
-	public PlugInRet afterSave(int classId, int id, JSONObject data) {
+	public PlugInRet afterSave(int classId, String id, JSONObject data) {
 		return result;
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId,String id, Map<String, Object> formData, JSONObject data, int userType) {
+	public PlugInRet beforeModify(int classId,String id, Map<String, Object> formData, JSONObject data, String userType) {
 		return result;
 	}
 

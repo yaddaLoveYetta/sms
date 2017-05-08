@@ -27,7 +27,7 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 public class RoleService extends BaseService implements IRoleService {
 
 	@Override
-	public Map<String, Object> getAccessByRole(int roleId) {
+	public Map<String, Object> getAccessByRole(String roleId) {
 
 		Map<String, Object> accessMap = new HashMap<String, Object>();
 
@@ -37,6 +37,7 @@ public class RoleService extends BaseService implements IRoleService {
 		com.kingdee.eas.hrp.sms.model.AccessControlExample.Criteria criteria = example.createCriteria();
 
 		criteria.andRoleIdEqualTo(roleId);
+
 
 		example.setOrderByClause("objectType asc,objectId asc");
 
@@ -52,7 +53,7 @@ public class RoleService extends BaseService implements IRoleService {
 	}
 
 	@Override
-	public Role getRole(int roleId) {
+	public Role getRole(String roleId) {
 
 		RoleMapper mapper = sqlSession.getMapper(RoleMapper.class);
 
@@ -69,8 +70,9 @@ public class RoleService extends BaseService implements IRoleService {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Map<String, Object>> getRolePermissions(int type, int roleId) {
+	public List<Map<String, Object>> getRolePermissions(String type, String roleId) {
 
 		List<Map<String, Object>> rolePermissions = new ArrayList<Map<String, Object>>();
 
@@ -203,14 +205,23 @@ public class RoleService extends BaseService implements IRoleService {
 
 	}
 
-	private List<Map<String, Object>> getRoleTypePermissions(int type) {
+	private List<Map<String, Object>> getRoleTypePermissions(String type) {
 
+		int roleControl = 3;// 两者都可用
+		if (type.equals("Ro9iCuOsVEmznmE+YZSi7hAEEAQ=")) {
+			// 系统角色
+			roleControl = 1;
+		} else if (type.equals("f1sGInqJq0aUNY5MmpKM8RAEEAQ=")) {
+			// 供应商角色
+			roleControl = 2;
+		}
+		
 		RoleDaoMapper mapper = sqlSession.getMapper(RoleDaoMapper.class);
 
-		return mapper.getRoleTypePermissions(type);
+		return mapper.getRoleTypePermissions(roleControl);
 	}
 
-	private Map<String, AccessControl> getAccessByRoleID(int roleId) {
+	private Map<String, AccessControl> getAccessByRoleID(String roleId) {
 
 		Map<String, AccessControl> ret = new HashMap<String, AccessControl>();
 
@@ -288,7 +299,7 @@ public class RoleService extends BaseService implements IRoleService {
 
 	@Override
 	@Transactional
-	public void saveRolePermissions(JSONArray arry, int roleId) {
+	public void saveRolePermissions(JSONArray arry, String roleId) {
 
 		List<AccessControl> list = new ArrayList<AccessControl>();
 

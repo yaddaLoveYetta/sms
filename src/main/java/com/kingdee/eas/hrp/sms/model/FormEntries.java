@@ -7,6 +7,8 @@ public class FormEntries extends FormEntriesKey {
 
     private String primaryKey;
 
+    private String bosType;
+
     public String getTableName() {
         return tableName;
     }
@@ -29,5 +31,13 @@ public class FormEntries extends FormEntriesKey {
 
     public void setPrimaryKey(String primaryKey) {
         this.primaryKey = primaryKey == null ? null : primaryKey.trim();
+    }
+
+    public String getBosType() {
+        return bosType;
+    }
+
+    public void setBosType(String bosType) {
+        this.bosType = bosType == null ? null : bosType.trim();
     }
 }
