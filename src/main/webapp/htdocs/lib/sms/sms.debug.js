@@ -5898,7 +5898,7 @@
             config = $.Object.extend({}, defaults, config);
 
             //var $this = $.zTree($(selector), config, data);
-            var $this = $(selector).zTree(config, data);
+            var $this = $(selector).zTree.init(config, data);
 
             var meta = {
                 $this: $this,
