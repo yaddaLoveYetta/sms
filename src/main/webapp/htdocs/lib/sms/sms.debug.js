@@ -6085,7 +6085,8 @@
         'Tips': true,
         'Pagers': true,
         'NumberField': true,
-        'DateTimePicker': true
+        'DateTimePicker': true,
+        'zTree':true,
     });
 
 
