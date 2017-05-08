@@ -30,9 +30,9 @@ define('Tree', function (require, module, exports) {
 
         load(function (data) {
 
-            SMS.use('zTree', function (zTree) {
+            SMS.use('Tree', function (zTree) {
 
-                var totalSpace = new zTree({
+                var tree = new zTree({
                     selector: container,
                     data: data,
                 });
