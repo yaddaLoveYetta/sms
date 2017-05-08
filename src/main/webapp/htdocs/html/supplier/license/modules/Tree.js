@@ -26,6 +26,20 @@ define('Tree', function (require, module, exports) {
     function render() {
 
 
+
+
+        load(function (data) {
+
+            SMS.use('zTree', function (zTree) {
+
+                var totalSpace = new zTree({
+                    selector: container,
+                    data: data,
+                });
+
+            });
+        });
+
         SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var startTime = new DateTimePicker(container, {
@@ -35,17 +49,6 @@ define('Tree', function (require, module, exports) {
                 todayHighlight: true,
                 startView: 'month',
                 minView: 'hour',
-            });
-        });
-
-        load(function (data) {
-            SMS.use('zTree', function (zTree) {
-
-                var totalSpace = new zTree({
-                    selector: container,
-                    data: data,
-                });
-
             });
         });
 
