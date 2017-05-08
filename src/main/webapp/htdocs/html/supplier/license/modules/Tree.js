@@ -20,7 +20,7 @@ define('Tree', function (require, module, exports) {
             {"id": 111, "pId": 11, "name": "test111"},
         ];
 
-        return treeNodes;
+        fn && fn(treeNodes);
     };
 
     function render() {
