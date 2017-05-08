@@ -26,8 +26,8 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 
-		<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://127.0.0.1:52663;database=hrp-sms"
-			userId="sa" password="yadda0925">
+		<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://10.0.0.180:1433;database=hrp-sms"
+			userId="sa" password="Kingdee123">
 		</jdbcConnection>
 
 		<javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
