@@ -5841,6 +5841,210 @@
 
     });
 
+    /**
+     * zTree选择器类。
+     * @author yadda
+     */
+    define('zTree', function (require, exports, module) {
+
+        var $ = require('$');
+        var Seajs = require('Seajs');
+
+
+        var mapper = new $.Mapper();
+
+
+        //默认配置
+        var defaults = {
+            check: {
+                enable: true,
+                chkboxType: {"Y": 'ps', "N": 'ps'}
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId"
+                }
+            }
+        };
+
+        //调用原始控件的方法
+        function invoke(self, name, $argumetns) {
+
+            var meta = mapper.get(self);
+            var $this = meta.$this;
+
+            var args = [].slice.call($argumetns, 0);
+            args = [name].concat(args);
+
+            return $this.zTree.apply($this, args);
+
+        }
+
+
+        /**
+         * 构造函数。
+         */
+        function zTree(selector, config, data) {
+
+            if ($.Object.isPlain(selector)) { // 重载 DateTimePicker( config )
+                config = selector;
+                selector = config.selector;
+                data=config.data;
+                delete config.selector; //删除，避免对原始造成不可知的副作用
+                delete config.data; //删除，避免对原始造成不可知的副作用
+            }
+
+            config = $.Object.extend({}, defaults, config);
+
+            var $this = $.zTree($(selector), config, data);
+
+            var meta = {
+                $this: $this,
+            };
+
+            mapper.set(this, meta);
+
+        }
+
+
+        zTree.prototype = { //实例方法
+            constructor: zTree,
+
+            on: function (name, fn) {
+                var meta = mapper.get(this);
+                var $this = meta.$this;
+                $this.on(name, fn);
+            },
+
+            beforeAsync: function () {
+                invoke(this, 'beforeAsync', arguments);
+            },
+
+            beforeCheck: function () {
+                invoke(this, 'beforeCheck', arguments);
+            },
+
+            beforeClick: function () {
+                invoke(this, 'beforeClick', arguments);
+            },
+
+            beforeCollapse: function () {
+                invoke(this, 'beforeCollapse', arguments);
+            },
+
+            beforeDblClick: function () {
+                invoke(this, 'beforeDblClick', arguments);
+            },
+
+            beforeDrag: function () {
+                invoke(this, 'beforeDrag', arguments);
+            },
+
+            beforeDragOpen: function () {
+                invoke(this, 'beforeDragOpen', arguments);
+            },
+            beforeDrop: function () {
+                invoke(this, 'beforeDrop', arguments);
+            },
+            beforeEditName: function () {
+                invoke(this, 'beforeEditName', arguments);
+            },
+            beforeExpand: function () {
+                invoke(this, 'beforeExpand', arguments);
+            },
+            beforeMouseDown: function () {
+                invoke(this, 'beforeMouseDown', arguments);
+            },
+            beforeMouseUp: function () {
+                invoke(this, 'beforeMouseUp', arguments);
+            },
+            beforeRemove: function () {
+                invoke(this, 'beforeRemove', arguments);
+            },
+            beforeRename: function () {
+                invoke(this, 'beforeRename', arguments);
+            },
+            beforeRightClick: function () {
+                invoke(this, 'beforeRightClick', arguments);
+            },
+            onAsyncError: function () {
+                invoke(this, 'onAsyncError', arguments);
+            },
+            onAsyncSuccess: function () {
+                invoke(this, 'onAsyncSuccess', arguments);
+            },
+            onCheck: function () {
+                invoke(this, 'onCheck', arguments);
+            },
+            onClick: function () {
+                invoke(this, 'onClick', arguments);
+            },
+            onCollapse: function () {
+                invoke(this, 'onCollapse', arguments);
+            },
+            onDblClick: function () {
+                invoke(this, 'onDblClick', arguments);
+            },
+            onDrag: function () {
+                invoke(this, 'onDrag', arguments);
+            },
+            onDrop: function () {
+                invoke(this, 'onDrop', arguments);
+            },
+            onExpand: function () {
+                invoke(this, 'onExpand', arguments);
+            },
+            onMouseDown: function () {
+                invoke(this, 'onMouseDown', arguments);
+            },
+            onMouseUp: function () {
+                invoke(this, 'onMouseUp', arguments);
+            },
+            onNodeCreated: function () {
+                invoke(this, 'onNodeCreated', arguments);
+            },
+            onRemove: function () {
+                invoke(this, 'onRemove', arguments);
+            },
+            onRename: function () {
+                invoke(this, 'onRename', arguments);
+            },
+            onRightClick: function () {
+                invoke(this, 'onRightClick', arguments);
+            },
+        };
+
+
+        return {
+
+            use: function (fn) {
+
+                Seajs.use([
+                    'zTree-js',
+                    'zTree-css',
+                ], function () {
+                    fn && fn(zTree);
+                });
+
+            },
+
+
+            config: function (obj) {
+                //get
+                if (arguments.length == 0) {
+                    return defaults;
+                }
+                //set
+                $.Object.extend(defaults, obj);
+            },
+
+        };
+
+    });
+
+
     //设置 MiniQuery 对外挂靠的别名
     var MiniQuery = require('MiniQuery');
     MiniQuery.use('$');
@@ -5855,7 +6059,7 @@
         'Url': true,
         'Multitask': true,
         'Tree': true,
-        'MD5':true,
+        'MD5': true,
         'Seajs': true,
 
         //api

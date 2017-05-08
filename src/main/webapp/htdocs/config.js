@@ -124,6 +124,8 @@
                 autoNumeric: 'autoNumeric/autoNumeric.{@}.js',
                 'datetimepicker-css': 'datetimepicker/css/datetimepicker.mod.{@}.css#',
                 'datetimepicker-js': 'datetimepicker/js/datetimepicker.mod.{@}.js',
+                'zTree-js': 'zTree/jquery.ztree.all-3.5.js?r=' + Math.random(),
+                'zTree-css':'ztree/css/zTreeStyle.css',
             }
         },
 
@@ -173,6 +175,16 @@
              */
             leadingZero: 'allow',   //前缀 "0" 的展示行为
             formatted: true,        //控制是否在页面就绪时自动格式化输入框的值，取值: true|false
+        },
+
+        zTree: {
+            treeId: '',
+            treeObj: null,
+            callback:{},
+            view: {},
+            data: {},
+            check: {},
+
         },
 
         DateTimePicker: {},
