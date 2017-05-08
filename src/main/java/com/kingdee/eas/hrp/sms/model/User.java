@@ -19,6 +19,8 @@ public class User {
 
     private String token;
 
+    private String phone;
+
     public String getUserId() {
         return userId;
     }
@@ -89,5 +91,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token == null ? null : token.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 }

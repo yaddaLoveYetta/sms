@@ -88,7 +88,19 @@
         blConfig = {
             'items': []
         };
-    } else {
+    }else if (classId == 2019) { // 用户
+        blConfig = {
+                'items': [
+                {
+                	  text: '接单',
+                      name: 'tick',
+                },
+               {
+                    text: '刷新',
+                    name: 'refresh',
+                }]
+            };
+        } else {
         blConfig = ButtonListOption.get(classId);
     }
 
@@ -142,6 +154,42 @@
         },
         'refresh': function (item, index) {
             refresh();
+        },
+        'tick':function (item, index) {
+        	var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择接单项');
+                return;
+            }
+            if(list.length > 1){
+            	SMS.Tips.error('只能选择一条订单接单');
+            }
+        	
+            var index = ClassMapping.getIndex(classId);
+            if (index > 0) {
+                // 有菜单项的跳转
+                Iframe.open(index.first, index.second, {
+                    query: {}
+                });
+            } else {
+
+                var url = ClassMapping.getPage(classId);
+                var name = ClassMapping.getTabName(classId) || '';
+
+                if (!url) {
+                    // 没有配置编辑页面或不需要编辑功能
+                    return;
+                }
+                Iframe.open({
+                    id: classId + '-add-',
+                    name: '' + name,
+                    url: url,
+                    query: {
+                        'classId': classId,
+                    }
+                });
+            }
         },
         'more': function (item, index) {
             ButtonList.toggle(index);

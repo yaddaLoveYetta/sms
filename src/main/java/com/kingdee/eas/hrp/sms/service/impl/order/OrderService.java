@@ -2,6 +2,9 @@ package com.kingdee.eas.hrp.sms.service.impl.order;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -37,10 +40,15 @@ public class OrderService extends BaseService implements IOrderService{
 				order.setBuyer(orderjson.getString("buyer"));
 				order.setPurchasingMode(orderjson.getInteger("purchasing_mode"));
 				order.setTax(orderjson.getInteger("tax"));
+				order.setPrice(orderjson.getBigDecimal("price"));
+				order.setNumbers(orderjson.getInteger("numbers"));
+				if(orderjson.getString("deliveryTime")!=null){
+					order.setDeliveryTime(sft.parse(orderjson.getString("deliveryTime")));
+				}
 				OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 				orderMapper.insertSelective(order);
 			
-			//录入物料信息
+			//录入订单物料信息
 			JSONArray materialJson = orderjson.getJSONArray("entry");
 			for(int j=0;j<materialJson.size();j++){
 				JSONObject materialObject = JSONObject.parseObject(JSON.toJSONString(materialJson.get(j)));
@@ -48,11 +56,6 @@ public class OrderService extends BaseService implements IOrderService{
 				material.setMaterialName(materialObject.getString("materialName"));
 				material.setSpecifications(materialObject.getString("specifications"));
 				material.setBasicUnitMeasurement(materialObject.getString("basicUnitMeasurement"));
-				material.setPrice(materialObject.getBigDecimal("price"));
-				material.setNumbers(materialObject.getInteger("numbers"));
-			if(materialObject.getString("deliveryTime")!=null){
-				material.setDeliveryTime(sft.parse(materialObject.getString("deliveryTime")));
-			}
 				material.setOrderId(order.getId());	
 				MaterialMapper materialMapper = sqlSession.getMapper(MaterialMapper.class);
 				materialMapper.insertSelective(material);
@@ -62,5 +65,19 @@ public class OrderService extends BaseService implements IOrderService{
 				e.printStackTrace();
 			}
 		return "success";
+	}
+
+	@Override
+	public Map<String, Object> updateOrderTime(Order order) {
+		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+		Order orderList  = orderMapper.selectByPrimaryKey(order.getId());
+		Map<String, Object> errItem = new HashMap<String, Object>();
+		if(orderList.getNumbers()<order.getConfirmDeliveryNumbers()){
+			errItem.put("error","交货数量大于订单需求数量");
+		}else{
+			orderMapper.updateByPrimaryKeySelective(order);
+			errItem.put("success","接单成功");
+		}
+		return errItem;
 	}
 }

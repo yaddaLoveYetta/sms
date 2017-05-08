@@ -7,9 +7,6 @@
     <result column="materialName" jdbcType="VARCHAR" property="materialName" />
     <result column="specifications" jdbcType="VARCHAR" property="specifications" />
     <result column="basicUnitMeasurement" jdbcType="VARCHAR" property="basicUnitMeasurement" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="numbers" jdbcType="INTEGER" property="numbers" />
-    <result column="deliveryTime" jdbcType="TIMESTAMP" property="deliveryTime" />
     <result column="orderId" jdbcType="VARCHAR" property="orderId" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,8 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, materialCode, materialName, specifications, basicUnitMeasurement, price, numbers, 
-    deliveryTime, orderId
+    id, materialCode, materialName, specifications, basicUnitMeasurement, orderId
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.MaterialExample" resultMap="BaseResultMap">
     select
@@ -106,12 +102,10 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Material">
     insert into t_sms_material_information (id, materialCode, materialName, 
-      specifications, basicUnitMeasurement, price, 
-      numbers, deliveryTime, orderId
+      specifications, basicUnitMeasurement, orderId
       )
     values (#{id,jdbcType=INTEGER}, #{materialCode,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, 
-      #{specifications,jdbcType=VARCHAR}, #{basicUnitMeasurement,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
-      #{numbers,jdbcType=INTEGER}, #{deliveryTime,jdbcType=TIMESTAMP}, #{orderId,jdbcType=VARCHAR}
+      #{specifications,jdbcType=VARCHAR}, #{basicUnitMeasurement,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Material">
@@ -132,15 +126,6 @@
       <if test="basicUnitMeasurement != null">
         basicUnitMeasurement,
       </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="numbers != null">
-        numbers,
-      </if>
-      <if test="deliveryTime != null">
-        deliveryTime,
-      </if>
       <if test="orderId != null">
         orderId,
       </if>
@@ -160,15 +145,6 @@
       </if>
       <if test="basicUnitMeasurement != null">
         #{basicUnitMeasurement,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="numbers != null">
-        #{numbers,jdbcType=INTEGER},
-      </if>
-      <if test="deliveryTime != null">
-        #{deliveryTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderId != null">
         #{orderId,jdbcType=VARCHAR},
@@ -199,15 +175,6 @@
       <if test="record.basicUnitMeasurement != null">
         basicUnitMeasurement = #{record.basicUnitMeasurement,jdbcType=VARCHAR},
       </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
-      </if>
-      <if test="record.numbers != null">
-        numbers = #{record.numbers,jdbcType=INTEGER},
-      </if>
-      <if test="record.deliveryTime != null">
-        deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.orderId != null">
         orderId = #{record.orderId,jdbcType=VARCHAR},
       </if>
@@ -223,9 +190,6 @@
       materialName = #{record.materialName,jdbcType=VARCHAR},
       specifications = #{record.specifications,jdbcType=VARCHAR},
       basicUnitMeasurement = #{record.basicUnitMeasurement,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL},
-      numbers = #{record.numbers,jdbcType=INTEGER},
-      deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
       orderId = #{record.orderId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -246,15 +210,6 @@
       <if test="basicUnitMeasurement != null">
         basicUnitMeasurement = #{basicUnitMeasurement,jdbcType=VARCHAR},
       </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="numbers != null">
-        numbers = #{numbers,jdbcType=INTEGER},
-      </if>
-      <if test="deliveryTime != null">
-        deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="orderId != null">
         orderId = #{orderId,jdbcType=VARCHAR},
       </if>
@@ -267,9 +222,6 @@
       materialName = #{materialName,jdbcType=VARCHAR},
       specifications = #{specifications,jdbcType=VARCHAR},
       basicUnitMeasurement = #{basicUnitMeasurement,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      numbers = #{numbers,jdbcType=INTEGER},
-      deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
       orderId = #{orderId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

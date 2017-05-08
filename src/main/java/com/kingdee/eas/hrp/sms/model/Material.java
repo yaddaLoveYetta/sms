@@ -1,8 +1,5 @@
 package com.kingdee.eas.hrp.sms.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 public class Material {
     private Integer id;
 
@@ -13,12 +10,6 @@ public class Material {
     private String specifications;
 
     private String basicUnitMeasurement;
-
-    private BigDecimal price;
-
-    private Integer numbers;
-
-    private Date deliveryTime;
 
     private String orderId;
 
@@ -60,30 +51,6 @@ public class Material {
 
     public void setBasicUnitMeasurement(String basicUnitMeasurement) {
         this.basicUnitMeasurement = basicUnitMeasurement == null ? null : basicUnitMeasurement.trim();
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getNumbers() {
-        return numbers;
-    }
-
-    public void setNumbers(Integer numbers) {
-        this.numbers = numbers;
-    }
-
-    public Date getDeliveryTime() {
-        return deliveryTime;
-    }
-
-    public void setDeliveryTime(Date deliveryTime) {
-        this.deliveryTime = deliveryTime;
     }
 
     public String getOrderId() {

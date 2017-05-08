@@ -14,6 +14,9 @@
     <result column="confirmDeliveryTime" jdbcType="TIMESTAMP" property="confirmDeliveryTime" />
     <result column="confirmDeliveryNumbers" jdbcType="INTEGER" property="confirmDeliveryNumbers" />
     <result column="confirmOrder" jdbcType="INTEGER" property="confirmOrder" />
+    <result column="numbers" jdbcType="INTEGER" property="numbers" />
+    <result column="deliveryTime" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +78,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, lineNumbers, supplierId, supplierName, orderTime, buyer, purchasingMode, tax, 
-    cutasingleTime, confirmDeliveryTime, confirmDeliveryNumbers, confirmOrder
+    cutasingleTime, confirmDeliveryTime, confirmDeliveryNumbers, confirmOrder, numbers, 
+    deliveryTime, price
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderExample" resultMap="BaseResultMap">
     select
@@ -112,12 +116,14 @@
       supplierName, orderTime, buyer, 
       purchasingMode, tax, cutasingleTime, 
       confirmDeliveryTime, confirmDeliveryNumbers, 
-      confirmOrder)
+      confirmOrder, numbers, deliveryTime, 
+      price)
     values (#{id,jdbcType=VARCHAR}, #{lineNumbers,jdbcType=INTEGER}, #{supplierId,jdbcType=VARCHAR}, 
       #{supplierName,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{buyer,jdbcType=VARCHAR}, 
       #{purchasingMode,jdbcType=INTEGER}, #{tax,jdbcType=INTEGER}, #{cutasingleTime,jdbcType=TIMESTAMP}, 
       #{confirmDeliveryTime,jdbcType=TIMESTAMP}, #{confirmDeliveryNumbers,jdbcType=INTEGER}, 
-      #{confirmOrder,jdbcType=INTEGER})
+      #{confirmOrder,jdbcType=INTEGER}, #{numbers,jdbcType=INTEGER}, #{deliveryTime,jdbcType=TIMESTAMP}, 
+      #{price,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     insert into t_sms_purchase_order
@@ -158,6 +164,15 @@
       <if test="confirmOrder != null">
         confirmOrder,
       </if>
+      <if test="numbers != null">
+        numbers,
+      </if>
+      <if test="deliveryTime != null">
+        deliveryTime,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -195,6 +210,15 @@
       </if>
       <if test="confirmOrder != null">
         #{confirmOrder,jdbcType=INTEGER},
+      </if>
+      <if test="numbers != null">
+        #{numbers,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -243,6 +267,15 @@
       <if test="record.confirmOrder != null">
         confirmOrder = #{record.confirmOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.numbers != null">
+        numbers = #{record.numbers,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryTime != null">
+        deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -261,7 +294,10 @@
       cutasingleTime = #{record.cutasingleTime,jdbcType=TIMESTAMP},
       confirmDeliveryTime = #{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
       confirmDeliveryNumbers = #{record.confirmDeliveryNumbers,jdbcType=INTEGER},
-      confirmOrder = #{record.confirmOrder,jdbcType=INTEGER}
+      confirmOrder = #{record.confirmOrder,jdbcType=INTEGER},
+      numbers = #{record.numbers,jdbcType=INTEGER},
+      deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      price = #{record.price,jdbcType=DECIMAL}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -302,6 +338,15 @@
       <if test="confirmOrder != null">
         confirmOrder = #{confirmOrder,jdbcType=INTEGER},
       </if>
+      <if test="numbers != null">
+        numbers = #{numbers,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTime != null">
+        deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -317,7 +362,10 @@
       cutasingleTime = #{cutasingleTime,jdbcType=TIMESTAMP},
       confirmDeliveryTime = #{confirmDeliveryTime,jdbcType=TIMESTAMP},
       confirmDeliveryNumbers = #{confirmDeliveryNumbers,jdbcType=INTEGER},
-      confirmOrder = #{confirmOrder,jdbcType=INTEGER}
+      confirmOrder = #{confirmOrder,jdbcType=INTEGER},
+      numbers = #{numbers,jdbcType=INTEGER},
+      deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
+      price = #{price,jdbcType=DECIMAL}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
