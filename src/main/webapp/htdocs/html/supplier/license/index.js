@@ -8,6 +8,6 @@
 
     var Tree = require('Tree');
 
-    tree.render();
+    Tree.render();
 
 })();
