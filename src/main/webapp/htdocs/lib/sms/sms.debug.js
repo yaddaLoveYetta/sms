@@ -6087,7 +6087,7 @@
         'Pagers': true,
         'NumberField': true,
         'DateTimePicker': true,
-        'zTree': true,
+        'Tree': true,
     });
 
 
