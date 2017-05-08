@@ -5890,14 +5890,14 @@
             if ($.Object.isPlain(selector)) { // 重载 DateTimePicker( config )
                 config = selector;
                 selector = config.selector;
-                data = config.data;
+                data=config.data;
                 delete config.selector; //删除，避免对原始造成不可知的副作用
                 delete config.data; //删除，避免对原始造成不可知的副作用
             }
 
             config = $.Object.extend({}, defaults, config);
 
-            var $this = $(selector).zTree(config, data);
+            var $this = $.zTree($(selector), config, data);
 
             var meta = {
                 $this: $this,
@@ -6086,7 +6086,7 @@
         'Pagers': true,
         'NumberField': true,
         'DateTimePicker': true,
-        'zTree': true,
+        'zTree':true,
     });
 
 
