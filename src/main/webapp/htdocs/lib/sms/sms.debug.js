@@ -5853,7 +5853,6 @@
 
         var mapper = new $.Mapper();
 
-
         //默认配置
         var defaults = {
             check: {
