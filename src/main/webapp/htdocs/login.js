@@ -14,17 +14,17 @@
         'click': function () {
             WarnTip.hide();
         },
-
+        // 'B3sMo22ZLkWApjO/oEeDOxACEAI=' 业务用户 'QpXq24FxxE6c3lvHMPyYCxACEAI=' 系统用户
         'keydown': function (event) {
             if (event.keyCode == 13) {
-                Login.login(Tabs.current() == 0 ? 2 : 1);
+                Login.login(Tabs.current() == 0 ? 'B3sMo22ZLkWApjO/oEeDOxACEAI=' : 'QpXq24FxxE6c3lvHMPyYCxACEAI=');
             }
         }
     });
 
     Login.on({
         'login': function () {
-            Login.login(Tabs.current() == 0 ? 2 : 1);
+            Login.login(Tabs.current() == 0 ? 'B3sMo22ZLkWApjO/oEeDOxACEAI=' : 'QpXq24FxxE6c3lvHMPyYCxACEAI=');
             // 50801-供应商用户，50802-系统用户
         }
     });

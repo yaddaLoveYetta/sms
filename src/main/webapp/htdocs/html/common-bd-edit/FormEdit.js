@@ -127,19 +127,19 @@
         var mustInputMask = 0; //是否必填掩码
         if (isUpdate) {
             //FMustInput  字段显示权限-后端mustInput定义 4 编辑时平台用户必填，8编辑时候物业用户必填
-            if (user.type == 1) {
+            if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
                 // 平台用户
                 mustInputMask = 2;
-            } else if (user.type == 2) {
+            } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
                 //物业用户
                 mustInputMask = 8;
             }
         } else {
             //FMustInput  字段显示权限-后端mustInput定义 4 编辑时平台用户必填，8编辑时候物业用户必填
-            if (user.type == 1) {
+            if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
                 // 平台用户
                 mustInputMask = 1;
-            } else if (user.type == 2) {
+            } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
                 //物业用户
                 mustInputMask = 4;
             }
@@ -176,11 +176,11 @@
 
                 //display 字段显示权限-后端FDisPlay定义 4：编辑时对于平台用户显示，8：编辑时对于供应商用户显示：12：平台供应商用户都显示
                 //lockMaskDisplay  字段显示权限-后端FLock定义 4 编辑时平台用户锁定，8编辑时候供应商用户锁定
-                if (user.type == 1) {
+                if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
                     // 平台用户
                     display = 4;
                     lockMaskDisplay = 2;
-                } else if (user.type == 2) {
+                } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
                     //供应商用户
                     display = 8;
                     lockMaskDisplay = 8;
@@ -188,11 +188,11 @@
             } else {
                 // 字段显示权限-后端FDisPlay定义 16：新增时对于平台用户显示，32：新增时对于供应商用户显示：48：平台供应商用户都显示
                 //lockMaskDisplay  字段显示权限-后端FLock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
-                if (user.type == 1) {
+                if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
                     // 平台用户
                     display = 16;
                     lockMaskDisplay = 1;
-                } else if (user.type == 2) {
+                } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
                     //物业用户
                     display = 32;
                     lockMaskDisplay = 4;
@@ -305,11 +305,14 @@
                  1,3,5,6,7,8,9,10,98,99
                  */
                 switch (domType) {
-                    case 1: // 文本
+                    case 1: // 小数
                     case 8: // 手机号码
                     case 9://座机电话
                     case 10: // 普通文本
                         sample = samples["tr.text"];
+                        break;
+                    case 11://多行文本
+                        sample = samples["tr.textarea"];
                         break;
                     case 3: // checkbox
                         sample = samples["tr.checkbox"];

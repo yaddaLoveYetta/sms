@@ -14,10 +14,10 @@ define('List/API/Head', function(require, module, exports) {
 	var headItems = [];
 	var display;
 	// 字段显示权限-后端FDisPlay定义 1：平台用户显示，2：物业用户显示：3：平台物业用户都显示
-	if (user.type == 1) {
+	if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
 		// 平台用户
 		display = 1; // 00 -- 01 --10 --11
-	} else if (user.type == 2) {
+	} else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
 		// 物业用户
 		display = 2; // 10
 	} else {

@@ -33,13 +33,17 @@ define('ClassMapping', function (require, module, exports) {
             name: '供应商',
             url: 'html/base_edit/index.html'
         },
+        '1007': {
+            name: '供应商证件类别',
+            url: 'html/base_edit/index.html'
+        },
     }
-
 
 
     function getPage(classId) {
         return pageMappings[classId] ? pageMappings[classId].url || '' : null;
     }
+
     function getTabName(classId) {
         return pageMappings[classId] ? pageMappings[classId].name || '' : null;
     }

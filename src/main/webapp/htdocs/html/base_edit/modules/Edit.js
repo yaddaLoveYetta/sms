@@ -94,7 +94,7 @@ define('Edit', function (require, module, exports) {
         if (classId == 1001) {
             // 用户信息特殊校验逻辑
             // 供应商用户必须关联供应商
-            if ((f7Selectors['type'].getData()[0].ID || 0) == 2 && (f7Selectors['supplier'].getData()[0].ID || 0) == 0) {
+            if ((f7Selectors['type'].getData()[0].ID || '') == 'B3sMo22ZLkWApjO/oEeDOxACEAI=' && (f7Selectors['supplier'].getData()[0].ID || '') == '') {
                 errorData["supplier"] = $.String.format("供应商不可为空");
             }
         }
@@ -162,7 +162,15 @@ define('Edit', function (require, module, exports) {
         if (classId == 1001 && key == 'role') {
             // 用户角色依赖于用户类别
             config = {
-                conditionF7Names: [{type: "selector", target: 'type', filterKey: "type"}],   //级联查询条件 多个用逗号分割
+                conditionF7Names: [{
+                    type: "selector",
+                    target: 'type',
+                    filterKey: "type",
+                    valueRule: {
+                        'QpXq24FxxE6c3lvHMPyYCxACEAI=': 'Ro9iCuOsVEmznmE+YZSi7hAEEAQ=',
+                        'B3sMo22ZLkWApjO/oEeDOxACEAI=': 'f1sGInqJq0aUNY5MmpKM8RAEEAQ='
+                    }
+                }],   //级联查询条件 多个用逗号分割
             };
         }
         return config;
@@ -171,7 +179,7 @@ define('Edit', function (require, module, exports) {
     FormEdit.on({
         "FType.defaultFill": function (data) { //默认数据填充
             var userTypeId = data[0].ID;
-           // UserTypeOpt.render(userTypeId);
+            // UserTypeOpt.render(userTypeId);
         },
         'afterFill': function (classId, metaData, data) {
 
@@ -193,7 +201,7 @@ define('Edit', function (require, module, exports) {
 
             var element = '#bd-supplier';
 
-            if (data[0].ID == 1) {
+            if (data[0].ID == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
                 // 系统用户类别时锁定关联供应商不可用
                 selectors['supplier'].lock();
 

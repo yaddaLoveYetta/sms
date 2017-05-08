@@ -4236,16 +4236,14 @@
          */
         function logout(fnSuccess, fnFail, fnError) {
 
-            var api = new API(defaults.api);
+            var api = new API(defaults.apiLoginout);
 
             api.on({
                 'fail': fnFail,
                 'error': fnError,
             });
 
-            api.get({
-                action: defaults.actions['logout']
-            });
+            api.get();
 
             api.on('success', function (data, json) { //成功
 

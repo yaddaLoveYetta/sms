@@ -75,19 +75,26 @@
 
                     var conditionData = meta.conditionF7Names[i];
 
-                    var type = conditionData.type || "";  // 过滤字段类别
-                    var target;
-                    var filterKey;
+                    var type = conditionData.type || "";  // 目标字段类别-目前只针对F7控件关联查询条件设置
+                    var target; // 目标元素
+                    var filterKey; //  目标元素取值key
+                    var valueRule; //    值转换规则
                     if (type === 'selector') {
                         target = conditionData.target || "";
                         filterKey = conditionData.filterKey || "";
+                        valueRule = conditionData.valueRule || "";
                     }
 
                     if (type == "selector" && $.trim(target) !== "" && $.trim(filterKey) !== "") {
                         // 关联F7控件条件
-                        var value = dataSelectors[target].getData() && dataSelectors[target].getData()[0].ID || 0;
+                        var value = dataSelectors[target].getData() && dataSelectors[target].getData()[0].ID || '';
 
-                        if (value === 0) {
+                        if ($.trim(target) !== "" && $.trim(filterKey) !== "") {
+                            // 值转换
+                            value = valueRule[value] || '';
+                        }
+
+                        if (value === '') {
                             delete meta.conditions[target];//清除没必要的或者已经清空的查询条件
                             continue;
                             //不是必须关联的 如果所关联的为空则跳过该查询条件

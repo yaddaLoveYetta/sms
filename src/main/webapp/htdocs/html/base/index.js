@@ -9,6 +9,7 @@
     var List = require('List');
     var Pager = require('Pager');
     var bl = require('ButtonList');
+    var ButtonListOption = require('ButtonListOption');
     var MessageBox = SMS.require('MessageBox');
 
     // var CascadeNavigator = require('CascadeNavigator');
@@ -87,51 +88,8 @@
         blConfig = {
             'items': []
         };
-    } else if (classId == 1001) { // 用户
-        blConfig = {
-            'items': [{
-                text: '新增',
-                name: 'add',
-            }, {
-                text: '删除',
-                name: 'delete',
-            }, {
-                text: '刷新',
-                name: 'refresh',
-            }]
-        };
-    } else if (classId == 1005) {
-        blConfig = {
-            'items': [{
-                text: '新增',
-                name: 'add',
-            }, {
-                text: '删除',
-                name: 'delete',
-            }, {
-                text: '刷新',
-                name: 'refresh',
-            }]
-        };
-    } else if (classId == 1003) {
-        blConfig = {
-            'items': [{
-                text: '新增',
-                name: 'add',
-            }, {
-                text: '删除',
-                name: 'delete',
-            }, {
-                text: '刷新',
-                name: 'refresh',
-            }]
-        };
     } else {
-
-        blConfig = {
-            'items': []
-        };
-
+        blConfig = ButtonListOption.get(classId);
     }
 
     var ButtonList = bl.create(blConfig);

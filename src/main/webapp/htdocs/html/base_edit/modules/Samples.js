@@ -21,10 +21,10 @@ define('Samples', function (require, module, exports) {
                 //fn: trim,
             },
             {
-                name:"tr",
-                begin:'#--tr.begin--#',
-                end:"#--tr.end--#",
-                outer:'{trs}',
+                name: "tr",
+                begin: '#--tr.begin--#',
+                end: "#--tr.end--#",
+                outer: '{trs}',
             },
             {
                 name: 'tr.checkbox',
@@ -48,6 +48,12 @@ define('Samples', function (require, module, exports) {
                 //fn: trim,
             },
             {
+                name: 'tr.textarea',
+                begin: '#--tr.textarea.begin--#',
+                end: '#--tr.textarea.end--#',
+                outer: 'textarea',
+            },
+            {
                 name: 'tr.password',
                 begin: '#--tr.password.begin--#',
                 end: '#--tr.password.end--#',
@@ -65,7 +71,6 @@ define('Samples', function (require, module, exports) {
 
         return samples;
     }
-
 
 
     return get;

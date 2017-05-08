@@ -19,7 +19,7 @@ define('SelectorList', function (require, module, exports) {
     var config = {
         targetType: 1, //跳转方案
         classID: 1002,
-        destClassId:1001,
+        destClassId: 1001,
         hasBreadcrumbs: true,
         container: container,
         title: '用户类别',
@@ -35,10 +35,10 @@ define('SelectorList', function (require, module, exports) {
     var config = {
         targetType: 1, //跳转方案
         classID: 1003,
-        destClassId:1001,
+        destClassId: 1001,
         hasBreadcrumbs: true,
         container: roleContainer,
-        conditionF7Names: [{type: "selector",target:'type', filterKey: "type"}],   //级联查询条件 多个用逗号分割
+        conditionF7Names: [{type: "selector", target: 'type', filterKey: "type"}],   //级联查询条件 多个用逗号分割
         title: '角色',
         defaults: {
             pageSize: 8
@@ -52,8 +52,13 @@ define('SelectorList', function (require, module, exports) {
     var config = {
         targetType: 1, //跳转方案
         classID: 1005,
-        destClassId:1001,
+        destClassId: 1001,
         hasBreadcrumbs: true,
+        conditionF7Names: [{SelectorName: "type", FillterKey: "type"}, {
+            SelectorName: "FType",
+            FillterKey: "FRoleType",
+            ValueRule: {50801: 50701, 50802: 50702}
+        }],
         container: supplierContainer,
         title: '供应商',
         defaults: {
@@ -63,11 +68,11 @@ define('SelectorList', function (require, module, exports) {
     var supplierSelector = DataSelector.create(config);
     selectors['supplier'] = supplierSelector;
 
-/*    conditionF7Names: [{SelectorName: "type", FillterKey: "type"}, {
-        SelectorName: "FType",
-        FillterKey: "FRoleType",
-        ValueRule: {50801: 50701, 50802: 50702}
-    }],   //级联查询条件 多个用逗号分割*/
+    /*    conditionF7Names: [{SelectorName: "type", FillterKey: "type"}, {
+     SelectorName: "FType",
+     FillterKey: "FRoleType",
+     ValueRule: {50801: 50701, 50802: 50702}
+     }],   //级联查询条件 多个用逗号分割*/
 
 
     //设置 静态变量 用于联动操作
