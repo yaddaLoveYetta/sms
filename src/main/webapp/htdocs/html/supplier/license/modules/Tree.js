@@ -33,13 +33,13 @@ define('Tree', function (require, module, exports) {
             SMS.use('Tree', function (zTree) {
 
                 var tree = new zTree({
-                    selector: '#tree',
+                    selector: 'container',
                     data: data,
                 });
 
             });
         });
-
+/*
         SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var startTime = new DateTimePicker(container, {
@@ -50,7 +50,7 @@ define('Tree', function (require, module, exports) {
                 startView: 'month',
                 minView: 'hour',
             });
-        });
+        });*/
 
     };
 
