@@ -14,7 +14,7 @@ public class LogServiceTest extends BaseJunitTest {
 
 		ILoginService loginService = Environ.getBean(ILoginService.class);
 
-		User user = loginService.login("test", "202cb962ac59075b964b07152d234b70", 50801);
+		User user = loginService.login("test", "202cb962ac59075b964b07152d234b70", "QpXq24FxxE6c3lvHMPyYCxACEAI=");
 
 		System.out.println(user);
 	}
