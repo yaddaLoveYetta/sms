@@ -101,7 +101,8 @@
                 'fieldKey': 'supplier',
                 'logicOperator': '=',
                 'value': data.id,
-                'rightParenTheses': ')'
+                'rightParenTheses': ')',
+                'needConvert':false,
             };
         }
 
