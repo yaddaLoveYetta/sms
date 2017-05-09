@@ -17,7 +17,7 @@
     <result column="productionTime" jdbcType="TIMESTAMP" property="productionTime" />
     <result column="productionManufacturer" jdbcType="VARCHAR" property="productionManufacturer" />
     <result column="productRegistrationNumber" jdbcType="INTEGER" property="productRegistrationNumber" />
-    <result column="amount " jdbcType="DECIMAL" property="amount " />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="effectiveTime" jdbcType="VARCHAR" property="effectiveTime" />
     <result column="invoiceNo" jdbcType="VARCHAR" property="invoiceNo" />
   </resultMap>
@@ -82,7 +82,7 @@
   <sql id="Base_Column_List">
     id, orderId, orderlineNumbers, materialCode, materialName, specifications, batch, 
     productBatchNumber, individualCode, price, basicUnitMeasurement, numbers, productionTime, 
-    productionManufacturer, productRegistrationNumber, [amount ], effectiveTime, invoiceNo
+    productionManufacturer, productRegistrationNumber, amount, effectiveTime, invoiceNo
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.InvoiceExample" resultMap="BaseResultMap">
     select
@@ -120,14 +120,14 @@
       batch, productBatchNumber, individualCode, 
       price, basicUnitMeasurement, numbers, 
       productionTime, productionManufacturer, 
-      productRegistrationNumber, [amount ], effectiveTime, 
+      productRegistrationNumber, amount, effectiveTime, 
       invoiceNo)
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{orderlineNumbers,jdbcType=INTEGER}, 
       #{materialCode,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, 
       #{batch,jdbcType=VARCHAR}, #{productBatchNumber,jdbcType=VARCHAR}, #{individualCode,jdbcType=VARCHAR}, 
       #{price,jdbcType=DECIMAL}, #{basicUnitMeasurement,jdbcType=VARCHAR}, #{numbers,jdbcType=INTEGER}, 
       #{productionTime,jdbcType=TIMESTAMP}, #{productionManufacturer,jdbcType=VARCHAR}, 
-      #{productRegistrationNumber,jdbcType=INTEGER}, #{amount ,jdbcType=DECIMAL}, #{effectiveTime,jdbcType=VARCHAR}, 
+      #{productRegistrationNumber,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{effectiveTime,jdbcType=VARCHAR}, 
       #{invoiceNo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
@@ -178,8 +178,8 @@
       <if test="productRegistrationNumber != null">
         productRegistrationNumber,
       </if>
-      <if test="amount  != null">
-        [amount ],
+      <if test="amount != null">
+        amount,
       </if>
       <if test="effectiveTime != null">
         effectiveTime,
@@ -234,8 +234,8 @@
       <if test="productRegistrationNumber != null">
         #{productRegistrationNumber,jdbcType=INTEGER},
       </if>
-      <if test="amount  != null">
-        #{amount ,jdbcType=DECIMAL},
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
       </if>
       <if test="effectiveTime != null">
         #{effectiveTime,jdbcType=VARCHAR},
@@ -299,8 +299,8 @@
       <if test="record.productRegistrationNumber != null">
         productRegistrationNumber = #{record.productRegistrationNumber,jdbcType=INTEGER},
       </if>
-      <if test="record.amount  != null">
-        [amount ] = #{record.amount ,jdbcType=DECIMAL},
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
       </if>
       <if test="record.effectiveTime != null">
         effectiveTime = #{record.effectiveTime,jdbcType=VARCHAR},
@@ -330,7 +330,7 @@
       productionTime = #{record.productionTime,jdbcType=TIMESTAMP},
       productionManufacturer = #{record.productionManufacturer,jdbcType=VARCHAR},
       productRegistrationNumber = #{record.productRegistrationNumber,jdbcType=INTEGER},
-      [amount ] = #{record.amount ,jdbcType=DECIMAL},
+      amount = #{record.amount,jdbcType=DECIMAL},
       effectiveTime = #{record.effectiveTime,jdbcType=VARCHAR},
       invoiceNo = #{record.invoiceNo,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -382,8 +382,8 @@
       <if test="productRegistrationNumber != null">
         productRegistrationNumber = #{productRegistrationNumber,jdbcType=INTEGER},
       </if>
-      <if test="amount  != null">
-        [amount ] = #{amount ,jdbcType=DECIMAL},
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
       </if>
       <if test="effectiveTime != null">
         effectiveTime = #{effectiveTime,jdbcType=VARCHAR},
@@ -410,7 +410,7 @@
       productionTime = #{productionTime,jdbcType=TIMESTAMP},
       productionManufacturer = #{productionManufacturer,jdbcType=VARCHAR},
       productRegistrationNumber = #{productRegistrationNumber,jdbcType=INTEGER},
-      [amount ] = #{amount ,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
       effectiveTime = #{effectiveTime,jdbcType=VARCHAR},
       invoiceNo = #{invoiceNo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

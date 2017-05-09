@@ -8,7 +8,7 @@
     <result column="supplierName" jdbcType="VARCHAR" property="supplierName" />
     <result column="orderTime" jdbcType="TIMESTAMP" property="orderTime" />
     <result column="buyer" jdbcType="VARCHAR" property="buyer" />
-    <result column="purchasingMode" jdbcType="INTEGER" property="purchasingMode" />
+    <result column="purchasingMode" jdbcType="VARCHAR" property="purchasingMode" />
     <result column="tax" jdbcType="INTEGER" property="tax" />
     <result column="cutasingleTime" jdbcType="TIMESTAMP" property="cutasingleTime" />
     <result column="confirmDeliveryTime" jdbcType="TIMESTAMP" property="confirmDeliveryTime" />
@@ -120,7 +120,7 @@
       price)
     values (#{id,jdbcType=VARCHAR}, #{lineNumbers,jdbcType=INTEGER}, #{supplierId,jdbcType=VARCHAR}, 
       #{supplierName,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{buyer,jdbcType=VARCHAR}, 
-      #{purchasingMode,jdbcType=INTEGER}, #{tax,jdbcType=INTEGER}, #{cutasingleTime,jdbcType=TIMESTAMP}, 
+      #{purchasingMode,jdbcType=VARCHAR}, #{tax,jdbcType=INTEGER}, #{cutasingleTime,jdbcType=TIMESTAMP}, 
       #{confirmDeliveryTime,jdbcType=TIMESTAMP}, #{confirmDeliveryNumbers,jdbcType=INTEGER}, 
       #{confirmOrder,jdbcType=INTEGER}, #{numbers,jdbcType=INTEGER}, #{deliveryTime,jdbcType=TIMESTAMP}, 
       #{price,jdbcType=DECIMAL})
@@ -194,7 +194,7 @@
         #{buyer,jdbcType=VARCHAR},
       </if>
       <if test="purchasingMode != null">
-        #{purchasingMode,jdbcType=INTEGER},
+        #{purchasingMode,jdbcType=VARCHAR},
       </if>
       <if test="tax != null">
         #{tax,jdbcType=INTEGER},
@@ -250,7 +250,7 @@
         buyer = #{record.buyer,jdbcType=VARCHAR},
       </if>
       <if test="record.purchasingMode != null">
-        purchasingMode = #{record.purchasingMode,jdbcType=INTEGER},
+        purchasingMode = #{record.purchasingMode,jdbcType=VARCHAR},
       </if>
       <if test="record.tax != null">
         tax = #{record.tax,jdbcType=INTEGER},
@@ -289,7 +289,7 @@
       supplierName = #{record.supplierName,jdbcType=VARCHAR},
       orderTime = #{record.orderTime,jdbcType=TIMESTAMP},
       buyer = #{record.buyer,jdbcType=VARCHAR},
-      purchasingMode = #{record.purchasingMode,jdbcType=INTEGER},
+      purchasingMode = #{record.purchasingMode,jdbcType=VARCHAR},
       tax = #{record.tax,jdbcType=INTEGER},
       cutasingleTime = #{record.cutasingleTime,jdbcType=TIMESTAMP},
       confirmDeliveryTime = #{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
@@ -321,7 +321,7 @@
         buyer = #{buyer,jdbcType=VARCHAR},
       </if>
       <if test="purchasingMode != null">
-        purchasingMode = #{purchasingMode,jdbcType=INTEGER},
+        purchasingMode = #{purchasingMode,jdbcType=VARCHAR},
       </if>
       <if test="tax != null">
         tax = #{tax,jdbcType=INTEGER},
@@ -357,7 +357,7 @@
       supplierName = #{supplierName,jdbcType=VARCHAR},
       orderTime = #{orderTime,jdbcType=TIMESTAMP},
       buyer = #{buyer,jdbcType=VARCHAR},
-      purchasingMode = #{purchasingMode,jdbcType=INTEGER},
+      purchasingMode = #{purchasingMode,jdbcType=VARCHAR},
       tax = #{tax,jdbcType=INTEGER},
       cutasingleTime = #{cutasingleTime,jdbcType=TIMESTAMP},
       confirmDeliveryTime = #{confirmDeliveryTime,jdbcType=TIMESTAMP},

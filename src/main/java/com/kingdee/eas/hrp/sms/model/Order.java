@@ -16,7 +16,7 @@ public class Order {
 
     private String buyer;
 
-    private Integer purchasingMode;
+    private String purchasingMode;
 
     private Integer tax;
 
@@ -82,12 +82,12 @@ public class Order {
         this.buyer = buyer == null ? null : buyer.trim();
     }
 
-    public Integer getPurchasingMode() {
+    public String getPurchasingMode() {
         return purchasingMode;
     }
 
-    public void setPurchasingMode(Integer purchasingMode) {
-        this.purchasingMode = purchasingMode;
+    public void setPurchasingMode(String purchasingMode) {
+        this.purchasingMode = purchasingMode == null ? null : purchasingMode.trim();
     }
 
     public Integer getTax() {

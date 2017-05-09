@@ -34,7 +34,7 @@ public class Invoice {
 
     private Integer productRegistrationNumber;
 
-    private BigDecimal amount ;
+    private BigDecimal amount;
 
     private String effectiveTime;
 
@@ -160,12 +160,12 @@ public class Invoice {
         this.productRegistrationNumber = productRegistrationNumber;
     }
 
-    public BigDecimal getAmount () {
-        return amount ;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setAmount (BigDecimal amount ) {
-        this.amount  = amount ;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public String getEffectiveTime() {

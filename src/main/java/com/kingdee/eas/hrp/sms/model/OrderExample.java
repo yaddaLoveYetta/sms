@@ -516,52 +516,62 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeEqualTo(Integer value) {
+        public Criteria andPurchasingModeEqualTo(String value) {
             addCriterion("purchasingMode =", value, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeNotEqualTo(Integer value) {
+        public Criteria andPurchasingModeNotEqualTo(String value) {
             addCriterion("purchasingMode <>", value, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeGreaterThan(Integer value) {
+        public Criteria andPurchasingModeGreaterThan(String value) {
             addCriterion("purchasingMode >", value, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andPurchasingModeGreaterThanOrEqualTo(String value) {
             addCriterion("purchasingMode >=", value, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeLessThan(Integer value) {
+        public Criteria andPurchasingModeLessThan(String value) {
             addCriterion("purchasingMode <", value, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeLessThanOrEqualTo(Integer value) {
+        public Criteria andPurchasingModeLessThanOrEqualTo(String value) {
             addCriterion("purchasingMode <=", value, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeIn(List<Integer> values) {
+        public Criteria andPurchasingModeLike(String value) {
+            addCriterion("purchasingMode like", value, "purchasingMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchasingModeNotLike(String value) {
+            addCriterion("purchasingMode not like", value, "purchasingMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchasingModeIn(List<String> values) {
             addCriterion("purchasingMode in", values, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeNotIn(List<Integer> values) {
+        public Criteria andPurchasingModeNotIn(List<String> values) {
             addCriterion("purchasingMode not in", values, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeBetween(Integer value1, Integer value2) {
+        public Criteria andPurchasingModeBetween(String value1, String value2) {
             addCriterion("purchasingMode between", value1, value2, "purchasingMode");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasingModeNotBetween(Integer value1, Integer value2) {
+        public Criteria andPurchasingModeNotBetween(String value1, String value2) {
             addCriterion("purchasingMode not between", value1, value2, "purchasingMode");
             return (Criteria) this;
         }

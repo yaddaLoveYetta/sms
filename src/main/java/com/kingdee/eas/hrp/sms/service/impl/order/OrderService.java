@@ -38,7 +38,7 @@ public class OrderService extends BaseService implements IOrderService{
 				order.setCutasingleTime(sft.parse(orderjson.getString("cutasingleTime")));
 			}
 				order.setBuyer(orderjson.getString("buyer"));
-				order.setPurchasingMode(orderjson.getInteger("purchasing_mode"));
+				order.setPurchasingMode(orderjson.getString("purchasing_mode"));
 				order.setTax(orderjson.getInteger("tax"));
 				order.setPrice(orderjson.getBigDecimal("price"));
 				order.setNumbers(orderjson.getInteger("numbers"));
