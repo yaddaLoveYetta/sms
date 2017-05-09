@@ -37,7 +37,7 @@ define('Tree', function (require, module, exports) {
                 });
 
                 tree.on({
-/*
+
                     onClick: function (event, treeId, treeNode) {
                         console.log(treeNode.id + ", " + treeNode.name);
                         emitter.fire("onClick" , [treeNode]);
@@ -45,7 +45,7 @@ define('Tree', function (require, module, exports) {
                 });
 
             });
-        });*/
+        });
 
     };
 
