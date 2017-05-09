@@ -115,10 +115,7 @@ define('Tree', function (require, module, exports) {
      * 获取当前选中的节点
      */
     function getSelectedNodes() {
-
-        /*        var treeObj = tree.getZTreeObj("tree");*/
-        var nodes = tree.getSelectedNodes();
-        console.log(nodes);
+        return tree.getSelectedNodes();
     }
 
     return {
