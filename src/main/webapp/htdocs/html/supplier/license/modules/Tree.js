@@ -9,7 +9,6 @@ define('Tree', function (require, module, exports) {
     var MiniQuery = require('MiniQuery');
     var API = SMS.require('API');
     var emitter = MiniQuery.Event.create();
-
     var container = document.getElementById('tree');
 
     function load(fn) {
@@ -32,7 +31,7 @@ define('Tree', function (require, module, exports) {
             SMS.use('ZTree', function (zTree) {
 
                 var tree = new zTree({
-                    selector: 'container',
+                    selector: '#tree',
                     data: data,
                 });
 
