@@ -102,7 +102,7 @@ define('Tree', function (require, module, exports) {
 
                     var node = tree.getNodeByParam('id', data.list[0].id, null);//获取第一个供应商
                     tree.selectNode(node);//选择点
-                    tree.setting.callback.onClick(null, tree.setting.treeId, node);//调用事件
+                    tree.getTrueZTree().setting.callback.onClick(null, tree.setting.treeId, node);//调用事件
 
                 }
 
