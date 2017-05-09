@@ -8,7 +8,7 @@ define('Tree', function (require, module, exports) {
     var SMS = require("SMS");
     var MiniQuery = require('MiniQuery');
     var API = SMS.require('API');
-    var Pager = require('Pager');
+    var SupplierPager = require('SupplierPager');
 
     var emitter = MiniQuery.Event.create();
     var container = document.getElementById('tree');
@@ -68,7 +68,7 @@ define('Tree', function (require, module, exports) {
             conditions: [],
         }, function (data, pageSize) {
 
-            Pager.render({
+            SupplierPager.render({
                 size: pageSize,
                 total: data.count,
                 change: function (no) {
