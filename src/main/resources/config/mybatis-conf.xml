@@ -91,6 +91,7 @@
 		<mapper resource="mapper/generate/CityMapper.xml" />
 		<mapper resource="mapper/generate/ProvinceMapper.xml" />
 		<mapper resource="mapper/generate/CountyMapper.xml" />
+		<mapper resource="mapper/generate/InvoiceMapper.xml" />
 
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
