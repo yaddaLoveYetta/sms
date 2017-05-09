@@ -185,7 +185,7 @@ define('Edit', function (require, module, exports) {
 
             if (classId == 1001) {
                 // 用户编辑填充页面数据后-对于用户类别是系统用户的用户-锁定关联供应商控件不可用
-                if (FormEdit.getSelectors('type').getData()[0]['ID'] == 1) {
+                if (FormEdit.getSelectors('type').getData()[0]['ID'] == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
                     FormEdit.getSelectors('supplier').lock();
                 }
             }
