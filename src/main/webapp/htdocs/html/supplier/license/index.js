@@ -73,7 +73,8 @@
 
     List.on({
         'add': function () {
-                // 增加供应商证书
+            // 增加供应商证书
+            var item = Tree.getSelectedNodes();
         },
         'delete': function (item, index) {
 
