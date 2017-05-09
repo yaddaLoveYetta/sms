@@ -5989,9 +5989,10 @@
             var $this = meta.$this;
 
             var args = [].slice.call($argumetns, 0);
-            args = [name].concat(args);
+            //args = [name].concat(args);
 
-            return $this.zTree.apply($this, args);
+            /*return $this.zTree.apply($this, args);*/
+            return $this[name].apply($this, args);
 
         }
 
