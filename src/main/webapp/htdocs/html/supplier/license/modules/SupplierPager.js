@@ -21,7 +21,7 @@ define('SupplierPager', function (require, module, exports) {
 
             container: {
                 simple: '#div-left-pager-simple', //简易分页控件的容器
-                normal: '#div-left-pager-normal' //标准分页控件的容器
+                // normal: '#div-left-pager-normal' //标准分页控件的容器
             },
         });
 

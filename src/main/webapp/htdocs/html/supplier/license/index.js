@@ -16,7 +16,7 @@
     var Tree = require('Tree');
     var ClassMapping = require('ClassMapping');
 
-    var classId = 1007;
+    var classId = 1019;
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
 
