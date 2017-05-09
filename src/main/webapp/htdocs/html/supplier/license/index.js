@@ -137,22 +137,12 @@
 
             var dialog = new Dialog({
                 title: '新增-供应商资质',
-/*                width: 800,
-                height: 450,*/
+                width: 800,
+                height: 450,
                 url: $.Url.setQueryString('html/base_edit/index.html', 'classId', 1019),
                 data: {},
                 button: [
-                    {
-                        value: '取消',
-                        className: 'sms-cancel-btn',
-                    },
-                    {
-                        value: '确定',
-                        className: 'sms-submit-btn',
-                        callback: function () {
-                            this.isSubmit = true;
-                        },
-                    }
+
                 ],
             });
 
