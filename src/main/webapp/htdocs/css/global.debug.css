@@ -1215,6 +1215,7 @@ table {
 }
 .iframe {
   /*overflow: hidden;*/
+  overflow-x: hidden;
   overflow-y: auto;
 }
 .address-picker select {
