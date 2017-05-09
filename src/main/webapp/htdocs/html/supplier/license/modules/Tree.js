@@ -98,6 +98,14 @@ define('Tree', function (require, module, exports) {
                     },
                 });
 
+                if (data.list.length > 0) {
+
+                    var node = tree.getNodeByParam('id', data.list[0].id, null);//获取第一个供应商
+                    tree.selectNode(node);//选择点
+                    tree.setting.callback.onClick(null, tree.setting.treeId, node);//调用事件
+
+                }
+
             });
         });
 
@@ -108,7 +116,7 @@ define('Tree', function (require, module, exports) {
      */
     function getSelectedNodes() {
 
-/*        var treeObj = tree.getZTreeObj("tree");*/
+        /*        var treeObj = tree.getZTreeObj("tree");*/
         var nodes = tree.getSelectedNodes();
         console.log(nodes);
     }

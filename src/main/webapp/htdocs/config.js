@@ -184,6 +184,8 @@
             view: {
             	showIcon :false,
             	showLine:false,
+                dblClickExpand: true,//双击展开
+                selectedMulti: false,//是否允许多选
             },
             data: {
             	 simpleData: {

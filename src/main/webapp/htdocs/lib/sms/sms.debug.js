@@ -6044,107 +6044,11 @@
                 $this.setting.callback[name] = fn;
             },
 
-            getZTreeObj: function () {
-                invoke(this, 'getZTreeObj', arguments);
+            getNodeByParam: function () {
+                invoke(this, 'getNodeByParam', arguments);
             },
             getSelectedNodes:function () {
                 invoke(this, 'getSelectedNodes', arguments);
-            },
-            beforeAsync: function () {
-                invoke(this, 'beforeAsync', arguments);
-            },
-
-            beforeCheck: function () {
-                invoke(this, 'beforeCheck', arguments);
-            },
-
-            beforeClick: function () {
-                invoke(this, 'beforeClick', arguments);
-            },
-
-            beforeCollapse: function () {
-                invoke(this, 'beforeCollapse', arguments);
-            },
-
-            beforeDblClick: function () {
-                invoke(this, 'beforeDblClick', arguments);
-            },
-
-            beforeDrag: function () {
-                invoke(this, 'beforeDrag', arguments);
-            },
-
-            beforeDragOpen: function () {
-                invoke(this, 'beforeDragOpen', arguments);
-            },
-            beforeDrop: function () {
-                invoke(this, 'beforeDrop', arguments);
-            },
-            beforeEditName: function () {
-                invoke(this, 'beforeEditName', arguments);
-            },
-            beforeExpand: function () {
-                invoke(this, 'beforeExpand', arguments);
-            },
-            beforeMouseDown: function () {
-                invoke(this, 'beforeMouseDown', arguments);
-            },
-            beforeMouseUp: function () {
-                invoke(this, 'beforeMouseUp', arguments);
-            },
-            beforeRemove: function () {
-                invoke(this, 'beforeRemove', arguments);
-            },
-            beforeRename: function () {
-                invoke(this, 'beforeRename', arguments);
-            },
-            beforeRightClick: function () {
-                invoke(this, 'beforeRightClick', arguments);
-            },
-            onAsyncError: function () {
-                invoke(this, 'onAsyncError', arguments);
-            },
-            onAsyncSuccess: function () {
-                invoke(this, 'onAsyncSuccess', arguments);
-            },
-            onCheck: function () {
-                invoke(this, 'onCheck', arguments);
-            },
-            onClick: function () {
-                invoke(this, 'onClick', arguments);
-            },
-            onCollapse: function () {
-                invoke(this, 'onCollapse', arguments);
-            },
-            onDblClick: function () {
-                invoke(this, 'onDblClick', arguments);
-            },
-            onDrag: function () {
-                invoke(this, 'onDrag', arguments);
-            },
-            onDrop: function () {
-                invoke(this, 'onDrop', arguments);
-            },
-            onExpand: function () {
-                invoke(this, 'onExpand', arguments);
-            },
-            onMouseDown: function () {
-                invoke(this, 'onMouseDown', arguments);
-            },
-            onMouseUp: function () {
-                invoke(this, 'onMouseUp', arguments);
-            },
-            onNodeCreated: function () {
-                invoke(this, 'onNodeCreated', arguments);
-            },
-            onRemove: function () {
-                invoke(this, 'onRemove', arguments);
-            },
-            onRename: function () {
-                invoke(this, 'onRename', arguments);
-            },
-            onRightClick: function () {
-                invoke(this, 'onRightClick', arguments);
             },
         };
 
