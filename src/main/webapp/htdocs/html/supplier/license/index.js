@@ -70,7 +70,7 @@
         'add': function (item, index) {
             // 增加供应商证书
             var item = Tree.getSelectedNodes();
-
+            add();
         },
         'delete': function (item, index) {
 
@@ -140,8 +140,7 @@
                 width: 800,
                 height: 450,
                 url: $.Url.setQueryString('.html/base_edit/index.html', 'classId', 1019),
-                data: {
-                },
+                data: {},
                 button: [
                     {
                         value: '取消',
@@ -190,6 +189,7 @@
         });
 
     }
+
     Tree.on({
 
         onClick: function (data) {
