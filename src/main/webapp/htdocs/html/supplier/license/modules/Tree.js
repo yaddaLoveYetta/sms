@@ -35,7 +35,7 @@ define('Tree', function (require, module, exports) {
 
         api.on({
             'success': function (data, json) {
-                fn && fn(data, json);
+                fn && fn(data, config.pageSize);
             },
 
             'fail': function (code, msg, json) {
