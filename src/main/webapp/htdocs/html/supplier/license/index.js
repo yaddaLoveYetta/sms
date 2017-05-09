@@ -139,7 +139,7 @@
                 title: '新增-供应商资质',
                 width: 800,
                 height: 450,
-                url: $.Url.setQueryString('.html/base_edit/index.html', 'classId', 1019),
+                url: $.Url.setQueryString('html/base_edit/index.html', 'classId', 1019),
                 data: {},
                 button: [
                     {
