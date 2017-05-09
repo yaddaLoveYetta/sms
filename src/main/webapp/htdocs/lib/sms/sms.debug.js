@@ -6044,11 +6044,18 @@
                 $this.setting.callback[name] = fn;
             },
 
+            getTrueZTree: function () {
+                var meta = mapper.get(this);
+                return meta.$this;
+            },
             getNodeByParam: function () {
                 invoke(this, 'getNodeByParam', arguments);
             },
-            getSelectedNodes:function () {
+            getSelectedNodes: function () {
                 invoke(this, 'getSelectedNodes', arguments);
+            },
+            selectNode: function () {
+                invoke(this, 'selectNode', arguments);
             },
         };
 
