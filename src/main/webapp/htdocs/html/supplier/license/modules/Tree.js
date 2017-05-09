@@ -8,6 +8,7 @@ define('Tree', function (require, module, exports) {
     var SMS = require("SMS");
     var MiniQuery = require('MiniQuery');
     var API = SMS.require('API');
+    var emitter = MiniQuery.Event.create();
 
     var container = document.getElementById('tree');
 
@@ -26,29 +27,23 @@ define('Tree', function (require, module, exports) {
     function render() {
 
 
-
-
         load(function (data) {
 
-            SMS.use('Tree', function (zTree) {
+            SMS.use('ZTree', function (zTree) {
 
                 var tree = new zTree({
                     selector: 'container',
                     data: data,
                 });
 
-            });
-        });
+                tree.on({
 /*
-        SMS.use('DateTimePicker', function (DateTimePicker) {
+                    onClick: function (event, treeId, treeNode) {
+                        console.log(treeNode.id + ", " + treeNode.name);
+                        emitter.fire("onClick" , [treeNode]);
+                    },
+                });
 
-            var startTime = new DateTimePicker(container, {
-                format: 'yyyy-mm-dd hh:ii:ss',
-                autoclose: true,
-                todayBtn: true,
-                todayHighlight: true,
-                startView: 'month',
-                minView: 'hour',
             });
         });*/
 
@@ -57,5 +52,6 @@ define('Tree', function (require, module, exports) {
 
     return {
         render: render,
+        on: emitter.on.bind(emitter),
     };
 });

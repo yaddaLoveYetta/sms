@@ -177,13 +177,26 @@
             formatted: true,        //控制是否在页面就绪时自动格式化输入框的值，取值: true|false
         },
 
-        zTree: {
+        ZTree: {
             treeId: '',
             treeObj: null,
             callback:{},
-            view: {},
-            data: {},
-            check: {},
+            view: {
+            	showIcon :false,
+            	showLine:false,
+            },
+            data: {
+            	 simpleData: {
+                     enable: true,
+                     idKey: "id",
+                     pIdKey: "pId"
+                 }
+            },
+            check: {
+            	enable:false,
+        		chkStyle: "checkbox",
+        		chkboxType: { "Y": "p", "N": "s" },
+            },
 
         },
 

@@ -33,8 +33,8 @@
 
 
     /**
-     * 内部的模块管理器
-     */
+	 * 内部的模块管理器
+	 */
     var Module = (function () {
 
 
@@ -42,38 +42,43 @@
 
 
         /**
-         * 定义指定名称的模块。
-         * @param {string} id 模块的名称。
-         * @param {Object|function} exports 模块的导出函数。
-         */
+		 * 定义指定名称的模块。
+		 * 
+		 * @param {string}
+		 *            id 模块的名称。
+		 * @param {Object|function}
+		 *            exports 模块的导出函数。
+		 */
         function define(id, exports) {
             id$module[id] = {
                 required: false,
                 exports: exports,
-                exposed: false      //默认对外不可见
+                exposed: false      // 默认对外不可见
             };
         }
 
         /**
-         * 加载指定的模块。
-         * @param {string} id 模块的名称。
-         * @return 返回指定的模块。
-         */
+		 * 加载指定的模块。
+		 * 
+		 * @param {string}
+		 *            id 模块的名称。
+		 * @return 返回指定的模块。
+		 */
         function require(id) {
 
             var module = id$module[id];
-            if (!module) { //不存在该模块
+            if (!module) { // 不存在该模块
                 return;
             }
 
             var exports = module.exports;
 
-            if (module.required) { //已经 require 过了
+            if (module.required) { // 已经 require 过了
                 return exports;
             }
 
-            //首次 require
-            if (typeof exports == 'function') { //工厂函数
+            // 首次 require
+            if (typeof exports == 'function') { // 工厂函数
 
                 var fn = exports;
                 exports = {};
@@ -85,23 +90,25 @@
 
                 var value = fn(require, mod, exports);
 
-                //没有通过 return 来返回值，则要导出的值在 mod.exports 里
+                // 没有通过 return 来返回值，则要导出的值在 mod.exports 里
                 exports = value === undefined ? mod.exports : value;
                 module.exports = exports;
             }
 
-            module.required = true; //指示已经 require 过一次
+            module.required = true; // 指示已经 require 过一次
 
             return exports;
 
         }
 
         /**
-         * 异步加载指定的模块，并在加载完成后执行指定的回调函数。
-         * @param {string} id 模块的名称。
-         * @param {function} fn 模块加载完成后要执行的回调函数。
-         该函数会接收到模块作为参数。
-         */
+		 * 异步加载指定的模块，并在加载完成后执行指定的回调函数。
+		 * 
+		 * @param {string}
+		 *            id 模块的名称。
+		 * @param {function}
+		 *            fn 模块加载完成后要执行的回调函数。 该函数会接收到模块作为参数。
+		 */
         function async(id, fn) {
 
             var module = require(id);
@@ -127,16 +134,15 @@
 
 
         /**
-         * 设置或获取对外暴露的模块。
-         * 通过此方法，可以控制指定的模块是否可以通过 SMS.require(id) 来加载到。
-         * @param {string|Object} id 模块的名称。
-         当指定为一个 {} 时，则表示批量设置。
-         当指定为一个字符串时，则单个设置。
-         * @param {boolean} [exposed] 模块是否对外暴露。
-         当参数 id 为字符串时，且不指定该参数时，表示获取操作，
-         即获取指定 id 的模块是否对外暴露。
-         * @return {boolean}
-         */
+		 * 设置或获取对外暴露的模块。 通过此方法，可以控制指定的模块是否可以通过 SMS.require(id) 来加载到。
+		 * 
+		 * @param {string|Object}
+		 *            id 模块的名称。 当指定为一个 {} 时，则表示批量设置。 当指定为一个字符串时，则单个设置。
+		 * @param {boolean}
+		 *            [exposed] 模块是否对外暴露。 当参数 id 为字符串时，且不指定该参数时，表示获取操作， 即获取指定 id
+		 *            的模块是否对外暴露。
+		 * @return {boolean}
+		 */
         function expose(id, exposed) {
 
             if (typeof id == 'object') { // expose({ })，批量 set
@@ -151,11 +157,11 @@
                 return;
             }
 
-            //get
+            // get
             return get(id);
 
 
-            //内部方法
+            // 内部方法
             function get(id) {
                 var module = id$module[id];
                 if (!module) {
@@ -185,7 +191,7 @@
     })();
 
 
-    //提供快捷方式
+    // 提供快捷方式
     var define = Module.define;
     var require = Module.require;
 
@@ -205,10 +211,11 @@
 
 
     /**
-     * 请求后台 API 的接口类
-     * @namespace
-     * @author micty
-     */
+	 * 请求后台 API 的接口类
+	 * 
+	 * @namespace
+	 * @author micty
+	 */
     define('API', function (require, exports, module) {
 
         var $ = require('$');
@@ -219,7 +226,7 @@
         var guidKey = Mapper.getGuidKey();
 
 
-        //默认配置
+        // 默认配置
         var defaults = {};
 
 
@@ -247,7 +254,7 @@
 
         function ajax(config) {
 
-            if (Proxy.request(config)) { //使用了代理
+            if (Proxy.request(config)) { // 使用了代理
                 return;
             }
 
@@ -255,24 +262,25 @@
             var url = defaults.url + config.name;// + '.do';
             var method = (config.method || 'get').toLowerCase();
 
-            var data = config.data || null; //null 可能会在 xhr.send(data) 里用到
+            var data = config.data || null; // null 可能会在 xhr.send(data) 里用到
             if (data) {
 
                 data = $.Object.map(data, function (key, value) {
 
-                    if (typeof value == 'object' && value) { //子对象编码成 JSON 字符串
+                    if (typeof value == 'object' && value) { // 子对象编码成 JSON
+																// 字符串
                         return $.Object.toJson(value);
                     }
 
-                    //其他的
-                    return value; //原样返回
+                    // 其他的
+                    return value; // 原样返回
                 });
 
                 data = $.Object.toQueryString(data);
 
                 if (method == 'get') {
                     url += '?' + data;
-                    data = null; //要发送的数据已附加到 url 参数上
+                    data = null; // 要发送的数据已附加到 url 参数上
                 }
                 else { // post
                     var query = config.query;
@@ -283,43 +291,43 @@
                 }
             }
 
-            //// IE8+的跨域问题。
-            //// post 时，XDomainRequest 对象不能设置 HTTP 头：
-            //// Content-Type: application/x-www-form-urlencoded
-            //// 因此需要服务器去处理原始的 post 数据。
-            //if (window.XDomainRequest) {
-            //    var xdr = new XDomainRequest();
-            //    xdr.open(method, url);
-            //    xdr.onload = function () {
+            // // IE8+的跨域问题。
+            // // post 时，XDomainRequest 对象不能设置 HTTP 头：
+            // // Content-Type: application/x-www-form-urlencoded
+            // // 因此需要服务器去处理原始的 post 数据。
+            // if (window.XDomainRequest) {
+            // var xdr = new XDomainRequest();
+            // xdr.open(method, url);
+            // xdr.onload = function () {
 
-            //        var fnError = config.error;
+            // var fnError = config.error;
 
-            //        var json = parseJSON(xdr.responseText);
-            //        if (!json) {
-            //            fnError && fnError();
-            //            return;
-            //        }
+            // var json = parseJSON(xdr.responseText);
+            // if (!json) {
+            // fnError && fnError();
+            // return;
+            // }
 
-            //        var code = json['code'];
-            //        if (code == 200) {
-            //            var fnSuccess = config.success;
-            //            fnSuccess && fnSuccess(json['data'] || {}, json);
-            //        }
-            //        else {
-            //            var fnFail = config.fail;
-            //            fnFail && fnFail(code, json['msg'], json);
-            //        }
-            //    };
+            // var code = json['code'];
+            // if (code == 200) {
+            // var fnSuccess = config.success;
+            // fnSuccess && fnSuccess(json['data'] || {}, json);
+            // }
+            // else {
+            // var fnFail = config.fail;
+            // fnFail && fnFail(code, json['msg'], json);
+            // }
+            // };
 
-            //    xdr.onerror = function () {
-            //        var fnError = config.error;
-            //        fnError && fnError();
-            //    };
+            // xdr.onerror = function () {
+            // var fnError = config.error;
+            // fnError && fnError();
+            // };
 
-            //    xdr.send(data);
+            // xdr.send(data);
 
-            //    return;
-            //}
+            // return;
+            // }
 
 
             var xhr = new XMLHttpRequest();
@@ -351,7 +359,7 @@
                     var fnSuccess = config.success;
                     fnSuccess && fnSuccess(json['data'] || {}, json, xhr);
                 } else if (code == sessionLostCode) {
-                    $.SessionStorage.remove('SMS.Login.user.F5F2BA55218E'); //只移除会话级的
+                    $.SessionStorage.remove('SMS.Login.user.F5F2BA55218E'); // 只移除会话级的
                     SMS.Login.check(true);
                     return;
                 }
@@ -370,8 +378,8 @@
 
 
         /**
-         * 构造器。
-         */
+		 * 构造器。
+		 */
         function API(name, config) {
 
             if (typeof name == 'object') { // 重载 API(config)
@@ -406,10 +414,10 @@
                     status = meta.status = status || meta.status;
                     args = meta.args = args || meta.args;
 
-                    emitter.fire('done', args); //触发总事件
-                    emitter.fire(status, args); //触发命名的分类事件
+                    emitter.fire('done', args); // 触发总事件
+                    emitter.fire(status, args); // 触发命名的分类事件
 
-                    //进一步触发具体 code 对应的事件
+                    // 进一步触发具体 code 对应的事件
                     if (status == 'success') {
                         emitter.fire(codes['success'], args);
                     }
@@ -418,21 +426,21 @@
                     }
                 },
 
-                success: function (data, json, xhr) { //成功
+                success: function (data, json, xhr) { // 成功
                     meta.fireEvent('success', [data, json, xhr]);
                 },
 
-                fail: function (code, msg, json, xhr) { //失败
+                fail: function (code, msg, json, xhr) { // 失败
                     meta.fireEvent('fail', [code, msg, json, xhr]);
 
                 },
 
-                error: function (xhr) { //错误
+                error: function (xhr) { // 错误
                     meta.fireEvent('error', [xhr]);
                 },
             });
 
-            //预处理特定类型的事件
+            // 预处理特定类型的事件
             var self = this;
 
             $.Array.each([
@@ -444,7 +452,7 @@
 
             ], function (name, index) {
 
-                name = name.toString(); //在绑定事件时，只识别 string 类型的名称
+                name = name.toString(); // 在绑定事件时，只识别 string 类型的名称
 
                 var fn = config[name];
                 if (fn) {
@@ -454,17 +462,17 @@
 
         }
 
-        //实例方法
+        // 实例方法
         API.prototype = {
             constructor: API,
 
             /**
-             * 发起 GET 网络请求。
-             * 请求完成后会最先触发相应的事件。
-             * @param {Object} [data] 请求的数据对象。
-             *   该数据会给序列化成查询字符串以拼接到 url 中。
-             * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
-             */
+			 * 发起 GET 网络请求。 请求完成后会最先触发相应的事件。
+			 * 
+			 * @param {Object}
+			 *            [data] 请求的数据对象。 该数据会给序列化成查询字符串以拼接到 url 中。
+			 * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
+			 */
             get: function (data) {
 
                 var meta = mapper.get(this);
@@ -482,13 +490,15 @@
             },
 
             /**
-             * 发起 POST 网络请求。
-             * 请求完成后会最先触发相应的事件。
-             * @param {Object} [data] POST 请求的数据对象。
-             * @param {Object} [query] 查询字符串的数据对象。
-             *   该数据会给序列化成查询字符串，并且通过 form-data 发送出去。
-             * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
-             */
+			 * 发起 POST 网络请求。 请求完成后会最先触发相应的事件。
+			 * 
+			 * @param {Object}
+			 *            [data] POST 请求的数据对象。
+			 * @param {Object}
+			 *            [query] 查询字符串的数据对象。 该数据会给序列化成查询字符串，并且通过 form-data
+			 *            发送出去。
+			 * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
+			 */
             post: function (data, query) {
 
                 var meta = mapper.get(this);
@@ -508,32 +518,35 @@
             },
 
             /**
-             * 请求完成时触发。
-             * 不管请求完成后是成功、失败、错误，都会触发，会最先触发此类事件。
-             * @param {function} fn 回调函数。
-             * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
-             */
+			 * 请求完成时触发。 不管请求完成后是成功、失败、错误，都会触发，会最先触发此类事件。
+			 * 
+			 * @param {function}
+			 *            fn 回调函数。
+			 * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
+			 */
             done: function (fn) {
                 this.on('done', fn);
                 return this;
             },
 
             /**
-             * 请求成功时触发。
-             * 成功是指网络请求成功，且后台业务返回的数据包中的 code == 200 的情形。
-             * @param {function} fn 回调函数。
-             */
+			 * 请求成功时触发。 成功是指网络请求成功，且后台业务返回的数据包中的 code == 200 的情形。
+			 * 
+			 * @param {function}
+			 *            fn 回调函数。
+			 */
             success: function (fn) {
                 this.on('success', fn);
                 return this;
             },
 
             /**
-             * 请求失败时触发。
-             * 失败是指网络请求成功，但后台业务返回的数据包中的 code != 200 的情形。
-             * @param {function} fn 回调函数。
-             * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
-             */
+			 * 请求失败时触发。 失败是指网络请求成功，但后台业务返回的数据包中的 code != 200 的情形。
+			 * 
+			 * @param {function}
+			 *            fn 回调函数。
+			 * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
+			 */
             fail: function (fn) {
 
                 this.on('fail', fn);
@@ -541,23 +554,26 @@
             },
 
             /**
-             * 请求错误时触发。
-             * 错误是指网络请求不成功，如网络无法连接、404错误等。
-             * @param {function} fn 回调函数。
-             * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
-             */
+			 * 请求错误时触发。 错误是指网络请求不成功，如网络无法连接、404错误等。
+			 * 
+			 * @param {function}
+			 *            fn 回调函数。
+			 * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
+			 */
             error: function (fn) {
                 this.on('error', fn);
                 return this;
             },
 
             /**
-             * 绑定事件。
-             * 已重载 on({...}，因此支持批量绑定。
-             * @param {string} name 事件名称。
-             * @param {function} fn 回调函数。
-             * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
-             */
+			 * 绑定事件。 已重载 on({...}，因此支持批量绑定。
+			 * 
+			 * @param {string}
+			 *            name 事件名称。
+			 * @param {function}
+			 *            fn 回调函数。
+			 * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
+			 */
             on: function (name, fn) {
 
                 var meta = mapper.get(this);
@@ -575,14 +591,14 @@
             },
 
             /**
-             * 解除绑定事件。
-             * 已重载 off({...}，因此支持批量解除绑定。
-             * @param {string} [name] 事件名称。
-             *   当不指定此参数时，则解除全部事件。
-             * @param {function} [fn] 要解除绑定的回调函数。
-             *   当不指定此参数时，则解除参数 name 所指定的类型的事件。
-             * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
-             */
+			 * 解除绑定事件。 已重载 off({...}，因此支持批量解除绑定。
+			 * 
+			 * @param {string}
+			 *            [name] 事件名称。 当不指定此参数时，则解除全部事件。
+			 * @param {function}
+			 *            [fn] 要解除绑定的回调函数。 当不指定此参数时，则解除参数 name 所指定的类型的事件。
+			 * @return {API} 返回当前 API 的实例 this，因此进一步可用于链式调用。
+			 */
             off: function (name, fn) {
 
                 var meta = mapper.get(this);
@@ -596,7 +612,7 @@
         };
 
 
-        //静态方法
+        // 静态方法
         return $.Object.extend(API, {
 
             ajax: ajax,
@@ -610,10 +626,11 @@
 
 
     /**
-     * 代理到本地，测试用
-     * @namespace
-     * @author micty
-     */
+	 * 代理到本地，测试用
+	 * 
+	 * @namespace
+	 * @author micty
+	 */
     define('Proxy', function (require, exports, module) {
 
         var $ = require('$');
@@ -646,14 +663,14 @@
 
         }
 
-        //模拟一个网络的随机延迟时间去执行一个回调函数
+        // 模拟一个网络的随机延迟时间去执行一个回调函数
         function delay(fn) {
 
             if (!fn) {
                 return;
             }
 
-            var args = [].slice.call(arguments, 1); //提取后面的参数
+            var args = [].slice.call(arguments, 1); // 提取后面的参数
             var timeout = $.Math.randomInt(500, 3000);
 
             setTimeout(function () {
@@ -669,7 +686,7 @@
             var name = config.name;
             var file = name$file[name];
 
-            if (file instanceof Array) { //当指定为一个数组时，则起作用的是最后一个
+            if (file instanceof Array) { // 当指定为一个数组时，则起作用的是最后一个
                 file = file.pop();
             }
 
@@ -681,9 +698,9 @@
             if (File.isJs(file)) { // 映射的响应是 js 文件
 
                 var url = Url.check(file) ? file : Url.root() + file;
-                url = $.Url.randomQueryString(url); //增加随机查询字符串，确保拿到最新的
+                url = $.Url.randomQueryString(url); // 增加随机查询字符串，确保拿到最新的
 
-                url$config[url] = config; //把本次请求的参数保存下来
+                url$config[url] = config; // 把本次请求的参数保存下来
 
                 Seajs.use(url, function (json) {
 
@@ -751,12 +768,12 @@
         }
 
 
-        //可以生成很复杂的动态数据，并根据提交的参数进行处理。
-        //具有真正模拟后台逻辑的能力。
+        // 可以生成很复杂的动态数据，并根据提交的参数进行处理。
+        // 具有真正模拟后台逻辑的能力。
         function response(action, fns) {
 
-            //seajs
-            //安全起见，这里用 seajs.Module.define 而非 window.define
+            // seajs
+            // 安全起见，这里用 seajs.Module.define 而非 window.define
             window.seajs.Module.define(function (require, exports, module) {
 
                 var config = getConfig(module);
@@ -767,7 +784,8 @@
                 }
 
                 var fn = typeof action == 'function' ? action   // response(fn)
-                    : fns[data[action]];                        // response('', {})
+                    : fns[data[action]];                        // response('',
+																// {})
 
                 if (fn) {
                     return fn(data, config) || {};
@@ -781,10 +799,10 @@
 
         function config(obj) {
 
-            if (obj) { //set
+            if (obj) { // set
                 $.Object.extend(name$file, obj);
             }
-            else { //get
+            else { // get
                 return $.Object.extend({}, name$file);
             }
         }
@@ -796,7 +814,7 @@
             }
 
             var obj = url$config[url];
-            delete url$config[url]; //已获取使用了，没必要保留了
+            delete url$config[url]; // 已获取使用了，没必要保留了
 
             return obj;
         }
@@ -814,7 +832,7 @@
     define('MD5', function (require, exports, module) {
 
 
-        /*md5 生成算法*/
+        /* md5 生成算法 */
         var hexcase = 0;
         var chrsz = 8;
 
@@ -961,7 +979,7 @@
 
         return {
 
-            //md5加密主方法
+            // md5加密主方法
             encrypt: function (s) {
 
                 if (arguments.length > 1) {
@@ -976,8 +994,8 @@
 
 
     /**
-     * 缓存数据到 top 页面的工具类。
-     */
+	 * 缓存数据到 top 页面的工具类。
+	 */
     define('Cache', function (require, exports, module) {
 
 
@@ -1023,8 +1041,8 @@
 
 
     /**
-     * 配置工具类。
-     */
+	 * 配置工具类。
+	 */
     define('Config', function (require, exports, module) {
 
 
@@ -1032,7 +1050,7 @@
         var Url = require('Url');
 
 
-        //递归扫描并转换 url 成真实的地址
+        // 递归扫描并转换 url 成真实的地址
         function convert(config) {
 
             return $.Object.map(config, function (key, value) {
@@ -1049,7 +1067,7 @@
                         }
 
                         if (typeof item == 'object') {
-                            return convert(item); //递归
+                            return convert(item); // 递归
                         }
 
                         return item;
@@ -1059,14 +1077,14 @@
 
                 return value;
 
-            }, true); //深层次来扫描
+            }, true); // 深层次来扫描
 
         }
 
         function set(name$config) {
 
             var obj = name$config['Url'];
-            if (obj) { //先单独设置好站头的根地址，后面的模块要用到
+            if (obj) { // 先单独设置好站头的根地址，后面的模块要用到
                 Url.config(obj);
             }
 
@@ -1077,7 +1095,7 @@
                 }
 
                 var module = require(name);
-                if (!module || !module.config) { //不存在该模块或该模块不存在 config 方法
+                if (!module || !module.config) { // 不存在该模块或该模块不存在 config 方法
                     return;
                 }
 
@@ -1096,8 +1114,8 @@
 
 
     /**
-     * 当 Debug 工具类
-     */
+	 * 当 Debug 工具类
+	 */
     define('Debug', function (require, exports, module) {
 
         var $ = require('$');
@@ -1140,19 +1158,21 @@
 
 
     /**
-     * 文件工具类
-     */
+	 * 文件工具类
+	 */
     define('File', function (require, exports, module) {
 
 
         /**
-         * 检测指定的文件是否为特定的扩展名类型的文件。
-         * @param {string} file 要检测的文件名。
-         * @param {string} ext 要检测的扩展名，以 "." 开始。
-         * @return {boolean} 如果该文件名以指定的扩展名结尾，则返回 true；否则返回 false。
-         * @example
-         File.is('a/b/c/login.JSON', '.json'); //返回 true
-         */
+		 * 检测指定的文件是否为特定的扩展名类型的文件。
+		 * 
+		 * @param {string}
+		 *            file 要检测的文件名。
+		 * @param {string}
+		 *            ext 要检测的扩展名，以 "." 开始。
+		 * @return {boolean} 如果该文件名以指定的扩展名结尾，则返回 true；否则返回 false。
+		 * @example File.is('a/b/c/login.JSON', '.json'); //返回 true
+		 */
         function is(file, ext) {
 
             if (typeof file != 'string' || typeof ext != 'string') {
@@ -1185,9 +1205,8 @@
 
 
     /**
-     * 对外提供模块管理器。
-     * 主要提供给页面定义页面级别的私有模块。
-     */
+	 * 对外提供模块管理器。 主要提供给页面定义页面级别的私有模块。
+	 */
     define('Module', function (require, module, exports) {
 
 
@@ -1195,10 +1214,10 @@
 
 
         var id$module = {};
-        var id$factory = {}; //辅助用的，针对页面级别的多级目录的以 '/' 开头的模块 id
+        var id$factory = {}; // 辅助用的，针对页面级别的多级目录的以 '/' 开头的模块 id
 
 
-        //根据工厂函数反向查找对应的模块 id。
+        // 根据工厂函数反向查找对应的模块 id。
         function getId(factory) {
             return $.Object.findKey(id$factory, function (key, value) {
                 return value === factory;
@@ -1209,16 +1228,19 @@
         module.exports = {
 
             /**
-             * 定义指定名称的模块。
-             * @param {string} id 模块的名称。
-             * @param {Object|function} factory 模块的导出函数或对象。
-             */
+			 * 定义指定名称的模块。
+			 * 
+			 * @param {string}
+			 *            id 模块的名称。
+			 * @param {Object|function}
+			 *            factory 模块的导出函数或对象。
+			 */
             define: function define(id, factory) {
 
                 id$module[id] = {
                     required: false,
-                    exports: factory,   //这个值在 require 后可能会给改写
-                    exposed: false      //默认对外不可见
+                    exports: factory,   // 这个值在 require 后可能会给改写
+                    exposed: false      // 默认对外不可见
                 };
 
                 id$factory[id] = factory;
@@ -1226,35 +1248,37 @@
 
 
             /**
-             * 加载指定的模块。
-             * @param {string} id 模块的名称。
-             * @return 返回指定的模块。
-             */
+			 * 加载指定的模块。
+			 * 
+			 * @param {string}
+			 *            id 模块的名称。
+			 * @return 返回指定的模块。
+			 */
             require: function (id) {
 
-                if (id.indexOf('/') == 0) { //以 '/' 开头，如　'/API'
-                    var parentId = getId(arguments.callee.caller); //如 'List'
+                if (id.indexOf('/') == 0) { // 以 '/' 开头，如 '/API'
+                    var parentId = getId(arguments.callee.caller); // 如 'List'
                     if (!parentId) {
                         throw new Error('require 时如果指定了以 "/" 开头的短名称，则必须用在 define 的函数体内');
                     }
 
-                    id = parentId + id; //完整名称，如 'List/API'
+                    id = parentId + id; // 完整名称，如 'List/API'
                 }
 
 
                 var module = id$module[id];
-                if (!module) { //不存在该模块
+                if (!module) { // 不存在该模块
                     return;
                 }
 
-                var require = arguments.callee; //引用自身
+                var require = arguments.callee; // 引用自身
                 var exports = module.exports;
 
-                if (module.required) { //已经 require 过了
+                if (module.required) { // 已经 require 过了
                     return exports;
                 }
 
-                //首次 require
+                // 首次 require
                 if (typeof exports == 'function') {
 
                     var fn = exports;
@@ -1267,12 +1291,12 @@
 
                     var value = fn(require, mod, exports);
 
-                    //没有通过 return 来返回值，则要导出的值在 mod.exports 里
+                    // 没有通过 return 来返回值，则要导出的值在 mod.exports 里
                     exports = value === undefined ? mod.exports : value;
                     module.exports = exports;
                 }
 
-                module.required = true; //指示已经 require 过一次
+                module.required = true; // 指示已经 require 过一次
 
                 return exports;
 
@@ -1283,10 +1307,11 @@
 
 
     /**
-     * 多任务队列模块
-     * @namespace
-     * @author micty
-     */
+	 * 多任务队列模块
+	 * 
+	 * @namespace
+	 * @author micty
+	 */
     define('Multitask', function (require, exports, module) {
 
         var $ = require('$');
@@ -1312,7 +1337,7 @@
 
                 if (!item) {
                     isReady = false;
-                    return false; //相当于 break
+                    return false; // 相当于 break
                 }
             });
 
@@ -1324,28 +1349,28 @@
 
 
         /**
-         * 启动并发任务。
-         */
+		 * 启动并发任务。
+		 */
         function concurrency(list, done) {
 
             var dones = init(list);
 
             $.Array.each(list, function (item, index) {
 
-                if (typeof item == 'function') { //简单情形， item 是 fn，直接调用
+                if (typeof item == 'function') { // 简单情形， item 是 fn，直接调用
 
                     item(function (data, json) {
                         dones[index] = data;
                         checkReady(dones, done);
                     });
                 }
-                else { //复杂情形，用于需要传递一些参数给 fn 的情形
+                else { // 复杂情形，用于需要传递一些参数给 fn 的情形
 
                     var fn = item.fn;
                     var args = item.args || [];
                     var context = item.context || null;
 
-                    //fn 中的最后一个参数必须是成功的回调函数
+                    // fn 中的最后一个参数必须是成功的回调函数
                     args.push(function (data, json) {
                         dones[index] = data;
                         checkReady(dones, done);
@@ -1360,10 +1385,11 @@
         }
 
         /**
-         * 启动串行执行任务队列。
-         * @param {Array} list 任务队列, 即函数队列。
-         *   函数队列中的每个函数，第一个参数必须是回调函数。
-         */
+		 * 启动串行执行任务队列。
+		 * 
+		 * @param {Array}
+		 *            list 任务队列, 即函数队列。 函数队列中的每个函数，第一个参数必须是回调函数。
+		 */
         function serial(list, fn) {
 
             var dones = init(list);
@@ -1384,7 +1410,7 @@
                     if (index < len) {
                         next();
                     }
-                    else { //最后一个
+                    else { // 最后一个
                         fn && fn(dones);
                     }
                 });
@@ -1402,9 +1428,8 @@
 
 
     /**
-     * 动态加载模块类。
-     * 对 seajs 的进一步封装，以适合本项目的使用。
-     */
+	 * 动态加载模块类。 对 seajs 的进一步封装，以适合本项目的使用。
+	 */
 
     define('Seajs', function (require, exports, module) {
 
@@ -1424,12 +1449,13 @@
             }
 
 
-            //先加载 seajs 库
+            // 先加载 seajs 库
             var url = Url.format('{~}lib/seajs/seajs.mod.{@}.js');
 
             $.Script.load({
                 url: url,
-                id: 'seajsnode', //提供 id，提高性能。 详见 https://github.com/seajs/seajs/issues/260
+                id: 'seajsnode', // 提供 id，提高性能。 详见
+									// https://github.com/seajs/seajs/issues/260
 
                 onload: function () {
                     seajs = window['seajs'];
@@ -1471,8 +1497,8 @@
 
 
     /**
-     * 树形结构的数据处理类。
-     */
+	 * 树形结构的数据处理类。
+	 */
     define('Tree', function (require, exports, module) {
 
         var $ = require('$');
@@ -1481,36 +1507,40 @@
         var $Object = $.Object;   // require('Object');
         var $Array = $.Array;   // require('Array');
         var $String = $.String; // require('String');
-        var Mapper = MiniQuery.Mapper; //require('Mapper');
+        var Mapper = MiniQuery.Mapper; // require('Mapper');
 
         var mapper = new Mapper();
         var guidKey = Mapper.getGuidKey();
 
 
         /**
-         * 用深度优先的遍历方式把树形结构的数据线性化成一个一维的数组。
-         * @param {Object|Array} tree 树形结构的数据对象或其数组。
-         * @param {string} key 子节点数组对应的 key。
-         * @param {function} [fn] 递归迭代处理每个节点时的回调函数。
-         *   该回调函数会收到两个参数：当前节点和当前节点的子节点数组（如果没有，则为 null）。
-         * @return {Array} 返回一个线性化后的一维数组。
-         */
+		 * 用深度优先的遍历方式把树形结构的数据线性化成一个一维的数组。
+		 * 
+		 * @param {Object|Array}
+		 *            tree 树形结构的数据对象或其数组。
+		 * @param {string}
+		 *            key 子节点数组对应的 key。
+		 * @param {function}
+		 *            [fn] 递归迭代处理每个节点时的回调函数。
+		 *            该回调函数会收到两个参数：当前节点和当前节点的子节点数组（如果没有，则为 null）。
+		 * @return {Array} 返回一个线性化后的一维数组。
+		 */
         function linearize(tree, key, fn) {
 
-            //重载 linearize([], key) 的情况
+            // 重载 linearize([], key) 的情况
             if (tree instanceof Array) {
                 var list = $Array.keep(tree, function (item, index) {
-                    return linearize(item, key, fn); //递归
+                    return linearize(item, key, fn); // 递归
                 });
-                return $Array.reduceDimension(list); //降维
+                return $Array.reduceDimension(list); // 降维
             }
 
-            //对单项进行线性化，核心算法
-            //linearize({}, key) 的情况
+            // 对单项进行线性化，核心算法
+            // linearize({}, key) 的情况
 
             var items = tree[key];
 
-            if (!items || !items.length) { //叶子节点
+            if (!items || !items.length) { // 叶子节点
                 fn && fn(tree);
                 return tree;
             }
@@ -1519,7 +1549,7 @@
                 return linearize(item, key, fn);
             });
 
-            list = $Array.reduceDimension(list); //降维
+            list = $Array.reduceDimension(list); // 降维
             fn && fn(tree, items);
 
             return [tree].concat(list);
@@ -1528,27 +1558,31 @@
 
 
         /**
-         * 用深度优先的遍历方式对一棵树的每个节点进行迭代。
-         * @param {Object|Array} tree 树形结构的数据对象或其数组。
-         * @param {string} key 子节点数组对应的 key。
-         * @param {function} [fn] 递归迭代处理每个节点时的回调函数。
-         *   该回调函数会收到两个参数：当前节点和当前节点的子节点数组（如果没有，则为 null）。
-         */
+		 * 用深度优先的遍历方式对一棵树的每个节点进行迭代。
+		 * 
+		 * @param {Object|Array}
+		 *            tree 树形结构的数据对象或其数组。
+		 * @param {string}
+		 *            key 子节点数组对应的 key。
+		 * @param {function}
+		 *            [fn] 递归迭代处理每个节点时的回调函数。
+		 *            该回调函数会收到两个参数：当前节点和当前节点的子节点数组（如果没有，则为 null）。
+		 */
         function each(tree, key, fn) {
 
-            //重载 each([], key) 的情况
+            // 重载 each([], key) 的情况
             if (tree instanceof Array) {
                 $Array.each(tree, function (item, index) {
-                    each(item, key, fn); //递归
+                    each(item, key, fn); // 递归
                 });
             }
 
-            //对单项进行线性化，核心算法
-            //each({}, key) 的情况
+            // 对单项进行线性化，核心算法
+            // each({}, key) 的情况
 
             var items = tree[key];
 
-            if (!items || !items.length) { //叶子节点
+            if (!items || !items.length) { // 叶子节点
                 fn && fn(tree);
                 return;
             }
@@ -1562,11 +1596,12 @@
         }
 
         /**
-         * 判断两个包含节点的数组或两个节点是否一样。
-         * @parma {Array|Object} a 第一个节点的数组或单个节点。
-         * @parma {Array|Object} b 第二个节点的数组或单个节点。
-         * @return {boolean} 返回一个布尔值，该值指示两个数组或节点是否一样。
-         */
+		 * 判断两个包含节点的数组或两个节点是否一样。
+		 * 
+		 * @parma {Array|Object} a 第一个节点的数组或单个节点。
+		 * @parma {Array|Object} b 第二个节点的数组或单个节点。
+		 * @return {boolean} 返回一个布尔值，该值指示两个数组或节点是否一样。
+		 */
         function same(a, b) {
 
             if (a instanceof Array &&
@@ -1608,12 +1643,17 @@
 
 
         /**
-         * 构造器。
-         * @param {Object} data 要构建的树形结构的数据对象。
-         * @param {Object} config 配置信息对象。
-         * @param {string} config.childKey 下级节点的字段名称。
-         * @param {string} [config.valueKey] 值的字段名称。 如果需要根据值来检索，请提供该值。
-         */
+		 * 构造器。
+		 * 
+		 * @param {Object}
+		 *            data 要构建的树形结构的数据对象。
+		 * @param {Object}
+		 *            config 配置信息对象。
+		 * @param {string}
+		 *            config.childKey 下级节点的字段名称。
+		 * @param {string}
+		 *            [config.valueKey] 值的字段名称。 如果需要根据值来检索，请提供该值。
+		 */
         function Tree(data, config) {
 
             this[guidKey] = $String.random();
@@ -1634,14 +1674,14 @@
 
             this.each(function (node, items) {
 
-                var id = $String.random(); //分配一个随机 id
+                var id = $String.random(); // 分配一个随机 id
                 id$node[id] = node;
                 node[guidKey] = id;
 
                 var info = id$info[id] = {
                     'isLeaf': !items || !items.length || items.length < 0,
                     'parentId': null,
-                    'ids': [], //子节点的 id 列表
+                    'ids': [], // 子节点的 id 列表
                 };
 
                 if (items) {
@@ -1661,16 +1701,18 @@
         }
 
 
-        //实例方法
+        // 实例方法
         Tree.prototype = {
             constructor: Tree,
 
             /**
-             * 用深度优先的遍历方式把树形结构的数据线性化成一个一维的数组。
-             * @param {function} [fn] 递归迭代处理每个节点时的回调函数。
-             *   该回调函数会收到两个参数：当前节点和当前节点的子节点数组（如果没有，则为 null）。
-             * @return {Array} 返回一个线性化后的一维数组。
-             */
+			 * 用深度优先的遍历方式把树形结构的数据线性化成一个一维的数组。
+			 * 
+			 * @param {function}
+			 *            [fn] 递归迭代处理每个节点时的回调函数。
+			 *            该回调函数会收到两个参数：当前节点和当前节点的子节点数组（如果没有，则为 null）。
+			 * @return {Array} 返回一个线性化后的一维数组。
+			 */
             linearize: function (fn) {
 
                 var meta = mapper.get(this);
@@ -1685,10 +1727,12 @@
             },
 
             /**
-             * 用深度优先的遍历方式对一棵树的每个节点进行迭代。
-             * @param {function} [fn] 递归迭代处理每个节点时的回调函数。
-             *   该回调函数会收到两个参数：当前节点和当前节点的子节点数组（如果没有，则为 null）。
-             */
+			 * 用深度优先的遍历方式对一棵树的每个节点进行迭代。
+			 * 
+			 * @param {function}
+			 *            [fn] 递归迭代处理每个节点时的回调函数。
+			 *            该回调函数会收到两个参数：当前节点和当前节点的子节点数组（如果没有，则为 null）。
+			 */
             each: function (fn) {
 
                 var meta = mapper.get(this);
@@ -1701,10 +1745,12 @@
             },
 
             /**
-             * 判断当前树中是否包含指定的节点。
-             * @param {Object} node 要进行判断的节点对象。
-             * @return {boolean} 返回一个布尔值，该值指示当前树中是否包含该节点。
-             */
+			 * 判断当前树中是否包含指定的节点。
+			 * 
+			 * @param {Object}
+			 *            node 要进行判断的节点对象。
+			 * @return {boolean} 返回一个布尔值，该值指示当前树中是否包含该节点。
+			 */
             has: function (node) {
 
                 if (!(guidKey in node)) {
@@ -1721,10 +1767,12 @@
             },
 
             /**
-             * 判断指定的节点在当前树中是否为叶子节点。
-             * @param {Object} node 要进行判断的节点对象。
-             * @return {boolean} 返回一个布尔值，该值指示该节点在当前树中是否为叶子节点。
-             */
+			 * 判断指定的节点在当前树中是否为叶子节点。
+			 * 
+			 * @param {Object}
+			 *            node 要进行判断的节点对象。
+			 * @return {boolean} 返回一个布尔值，该值指示该节点在当前树中是否为叶子节点。
+			 */
             isLeaf: function (node) {
 
                 if (!this.has(node)) {
@@ -1740,10 +1788,12 @@
             },
 
             /**
-             * 获取指定的节点在当前树中所有的父节点（包括自身）。
-             * @param {Object} node 要进行获取的节点对象。
-             * @return {Array} 返回一个数组，表示该节点在当前树中所有的父节点（包括自身）。
-             */
+			 * 获取指定的节点在当前树中所有的父节点（包括自身）。
+			 * 
+			 * @param {Object}
+			 *            node 要进行获取的节点对象。
+			 * @return {Array} 返回一个数组，表示该节点在当前树中所有的父节点（包括自身）。
+			 */
             getParents: function (node) {
 
                 if (!this.has(node)) {
@@ -1774,10 +1824,12 @@
             },
 
             /**
-             * 获取指定的节点的所有子节点。
-             * @param {Object} node 要进行获取的节点对象。
-             * @return {Array} 返回一个子节点数组。
-             */
+			 * 获取指定的节点的所有子节点。
+			 * 
+			 * @param {Object}
+			 *            node 要进行获取的节点对象。
+			 * @return {Array} 返回一个子节点数组。
+			 */
             getChildren: function (node) {
 
                 if (!this.has(node)) {
@@ -1798,9 +1850,8 @@
             },
 
             /**
-             * 根据给定的一组值去检索出对应的节点列表。
-             * 返回列表的中包括根节点。
-             */
+			 * 根据给定的一组值去检索出对应的节点列表。 返回列表的中包括根节点。
+			 */
             getItemsByValues: function (values) {
 
                 var meta = mapper.get(this);
@@ -1824,10 +1875,10 @@
 
                     var id = node[guidKey];
                     var info = id$info[id];
-                    var ids = info.ids; //子节点的 id 列表
+                    var ids = info.ids; // 子节点的 id 列表
 
                     if (!ids || !ids.length) {
-                        return; //break
+                        return; // break
                     }
 
                     id = $Array.findItem(ids, function (id, index) {
@@ -1837,7 +1888,7 @@
                     });
 
                     if (!id) {
-                        return; //break
+                        return; // break
                     }
 
                     node = id$node[id];
@@ -1851,9 +1902,8 @@
             },
 
             /**
-             * 根据给定的一组索引去检索出对应的节点列表。
-             * 返回列表的中包括根节点。
-             */
+			 * 根据给定的一组索引去检索出对应的节点列表。 返回列表的中包括根节点。
+			 */
             getItemsByIndexes: function (indexes) {
 
                 var meta = mapper.get(this);
@@ -1875,16 +1925,16 @@
 
                     var id = node[guidKey];
                     var info = id$info[id];
-                    var ids = info.ids; //子节点的 id 列表
+                    var ids = info.ids; // 子节点的 id 列表
 
                     if (!ids || !ids.length) {
-                        return; //break
+                        return; // break
                     }
 
                     id = ids[index];
 
                     if (!id) {
-                        return; //break
+                        return; // break
                     }
 
                     node = id$node[id];
@@ -1898,8 +1948,8 @@
             },
 
             /**
-             * 销毁当前实例。
-             */
+			 * 销毁当前实例。
+			 */
             destroy: function () {
                 mapper.remove(this);
             },
@@ -1908,7 +1958,7 @@
         };
 
 
-        //静态方法
+        // 静态方法
         return $Object.extend(Tree, {
             linearize: linearize,
             each: each,
@@ -1919,8 +1969,8 @@
 
 
     /**
-     * 当前页面的 Url 工具类
-     */
+	 * 当前页面的 Url 工具类
+	 */
     define('Url', function (require, exports, module) {
 
         var $ = require('$');
@@ -1931,8 +1981,8 @@
 
 
         /**
-         * 获取当前 Web 站点的根地址。
-         */
+		 * 获取当前 Web 站点的根地址。
+		 */
         function root() {
             return host$url[host] || host$url['default'];
         }
@@ -1940,17 +1990,17 @@
 
         function config(data) {
 
-            if (data) { //set
+            if (data) { // set
                 $.Object.extend(host$url, data);
             }
-            else { //get
+            else { // get
                 return $.Object.extend({}, host$url);
             }
         }
 
         /**
-         * 检查给定的 url 是否以 'http://' 或 'https://' 开头。
-         */
+		 * 检查给定的 url 是否以 'http://' 或 'https://' 开头。
+		 */
         function check(url) {
             if (typeof url != 'string') {
                 return false;
@@ -1995,8 +2045,8 @@
 
 
     /**
-     * 按钮组。
-     */
+	 * 按钮组。
+	 */
     define('ButtonList', function (require, module, exports) {
 
         var $ = require('$');
@@ -2007,10 +2057,10 @@
         var mapper = new $.Mapper();
         var guidKey = $.Mapper.getGuidKey();
 
-        //默认配置
+        // 默认配置
         var defaults = {};
 
-        //模板
+        // 模板
         var samples = Samples.get('ButtonList', [
             {
                 name: 'ul',
@@ -2047,8 +2097,8 @@
 
 
         /**
-         * 级联弹出菜单构造器。
-         */
+		 * 级联弹出菜单构造器。
+		 */
         function ButtonList(config) {
 
             var id = $.String.random();
@@ -2077,8 +2127,8 @@
                 'callbackKey': fields.callback,
                 'routeKey': fields.route,
                 'autoClose': 'autoClose' in config ? config.autoClose : defaults.autoClose,
-                'groupNo': -1, //当前展开的菜单组索引
-                'hasManualOpened': false, //用来指示某分组菜单列表是否已补手动打开
+                'groupNo': -1, // 当前展开的菜单组索引
+                'hasManualOpened': false, // 用来指示某分组菜单列表是否已补手动打开
 
                 'bindEvents': bindEvents,
                 'hideMenus': hideMenus,
@@ -2099,7 +2149,7 @@
                 var routeKey = meta.routeKey;
                 var autoClose = meta.autoClose;
 
-                //点击下拉三角形按钮，弹出菜单
+                // 点击下拉三角形按钮，弹出菜单
                 $container.delegate('li[data-index]>span', 'click', function (event) {
 
                     var span = this;
@@ -2113,7 +2163,7 @@
 
                 });
 
-                //点击按钮本身
+                // 点击按钮本身
                 $container.delegate('ul>li[data-index]', 'click', function (event) {
 
                     var li = this;
@@ -2134,7 +2184,7 @@
 
                     emitter.fire('click', args);
 
-                    if (!meta.hasManualOpened) { //不是手动打开的，则关闭
+                    if (!meta.hasManualOpened) { // 不是手动打开的，则关闭
                         hideMenus('fade');
                     }
 
@@ -2143,7 +2193,7 @@
 
                 });
 
-                //点击弹出的菜单项
+                // 点击弹出的菜单项
                 $container.delegate('ol>li[data-index]', 'click', function (event) {
 
                     var li = this;
@@ -2170,13 +2220,13 @@
 
                     event.stopPropagation();
 
-                    if (autoClose) { //设置了点击后隐藏
+                    if (autoClose) { // 设置了点击后隐藏
                         hideMenus(no, 'fade');
                     }
 
                 });
 
-                //点击其他地方，隐藏
+                // 点击其他地方，隐藏
                 $(document).on('click', function (event) {
                     hideMenus('slide');
                 });
@@ -2188,7 +2238,7 @@
             };
 
             function hideMenus(no, type) {
-                if (typeof no == 'string') { //重载 hideMenus(type)
+                if (typeof no == 'string') { // 重载 hideMenus(type)
                     type = no;
                     no = meta.groupNo;
                 }
@@ -2202,7 +2252,7 @@
 
             function toggleMenus(no, type, sw) {
 
-                if (no < 0 || no >= list.length) { //越界
+                if (no < 0 || no >= list.length) { // 越界
                     return;
                 }
 
@@ -2249,15 +2299,17 @@
         }
 
 
-        //实例方法
+        // 实例方法
         ButtonList.prototype = {
 
             constructor: ButtonList,
 
             /**
-             * 渲染 UI，以在页面中呈现出组件。
-             * @param Object} node 渲染所使用的树形数据节点。
-             */
+			 * 渲染 UI，以在页面中呈现出组件。
+			 * 
+			 * @param Object}
+			 *            node 渲染所使用的树形数据节点。
+			 */
             render: function () {
                 var meta = mapper.get(this);
 
@@ -2271,7 +2323,7 @@
 
                         var items = item[childKey];
 
-                        //单个按钮
+                        // 单个按钮
                         if (!items) {
                             return $.String.format(samples['item'], {
                                 'index': no,
@@ -2279,7 +2331,7 @@
                             });
                         }
 
-                        //按钮菜单
+                        // 按钮菜单
                         return $.String.format(samples['group'], {
                             'index': no,
                             'text': item[textKey],
@@ -2300,7 +2352,7 @@
 
                     }).join(''),
 
-                    'groups': '', //这个清空，弹出菜单已在 items 里填充了
+                    'groups': '', // 这个清空，弹出菜单已在 items 里填充了
                 });
 
                 $(meta.container).html(html);
@@ -2312,25 +2364,25 @@
             },
 
             /**
-             * 给本组件实例绑定事件。
-             */
+			 * 给本组件实例绑定事件。
+			 */
             on: function (name, key, fn) {
 
                 var meta = mapper.get(this);
                 var emitter = meta.emitter;
 
-                //on({}) 或 on('', fn)
+                // on({}) 或 on('', fn)
                 if (typeof name == 'object' || typeof key == 'function') {
                     var args = [].slice.call(arguments, 0);
                     emitter.on.apply(emitter, args);
                     return;
                 }
 
-                //暂时在这里实现二级事件。 以后会用 MiniQuery 库实现。
-                if (typeof key == 'string') { //on('', '', fn)
+                // 暂时在这里实现二级事件。 以后会用 MiniQuery 库实现。
+                if (typeof key == 'string') { // on('', '', fn)
                     emitter.on(name + ':' + key, fn);
                 }
-                else if (typeof key == 'object') { //on('', {})
+                else if (typeof key == 'object') { // on('', {})
                     $.Object.each(key, function (key, fn) {
                         emitter.on(name + ':' + key, fn);
                     });
@@ -2340,16 +2392,18 @@
             },
 
             /**
-             * 销毁当前实例。
-             */
+			 * 销毁当前实例。
+			 */
             destroy: function () {
                 mapper.remove(this);
             },
 
             /**
-             * 弹出/关闭指定分组的菜单列表。
-             * @param {number} no 菜单分组的索引值。
-             */
+			 * 弹出/关闭指定分组的菜单列表。
+			 * 
+			 * @param {number}
+			 *            no 菜单分组的索引值。
+			 */
             toggle: function (no) {
 
                 var meta = mapper.get(this);
@@ -2375,7 +2429,7 @@
         };
 
 
-        //静态方法
+        // 静态方法
         return $.Object.extend(ButtonList, {
 
             config: function (obj) {
@@ -2388,9 +2442,9 @@
 
 
     /**
-     * 级联弹出菜单模块
-     *
-     */
+	 * 级联弹出菜单模块
+	 * 
+	 */
     define('CascadeMenus', function (require, module, exports) {
 
         var $ = require('$');
@@ -2401,10 +2455,10 @@
         var mapper = new $.Mapper();
         var guidKey = $.Mapper.getGuidKey();
 
-        //默认配置
+        // 默认配置
         var defaults = {};
 
-        //模板
+        // 模板
         var samples = Samples.get('CascadeMenus', [
             {
                 name: 'div',
@@ -2439,13 +2493,15 @@
 
 
         /**
-         * 根据给定的索引值集合获取所对应的 CSS 类的 topN 编号。
-         * @param {Array} indexes 索引值列表。
-         * @return {Array} 返回对应的 topN 编号数组。
-         */
+		 * 根据给定的索引值集合获取所对应的 CSS 类的 topN 编号。
+		 * 
+		 * @param {Array}
+		 *            indexes 索引值列表。
+		 * @return {Array} 返回对应的 topN 编号数组。
+		 */
         function getTopNos(indexes) {
 
-            //完整的路径 index 数组。 第 0 级(顶级)的 index 总是 0
+            // 完整的路径 index 数组。 第 0 级(顶级)的 index 总是 0
             indexes = [0].concat(indexes);
 
             return $.Array.keep(indexes, function (index, level) {
@@ -2456,18 +2512,18 @@
         }
 
         /**
-         * 从一棵树中获取指定了索引值集合所对应的分组。
-         * @param {Object} tree 树形结构的数据对象。
-         * @param {Array} indexes 索引值列表。
-         *   如 [0, 2, 1], 表示:
-         *   第 0 级的第 0 个节点下的子结点(即分组);
-         *   第 1 级的第 2 个节点下的子结点(即分组);
-         *   第 2 级的第 1 个节点下的子结点(即分组);
-         * @return {Array} 返回对应的节点分组。
-         */
+		 * 从一棵树中获取指定了索引值集合所对应的分组。
+		 * 
+		 * @param {Object}
+		 *            tree 树形结构的数据对象。
+		 * @param {Array}
+		 *            indexes 索引值列表。 如 [0, 2, 1], 表示: 第 0 级的第 0 个节点下的子结点(即分组); 第
+		 *            1 级的第 2 个节点下的子结点(即分组); 第 2 级的第 1 个节点下的子结点(即分组);
+		 * @return {Array} 返回对应的节点分组。
+		 */
         function getGroups(tree, indexes, key) {
 
-            //完整的路径 index 数组。 第 0 级(顶级)的 index 总是 0
+            // 完整的路径 index 数组。 第 0 级(顶级)的 index 总是 0
             var fullIndexes = [0].concat(indexes);
 
             var items = [tree];
@@ -2479,7 +2535,7 @@
 
 
                 return $.Array.keep(items, function (item, i) {
-                    return $.Object.extend({}, item); //浅拷贝
+                    return $.Object.extend({}, item); // 浅拷贝
                 });
             });
 
@@ -2497,8 +2553,8 @@
 
 
         /**
-         * 级联弹出菜单构造器。
-         */
+		 * 级联弹出菜单构造器。
+		 */
         function CascadeMenus(config) {
 
             var id = $.String.random();
@@ -2547,31 +2603,31 @@
                 var $container = $(container);
 
 
-                //在菜单项上滑动鼠标时
+                // 在菜单项上滑动鼠标时
                 $container.delegate(selector, 'mouseover', function (event) {
 
-                    //隐藏有个动画延迟，为避免在隐藏的动画过程中又 mousever 而导致的重新显示。
-                    //重现方法: 移除下面的代码，点击菜单项后又在上面移动鼠标，可以看到菜单又给显示出来了。
+                    // 隐藏有个动画延迟，为避免在隐藏的动画过程中又 mousever 而导致的重新显示。
+                    // 重现方法: 移除下面的代码，点击菜单项后又在上面移动鼠标，可以看到菜单又给显示出来了。
                     if (!meta.hasShown) {
                         return;
                     }
 
                     var li = this;
                     var ol = li.parentNode;
-                    var no = +ol.getAttribute('data-index');    //组号
+                    var no = +ol.getAttribute('data-index');    // 组号
 
-                    var index = +li.getAttribute('data-index'); //项号
+                    var index = +li.getAttribute('data-index'); // 项号
                     var group = meta.list[no];
                     var item = group[index];
 
                     var indexes = meta.indexes;
 
-                    if (tree.isLeaf(item)) { //叶子结点
+                    if (tree.isLeaf(item)) { // 叶子结点
 
-                        //把当前叶子结点所在的组的所有下级组隐藏
+                        // 把当前叶子结点所在的组的所有下级组隐藏
                         $(div).find('ol[data-index]:gt(' + no + ')').hide();
 
-                        var activedIndex = indexes[no]; //当前组的激活项的索引
+                        var activedIndex = indexes[no]; // 当前组的激活项的索引
                         $(ol).find('li[data-index="' + activedIndex + '"]').removeClass(activedClass);
 
                         return;
@@ -2585,7 +2641,7 @@
 
                 });
 
-                //单击菜单项时
+                // 单击菜单项时
                 $container.delegate(selector, 'click', function (event) {
 
                     self.hide();
@@ -2593,8 +2649,8 @@
                     var li = this;
                     var ol = li.parentNode;
 
-                    var no = +ol.getAttribute('data-index');    //组号
-                    var index = +li.getAttribute('data-index'); //项号
+                    var no = +ol.getAttribute('data-index');    // 组号
+                    var index = +li.getAttribute('data-index'); // 项号
 
                     var group = meta.list[no];
                     var item = group[index];
@@ -2610,22 +2666,24 @@
         }
 
 
-        //实例方法
+        // 实例方法
         CascadeMenus.prototype = {
 
             constructor: CascadeMenus,
 
             /**
-             * 渲染 UI，以在页面中呈现出组件。
-             * @param Object} node 渲染所使用的树形数据节点。
-             */
+			 * 渲染 UI，以在页面中呈现出组件。
+			 * 
+			 * @param Object}
+			 *            node 渲染所使用的树形数据节点。
+			 */
             render: function (node, indexes, style) {
 
                 var meta = mapper.get(this);
 
                 var currentIndexes = meta.indexes;
 
-                //避免对同样的数据进行重复渲染。
+                // 避免对同样的数据进行重复渲染。
                 if (currentIndexes.length > 0 &&
                     indexes.join('') == currentIndexes.join('')) {
                     this.show();
@@ -2633,7 +2691,8 @@
                 }
 
 
-                var isFromInner = !style; //不指定参数 style 时，认为是内部的调用，如 mouseover 导致的
+                var isFromInner = !style; // 不指定参数 style 时，认为是内部的调用，如
+											// mouseover 导致的
 
                 style = style || meta.style;
 
@@ -2653,7 +2712,7 @@
 
                 var textKey = fields['text'];
 
-                //分组对应的 html
+                // 分组对应的 html
                 var html = $.Array.keep(groups, function (group, no) {
 
                     return $.String.format(samples.group, {
@@ -2677,14 +2736,14 @@
 
                 }).join('');
 
-                if (meta.hasRendered) { //非首次渲染，外层容器 div 已创建，直接填充即可
+                if (meta.hasRendered) { // 非首次渲染，外层容器 div 已创建，直接填充即可
                     $(meta.div).html(html).css({
                         'left': style.left,
                         'top': style.top,
                     });
                 }
-                else { //首次渲染
-                    //外层容器 div 的 html
+                else { // 首次渲染
+                    // 外层容器 div 的 html
                     html = $.String.format(samples['div'], {
                         'div-id': meta.divId,
                         'div-class': meta.containerClass,
@@ -2694,7 +2753,7 @@
                     });
 
                     $(meta.container).html(html);
-                    meta.bindEvents(); //首次渲染时需要绑定事件
+                    meta.bindEvents(); // 首次渲染时需要绑定事件
                     meta.hasRendered = true;
                 }
 
@@ -2702,8 +2761,8 @@
             },
 
             /**
-             * 显示组件。
-             */
+			 * 显示组件。
+			 */
             show: function (type) {
 
                 var meta = mapper.get(this);
@@ -2740,13 +2799,13 @@
             },
 
             /**
-             * 隐藏组件。
-             */
+			 * 隐藏组件。
+			 */
             hide: function (type) {
 
                 var meta = mapper.get(this);
 
-                meta.hasShown = false; //相当于个信号，先锁定，再动画延迟隐藏
+                meta.hasShown = false; // 相当于个信号，先锁定，再动画延迟隐藏
 
                 var div = meta.div;
                 var emitter = meta.emitter;
@@ -2777,8 +2836,8 @@
 
 
             /**
-             * 给本组件实例绑定事件。
-             */
+			 * 给本组件实例绑定事件。
+			 */
             on: function () {
 
                 var meta = mapper.get(this);
@@ -2790,8 +2849,8 @@
             },
 
             /**
-             * 销毁当前实例。
-             */
+			 * 销毁当前实例。
+			 */
             destroy: function () {
 
                 mapper.remove(this);
@@ -2800,7 +2859,7 @@
         };
 
 
-        //静态方法
+        // 静态方法
         return $.Object.extend(CascadeMenus, {
 
             config: function (obj) {
@@ -2813,9 +2872,9 @@
 
 
     /**
-     * 级联导航模块
-     *
-     */
+	 * 级联导航模块
+	 * 
+	 */
     define('CascadeNavigator', function (require, module, exports) {
 
         var $ = require('$');
@@ -2829,13 +2888,13 @@
         var mapper = new $.Mapper();
         var guidKey = $.Mapper.getGuidKey();
 
-        //默认配置
+        // 默认配置
         var defaults = {};
 
 
         /**
-         * 级联弹出菜单构造器。
-         */
+		 * 级联弹出菜单构造器。
+		 */
         function CascadeNavigator(config) {
 
 
@@ -2848,7 +2907,7 @@
             var emitter = MiniQuery.Event.create();
 
             var meta = {
-                'inited': false, //指示是否已经初始化
+                'inited': false, // 指示是否已经初始化
                 'fields': fields,
                 'selectedIndexes': config.selectedIndexes,
                 'selectedValues': config.selectedValues,
@@ -2860,7 +2919,7 @@
 
             mapper.set(this, meta);
 
-            //初始化
+            // 初始化
             function init(data) {
 
                 data = meta.data = data || meta.data;
@@ -2900,7 +2959,7 @@
                 });
 
 
-                var bodyHeight; //记录菜单弹出前的 body 高度
+                var bodyHeight; // 记录菜单弹出前的 body 高度
 
                 menus.on({
                     'change': function (item, no, index) {
@@ -2931,13 +2990,15 @@
                 });
 
                 $.Object.extend(meta, {
-                    'inited': true, //指示已经初始化
+                    'inited': true, // 指示已经初始化
                     'tree': tree,
                     'path': path,
                     'menus': menus,
                 });
 
-                $(document).off('click', hide).on('click', hide); //先移除之前绑定的，因为 init 方法可能多次执行
+                $(document).off('click', hide).on('click', hide); // 先移除之前绑定的，因为
+																	// init
+																	// 方法可能多次执行
 
             }
 
@@ -2950,20 +3011,22 @@
         }
 
 
-        //实例方法
+        // 实例方法
         CascadeNavigator.prototype = {
 
             constructor: CascadeNavigator,
 
             /**
-             * 渲染 UI，以在页面中呈现出组件。
-             * @param Object} node 渲染所使用的树形数据节点。
-             */
+			 * 渲染 UI，以在页面中呈现出组件。
+			 * 
+			 * @param Object}
+			 *            node 渲染所使用的树形数据节点。
+			 */
             render: function (data) {
 
                 var meta = mapper.get(this);
 
-                if (!meta.inited || data) { //未初始化 或 显示指定了 data，都要(重新)初始化
+                if (!meta.inited || data) { // 未初始化 或 显示指定了 data，都要(重新)初始化
                     meta.init(data);
                 }
 
@@ -2972,7 +3035,7 @@
                 var values = meta.selectedValues;
 
                 var list = values ?
-                    tree.getItemsByValues(values) : //优先按值来检索
+                    tree.getItemsByValues(values) : // 优先按值来检索
                     tree.getItemsByIndexes(meta.selectedIndexes);
 
                 meta.path.render(list);
@@ -2980,8 +3043,8 @@
 
 
             /**
-             * 给本组件实例绑定事件。
-             */
+			 * 给本组件实例绑定事件。
+			 */
             on: function () {
 
                 var meta = mapper.get(this);
@@ -2995,8 +3058,8 @@
             },
 
             /**
-             * 销毁当前实例。
-             */
+			 * 销毁当前实例。
+			 */
             destroy: function () {
                 var meta = mapper.get(this);
 
@@ -3009,7 +3072,7 @@
         };
 
 
-        //静态方法
+        // 静态方法
         return $.Object.extend(CascadeNavigator, {
 
             config: function (obj) {
@@ -3022,9 +3085,9 @@
 
 
     /**
-     * 级联路径模块
-     *
-     */
+	 * 级联路径模块
+	 * 
+	 */
     define('CascadePath', function (require, module, exports) {
 
         var $ = require('$');
@@ -3036,10 +3099,10 @@
         var mapper = new $.Mapper();
         var guidKey = $.Mapper.getGuidKey();
 
-        //默认配置
+        // 默认配置
         var defaults = {};
 
-        //模板
+        // 模板
         var samples = Samples.get('CascadePath', [
             {
                 name: 'ol',
@@ -3066,26 +3129,26 @@
 
 
         /**
-         * 级联路径构造器。
-         */
+		 * 级联路径构造器。
+		 */
         function CascadePath(config) {
 
             var id = $.String.random();
             this[guidKey] = id;
 
-            config = $.Object.extendDeeply({}, defaults, config); //深度合并
+            config = $.Object.extendDeeply({}, defaults, config); // 深度合并
 
             var fields = $.Object.extend({}, defaults.fields, config.fields);
             var olId = 'ol-' + id.toLowerCase();
             var selector = '#' + olId + '>li[data-index]';
 
-            //实例的私有数据
+            // 实例的私有数据
             var meta = {
                 'tree': config.tree,
                 'textKey': fields['text'],
                 'container': config.container,
                 'activedClass': defaults.activedClass,
-                'index': -1, //当前展开的项的索引值。
+                'index': -1, // 当前展开的项的索引值。
                 'hasBind': false,
                 'list': [],
                 'self': this,
@@ -3107,25 +3170,25 @@
 
                 var $container = $(container);
 
-                //单击下拉三角形
+                // 单击下拉三角形
                 $container.delegate(meta.span, 'click', function (event) {
 
                     var span = this;
                     var li = span.parentNode;
 
                     var index = +li.getAttribute('data-index');
-                    if (index == meta.index) { //当前项是展开的状态
-                        self.reset(); //重置，回到关闭状态
+                    if (index == meta.index) { // 当前项是展开的状态
+                        self.reset(); // 重置，回到关闭状态
                         emitter.fire('close');
                         return;
                     }
 
                     var item = meta.list[index];
-                    if (tree.isLeaf(item)) { //叶子结点
+                    if (tree.isLeaf(item)) { // 叶子结点
                         return;
                     }
 
-                    self.reset(); //先重置，回到初始状态
+                    self.reset(); // 先重置，回到初始状态
                     $(span).addClass(meta.activedClass);
                     meta.index = index;
 
@@ -3140,7 +3203,7 @@
 
                 });
 
-                //单击回退节点
+                // 单击回退节点
                 $container.delegate(meta.a, 'click', function (event) {
 
                     var a = this;
@@ -3165,21 +3228,23 @@
         }
 
 
-        //实例方法
+        // 实例方法
         CascadePath.prototype = {
 
             constructor: CascadePath,
 
             /**
-             * 渲染 UI，以在页面中呈现出组件。
-             * @param {Array|Object} data 渲染所使用的数据。
-             */
+			 * 渲染 UI，以在页面中呈现出组件。
+			 * 
+			 * @param {Array|Object}
+			 *            data 渲染所使用的数据。
+			 */
             render: function (data) {
 
                 var meta = mapper.get(this);
 
                 var list = (data instanceof Array) ? data : [data];
-                if (Tree.same(list, meta.list)) { //数据一样，不重复渲染
+                if (Tree.same(list, meta.list)) { // 数据一样，不重复渲染
                     return;
                 }
 
@@ -3203,14 +3268,14 @@
                         });
                     }).join(''),
 
-                    'leaf': '', //这里清空即可，因为叶子结点统一在 'items' 里处理了
+                    'leaf': '', // 这里清空即可，因为叶子结点统一在 'items' 里处理了
 
                 });
 
                 $(meta.container).html(html);
-                this.reset(); //回归到关闭状态
+                this.reset(); // 回归到关闭状态
 
-                if (!meta.hasBind) { //只需要绑定一次
+                if (!meta.hasBind) { // 只需要绑定一次
                     meta.bindEvents();
                 }
 
@@ -3228,8 +3293,8 @@
             },
 
             /**
-             * 给本控件实例绑定事件。
-             */
+			 * 给本控件实例绑定事件。
+			 */
             on: function () {
                 var meta = mapper.get(this);
                 var emitter = meta.emitter;
@@ -3239,8 +3304,8 @@
             },
 
             /**
-             * 销毁当前实例。
-             */
+			 * 销毁当前实例。
+			 */
             destroy: function () {
                 var meta = mapper.get(this);
                 mapper.remove(this);
@@ -3249,7 +3314,7 @@
         };
 
 
-        //静态方法
+        // 静态方法
         return $.Object.extend(CascadePath, {
 
             create: function (data, config) {
@@ -3268,8 +3333,8 @@
 
 
     /**
-     * 级联选择器。
-     */
+	 * 级联选择器。
+	 */
     define('CascadePicker', function (require, exports, module) {
 
         var $ = require('$');
@@ -3296,7 +3361,7 @@
         ]);
 
 
-        //缺省配置
+        // 缺省配置
         var defaults = {
             container: '',
             selectedIndexes: [],
@@ -3311,18 +3376,18 @@
             }
         };
 
-        //缓存数据
+        // 缓存数据
         var url$data = {};
 
 
-        //根据给定的一组值，从级联数据中获取其对应的一组索引。
+        // 根据给定的一组值，从级联数据中获取其对应的一组索引。
         function getIndexes(list, values, valueField, childField) {
 
             return $.Array.keep(values, function (value) {
 
                 var index = $.Array.findIndex(list, function (item) {
-                    //注意，用的是全等。 
-                    //这暗示了 value 可以是任何类型的值
+                    // 注意，用的是全等。
+                    // 这暗示了 value 可以是任何类型的值
                     return item[valueField] === value;
                 });
 
@@ -3336,8 +3401,8 @@
 
 
         /**
-         * 构造器。
-         */
+		 * 构造器。
+		 */
         function CascadePicker(config) {
 
             this[guidKey] = 'CascadePicker-' + $.String.random();
@@ -3390,13 +3455,13 @@
         }
 
 
-        //实例方法
+        // 实例方法
         CascadePicker.prototype = {
             constructor: CascadePicker,
 
             /**
-             * 渲染本实例组件到 UI 层。
-             */
+			 * 渲染本实例组件到 UI 层。
+			 */
             render: function () {
 
                 var self = this;
@@ -3413,15 +3478,16 @@
                     var defaultTexts = meta.defaultTexts || [];
 
                     var selectedValues = meta.selectedValues;
-                    if (selectedValues) { //如果指定了选中的值，则把值转成索引。
+                    if (selectedValues) { // 如果指定了选中的值，则把值转成索引。
                         meta.selectedIndexes = getIndexes(list, selectedValues, valueField, childField);
-                        meta.selectedValues = null; //置空，避免再次 render 时 selectedIndexes 无法应用。
+                        meta.selectedValues = null; // 置空，避免再次 render 时
+													// selectedIndexes 无法应用。
                     }
 
 
                     var html = $.Array.map(meta.selectedIndexes, function (selectedIndex, level) {
 
-                        //指定了隐藏空数据的级别，并且当前级别的不存在数据，则不渲染。
+                        // 指定了隐藏空数据的级别，并且当前级别的不存在数据，则不渲染。
                         if (meta.hideNone && list.length == 0) {
                             return null;
                         }
@@ -3461,35 +3527,35 @@
             },
 
             /**
-             * 加载数据源，并在加载成功后执行一个回调函数。
-             * 该方法会使用缓存策略。
-             * @param {function} fn 加载成功后要执行的回调函数。
-             该函数会接受到一个数组作为其参数，表示加载到的数据源。
-             */
+			 * 加载数据源，并在加载成功后执行一个回调函数。 该方法会使用缓存策略。
+			 * 
+			 * @param {function}
+			 *            fn 加载成功后要执行的回调函数。 该函数会接受到一个数组作为其参数，表示加载到的数据源。
+			 */
             load: function (fn) {
 
                 var meta = mapper.get(this);
                 var data = meta.data;
 
-                if (data instanceof Array) { //现成的数据。 针对实例内的多次调用
+                if (data instanceof Array) { // 现成的数据。 针对实例内的多次调用
                     fn && fn(data);
                     return;
                 }
 
 
-                //此时 data 为 string，当成 url
+                // 此时 data 为 string，当成 url
                 var url = Url.check(data) ? data : Url.root() + data;
 
-                data = url$data[url]; //从当前页面的缓存中读取。 针对页面内的多次创建实例的调用
+                data = url$data[url]; // 从当前页面的缓存中读取。 针对页面内的多次创建实例的调用
                 if (data) {
                     meta.data = data;
                     fn && fn(data);
                     return;
                 }
 
-                data = Cache.get(url); //从 top 页面的缓存中读取。 针对跨页面的调用
+                data = Cache.get(url); // 从 top 页面的缓存中读取。 针对跨页面的调用
                 if (data) {
-                    data = $.Array.parse(data); //跨页面时在IE下的数组会变成伪数组
+                    data = $.Array.parse(data); // 跨页面时在IE下的数组会变成伪数组
                     meta.data = data;
                     url$data[url] = data;
                     fn && fn(data);
@@ -3497,14 +3563,14 @@
                 }
 
 
-                //加上随机查询字符串，确保拿到最新版本。
+                // 加上随机查询字符串，确保拿到最新版本。
                 var uri = $.Url.setQueryString(url, $.String.random(), '');
 
                 $.Script.load(uri, function () {
 
                     data = window[meta.varname] || [];
 
-                    //缓存起来
+                    // 缓存起来
                     meta.data = data;
                     url$data[url] = data;
                     Cache.set(url, data);
@@ -3516,8 +3582,8 @@
 
 
             /**
-             * 获取所有选中的项所对应的数据。
-             */
+			 * 获取所有选中的项所对应的数据。
+			 */
             getSelectedItems: function () {
 
                 var meta = mapper.get(this);
@@ -3537,8 +3603,8 @@
             },
 
             /**
-             * 给当前实例绑定一个指定名称的事件回调函数。
-             */
+			 * 给当前实例绑定一个指定名称的事件回调函数。
+			 */
             on: function (name, fn) {
 
                 var meta = mapper.get(this);
@@ -3552,26 +3618,27 @@
         };
 
 
-        //静态方法
+        // 静态方法
         return $.Object.extend(CascadePicker, {
 
             /**
-             * 使用指定的配置对象去设置默认配置。
-             * 默认配置用于在创建级联选择器实例时提供缺省的配置字段。
-             * @param {Object} config 配置对象。
-             具体字段见构造函数中的参数说明。
-             */
+			 * 使用指定的配置对象去设置默认配置。 默认配置用于在创建级联选择器实例时提供缺省的配置字段。
+			 * 
+			 * @param {Object}
+			 *            config 配置对象。 具体字段见构造函数中的参数说明。
+			 */
             config: function (config) {
                 $.Object.extendDeeply(defaults, config);
             },
 
 
             /**
-             * 使用指定的配置对象创建一个级联选择器，并且渲染出来。
-             * @param {Object} config 配置对象。
-             具体字段见构造函数中的参数说明。
-             * @return {CascadePicker} 返回一个已创建好的级联选择器实例。
-             */
+			 * 使用指定的配置对象创建一个级联选择器，并且渲染出来。
+			 * 
+			 * @param {Object}
+			 *            config 配置对象。 具体字段见构造函数中的参数说明。
+			 * @return {CascadePicker} 返回一个已创建好的级联选择器实例。
+			 */
             create: function (config) {
                 var picker = new CascadePicker(config);
                 picker.render();
@@ -3585,9 +3652,10 @@
 
 
     /**
-     * 动态加载弹出对话框类。
-     * @author micty
-     */
+	 * 动态加载弹出对话框类。
+	 * 
+	 * @author micty
+	 */
     define('Dialog', function (require, exports, module) {
 
         if (window !== top) {
@@ -3600,7 +3668,7 @@
 
 
         var defaults = {};
-        var randomPrefix = 'dialog-' + $.String.random() + '-'; //运行时确定的随机串
+        var randomPrefix = 'dialog-' + $.String.random() + '-'; // 运行时确定的随机串
 
         var type$name = {
             'dialog': 'dialog',
@@ -3614,20 +3682,19 @@
 
         function config(obj) {
 
-            //get
+            // get
             if (arguments.length == 0) {
                 return defaults;
             }
 
-            //set
+            // set
             $.Object.extend(defaults, obj);
         }
 
 
         /**
-         * 根据给定的 sn 获取一个运行时确定的用于存储数据的 key。
-         * 仅供 art-dialog 和 Iframe 模块中使用
-         */
+		 * 根据给定的 sn 获取一个运行时确定的用于存储数据的 key。 仅供 art-dialog 和 Iframe 模块中使用
+		 */
         function getKey(sn, type) {
 
             var name = type$name[type];
@@ -3649,12 +3716,13 @@
 
 
     /**
-     * 获取主控台打开的当前的 Iframe 页面类。
-     * @author micty
-     */
+	 * 获取主控台打开的当前的 Iframe 页面类。
+	 * 
+	 * @author micty
+	 */
     define('Iframe', function (require, exports, module) {
 
-        if (window === top) { //说明加载环境是 top 页面，即主控台页
+        if (window === top) { // 说明加载环境是 top 页面，即主控台页
             return require('IframeManager');
         }
 
@@ -3662,18 +3730,18 @@
         var $ = require('$');
         var MiniQuery = require('MiniQuery');
 
-        //这里的模块名称是 Iframe 而非 IframeManager
+        // 这里的模块名称是 Iframe 而非 IframeManager
         var IframeManager = top.SMS.require('Iframe');
 
 
-        var iframe = null;  //当前 iframe 页面对象的 iframe DOM 对象。
-        var infos = null;   //当前 iframe 页面的信息对象，运行时确定。
+        var iframe = null;  // 当前 iframe 页面对象的 iframe DOM 对象。
+        var infos = null;   // 当前 iframe 页面的信息对象，运行时确定。
         var emitter = MiniQuery.Event.create();
 
 
         function get(key) {
 
-            if (key) { //重载。 如 get('id')、get('sn')
+            if (key) { // 重载。 如 get('id')、get('sn')
                 var infos = getInfos();
                 return infos ? infos[key] : undefined;
             }
@@ -3694,8 +3762,8 @@
 
 
         /**
-         * 获取当前 iframe 页面的信息对象，这些信息在运行时就确定。
-         */
+		 * 获取当前 iframe 页面的信息对象，这些信息在运行时就确定。
+		 */
         function getInfos() {
 
             var iframe = get();
@@ -3705,9 +3773,9 @@
 
             var src = iframe.src;
 
-            if (infos) { //读缓存
+            if (infos) { // 读缓存
 
-                //这两个字段在运行后可能会发生变化，需重新获取。
+                // 这两个字段在运行后可能会发生变化，需重新获取。
                 return $.Object.extend(infos, {
                     'hash': $.Url.getHash(src),
                     'actived': $(iframe).hasClass('actived'),
@@ -3725,7 +3793,7 @@
                 'id': iframe.id,
                 'index': iframe.getAttribute('data-index'),
                 'src': src,
-                'originalSrc': originalSrc, //原始的 src，即在 DOM 查看器中看到的值
+                'originalSrc': originalSrc, // 原始的 src，即在 DOM 查看器中看到的值
                 'path': originalSrc.split('?')[0],
                 'url': url,
                 'sn': iframe.getAttribute('data-sn'),
@@ -3749,7 +3817,7 @@
             var sn = get('sn');
             var data = IframeManager.getData(sn);
 
-            if (!data) { //尚不存在数据
+            if (!data) { // 尚不存在数据
                 return;
             }
 
@@ -3762,7 +3830,7 @@
 
             if (arguments.length == 1) { // 重载 setData(data)
                 data = key;
-                IframeManager.setData(sn, data); //全量覆盖
+                IframeManager.setData(sn, data); // 全量覆盖
                 return;
             }
 
@@ -3777,7 +3845,7 @@
 
             var sn = get('sn');
 
-            if (arguments.length == 0) { //重载 removeData()，全部移除
+            if (arguments.length == 0) { // 重载 removeData()，全部移除
                 IframeManager.removeData(sn);
                 return;
             }
@@ -3814,7 +3882,7 @@
 
             on: emitter.on.bind(emitter),
 
-            //该接口仅供主控制台调用。
+            // 该接口仅供主控制台调用。
             fire: emitter.fire.bind(emitter),
         };
 
@@ -3823,10 +3891,10 @@
 
 
     /**
-     * 管理主控台打开的 iframe 页面类，并在页间传递数据。
-     * 该模块仅供主控台页面使用。
-     * @author micty
-     */
+	 * 管理主控台打开的 iframe 页面类，并在页间传递数据。 该模块仅供主控台页面使用。
+	 * 
+	 * @author micty
+	 */
     define('IframeManager', function (require, exports, module) {
 
         var $ = require('$');
@@ -3860,7 +3928,7 @@
 
         function fire(sn, name, args) {
 
-            if (typeof name == 'object') { //重载 fire(name, item)
+            if (typeof name == 'object') { // 重载 fire(name, item)
                 var item = name;
                 name = sn;
                 sn = item.id;
@@ -3880,7 +3948,7 @@
             }
 
 
-            //尚未加载完成
+            // 尚未加载完成
             $(iframe).one('load', function () {
 
                 var SMS;
@@ -3906,7 +3974,7 @@
 
             fire: fire,
 
-            sn$data: sn$data, //for test
+            sn$data: sn$data, // for test
         };
 
 
@@ -3914,9 +3982,10 @@
 
 
     /**
-     * 加载中的提示类。
-     * @author micty
-     */
+	 * 加载中的提示类。
+	 * 
+	 * @author micty
+	 */
     define('Loading', function (require, exports, module) {
 
         var $ = require('$');
@@ -3952,7 +4021,7 @@
         }
 
 
-        Loading.prototype = {//实例方法
+        Loading.prototype = {// 实例方法
 
             constructor: Loading,
 
@@ -4000,7 +4069,7 @@
         };
 
 
-        return $.Object.extend(Loading, { //静态方法
+        return $.Object.extend(Loading, { // 静态方法
             create: function (config) {
                 var loading = new Loading(config);
                 loading.show();
@@ -4016,10 +4085,11 @@
 
 
     /**
-     * 登录模块。
-     * @namespace
-     * @author micty
-     */
+	 * 登录模块。
+	 * 
+	 * @namespace
+	 * @author micty
+	 */
     define('Login', function (require, exports, module) {
 
         var $ = require('$');
@@ -4033,12 +4103,12 @@
         var sample = Samples.get('Login');
 
 
-        //默认配置
+        // 默认配置
         var defaults = {};
 
         /**
-         * 检查是否已经登录。
-         */
+		 * 检查是否已经登录。
+		 */
         function check(jump) {
 
             var user = get();
@@ -4053,11 +4123,12 @@
                 var master = '/' + files.master;
                 var login = '/' + files.login;
 
-                if (top === window && url.indexOf(master) < 0) { //直接打开的是 iframe
+                if (top === window && url.indexOf(master) < 0) { // 直接打开的是
+																	// iframe
                     var a = url.split('/html/');
                     url = a[0] + login;
                 }
-                else { //master 页面或嵌套在 master 页面中的 iframe
+                else { // master 页面或嵌套在 master 页面中的 iframe
                     url = url.replace(master, login);
 
                 }
@@ -4071,8 +4142,8 @@
 
 
         /**
-         * 显示登录提示对话框。
-         */
+		 * 显示登录提示对话框。
+		 */
         function show() {
 
             Dialog.use(function (Dialog) {
@@ -4171,18 +4242,16 @@
 
 
         /**
-         * 获取当前已登录的用户信息。
-         * 如果不存在，则返回 null。
-         */
+		 * 获取当前已登录的用户信息。 如果不存在，则返回 null。
+		 */
         function get() {
             var user = $.SessionStorage.get(key);
             return user || null;
         }
 
         /**
-         * 获取最近曾经登录过的用户信息。
-         * 如果不存在，则返回 null。
-         */
+		 * 获取最近曾经登录过的用户信息。 如果不存在，则返回 null。
+		 */
         function getLast() {
             var user = $.LocalStorage.get(key);
             return user || null;
@@ -4190,8 +4259,8 @@
 
 
         /**
-         * 调用登录接口进行登录。
-         */
+		 * 调用登录接口进行登录。
+		 */
         function login(data, fnSuccess, fnFail, fnError) {
 
             var api = new API(defaults.apiLogin);
@@ -4202,20 +4271,20 @@
                 'type': data.type,
             });
 
-            api.on('success', function (data, json) { //成功
+            api.on('success', function (data, json) { // 成功
 
                 var user = $.Object.extend({}, data, {
 
                     messageCount: data.messageCount || 0,
                     companyList: [
-                        //{ name: '蓝海机电有限公司' },
-                        //{ name: '蓝海机电有限公司演示账套' },
-                        //{ name: '金蝶国际有限公司' },
-                        //{ name: 'KIS 移动应用产品' }
+                        // { name: '蓝海机电有限公司' },
+                        // { name: '蓝海机电有限公司演示账套' },
+                        // { name: '金蝶国际有限公司' },
+                        // { name: 'KIS 移动应用产品' }
                     ]
                 });
 
-                $.SessionStorage.set(key, user); //把用户信息存起来，以便跨页使用
+                $.SessionStorage.set(key, user); // 把用户信息存起来，以便跨页使用
                 $.LocalStorage.set(key, user);
 
                 fnSuccess && fnSuccess(user, data, json);
@@ -4232,8 +4301,8 @@
 
 
         /**
-         * 调用注销接口进行注销。
-         */
+		 * 调用注销接口进行注销。
+		 */
         function logout(fnSuccess, fnFail, fnError) {
 
             var api = new API(defaults.apiLoginout);
@@ -4245,9 +4314,9 @@
 
             api.get();
 
-            api.on('success', function (data, json) { //成功
+            api.on('success', function (data, json) { // 成功
 
-                $.SessionStorage.remove(key); //只移除会话级的
+                $.SessionStorage.remove(key); // 只移除会话级的
 
                 var user = get();
                 fnSuccess && fnSuccess(user, data, json);
@@ -4273,9 +4342,10 @@
 
 
     /**
-     * 标准分页控件
-     * @author micty
-     */
+	 * 标准分页控件
+	 * 
+	 * @author micty
+	 */
     define('Pager', function (require, exports, module) {
 
         var $ = require('$');
@@ -4307,16 +4377,21 @@
 
 
         /**
-         * 填充指定区间的一个区域页码。
-         * @param {number} current 当前激活的页码。
-         * @param {nmuber} from 要填充的起始页码。
-         * @param {nmuber} to 要填充的结束页码。
-         * @param {boolean} more 指示是否生成"更多"样式。
-         * @return {string} 返回填充好的 html 字符串。
-         */
+		 * 填充指定区间的一个区域页码。
+		 * 
+		 * @param {number}
+		 *            current 当前激活的页码。
+		 * @param {nmuber}
+		 *            from 要填充的起始页码。
+		 * @param {nmuber}
+		 *            to 要填充的结束页码。
+		 * @param {boolean}
+		 *            more 指示是否生成"更多"样式。
+		 * @return {string} 返回填充好的 html 字符串。
+		 */
         function fillRegion(current, from, to, more) {
 
-            if (typeof from == 'object') { // fillRegion(current, {  });
+            if (typeof from == 'object') { // fillRegion(current, { });
                 var obj = from;
                 from = obj.from;
                 to = obj.to;
@@ -4348,11 +4423,14 @@
         }
 
         /**
-         * 根据总页数和当前页计算出要填充的区间。
-         * @param {number} count 总页数。
-         * @param {number} current 当前激活的页码。
-         * @return {Array} 返回一个区间描述的数组。
-         */
+		 * 根据总页数和当前页计算出要填充的区间。
+		 * 
+		 * @param {number}
+		 *            count 总页数。
+		 * @param {number}
+		 *            current 当前激活的页码。
+		 * @return {Array} 返回一个区间描述的数组。
+		 */
         function getRegions(count, current) {
 
             if (count <= 10) {
@@ -4415,12 +4493,16 @@
         }
 
         /**
-         * 根据总页数、当前页和上一页预测出要跳转的页码。
-         * @param {number} count 总页数。
-         * @param {number} current 当前激活的页码。
-         * @param {number} last 上一页的页码。
-         * @return {number} 返回一个跳转的页码。
-         */
+		 * 根据总页数、当前页和上一页预测出要跳转的页码。
+		 * 
+		 * @param {number}
+		 *            count 总页数。
+		 * @param {number}
+		 *            current 当前激活的页码。
+		 * @param {number}
+		 *            last 上一页的页码。
+		 * @return {number} 返回一个跳转的页码。
+		 */
         function getJumpNo(count, current, last) {
 
             if (count <= 1) { // 0 或 1
@@ -4449,17 +4531,25 @@
 
 
         /**
-         * 根据指定配置信息创建一个分页器实例。
-         * @param {Object} config 传入的配置对象。 其中：
-         * @param {string|DOMElement} container 分页控件的 DOM 元素容器。
-         * @param {number} [current=1] 当前激活的页码，默认从 1 开始。
-         * @param {number} size 分页大小，即每页的记录数。
-         * @param {number} total 总的记录数。
-         * @param {function} change 页码发生变化时的回调函数。
-         该函数会接受到当前页码的参数；并且内部的 this 指向当前 Pager 实例。
-         * @param {function} error 控件发生错误时的回调函数。
-         该函数会接受到错误消息的参数；并且内部的 this 指向当前 Pager 实例。
-         */
+		 * 根据指定配置信息创建一个分页器实例。
+		 * 
+		 * @param {Object}
+		 *            config 传入的配置对象。 其中：
+		 * @param {string|DOMElement}
+		 *            container 分页控件的 DOM 元素容器。
+		 * @param {number}
+		 *            [current=1] 当前激活的页码，默认从 1 开始。
+		 * @param {number}
+		 *            size 分页大小，即每页的记录数。
+		 * @param {number}
+		 *            total 总的记录数。
+		 * @param {function}
+		 *            change 页码发生变化时的回调函数。 该函数会接受到当前页码的参数；并且内部的 this 指向当前 Pager
+		 *            实例。
+		 * @param {function}
+		 *            error 控件发生错误时的回调函数。 该函数会接受到错误消息的参数；并且内部的 this 指向当前 Pager
+		 *            实例。
+		 */
         function Pager(config) {
 
             var id = $.String.random().toLowerCase();
@@ -4468,11 +4558,11 @@
 
             var container = config.container;
 
-            var current = config.current || 1;  //当前页码，从 1 开始
-            var size = config.size;             //分页的大小，即每页的记录数
+            var current = config.current || 1;  // 当前页码，从 1 开始
+            var size = config.size;             // 分页的大小，即每页的记录数
 
-            var total = config.total;           //总记录数
-            var count = Math.ceil(total / size);//总页数
+            var total = config.total;           // 总记录数
+            var count = Math.ceil(total / size);// 总页数
 
             var ulId = 'ul-pager-' + id;
             var txtId = 'txt-pager-' + id;
@@ -4488,7 +4578,7 @@
                 count: count,
                 hideIfLessThen: config.hideIfLessThen || 0,
                 emitter: emitter,
-                last: 0, //上一次的页码
+                last: 0, // 上一次的页码
             };
 
             mapper.set(this, meta);
@@ -4512,7 +4602,7 @@
             }
 
 
-            //委托控件的 UI 事件
+            // 委托控件的 UI 事件
             var delegates = {
                 no: '#' + ulId + ' [data-no]',
                 button: '#' + ulId + ' [data-button]:not(.disabled)',
@@ -4520,25 +4610,25 @@
             };
 
 
-            $(container).delegate(delegates.no, 'click', function (event) { //点击分页的页码按钮
+            $(container).delegate(delegates.no, 'click', function (event) { // 点击分页的页码按钮
 
                 var li = this;
                 var no = +li.getAttribute('data-no');
                 self.to(no, true);
 
-            }).delegate(delegates.button, 'click', function (event) { //点击"上一页"|"下一页"|"确定"
+            }).delegate(delegates.button, 'click', function (event) { // 点击"上一页"|"下一页"|"确定"
 
                 var li = this;
                 var name = li.getAttribute('data-button');
 
-                if (name == 'to') { //点击 "确定"
+                if (name == 'to') { // 点击 "确定"
                     jump();
                 }
                 else { // previous 或 next
                     self[name](true);
                 }
 
-            }).delegate(delegates.txt, 'keydown', function (event) { //回车确定
+            }).delegate(delegates.txt, 'keydown', function (event) { // 回车确定
                 if (event.keyCode == 13) {
                     jump();
                 }
@@ -4548,7 +4638,7 @@
         }
 
 
-        Pager.prototype = { //实例方法
+        Pager.prototype = { // 实例方法
 
             constructor: Pager,
 
@@ -4556,13 +4646,13 @@
 
                 var meta = mapper.get(this);
 
-                var count = meta.count; //总页数
+                var count = meta.count; // 总页数
                 if (count < meta.hideIfLessThen) {
                     $(meta.container).hide();
                     return;
                 }
 
-                //当前页码，不能超过总页数 (考虑到 count==0)
+                // 当前页码，不能超过总页数 (考虑到 count==0)
                 var current = Math.min(count, meta.current);
 
                 var regions = getRegions(count, current);
@@ -4591,19 +4681,20 @@
                 });
 
 
-                $(meta.container).html(html).show(); //要重新显示出来，之前可能隐藏了
+                $(meta.container).html(html).show(); // 要重新显示出来，之前可能隐藏了
 
 
             },
 
             /**
-             * 跳转到指定页码的分页。
-             * @param {number} no 要跳转的页码。
-             *   指定的值必须为从 1-max 的整数，其中 max 为本控件最大的页码值。
-             *   如果指定了非法值，则会触发 error 事件。
-             * @param {boolean} [fireEvent=false] 指示是否要触发事件。
-             *   该参数仅供内部使用，外部调用时可忽略它。
-             */
+			 * 跳转到指定页码的分页。
+			 * 
+			 * @param {number}
+			 *            no 要跳转的页码。 指定的值必须为从 1-max 的整数，其中 max 为本控件最大的页码值。
+			 *            如果指定了非法值，则会触发 error 事件。
+			 * @param {boolean}
+			 *            [fireEvent=false] 指示是否要触发事件。 该参数仅供内部使用，外部调用时可忽略它。
+			 */
             to: function (no, fireEvent) {
 
                 var meta = mapper.get(this);
@@ -4667,8 +4758,8 @@
 
 
             /**
-             * 给本控件实例绑定事件。
-             */
+			 * 给本控件实例绑定事件。
+			 */
             on: function () {
                 var meta = mapper.get(this);
                 var emitter = meta.emitter;
@@ -4678,8 +4769,8 @@
             },
 
             /**
-             * 销毁本控件实例。
-             */
+			 * 销毁本控件实例。
+			 */
             destroy: function () {
 
                 var meta = mapper.get(this);
@@ -4695,7 +4786,7 @@
         };
 
 
-        return $.Object.extend(Pager, { //静态方法
+        return $.Object.extend(Pager, { // 静态方法
 
             create: function (config) {
 
@@ -4711,9 +4802,10 @@
 
 
     /**
-     * 多个分页控件管理器
-     * @author micty
-     */
+	 * 多个分页控件管理器
+	 * 
+	 * @author micty
+	 */
     define('Pagers', function (require, exports, module) {
 
         var $ = require('$');
@@ -4762,10 +4854,11 @@
 
 
     /**
-     * 模板模块。
-     * @namespace
-     * @author micty
-     */
+	 * 模板模块。
+	 * 
+	 * @namespace
+	 * @author micty
+	 */
     define('Samples', function (require, exports, module) {
 
         var $ = require('$');
@@ -4778,11 +4871,14 @@
         }
 
         /**
-         * 获取指定名称的模板。
-         * @param {string} name 模板的名称。
-         * @param {Array} [tags] 子模板列表。
-         * @return {string} 返回指定名称的模板字符串。
-         */
+		 * 获取指定名称的模板。
+		 * 
+		 * @param {string}
+		 *            name 模板的名称。
+		 * @param {Array}
+		 *            [tags] 子模板列表。
+		 * @return {string} 返回指定名称的模板字符串。
+		 */
         function get(name, tags) {
 
             var begin = '<!--Samples.' + name + '--!';
@@ -4797,11 +4893,11 @@
                         return;
                     }
 
-                    //指定了要美化模板
+                    // 指定了要美化模板
                     delete item.trim;
 
                     var fn = item.fn;
-                    if (fn) { //原来已指定了处理函数，则扩展成钩子函数
+                    if (fn) { // 原来已指定了处理函数，则扩展成钩子函数
                         item.fn = function (s) {
                             s = fn(s);
                             s = trim(s);
@@ -4829,9 +4925,10 @@
 
 
     /**
-     * 简单分页控件
-     * @author micty
-     */
+	 * 简单分页控件
+	 * 
+	 * @author micty
+	 */
     define('SimplePager', function (require, exports, module) {
 
         var $ = require('$');
@@ -4847,17 +4944,25 @@
 
 
         /**
-         * 根据指定配置信息创建一个分页器实例。
-         * @param {Object} config 传入的配置对象。 其中：
-         * @param {string|DOMElement} container 分页控件的 DOM 元素容器。
-         * @param {number} [current=1] 当前激活的页码，默认从 1 开始。
-         * @param {number} size 分页大小，即每页的记录数。
-         * @param {number} total 总的记录数。
-         * @param {function} change 页码发生变化时的回调函数。
-         该函数会接受到当前页码的参数；并且内部的 this 指向当前 Pager 实例。
-         * @param {function} error 控件发生错误时的回调函数。
-         该函数会接受到错误消息的参数；并且内部的 this 指向当前 Pager 实例。
-         */
+		 * 根据指定配置信息创建一个分页器实例。
+		 * 
+		 * @param {Object}
+		 *            config 传入的配置对象。 其中：
+		 * @param {string|DOMElement}
+		 *            container 分页控件的 DOM 元素容器。
+		 * @param {number}
+		 *            [current=1] 当前激活的页码，默认从 1 开始。
+		 * @param {number}
+		 *            size 分页大小，即每页的记录数。
+		 * @param {number}
+		 *            total 总的记录数。
+		 * @param {function}
+		 *            change 页码发生变化时的回调函数。 该函数会接受到当前页码的参数；并且内部的 this 指向当前 Pager
+		 *            实例。
+		 * @param {function}
+		 *            error 控件发生错误时的回调函数。 该函数会接受到错误消息的参数；并且内部的 this 指向当前 Pager
+		 *            实例。
+		 */
         function SimplePager(config) {
 
             var id = $.String.random().toLowerCase();
@@ -4867,11 +4972,11 @@
 
 
             var container = config.container || defaults.container;
-            var current = config.current || defaults.current;   //当前页码，从 1 开始
-            var size = config.size || defaults.size;            //分页的大小，即每页的记录数
+            var current = config.current || defaults.current;   // 当前页码，从 1 开始
+            var size = config.size || defaults.size;            // 分页的大小，即每页的记录数
 
-            var total = config.total;           //总记录数
-            var count = Math.ceil(total / size);//总页数
+            var total = config.total;           // 总记录数
+            var count = Math.ceil(total / size);// 总页数
 
             var ulId = 'ul' + suffixId;
             var txtId = 'txt' + suffixId;
@@ -4927,7 +5032,7 @@
                 },
 
                 'keydown': function (event) {
-                    if (event.keyCode == 13) { //回车键
+                    if (event.keyCode == 13) { // 回车键
                         jump(this);
                     }
                 }
@@ -4950,7 +5055,7 @@
         }
 
 
-        SimplePager.prototype = { //实例方法
+        SimplePager.prototype = { // 实例方法
 
             constructor: SimplePager,
 
@@ -4959,13 +5064,13 @@
                 var meta = mapper.get(this);
                 var container = meta.container;
 
-                var count = meta.count; //总页数
+                var count = meta.count; // 总页数
                 if (count < meta.hideIfLessThen) {
                     $(container).hide();
                     return;
                 }
 
-                //当前页码，不能超过总页数 (考虑到 count==0)
+                // 当前页码，不能超过总页数 (考虑到 count==0)
                 var current = Math.min(count, meta.current);
 
                 var html = $.String.format(sample, {
@@ -4980,14 +5085,14 @@
                 });
 
 
-                $(container).html(html).show(); //要重新显示出来，之前可能隐藏了
+                $(container).html(html).show(); // 要重新显示出来，之前可能隐藏了
 
 
             },
 
             /**
-             * 跳转到指定页码的分页。
-             */
+			 * 跳转到指定页码的分页。
+			 */
             to: function (no, fireEvent) {
 
                 var meta = mapper.get(this);
@@ -5063,8 +5168,8 @@
                 emitter.on.apply(emitter, args);
             },
             /**
-             * 销毁本控件实例。
-             */
+			 * 销毁本控件实例。
+			 */
             destroy: function () {
 
                 var meta = mapper.get(this);
@@ -5080,7 +5185,7 @@
         };
 
 
-        return $.Object.extend(SimplePager, { //静态方法
+        return $.Object.extend(SimplePager, { // 静态方法
 
             create: function (config) {
 
@@ -5101,9 +5206,10 @@
 
 
     /**
-     * 标签列表控件
-     * @author micty
-     */
+	 * 标签列表控件
+	 * 
+	 * @author micty
+	 */
     define('Tabs', function (require, exports, module) {
 
         var $ = require('$');
@@ -5115,16 +5221,24 @@
 
 
         /**
-         * 根据指定配置信息创建一个标签列表实例。
-         * @param {Object} config 传入的配置对象。 其中：
-         * @param {string|DOMElement} container 标签容器。
-         * @param {string|DOMElement} selector 标签的项的选择器
-         * @param {string} activedClass 激活的标签的 CSS 样式类名。
-         * @param {number} [current] 初始时激活的标签索引，如果不指定，则初始时不激活。
-         * @param {string} event 要绑定到标签的事件名称，如 'click'。
-         * @param {function} change 标签激活发生变化时的回调函数。
-         该函数会接受到当前标签索引 index 的参数；并且内部的 this 指向当前 Tabs 实例。
-         */
+		 * 根据指定配置信息创建一个标签列表实例。
+		 * 
+		 * @param {Object}
+		 *            config 传入的配置对象。 其中：
+		 * @param {string|DOMElement}
+		 *            container 标签容器。
+		 * @param {string|DOMElement}
+		 *            selector 标签的项的选择器
+		 * @param {string}
+		 *            activedClass 激活的标签的 CSS 样式类名。
+		 * @param {number}
+		 *            [current] 初始时激活的标签索引，如果不指定，则初始时不激活。
+		 * @param {string}
+		 *            event 要绑定到标签的事件名称，如 'click'。
+		 * @param {function}
+		 *            change 标签激活发生变化时的回调函数。 该函数会接受到当前标签索引 index 的参数；并且内部的 this
+		 *            指向当前 Tabs 实例。
+		 */
         function Tabs(config) {
 
             var self = this;
@@ -5155,7 +5269,7 @@
                     var item = this;
                     var index;
 
-                    if ('indexKey' in config) { //推荐的方式
+                    if ('indexKey' in config) { // 推荐的方式
                         index = +item.getAttribute(config.indexKey);
                     }
                     else {
@@ -5190,22 +5304,25 @@
         }
 
 
-        Tabs.prototype = { //实例方法
+        Tabs.prototype = { // 实例方法
 
             constructor: Tabs,
 
             /**
-             * 激活当前实例指定索引值的项。
-             * @param {number} index 要激活的项的索引值，从 0 开始。
-             * @param {boolean} [fireEvent=false] 指示是否要触发 change 事件。
-             * 该参数由内部调用时指定为 true。 外部调用时可忽略该参数。
-             */
+			 * 激活当前实例指定索引值的项。
+			 * 
+			 * @param {number}
+			 *            index 要激活的项的索引值，从 0 开始。
+			 * @param {boolean}
+			 *            [fireEvent=false] 指示是否要触发 change 事件。 该参数由内部调用时指定为
+			 *            true。 外部调用时可忽略该参数。
+			 */
             active: function (index, fireEvent) {
 
                 var meta = mapper.get(this);
                 var activedIndex = meta.activedIndex;
 
-                if (index == activedIndex && fireEvent) { //安静模式时，即使重新激活当前已激活的项，也要允许。
+                if (index == activedIndex && fireEvent) { // 安静模式时，即使重新激活当前已激活的项，也要允许。
                     return;
                 }
 
@@ -5220,7 +5337,7 @@
 
                 $(item).addClass(activedClass);
 
-                if (fireEvent) { //触发事件
+                if (fireEvent) { // 触发事件
                     meta.emitter.fire('change', [index, item]);
                 }
 
@@ -5228,8 +5345,8 @@
 
 
             /**
-             * 重置当前实例到初始状态。
-             */
+			 * 重置当前实例到初始状态。
+			 */
             reset: function () {
 
                 var meta = mapper.get(this);
@@ -5244,13 +5361,13 @@
                 var meta = mapper.get(this);
                 var activedIndex = meta.activedIndex;
 
-                if (index == activedIndex) { //移除的是当前的激活项
+                if (index == activedIndex) { // 移除的是当前的激活项
                     this.reset();
                     return;
                 }
 
 
-                if (index < activedIndex) { //移除的是当前激活项之前的，则重新设置激活状态即可
+                if (index < activedIndex) { // 移除的是当前激活项之前的，则重新设置激活状态即可
                     activedIndex--;
                 }
 
@@ -5259,8 +5376,8 @@
             },
 
             /**
-             * 销毁当前实例。
-             */
+			 * 销毁当前实例。
+			 */
             destroy: function () {
 
                 var meta = mapper.get(this);
@@ -5276,8 +5393,8 @@
             },
 
             /**
-             * 给当前实例绑定一个指定名称的事件回调函数。
-             */
+			 * 给当前实例绑定一个指定名称的事件回调函数。
+			 */
             on: function (name, fn) {
 
                 var meta = mapper.get(this);
@@ -5288,8 +5405,8 @@
             },
 
             /**
-             * 获取当前实例激活的索引值。
-             */
+			 * 获取当前实例激活的索引值。
+			 */
             getActivedIndex: function () {
                 var meta = mapper.get(this);
                 return meta.activedIndex;
@@ -5297,7 +5414,7 @@
         };
 
 
-        return $.Object.extend(Tabs, { //静态方法
+        return $.Object.extend(Tabs, { // 静态方法
 
             create: function (config) {
                 return new Tabs(config);
@@ -5308,9 +5425,10 @@
 
 
     /**
-     * 简单的模板填充
-     * @author micty
-     */
+	 * 简单的模板填充
+	 * 
+	 * @author micty
+	 */
     define('Template', function (require, exports, module) {
 
         var $ = require('$');
@@ -5318,29 +5436,32 @@
 
         var format = $.String.format;
 
-        //缓存已处理过的节点的模板，从而可以再次填充
+        // 缓存已处理过的节点的模板，从而可以再次填充
         var id$sample = {};
 
-        //用于保存在节点中的自定义属性的键名称，为避免冲突，后缀加个首次运行时就确定的随机串
+        // 用于保存在节点中的自定义属性的键名称，为避免冲突，后缀加个首次运行时就确定的随机串
         var idKey = 'data-template-id-' + $.String.random(4).toLowerCase();
 
 
         /**
-         * 对指定的 DOM 节点进行简单的模板填充。
-         * @param {DOMElement|string|Object} node DOM 节点或其 id，可以以 # 开始。
-         如果指定一个 {} 的纯对象，则会迭代每个 key: value 并递归调用，这相当于批量操作。
-         * @param {Object|Array} data 要填充的数据，数据中的字段名必须跟模板中要用到的一致。
-         如果是数组，则会迭代数组每项进行填充。
-         如果是对象，则只填充一次。
-         * @param {function} [fn] 迭代调用时的函数。
-         当参数 data 为数组时，会进行迭代调用该函数 fn，fn 会接收到 item 和 index 作为参数，
-         然后以 fn 的返回结果作为当前项的数据来进行填充。
-         */
+		 * 对指定的 DOM 节点进行简单的模板填充。
+		 * 
+		 * @param {DOMElement|string|Object}
+		 *            node DOM 节点或其 id，可以以 # 开始。 如果指定一个 {} 的纯对象，则会迭代每个 key:
+		 *            value 并递归调用，这相当于批量操作。
+		 * @param {Object|Array}
+		 *            data 要填充的数据，数据中的字段名必须跟模板中要用到的一致。 如果是数组，则会迭代数组每项进行填充。
+		 *            如果是对象，则只填充一次。
+		 * @param {function}
+		 *            [fn] 迭代调用时的函数。 当参数 data 为数组时，会进行迭代调用该函数 fn，fn 会接收到 item 和
+		 *            index 作为参数， 然后以 fn 的返回结果作为当前项的数据来进行填充。
+		 */
         function fill(node, data, fn) {
 
-            if ($.Object.isPlain(node)) { // 重载，批量填充 fill( { key: value }, fn )
+            if ($.Object.isPlain(node)) { // 重载，批量填充 fill( { key: value }, fn
+											// )
 
-                fn = data; //修正参数位置。
+                fn = data; // 修正参数位置。
                 $.Object.each(node, function (key, value) {
                     fill(key, value, fn);
                 });
@@ -5351,7 +5472,7 @@
 
             if (typeof node == 'string') { // node 是 id
                 var id = node;
-                if (id.indexOf('#') == 0) { //以 # 开始
+                if (id.indexOf('#') == 0) { // 以 # 开始
                     id = id.slice(1);
                 }
                 node = document.getElementById(id);
@@ -5379,18 +5500,19 @@
 
 
         /**
-         * 获取指定的 DOM 节点的模板。
-         * 该方法会对模板进行缓存，从而可以多次获取，即使该节点的 innerHTMl 已发生改变。
-         * @param {DOMElement|string} node DOM 节点或基 id，可以以 # 开始。
-         * @return {string} 返回该节点的模板字符串。
-         */
+		 * 获取指定的 DOM 节点的模板。 该方法会对模板进行缓存，从而可以多次获取，即使该节点的 innerHTMl 已发生改变。
+		 * 
+		 * @param {DOMElement|string}
+		 *            node DOM 节点或基 id，可以以 # 开始。
+		 * @return {string} 返回该节点的模板字符串。
+		 */
         function get(node) {
 
             var id;
 
             if (typeof node == 'string') { // node 是 id
                 id = node;
-                if (id.indexOf('#') == 0) { //以 # 开始
+                if (id.indexOf('#') == 0) { // 以 # 开始
                     id = id.slice(1);
                 }
                 node = document.getElementById(id);
@@ -5412,9 +5534,9 @@
 
             var sample = id$sample[id];
 
-            if (!sample) { //首次获取
+            if (!sample) { // 首次获取
                 sample = $.String.between(node.innerHTML, '<!--', '-->');
-                id$sample[id] = sample; //缓存起来
+                id$sample[id] = sample; // 缓存起来
             }
 
             return sample;
@@ -5432,9 +5554,10 @@
 
 
     /**
-     * 顶部的提示控件
-     * @author micty
-     */
+	 * 顶部的提示控件
+	 * 
+	 * @author micty
+	 */
     define('Tips', function (require, exports, module) {
 
 
@@ -5445,7 +5568,7 @@
         function show(type, text, duration, delay) {
 
 
-            if (typeof text == 'object' && text) { //show(type, config)
+            if (typeof text == 'object' && text) { // show(type, config)
 
                 var config = text;
 
@@ -5455,11 +5578,11 @@
             }
 
 
-            //先清空之前可能留下的
+            // 先清空之前可能留下的
             clearTimeout(durationId);
             clearTimeout(delayId);
 
-            if (delay) { //指定了延迟开始
+            if (delay) { // 指定了延迟开始
                 delayId = setTimeout(start, delay);
             }
             else {
@@ -5470,7 +5593,7 @@
                 durationId = setTimeout(hide, duration);
             }
 
-            //一个内部的共用方法
+            // 一个内部的共用方法
             function start() {
 
                 var Tips = top.SMS.require('Tips');
@@ -5487,7 +5610,7 @@
 
         function hide() {
 
-            //先清空之前可能留下的
+            // 先清空之前可能留下的
             clearTimeout(durationId);
             clearTimeout(delayId);
 
@@ -5530,17 +5653,17 @@
             loading: loading,
             cancel: cancel,
 
-            //为了兼容直接在 top 页面打开
+            // 为了兼容直接在 top 页面打开
             add: function (window, type, text) {
                 alert(type + ':' + text);
             },
 
-            //为了兼容直接在 top 页面打开
+            // 为了兼容直接在 top 页面打开
             open: function () {
 
             },
 
-            //为了兼容直接在 top 页面打开
+            // 为了兼容直接在 top 页面打开
             close: function () {
             }
         };
@@ -5549,9 +5672,10 @@
 
 
     /**
-     * 数值型输入框类。
-     * @author micty
-     */
+	 * 数值型输入框类。
+	 * 
+	 * @author micty
+	 */
     define('NumberField', function (require, exports, module) {
 
         var $ = require('$');
@@ -5562,36 +5686,36 @@
 
         var key$key = {
 
-            groupSign: 'aSep',      //分组的分隔符号，默认为逗号 ","
-            groupCount: 'dGroup',   //分组的位数，默认为 3
-            decimalSign: 'aDec',    //小数点的符号，默认为点号 "."
-            decimalKey: 'altDec',   //输入小数点的代替键，一般不需要用到
-            currencySign: 'aSign',  //货币的符号
-            currencyPlace: 'pSign', //货币的符号所处的位置，前面或后面，取值: "left"|"right"
-            min: 'vMin',            //允许的最小值
-            max: 'vMax',            //允许的最大值
-            decimalCount: 'mDec',   //小数的位数，默认为 3
-            round: 'mRound',        //四舍五入
-            padded: 'aPad',         //是否用 "0" 填充小数位，取值: true|false
-            bracket: 'nBracket',    //输入框失去焦点后，负数的展示括号
-            empty: 'wEmpty',        //输入框为空时的显示行为
-            leadingZero: 'lZero',   //前缀 "0" 的展示行为
-            formatted: 'aForm',     //控制是否在页面就绪时自动格式化输入框的值
+            groupSign: 'aSep',      // 分组的分隔符号，默认为逗号 ","
+            groupCount: 'dGroup',   // 分组的位数，默认为 3
+            decimalSign: 'aDec',    // 小数点的符号，默认为点号 "."
+            decimalKey: 'altDec',   // 输入小数点的代替键，一般不需要用到
+            currencySign: 'aSign',  // 货币的符号
+            currencyPlace: 'pSign', // 货币的符号所处的位置，前面或后面，取值: "left"|"right"
+            min: 'vMin',            // 允许的最小值
+            max: 'vMax',            // 允许的最大值
+            decimalCount: 'mDec',   // 小数的位数，默认为 3
+            round: 'mRound',        // 四舍五入
+            padded: 'aPad',         // 是否用 "0" 填充小数位，取值: true|false
+            bracket: 'nBracket',    // 输入框失去焦点后，负数的展示括号
+            empty: 'wEmpty',        // 输入框为空时的显示行为
+            leadingZero: 'lZero',   // 前缀 "0" 的展示行为
+            formatted: 'aForm',     // 控制是否在页面就绪时自动格式化输入框的值
         };
 
         var key$value$value = {
 
             currencyPlace: {
-                left: 'p', //前缀
-                right: 's' //后缀
+                left: 'p', // 前缀
+                right: 's' // 后缀
             }
         };
 
-        //默认配置
+        // 默认配置
         var defaults = {};
 
 
-        //把配置对象归一化成原始控件所需要的格式
+        // 把配置对象归一化成原始控件所需要的格式
         function normalizeObject(config) {
 
             var obj = {};
@@ -5618,7 +5742,7 @@
 
         }
 
-        //调用原始控件的方法
+        // 调用原始控件的方法
         function invoke(self, name, $argumetns) {
 
             var meta = mapper.get(self);
@@ -5633,14 +5757,14 @@
 
 
         /**
-         * 构造函数。
-         */
+		 * 构造函数。
+		 */
         function NumberField(selector, config) {
 
             if ($.Object.isPlain(selector)) { // 重载 NumberField( config )
                 config = selector;
                 selector = config.selector;
-                delete config.selector; //删除，避免对原始造成不可知的副作用
+                delete config.selector; // 删除，避免对原始造成不可知的副作用
             }
 
             config = config ? normalizeObject(config) : {};
@@ -5657,7 +5781,7 @@
         }
 
 
-        NumberField.prototype = { //实例方法
+        NumberField.prototype = { // 实例方法
             constructor: NumberField,
 
             init: function () {
@@ -5704,11 +5828,11 @@
 
 
             config: function (obj) {
-                //get
+                // get
                 if (arguments.length == 0) {
                     return defaults;
                 }
-                //set
+                // set
                 $.Object.extend(defaults, obj);
             },
 
@@ -5719,9 +5843,10 @@
 
 
     /**
-     * 日期时间选择器类。
-     * @author micty
-     */
+	 * 日期时间选择器类。
+	 * 
+	 * @author micty
+	 */
     define('DateTimePicker', function (require, exports, module) {
 
         var $ = require('$');
@@ -5731,11 +5856,11 @@
         var mapper = new $.Mapper();
 
 
-        //默认配置
+        // 默认配置
         var defaults = {};
 
 
-        //调用原始控件的方法
+        // 调用原始控件的方法
         function invoke(self, name, $argumetns) {
 
             var meta = mapper.get(self);
@@ -5750,14 +5875,14 @@
 
 
         /**
-         * 构造函数。
-         */
+		 * 构造函数。
+		 */
         function DateTimePicker(selector, config) {
 
             if ($.Object.isPlain(selector)) { // 重载 DateTimePicker( config )
                 config = selector;
                 selector = config.selector;
-                delete config.selector; //删除，避免对原始造成不可知的副作用
+                delete config.selector; // 删除，避免对原始造成不可知的副作用
             }
 
             config = $.Object.extend({}, defaults, config);
@@ -5773,7 +5898,7 @@
         }
 
 
-        DateTimePicker.prototype = { //实例方法
+        DateTimePicker.prototype = { // 实例方法
             constructor: DateTimePicker,
 
             on: function (name, fn) {
@@ -5828,11 +5953,11 @@
 
 
             config: function (obj) {
-                //get
+                // get
                 if (arguments.length == 0) {
                     return defaults;
                 }
-                //set
+                // set
                 $.Object.extend(defaults, obj);
             },
 
@@ -5842,10 +5967,11 @@
     });
 
     /**
-     * zTree选择器类。
-     * @author yadda
-     */
-    define('Tree', function (require, exports, module) {
+	 * zTree选择器类。
+	 * 
+	 * @author yadda
+	 */
+    define('ZTree', function (require, exports, module) {
 
         var $ = require('$');
         var Seajs = require('Seajs');
@@ -5853,22 +5979,10 @@
 
         var mapper = new $.Mapper();
 
-        //默认配置
-        var defaults = {
-            check: {
-                enable: true,
-                chkboxType: {"Y": 'ps', "N": 'ps'}
-            },
-            data: {
-                simpleData: {
-                    enable: true,
-                    idKey: "id",
-                    pIdKey: "pId"
-                }
-            }
-        };
+        // 默认配置
+        var defaults = {};
 
-        //调用原始控件的方法
+        // 调用原始控件的方法
         function invoke(self, name, $argumetns) {
 
             var meta = mapper.get(self);
@@ -5883,22 +5997,22 @@
 
 
         /**
-         * 构造函数。
-         */
-        function Tree(selector, config, data) {
+		 * 构造函数。
+		 */
+        function ZTree(selector, config, data) {
 
             if ($.Object.isPlain(selector)) { // 重载 DateTimePicker( config )
                 config = selector;
                 selector = config.selector;
                 data = config.data;
-                delete config.selector; //删除，避免对原始造成不可知的副作用
-                delete config.data; //删除，避免对原始造成不可知的副作用
+                delete config.selector; // 删除，避免对原始造成不可知的副作用
+                delete config.data; // 删除，避免对原始造成不可知的副作用
             }
 
             config = $.Object.extend({}, defaults, config);
 
-            //var $this = $.zTree($(selector), config, data);
-            //var $this = $(selector).zTree.init(config, data);
+            // var $this = $.zTree($(selector), config, data);
+            // var $this = $(selector).zTree.init(config, data);
             var $this = $.fn.zTree.init($(selector), config, data);
 
             var meta = {
@@ -5910,13 +6024,23 @@
         }
 
 
-        Tree.prototype = { //实例方法
-            constructor: Tree,
+        ZTree.prototype = { // 实例方法
+            constructor: ZTree,
 
             on: function (name, fn) {
                 var meta = mapper.get(this);
                 var $this = meta.$this;
-                $this.on(name, fn);
+                
+                if ($.Object.isPlain(name)) {
+                	for(var item in name){
+                		if (item in $this.setting.callback) {
+                			$this.setting.callback[item]= name[item];
+                		}
+                	}
+                	return;
+                }
+                
+                $this.setting.callback[name]= fn;
             },
 
             beforeAsync: function () {
@@ -6026,18 +6150,18 @@
                     'zTree-js',
                     'zTree-css',
                 ], function () {
-                    fn && fn(Tree);
+                    fn && fn(ZTree);
                 });
 
             },
 
 
             config: function (obj) {
-                //get
+                // get
                 if (arguments.length == 0) {
                     return defaults;
                 }
-                //set
+                // set
                 $.Object.extend(defaults, obj);
             },
 
@@ -6046,14 +6170,14 @@
     });
 
 
-    //设置 MiniQuery 对外挂靠的别名
+    // 设置 MiniQuery 对外挂靠的别名
     var MiniQuery = require('MiniQuery');
     MiniQuery.use('$');
 
-    //设置对外暴露的模块
+    // 设置对外暴露的模块
     Module.expose({
 
-        'Module': true, //注意，这个是页面级别的 Module
+        'Module': true, // 注意，这个是页面级别的 Module
         'Cache': true,
         'Debug': true,
         'File': true,
@@ -6063,14 +6187,14 @@
         'MD5': true,
         'Seajs': true,
 
-        //api
+        // api
         'Proxy': true,
         'API': true,
 
-        //ui
+        // ui
         'Iframe': true,
-        'IframeManager': false, //这个不要在这里暴露，因为它通过 Iframe 暴露了
-        'Samples': true, //for test for warehouse' SMS.CascadeMenus.js
+        'IframeManager': false, // 这个不要在这里暴露，因为它通过 Iframe 暴露了
+        'Samples': true, // for test for warehouse' SMS.CascadeMenus.js
 
         'ButtonList': true,
         'CascadeMenus': false,
@@ -6088,13 +6212,13 @@
         'Pagers': true,
         'NumberField': true,
         'DateTimePicker': true,
-        'Tree': true,
+        'ZTree': true,
     });
 
 
     var SMS = {
 
-        //快捷方式
+        // 快捷方式
         require: function (id) {
             return Module.expose(id) ? Module.require(id) : null;
         },
@@ -6118,7 +6242,7 @@
 
         config: require('Config').set,
 
-        //crypto
+        // crypto
         'MD5': require('MD5'),
 
 
@@ -6126,13 +6250,13 @@
         'Debug': require('Debug'),
         'File': require('File'),
         'Url': require('Url'),
-        //'Seajs': require('Seajs'),
+        // 'Seajs': require('Seajs'),
 
-        //api
+        // api
         'Proxy': require('Proxy'),
         'API': require('API'),
 
-        //ui
+        // ui
         'Pages': require('Pages'),
         'CascadePicker': require('CascadePicker'),
         'Dialog': require('Dialog'),
@@ -6149,13 +6273,15 @@
     };
 
 
-    //暴露
-    if (typeof global.define == 'function' && (global.define.cmd || global.define.amd)) { //cmd 或 amd
+    // 暴露
+    if (typeof global.define == 'function' && (global.define.cmd || global.define.amd)) { // cmd
+																							// 或
+																							// amd
         global.define(function (require) {
             return SMS;
         });
     }
-    else { //browser
+    else { // browser
         global.SMS = SMS;
     }
 
@@ -6190,7 +6316,7 @@
     Object,
     RegExp,
     String
-    /*, undefined */
+    /* , undefined */
 );
-//结束文件 SMS.debug.js
-//<================================================================================================================
+// 结束文件 SMS.debug.js
+// <================================================================================================================
