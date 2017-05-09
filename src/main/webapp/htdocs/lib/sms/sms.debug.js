@@ -6049,13 +6049,13 @@
                 return meta.$this;
             },
             getNodeByParam: function () {
-                invoke(this, 'getNodeByParam', arguments);
+                return invoke(this, 'getNodeByParam', arguments);
             },
             getSelectedNodes: function () {
-                invoke(this, 'getSelectedNodes', arguments);
+                return invoke(this, 'getSelectedNodes', arguments);
             },
             selectNode: function () {
-                invoke(this, 'selectNode', arguments);
+                return invoke(this, 'selectNode', arguments);
             },
         };
 
