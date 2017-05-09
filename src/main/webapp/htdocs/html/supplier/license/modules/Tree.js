@@ -8,6 +8,8 @@ define('Tree', function (require, module, exports) {
     var SMS = require("SMS");
     var MiniQuery = require('MiniQuery');
     var API = SMS.require('API');
+    var Pager = require('Pager');
+
     var emitter = MiniQuery.Event.create();
     var container = document.getElementById('tree');
 
