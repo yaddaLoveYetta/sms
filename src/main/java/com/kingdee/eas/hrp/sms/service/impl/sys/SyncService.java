@@ -25,6 +25,7 @@ import com.kingdee.eas.hrp.sms.dao.generate.PayMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ProvinceMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SettlementMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.Supplier_License_TypeMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.TaxCategoryMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Category;
@@ -52,6 +53,8 @@ import com.kingdee.eas.hrp.sms.model.Settlement;
 import com.kingdee.eas.hrp.sms.model.SettlementExample;
 import com.kingdee.eas.hrp.sms.model.Supplier;
 import com.kingdee.eas.hrp.sms.model.SupplierExample;
+import com.kingdee.eas.hrp.sms.model.Supplier_License_Type;
+import com.kingdee.eas.hrp.sms.model.Supplier_License_TypeExample;
 import com.kingdee.eas.hrp.sms.model.TaxCategory;
 import com.kingdee.eas.hrp.sms.model.TaxCategoryExample;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
@@ -166,6 +169,61 @@ public class SyncService extends BaseService implements ISyncService {
 		} else {
 			// 插入
 			mapper.insert(category);
+		}
+
+	}
+
+	@Override
+	public List<Map<String, Object>> license(List<Supplier_License_Type> list) {
+
+		// 同步失败的记录
+		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
+
+		for (Supplier_License_Type license_Type : list) {
+
+			Map<String, Object> errItem = new HashMap<String, Object>(); // 记录错误信息
+
+			try {
+				sumbitLicense(license_Type);
+			} catch (Exception e) {
+				errItem.put("desc", e.getMessage());
+				errItem.put("item", license_Type);
+				errList.add(errItem);
+			}
+
+		}
+		return errList;
+	}
+
+	/**
+	 * 提交一条数据到数据库，并提交事务
+	 * 
+	 * @Title sumbit
+	 * @param certificate
+	 *            void
+	 * @date 2017-04-22 22:30:29 星期六
+	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	private void sumbitLicense(Supplier_License_Type license_Type) {
+
+		String license_Type_Id = license_Type.getId();
+
+		if (null == license_Type_Id) {
+			throw new BusinessLogicRunTimeException("内码为空");
+		}
+
+		Supplier_License_TypeMapper mapper = (Supplier_License_TypeMapper) sqlSession.getMapper(Supplier_License_Type.class);
+		Supplier_License_TypeExample example = new Supplier_License_TypeExample();
+		com.kingdee.eas.hrp.sms.model.Supplier_License_TypeExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(license_Type_Id);
+		List<Supplier_License_Type> selectByExample = mapper.selectByExample(example);
+
+		if (selectByExample.size() > 0) {
+			// 已经存在
+			mapper.updateByPrimaryKeySelective(license_Type);
+		} else {
+			// 插入
+			mapper.insert(license_Type);
 		}
 
 	}
@@ -554,7 +612,7 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> country(List<Country> list) {
 
@@ -609,7 +667,7 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> city(List<City> list) {
 
@@ -664,7 +722,7 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> province(List<Province> list) {
 
@@ -719,7 +777,7 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> county(List<County> list) {
 

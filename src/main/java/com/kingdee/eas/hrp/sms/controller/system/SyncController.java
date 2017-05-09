@@ -26,6 +26,7 @@ import com.kingdee.eas.hrp.sms.model.Pay;
 import com.kingdee.eas.hrp.sms.model.Province;
 import com.kingdee.eas.hrp.sms.model.Settlement;
 import com.kingdee.eas.hrp.sms.model.Supplier;
+import com.kingdee.eas.hrp.sms.model.Supplier_License_Type;
 import com.kingdee.eas.hrp.sms.model.TaxCategory;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
@@ -127,6 +128,40 @@ public class SyncController {
 		}
 
 		List<Map<String, Object>> ret = syncService.certificate(list);
+
+
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		if (ret.isEmpty()) {
+			// 全部同步成功
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+		} else {
+			// 有同步失败记录-返回同步失败，客户端解析失败原因
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
+		}
+	}
+	
+	@ControllerLog(desc = "同步证书分类") // 做日志
+	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步证书分类") // 权限
+	@RequestMapping(value = "license")
+	public void license(HttpServletRequest request, HttpServletResponse response) {
+
+		int size = ParameterUtils.getParameter(request, "size", 0); // 提交同步的记录数
+		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
+
+		// 基本参数校验
+		if (size <= 0) {
+			throw new BusinessLogicRunTimeException("必须提交参数size");
+		}
+		if (listStr.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+		List<Supplier_License_Type> list = JSONObject.parseArray(listStr, Supplier_License_Type.class);
+
+		if (list.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
+
+		List<Map<String, Object>> ret = syncService.license(list);
 
 
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data

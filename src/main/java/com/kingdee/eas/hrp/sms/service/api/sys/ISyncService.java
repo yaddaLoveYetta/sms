@@ -17,6 +17,7 @@ import com.kingdee.eas.hrp.sms.model.Pay;
 import com.kingdee.eas.hrp.sms.model.Province;
 import com.kingdee.eas.hrp.sms.model.Settlement;
 import com.kingdee.eas.hrp.sms.model.Supplier;
+import com.kingdee.eas.hrp.sms.model.Supplier_License_Type;
 import com.kingdee.eas.hrp.sms.model.TaxCategory;
 
 /**
@@ -72,6 +73,15 @@ public interface ISyncService {
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> certificate(List<Certificate> list);
+	
+	/**
+	 * 同步证书
+	 * @Title license
+	 * @param list
+	 * 		  license 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> license(List<Supplier_License_Type> list);
 	
 	/**
 	 * 同步行业
@@ -162,4 +172,5 @@ public interface ISyncService {
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> county(List<County> list);
+
 }

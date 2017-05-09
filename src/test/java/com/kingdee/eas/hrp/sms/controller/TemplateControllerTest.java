@@ -32,10 +32,11 @@ public class TemplateControllerTest extends BaseControllerTest {
 	public void getItems() {
 
 		Map<String, String> commonParams = new HashMap<String, String>();
-		commonParams.put("classId", "1001");
+		commonParams.put("classId", "1019");
 
 		HttpParam param = HttpParam.init();
 		param.setCommonParams(commonParams);
+		super.getCookies();
 		param.setCookieParams(cookie);
 		
 		Map<String, Object> ret = HttpUtil.sendGetForMap(BASE_URL + "template/getItems",param);
@@ -62,7 +63,7 @@ public class TemplateControllerTest extends BaseControllerTest {
 	@Test
 	public void delItemsByHRP(){
 		Map<String, String> commonParams = new HashMap<String, String>();
-		commonParams.put("classId", "1005");
+		commonParams.put("classId", "1019");
 		commonParams.put("items", "456");
 
 		HttpParam param = HttpParam.init();

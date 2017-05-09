@@ -19,6 +19,7 @@ import com.kingdee.eas.hrp.sms.dao.generate.RoleMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserTypeMapper;
 import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
+import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
 import com.kingdee.eas.hrp.sms.model.Role;
@@ -74,7 +75,8 @@ public class ItemPlugin extends PlugInAdpter {
 		for (FormFields ff : list) {
 			Integer citedClassId = ff.getClassId();
 			String key = ff.getKey();
-			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10, "QpXq24FxxE6c3lvHMPyYCxACEAI=");
+			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10,
+					"QpXq24FxxE6c3lvHMPyYCxACEAI=");
 			List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("list");
 			for (Map<String, Object> item : items) {
 				// 如果此记录被引用，则不删除
@@ -97,7 +99,8 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
+			String userType) {
 
 		checkMustInput(classId, formData, data, userType);
 
@@ -118,85 +121,132 @@ public class ItemPlugin extends PlugInAdpter {
 		return super.beforeSave(classId, formData, data, userTyepe);
 	}
 
-	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data, String userTyepe) {
+	@SuppressWarnings("unchecked")
+	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data,
+			String userTyepe) {
 
-		SqlSession sqlSession = Environ.getBean(SqlSession.class);
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) formData.get("formClass");
+		// 主表主键
+		String primaryKey = formClass.getPrimaryKey();
 
-		if (classId == 1001) {
+		ITemplateService templateService = Environ.getBean(ITemplateService.class);
+		JSONArray orderByArray = new JSONArray();
+		JSONObject orderByItem = new JSONObject(true);
 
-			UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+		orderByItem.put("fieldKey", "number");
+		orderByItem.put("orderDirection", "ASC");
+		orderByArray.add(orderByItem);
 
-			UserExample example = new UserExample();
-			com.kingdee.eas.hrp.sms.model.UserExample.Criteria criteria = example.createCriteria();
+		orderByItem = new JSONObject();
+		orderByItem.put("fieldKey", "name");
+		orderByItem.put("orderDirection", "ASC");
+		orderByArray.add(orderByItem);
 
-			criteria.andNameEqualTo(data.getString("name"));
-			criteria.andNumberEqualTo(data.getString("number"));
-
-			criteria.andUserIdNotEqualTo(id);// 排除自身
-
-			List<User> list = mapper.selectByExample(example);
-			if (list.size() > 0) {
-				User user = list.get(0);
-				if (!user.getUserId().equals(id)) {
-					throw new PlugInRuntimeException("该用户已存在");
-				}
-			}
-
-			if (data.getString("type").equals("B3sMo22ZLkWApjO/oEeDOxACEAI=")) {
-				if (data.getString("supplier") == null || data.getString("supplier").equals("")) {
-					throw new PlugInRuntimeException("业务用户必须选择一个供应商");
-				}
-			}
-		}
-
-		if (classId == 1002) {
-
-			UserTypeMapper mapper = sqlSession.getMapper(UserTypeMapper.class);
-
-			UserTypeExample example = new UserTypeExample();
-			com.kingdee.eas.hrp.sms.model.UserTypeExample.Criteria criteria = example.createCriteria();
-
-			criteria.andNameEqualTo(data.getString("name"));
-			criteria.andNumberEqualTo(data.getString("number"));
-
-			criteria.andTypeIdNotEqualTo(id);// 排除自身
-
-			List<UserType> list = mapper.selectByExample(example);
-			if (list.size() > 0) {
-				UserType userType = list.get(0);
-				if (!userType.getTypeId().equals(data.getString("typeId"))) {
-					throw new PlugInRuntimeException("该用户类别已存在");
+		String orderBy = JSON.toJSONString(orderByArray);
+		Map<String, Object> result = templateService.getItems(classId, "", orderBy, 1, 10,
+				"QpXq24FxxE6c3lvHMPyYCxACEAI=");
+		List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("list");
+		for (Map<String, Object> item : items) {
+			if (item.get("name").equals(data.get("name")) && item.get("number").equals(data.get("number"))) {
+				if (id.equals("-1") || !item.get(primaryKey).equals(id)) {
+					throw new PlugInRuntimeException("该记录已存在");
 				}
 			}
 		}
 
-		if (classId == 1003) {
+		// SqlSession sqlSession = Environ.getBean(SqlSession.class);
 
-			RoleMapper mapper = sqlSession.getMapper(RoleMapper.class);
-
-			RoleExample example = new RoleExample();
-			com.kingdee.eas.hrp.sms.model.RoleExample.Criteria criteria = example.createCriteria();
-
-			criteria.andNameEqualTo(data.getString("name"));
-			criteria.andNumberEqualTo(data.getString("number"));
-
-			List<Role> list = mapper.selectByExample(example);
-			if (list.size() > 0) {
-				Role role = list.get(0);
-				if (!role.getRoleId().equals(data.getString("roleId"))) {
-					throw new PlugInRuntimeException("该角色已存在");
-				}
-			}
-		}
+		// if (classId == 1001) {
+		//
+		// UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+		//
+		// UserExample example = new UserExample();
+		// com.kingdee.eas.hrp.sms.model.UserExample.Criteria criteria =
+		// example.createCriteria();
+		//
+		// criteria.andNameEqualTo(data.getString("name"));
+		// criteria.andNumberEqualTo(data.getString("number"));
+		//
+		// criteria.andUserIdNotEqualTo(id);// 排除自身
+		//
+		// List<User> list = mapper.selectByExample(example);
+		// if (list.size() > 0) {
+		// User user = list.get(0);
+		// if (!user.getUserId().equals(id)) {
+		// throw new PlugInRuntimeException("该用户已存在");
+		// }
+		// }
+		//
+		// if (data.getString("type").equals("B3sMo22ZLkWApjO/oEeDOxACEAI=")) {
+		// if (data.getString("supplier") == null ||
+		// data.getString("supplier").equals("")) {
+		// throw new PlugInRuntimeException("业务用户必须选择一个供应商");
+		// }
+		// }
+		// }
+		//
+		// if (classId == 1002) {
+		//
+		// UserTypeMapper mapper = sqlSession.getMapper(UserTypeMapper.class);
+		//
+		// UserTypeExample example = new UserTypeExample();
+		// com.kingdee.eas.hrp.sms.model.UserTypeExample.Criteria criteria =
+		// example.createCriteria();
+		//
+		// criteria.andNameEqualTo(data.getString("name"));
+		// criteria.andNumberEqualTo(data.getString("number"));
+		//
+		// criteria.andTypeIdNotEqualTo(id);// 排除自身
+		//
+		// List<UserType> list = mapper.selectByExample(example);
+		// if (list.size() > 0) {
+		// UserType userType = list.get(0);
+		// if (!userType.getTypeId().equals(data.getString("typeId"))) {
+		// throw new PlugInRuntimeException("该用户类别已存在");
+		// }
+		// }
+		// }
+		//
+		// if (classId == 1003) {
+		//
+		// RoleMapper mapper = sqlSession.getMapper(RoleMapper.class);
+		//
+		// RoleExample example = new RoleExample();
+		// com.kingdee.eas.hrp.sms.model.RoleExample.Criteria criteria =
+		// example.createCriteria();
+		//
+		// criteria.andNameEqualTo(data.getString("name"));
+		// criteria.andNumberEqualTo(data.getString("number"));
+		//
+		// List<Role> list = mapper.selectByExample(example);
+		// if (list.size() > 0) {
+		// Role role = list.get(0);
+		// if (!role.getRoleId().equals(data.getString("roleId"))) {
+		// throw new PlugInRuntimeException("该角色已存在");
+		// }
+		// }
+		// }
 
 	}
 
 	@SuppressWarnings("unchecked")
 	private void checkMustInput(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
+		
+		//用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
+		if(classId==1001){
+			if("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(data.getString("type"))){
+				if(data.getString("supplier")!=null&&!"".equals(data.getString("supplier"))){
+					throw new PlugInRuntimeException("系统用户不能选择供应商");
+				}
+			}
+		}
 
+		//如果flag是true，表明这个字段需要验证是否非空
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
+				.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -213,11 +263,12 @@ public class ItemPlugin extends PlugInAdpter {
 				}
 			}
 			if (flag) {
-				if (data.get(key) == null || data.get(key).equals("")) {
+				if (data.getString(key) == null || data.getString(key).equals("")) {
 					errMsg.append(ff.getName()).append(",");
 				}
 			}
 		}
+
 		if (errMsg.length() > 0) {
 			throw new PlugInRuntimeException(errMsg.toString() + "为必填值");
 		}
