@@ -6047,6 +6047,9 @@
             getZTreeObj: function () {
                 invoke(this, 'getZTreeObj', arguments);
             },
+            getSelectedNodes:function () {
+                invoke(this, 'getSelectedNodes', arguments);
+            },
             beforeAsync: function () {
                 invoke(this, 'beforeAsync', arguments);
             },
