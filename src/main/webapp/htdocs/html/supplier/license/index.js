@@ -66,13 +66,8 @@
 
     //支持二级事件，二级事件对应 item 中的 name
     ButtonList.on('click', {
+
         'add': function (item, index) {
-
-        },
-    });
-
-    List.on({
-        'add': function () {
             // 增加供应商证书
             var item = Tree.getSelectedNodes();
         },
@@ -93,6 +88,7 @@
         'refresh': function (item, index) {
             refresh();
         },
+
     });
 
     function refresh(data) {
