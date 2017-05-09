@@ -13,6 +13,8 @@ define('Tree', function (require, module, exports) {
     var emitter = MiniQuery.Event.create();
     var container = document.getElementById('tree');
 
+    var tree = {};
+
     //默认配置
     var defaults = {
         pageSize: 10,
@@ -83,7 +85,7 @@ define('Tree', function (require, module, exports) {
 
             SMS.use('ZTree', function (zTree) {
 
-                var tree = new zTree({
+                tree = new zTree({
                     selector: '#tree',
                     data: data.list,
                 });
@@ -101,9 +103,19 @@ define('Tree', function (require, module, exports) {
 
     };
 
+    /**
+     * 获取当前选中的节点
+     */
+    function getSelectedNodes() {
+
+        var treeObj = tree.getZTreeObj("tree");
+        var nodes = treeObj.getSelectedNodes();
+        console.log(nodes);
+    }
 
     return {
         render: render,
+        getSelectedNodes: getSelectedNodes,
         on: emitter.on.bind(emitter),
     };
 });

@@ -72,7 +72,9 @@
     });
 
     List.on({
-
+        'add': function () {
+                // 增加供应商证书
+        },
         'delete': function (item, index) {
 
             var list = List.getSelectedItems();
@@ -94,7 +96,7 @@
 
     function refresh(data) {
 
-        if (data){
+        if (data) {
             conditions['id'] = {
                 'andOr': 'AND',
                 'leftParenTheses': '(',
@@ -102,7 +104,7 @@
                 'logicOperator': '=',
                 'value': data.id,
                 'rightParenTheses': ')',
-                'needConvert':false,
+                'needConvert': false,
             };
         }
 
