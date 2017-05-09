@@ -108,8 +108,8 @@ define('Tree', function (require, module, exports) {
      */
     function getSelectedNodes() {
 
-        var treeObj = tree.getZTreeObj("tree");
-        var nodes = treeObj.getSelectedNodes();
+/*        var treeObj = tree.getZTreeObj("tree");*/
+        var nodes = tree.getSelectedNodes();
         console.log(nodes);
     }
 
