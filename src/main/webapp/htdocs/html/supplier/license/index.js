@@ -98,7 +98,7 @@
             conditions['id'] = {
                 'andOr': 'AND',
                 'leftParenTheses': '(',
-                'fieldKey': 'name',
+                'fieldKey': 'supplier',
                 'logicOperator': '=',
                 'value': data.id,
                 'rightParenTheses': ')'

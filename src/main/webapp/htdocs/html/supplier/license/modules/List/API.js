@@ -1,7 +1,5 @@
-﻿﻿
-/**
- *
- *
+﻿/**
+ * API模块
  */
 define('List/API', function (require, module, exports) {
 
@@ -29,7 +27,7 @@ define('List/API', function (require, module, exports) {
                 'classId': config.classId,
                 'pageNo': config.pageNo,
                 'pageSize': config.pageSize,
-                'conditions': config.conditions,
+                'conditions': config.conditions
             }]
         }];
 
@@ -84,7 +82,6 @@ define('List/API', function (require, module, exports) {
     };
 
     return {
-        get: get,
+        get: get
     };
-
 });
