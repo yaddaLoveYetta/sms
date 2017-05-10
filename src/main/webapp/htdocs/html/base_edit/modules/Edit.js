@@ -240,7 +240,7 @@ define('Edit', function (require, module, exports) {
                         var element = getValueElement(field.key);
 
                         if (element) {
-                            element.value = data[field.displayField];
+                            element.value = data[field.disPlayField];
                             continue;
                         }
 
