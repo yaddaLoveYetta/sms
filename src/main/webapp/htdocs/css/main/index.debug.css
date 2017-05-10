@@ -456,7 +456,7 @@ body {
   top: 362px;
   width: 100%;
   text-align: center;
-  z-index: 3000
+  z-index: 3000;
 }
 .msg-box .msg-content {
   position: relative;
