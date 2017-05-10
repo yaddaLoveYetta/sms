@@ -92,9 +92,14 @@ define('Tips', function (require, module, exports) {
 
     //调整宽度
     function adaptWidth() {
-        var width = $(document.body).width();
-        width = width - 130;
-        $(div).width(width);
+//        var width = $(document.body).width();
+//        width = width - 130;
+//        $(div).width(width);
+        
+		$(div).css('left', ($('body').width() + 130 - $(div).width()) / 2);
+
+		// 浏览器高度 - 主控台页签及顶部 - iframe内边距，因为top值相对主控台
+		$(div).css('top', (window.screen.availHeight - $(div).height()) / 2);
     }
 
 
