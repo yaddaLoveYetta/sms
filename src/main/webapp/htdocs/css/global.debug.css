@@ -1395,3 +1395,13 @@ table {
   border-radius: 2px;
   border: 1px solid #ddd;
 }
+.time-input {
+  height: 23px;
+  width: 193px;
+  padding-left: 5px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+  background: url(img/golbal-icons.png) no-repeat right;
+}
