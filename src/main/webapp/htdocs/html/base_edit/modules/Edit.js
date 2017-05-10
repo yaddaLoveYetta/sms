@@ -232,17 +232,24 @@ define('Edit', function (require, module, exports) {
                 var lookUpClassID = fields[key]['lookUpClassID'];
 
                 for (var item in fields) {
+
                     var field = fields[item];
+                    var value = data[field.disPlayField];
 
                     if (field.lookUpType === 3 && field.lookUpClassID === lookUpClassID) {
                         //当前变化控件的属性携带
 
                         var element = getValueElement(field.key);
 
-                        if (element) {
-                            element.value = data[field.disPlayField];
+                        if (!element) {
                             continue;
                         }
+
+                        if (field['ctrlType'] == 3) { // 多选按钮
+                            element.checked = value;
+                            continue;
+                        }
+                        element.value = value;
 
                     }
                 }
