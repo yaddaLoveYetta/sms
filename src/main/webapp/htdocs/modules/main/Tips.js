@@ -1,8 +1,4 @@
-﻿
-
-
-
-/**
+﻿/**
 * 提示信息条模块。
 */
 define('Tips', function (require, module, exports) {
@@ -116,9 +112,10 @@ define('Tips', function (require, module, exports) {
         };
 
 
-        if (id == currentId || !currentId) {
+        //if (id == currentId || !currentId) {
+            // dialog在iframe之外，dialog提示
             active(id);
-        }
+        //}
     }
 
     function open(win) {

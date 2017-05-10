@@ -49,16 +49,6 @@ define('Tree', function (require, module, exports) {
                 SMS.Tips.error('网络繁忙，请稍候再试');
             }
         });
-
-
-        /*        var treeNodes = [
-         {"id": 1, "pId": 0, "name": "test1"},
-         {"id": 11, "pId": 1, "name": "test11"},
-         {"id": 12, "pId": 1, "name": "test12"},
-         {"id": 111, "pId": 11, "name": "test111"},
-         ];
-
-         fn && fn(treeNodes);*/
     };
 
     function render() {

@@ -234,10 +234,11 @@ define('Edit', function (require, module, exports) {
                 for (var item in fields) {
 
                     var field = fields[item];
-                    var value = data[field.disPlayField];
 
                     if (field.lookUpType === 3 && field.lookUpClassID === lookUpClassID) {
                         //当前变化控件的属性携带
+
+                        var value = data[field.disPlayField];
 
                         var element = getValueElement(field.key);
 
