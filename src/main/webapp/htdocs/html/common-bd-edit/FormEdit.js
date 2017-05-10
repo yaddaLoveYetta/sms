@@ -335,7 +335,7 @@
                     mustInput: item.mustInput ? $.String.format(samples["td.mustInput"], {}) : "",
                     name: item.name,
                     key: item.key,
-                    disabled: item.lookUpType && item.lookUpType == 3 ? 'disabled' : '', // 辅助属性不可编辑
+                    disabled: item.lookUpType && item.lookUpType == 3 ? "disabled" : "", // 辅助属性不可编辑
                 });
 
             }).join(""),
