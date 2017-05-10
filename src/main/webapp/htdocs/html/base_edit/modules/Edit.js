@@ -224,17 +224,17 @@ define('Edit', function (require, module, exports) {
             }
 
             if (classId === 1019 && key === 'type') {
-                
+
                 // 供应商证件维护，证件类型变化后带出证件类型‘是否控制’，‘是否必须’属性
                 var data = data[0].all; // 完整的控件选择数据
                 var fields = metaData['formFields'][0];
 
-                var lookupClassID = fields[key]['lookupClassID'];
+                var lookUpClassID = fields[key]['lookUpClassID'];
 
                 for (var item in fields) {
                     var field = fields[item];
 
-                    if (field.lookupType === 3 && field.lookupClassID === lookupClassID) {
+                    if (field.lookUpType === 3 && field.lookUpClassID === lookUpClassID) {
                         //当前变化控件的属性携带
 
                         var element = getValueElement('#bd-' + field.key);
