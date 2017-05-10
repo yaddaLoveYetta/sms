@@ -31,6 +31,7 @@
         var isFirst = false;
         var meta = {
             container: config.container,
+            fieldKey: config.fieldKey,
             typeId: config.typeId,
             hasBreadcrumbs: config.hasBreadcrumbs,
             targetType: config.targetType,
@@ -164,8 +165,14 @@
                             //if (dialog.isSubmit && data[0].hasOwnProperty("ID")) {
                             if (dialog.isSubmit && data[0] && typeof data[0].ID != "undefined") {
                                 if (meta.data[0].ID != data[0].ID) {
-                                    //抛出个值改变事件
-                                    emitter.fire('change', [meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogChange', data]);
+                                    /**
+                                     * 抛出个值改变事件
+                                     *
+                                     * classId :业务对象
+                                     * key : 当前改变的控件key
+                                     * data:改变后的控件数据
+                                     */
+                                    emitter.fire('change', [meta.classID, meta.fieldKey, data]);
                                 }
                                 meta.data = dialog.getData();
                                 label.value = meta.data[0].number;

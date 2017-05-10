@@ -356,6 +356,7 @@
                     classID: field.lookUpClassID,
                     destClassId: field.classId,
                     hasBreadcrumbs: true,
+                    fieldKey: field.key,
                     container: document.getElementById('bd-' + field.key),
                     title: field.name,
                     defaults: {
@@ -381,8 +382,8 @@
 
         //改变事件捕获
         DataSelector.on({
-            'change': function (key, data) {
-                emitter.fire(key, [data, selectors, metaData]);
+            'change': function (classId, key, data) {
+                emitter.fire('dialogChange', [classId, key, data, selectors, metaData]);
             },
             'done': function (key, data) {
                 emitter.fire(key, [data, selectors, metaData]);

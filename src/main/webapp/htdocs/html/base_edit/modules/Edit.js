@@ -193,44 +193,70 @@ define('Edit', function (require, module, exports) {
     });
 
     FormEdit.on({
-        '1001-bd-type.DialogChange': function (data, selectors) {
-            // 用户编辑时-用户类别变化-将角色及关联供应商清空
-            // key 事件触发控件,data 当前编辑的控件数据，selectors所有的F7控件
-            selectors['role'].clearData();
-            selectors['supplier'].clearData();
+        'dialogChange': function (classId, key, data, selectors, metaData) {
 
-            var element = '#bd-supplier';
+            if (classId === 1001 && key === 'type') {
+                // 用户编辑时-用户类别变化-将角色及关联供应商清空
+                // key 事件触发控件,data 当前编辑的控件数据，selectors所有的F7控件
+                selectors['role'] && selectors['role'].clearData();
+                selectors['supplier'] && selectors['supplier'].clearData();
 
-            if (data[0].ID == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
-                // 系统用户类别时锁定关联供应商不可用
-                selectors['supplier'].lock();
+                var element = '#bd-supplier';
 
-                if ($(element).parents("td").siblings().find(".must-mark")) {
-                    $(element).parents("td").siblings().find(".must-mark").remove();
-                }
+                if (data[0].ID == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                    // 系统用户类别时锁定关联供应商不可用
+                    selectors['supplier'] && selectors['supplier'].lock();
 
-            } else {
-                // 供应商用户类别时关联供应商可用且必录
-                selectors['supplier'].unlock();
+                    if ($(element).parents("td").siblings().find(".must-mark")) {
+                        $(element).parents("td").siblings().find(".must-mark").remove();
+                    }
 
-                //如果是必填需要添加 红色 * 号
-                if ($(element).parents("td").siblings().find(".must-mark").length <= 0) { //如果不存在
-                    var html = $(element).parents("td").siblings().html();
-                    $(element).parents("td").siblings().html("<span class=\"must-mark\">*</span>" + html);
+                } else {
+                    // 供应商用户类别时关联供应商可用且必录
+                    selectors['supplier'] && selectors['supplier'].unlock();
+
+                    //如果是必填需要添加 红色 * 号
+                    if ($(element).parents("td").siblings().find(".must-mark").length <= 0) { //如果不存在
+                        var html = $(element).parents("td").siblings().html();
+                        $(element).parents("td").siblings().html("<span class=\"must-mark\">*</span>" + html);
+                    }
                 }
             }
 
-        },
-        '1019-bd-type.DialogChange': function (data, selectors, metaData) {
-            // 供应商证件维护，证件类型变化后带出证件类型‘是否控制’，‘是否必须’属性
-            var data = data[0].all; // 完整的控件选择数据
-            var fields = metaData['formFields'][0];
+            if (classId === 1019 && key === 'type') {
+                
+                // 供应商证件维护，证件类型变化后带出证件类型‘是否控制’，‘是否必须’属性
+                var data = data[0].all; // 完整的控件选择数据
+                var fields = metaData['formFields'][0];
+
+                var lookupClassID = fields[key]['lookupClassID'];
+
+                for (var item in fields) {
+                    var field = fields[item];
+
+                    if (field.lookupType === 3 && field.lookupClassID === lookupClassID) {
+                        //当前变化控件的属性携带
+
+                        var element = getValueElement('#bd-' + field.key);
+
+                        if (element) {
+                            element.value = data[field.displayField];
+                            continue;
+                        }
+
+                    }
+                }
+            }
 
         },
         'afterInitSelectors': function (selectors) {
             f7Selectors = selectors;
         }
     });
+
+    function getValueElement(keyName) {
+        return document.getElementById('bd-' + keyName);
+    }
 
     return {
         render: render,
