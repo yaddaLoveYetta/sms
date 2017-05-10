@@ -68,7 +68,8 @@
             dialog.setData([{
                 'ID': item[primaryKey],
                 'name': item.name,
-                'number': item.number
+                'number': item.number,
+                'all':item, // 保留一份完整数据
             }]);
         }
     }

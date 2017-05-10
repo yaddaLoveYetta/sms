@@ -17,6 +17,7 @@
     // 控制业务是否有修改-有修改关闭时进行提示
     var billChanged = false;
     var metaData;
+    var formdata;
     var selectors = {};
     var password;
     var formClassId;
@@ -381,10 +382,10 @@
         //改变事件捕获
         DataSelector.on({
             'change': function (key, data) {
-                emitter.fire(key, [data, selectors]);
+                emitter.fire(key, [data, selectors, metaData]);
             },
             'done': function (key, data) {
-                emitter.fire(key, [data, selectors]);
+                emitter.fire(key, [data, selectors, metaData]);
             },
         });
 
@@ -411,7 +412,7 @@
                         autoclose: true,
                         todayBtn: true,
                         todayHighlight: true,
-                        timepicker:false,
+                        timepicker: false,
                         startView: 'month',
                         minView: 2,
                     });
@@ -464,6 +465,7 @@
 
         api.on({
             'success': function (data, json) {
+                formdata = data; // 保存下页面数据
                 fill(data, fnEntry);
                 SMS.Tips.success('数据加载成功', 1500);
             },

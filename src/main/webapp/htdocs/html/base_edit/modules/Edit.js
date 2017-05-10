@@ -221,6 +221,12 @@ define('Edit', function (require, module, exports) {
             }
 
         },
+        '1019-bd-type.DialogChange': function (data, selectors, metaData) {
+            // 供应商证件维护，证件类型变化后带出证件类型‘是否控制’，‘是否必须’属性
+            var data = data[0].all; // 完整的控件选择数据
+            var fields = metaData['formFields'][0];
+
+        },
         'afterInitSelectors': function (selectors) {
             f7Selectors = selectors;
         }
