@@ -129,9 +129,9 @@ define('Tips', function (require, module, exports) {
 
         context.visible = true;
 
-        if (id == currentId) {
+        //if (id == currentId) {  // dialog在iframe之外，dialog提示
             show();
-        }
+        //}
 
     }
 
