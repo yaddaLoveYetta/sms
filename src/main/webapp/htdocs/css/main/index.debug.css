@@ -444,8 +444,9 @@ body {
 }
 .msg-box {
   position: fixed;
+  left: 65px;
+  top: 362px;
   width: 100%;
-  top: 0;
   text-align: center;
 }
 .msg-box .msg-content {
@@ -453,11 +454,11 @@ body {
   display: inline-block;
   background: #fff;
   z-index: 100;
-  line-height: 25px;
-  border-radius: 0 0 2px 2px;
+  line-height: 50px;
+  /*border-radius: 0 0 2px 2px;*/
   color: #fff;
   padding: 3px 25px 2px 20px;
-  height: 25px;
+  height: 50px;
   overflow: hidden;
 }
 .msg-box .msg-content .icon-close {
@@ -468,7 +469,7 @@ body {
   margin-right: 7px;
   margin-top: 8px;
   cursor: pointer;
-  top: 0;
+  top: 13px;
 }
 .msg-box .msg-content:hover .icon-close {
   background: url(img/icon_close.png);
@@ -524,7 +525,7 @@ body {
   height: 16px;
   left: 7px;
   margin-right: 5px;
-  margin-top: 4px;
+  margin-top: 17px;
   display: none;
 }
 .blockG {

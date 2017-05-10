@@ -125,7 +125,7 @@
                 'datetimepicker-css': 'datetimepicker/css/datetimepicker.mod.{@}.css#',
                 'datetimepicker-js': 'datetimepicker/js/datetimepicker.mod.{@}.js',
                 'zTree-js': 'ztree/js/jquery.ztree.all-3.5.js?r=' + Math.random(),
-                'zTree-css':'ztree/css/zTreeStyle/zTreeStyle.css',
+                'zTree-css': 'ztree/css/zTreeStyle/zTreeStyle.css',
             }
         },
 
@@ -180,29 +180,38 @@
         ZTree: {
             treeId: '',
             treeObj: null,
-            callback:{},
+            callback: {},
             view: {
-            	showIcon :false,
-            	showLine:false,
+                showIcon: false,
+                showLine: false,
                 dblClickExpand: true,//双击展开
                 selectedMulti: false,//是否允许多选
             },
             data: {
-            	 simpleData: {
-                     enable: true,
-                     idKey: "id",
-                     pIdKey: "pId"
-                 }
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId"
+                }
             },
             check: {
-            	enable:false,
-        		chkStyle: "checkbox",
-        		chkboxType: { "Y": "p", "N": "s" },
+                enable: false,
+                chkStyle: "checkbox",
+                chkboxType: {"Y": "p", "N": "s"},
             },
 
         },
 
-        DateTimePicker: {},
+        DateTimePicker: {
+            language: 'zh-CN',//显示中文
+            format: 'yyyy-mm-dd hh:ii:ss',
+            autoclose: true,
+            todayBtn: true,
+            todayHighlight: true,
+            timepicker:false,
+            startView: 'month',
+            minView: 'hour',
+        },
 
         Module: {},
 

@@ -5843,6 +5843,83 @@
 
 
     /**
+     * 普通消息提示框
+     */
+    define('MessageBox', function (require, module, exports) {
+
+        var $ = require('$');
+
+        var Dialog = require('Dialog');
+
+        /*info: 提示文本
+         caption: 提示标题
+         showClose: 是否显示关闭按钮
+         */
+        function show(info, caption, showClose) {
+            Dialog.use(function (Dialog) {
+                var config = {
+                    title: caption ? caption : '金蝶提示',
+                    content: info,
+                };
+                if (showClose) {
+                    config.button = [
+                        {
+                            value: '确定',
+                            className: 'sms-submit-btn',
+                        }
+                    ];
+                }
+                var dialog = new Dialog(config);
+
+                dialog.showModal();
+            });
+        }
+
+        /*info: 提示文本
+         caption: 提示标题
+         fnClose(result): 回调返回是否点击了确定按钮
+         */
+        function confirm(info, caption, fnClose) {
+            Dialog.use(function (Dialog) {
+
+                if (typeof caption == 'function') {
+                    fnClose = caption;
+                    caption = '';
+                }
+
+                var dialog = new Dialog({
+                    title: caption ? caption : '金蝶提示!',
+                    content: info,
+                    button: [
+                        {
+                            value: '确定',
+                            className: 'sms-submit-btn',
+                            callback: function () { this.isSubmit = true ;},
+                        },
+                        {
+                            value: '取消',
+                            className: 'sms-cancel-btn',
+                        },
+                    ],
+                });
+
+                dialog.on({
+                    remove: function () {
+                        fnClose(this.isSubmit);
+                    },
+                });
+
+                dialog.showModal();
+            });
+        }
+
+        return {
+            show: show,
+            confirm: confirm,
+        };
+    });
+
+    /**
      * 日期时间选择器类。
      *
      * @author micty
@@ -6127,6 +6204,7 @@
         'Tabs': true,
         'Template': true,
         'Tips': true,
+        'MessageBox':true,
         'Pagers': true,
         'NumberField': true,
         'DateTimePicker': true,
@@ -6185,6 +6263,7 @@
         'Tabs': require('Tabs'),
         'Template': require('Template'),
         'Tips': require('Tips'),
+        'MessageBox':require('Tips'),
         'Pagers': require('Pagers'),
 
 

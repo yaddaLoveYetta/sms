@@ -348,7 +348,7 @@
 
             var field = fields[item];
 
-            if (field.lookUpType > 0) {
+            if (field.lookUpType === 1 || field.lookUpType === 2) {
                 // 引用基础资料
                 var config = {
                     targetType: 1, //跳转方案
@@ -393,6 +393,37 @@
 
     }
 
+    function initDateTimerPicker(metaData) {
+
+        var fields = metaData['formFields'][0];
+
+        for (var item in fields) {
+
+            var field = fields[item];
+
+            if (field.ctrlType === 12) {
+                // 日期控件
+
+                YWTC.use('DateTimePicker', function (DateTimePicker) {
+
+                    new DateTimePicker(document.getElementById('bd-' + field.key), {
+                        format: 'yyyy-mm-dd hh:ii:ss',
+                        autoclose: true,
+                        todayBtn: true,
+                        todayHighlight: true,
+                        startView: 'month',
+                        minView: 'hour',
+                    });
+
+                });
+
+
+            }
+        }
+        emitter.fire("afterInitDateTimerPicker", []);
+
+    }
+
     function show(formClassId, itemId, fnEntry) {
 
 
@@ -407,6 +438,8 @@
         initPage(metaData);
         // 初始化selectors
         initSelectors(metaData);
+        // 初始化时间控件
+        initDateTimerPicker(metaData);
         //控件初始化，控制显示隐藏，只读 等..
         initController(itemId);
 

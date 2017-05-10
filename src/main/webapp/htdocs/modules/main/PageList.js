@@ -10,7 +10,7 @@ define('PageList', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
-
+    var MessageBox = SMS.require('MessageBox');
 
     var div = document.getElementById('div-page-list');
     var ul = document.getElementById('ul-page-list');
@@ -267,7 +267,13 @@ define('PageList', function (require, module, exports) {
             var item = list[index];
 
             if (index == lastIndex()) { //关闭所有页签
-                closeAll();
+                MessageBox.confirm('确认关闭全部页签？', function (result) {
+
+                    if (result) {
+                        closeAll();
+                    }
+                });
+
                 event.stopPropagation();
             }
             else {
