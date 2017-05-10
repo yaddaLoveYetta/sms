@@ -237,7 +237,7 @@ define('Edit', function (require, module, exports) {
                     if (field.lookUpType === 3 && field.lookUpClassID === lookUpClassID) {
                         //当前变化控件的属性携带
 
-                        var element = getValueElement('#bd-' + field.key);
+                        var element = getValueElement(field.key);
 
                         if (element) {
                             element.value = data[field.displayField];
