@@ -43,7 +43,7 @@
            <tr>
                <td class="key pr10">{mustInput}{name}：</td>
                <td class="col-value">
-                   <input id="bd-{key}" type="text" class="edit-input" value=""/>
+                   <input id="bd-{key}" disabled={disabled} type="text" class="edit-input" value=""/>
                    <span id="bd-{key}-msg" class="msg"></span>
                </td>
            </tr>
@@ -53,7 +53,7 @@
            <tr>
                <td class="key pr10">{mustInput}{name}：</td>
                <td class="col-value">
-                   <input id="bd-{key}" type="text" class="time-input"  placeholder="点击选择时间" value=""/>
+                   <input id="bd-{key}" type="text"  disabled={disabled} class="time-input"  placeholder="点击选择时间" value=""/>
                    <span id="bd-{key}-msg" class="msg"></span>
                </td>
            </tr>
@@ -63,7 +63,7 @@
            <tr>
                <td class="key pr10">{mustInput}{name}：</td>
                <td class="col-value">
-                   <input id="bd-{key}" type="password" class="edit-input" value=""/>
+                   <input id="bd-{key}" type="password" disabled={disabled} class="edit-input" value=""/>
                    <span id="bd-{key}-msg" class="msg"></span>
                </td>
            </tr>
@@ -72,7 +72,7 @@
            <tr>
 				<td class="key pr10">{mustInput}{name}：</td>
 					<td class="col-value">
-						<textarea id="bd-{key}" class="edit-input" style="width:205px; height:50px;"></textarea>
+						<textarea id="bd-{key}" class="edit-input"  disabled={disabled}  style="width:205px; height:50px;"></textarea>
 						<span id="bd-{key}-msg" class="msg"></span>
 					</td>
 			</tr>
