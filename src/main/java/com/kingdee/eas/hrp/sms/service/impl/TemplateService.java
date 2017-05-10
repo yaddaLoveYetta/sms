@@ -238,13 +238,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 		statementParam.put("from", from.toString());
 		statementParam.put("where", where);
 		statementParam.put("orderby", orderByStr);
-		statementParam.put("pageSize", pageSize);
-		statementParam.put("pageNo", pageNo);
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 
 		if (pageNo == 1) {
 			PageHelper.startPage(pageNo, pageSize, true);
+		} else {
+			PageHelper.startPage(pageNo, pageSize, false);
 		}
 
 		List<Map<String, Object>> data = templateDaoMapper.getItems(statementParam);
@@ -1566,7 +1566,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		map.put("tableName", primaryTableName);
 		map.put("kvStr", kvStr);
 		map.put("primaryKey", primaryKey);
-		map.put("id",String.format("'%s'", id));
+		map.put("id", String.format("'%s'", id));
 
 		return map;
 	}
