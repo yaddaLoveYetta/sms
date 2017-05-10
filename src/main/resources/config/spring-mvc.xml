@@ -66,6 +66,7 @@
 						<entry value-type="java.lang.String" key="/sync/county" value="/sync/county" />
 						<entry value-type="java.lang.String" key="/sync/province" value="/sync/province" />
 						<entry value-type="java.lang.String" key="/template/delItemByHRP" value="/template/delItemByHRP" />
+						<entry value-type="java.lang.String" key="/sync/license" value="/sync/license" />
 					</map>
 				</property>
 			</bean>
