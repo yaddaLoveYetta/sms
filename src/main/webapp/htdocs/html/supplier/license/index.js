@@ -56,6 +56,14 @@
             {
                 text: '编辑',
                 name: 'edit',
+            },
+            {
+                text: '刷新',
+                name: 'refresh',
+            },
+            {
+                text: '发送到HRP',
+                name: 'send',
             }]
     };
 
@@ -72,7 +80,7 @@
             var item = Tree.getSelectedNodes();
             add();
         },
-        'delete': function (item, index) {
+        'del': function (item, index) {
 
             var list = List.getSelectedItems();
 
@@ -85,6 +93,9 @@
                     refresh();
                 });
             }
+        },
+        'edit': function () {
+
         },
         'refresh': function (item, index) {
             refresh();
@@ -141,9 +152,7 @@
                 height: 550,
                 url: $.Url.setQueryString('html/base_edit/index.html', 'classId', 1019),
                 data: {},
-                button: [
-
-                ],
+                button: [],
             });
 
             //默认关闭行为为不提交
