@@ -404,15 +404,16 @@
             if (field.ctrlType === 12) {
                 // 日期控件
 
-                YWTC.use('DateTimePicker', function (DateTimePicker) {
+                SMS.use('DateTimePicker', function (DateTimePicker) {
 
                     new DateTimePicker(document.getElementById('bd-' + field.key), {
-                        format: 'yyyy-mm-dd hh:ii:ss',
+                        format: 'yyyy-mm-dd',
                         autoclose: true,
                         todayBtn: true,
                         todayHighlight: true,
+                        timepicker:false,
                         startView: 'month',
-                        minView: 'hour',
+                        minView: 2,
                     });
 
                 });
