@@ -411,7 +411,7 @@
 
                 SMS.use('DateTimePicker', function (DateTimePicker) {
 
-                    new DateTimePicker(document.getElementById('bd-' + field.key), {
+                    new DateTimePicker(getValueElement(field.key), {
                         format: 'yyyy-mm-dd',
                         autoclose: true,
                         todayBtn: true,
