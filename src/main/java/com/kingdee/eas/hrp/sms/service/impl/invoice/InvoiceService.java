@@ -15,5 +15,5 @@ public class InvoiceService extends BaseService implements IInvoiceService{
 		InvoiceMapper invoiceMapper = sqlSession.getMapper(InvoiceMapper.class);
 		invoiceMapper.insertSelective(invoice);
 	}
-
+ 
 }
