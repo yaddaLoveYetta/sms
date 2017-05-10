@@ -11,6 +11,8 @@ public class Supplier_License_Type {
 
     private Byte isControl;
 
+    private String syncStatus;
+
     public String getId() {
         return id;
     }
@@ -49,5 +51,13 @@ public class Supplier_License_Type {
 
     public void setIsControl(Byte isControl) {
         this.isControl = isControl;
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus == null ? null : syncStatus.trim();
     }
 }

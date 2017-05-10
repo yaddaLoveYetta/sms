@@ -1634,6 +1634,76 @@ public class SupplierExample {
             addCriterion("[number] not between", value1, value2, "number");
             return (Criteria) this;
         }
+
+        public Criteria andSyncStatusIsNull() {
+            addCriterion("syncStatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusIsNotNull() {
+            addCriterion("syncStatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusEqualTo(String value) {
+            addCriterion("syncStatus =", value, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusNotEqualTo(String value) {
+            addCriterion("syncStatus <>", value, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusGreaterThan(String value) {
+            addCriterion("syncStatus >", value, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("syncStatus >=", value, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusLessThan(String value) {
+            addCriterion("syncStatus <", value, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusLessThanOrEqualTo(String value) {
+            addCriterion("syncStatus <=", value, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusLike(String value) {
+            addCriterion("syncStatus like", value, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusNotLike(String value) {
+            addCriterion("syncStatus not like", value, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusIn(List<String> values) {
+            addCriterion("syncStatus in", values, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusNotIn(List<String> values) {
+            addCriterion("syncStatus not in", values, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusBetween(String value1, String value2) {
+            addCriterion("syncStatus between", value1, value2, "syncStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSyncStatusNotBetween(String value1, String value2) {
+            addCriterion("syncStatus not between", value1, value2, "syncStatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

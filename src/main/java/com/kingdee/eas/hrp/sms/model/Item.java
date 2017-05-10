@@ -7,6 +7,8 @@ public class Item {
 
     private String number;
 
+    private String specification;
+
     public String getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class Item {
 
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification == null ? null : specification.trim();
     }
 }

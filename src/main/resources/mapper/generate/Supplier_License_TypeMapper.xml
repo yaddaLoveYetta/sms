@@ -7,6 +7,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="isMust" jdbcType="TINYINT" property="isMust" />
     <result column="isControl" jdbcType="TINYINT" property="isControl" />
+    <result column="syncStatus" jdbcType="VARCHAR" property="syncStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, [number], [name], isMust, isControl
+    id, [number], [name], isMust, isControl, syncStatus
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.Supplier_License_TypeExample" resultMap="BaseResultMap">
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Supplier_License_Type">
     insert into t_sms_supplier_license_type (id, [number], [name], 
-      isMust, isControl)
+      isMust, isControl, syncStatus
+      )
     values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{isMust,jdbcType=TINYINT}, #{isControl,jdbcType=TINYINT})
+      #{isMust,jdbcType=TINYINT}, #{isControl,jdbcType=TINYINT}, #{syncStatus,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier_License_Type">
     insert into t_sms_supplier_license_type
@@ -123,6 +126,9 @@
       <if test="isControl != null">
         isControl,
       </if>
+      <if test="syncStatus != null">
+        syncStatus,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,6 +145,9 @@
       </if>
       <if test="isControl != null">
         #{isControl,jdbcType=TINYINT},
+      </if>
+      <if test="syncStatus != null">
+        #{syncStatus,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.isControl != null">
         isControl = #{record.isControl,jdbcType=TINYINT},
       </if>
+      <if test="record.syncStatus != null">
+        syncStatus = #{record.syncStatus,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       [number] = #{record.number,jdbcType=VARCHAR},
       [name] = #{record.name,jdbcType=VARCHAR},
       isMust = #{record.isMust,jdbcType=TINYINT},
-      isControl = #{record.isControl,jdbcType=TINYINT}
+      isControl = #{record.isControl,jdbcType=TINYINT},
+      syncStatus = #{record.syncStatus,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="isControl != null">
         isControl = #{isControl,jdbcType=TINYINT},
       </if>
+      <if test="syncStatus != null">
+        syncStatus = #{syncStatus,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -205,7 +221,8 @@
     set [number] = #{number,jdbcType=VARCHAR},
       [name] = #{name,jdbcType=VARCHAR},
       isMust = #{isMust,jdbcType=TINYINT},
-      isControl = #{isControl,jdbcType=TINYINT}
+      isControl = #{isControl,jdbcType=TINYINT},
+      syncStatus = #{syncStatus,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -24,6 +24,7 @@
     <result column="settlementId" jdbcType="VARCHAR" property="settlementId" />
     <result column="payId" jdbcType="VARCHAR" property="payId" />
     <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="syncStatus" jdbcType="VARCHAR" property="syncStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -86,7 +87,7 @@
   <sql id="Base_Column_List">
     id, [name], taxId, CORP, BRNO, taxCategoryId, taxRate, country, city, province, county, 
     address, industryId, categoryId, createOrganization, banOrganization, [status], certificateId, 
-    currencyId, settlementId, payId, [number]
+    currencyId, settlementId, payId, [number], syncStatus
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -126,7 +127,7 @@
       industryId, categoryId, createOrganization, 
       banOrganization, [status], certificateId, 
       currencyId, settlementId, payId, 
-      [number])
+      [number], syncStatus)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=VARCHAR}, 
       #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=VARCHAR}, 
       #{taxRate,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
@@ -134,7 +135,7 @@
       #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{createOrganization,jdbcType=VARCHAR}, 
       #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{certificateId,jdbcType=VARCHAR}, 
       #{currencyId,jdbcType=VARCHAR}, #{settlementId,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, 
-      #{number,jdbcType=VARCHAR})
+      #{number,jdbcType=VARCHAR}, #{syncStatus,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -205,6 +206,9 @@
       <if test="number != null">
         [number],
       </if>
+      <if test="syncStatus != null">
+        syncStatus,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -272,6 +276,9 @@
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="syncStatus != null">
+        #{syncStatus,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -350,6 +357,9 @@
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
       </if>
+      <if test="record.syncStatus != null">
+        syncStatus = #{record.syncStatus,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -378,7 +388,8 @@
       currencyId = #{record.currencyId,jdbcType=VARCHAR},
       settlementId = #{record.settlementId,jdbcType=VARCHAR},
       payId = #{record.payId,jdbcType=VARCHAR},
-      [number] = #{record.number,jdbcType=VARCHAR}
+      [number] = #{record.number,jdbcType=VARCHAR},
+      syncStatus = #{record.syncStatus,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -449,6 +460,9 @@
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
       </if>
+      <if test="syncStatus != null">
+        syncStatus = #{syncStatus,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -474,7 +488,8 @@
       currencyId = #{currencyId,jdbcType=VARCHAR},
       settlementId = #{settlementId,jdbcType=VARCHAR},
       payId = #{payId,jdbcType=VARCHAR},
-      [number] = #{number,jdbcType=VARCHAR}
+      [number] = #{number,jdbcType=VARCHAR},
+      syncStatus = #{syncStatus,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

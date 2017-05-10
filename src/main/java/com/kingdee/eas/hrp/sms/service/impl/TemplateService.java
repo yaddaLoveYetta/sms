@@ -14,6 +14,7 @@ import org.apache.ibatis.plugin.PluginException;
 import org.bouncycastle.jcajce.provider.asymmetric.rsa.DigestSignatureSpi.noneRSA;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
@@ -494,7 +495,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public String addItem(Integer classId, String data, String userType) {
 
 		// 基础资料模板
@@ -537,7 +538,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void editItem(Integer classId, String id, String data, String userType) {
 
 		// 基础资料模板
@@ -1612,7 +1613,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void delItem(Integer classId, String items) {
 
 		// 基础资料模板

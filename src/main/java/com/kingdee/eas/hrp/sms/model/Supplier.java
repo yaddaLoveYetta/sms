@@ -47,6 +47,8 @@ public class Supplier {
 
     private String number;
 
+    private String syncStatus;
+
     public String getId() {
         return id;
     }
@@ -221,5 +223,13 @@ public class Supplier {
 
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus == null ? null : syncStatus.trim();
     }
 }
