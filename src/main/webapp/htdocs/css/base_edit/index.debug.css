@@ -177,9 +177,6 @@ select:not (:-internal-list-box ) {
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
 	background-color:transparent;
 }
-.time-input {
-	width: 173px;
-}
 
 table>tbody>tr .col-value {
 	width: 375px;
