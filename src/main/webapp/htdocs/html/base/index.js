@@ -143,15 +143,18 @@
 
             var list = List.getSelectedItems();
 
-            if (list.length == 0) {
+            if(list.length == 0) {
                 SMS.Tips.error('请选择要删除的项');
                 return;
             }
-            if (confirm('确定删除选择的项')) {
-                List.del(classId, list, function () {
-                    refresh();
-                });
-            }
+            MessageBox.confirm('确定删除选择的项?', function(result) {
+                if(result) {
+                    List.del(classID, list, function() {
+                        refresh();
+                    });
+                }
+            });
+
         },
         'refresh': function (item, index) {
             refresh();
