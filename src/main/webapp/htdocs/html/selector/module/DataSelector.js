@@ -172,7 +172,7 @@
                                      * key : 当前改变的控件key
                                      * data:改变后的控件数据
                                      */
-                                    emitter.fire('change', [meta.classID, meta.fieldKey, data]);
+                                    emitter.fire('change', [meta.destClassId, meta.fieldKey, data]);
                                 }
                                 meta.data = dialog.getData();
                                 label.value = meta.data[0].number;
