@@ -149,7 +149,7 @@
             }
             MessageBox.confirm('确定删除选择的项?', function(result) {
                 if(result) {
-                    List.del(classID, list, function() {
+                    List.del(classId, list, function() {
                         refresh();
                     });
                 }
