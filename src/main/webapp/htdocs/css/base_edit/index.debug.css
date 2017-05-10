@@ -88,6 +88,7 @@
 .options {
 	width: 100%;
 	position: fixed;
+	height: 45px;
 	background-color: #fff;
 }
 
@@ -98,7 +99,7 @@
 
 .main-content {
 	margin-left: 20px;
-	margin-top:85px;
+	margin-top:50px;
 }
 
 .main-content .sep-row {
