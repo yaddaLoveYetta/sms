@@ -3,8 +3,6 @@ package com.kingdee.eas.hrp.sms.service.api.sys;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.Certificate;
 import com.kingdee.eas.hrp.sms.model.City;
@@ -19,6 +17,7 @@ import com.kingdee.eas.hrp.sms.model.Settlement;
 import com.kingdee.eas.hrp.sms.model.Supplier;
 import com.kingdee.eas.hrp.sms.model.Supplier_License_Type;
 import com.kingdee.eas.hrp.sms.model.TaxCategory;
+import com.kingdee.eas.hrp.sms.model.Unit;
 
 /**
  * @author Sunny
@@ -172,5 +171,14 @@ public interface ISyncService {
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> county(List<County> list);
+
+	/**
+	 * 同步单位
+	 * @Title unit
+	 * @param list
+	 * 		  unit 集合
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> unit(List<Unit> list);
 
 }

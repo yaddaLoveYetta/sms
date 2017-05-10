@@ -27,6 +27,7 @@ import com.kingdee.eas.hrp.sms.dao.generate.SettlementMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.Supplier_License_TypeMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.TaxCategoryMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.UnitMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.CategoryExample;
@@ -57,6 +58,8 @@ import com.kingdee.eas.hrp.sms.model.Supplier_License_Type;
 import com.kingdee.eas.hrp.sms.model.Supplier_License_TypeExample;
 import com.kingdee.eas.hrp.sms.model.TaxCategory;
 import com.kingdee.eas.hrp.sms.model.TaxCategoryExample;
+import com.kingdee.eas.hrp.sms.model.Unit;
+import com.kingdee.eas.hrp.sms.model.UnitExample;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
@@ -829,6 +832,61 @@ public class SyncService extends BaseService implements ISyncService {
 		} else {
 			// 插入
 			mapper.insert(county);
+		}
+
+	}
+	
+	@Override
+	public List<Map<String, Object>> unit(List<Unit> list) {
+
+		// 同步失败的记录
+		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
+
+		for (Unit unit : list) {
+
+			Map<String, Object> errUnit = new HashMap<String, Object>(); // 记录错误信息
+
+			try {
+				sumbitUnit(unit);
+			} catch (Exception e) {
+				errUnit.put("desc", e.getMessage());
+				errUnit.put("county", unit);
+				errList.add(errUnit);
+			}
+
+		}
+		return errList;
+	}
+
+	/**
+	 * 提交一条数据到数据库，并提交事务
+	 * 
+	 * @Title sumbit
+	 * @param county
+	 *            void
+	 * @date 2017-04-22 22:30:29 星期六
+	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	private void sumbitUnit(Unit unit) {
+
+		String unitId = unit.getId();
+
+		if (null == unitId) {
+			throw new BusinessLogicRunTimeException("内码为空");
+		}
+
+		UnitMapper mapper = sqlSession.getMapper(UnitMapper.class);
+		UnitExample example = new UnitExample();
+		com.kingdee.eas.hrp.sms.model.UnitExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(unitId);
+		List<Unit> selectByExample = mapper.selectByExample(example);
+
+		if (selectByExample.size() > 0) {
+			// 已经存在
+			mapper.updateByPrimaryKeySelective(unit);
+		} else {
+			// 插入
+			mapper.insert(unit);
 		}
 
 	}
