@@ -87,6 +87,7 @@
 
 .options {
 	width: 100%;
+	position: fixed;
 	background-color: #fff;
 }
 

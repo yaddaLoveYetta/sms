@@ -14,6 +14,14 @@
     width: 1310px;
   }
 }
+
+.top-fixed {
+  position: fixed;
+  background: white;
+  width: auto;
+ /* height: 85px;*/
+}
+
 body {
   overflow-y: scroll;
 }
