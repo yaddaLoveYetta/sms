@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.google.gson.JsonObject;
 import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
@@ -38,8 +35,8 @@ import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 @Controller
-@RequestMapping(value = "/sync/")
-public class SyncController {
+@RequestMapping(value = "/sync/hrp/")
+public class SyncHRPController {
 
 	@Resource
 	ISyncService syncService;
@@ -133,6 +130,7 @@ public class SyncController {
 
 		List<Map<String, Object>> ret = syncService.certificate(list);
 
+
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
@@ -142,7 +140,7 @@ public class SyncController {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
 		}
 	}
-
+	
 	@ControllerLog(desc = "同步证书分类") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步证书分类") // 权限
 	@RequestMapping(value = "license")
@@ -158,7 +156,6 @@ public class SyncController {
 		if (listStr.isEmpty()) {
 			throw new BusinessLogicRunTimeException("没有可同步的数据");
 		}
-
 		List<Supplier_License_Type> list = JSONObject.parseArray(listStr, Supplier_License_Type.class);
 
 		if (list.isEmpty()) {
@@ -166,6 +163,7 @@ public class SyncController {
 		}
 
 		List<Map<String, Object>> ret = syncService.license(list);
+
 
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
@@ -374,7 +372,7 @@ public class SyncController {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
 		}
 	}
-
+	
 	@ControllerLog(desc = "同步国家") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步国家") // 权限
 	@RequestMapping(value = "country")
@@ -407,7 +405,7 @@ public class SyncController {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
 		}
 	}
-
+	
 	@ControllerLog(desc = "同步城市") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步城市") // 权限
 	@RequestMapping(value = "city")
@@ -440,7 +438,7 @@ public class SyncController {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
 		}
 	}
-
+	
 	@ControllerLog(desc = "同步省份") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步省份") // 权限
 	@RequestMapping(value = "province")
@@ -473,7 +471,7 @@ public class SyncController {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
 		}
 	}
-
+	
 	@ControllerLog(desc = "同步区县") // 做日志
 	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步区县") // 权限
 	@RequestMapping(value = "county")
@@ -539,123 +537,5 @@ public class SyncController {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
 		}
 	}
-
-	// 查询供应商
-	@RequestMapping(value = "getSupplierList")
-	public void getSupplierList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getSupplierList(pageNum, pageSize);
-	}
-
-	// 查询分类
-	@RequestMapping(value = "getCategoryList")
-	public void getCategoryList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		List<Category> list = syncService.getCategoryList(pageNum, pageSize);
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, list);
-	}
-
-	// 查询证书
-	@RequestMapping(value = "getCertificateList")
-	public void getCertificateList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getCertificateList(pageNum, pageSize);
-	}
-
-	// 查询行业
-	@RequestMapping(value = "getIndustryList")
-	public void getIndustryList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getIndustryList(pageNum, pageSize);
-	}
-
-	// 查询币种
-	@RequestMapping(value = "getCurrencyList")
-	public void getCurrencyList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getCurrencyList(pageNum, pageSize);
-	}
-
-	// 查询结算方式
-	@RequestMapping(value = "getSettlementList")
-	public void getSettlementList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getSettlementList(pageNum, pageSize);
-	}
-
-	// 查询付款方式
-	@RequestMapping(value = "getPayList")
-	public void getPayList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getPayList(pageNum, pageSize);
-	}
-
-	// 查询物料
-	@RequestMapping(value = "getItemList")
-	public void getItemList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getItemList(pageNum, pageSize);
-	}
-
-	// 查询税种
-	@RequestMapping(value = "getTaxCategoryList")
-	public void getTaxCategoryList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getTaxCategoryList(pageNum, pageSize);
-	}
-
+	
 }

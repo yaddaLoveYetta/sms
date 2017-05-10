@@ -1704,6 +1704,76 @@ public class SupplierExample {
             addCriterion("syncStatus not between", value1, value2, "syncStatus");
             return (Criteria) this;
         }
+
+        public Criteria andReviewIsNull() {
+            addCriterion("review is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewIsNotNull() {
+            addCriterion("review is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewEqualTo(String value) {
+            addCriterion("review =", value, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewNotEqualTo(String value) {
+            addCriterion("review <>", value, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewGreaterThan(String value) {
+            addCriterion("review >", value, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewGreaterThanOrEqualTo(String value) {
+            addCriterion("review >=", value, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewLessThan(String value) {
+            addCriterion("review <", value, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewLessThanOrEqualTo(String value) {
+            addCriterion("review <=", value, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewLike(String value) {
+            addCriterion("review like", value, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewNotLike(String value) {
+            addCriterion("review not like", value, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewIn(List<String> values) {
+            addCriterion("review in", values, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewNotIn(List<String> values) {
+            addCriterion("review not in", values, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewBetween(String value1, String value2) {
+            addCriterion("review between", value1, value2, "review");
+            return (Criteria) this;
+        }
+
+        public Criteria andReviewNotBetween(String value1, String value2) {
+            addCriterion("review not between", value1, value2, "review");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -3,10 +3,14 @@
  */
 package com.kingdee.eas.hrp.sms.controller;
 
+import java.util.List;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.model.Supplier_License_Type;
 import com.kingdee.eas.hrp.sms.util.http.HttpParam;
 import com.kingdee.eas.hrp.sms.util.http.HttpUtil;
 
@@ -85,18 +89,19 @@ public class SyncControllerTest extends BaseControllerTest {
 		getList("getIndustryList");
 	}
 
-//	@Test
-//	public void a_currencyTest() {
-//
-//		HttpParam param = HttpParam.init();
-//		param.setCookieParams(cookie);
-//		String str = "[{'currencyId':123,'currencyName':'分类','number':'12345'},{'currencyId':123,'currencyName':'分类','number':'12345'}]";
-//		param.addCommon("size", "2");
-//		param.addCommon("list", str);
-//
-//		String ret = HttpUtil.sendGet(BASE_URL + "sync/currency", param);
-//		System.out.println(ret);
-//	}
+	// @Test
+	// public void a_currencyTest() {
+	//
+	// HttpParam param = HttpParam.init();
+	// param.setCookieParams(cookie);
+	// String str =
+	// "[{'currencyId':123,'currencyName':'分类','number':'12345'},{'currencyId':123,'currencyName':'分类','number':'12345'}]";
+	// param.addCommon("size", "2");
+	// param.addCommon("list", str);
+	//
+	// String ret = HttpUtil.sendGet(BASE_URL + "sync/currency", param);
+	// System.out.println(ret);
+	// }
 
 	@Test
 	public void b_currencyTest() {
@@ -199,17 +204,12 @@ public class SyncControllerTest extends BaseControllerTest {
 		getList("getSupplierList");
 	}
 
-//	@Test
-//	public void currency() {
-//
-//		HttpParam param = HttpParam.init();
-//		param.setCookieParams(cookie);
-//		 String str = "[{'currencyId':123,'name':'分类1','number':'12345'},{'currencyId':456,'name':'分类2','number':'12345'}]";
-////		String str = null;
-//		param.addCommon("size", "2");
-//		param.addCommon("list", str);
-//
-//		String ret = HttpUtil.sendGet(BASE_URL + "sync/currency", param);
-//		System.out.println(ret);
-//	}
+	@Test
+	public void license() {
+
+		String str = "[{'id':123,'name':'license1','number':'12345','isMust':1,'isControl':1,'syncStatus':'1','review':'2'},{'id':456,'name':'license2','number':'6789','isMust':1,'isControl':1,'syncStatus':'1','review':'2'}]";
+
+		List<Supplier_License_Type> list = JSONObject.parseArray(str, Supplier_License_Type.class);
+
+	}
 }

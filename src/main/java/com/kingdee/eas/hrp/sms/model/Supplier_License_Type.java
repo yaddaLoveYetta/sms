@@ -13,6 +13,8 @@ public class Supplier_License_Type {
 
     private String syncStatus;
 
+    private String review;
+
     public String getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class Supplier_License_Type {
 
     public void setSyncStatus(String syncStatus) {
         this.syncStatus = syncStatus == null ? null : syncStatus.trim();
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review == null ? null : review.trim();
     }
 }
