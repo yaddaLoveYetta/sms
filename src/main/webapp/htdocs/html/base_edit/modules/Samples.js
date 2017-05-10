@@ -54,6 +54,12 @@ define('Samples', function (require, module, exports) {
                 outer: 'textarea',
             },
             {
+                name: 'tr.datatime',
+                begin:'#--tr.datatime.begin--#',
+                end: '#--tr.datatime.end--#',
+                outer: 'datatime',
+            },
+            {
                 name: 'tr.password',
                 begin: '#--tr.password.begin--#',
                 end: '#--tr.password.end--#',

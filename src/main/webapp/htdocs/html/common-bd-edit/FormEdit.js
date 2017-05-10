@@ -303,7 +303,7 @@
                 }
 
                 /*
-                 1,3,5,6,7,8,9,10,98,99
+                 1,3,5,6,7,8,9,10,12,98,99
                  */
                 switch (domType) {
                     case 1: // 小数
@@ -314,6 +314,9 @@
                         break;
                     case 11://多行文本
                         sample = samples["tr.textarea"];
+                        break;
+                    case 12:
+                        sample = samples["tr.datatime"];
                         break;
                     case 3: // checkbox
                         sample = samples["tr.checkbox"];
