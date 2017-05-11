@@ -15,9 +15,6 @@ define('Tree', function (require, module, exports) {
 
     var classId = 1005;
     var tree = {};
-
-    var treeData = [];
-
     //默认配置
     var defaults = {
         pageSize: 10,
@@ -62,7 +59,7 @@ define('Tree', function (require, module, exports) {
             pageSize: defaults.pageSize,
             conditions: [],
         }, function (data, pageSize) {
-            treeData = data.list || [];
+            buildTree(data.list || []);
             SupplierPager.render({
                 size: pageSize,
                 total: data.count,
@@ -74,11 +71,14 @@ define('Tree', function (require, module, exports) {
                         conditions: [],
                     }, function (data, pageSize) {
                         console.log(data.list);
-                        treeData = data.list || [];
+                        buildTree(data.list || []);
                     });
                 }
             });
         });
+    };
+
+    function buildTree() {
 
         SMS.use('ZTree', function (zTree) {
 
@@ -86,7 +86,6 @@ define('Tree', function (require, module, exports) {
                 selector: '#tree',
                 data: treeData,
             });
-
             tree.on({
 
                 onClick: function (event, treeId, treeNode) {
@@ -102,9 +101,8 @@ define('Tree', function (require, module, exports) {
                 tree.getTrueZTree().setting.callback.onClick(null, tree.getTrueZTree().setting.treeId, node);//调用事件
 
             }
-
         });
-    };
+    }
 
     /**
      * 获取当前选中的节点
