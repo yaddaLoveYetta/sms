@@ -616,63 +616,63 @@ public class MaterialExample {
             return (Criteria) this;
         }
 
-        public Criteria andRateIsNull() {
-            addCriterion("rate is null");
+        public Criteria andTaxRateIsNull() {
+            addCriterion("taxRate is null");
             return (Criteria) this;
         }
 
-        public Criteria andRateIsNotNull() {
-            addCriterion("rate is not null");
+        public Criteria andTaxRateIsNotNull() {
+            addCriterion("taxRate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRateEqualTo(Double value) {
-            addCriterion("rate =", value, "rate");
+        public Criteria andTaxRateEqualTo(Double value) {
+            addCriterion("taxRate =", value, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateNotEqualTo(Double value) {
-            addCriterion("rate <>", value, "rate");
+        public Criteria andTaxRateNotEqualTo(Double value) {
+            addCriterion("taxRate <>", value, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateGreaterThan(Double value) {
-            addCriterion("rate >", value, "rate");
+        public Criteria andTaxRateGreaterThan(Double value) {
+            addCriterion("taxRate >", value, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateGreaterThanOrEqualTo(Double value) {
-            addCriterion("rate >=", value, "rate");
+        public Criteria andTaxRateGreaterThanOrEqualTo(Double value) {
+            addCriterion("taxRate >=", value, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateLessThan(Double value) {
-            addCriterion("rate <", value, "rate");
+        public Criteria andTaxRateLessThan(Double value) {
+            addCriterion("taxRate <", value, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateLessThanOrEqualTo(Double value) {
-            addCriterion("rate <=", value, "rate");
+        public Criteria andTaxRateLessThanOrEqualTo(Double value) {
+            addCriterion("taxRate <=", value, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateIn(List<Double> values) {
-            addCriterion("rate in", values, "rate");
+        public Criteria andTaxRateIn(List<Double> values) {
+            addCriterion("taxRate in", values, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateNotIn(List<Double> values) {
-            addCriterion("rate not in", values, "rate");
+        public Criteria andTaxRateNotIn(List<Double> values) {
+            addCriterion("taxRate not in", values, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateBetween(Double value1, Double value2) {
-            addCriterion("rate between", value1, value2, "rate");
+        public Criteria andTaxRateBetween(Double value1, Double value2) {
+            addCriterion("taxRate between", value1, value2, "taxRate");
             return (Criteria) this;
         }
 
-        public Criteria andRateNotBetween(Double value1, Double value2) {
-            addCriterion("rate not between", value1, value2, "rate");
+        public Criteria andTaxRateNotBetween(Double value1, Double value2) {
+            addCriterion("taxRate not between", value1, value2, "taxRate");
             return (Criteria) this;
         }
 
@@ -973,6 +973,66 @@ public class MaterialExample {
 
         public Criteria andFunctionalCurrencyAmountNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("functionalCurrencyAmount not between", value1, value2, "functionalCurrencyAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersIsNull() {
+            addCriterion("lineNumbers is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersIsNotNull() {
+            addCriterion("lineNumbers is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersEqualTo(Integer value) {
+            addCriterion("lineNumbers =", value, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersNotEqualTo(Integer value) {
+            addCriterion("lineNumbers <>", value, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersGreaterThan(Integer value) {
+            addCriterion("lineNumbers >", value, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersGreaterThanOrEqualTo(Integer value) {
+            addCriterion("lineNumbers >=", value, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersLessThan(Integer value) {
+            addCriterion("lineNumbers <", value, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersLessThanOrEqualTo(Integer value) {
+            addCriterion("lineNumbers <=", value, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersIn(List<Integer> values) {
+            addCriterion("lineNumbers in", values, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersNotIn(List<Integer> values) {
+            addCriterion("lineNumbers not in", values, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersBetween(Integer value1, Integer value2) {
+            addCriterion("lineNumbers between", value1, value2, "lineNumbers");
+            return (Criteria) this;
+        }
+
+        public Criteria andLineNumbersNotBetween(Integer value1, Integer value2) {
+            addCriterion("lineNumbers not between", value1, value2, "lineNumbers");
             return (Criteria) this;
         }
     }

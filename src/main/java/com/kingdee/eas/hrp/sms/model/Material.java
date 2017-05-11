@@ -20,7 +20,7 @@ public class Material {
 
     private Double discount;
 
-    private Double rate;
+    private Double taxRate;
 
     private BigDecimal taxUnitPrice;
 
@@ -31,6 +31,8 @@ public class Material {
     private BigDecimal taxPrice;
 
     private BigDecimal functionalCurrencyAmount;
+
+    private Integer lineNumbers;
 
     public Integer getId() {
         return id;
@@ -96,12 +98,12 @@ public class Material {
         this.discount = discount;
     }
 
-    public Double getRate() {
-        return rate;
+    public Double getTaxRate() {
+        return taxRate;
     }
 
-    public void setRate(Double rate) {
-        this.rate = rate;
+    public void setTaxRate(Double taxRate) {
+        this.taxRate = taxRate;
     }
 
     public BigDecimal getTaxUnitPrice() {
@@ -142,5 +144,13 @@ public class Material {
 
     public void setFunctionalCurrencyAmount(BigDecimal functionalCurrencyAmount) {
         this.functionalCurrencyAmount = functionalCurrencyAmount;
+    }
+
+    public Integer getLineNumbers() {
+        return lineNumbers;
+    }
+
+    public void setLineNumbers(Integer lineNumbers) {
+        this.lineNumbers = lineNumbers;
     }
 }

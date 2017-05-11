@@ -68,12 +68,13 @@ public class OrderService extends BaseService implements IOrderService{
 				material.setUnitPrice(materialObject.getBigDecimal("unitPrice"));
 				material.setNumbers(materialObject.getInteger("numbers"));
 				material.setDiscount(materialObject.getDouble("discount"));
-				material.setRate(materialObject.getDouble("rate"));
+				material.setTaxRate(materialObject.getDouble("taxRate"));
 				material.setTaxUnitPrice(materialObject.getBigDecimal("taxUnitPrice"));
 				material.setActualTaxUnitPrice(materialObject.getBigDecimal("actualTaxUnitPrice"));
 				material.setDiscountPrice(materialObject.getBigDecimal("discountPrice"));
 				material.setTaxPrice(materialObject.getBigDecimal("taxPrice"));
 				material.setFunctionalCurrencyAmount(materialObject.getBigDecimal("functionalCurrencyAmount"));
+				material.setLineNumbers(Integer.parseInt(materialObject.getString("lineNumbers")));
 				if(materialObject.getString("deliveryTime")!=null){
 				material.setDeliveryTime(sft.parse(materialObject.getString("deliveryTime")));
 				}
