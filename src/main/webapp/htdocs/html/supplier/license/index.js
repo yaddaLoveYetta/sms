@@ -98,6 +98,38 @@
         },
         'edit': function () {
 
+            var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择要删除的项');
+                return;
+            }
+            if (list.length > 1) {
+                SMS.Tips.error('只能对一条记录进行操作');
+                return;
+            }
+
+            SMS.use('Dialog', function (Dialog) {
+
+                var dialog = new Dialog({
+                    title: '编辑-供应商资质',
+                    width: 700,
+                    height: 550,
+                    url: $.Url.setQueryString('html/base_edit/index.html',{
+                        'classId':1019,
+                        id:list[0].id,
+                    }),
+                    data: {},
+                    button: [],
+                });
+
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
+
+                dialog.showModal();
+
+            });
+
         },
         'send': function (item, index) {
             // 发送到HRP
