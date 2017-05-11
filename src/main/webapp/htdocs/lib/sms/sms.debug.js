@@ -6804,6 +6804,7 @@
         'NumberField': true,
         'DateTimePicker': true,
         'ZTree': true,
+        'Grid': true,
     });
 
 
@@ -6860,6 +6861,7 @@
         'Tips': require('Tips'),
         'MessageBox': require('Tips'),
         'Pagers': require('Pagers'),
+        'Grid': require('Grid'),
 
 
     };

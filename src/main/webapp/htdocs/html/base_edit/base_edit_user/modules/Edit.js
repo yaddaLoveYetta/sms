@@ -12,12 +12,14 @@ define('Edit', function (require, module, exports) {
     var f7Selectors;
     var baseClassID;
     var itemId = '';
-    var Grid = require('Grid');
+
     console.log(Grid)
     var GridBuilder = require('GridBuilder');
     var parkGrid = new Grid('bd-grid');
     var columns = ["FParkNumber"];
     var isNeedOpt = true; //Jqgrid是否可操作
+
+    var Grid;
 
     SMS.use('Grid', function (Grid) {
         Grid = new Grid('bd-grid');

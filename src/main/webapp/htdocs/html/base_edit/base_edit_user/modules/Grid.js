@@ -6,7 +6,7 @@ define('Grid', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var SMS = require('SMS');
+    var SMS = require('YWTC');
 
     var mapper = new $.Mapper();
     var guidKey = $.Mapper.getGuidKey();
