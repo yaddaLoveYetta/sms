@@ -8,7 +8,6 @@ define('Edit', function (require, module, exports) {
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
     var FormEdit = require('FormEdit');
-    var Iframe = SMS.require('Iframe');
     var f7Selectors;
     var classId;
     var itemId = '';
@@ -148,12 +147,6 @@ define('Edit', function (require, module, exports) {
         } else {
             itemId = data['id']; // 新增后设置itemId，单据变成修改状态
             SMS.Tips.success('数据新增成功', 2000);
-        }
-
-        var dialog = Iframe.getDialog();
-        if (dialog) {
-            // dialog 中打开编辑-保存后关闭对话框
-            dialog.close();
         }
         refresh(classId, f7Selectors);
     }
