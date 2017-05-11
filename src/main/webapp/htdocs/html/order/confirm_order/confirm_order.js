@@ -6,7 +6,6 @@
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
-    var Iframe = SMS.require('Iframe');
     var API = SMS.require('API');
     var List = require('List');
     var Pager = require('Pager');
@@ -177,13 +176,4 @@
     	});
     }
 
-    Tree.on({
-
-        onClick: function (data) {
-            refresh(data);
-        }
-    });
-
-    Tree.render();
-
-});
+})();
