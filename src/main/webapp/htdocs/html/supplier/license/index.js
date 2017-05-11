@@ -153,7 +153,7 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要删除的项');
+                SMS.Tips.error('请选择要操作的项');
                 return;
             }
             if (list.length > 1) {
@@ -162,7 +162,7 @@
             }
             SMS.Tips.info('该功能正在研发中，敬请期待……');
             return;
-            MessageBox.confirm('确定删除选择的项?', function (result) {
+            MessageBox.confirm('确定要将该记录发送给HRP系统?', function (result) {
                 if (result) {
                     List.del(classId, list, function () {
                         refresh();
