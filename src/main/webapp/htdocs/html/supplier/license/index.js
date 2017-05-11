@@ -93,6 +93,11 @@
 
                 dialog.showModal();
 
+                dialog.on({
+                    remove: function () {
+                        refresh();
+                    }
+                });
             });
 
         },
