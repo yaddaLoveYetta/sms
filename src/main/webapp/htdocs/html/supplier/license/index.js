@@ -77,8 +77,24 @@
 
         'add': function (item, index) {
             // 增加供应商证书
-            var item = Tree.getSelectedNodes();
-            add();
+            SMS.use('Dialog', function (Dialog) {
+
+                var dialog = new Dialog({
+                    title: '新增-供应商资质',
+                    width: 700,
+                    height: 550,
+                    url: $.Url.setQueryString('html/base_edit/index.html', 'classId', classId),
+                    data: {},
+                    button: [],
+                });
+
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
+
+                dialog.showModal();
+
+            });
+
         },
         'del': function (item, index) {
 
@@ -115,9 +131,9 @@
                     title: '编辑-供应商资质',
                     width: 700,
                     height: 550,
-                    url: $.Url.setQueryString('html/base_edit/index.html',{
-                        'classId':1019,
-                        id:list[0].data.id,
+                    url: $.Url.setQueryString('html/base_edit/index.html', {
+                        'classId': classId,
+                        id: list[0].data.id,
                     }),
                     data: {},
                     button: [],
@@ -197,29 +213,6 @@
                 }
             });
         });
-    }
-
-
-    function add() {
-
-        SMS.use('Dialog', function (Dialog) {
-
-            var dialog = new Dialog({
-                title: '新增-供应商资质',
-                width: 700,
-                height: 550,
-                url: $.Url.setQueryString('html/base_edit/index.html', 'classId', 1019),
-                data: {},
-                button: [],
-            });
-
-            //默认关闭行为为不提交
-            dialog.isSubmit = false;
-
-            dialog.showModal();
-
-        });
-
     }
 
     Tree.on({
