@@ -16,6 +16,22 @@
     if (!SMS.Login.check(true)) {
         return;
     }
+
+    var dialog = Iframe.getDialog();
+
+    if (dialog) {
+
+        console.log('abcdefg');
+        var data = dialog.getData();
+
+        dialog.on({
+            close: function () {
+                //window.top && window.top.$("#div-tips").hide();
+                getData();
+            }
+        });
+    }
+
 	// 基础资料类别ID
 	// 支持二级事件，二级事件对应 item 中的 name
 	ButtonList.on('click',{
