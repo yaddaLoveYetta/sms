@@ -137,6 +137,14 @@
                     }),
                     data: {},
                     button: [],
+                    ok: function () {
+                        console.log('ok');
+                        refresh();
+                    },
+                    cancel: function () {
+                        console.log('cancel');
+                        refresh();
+                    }
                 });
 
                 //默认关闭行为为不提交
@@ -146,7 +154,6 @@
 
             });
 
-            refresh();
 
         },
         'send': function (item, index) {
