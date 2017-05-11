@@ -137,20 +137,18 @@
                     }),
                     data: {},
                     button: [],
-                    ok: function () {
-                        console.log('ok');
-                        refresh();
-                    },
-                    cancel: function () {
-                        console.log('cancel');
-                        refresh();
-                    }
                 });
 
                 //默认关闭行为为不提交
                 dialog.isSubmit = false;
 
                 dialog.showModal();
+
+                dialog.on({
+                    remove: function () {
+                        refresh();
+                    }
+                });
 
             });
 
