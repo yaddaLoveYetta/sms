@@ -78,7 +78,7 @@ define('Tree', function (require, module, exports) {
         });
     };
 
-    function buildTree() {
+    function buildTree(treeData) {
 
         SMS.use('ZTree', function (zTree) {
 
