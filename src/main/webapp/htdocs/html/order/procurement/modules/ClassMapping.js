@@ -39,7 +39,7 @@ define('ClassMapping', function (require, module, exports) {
         },
         '2019': {
             name: '订单详情',
-            url: 'html/order/license/index.html'
+            url: 'html/order/order_details/index.html'
         },
     }
 
