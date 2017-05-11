@@ -6,13 +6,9 @@ import java.util.Date;
 public class Order {
     private String id;
 
-    private Integer lineNumbers;
-
     private String supplierId;
 
-    private String supplierName;
-
-    private Date orderTime;
+    private Date date;
 
     private String buyer;
 
@@ -28,11 +24,31 @@ public class Order {
 
     private Integer confirmOrder;
 
-    private Integer numbers;
+    private String orderNo;
 
-    private Date deliveryTime;
+    private String purchasingType;
 
-    private BigDecimal price;
+    private Integer urgent;
+
+    private String currency;
+
+    private String paymentConditions;
+
+    private String paymentWay;
+
+    private String settlementWay;
+
+    private BigDecimal amount;
+
+    private BigDecimal taxAmount;
+
+    private BigDecimal leviedCombined;
+
+    private Date makeDate;
+
+    private Date auditDate;
+
+    private String auditUser;
 
     public String getId() {
         return id;
@@ -40,14 +56,6 @@ public class Order {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public Integer getLineNumbers() {
-        return lineNumbers;
-    }
-
-    public void setLineNumbers(Integer lineNumbers) {
-        this.lineNumbers = lineNumbers;
     }
 
     public String getSupplierId() {
@@ -58,20 +66,12 @@ public class Order {
         this.supplierId = supplierId == null ? null : supplierId.trim();
     }
 
-    public String getSupplierName() {
-        return supplierName;
+    public Date getDate() {
+        return date;
     }
 
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName == null ? null : supplierName.trim();
-    }
-
-    public Date getOrderTime() {
-        return orderTime;
-    }
-
-    public void setOrderTime(Date orderTime) {
-        this.orderTime = orderTime;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getBuyer() {
@@ -130,27 +130,107 @@ public class Order {
         this.confirmOrder = confirmOrder;
     }
 
-    public Integer getNumbers() {
-        return numbers;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setNumbers(Integer numbers) {
-        this.numbers = numbers;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo == null ? null : orderNo.trim();
     }
 
-    public Date getDeliveryTime() {
-        return deliveryTime;
+    public String getPurchasingType() {
+        return purchasingType;
     }
 
-    public void setDeliveryTime(Date deliveryTime) {
-        this.deliveryTime = deliveryTime;
+    public void setPurchasingType(String purchasingType) {
+        this.purchasingType = purchasingType == null ? null : purchasingType.trim();
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Integer getUrgent() {
+        return urgent;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setUrgent(Integer urgent) {
+        this.urgent = urgent;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency == null ? null : currency.trim();
+    }
+
+    public String getPaymentConditions() {
+        return paymentConditions;
+    }
+
+    public void setPaymentConditions(String paymentConditions) {
+        this.paymentConditions = paymentConditions == null ? null : paymentConditions.trim();
+    }
+
+    public String getPaymentWay() {
+        return paymentWay;
+    }
+
+    public void setPaymentWay(String paymentWay) {
+        this.paymentWay = paymentWay == null ? null : paymentWay.trim();
+    }
+
+    public String getSettlementWay() {
+        return settlementWay;
+    }
+
+    public void setSettlementWay(String settlementWay) {
+        this.settlementWay = settlementWay == null ? null : settlementWay.trim();
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+
+    public BigDecimal getLeviedCombined() {
+        return leviedCombined;
+    }
+
+    public void setLeviedCombined(BigDecimal leviedCombined) {
+        this.leviedCombined = leviedCombined;
+    }
+
+    public Date getMakeDate() {
+        return makeDate;
+    }
+
+    public void setMakeDate(Date makeDate) {
+        this.makeDate = makeDate;
+    }
+
+    public Date getAuditDate() {
+        return auditDate;
+    }
+
+    public void setAuditDate(Date auditDate) {
+        this.auditDate = auditDate;
+    }
+
+    public String getAuditUser() {
+        return auditUser;
+    }
+
+    public void setAuditUser(String auditUser) {
+        this.auditUser = auditUser == null ? null : auditUser.trim();
     }
 }

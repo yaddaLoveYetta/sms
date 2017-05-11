@@ -3,10 +3,8 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.OrderMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Order">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="lineNumbers" jdbcType="INTEGER" property="lineNumbers" />
     <result column="supplierId" jdbcType="VARCHAR" property="supplierId" />
-    <result column="supplierName" jdbcType="VARCHAR" property="supplierName" />
-    <result column="orderTime" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
     <result column="buyer" jdbcType="VARCHAR" property="buyer" />
     <result column="purchasingMode" jdbcType="VARCHAR" property="purchasingMode" />
     <result column="tax" jdbcType="INTEGER" property="tax" />
@@ -14,9 +12,19 @@
     <result column="confirmDeliveryTime" jdbcType="TIMESTAMP" property="confirmDeliveryTime" />
     <result column="confirmDeliveryNumbers" jdbcType="INTEGER" property="confirmDeliveryNumbers" />
     <result column="confirmOrder" jdbcType="INTEGER" property="confirmOrder" />
-    <result column="numbers" jdbcType="INTEGER" property="numbers" />
-    <result column="deliveryTime" jdbcType="TIMESTAMP" property="deliveryTime" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="orderNo" jdbcType="VARCHAR" property="orderNo" />
+    <result column="purchasingType" jdbcType="VARCHAR" property="purchasingType" />
+    <result column="urgent" jdbcType="INTEGER" property="urgent" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="paymentConditions" jdbcType="VARCHAR" property="paymentConditions" />
+    <result column="paymentWay" jdbcType="VARCHAR" property="paymentWay" />
+    <result column="settlementWay" jdbcType="VARCHAR" property="settlementWay" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="taxAmount" jdbcType="DECIMAL" property="taxAmount" />
+    <result column="leviedCombined" jdbcType="DECIMAL" property="leviedCombined" />
+    <result column="makeDate" jdbcType="TIMESTAMP" property="makeDate" />
+    <result column="auditDate" jdbcType="TIMESTAMP" property="auditDate" />
+    <result column="auditUser" jdbcType="VARCHAR" property="auditUser" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,9 +85,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, lineNumbers, supplierId, supplierName, orderTime, buyer, purchasingMode, tax, 
-    cutasingleTime, confirmDeliveryTime, confirmDeliveryNumbers, confirmOrder, numbers, 
-    deliveryTime, price
+    id, supplierId, [date], buyer, purchasingMode, tax, cutasingleTime, confirmDeliveryTime, 
+    confirmDeliveryNumbers, confirmOrder, orderNo, purchasingType, urgent, currency, 
+    paymentConditions, paymentWay, settlementWay, amount, taxAmount, leviedCombined, 
+    makeDate, auditDate, auditUser
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderExample" resultMap="BaseResultMap">
     select
@@ -112,18 +121,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Order">
-    insert into t_sms_purchase_order (id, lineNumbers, supplierId, 
-      supplierName, orderTime, buyer, 
-      purchasingMode, tax, cutasingleTime, 
-      confirmDeliveryTime, confirmDeliveryNumbers, 
-      confirmOrder, numbers, deliveryTime, 
-      price)
-    values (#{id,jdbcType=VARCHAR}, #{lineNumbers,jdbcType=INTEGER}, #{supplierId,jdbcType=VARCHAR}, 
-      #{supplierName,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{buyer,jdbcType=VARCHAR}, 
-      #{purchasingMode,jdbcType=VARCHAR}, #{tax,jdbcType=INTEGER}, #{cutasingleTime,jdbcType=TIMESTAMP}, 
-      #{confirmDeliveryTime,jdbcType=TIMESTAMP}, #{confirmDeliveryNumbers,jdbcType=INTEGER}, 
-      #{confirmOrder,jdbcType=INTEGER}, #{numbers,jdbcType=INTEGER}, #{deliveryTime,jdbcType=TIMESTAMP}, 
-      #{price,jdbcType=DECIMAL})
+    insert into t_sms_purchase_order (id, supplierId, [date], 
+      buyer, purchasingMode, tax, 
+      cutasingleTime, confirmDeliveryTime, 
+      confirmDeliveryNumbers, confirmOrder, orderNo, 
+      purchasingType, urgent, currency, 
+      paymentConditions, paymentWay, settlementWay, 
+      amount, taxAmount, leviedCombined, 
+      makeDate, auditDate, auditUser
+      )
+    values (#{id,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{buyer,jdbcType=VARCHAR}, #{purchasingMode,jdbcType=VARCHAR}, #{tax,jdbcType=INTEGER}, 
+      #{cutasingleTime,jdbcType=TIMESTAMP}, #{confirmDeliveryTime,jdbcType=TIMESTAMP}, 
+      #{confirmDeliveryNumbers,jdbcType=INTEGER}, #{confirmOrder,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, 
+      #{purchasingType,jdbcType=VARCHAR}, #{urgent,jdbcType=INTEGER}, #{currency,jdbcType=VARCHAR}, 
+      #{paymentConditions,jdbcType=VARCHAR}, #{paymentWay,jdbcType=VARCHAR}, #{settlementWay,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{taxAmount,jdbcType=DECIMAL}, #{leviedCombined,jdbcType=DECIMAL}, 
+      #{makeDate,jdbcType=TIMESTAMP}, #{auditDate,jdbcType=TIMESTAMP}, #{auditUser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     insert into t_sms_purchase_order
@@ -131,17 +146,11 @@
       <if test="id != null">
         id,
       </if>
-      <if test="lineNumbers != null">
-        lineNumbers,
-      </if>
       <if test="supplierId != null">
         supplierId,
       </if>
-      <if test="supplierName != null">
-        supplierName,
-      </if>
-      <if test="orderTime != null">
-        orderTime,
+      <if test="date != null">
+        [date],
       </if>
       <if test="buyer != null">
         buyer,
@@ -164,31 +173,55 @@
       <if test="confirmOrder != null">
         confirmOrder,
       </if>
-      <if test="numbers != null">
-        numbers,
+      <if test="orderNo != null">
+        orderNo,
       </if>
-      <if test="deliveryTime != null">
-        deliveryTime,
+      <if test="purchasingType != null">
+        purchasingType,
       </if>
-      <if test="price != null">
-        price,
+      <if test="urgent != null">
+        urgent,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="paymentConditions != null">
+        paymentConditions,
+      </if>
+      <if test="paymentWay != null">
+        paymentWay,
+      </if>
+      <if test="settlementWay != null">
+        settlementWay,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="taxAmount != null">
+        taxAmount,
+      </if>
+      <if test="leviedCombined != null">
+        leviedCombined,
+      </if>
+      <if test="makeDate != null">
+        makeDate,
+      </if>
+      <if test="auditDate != null">
+        auditDate,
+      </if>
+      <if test="auditUser != null">
+        auditUser,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="lineNumbers != null">
-        #{lineNumbers,jdbcType=INTEGER},
-      </if>
       <if test="supplierId != null">
         #{supplierId,jdbcType=VARCHAR},
       </if>
-      <if test="supplierName != null">
-        #{supplierName,jdbcType=VARCHAR},
-      </if>
-      <if test="orderTime != null">
-        #{orderTime,jdbcType=TIMESTAMP},
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
       </if>
       <if test="buyer != null">
         #{buyer,jdbcType=VARCHAR},
@@ -211,14 +244,44 @@
       <if test="confirmOrder != null">
         #{confirmOrder,jdbcType=INTEGER},
       </if>
-      <if test="numbers != null">
-        #{numbers,jdbcType=INTEGER},
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="deliveryTime != null">
-        #{deliveryTime,jdbcType=TIMESTAMP},
+      <if test="purchasingType != null">
+        #{purchasingType,jdbcType=VARCHAR},
       </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
+      <if test="urgent != null">
+        #{urgent,jdbcType=INTEGER},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentConditions != null">
+        #{paymentConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentWay != null">
+        #{paymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementWay != null">
+        #{settlementWay,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="leviedCombined != null">
+        #{leviedCombined,jdbcType=DECIMAL},
+      </if>
+      <if test="makeDate != null">
+        #{makeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditDate != null">
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditUser != null">
+        #{auditUser,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -234,17 +297,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.lineNumbers != null">
-        lineNumbers = #{record.lineNumbers,jdbcType=INTEGER},
-      </if>
       <if test="record.supplierId != null">
         supplierId = #{record.supplierId,jdbcType=VARCHAR},
       </if>
-      <if test="record.supplierName != null">
-        supplierName = #{record.supplierName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orderTime != null">
-        orderTime = #{record.orderTime,jdbcType=TIMESTAMP},
+      <if test="record.date != null">
+        [date] = #{record.date,jdbcType=TIMESTAMP},
       </if>
       <if test="record.buyer != null">
         buyer = #{record.buyer,jdbcType=VARCHAR},
@@ -267,14 +324,44 @@
       <if test="record.confirmOrder != null">
         confirmOrder = #{record.confirmOrder,jdbcType=INTEGER},
       </if>
-      <if test="record.numbers != null">
-        numbers = #{record.numbers,jdbcType=INTEGER},
+      <if test="record.orderNo != null">
+        orderNo = #{record.orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.deliveryTime != null">
-        deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      <if test="record.purchasingType != null">
+        purchasingType = #{record.purchasingType,jdbcType=VARCHAR},
       </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
+      <if test="record.urgent != null">
+        urgent = #{record.urgent,jdbcType=INTEGER},
+      </if>
+      <if test="record.currency != null">
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentConditions != null">
+        paymentConditions = #{record.paymentConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentWay != null">
+        paymentWay = #{record.paymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settlementWay != null">
+        settlementWay = #{record.settlementWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxAmount != null">
+        taxAmount = #{record.taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.leviedCombined != null">
+        leviedCombined = #{record.leviedCombined,jdbcType=DECIMAL},
+      </if>
+      <if test="record.makeDate != null">
+        makeDate = #{record.makeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditDate != null">
+        auditDate = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditUser != null">
+        auditUser = #{record.auditUser,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -284,10 +371,8 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_purchase_order
     set id = #{record.id,jdbcType=VARCHAR},
-      lineNumbers = #{record.lineNumbers,jdbcType=INTEGER},
       supplierId = #{record.supplierId,jdbcType=VARCHAR},
-      supplierName = #{record.supplierName,jdbcType=VARCHAR},
-      orderTime = #{record.orderTime,jdbcType=TIMESTAMP},
+      [date] = #{record.date,jdbcType=TIMESTAMP},
       buyer = #{record.buyer,jdbcType=VARCHAR},
       purchasingMode = #{record.purchasingMode,jdbcType=VARCHAR},
       tax = #{record.tax,jdbcType=INTEGER},
@@ -295,9 +380,19 @@
       confirmDeliveryTime = #{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
       confirmDeliveryNumbers = #{record.confirmDeliveryNumbers,jdbcType=INTEGER},
       confirmOrder = #{record.confirmOrder,jdbcType=INTEGER},
-      numbers = #{record.numbers,jdbcType=INTEGER},
-      deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
-      price = #{record.price,jdbcType=DECIMAL}
+      orderNo = #{record.orderNo,jdbcType=VARCHAR},
+      purchasingType = #{record.purchasingType,jdbcType=VARCHAR},
+      urgent = #{record.urgent,jdbcType=INTEGER},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      paymentConditions = #{record.paymentConditions,jdbcType=VARCHAR},
+      paymentWay = #{record.paymentWay,jdbcType=VARCHAR},
+      settlementWay = #{record.settlementWay,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      taxAmount = #{record.taxAmount,jdbcType=DECIMAL},
+      leviedCombined = #{record.leviedCombined,jdbcType=DECIMAL},
+      makeDate = #{record.makeDate,jdbcType=TIMESTAMP},
+      auditDate = #{record.auditDate,jdbcType=TIMESTAMP},
+      auditUser = #{record.auditUser,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -305,17 +400,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     update t_sms_purchase_order
     <set>
-      <if test="lineNumbers != null">
-        lineNumbers = #{lineNumbers,jdbcType=INTEGER},
-      </if>
       <if test="supplierId != null">
         supplierId = #{supplierId,jdbcType=VARCHAR},
       </if>
-      <if test="supplierName != null">
-        supplierName = #{supplierName,jdbcType=VARCHAR},
-      </if>
-      <if test="orderTime != null">
-        orderTime = #{orderTime,jdbcType=TIMESTAMP},
+      <if test="date != null">
+        [date] = #{date,jdbcType=TIMESTAMP},
       </if>
       <if test="buyer != null">
         buyer = #{buyer,jdbcType=VARCHAR},
@@ -338,24 +427,52 @@
       <if test="confirmOrder != null">
         confirmOrder = #{confirmOrder,jdbcType=INTEGER},
       </if>
-      <if test="numbers != null">
-        numbers = #{numbers,jdbcType=INTEGER},
+      <if test="orderNo != null">
+        orderNo = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="deliveryTime != null">
-        deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
+      <if test="purchasingType != null">
+        purchasingType = #{purchasingType,jdbcType=VARCHAR},
       </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
+      <if test="urgent != null">
+        urgent = #{urgent,jdbcType=INTEGER},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentConditions != null">
+        paymentConditions = #{paymentConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentWay != null">
+        paymentWay = #{paymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementWay != null">
+        settlementWay = #{settlementWay,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        taxAmount = #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="leviedCombined != null">
+        leviedCombined = #{leviedCombined,jdbcType=DECIMAL},
+      </if>
+      <if test="makeDate != null">
+        makeDate = #{makeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditDate != null">
+        auditDate = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditUser != null">
+        auditUser = #{auditUser,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     update t_sms_purchase_order
-    set lineNumbers = #{lineNumbers,jdbcType=INTEGER},
-      supplierId = #{supplierId,jdbcType=VARCHAR},
-      supplierName = #{supplierName,jdbcType=VARCHAR},
-      orderTime = #{orderTime,jdbcType=TIMESTAMP},
+    set supplierId = #{supplierId,jdbcType=VARCHAR},
+      [date] = #{date,jdbcType=TIMESTAMP},
       buyer = #{buyer,jdbcType=VARCHAR},
       purchasingMode = #{purchasingMode,jdbcType=VARCHAR},
       tax = #{tax,jdbcType=INTEGER},
@@ -363,9 +480,19 @@
       confirmDeliveryTime = #{confirmDeliveryTime,jdbcType=TIMESTAMP},
       confirmDeliveryNumbers = #{confirmDeliveryNumbers,jdbcType=INTEGER},
       confirmOrder = #{confirmOrder,jdbcType=INTEGER},
-      numbers = #{numbers,jdbcType=INTEGER},
-      deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
-      price = #{price,jdbcType=DECIMAL}
+      orderNo = #{orderNo,jdbcType=VARCHAR},
+      purchasingType = #{purchasingType,jdbcType=VARCHAR},
+      urgent = #{urgent,jdbcType=INTEGER},
+      currency = #{currency,jdbcType=VARCHAR},
+      paymentConditions = #{paymentConditions,jdbcType=VARCHAR},
+      paymentWay = #{paymentWay,jdbcType=VARCHAR},
+      settlementWay = #{settlementWay,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      taxAmount = #{taxAmount,jdbcType=DECIMAL},
+      leviedCombined = #{leviedCombined,jdbcType=DECIMAL},
+      makeDate = #{makeDate,jdbcType=TIMESTAMP},
+      auditDate = #{auditDate,jdbcType=TIMESTAMP},
+      auditUser = #{auditUser,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

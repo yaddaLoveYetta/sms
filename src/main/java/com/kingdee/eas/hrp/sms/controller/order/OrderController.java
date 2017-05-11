@@ -2,6 +2,7 @@ package com.kingdee.eas.hrp.sms.controller.order;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -37,33 +38,25 @@ public class OrderController {
 		
 	}
 	
-	@ControllerLog(desc = "确认接单") 
+	/*@ControllerLog(desc = "确认接单") 
 	@RequestMapping(value = "confirmOrder")
 	public void confirmOrder(HttpServletRequest request, HttpServletResponse response) {
 		Order order = new Order();
 		SimpleDateFormat sft = new SimpleDateFormat("yyyyMMddHHmmss");
 		String type = request.getParameter("type");
 		try {
-			if(request.getParameter("id")!=null){
 			if(type.equals("1")){
-				order.setId(request.getParameter("id"));
-				order.setCutasingleTime(sft.parse(request.getParameter("cutasingleTime")));
-				order.setConfirmDeliveryTime(sft.parse(request.getParameter("confirmDeliveryTime")));
-				order.setConfirmDeliveryNumbers(Integer.parseInt(request.getParameter("confirmDeliveryNumbers")));
-				order.setConfirmOrder(Integer.parseInt(request.getParameter("0")));
-				orderservice.updateOrderTime(order);
-			}else if(type.equals("2")){
-				order.setId(request.getParameter("id"));
-				order.setCutasingleTime(sft.parse(request.getParameter("cutasingleTime")));
-				order.setConfirmDeliveryTime(sft.parse(request.getParameter("confirmDeliveryTime")));
-				order.setConfirmDeliveryNumbers(Integer.parseInt(request.getParameter("confirmDeliveryNumbers")));
-				order.setConfirmOrder(Integer.parseInt(request.getParameter("1")));
-				orderservice.updateOrderTime(order);
+				order.setConfirmOrder(Integer.parseInt(request.getParameter("0")));	
+			}else{
+				order.setConfirmOrder(Integer.parseInt(request.getParameter("1")));	
 			}
-			}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			order.setCutasingleTime(new Date());
+			order.setConfirmDeliveryTime(sft.parse(request.getParameter("confirmDeliveryTime")));
+			order.setConfirmDeliveryNumbers(Integer.parseInt(request.getParameter("confirmDeliveryNumbers")));
+			orderservice.updateOrderTime(order);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
-	}
+	}*/
 }

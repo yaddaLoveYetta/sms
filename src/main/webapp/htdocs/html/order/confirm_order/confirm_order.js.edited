@@ -6,8 +6,13 @@
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
+    var Iframe = SMS.require('Iframe');
     var API = SMS.require('API');
+<<<<<<< .mine
+    //var List = require('List');
+=======
 /*    var List = require('List');*/
+>>>>>>> .r431
     var Pager = require('Pager');
     var bl = require('ButtonList');
     var ButtonListOption = require('ButtonListOption');
@@ -175,5 +180,4 @@
     		}
     	});
     }
-    pageInit();
 })();

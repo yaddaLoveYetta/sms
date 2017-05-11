@@ -9,5 +9,5 @@ public interface IOrderService {
 	
 	public String order(JSONObject orderjson);
 	
-	public Map<String, Object> updateOrderTime (Order order);
+	//public Map<String, Object> updateOrderTime (Order order);
 }
