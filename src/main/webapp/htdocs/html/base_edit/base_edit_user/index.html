@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title></title>
+		<!--grunt.css.begin-->
+		<link rel="stylesheet" href="../../../css/global.debug.css" />
+		<link rel="stylesheet" href="../../../css/base.css" />
+		<link rel="stylesheet" href="../../../css/base_edit/index.debug.css" />
+		<link rel="stylesheet" href="../../../css/selector/index.debug.css" />
+		<!--grunt.css.end-->
+		<link href="../../../lib/jqgrid/ui.jqgrid.css" type="text/css" rel="stylesheet">
+		<link href="../../../lib/jqgrid/ui.css" type="text/css" rel="stylesheet">
+		<link href="../../../lib/jqgrid/common.css" type="text/css" rel="stylesheet">
+	</head>
+
+	<body class="iframe">
+		<!--按钮区-->
+		<div class="options">
+			<div id="div-button-list" class="btn-box"></div>
+		</div>
+		<!--主显示区-->
+		<div class="main-content">
+			<!--基本资料-->
+			<div id="div-basic" class="sep-row">
+				<img class="img" src="../../../css/base_edit/img/sep.png" /> <span class="text">基本资料</span>
+				<div class="line"></div>
+			</div>
+			<div id="div-content" class="content-box">
+				<table class="data-table" style="width: auto;">
+					<tbody>
+						<tr>
+							<td class="key pr10"><span class="must-mark">*</span>用户代码：</td>
+							<td class="col-value">
+								<input id="bd-FNumber" type="text" class="edit-input" value="" /> <span id="bd-FNumber-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10"><span class="must-mark">*</span>用户名：</td>
+							<td class="col-value">
+								<input id="bd-FName" type="text" class="edit-input" value="" /> <span id="bd-FName-msg" class="msg"></span></td>
+						</tr>
+
+						<tr>
+							<td class="key pr10"><span class="must-mark">*</span>密码：</td>
+							<td class="col-value">
+								<input id="bd-FPassword" type="password" class="edit-input" value="" /> <span id="bd-FPassword-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10"><span class="must-mark">*</span>用户类别：</td>
+							<!--  <td class="col-value">
+                            <input id="bd-FType" type="text" class="edit-input" value="" />
+                            <span id="bd-FType-msg" class="msg"></span>
+                        </td> -->
+							<td class="col-value">
+								<div class="F7-box" id="bd-FType"></div> <span id="bd-FType-msg" class="msg"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="key pr10"><span class="must-mark">*</span>物业公司：</td>
+						    <td class="col-value">
+						        <input type="hidden" id="FCompanyId" value=""/>
+						        <div class="F7-box" id="bd-FCompany"></div> <span id="bd-FCompany-msg" class="msg"></span>
+						    </td>
+						</tr>
+						<tr>
+							<td class="key pr10">邮箱：</td>
+							<td class="col-value">
+								<input id="bd-FEmail" type="text" class="edit-input" value="" /> <span id="bd-FEmail-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10">真实名称：</td>
+							<td class="col-value">
+								<input id="bd-FRealName" type="text" class="edit-input" value="" /> <span id="bd-FRealName-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10">头像名称：</td>
+							<td class="col-value">
+								<input id="bd-FImageName" type="text" class="edit-input" value="" /> <span id="bd-FImageName-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10"><span class="must-mark">*</span>手机：</td>
+							<td class="col-value">
+								<input id="bd-FPhone" type="text" class="edit-input" value="" /> <span id="bd-FPhone-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10"><span class="must-mark">*</span>性别：</td>
+							<td class="col-value">
+								<select id="bd-FGender" class="edit-input" style="height: 32px">
+									<option value="">-请选择-</option>
+									<option value="0">男</option>
+									<option value="1">女</option>
+								</select> <span id="bd-FGender-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10"><span class="must-mark">*</span>角色：</td>
+							<td class="col-value">
+								<div class="F7-box" id="bd-FRoleID"></div>
+								<!--<input id="bd-FRoleID" type="text" class="edit-input" value=""/>-->
+								<span id="bd-FRoleID-msg" class="msg"></span>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="key pr10">是否禁用：</td>
+							<td class="col-value">
+								<input id="bd-FStatus" type="checkbox" value="" /> <span id="bd-FStatus-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10">注册时间：</td>
+							<td class="col-value">
+								<input id="bd-FCreateTime" type="text" class="time-input" value="" /> <span id="bd-FCreateTime-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10">修改时间：</td>
+							<td class="col-value">
+								<input id="bd-FModifiedTime" type="text" class="time-input" value="" /> <span id="bd-FModifiedTime-msg" class="msg"></span></td>
+						</tr>
+						<tr>
+							<td class="key pr10">车场：</td>
+							<td class="col-value">
+								<div id="initCombo" class="dn">
+									<input type="text" class="textbox FParkNumberAuto" name="FParkNumber" autocomplete="off">
+								</div>
+								<div class="grid-wrap">
+									<!-- jqGrid table -->
+									<table id="bd-grid"></table>
+									<!-- jqGrid 分页 div -->
+									<div id="bd-grid-pager"></div>
+								</div> <span class="error-msg" id="bd-grid-msg"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<script src="../../../lib/jquery/jquery-1.11.1.debug.js"></script>
+		<script src="../../../lib/miniquery/miniquery.debug.js"></script>
+		<script src="../../../lib/ywtc/ywtc.debug.js"></script>
+		<script src="../../../config.js"></script>
+		<script src="../../../lib/jqgrid/grid.base.js" type="text/javascript"></script>
+		<script src="../../../lib/jqgrid/grid.celledit.js" type="text/javascript"></script>
+		<script src="../../../lib/jqgrid/grid.custom.js" type="text/javascript"></script>
+		<script src="../../../lib/jqgrid/grid.common.js" type="text/javascript"></script>
+		<script src="../../../lib/jqgrid/i18n/grid.locale-cn.js" type="text/javascript"></script>
+		<script src="../../../lib/jqgrid/jquery.combo.js"></script>
+		<!--grunt.js.begin-->
+		<script src="../../selector/module/DataSelector.js"></script>
+		<script src="../../common-bd-edit/Validate.js"></script>
+		<script src="../../common-bd-edit/FormEdit.js"></script>
+		<script src="../../common-bd-edit/Edit.js"></script>
+		<script src="../../common-bd-edit/ButtonList.js"></script>
+		<script src="../../common-bd-edit/F7Disabled.js"></script>
+		<script src="modules/UserTypeOpt.js"></script>
+		<script src="modules/Grid.js"></script>
+		<script src="modules/GridBuilder.js"></script>
+		<script src="modules/Edit.js"></script>
+		<script src="modules/SelectorList.js"></script>
+		<script src="modules/DatetimePicker.js"></script> 
+		<script src="index.js"></script>
+		<!--grunt.js.end-->
+	</body>
+
+</html>

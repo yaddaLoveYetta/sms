@@ -5826,7 +5826,6 @@
                 });
             },
 
-
             config: function (obj) {
                 // get
                 if (arguments.length == 0) {
@@ -5837,8 +5836,6 @@
             },
 
         };
-
-
     });
 
 

@@ -54,7 +54,7 @@ define('Tree', function (require, module, exports) {
     function render() {
 
         load({
-            classId: 1005,
+            classId: classId,
             pageNo: 1,
             pageSize: defaults.pageSize,
             conditions: [],
@@ -64,11 +64,13 @@ define('Tree', function (require, module, exports) {
                 size: pageSize,
                 total: data.count,
                 change: function (no) {
-                    List.render({
+                    load({
                         classId: classId,
                         pageNo: no,
                         pageSize: defaults.pageSize,
                         conditions: [],
+                    }, function (data, pageSize) {
+                        console.log(data.list);
                     });
                 }
             });
