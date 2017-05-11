@@ -117,7 +117,7 @@
                     height: 550,
                     url: $.Url.setQueryString('html/base_edit/index.html',{
                         'classId':1019,
-                        id:list[0].id,
+                        id:list[0].data.id,
                     }),
                     data: {},
                     button: [],
