@@ -16,6 +16,8 @@ define('Tree', function (require, module, exports) {
     var classId = 1005;
     var tree = {};
 
+    var treeData = [];
+
     //默认配置
     var defaults = {
         pageSize: 10,
@@ -60,7 +62,7 @@ define('Tree', function (require, module, exports) {
             pageSize: defaults.pageSize,
             conditions: [],
         }, function (data, pageSize) {
-
+            treeData = data.list || [];
             SupplierPager.render({
                 size: pageSize,
                 total: data.count,
@@ -72,62 +74,36 @@ define('Tree', function (require, module, exports) {
                         conditions: [],
                     }, function (data, pageSize) {
                         console.log(data.list);
-
-                        SMS.use('ZTree', function (zTree) {
-
-                            tree = new zTree({
-                                selector: '#tree',
-                                data: data.list,
-                            });
-
-                            tree.on({
-
-                                onClick: function (event, treeId, treeNode) {
-                                    console.log(treeNode.id + ", " + treeNode.name);
-                                    emitter.fire("onClick", [treeNode]);
-                                },
-                            });
-
-                            if (data.list.length > 0) {
-
-                                var node = tree.getNodeByParam('id', data.list[0].id, null);//获取第一个供应商
-                                tree.selectNode(node);//选择点
-                                tree.getTrueZTree().setting.callback.onClick(null, tree.getTrueZTree().setting.treeId, node);//调用事件
-
-                            }
-
-                        });
-                        
+                        treeData = data.list || [];
                     });
                 }
             });
-
-            SMS.use('ZTree', function (zTree) {
-
-                tree = new zTree({
-                    selector: '#tree',
-                    data: data.list,
-                });
-
-                tree.on({
-
-                    onClick: function (event, treeId, treeNode) {
-                        console.log(treeNode.id + ", " + treeNode.name);
-                        emitter.fire("onClick", [treeNode]);
-                    },
-                });
-
-                if (data.list.length > 0) {
-
-                    var node = tree.getNodeByParam('id', data.list[0].id, null);//获取第一个供应商
-                    tree.selectNode(node);//选择点
-                    tree.getTrueZTree().setting.callback.onClick(null, tree.getTrueZTree().setting.treeId, node);//调用事件
-
-                }
-
-            });
         });
 
+        SMS.use('ZTree', function (zTree) {
+
+            tree = new zTree({
+                selector: '#tree',
+                data: treeData,
+            });
+
+            tree.on({
+
+                onClick: function (event, treeId, treeNode) {
+                    console.log(treeNode.id + ", " + treeNode.name);
+                    emitter.fire("onClick", [treeNode]);
+                },
+            });
+
+            if (data.list.length > 0) {
+
+                var node = tree.getNodeByParam('id', data.list[0].id, null);//获取第一个供应商
+                tree.selectNode(node);//选择点
+                tree.getTrueZTree().setting.callback.onClick(null, tree.getTrueZTree().setting.treeId, node);//调用事件
+
+            }
+
+        });
     };
 
     /**

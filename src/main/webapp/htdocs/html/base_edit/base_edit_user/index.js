@@ -2,9 +2,9 @@
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
+	var SMS = require('SMS');
 
-	var Iframe = YWTC.require('Iframe');
+	var Iframe = SMS.require('Iframe');
 
 	var selectors = require('SelectorList');
 	// var ButtonList = require('ButtonList');

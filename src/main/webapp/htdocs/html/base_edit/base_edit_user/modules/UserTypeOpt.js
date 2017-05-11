@@ -3,7 +3,7 @@
  */
 define('UserTypeOpt', function (require, module, exports) {
     var $ = require('$');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
 
     /**
      * 添加必填标识

@@ -6,7 +6,7 @@ define('SelectorList', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
-    var YWTC = require('YWTC');
+    var SMS = require('SMS');
     var Edit = require("Edit");
 
     var DataSelector = require('DataSelector');

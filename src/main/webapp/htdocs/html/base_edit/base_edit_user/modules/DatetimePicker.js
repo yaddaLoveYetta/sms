@@ -5,7 +5,7 @@ define('DatetimePicker', function(require, module, exports) {
 
     function render() {
 
-        YWTC.use('DateTimePicker', function(DateTimePicker) {
+        SMS.use('DateTimePicker', function(DateTimePicker) {
 
             var startTime = new DateTimePicker('#bd-FCreateTime', {
                 format: 'yyyy-mm-dd hh:ii:ss',
