@@ -7,7 +7,7 @@
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
     var API = SMS.require('API');
-    var List = require('List');
+/*    var List = require('List');*/
     var Pager = require('Pager');
     var bl = require('ButtonList');
     var ButtonListOption = require('ButtonListOption');
