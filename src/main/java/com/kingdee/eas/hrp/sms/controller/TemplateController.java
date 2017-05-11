@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,12 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
-import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
@@ -149,7 +146,11 @@ public class TemplateController {
 		}
 
 		String id = templateService.addItem(classId, data, userType);
-		ResponseWriteUtil.output(response, "新增成功！");
+
+		Map<String, Object> ret = new HashMap<String, Object>();
+		ret.put("id", id);
+		
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, ret);
 
 	}
 
@@ -174,7 +175,7 @@ public class TemplateController {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
 			return;
 		}
-		if (null==id || "".equals(id)) {
+		if (null == id || "".equals(id)) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
 			return;
 		}
