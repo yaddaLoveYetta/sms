@@ -146,6 +146,8 @@
 
             });
 
+            refresh();
+
         },
         'send': function (item, index) {
             // 发送到HRP
@@ -161,7 +163,7 @@
                 return;
             }
             SMS.Tips.info('该功能正在研发中，敬请期待……');
-            return;
+
             MessageBox.confirm('确定要将该记录发送给HRP系统?', function (result) {
                 if (result) {
                     List.del(classId, list, function () {
@@ -169,7 +171,7 @@
                     });
                 }
             });
-
+            return;
         },
         'refresh': function (item, index) {
             refresh();
