@@ -17,7 +17,7 @@ define('Tree', function (require, module, exports) {
     var tree = {};
     //默认配置
     var defaults = {
-        pageSize: 10,
+        pageSize: 20,
         pageNo: 1,
     };
 
