@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>��������</title>
+    <title>订单详情</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!--grunt.css.begin-->
     <link href="../../css/base.css" rel="stylesheet"/>
     <link href="../../css/global.debug.css" rel="stylesheet"/>
     <link href="../../css/order-details/index.debug.css" rel="stylesheet"/>
     <!--grunt.css.end-->
 </head>
-<body>
+<body class="iframe">
+
+
+<div class="search-panel">
+    <div class="search-box">
+        <i class="sms-icon-search"></i>
+        <input id="txt-simple-search" type="text" placeholder="代码/名称"/>
+        <span class="bt-dropdown"><i class="sms-icon-dropdown"></i></span>
+    </div>
+</div>
+
 <div id="main">
 
     <dl>
         <dt>
-            <b>��������Ϣ</b>
+            <b>订单主信息</b>
         </dt>
         <dd>
             <div class="logistics-row">
-                <span class="container-col"><span class="title">���ݱ�ţ�</span><span>{orderNo}</span></span>
-                <span class="container-col"><span class="title">�������ڣ�</span><span>{date}</span></span>
-                <span class="container-col"><span class="title">�ɹ����ͣ�</span><span>{pType}</span></span>
-                <span class="container-col"><span class="title">��Ӧ�̣�</span><span>{supplier}</span></span>
+                <span class="container-col"><span class="title">单据编号：</span><span>{orderNo}</span></span>
+                <span class="container-col"><span class="title">订单日期：</span><span>{date}</span></span>
+                <span class="container-col"><span class="title">采购类型：</span><span>{pType}</span></span>
+                <span class="container-col"><span class="title">供应商：</span><span>{supplier}</span></span>
             </div>
 
             <div class="logistics-row">
-                <span class="container-col"><span class="title">�ɹ�ģʽ��</span><span>{pModel}</span></span>
-                <span class="container-col"><span class="title">�Ƿ�˰��</span><span>{isTex}</span></span>
-                <span class="container-col"><span class="title">�Ƿ�Ӽ���</span><span>{isCrash}</span></span>
-                <span class="container-col"><span class="title">�ұ�</span><span>{currency}</span></span>
+                <span class="container-col"><span class="title">采购模式：</span><span>{pModel}</span></span>
+                <span class="container-col"><span class="title">是否含税：</span><span>{isTex}</span></span>
+                <span class="container-col"><span class="title">是否加急：</span><span>{isCrash}</span></span>
+                <span class="container-col"><span class="title">币别：</span><span>{currency}</span></span>
             </div>
         </dd>
     </dl>
@@ -37,7 +48,7 @@
 
     <dl>
         <dt>
-            <b>����������Ϣ</b>
+            <b>订单物料信息</b>
         </dt>
 
         <dd>
@@ -49,7 +60,7 @@
                 <div class="grid-wrap">
                     <!-- jqGrid table -->
                     <table id="bd-grid"></table>
-                    <!-- jqGrid ��ҳ div -->
+                    <!-- jqGrid 分页 div -->
                     <div id="bd-grid-pager"></div>
                 </div>
                 <span class="error-msg" id="bd-grid-msg"></span>
