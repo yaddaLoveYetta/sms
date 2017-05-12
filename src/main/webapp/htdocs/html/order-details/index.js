@@ -10,7 +10,7 @@
     var MessageBox = SMS.require('MessageBox');
     var Iframe = SMS.require('Iframe');
 
-    var Form = require('Form');
+    var Bill = require('Bill');
 
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
@@ -23,7 +23,7 @@
         return;
     }
 
-    Form.render(classId, itemId);
+    Bill.render(classId, itemId);
 
     alert('done');
 })();
