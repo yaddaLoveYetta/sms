@@ -31,29 +31,25 @@ public class OrderService extends BaseService implements IOrderService{
 			try{
 			//录入订单抬头
             	order.setId(orderjson.getString("id"));
-				order.setSupplierId(orderjson.getString("supplierId"));
-				order.setBuyer(orderjson.getString("buyer"));
-				order.setPurchasingMode(orderjson.getString("purchasing_mode"));
-				order.setTax(orderjson.getInteger("tax"));
-				order.setOrderNo(orderjson.getString("orderNo"));
-				order.setPurchasingType(orderjson.getString("purchasingType"));
-				order.setUrgent(orderjson.getInteger("urgent"));
+				order.setSupplier(orderjson.getString("supplierId"));
+				order.setPurchasePerson(orderjson.getString("purchasePerson"));
+				order.setSaleProxy(orderjson.getString("saleProxy"));
+				order.setIsInTax(orderjson.getDouble("isInTax"));
+				order.setNumber(orderjson.getString("number"));
+				order.setSaleType(orderjson.getString("saleType"));
+				order.setIsQuicken(orderjson.getInteger("isQuicken"));
 				order.setCurrency(orderjson.getString("currency"));
-				order.setPaymentConditions(orderjson.getString("paymentConditions"));
-				order.setPaymentWay(orderjson.getString("paymentWay"));
-				order.setSettlementWay(orderjson.getString("settlementWay"));
-				order.setAmount(orderjson.getBigDecimal("amount"));
-				order.setTaxAmount(orderjson.getBigDecimal("taxAmount"));
-				order.setLeviedCombined(orderjson.getBigDecimal("leviedCombined"));
-				order.setAuditUser(orderjson.getString("auditUser"));
+				order.setPaymentCondition(orderjson.getString("paymentCondition"));
+				order.setPaymentType(orderjson.getString("paymentType"));
+				order.setSettlementType(orderjson.getString("settlementType"));
+				order.setTotalAmount(orderjson.getBigDecimal("totalAmount"));
+				order.setTotalTax(orderjson.getBigDecimal("totalTax"));
+				order.setTotalTaxAmount(orderjson.getBigDecimal("totalTaxAmount"));
 				if(orderjson.getString("date")!=null){
 				order.setDate(sft.parse(orderjson.getString("date")));
 				}
 				if(orderjson.getString("makeDate")!=null){
-				order.setMakeDate(sft.parse(orderjson.getString("makeDate")));
-				}
-				if(orderjson.getString("auditDate")!=null){
-				order.setAuditDate(sft.parse(orderjson.getString("auditDate")));
+				order.setCreateTime(sft.parse(orderjson.getString("createTime")));
 				}
 				OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 				orderMapper.insertSelective(order);
@@ -62,21 +58,21 @@ public class OrderService extends BaseService implements IOrderService{
 			JSONArray materialJson = orderjson.getJSONArray("entry");
 			for(int j=0;j<materialJson.size();j++){
 				JSONObject materialObject = JSONObject.parseObject(JSON.toJSONString(materialJson.get(j)));
-				material.setMaterialId(materialObject.getString("materialId"));
-				material.setBasicUnitMeasurement(materialObject.getString("basicUnitMeasurement"));
+				material.setSupplierMaterialNumber(materialObject.getString("supplierMaterialNumber"));
+				material.setNoNumMaterialModel(materialObject.getString("noNumMaterialModel"));
 				material.setOrderId(order.getId());
-				material.setUnitPrice(materialObject.getBigDecimal("unitPrice"));
-				material.setNumbers(materialObject.getInteger("numbers"));
-				material.setDiscount(materialObject.getDouble("discount"));
+				material.setPrice(materialObject.getBigDecimal("price"));
+				material.setQty(materialObject.getInteger("qty"));
+				material.setDiscountRate(materialObject.getDouble("discountRate"));
 				material.setTaxRate(materialObject.getDouble("taxRate"));
-				material.setTaxUnitPrice(materialObject.getBigDecimal("taxUnitPrice"));
-				material.setActualTaxUnitPrice(materialObject.getBigDecimal("actualTaxUnitPrice"));
-				material.setDiscountPrice(materialObject.getBigDecimal("discountPrice"));
 				material.setTaxPrice(materialObject.getBigDecimal("taxPrice"));
-				material.setFunctionalCurrencyAmount(materialObject.getBigDecimal("functionalCurrencyAmount"));
+				material.setActualTaxPrice(materialObject.getBigDecimal("actualTaxPrice"));
+				material.setDiscountPrice(materialObject.getBigDecimal("discountPrice"));
+				material.setTax(materialObject.getBigDecimal("tax"));
+				material.setLocalPrice(materialObject.getBigDecimal("localPrice"));
 				material.setLineNumbers(Integer.parseInt(materialObject.getString("lineNumbers")));
-				if(materialObject.getString("deliveryTime")!=null){
-				material.setDeliveryTime(sft.parse(materialObject.getString("deliveryTime")));
+				if(materialObject.getString("deliveryDate")!=null){
+				material.setDeliveryDate(sft.parse(materialObject.getString("deliveryDate")));
 				}
 				MaterialMapper materialMapper = sqlSession.getMapper(MaterialMapper.class);
 				materialMapper.insertSelective(material);

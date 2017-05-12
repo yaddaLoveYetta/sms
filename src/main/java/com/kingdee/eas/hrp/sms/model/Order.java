@@ -6,49 +6,45 @@ import java.util.Date;
 public class Order {
     private String id;
 
-    private String supplierId;
+    private String supplier;
 
     private Date date;
 
-    private String buyer;
+    private String purchasePerson;
 
-    private String purchasingMode;
+    private String saleProxy;
 
-    private Integer tax;
+    private Double isInTax;
 
-    private Date cutasingleTime;
+    private Date tickTime;
 
-    private Date confirmDeliveryTime;
+    private Date confirmTickTime;
 
-    private Integer confirmDeliveryNumbers;
+    private Integer tickType;
 
-    private Integer confirmOrder;
+    private Integer confirmTick;
 
-    private String orderNo;
+    private String number;
 
-    private String purchasingType;
+    private String saleType;
 
-    private Integer urgent;
+    private Integer isQuicken;
 
     private String currency;
 
-    private String paymentConditions;
+    private String paymentCondition;
 
-    private String paymentWay;
+    private String paymentType;
 
-    private String settlementWay;
+    private String settlementType;
 
-    private BigDecimal amount;
+    private BigDecimal totalAmount;
 
-    private BigDecimal taxAmount;
+    private BigDecimal totalTax;
 
-    private BigDecimal leviedCombined;
+    private BigDecimal totalTaxAmount;
 
-    private Date makeDate;
-
-    private Date auditDate;
-
-    private String auditUser;
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -58,12 +54,12 @@ public class Order {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getSupplierId() {
-        return supplierId;
+    public String getSupplier() {
+        return supplier;
     }
 
-    public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId == null ? null : supplierId.trim();
+    public void setSupplier(String supplier) {
+        this.supplier = supplier == null ? null : supplier.trim();
     }
 
     public Date getDate() {
@@ -74,84 +70,84 @@ public class Order {
         this.date = date;
     }
 
-    public String getBuyer() {
-        return buyer;
+    public String getPurchasePerson() {
+        return purchasePerson;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer == null ? null : buyer.trim();
+    public void setPurchasePerson(String purchasePerson) {
+        this.purchasePerson = purchasePerson == null ? null : purchasePerson.trim();
     }
 
-    public String getPurchasingMode() {
-        return purchasingMode;
+    public String getSaleProxy() {
+        return saleProxy;
     }
 
-    public void setPurchasingMode(String purchasingMode) {
-        this.purchasingMode = purchasingMode == null ? null : purchasingMode.trim();
+    public void setSaleProxy(String saleProxy) {
+        this.saleProxy = saleProxy == null ? null : saleProxy.trim();
     }
 
-    public Integer getTax() {
-        return tax;
+    public Double getIsInTax() {
+        return isInTax;
     }
 
-    public void setTax(Integer tax) {
-        this.tax = tax;
+    public void setIsInTax(Double isInTax) {
+        this.isInTax = isInTax;
     }
 
-    public Date getCutasingleTime() {
-        return cutasingleTime;
+    public Date getTickTime() {
+        return tickTime;
     }
 
-    public void setCutasingleTime(Date cutasingleTime) {
-        this.cutasingleTime = cutasingleTime;
+    public void setTickTime(Date tickTime) {
+        this.tickTime = tickTime;
     }
 
-    public Date getConfirmDeliveryTime() {
-        return confirmDeliveryTime;
+    public Date getConfirmTickTime() {
+        return confirmTickTime;
     }
 
-    public void setConfirmDeliveryTime(Date confirmDeliveryTime) {
-        this.confirmDeliveryTime = confirmDeliveryTime;
+    public void setConfirmTickTime(Date confirmTickTime) {
+        this.confirmTickTime = confirmTickTime;
     }
 
-    public Integer getConfirmDeliveryNumbers() {
-        return confirmDeliveryNumbers;
+    public Integer getTickType() {
+        return tickType;
     }
 
-    public void setConfirmDeliveryNumbers(Integer confirmDeliveryNumbers) {
-        this.confirmDeliveryNumbers = confirmDeliveryNumbers;
+    public void setTickType(Integer tickType) {
+        this.tickType = tickType;
     }
 
-    public Integer getConfirmOrder() {
-        return confirmOrder;
+    public Integer getConfirmTick() {
+        return confirmTick;
     }
 
-    public void setConfirmOrder(Integer confirmOrder) {
-        this.confirmOrder = confirmOrder;
+    public void setConfirmTick(Integer confirmTick) {
+        this.confirmTick = confirmTick;
     }
 
-    public String getOrderNo() {
-        return orderNo;
+    public String getNumber() {
+        return number;
     }
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo == null ? null : orderNo.trim();
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 
-    public String getPurchasingType() {
-        return purchasingType;
+    public String getSaleType() {
+        return saleType;
     }
 
-    public void setPurchasingType(String purchasingType) {
-        this.purchasingType = purchasingType == null ? null : purchasingType.trim();
+    public void setSaleType(String saleType) {
+        this.saleType = saleType == null ? null : saleType.trim();
     }
 
-    public Integer getUrgent() {
-        return urgent;
+    public Integer getIsQuicken() {
+        return isQuicken;
     }
 
-    public void setUrgent(Integer urgent) {
-        this.urgent = urgent;
+    public void setIsQuicken(Integer isQuicken) {
+        this.isQuicken = isQuicken;
     }
 
     public String getCurrency() {
@@ -162,75 +158,59 @@ public class Order {
         this.currency = currency == null ? null : currency.trim();
     }
 
-    public String getPaymentConditions() {
-        return paymentConditions;
+    public String getPaymentCondition() {
+        return paymentCondition;
     }
 
-    public void setPaymentConditions(String paymentConditions) {
-        this.paymentConditions = paymentConditions == null ? null : paymentConditions.trim();
+    public void setPaymentCondition(String paymentCondition) {
+        this.paymentCondition = paymentCondition == null ? null : paymentCondition.trim();
     }
 
-    public String getPaymentWay() {
-        return paymentWay;
+    public String getPaymentType() {
+        return paymentType;
     }
 
-    public void setPaymentWay(String paymentWay) {
-        this.paymentWay = paymentWay == null ? null : paymentWay.trim();
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType == null ? null : paymentType.trim();
     }
 
-    public String getSettlementWay() {
-        return settlementWay;
+    public String getSettlementType() {
+        return settlementType;
     }
 
-    public void setSettlementWay(String settlementWay) {
-        this.settlementWay = settlementWay == null ? null : settlementWay.trim();
+    public void setSettlementType(String settlementType) {
+        this.settlementType = settlementType == null ? null : settlementType.trim();
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getTaxAmount() {
-        return taxAmount;
+    public BigDecimal getTotalTax() {
+        return totalTax;
     }
 
-    public void setTaxAmount(BigDecimal taxAmount) {
-        this.taxAmount = taxAmount;
+    public void setTotalTax(BigDecimal totalTax) {
+        this.totalTax = totalTax;
     }
 
-    public BigDecimal getLeviedCombined() {
-        return leviedCombined;
+    public BigDecimal getTotalTaxAmount() {
+        return totalTaxAmount;
     }
 
-    public void setLeviedCombined(BigDecimal leviedCombined) {
-        this.leviedCombined = leviedCombined;
+    public void setTotalTaxAmount(BigDecimal totalTaxAmount) {
+        this.totalTaxAmount = totalTaxAmount;
     }
 
-    public Date getMakeDate() {
-        return makeDate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setMakeDate(Date makeDate) {
-        this.makeDate = makeDate;
-    }
-
-    public Date getAuditDate() {
-        return auditDate;
-    }
-
-    public void setAuditDate(Date auditDate) {
-        this.auditDate = auditDate;
-    }
-
-    public String getAuditUser() {
-        return auditUser;
-    }
-
-    public void setAuditUser(String auditUser) {
-        this.auditUser = auditUser == null ? null : auditUser.trim();
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

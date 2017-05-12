@@ -37,8 +37,6 @@ public class Supplier {
 
     private String status;
 
-    private String certificateId;
-
     private String currencyId;
 
     private String settlementId;
@@ -185,14 +183,6 @@ public class Supplier {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
-    }
-
-    public String getCertificateId() {
-        return certificateId;
-    }
-
-    public void setCertificateId(String certificateId) {
-        this.certificateId = certificateId == null ? null : certificateId.trim();
     }
 
     public String getCurrencyId() {

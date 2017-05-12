@@ -3,20 +3,22 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.MaterialMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Material">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="materialId" jdbcType="VARCHAR" property="materialId" />
-    <result column="basicUnitMeasurement" jdbcType="VARCHAR" property="basicUnitMeasurement" />
+    <result column="supplierMaterialNumber" jdbcType="VARCHAR" property="supplierMaterialNumber" />
+    <result column="noNumMaterialModel" jdbcType="VARCHAR" property="noNumMaterialModel" />
     <result column="orderId" jdbcType="VARCHAR" property="orderId" />
-    <result column="unitPrice" jdbcType="DECIMAL" property="unitPrice" />
-    <result column="numbers" jdbcType="INTEGER" property="numbers" />
-    <result column="deliveryTime" jdbcType="TIMESTAMP" property="deliveryTime" />
-    <result column="discount" jdbcType="DOUBLE" property="discount" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="qty" jdbcType="INTEGER" property="qty" />
+    <result column="deliveryDate" jdbcType="TIMESTAMP" property="deliveryDate" />
+    <result column="discountRate" jdbcType="DOUBLE" property="discountRate" />
     <result column="taxRate" jdbcType="DOUBLE" property="taxRate" />
-    <result column="taxUnitPrice" jdbcType="DECIMAL" property="taxUnitPrice" />
-    <result column="actualTaxUnitPrice" jdbcType="DECIMAL" property="actualTaxUnitPrice" />
-    <result column="discountPrice" jdbcType="DECIMAL" property="discountPrice" />
     <result column="taxPrice" jdbcType="DECIMAL" property="taxPrice" />
-    <result column="functionalCurrencyAmount" jdbcType="DECIMAL" property="functionalCurrencyAmount" />
+    <result column="actualTaxPrice" jdbcType="DECIMAL" property="actualTaxPrice" />
+    <result column="discountPrice" jdbcType="DECIMAL" property="discountPrice" />
+    <result column="tax" jdbcType="DECIMAL" property="tax" />
+    <result column="localPrice" jdbcType="DECIMAL" property="localPrice" />
     <result column="lineNumbers" jdbcType="INTEGER" property="lineNumbers" />
+    <result column="confirmDate" jdbcType="TIMESTAMP" property="confirmDate" />
+    <result column="confirmQty" jdbcType="INTEGER" property="confirmQty" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,9 +79,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, materialId, basicUnitMeasurement, orderId, unitPrice, numbers, deliveryTime, 
-    discount, taxRate, taxUnitPrice, actualTaxUnitPrice, discountPrice, taxPrice, functionalCurrencyAmount, 
-    lineNumbers
+    id, supplierMaterialNumber, noNumMaterialModel, orderId, price, qty, deliveryDate, 
+    discountRate, taxRate, taxPrice, actualTaxPrice, discountPrice, tax, localPrice, 
+    lineNumbers, confirmDate, confirmQty
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.MaterialExample" resultMap="BaseResultMap">
     select
@@ -112,18 +114,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Material">
-    insert into t_sms_material_information (id, materialId, basicUnitMeasurement, 
-      orderId, unitPrice, numbers, 
-      deliveryTime, discount, taxRate, 
-      taxUnitPrice, actualTaxUnitPrice, discountPrice, 
-      taxPrice, functionalCurrencyAmount, lineNumbers
-      )
-    values (#{id,jdbcType=INTEGER}, #{materialId,jdbcType=VARCHAR}, #{basicUnitMeasurement,jdbcType=VARCHAR}, 
-      #{orderId,jdbcType=VARCHAR}, #{unitPrice,jdbcType=DECIMAL}, #{numbers,jdbcType=INTEGER}, 
-      #{deliveryTime,jdbcType=TIMESTAMP}, #{discount,jdbcType=DOUBLE}, #{taxRate,jdbcType=DOUBLE}, 
-      #{taxUnitPrice,jdbcType=DECIMAL}, #{actualTaxUnitPrice,jdbcType=DECIMAL}, #{discountPrice,jdbcType=DECIMAL}, 
-      #{taxPrice,jdbcType=DECIMAL}, #{functionalCurrencyAmount,jdbcType=DECIMAL}, #{lineNumbers,jdbcType=INTEGER}
-      )
+    insert into t_sms_material_information (id, supplierMaterialNumber, noNumMaterialModel, 
+      orderId, price, qty, 
+      deliveryDate, discountRate, taxRate, 
+      taxPrice, actualTaxPrice, discountPrice, 
+      tax, localPrice, lineNumbers, 
+      confirmDate, confirmQty)
+    values (#{id,jdbcType=INTEGER}, #{supplierMaterialNumber,jdbcType=VARCHAR}, #{noNumMaterialModel,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{qty,jdbcType=INTEGER}, 
+      #{deliveryDate,jdbcType=TIMESTAMP}, #{discountRate,jdbcType=DOUBLE}, #{taxRate,jdbcType=DOUBLE}, 
+      #{taxPrice,jdbcType=DECIMAL}, #{actualTaxPrice,jdbcType=DECIMAL}, #{discountPrice,jdbcType=DECIMAL}, 
+      #{tax,jdbcType=DECIMAL}, #{localPrice,jdbcType=DECIMAL}, #{lineNumbers,jdbcType=INTEGER}, 
+      #{confirmDate,jdbcType=TIMESTAMP}, #{confirmQty,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Material">
     insert into t_sms_material_information
@@ -131,94 +133,106 @@
       <if test="id != null">
         id,
       </if>
-      <if test="materialId != null">
-        materialId,
+      <if test="supplierMaterialNumber != null">
+        supplierMaterialNumber,
       </if>
-      <if test="basicUnitMeasurement != null">
-        basicUnitMeasurement,
+      <if test="noNumMaterialModel != null">
+        noNumMaterialModel,
       </if>
       <if test="orderId != null">
         orderId,
       </if>
-      <if test="unitPrice != null">
-        unitPrice,
+      <if test="price != null">
+        price,
       </if>
-      <if test="numbers != null">
-        numbers,
+      <if test="qty != null">
+        qty,
       </if>
-      <if test="deliveryTime != null">
-        deliveryTime,
+      <if test="deliveryDate != null">
+        deliveryDate,
       </if>
-      <if test="discount != null">
-        discount,
+      <if test="discountRate != null">
+        discountRate,
       </if>
       <if test="taxRate != null">
         taxRate,
       </if>
-      <if test="taxUnitPrice != null">
-        taxUnitPrice,
+      <if test="taxPrice != null">
+        taxPrice,
       </if>
-      <if test="actualTaxUnitPrice != null">
-        actualTaxUnitPrice,
+      <if test="actualTaxPrice != null">
+        actualTaxPrice,
       </if>
       <if test="discountPrice != null">
         discountPrice,
       </if>
-      <if test="taxPrice != null">
-        taxPrice,
+      <if test="tax != null">
+        tax,
       </if>
-      <if test="functionalCurrencyAmount != null">
-        functionalCurrencyAmount,
+      <if test="localPrice != null">
+        localPrice,
       </if>
       <if test="lineNumbers != null">
         lineNumbers,
+      </if>
+      <if test="confirmDate != null">
+        confirmDate,
+      </if>
+      <if test="confirmQty != null">
+        confirmQty,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="materialId != null">
-        #{materialId,jdbcType=VARCHAR},
+      <if test="supplierMaterialNumber != null">
+        #{supplierMaterialNumber,jdbcType=VARCHAR},
       </if>
-      <if test="basicUnitMeasurement != null">
-        #{basicUnitMeasurement,jdbcType=VARCHAR},
+      <if test="noNumMaterialModel != null">
+        #{noNumMaterialModel,jdbcType=VARCHAR},
       </if>
       <if test="orderId != null">
         #{orderId,jdbcType=VARCHAR},
       </if>
-      <if test="unitPrice != null">
-        #{unitPrice,jdbcType=DECIMAL},
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
       </if>
-      <if test="numbers != null">
-        #{numbers,jdbcType=INTEGER},
+      <if test="qty != null">
+        #{qty,jdbcType=INTEGER},
       </if>
-      <if test="deliveryTime != null">
-        #{deliveryTime,jdbcType=TIMESTAMP},
+      <if test="deliveryDate != null">
+        #{deliveryDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="discount != null">
-        #{discount,jdbcType=DOUBLE},
+      <if test="discountRate != null">
+        #{discountRate,jdbcType=DOUBLE},
       </if>
       <if test="taxRate != null">
         #{taxRate,jdbcType=DOUBLE},
       </if>
-      <if test="taxUnitPrice != null">
-        #{taxUnitPrice,jdbcType=DECIMAL},
+      <if test="taxPrice != null">
+        #{taxPrice,jdbcType=DECIMAL},
       </if>
-      <if test="actualTaxUnitPrice != null">
-        #{actualTaxUnitPrice,jdbcType=DECIMAL},
+      <if test="actualTaxPrice != null">
+        #{actualTaxPrice,jdbcType=DECIMAL},
       </if>
       <if test="discountPrice != null">
         #{discountPrice,jdbcType=DECIMAL},
       </if>
-      <if test="taxPrice != null">
-        #{taxPrice,jdbcType=DECIMAL},
+      <if test="tax != null">
+        #{tax,jdbcType=DECIMAL},
       </if>
-      <if test="functionalCurrencyAmount != null">
-        #{functionalCurrencyAmount,jdbcType=DECIMAL},
+      <if test="localPrice != null">
+        #{localPrice,jdbcType=DECIMAL},
       </if>
       <if test="lineNumbers != null">
         #{lineNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="confirmDate != null">
+        #{confirmDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmQty != null">
+        #{confirmQty,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -234,47 +248,53 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.materialId != null">
-        materialId = #{record.materialId,jdbcType=VARCHAR},
+      <if test="record.supplierMaterialNumber != null">
+        supplierMaterialNumber = #{record.supplierMaterialNumber,jdbcType=VARCHAR},
       </if>
-      <if test="record.basicUnitMeasurement != null">
-        basicUnitMeasurement = #{record.basicUnitMeasurement,jdbcType=VARCHAR},
+      <if test="record.noNumMaterialModel != null">
+        noNumMaterialModel = #{record.noNumMaterialModel,jdbcType=VARCHAR},
       </if>
       <if test="record.orderId != null">
         orderId = #{record.orderId,jdbcType=VARCHAR},
       </if>
-      <if test="record.unitPrice != null">
-        unitPrice = #{record.unitPrice,jdbcType=DECIMAL},
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
       </if>
-      <if test="record.numbers != null">
-        numbers = #{record.numbers,jdbcType=INTEGER},
+      <if test="record.qty != null">
+        qty = #{record.qty,jdbcType=INTEGER},
       </if>
-      <if test="record.deliveryTime != null">
-        deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      <if test="record.deliveryDate != null">
+        deliveryDate = #{record.deliveryDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.discount != null">
-        discount = #{record.discount,jdbcType=DOUBLE},
+      <if test="record.discountRate != null">
+        discountRate = #{record.discountRate,jdbcType=DOUBLE},
       </if>
       <if test="record.taxRate != null">
         taxRate = #{record.taxRate,jdbcType=DOUBLE},
       </if>
-      <if test="record.taxUnitPrice != null">
-        taxUnitPrice = #{record.taxUnitPrice,jdbcType=DECIMAL},
+      <if test="record.taxPrice != null">
+        taxPrice = #{record.taxPrice,jdbcType=DECIMAL},
       </if>
-      <if test="record.actualTaxUnitPrice != null">
-        actualTaxUnitPrice = #{record.actualTaxUnitPrice,jdbcType=DECIMAL},
+      <if test="record.actualTaxPrice != null">
+        actualTaxPrice = #{record.actualTaxPrice,jdbcType=DECIMAL},
       </if>
       <if test="record.discountPrice != null">
         discountPrice = #{record.discountPrice,jdbcType=DECIMAL},
       </if>
-      <if test="record.taxPrice != null">
-        taxPrice = #{record.taxPrice,jdbcType=DECIMAL},
+      <if test="record.tax != null">
+        tax = #{record.tax,jdbcType=DECIMAL},
       </if>
-      <if test="record.functionalCurrencyAmount != null">
-        functionalCurrencyAmount = #{record.functionalCurrencyAmount,jdbcType=DECIMAL},
+      <if test="record.localPrice != null">
+        localPrice = #{record.localPrice,jdbcType=DECIMAL},
       </if>
       <if test="record.lineNumbers != null">
         lineNumbers = #{record.lineNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="record.confirmDate != null">
+        confirmDate = #{record.confirmDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.confirmQty != null">
+        confirmQty = #{record.confirmQty,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -284,20 +304,22 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_material_information
     set id = #{record.id,jdbcType=INTEGER},
-      materialId = #{record.materialId,jdbcType=VARCHAR},
-      basicUnitMeasurement = #{record.basicUnitMeasurement,jdbcType=VARCHAR},
+      supplierMaterialNumber = #{record.supplierMaterialNumber,jdbcType=VARCHAR},
+      noNumMaterialModel = #{record.noNumMaterialModel,jdbcType=VARCHAR},
       orderId = #{record.orderId,jdbcType=VARCHAR},
-      unitPrice = #{record.unitPrice,jdbcType=DECIMAL},
-      numbers = #{record.numbers,jdbcType=INTEGER},
-      deliveryTime = #{record.deliveryTime,jdbcType=TIMESTAMP},
-      discount = #{record.discount,jdbcType=DOUBLE},
+      price = #{record.price,jdbcType=DECIMAL},
+      qty = #{record.qty,jdbcType=INTEGER},
+      deliveryDate = #{record.deliveryDate,jdbcType=TIMESTAMP},
+      discountRate = #{record.discountRate,jdbcType=DOUBLE},
       taxRate = #{record.taxRate,jdbcType=DOUBLE},
-      taxUnitPrice = #{record.taxUnitPrice,jdbcType=DECIMAL},
-      actualTaxUnitPrice = #{record.actualTaxUnitPrice,jdbcType=DECIMAL},
-      discountPrice = #{record.discountPrice,jdbcType=DECIMAL},
       taxPrice = #{record.taxPrice,jdbcType=DECIMAL},
-      functionalCurrencyAmount = #{record.functionalCurrencyAmount,jdbcType=DECIMAL},
-      lineNumbers = #{record.lineNumbers,jdbcType=INTEGER}
+      actualTaxPrice = #{record.actualTaxPrice,jdbcType=DECIMAL},
+      discountPrice = #{record.discountPrice,jdbcType=DECIMAL},
+      tax = #{record.tax,jdbcType=DECIMAL},
+      localPrice = #{record.localPrice,jdbcType=DECIMAL},
+      lineNumbers = #{record.lineNumbers,jdbcType=INTEGER},
+      confirmDate = #{record.confirmDate,jdbcType=TIMESTAMP},
+      confirmQty = #{record.confirmQty,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -305,67 +327,75 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Material">
     update t_sms_material_information
     <set>
-      <if test="materialId != null">
-        materialId = #{materialId,jdbcType=VARCHAR},
+      <if test="supplierMaterialNumber != null">
+        supplierMaterialNumber = #{supplierMaterialNumber,jdbcType=VARCHAR},
       </if>
-      <if test="basicUnitMeasurement != null">
-        basicUnitMeasurement = #{basicUnitMeasurement,jdbcType=VARCHAR},
+      <if test="noNumMaterialModel != null">
+        noNumMaterialModel = #{noNumMaterialModel,jdbcType=VARCHAR},
       </if>
       <if test="orderId != null">
         orderId = #{orderId,jdbcType=VARCHAR},
       </if>
-      <if test="unitPrice != null">
-        unitPrice = #{unitPrice,jdbcType=DECIMAL},
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
       </if>
-      <if test="numbers != null">
-        numbers = #{numbers,jdbcType=INTEGER},
+      <if test="qty != null">
+        qty = #{qty,jdbcType=INTEGER},
       </if>
-      <if test="deliveryTime != null">
-        deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
+      <if test="deliveryDate != null">
+        deliveryDate = #{deliveryDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="discount != null">
-        discount = #{discount,jdbcType=DOUBLE},
+      <if test="discountRate != null">
+        discountRate = #{discountRate,jdbcType=DOUBLE},
       </if>
       <if test="taxRate != null">
         taxRate = #{taxRate,jdbcType=DOUBLE},
       </if>
-      <if test="taxUnitPrice != null">
-        taxUnitPrice = #{taxUnitPrice,jdbcType=DECIMAL},
+      <if test="taxPrice != null">
+        taxPrice = #{taxPrice,jdbcType=DECIMAL},
       </if>
-      <if test="actualTaxUnitPrice != null">
-        actualTaxUnitPrice = #{actualTaxUnitPrice,jdbcType=DECIMAL},
+      <if test="actualTaxPrice != null">
+        actualTaxPrice = #{actualTaxPrice,jdbcType=DECIMAL},
       </if>
       <if test="discountPrice != null">
         discountPrice = #{discountPrice,jdbcType=DECIMAL},
       </if>
-      <if test="taxPrice != null">
-        taxPrice = #{taxPrice,jdbcType=DECIMAL},
+      <if test="tax != null">
+        tax = #{tax,jdbcType=DECIMAL},
       </if>
-      <if test="functionalCurrencyAmount != null">
-        functionalCurrencyAmount = #{functionalCurrencyAmount,jdbcType=DECIMAL},
+      <if test="localPrice != null">
+        localPrice = #{localPrice,jdbcType=DECIMAL},
       </if>
       <if test="lineNumbers != null">
         lineNumbers = #{lineNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="confirmDate != null">
+        confirmDate = #{confirmDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmQty != null">
+        confirmQty = #{confirmQty,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Material">
     update t_sms_material_information
-    set materialId = #{materialId,jdbcType=VARCHAR},
-      basicUnitMeasurement = #{basicUnitMeasurement,jdbcType=VARCHAR},
+    set supplierMaterialNumber = #{supplierMaterialNumber,jdbcType=VARCHAR},
+      noNumMaterialModel = #{noNumMaterialModel,jdbcType=VARCHAR},
       orderId = #{orderId,jdbcType=VARCHAR},
-      unitPrice = #{unitPrice,jdbcType=DECIMAL},
-      numbers = #{numbers,jdbcType=INTEGER},
-      deliveryTime = #{deliveryTime,jdbcType=TIMESTAMP},
-      discount = #{discount,jdbcType=DOUBLE},
+      price = #{price,jdbcType=DECIMAL},
+      qty = #{qty,jdbcType=INTEGER},
+      deliveryDate = #{deliveryDate,jdbcType=TIMESTAMP},
+      discountRate = #{discountRate,jdbcType=DOUBLE},
       taxRate = #{taxRate,jdbcType=DOUBLE},
-      taxUnitPrice = #{taxUnitPrice,jdbcType=DECIMAL},
-      actualTaxUnitPrice = #{actualTaxUnitPrice,jdbcType=DECIMAL},
-      discountPrice = #{discountPrice,jdbcType=DECIMAL},
       taxPrice = #{taxPrice,jdbcType=DECIMAL},
-      functionalCurrencyAmount = #{functionalCurrencyAmount,jdbcType=DECIMAL},
-      lineNumbers = #{lineNumbers,jdbcType=INTEGER}
+      actualTaxPrice = #{actualTaxPrice,jdbcType=DECIMAL},
+      discountPrice = #{discountPrice,jdbcType=DECIMAL},
+      tax = #{tax,jdbcType=DECIMAL},
+      localPrice = #{localPrice,jdbcType=DECIMAL},
+      lineNumbers = #{lineNumbers,jdbcType=INTEGER},
+      confirmDate = #{confirmDate,jdbcType=TIMESTAMP},
+      confirmQty = #{confirmQty,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

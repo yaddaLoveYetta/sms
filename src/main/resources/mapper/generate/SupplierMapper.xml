@@ -19,7 +19,6 @@
     <result column="createOrganization" jdbcType="VARCHAR" property="createOrganization" />
     <result column="banOrganization" jdbcType="VARCHAR" property="banOrganization" />
     <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="certificateId" jdbcType="VARCHAR" property="certificateId" />
     <result column="currencyId" jdbcType="VARCHAR" property="currencyId" />
     <result column="settlementId" jdbcType="VARCHAR" property="settlementId" />
     <result column="payId" jdbcType="VARCHAR" property="payId" />
@@ -87,8 +86,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, [name], taxId, CORP, BRNO, taxCategoryId, taxRate, country, city, province, county, 
-    address, industryId, categoryId, createOrganization, banOrganization, [status], certificateId, 
-    currencyId, settlementId, payId, [number], syncStatus, review
+    address, industryId, categoryId, createOrganization, banOrganization, [status], currencyId, 
+    settlementId, payId, [number], syncStatus, review
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -126,19 +125,17 @@
       taxRate, country, city, 
       province, county, address, 
       industryId, categoryId, createOrganization, 
-      banOrganization, [status], certificateId, 
-      currencyId, settlementId, payId, 
-      [number], syncStatus, review
-      )
+      banOrganization, [status], currencyId, 
+      settlementId, payId, [number], 
+      syncStatus, review)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=VARCHAR}, 
       #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=VARCHAR}, 
       #{taxRate,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{createOrganization,jdbcType=VARCHAR}, 
-      #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{certificateId,jdbcType=VARCHAR}, 
-      #{currencyId,jdbcType=VARCHAR}, #{settlementId,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, 
-      #{number,jdbcType=VARCHAR}, #{syncStatus,jdbcType=VARCHAR}, #{review,jdbcType=VARCHAR}
-      )
+      #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{currencyId,jdbcType=VARCHAR}, 
+      #{settlementId,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{syncStatus,jdbcType=VARCHAR}, #{review,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -193,9 +190,6 @@
       </if>
       <if test="status != null">
         [status],
-      </if>
-      <if test="certificateId != null">
-        certificateId,
       </if>
       <if test="currencyId != null">
         currencyId,
@@ -267,9 +261,6 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="certificateId != null">
-        #{certificateId,jdbcType=VARCHAR},
       </if>
       <if test="currencyId != null">
         #{currencyId,jdbcType=VARCHAR},
@@ -351,9 +342,6 @@
       <if test="record.status != null">
         [status] = #{record.status,jdbcType=VARCHAR},
       </if>
-      <if test="record.certificateId != null">
-        certificateId = #{record.certificateId,jdbcType=VARCHAR},
-      </if>
       <if test="record.currencyId != null">
         currencyId = #{record.currencyId,jdbcType=VARCHAR},
       </if>
@@ -396,7 +384,6 @@
       createOrganization = #{record.createOrganization,jdbcType=VARCHAR},
       banOrganization = #{record.banOrganization,jdbcType=VARCHAR},
       [status] = #{record.status,jdbcType=VARCHAR},
-      certificateId = #{record.certificateId,jdbcType=VARCHAR},
       currencyId = #{record.currencyId,jdbcType=VARCHAR},
       settlementId = #{record.settlementId,jdbcType=VARCHAR},
       payId = #{record.payId,jdbcType=VARCHAR},
@@ -458,9 +445,6 @@
       <if test="status != null">
         [status] = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="certificateId != null">
-        certificateId = #{certificateId,jdbcType=VARCHAR},
-      </if>
       <if test="currencyId != null">
         currencyId = #{currencyId,jdbcType=VARCHAR},
       </if>
@@ -500,7 +484,6 @@
       createOrganization = #{createOrganization,jdbcType=VARCHAR},
       banOrganization = #{banOrganization,jdbcType=VARCHAR},
       [status] = #{status,jdbcType=VARCHAR},
-      certificateId = #{certificateId,jdbcType=VARCHAR},
       currencyId = #{currencyId,jdbcType=VARCHAR},
       settlementId = #{settlementId,jdbcType=VARCHAR},
       payId = #{payId,jdbcType=VARCHAR},

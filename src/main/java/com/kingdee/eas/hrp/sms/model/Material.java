@@ -6,33 +6,37 @@ import java.util.Date;
 public class Material {
     private Integer id;
 
-    private String materialId;
+    private String supplierMaterialNumber;
 
-    private String basicUnitMeasurement;
+    private String noNumMaterialModel;
 
     private String orderId;
 
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 
-    private Integer numbers;
+    private Integer qty;
 
-    private Date deliveryTime;
+    private Date deliveryDate;
 
-    private Double discount;
+    private Double discountRate;
 
     private Double taxRate;
 
-    private BigDecimal taxUnitPrice;
+    private BigDecimal taxPrice;
 
-    private BigDecimal actualTaxUnitPrice;
+    private BigDecimal actualTaxPrice;
 
     private BigDecimal discountPrice;
 
-    private BigDecimal taxPrice;
+    private BigDecimal tax;
 
-    private BigDecimal functionalCurrencyAmount;
+    private BigDecimal localPrice;
 
     private Integer lineNumbers;
+
+    private Date confirmDate;
+
+    private Integer confirmQty;
 
     public Integer getId() {
         return id;
@@ -42,20 +46,20 @@ public class Material {
         this.id = id;
     }
 
-    public String getMaterialId() {
-        return materialId;
+    public String getSupplierMaterialNumber() {
+        return supplierMaterialNumber;
     }
 
-    public void setMaterialId(String materialId) {
-        this.materialId = materialId == null ? null : materialId.trim();
+    public void setSupplierMaterialNumber(String supplierMaterialNumber) {
+        this.supplierMaterialNumber = supplierMaterialNumber == null ? null : supplierMaterialNumber.trim();
     }
 
-    public String getBasicUnitMeasurement() {
-        return basicUnitMeasurement;
+    public String getNoNumMaterialModel() {
+        return noNumMaterialModel;
     }
 
-    public void setBasicUnitMeasurement(String basicUnitMeasurement) {
-        this.basicUnitMeasurement = basicUnitMeasurement == null ? null : basicUnitMeasurement.trim();
+    public void setNoNumMaterialModel(String noNumMaterialModel) {
+        this.noNumMaterialModel = noNumMaterialModel == null ? null : noNumMaterialModel.trim();
     }
 
     public String getOrderId() {
@@ -66,36 +70,36 @@ public class Material {
         this.orderId = orderId == null ? null : orderId.trim();
     }
 
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public Integer getNumbers() {
-        return numbers;
+    public Integer getQty() {
+        return qty;
     }
 
-    public void setNumbers(Integer numbers) {
-        this.numbers = numbers;
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 
-    public Date getDeliveryTime() {
-        return deliveryTime;
+    public Date getDeliveryDate() {
+        return deliveryDate;
     }
 
-    public void setDeliveryTime(Date deliveryTime) {
-        this.deliveryTime = deliveryTime;
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
-    public Double getDiscount() {
-        return discount;
+    public Double getDiscountRate() {
+        return discountRate;
     }
 
-    public void setDiscount(Double discount) {
-        this.discount = discount;
+    public void setDiscountRate(Double discountRate) {
+        this.discountRate = discountRate;
     }
 
     public Double getTaxRate() {
@@ -106,20 +110,20 @@ public class Material {
         this.taxRate = taxRate;
     }
 
-    public BigDecimal getTaxUnitPrice() {
-        return taxUnitPrice;
+    public BigDecimal getTaxPrice() {
+        return taxPrice;
     }
 
-    public void setTaxUnitPrice(BigDecimal taxUnitPrice) {
-        this.taxUnitPrice = taxUnitPrice;
+    public void setTaxPrice(BigDecimal taxPrice) {
+        this.taxPrice = taxPrice;
     }
 
-    public BigDecimal getActualTaxUnitPrice() {
-        return actualTaxUnitPrice;
+    public BigDecimal getActualTaxPrice() {
+        return actualTaxPrice;
     }
 
-    public void setActualTaxUnitPrice(BigDecimal actualTaxUnitPrice) {
-        this.actualTaxUnitPrice = actualTaxUnitPrice;
+    public void setActualTaxPrice(BigDecimal actualTaxPrice) {
+        this.actualTaxPrice = actualTaxPrice;
     }
 
     public BigDecimal getDiscountPrice() {
@@ -130,20 +134,20 @@ public class Material {
         this.discountPrice = discountPrice;
     }
 
-    public BigDecimal getTaxPrice() {
-        return taxPrice;
+    public BigDecimal getTax() {
+        return tax;
     }
 
-    public void setTaxPrice(BigDecimal taxPrice) {
-        this.taxPrice = taxPrice;
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
     }
 
-    public BigDecimal getFunctionalCurrencyAmount() {
-        return functionalCurrencyAmount;
+    public BigDecimal getLocalPrice() {
+        return localPrice;
     }
 
-    public void setFunctionalCurrencyAmount(BigDecimal functionalCurrencyAmount) {
-        this.functionalCurrencyAmount = functionalCurrencyAmount;
+    public void setLocalPrice(BigDecimal localPrice) {
+        this.localPrice = localPrice;
     }
 
     public Integer getLineNumbers() {
@@ -152,5 +156,21 @@ public class Material {
 
     public void setLineNumbers(Integer lineNumbers) {
         this.lineNumbers = lineNumbers;
+    }
+
+    public Date getConfirmDate() {
+        return confirmDate;
+    }
+
+    public void setConfirmDate(Date confirmDate) {
+        this.confirmDate = confirmDate;
+    }
+
+    public Integer getConfirmQty() {
+        return confirmQty;
+    }
+
+    public void setConfirmQty(Integer confirmQty) {
+        this.confirmQty = confirmQty;
     }
 }
