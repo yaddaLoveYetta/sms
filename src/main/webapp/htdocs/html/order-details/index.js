@@ -12,17 +12,18 @@
 
     var Form = require('Form');
 
-    var classId = 2019;
+    var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
+    var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
 
     var conditions = {};
 
 
     //检查登录
-    /*    if (!SMS.Login.check(true)) {
-     return;
-     }*/
+    if (!SMS.Login.check(true)) {
+        return;
+    }
 
-    Form.render(classId, id);
+    Form.render(classId, itemId);
 
     alert('done');
 })();
