@@ -114,7 +114,7 @@ public class SyncControllerTest extends BaseControllerTest {
 
 		HttpParam param = HttpParam.init();
 		param.setCookieParams(cookie);
-		String str = "[{'settlementId':123,'name':'结算方式1','number':'12345'},{'settlementId':456,'name':'结算方式2','number':'12345'}]";
+		String str = "[{'id':123,'name':'结算方式1','number':'12345'},{'id':456,'name':'结算方式2','number':'12345'}]";
 		param.addCommon("size", "2");
 		param.addCommon("list", str);
 

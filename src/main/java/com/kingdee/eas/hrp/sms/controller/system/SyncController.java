@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.google.gson.JsonObject;
 import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
@@ -70,7 +67,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -103,7 +100,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -136,7 +133,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -170,7 +167,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -203,7 +200,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -236,7 +233,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -269,7 +266,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -302,7 +299,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -335,7 +332,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -368,7 +365,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -401,7 +398,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -434,7 +431,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -467,7 +464,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -500,7 +497,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
@@ -533,7 +530,7 @@ public class SyncController {
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {
 			// 全部同步成功
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, null);
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		} else {
 			// 有同步失败记录-返回同步失败，客户端解析失败原因
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
