@@ -124,7 +124,7 @@
             Iframe.open({
                 id: classId + '-add-',
                 name: '详情-采购订单',
-                url: 'html/order/order-details/index.html',
+                url: 'html/order-details/index.html',
                 query: {
                     'classId': classId,
                     'id': list[0].id,
