@@ -23,7 +23,10 @@
         return;
     }
 
-    Bill.render(classId, itemId);
+    Bill.render({
+        'classId': classId,
+        'id': itemId
+    });
 
     alert('done');
 })();
