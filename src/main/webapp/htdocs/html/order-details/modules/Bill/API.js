@@ -1,7 +1,7 @@
 ﻿/**
  * API模块
  */
-define('List/API', function (require, module, exports) {
+define('Bill/API', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');

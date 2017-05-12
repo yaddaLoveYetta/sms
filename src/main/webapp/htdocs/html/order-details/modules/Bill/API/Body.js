@@ -2,7 +2,7 @@
  * Created by yadda on 2017/5/12.
  * 表体数据取数模块
  */
-define('List/API/Body', function (require, module, exports) {
+define('Bill/API/Body', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');

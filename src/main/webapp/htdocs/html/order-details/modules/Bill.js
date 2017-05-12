@@ -4,7 +4,7 @@
  */
 
 
-define('Form', function (require, module, exports) {
+define('Bill', function (require, module, exports) {
 
     var $ = require("$");
     var MiniQuery = require("MiniQuery");

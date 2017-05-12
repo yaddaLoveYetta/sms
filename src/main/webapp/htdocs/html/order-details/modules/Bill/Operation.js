@@ -2,7 +2,7 @@
  * 列表数据操作 模块
  *
  */
-define('List/Operation', function(require, module, exports) {
+define('Bill/Operation', function(require, module, exports) {
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');

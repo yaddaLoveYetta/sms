@@ -2,7 +2,7 @@
  *
  *
  */
-define('List/API/Head', function (require, module, exports) {
+define('Bill/API/Head', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');

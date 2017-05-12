@@ -4,7 +4,7 @@
 * List/Samples 模块
 * 
 */
-define('List/Samples', function (require, module, exports) {
+define('Bill/Samples', function (require, module, exports) {
 
     var $ = require('$');
 
