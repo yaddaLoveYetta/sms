@@ -6171,7 +6171,6 @@
 
         var $ = require('$');
         var MiniQuery = require('MiniQuery');
-        var SMS = require('SMS');
 
         var mapper = new $.Mapper();
         var guidKey = $.Mapper.getGuidKey();
