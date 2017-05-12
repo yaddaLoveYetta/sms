@@ -12,8 +12,7 @@
     var bl = require('ButtonList');
     var ButtonListOption = require('ButtonListOption');
     var MessageBox = SMS.require('MessageBox');
-    var Tree = require('Tree');
-    var ClassMapping = require('ClassMapping');
+    var Iframe = SMS.require('Iframe');
 
     var classId = 2019;
     var txtSimpleSearch = document.getElementById('txt-simple-search');
@@ -110,8 +109,7 @@
 
         },
         'detail': function (item, index) {
-            // 发送到HRP
-
+            // 订单详情
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
@@ -122,6 +120,18 @@
                 SMS.Tips.error('只能对一条记录进行操作');
                 return;
             }
+
+            Iframe.open({
+                id: classId + '-add-',
+                name: '详情-采购订单',
+                url: 'html/order/order-details/index.html',
+                query: {
+                    'classId': classId,
+                    'id': list[0].id,
+                }
+            });
+
+
         },
         'refresh': function (item, index) {
             refresh();
