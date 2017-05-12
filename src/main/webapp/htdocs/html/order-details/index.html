@@ -3,33 +3,76 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=GB2312"/>
     <title>订单详情</title>
+    <!--grunt.css.begin-->
+    <link href="../../css/base.css" rel="stylesheet"/>
+    <link href="../../css/global.debug.css" rel="stylesheet"/>
+    <link href="../../css/order-details/index.debug.css" rel="stylesheet"/>
+    <!--grunt.css.end-->
 </head>
 <body>
 <div id="main">
 
     <dl>
+        <dt>
+            <b>订单主信息</b>
+        </dt>
+        <dd>
+            <div class="logistics-row">
+                <span class="container-col"><span class="title">单据编号：</span><span>{orderNo}</span></span>
+                <span class="container-col"><span class="title">订单日期：</span><span>{date}</span></span>
+                <span class="container-col"><span class="title">采购类型：</span><span>{pType}</span></span>
+                <span class="container-col"><span class="title">供应商：</span><span>{supplier}</span></span>
+            </div>
+
+            <div class="logistics-row">
+                <span class="container-col"><span class="title">采购模式：</span><span>{pModel}</span></span>
+                <span class="container-col"><span class="title">是否含税：</span><span>{isTex}</span></span>
+                <span class="container-col"><span class="title">是否加急：</span><span>{isCrash}</span></span>
+                <span class="container-col"><span class="title">币别：</span><span>{currency}</span></span>
+            </div>
+        </dd>
+    </dl>
+</div>
+
+<div id="detail">
+
+    <dl>
+        <dt>
+            <b>订单物料信息</b>
+        </dt>
+
         <dd>
 
-            <div class="logistics-row">
-                <span class="container-col"><span class="title">订单号：</span><span>{FOrderNo}</span></span>
-                <span class="container-col"><span class="title">车辆计费类别：</span><span>{FCarPayType_DspName}</span></span>
-                <span class="container-col"><span class="title">入场时间：</span><span>{FEnterTime}</span></span>
-            </div>
-
-            <div class="logistics-row">
-                <span class="container-col"><span class="title">订单状态：</span><span>{FState_DspName}</span><span>{FOutType_DspName}</span></span>
-                <span class="container-col"><span class="title">订单总金额：</span><span>{FOrderTotalAmount}</span></span>
-                <span class="container-col"><span class="title">出场时间：</span><span>{FOutTime}</span></span>
-            </div>
-            <div class="logistics-row" id="FReservationTime">
-                <span class="container-col"><span class="title">预约时间：</span><span>{FReservationTime}</span></span>
+            <div class="col-value">
+                <div id="initCombo" class="dn">
+                    <input type="text" class="textbox FParkNumberAuto" name="FParkNumber" autocomplete="off">
+                </div>
+                <div class="grid-wrap">
+                    <!-- jqGrid table -->
+                    <table id="bd-grid"></table>
+                    <!-- jqGrid 分页 div -->
+                    <div id="bd-grid-pager"></div>
+                </div>
+                <span class="error-msg" id="bd-grid-msg"></span>
             </div>
 
         </dd>
-        <dd>以视觉方式显示信息的装置 ... ...</dd>
     </dl>
-
 </div>
-<div id="detail"></div>
+
+
+<script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+<script src="../../lib/miniquery/miniquery.debug.js"></script>
+<script src="../../lib/sms/sms.debug.js"></script>
+<script src="../../config.js"></script>
+
+<!--grunt.js.begin-->
+<script src="modules/List/API/Head.js"></script>
+<script src="modules/List/API/Body.js"></script>
+<script src="modules/List/API.js"></script>
+<script src="modules/Form.js"></script>
+<script src="index.js"></script>
+<!--grunt.js.end-->
+
 </body>
 </html>
