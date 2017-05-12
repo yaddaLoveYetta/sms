@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=GB2312"/>
-    <title></title>
-<style>
-        @media(max-width:1068px) {
-            img {
-                width: 780px;
-                height: 1142px;
-            }
-        }
-
-        @media(min-width:1069px) {
-            img {
-                width: 1060px;
-                height: 1552px;
-            }
-        }
-    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=GB2312"/>
+    <title>订单详情</title>
 </head>
 <body>
-    <img src="../../css/order-detail/imgs/order-detail-2.png"/>
+<div id="main">
+
+    <dl>
+        <dd>
+
+            <div class="logistics-row">
+                <span class="container-col"><span class="title">订单号：</span><span>{FOrderNo}</span></span>
+                <span class="container-col"><span class="title">车辆计费类别：</span><span>{FCarPayType_DspName}</span></span>
+                <span class="container-col"><span class="title">入场时间：</span><span>{FEnterTime}</span></span>
+            </div>
+
+            <div class="logistics-row">
+                <span class="container-col"><span class="title">订单状态：</span><span>{FState_DspName}</span><span>{FOutType_DspName}</span></span>
+                <span class="container-col"><span class="title">订单总金额：</span><span>{FOrderTotalAmount}</span></span>
+                <span class="container-col"><span class="title">出场时间：</span><span>{FOutTime}</span></span>
+            </div>
+            <div class="logistics-row" id="FReservationTime">
+                <span class="container-col"><span class="title">预约时间：</span><span>{FReservationTime}</span></span>
+            </div>
+
+        </dd>
+        <dd>以视觉方式显示信息的装置 ... ...</dd>
+    </dl>
+
+</div>
+<div id="detail"></div>
 </body>
-</html>
+</html>
