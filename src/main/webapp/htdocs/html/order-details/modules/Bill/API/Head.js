@@ -1,6 +1,6 @@
 ﻿/**
  *
- *
+ *获取单据模板信息
  */
 define('Bill/API/Head', function (require, module, exports) {
 
@@ -134,25 +134,10 @@ define('Bill/API/Head', function (require, module, exports) {
 
     }
 
-    // 获取过滤字段信息
-    function getFilterItem(formFields) {
-        var filterItems = [];
-        for (var index in formFields) {
-            var fields = formFields[index];
-            $.Object.each(fields, function (key, item) {
-                if (item.isCondition == 1) { //表示过滤字段
-                    filterItems.push(item);
-                }
-            })
-        }
-        return filterItems;
-    }
-
     return {
         get: get,
         getItems: getItems,
         getformFildItems: getformFildItems,
-        getFilterItem: getFilterItem
     };
 
 });

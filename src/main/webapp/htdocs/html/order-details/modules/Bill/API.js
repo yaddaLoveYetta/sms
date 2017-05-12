@@ -32,22 +32,21 @@ define('Bill/API', function (require, module, exports) {
         //并行发起请求
         Multitask.concurrency(tasks, function (list) {
 
-            var headData = list[0];
-            var bodyData = list[1];
+            var templateData = list[0];
+            var valueData = list[1];
             var headItems0;
             console.dir(list);
 
-            headItems0 = Head.getItems(headData.formFields[0]);
+            headItems0 = Head.getItems(templateData.formFields[0]);
 
-            var filterItems = Head.getFilterItem(headData.formFields);
+            var valueItems = Body.getValueItems(valueData, templateData);
 
-            //var bodyItems = Body.getItems(bodyData.items, headItems, headData.formClass.primaryKey);//old
-            var bodyItems = Body.getItems(bodyData.list, headItems0, headData.formClass.primaryKey);
+            var bodyItems = Body.getItems(valueData.list, headItems0, templateData.formClass.primaryKey);
 
             fn && fn({
 
                 checkbox: true,
-                primaryKey: headData.formClass.primaryKey,
+                primaryKey: templateData.formClass.primaryKey,
                 head: {
                     //过滤出 visible: true 的项
                     'items': $.Array.grep(headItems0, function (item, index) {
@@ -55,9 +54,9 @@ define('Bill/API', function (require, module, exports) {
                     }),
                 },
                 body: {
-                    'total': bodyData.count,
+                    'total': valueData.count,
 
-                    'items': bodyData.total == 0 ? '' : $.Array.keep(bodyItems, function (row, no) { //行
+                    'items': valueData.total == 0 ? '' : $.Array.keep(bodyItems, function (row, no) { //行
 
                         //过滤出 visible: true 的项
                         row.items = $.Array.grep(row.items, function (item, index) { //列
