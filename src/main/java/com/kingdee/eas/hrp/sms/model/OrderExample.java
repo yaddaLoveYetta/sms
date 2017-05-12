@@ -246,63 +246,63 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andDateIsNull() {
-            addCriterion("[date] is null");
+        public Criteria andBizDateIsNull() {
+            addCriterion("bizDate is null");
             return (Criteria) this;
         }
 
-        public Criteria andDateIsNotNull() {
-            addCriterion("[date] is not null");
+        public Criteria andBizDateIsNotNull() {
+            addCriterion("bizDate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDateEqualTo(Date value) {
-            addCriterion("[date] =", value, "date");
+        public Criteria andBizDateEqualTo(Date value) {
+            addCriterion("bizDate =", value, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateNotEqualTo(Date value) {
-            addCriterion("[date] <>", value, "date");
+        public Criteria andBizDateNotEqualTo(Date value) {
+            addCriterion("bizDate <>", value, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateGreaterThan(Date value) {
-            addCriterion("[date] >", value, "date");
+        public Criteria andBizDateGreaterThan(Date value) {
+            addCriterion("bizDate >", value, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("[date] >=", value, "date");
+        public Criteria andBizDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("bizDate >=", value, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateLessThan(Date value) {
-            addCriterion("[date] <", value, "date");
+        public Criteria andBizDateLessThan(Date value) {
+            addCriterion("bizDate <", value, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateLessThanOrEqualTo(Date value) {
-            addCriterion("[date] <=", value, "date");
+        public Criteria andBizDateLessThanOrEqualTo(Date value) {
+            addCriterion("bizDate <=", value, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateIn(List<Date> values) {
-            addCriterion("[date] in", values, "date");
+        public Criteria andBizDateIn(List<Date> values) {
+            addCriterion("bizDate in", values, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateNotIn(List<Date> values) {
-            addCriterion("[date] not in", values, "date");
+        public Criteria andBizDateNotIn(List<Date> values) {
+            addCriterion("bizDate not in", values, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateBetween(Date value1, Date value2) {
-            addCriterion("[date] between", value1, value2, "date");
+        public Criteria andBizDateBetween(Date value1, Date value2) {
+            addCriterion("bizDate between", value1, value2, "bizDate");
             return (Criteria) this;
         }
 
-        public Criteria andDateNotBetween(Date value1, Date value2) {
-            addCriterion("[date] not between", value1, value2, "date");
+        public Criteria andBizDateNotBetween(Date value1, Date value2) {
+            addCriterion("bizDate not between", value1, value2, "bizDate");
             return (Criteria) this;
         }
 
@@ -813,76 +813,6 @@ public class OrderExample {
 
         public Criteria andNumberNotBetween(String value1, String value2) {
             addCriterion("[number] not between", value1, value2, "number");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeIsNull() {
-            addCriterion("saleType is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeIsNotNull() {
-            addCriterion("saleType is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeEqualTo(String value) {
-            addCriterion("saleType =", value, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeNotEqualTo(String value) {
-            addCriterion("saleType <>", value, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeGreaterThan(String value) {
-            addCriterion("saleType >", value, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("saleType >=", value, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeLessThan(String value) {
-            addCriterion("saleType <", value, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeLessThanOrEqualTo(String value) {
-            addCriterion("saleType <=", value, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeLike(String value) {
-            addCriterion("saleType like", value, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeNotLike(String value) {
-            addCriterion("saleType not like", value, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeIn(List<String> values) {
-            addCriterion("saleType in", values, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeNotIn(List<String> values) {
-            addCriterion("saleType not in", values, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeBetween(String value1, String value2) {
-            addCriterion("saleType between", value1, value2, "saleType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleTypeNotBetween(String value1, String value2) {
-            addCriterion("saleType not between", value1, value2, "saleType");
             return (Criteria) this;
         }
 

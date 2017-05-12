@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
+import com.kingdee.eas.hrp.sms.model.Material;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.order.OrderService;
@@ -38,25 +39,27 @@ public class OrderController {
 		
 	}
 	
-	/*@ControllerLog(desc = "确认接单") 
-	@RequestMapping(value = "confirmOrder")
-	public void confirmOrder(HttpServletRequest request, HttpServletResponse response) {
-		Order order = new Order();
+	@ControllerLog(desc = "确认接单") 
+	@RequestMapping(value = "updatetickType")
+	public void updatetickType(HttpServletRequest request, HttpServletResponse response) {
+		Material material = new Material();
+		Order order  = new Order();
 		SimpleDateFormat sft = new SimpleDateFormat("yyyyMMddHHmmss");
 		String type = request.getParameter("type");
 		try {
 			if(type.equals("1")){
-				order.setConfirmOrder(Integer.parseInt(request.getParameter("0")));	
+				order.setConfirmTick(Integer.parseInt(request.getParameter("0")));	
 			}else{
-				order.setConfirmOrder(Integer.parseInt(request.getParameter("1")));	
+				order.setConfirmTick(Integer.parseInt(request.getParameter("1")));	
 			}
-			order.setCutasingleTime(new Date());
-			order.setConfirmDeliveryTime(sft.parse(request.getParameter("confirmDeliveryTime")));
-			order.setConfirmDeliveryNumbers(Integer.parseInt(request.getParameter("confirmDeliveryNumbers")));
-			orderservice.updateOrderTime(order);
+			order.setTickTime(new Date());
+			material.setConfirmDate(sft.parse(request.getParameter("ConfirmDate")));
+			material.setConfirmQty(Integer.parseInt(request.getParameter("ConfirmQty")));
+			//material.setSupplierMaterialNumber(request.getParameter("supplierMaterialNumber"));
+			orderservice.updatetickType(material,order);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
-	}*/
+	}
 }

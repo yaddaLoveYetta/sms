@@ -4,13 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Material {
-    private Integer id;
+    private String id;
 
-    private String supplierMaterialNumber;
+    private String material;
 
-    private String noNumMaterialModel;
-
-    private String orderId;
+    private String parent;
 
     private BigDecimal price;
 
@@ -26,48 +24,42 @@ public class Material {
 
     private BigDecimal actualTaxPrice;
 
-    private BigDecimal discountPrice;
+    private BigDecimal discountAmount;
 
     private BigDecimal tax;
 
-    private BigDecimal localPrice;
+    private BigDecimal localAmount;
 
-    private Integer lineNumbers;
+    private Integer seq;
 
     private Date confirmDate;
 
     private Integer confirmQty;
 
-    public Integer getId() {
+    private String unit;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public String getSupplierMaterialNumber() {
-        return supplierMaterialNumber;
+    public String getMaterial() {
+        return material;
     }
 
-    public void setSupplierMaterialNumber(String supplierMaterialNumber) {
-        this.supplierMaterialNumber = supplierMaterialNumber == null ? null : supplierMaterialNumber.trim();
+    public void setMaterial(String material) {
+        this.material = material == null ? null : material.trim();
     }
 
-    public String getNoNumMaterialModel() {
-        return noNumMaterialModel;
+    public String getParent() {
+        return parent;
     }
 
-    public void setNoNumMaterialModel(String noNumMaterialModel) {
-        this.noNumMaterialModel = noNumMaterialModel == null ? null : noNumMaterialModel.trim();
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setParent(String parent) {
+        this.parent = parent == null ? null : parent.trim();
     }
 
     public BigDecimal getPrice() {
@@ -126,12 +118,12 @@ public class Material {
         this.actualTaxPrice = actualTaxPrice;
     }
 
-    public BigDecimal getDiscountPrice() {
-        return discountPrice;
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
     }
 
-    public void setDiscountPrice(BigDecimal discountPrice) {
-        this.discountPrice = discountPrice;
+    public void setDiscountAmount(BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
     }
 
     public BigDecimal getTax() {
@@ -142,20 +134,20 @@ public class Material {
         this.tax = tax;
     }
 
-    public BigDecimal getLocalPrice() {
-        return localPrice;
+    public BigDecimal getLocalAmount() {
+        return localAmount;
     }
 
-    public void setLocalPrice(BigDecimal localPrice) {
-        this.localPrice = localPrice;
+    public void setLocalAmount(BigDecimal localAmount) {
+        this.localAmount = localAmount;
     }
 
-    public Integer getLineNumbers() {
-        return lineNumbers;
+    public Integer getSeq() {
+        return seq;
     }
 
-    public void setLineNumbers(Integer lineNumbers) {
-        this.lineNumbers = lineNumbers;
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
     public Date getConfirmDate() {
@@ -172,5 +164,13 @@ public class Material {
 
     public void setConfirmQty(Integer confirmQty) {
         this.confirmQty = confirmQty;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
     }
 }

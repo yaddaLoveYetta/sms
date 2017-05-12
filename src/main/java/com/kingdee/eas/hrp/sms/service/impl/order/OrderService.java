@@ -36,7 +36,6 @@ public class OrderService extends BaseService implements IOrderService{
 				order.setSaleProxy(orderjson.getString("saleProxy"));
 				order.setIsInTax(orderjson.getDouble("isInTax"));
 				order.setNumber(orderjson.getString("number"));
-				order.setSaleType(orderjson.getString("saleType"));
 				order.setIsQuicken(orderjson.getInteger("isQuicken"));
 				order.setCurrency(orderjson.getString("currency"));
 				order.setPaymentCondition(orderjson.getString("paymentCondition"));
@@ -46,7 +45,7 @@ public class OrderService extends BaseService implements IOrderService{
 				order.setTotalTax(orderjson.getBigDecimal("totalTax"));
 				order.setTotalTaxAmount(orderjson.getBigDecimal("totalTaxAmount"));
 				if(orderjson.getString("date")!=null){
-				order.setDate(sft.parse(orderjson.getString("date")));
+				order.setBizDate(sft.parse(orderjson.getString("BizDate")));
 				}
 				if(orderjson.getString("makeDate")!=null){
 				order.setCreateTime(sft.parse(orderjson.getString("createTime")));
@@ -55,22 +54,23 @@ public class OrderService extends BaseService implements IOrderService{
 				orderMapper.insertSelective(order);
 			
 			//录入订单物料信息
-			JSONArray materialJson = orderjson.getJSONArray("entry");
+			JSONArray materialJson = orderjson.getJSONArray("entries");
 			for(int j=0;j<materialJson.size();j++){
 				JSONObject materialObject = JSONObject.parseObject(JSON.toJSONString(materialJson.get(j)));
-				material.setSupplierMaterialNumber(materialObject.getString("supplierMaterialNumber"));
-				material.setNoNumMaterialModel(materialObject.getString("noNumMaterialModel"));
-				material.setOrderId(order.getId());
+				material.setMaterial(materialObject.getString("supplierMaterialNumber"));
+				material.setUnit(materialObject.getString("unit"));
+				material.setParent(materialObject.getString("parent"));
 				material.setPrice(materialObject.getBigDecimal("price"));
 				material.setQty(materialObject.getInteger("qty"));
 				material.setDiscountRate(materialObject.getDouble("discountRate"));
 				material.setTaxRate(materialObject.getDouble("taxRate"));
 				material.setTaxPrice(materialObject.getBigDecimal("taxPrice"));
 				material.setActualTaxPrice(materialObject.getBigDecimal("actualTaxPrice"));
-				material.setDiscountPrice(materialObject.getBigDecimal("discountPrice"));
+				material.setDiscountAmount(materialObject.getBigDecimal("discountAmount"));
 				material.setTax(materialObject.getBigDecimal("tax"));
-				material.setLocalPrice(materialObject.getBigDecimal("localPrice"));
-				material.setLineNumbers(Integer.parseInt(materialObject.getString("lineNumbers")));
+				material.setLocalAmount(materialObject.getBigDecimal("localAmount"));
+				material.setSeq(Integer.parseInt(materialObject.getString("seq")));
+				material.setId(materialObject.getString("id"));
 				if(materialObject.getString("deliveryDate")!=null){
 				material.setDeliveryDate(sft.parse(materialObject.getString("deliveryDate")));
 				}
@@ -84,21 +84,13 @@ public class OrderService extends BaseService implements IOrderService{
 		return "success";
 	}
 
-	/*@Override
-	public Map<String, Object> updateOrderTime(Order order) {
-		int qty= order.getConfirmDeliveryNumbers(); 
-		
+	@Override
+	public Map<String, Object> updatetickType(Material material, Order order) {
 		MaterialMapper materialMapper = sqlSession.getMapper(MaterialMapper.class);
+		materialMapper.updateByPrimaryKey(material);
 		
-		MaterialExample example=new MaterialExample();
-		
-		Criteria  criteria = example.createCriteria();
-		
-		criteria.andOrderIdEqualTo(order.getId());
-		List<Material> list=materialMapper.selectByExample(example);
-		Map<String, Object> errItem = new HashMap<String, Object>();
-			errItem.put("error","交货数量大于订单需求数量");
-			errItem.put("success","接单成功");
-		return errItem;
-	}*/
+		return null;
+	}
+
+
 }

@@ -8,7 +8,7 @@ public class Order {
 
     private String supplier;
 
-    private Date date;
+    private Date bizDate;
 
     private String purchasePerson;
 
@@ -25,8 +25,6 @@ public class Order {
     private Integer confirmTick;
 
     private String number;
-
-    private String saleType;
 
     private Integer isQuicken;
 
@@ -62,12 +60,12 @@ public class Order {
         this.supplier = supplier == null ? null : supplier.trim();
     }
 
-    public Date getDate() {
-        return date;
+    public Date getBizDate() {
+        return bizDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setBizDate(Date bizDate) {
+        this.bizDate = bizDate;
     }
 
     public String getPurchasePerson() {
@@ -132,14 +130,6 @@ public class Order {
 
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
-    }
-
-    public String getSaleType() {
-        return saleType;
-    }
-
-    public void setSaleType(String saleType) {
-        this.saleType = saleType == null ? null : saleType.trim();
     }
 
     public Integer getIsQuicken() {
