@@ -14,6 +14,9 @@ define('Bill/Head', function (require, module, exports) {
     function render(template, data) {
         data = data;
 
+        for( var i=0;i<data.){
+
+        }
 
         div.innerHTML = $.String.format(samples["table"], {
             checkbox: data.checkbox ? samples["th.checkbox"] : "",
