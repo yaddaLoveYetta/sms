@@ -17,6 +17,8 @@ define('Bill/Head', function (require, module, exports) {
         var i = 0;
         var fields = template['0'];
 
+        fields = $.Array.group(fields, 4);
+
         var innerHtml = '';
         var sample;
 
@@ -49,7 +51,12 @@ define('Bill/Head', function (require, module, exports) {
                     value: data[field.key],
                 });
 
-            }).join("")
+                return $.Array.keep(fields, function (field, no) {
+
+                });
+
+
+            }).join(""),
 
         });
 

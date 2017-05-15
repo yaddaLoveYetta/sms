@@ -45,9 +45,13 @@ define('Bill/API', function (require, module, exports) {
 
             $.Object.each(formFields, function (pageIndex, pageData) {
 
-                visibleTemplate[pageIndex] = $.Object.grep(pageData, function (key, value) {
+                visibleTemplate[pageIndex] = $.Array.grep(pageData, function (key, item) {
+                    return item.visible;
+                })
+
+/*                visibleTemplate[pageIndex] = $.Object.grep(pageData, function (key, value) {
                     return value.visible;
-                });
+                });*/
 
             });
 
