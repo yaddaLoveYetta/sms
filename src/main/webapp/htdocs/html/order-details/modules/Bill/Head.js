@@ -14,8 +14,25 @@ define('Bill/Head', function (require, module, exports) {
     function render(template, data) {
         data = data;
 
-        for( var i=0;i<data.){
+        var i = 0;
+        var fields = template['0'];
+        var innerHtml = '';
+        var sample;
 
+        var length = $.Object.getLength(fields);
+
+        for (var key in fields) {
+
+            if (i / 4 === 0) {
+                sample = samples["rows"]
+            }else {
+                sample = samples["row"]
+            }
+            var field = fields[key];
+
+            innerHtml += $.String.format(sample, {});
+
+            i++;
         }
 
         div.innerHTML = $.String.format(samples["table"], {

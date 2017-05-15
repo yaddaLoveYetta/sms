@@ -76,7 +76,7 @@ define('Bill/API/Template', function (require, module, exports) {
 
         $.Object.each(templateDate, function (pageIndex, pageData) {
 
-            var temp = {};
+            var temp = [];
 
             $.Object.each(pageData, function (key, item) {
 
@@ -96,7 +96,8 @@ define('Bill/API/Template', function (require, module, exports) {
                     'index': item.index
                 };
 
-                temp[key] = headItem;
+                //temp[key] = headItem;
+                temp.push(headItem);
 
             });
 

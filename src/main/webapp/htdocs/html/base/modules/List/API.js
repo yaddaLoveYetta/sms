@@ -1,93 +1,94 @@
-﻿﻿/**
+﻿﻿
+/**
  *
  *
  */
-define('List/API', function(require, module, exports) {
+define('List/API', function (require, module, exports) {
 
-	var $ = require('$');
-	var MiniQuery = require('MiniQuery');
-	var SMS = require('SMS');
+    var $ = require('$');
+    var MiniQuery = require('MiniQuery');
+    var SMS = require('SMS');
 
-	var Multitask = SMS.require('Multitask');
+    var Multitask = SMS.require('Multitask');
 
-	var Head = require('/Head');
-	//完整名称为 List/API/Head
-	var Body = require('/Body');
-	//完整名称为 List/API/Body
+    var Head = require('/Head');
+    //完整名称为 List/API/Head
+    var Body = require('/Body');
+    //完整名称为 List/API/Body
 
-	function get(config, fn) {
+    function get(config, fn) {
 
-		var tasks = [{
-			fn: Head.get,
-			args: [{
-				'classId': config.classId
-			}]
-		}, {
-			fn: Body.get,
-			args: [{
-				'classId': config.classId,
-				'pageNo': config.pageNo,
-				'pageSize': config.pageSize,
-				'conditions': config.conditions,
-			}]
-		}];
+        var tasks = [
+            {
+                fn: Head.get,
+                args: [{
+                    'classId': config.classId
+                }]
+            },
+            {
+                fn: Body.get,
+                args: [{
+                    'classId': config.classId,
+                    'pageNo': config.pageNo,
+                    'pageSize': config.pageSize,
+                    'conditions': config.conditions
+                }]
+            }];
 
-		//并行发起请求
-		Multitask.concurrency(tasks, function(list) {
+        //并行发起请求
+        Multitask.concurrency(tasks, function (list) {
 
-			var headData = list[0];
-			var bodyData = list[1];
-			var headItems;
-			console.dir(list);
+            var headData = list[0];
+            var bodyData = list[1];
+            var headItems;
+            console.dir(list);
 
-			// var headItems = Head.getItems(bodyData['fieldShow'], headData.formFields[0]);  //old
-			if(config.classId==13008){
-				headItems = Head.getformFildItems(headData.formFields);
-			}else{
-				headItems = Head.getItems(headData.formFields[0]);
-			}
-			//var entry= Head.getItems(headData.formFields[1]);
-			var filterItems = Head.getFilterItem(headData.formFields);
+            // var headItems = Head.getItems(bodyData['fieldShow'], headData.formFields[0]);  //old
 
-			//var bodyItems = Body.getItems(bodyData.items, headItems, headData.formClass.primaryKey);//old
-			var bodyItems = Body.getItems(bodyData.list, headItems, headData.formClass.primaryKey);
+            headItems = Head.getItems(headData.formFields[0]);
 
-			fn && fn({
-				checkbox: true,
+            //var entry= Head.getItems(headData.formFields[1]);
+            var filterItems = Head.getFilterItem(headData.formFields);
 
-				primaryKey: headData.formClass.primaryKey,
+            //var bodyItems = Body.getItems(bodyData.items, headItems, headData.formClass.primaryKey);//old
+            var bodyItems = Body.getItems(bodyData.list, headItems, headData.formClass.primaryKey);
 
-				//primaryKey : 'FID',
+            fn && fn({
+                checkbox: true,
 
-				head: {
-					//过滤出 visible: true 的项
-					'items': $.Array.grep(headItems, function(item, index) {
-						return item.visible;
-					}),
-				},
-				body: {
-					'total': bodyData.count,
+                primaryKey: headData.formClass.primaryKey,
 
-					'items': bodyData.total == 0 ? '' : $.Array.keep(bodyItems, function(row, no) { //行
+                //primaryKey : 'FID',
 
-						//过滤出 visible: true 的项
-						row.items = $.Array.grep(row.items, function(item, index) { //列
-							var field = headItems[index];
-							return field.visible;
-						});
+                head: {
+                    //过滤出 visible: true 的项
+                    'items': $.Array.grep(headItems, function (item, index) {
+                        return item.visible;
+                    }),
+                },
+                body: {
+                    'total': bodyData.count,
 
-						return row;
-					}),
-				},
-				filterItems: filterItems
+                    'items': bodyData.total == 0 ? '' : $.Array.keep(bodyItems, function (row, no) { //行
 
-			});
-		});
+                        //过滤出 visible: true 的项
+                        row.items = $.Array.grep(row.items, function (item, index) { //列
+                            var field = headItems[index];
+                            return field.visible;
+                        });
 
-	}
+                        return row;
+                    }),
+                },
+                filterItems: filterItems
 
-	return {
-		get: get,
-	};
+            });
+        });
+
+    }
+
+    return {
+        get: get
+    }
 
 });
