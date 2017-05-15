@@ -17,20 +17,20 @@
         <dt>
             <b>订单主信息</b>
         </dt>
-        <dd>
+        <dd id="head">
             <div class="logistics-row">
                 <span class="container-col"><span class="title">单据编号：</span><span>{orderNo}</span></span>
                 <span class="container-col"><span class="title">订单日期：</span><span>{date}</span></span>
                 <span class="container-col"><span class="title">采购类型：</span><span>{pType}</span></span>
                 <span class="container-col"><span class="title">供应商：</span><span>{supplier}</span></span>
             </div>
-
+            <!--
             <div class="logistics-row">
-                <span class="container-col"><span class="title">采购模式：</span><span>{pModel}</span></span>
-                <span class="container-col"><span class="title">是否含税：</span><span>{isTex}</span></span>
-                <span class="container-col"><span class="title">是否加急：</span><span>{isCrash}</span></span>
-                <span class="container-col"><span class="title">币别：</span><span>{currency}</span></span>
+                #--row.item.begin--#
+                <span class="container-col"><span class="title">{name}：</span><span>{value}</span></span>
+                #--row.item.end--#
             </div>
+            -->
         </dd>
     </dl>
 </div>
