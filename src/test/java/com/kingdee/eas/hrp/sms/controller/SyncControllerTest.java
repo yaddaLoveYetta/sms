@@ -212,4 +212,17 @@ public class SyncControllerTest extends BaseControllerTest {
 		List<Supplier_License_Type> list = JSONObject.parseArray(str, Supplier_License_Type.class);
 
 	}
+	
+	@Test
+	public void sync() {
+
+		HttpParam param = HttpParam.init();
+		param.setCookieParams(cookie);
+		String str = "[{'id':123,'number':'12345','name':'hao'},{'id':456,'number':'456','name':'hao'}]";
+		param.addCommon("classId", "1010");
+		param.addCommon("list", str);
+
+		String ret = HttpUtil.sendGet(BASE_URL + "sync/sync", param);
+		System.out.println(ret);
+	}
 }

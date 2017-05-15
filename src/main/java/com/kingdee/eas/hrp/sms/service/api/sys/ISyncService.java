@@ -3,6 +3,7 @@ package com.kingdee.eas.hrp.sms.service.api.sys;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONArray;
 import com.kingdee.eas.hrp.sms.model.Category;
 import com.kingdee.eas.hrp.sms.model.Certificate;
 import com.kingdee.eas.hrp.sms.model.City;
@@ -25,24 +26,6 @@ import com.kingdee.eas.hrp.sms.model.Unit;
  * 2017年4月25日
  */
 public interface ISyncService {
-
-	List<Supplier> getSupplierList(int pageNum, int pageSize);
-
-	List<Category> getCategoryList(int pageNum, int pageSize);
-
-	List<Certificate> getCertificateList(int pageNum, int pageSize);
-
-	List<Industry> getIndustryList(int pageNum, int pageSize);
-
-	List<Settlement> getSettlementList(int pageNum, int pageSize);
-
-	List<Currency> getCurrencyList(int pageNum, int pageSize);
-
-	List<Pay> getPayList(int pageNum, int pageSize);
-
-	List<Item> getItemList(int pageNum, int pageSize);
-
-	List<TaxCategory> getTaxCategoryList(int pageNum, int pageSize);
 
 	/**
 	 * 同步币别
@@ -180,5 +163,14 @@ public interface ISyncService {
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> unit(List<Unit> list);
+
+	/**
+	 * 同步item
+	 * @Title item
+	 * @param list
+	 * 		  item JsonArray
+	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 */
+	List<Map<String, Object>> sync(int classId, JSONArray list, String userType);
 
 }

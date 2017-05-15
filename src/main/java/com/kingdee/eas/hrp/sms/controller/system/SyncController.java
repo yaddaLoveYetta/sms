@@ -1,5 +1,7 @@
 package com.kingdee.eas.hrp.sms.controller.system;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
@@ -537,122 +541,35 @@ public class SyncController {
 		}
 	}
 
-	// 查询供应商
-	@RequestMapping(value = "getSupplierList")
-	public void getSupplierList(HttpServletRequest request, HttpServletResponse response) {
+	@ControllerLog(desc = "同步item") // 做日志
+	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步item") // 权限
+	@RequestMapping(value = "sync")
+	public void sync(HttpServletRequest request, HttpServletResponse response) {
 
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
+		int classId = ParameterUtils.getParameter(request, "classId", -1); // 提交同步的记录数
+		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
+		JSONArray list = JSONArray.parseArray(listStr);
+		String userType = "QpXq24FxxE6c3lvHMPyYCxACEAI=";
 
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
+		// 基本参数校验
+		if (classId <= 0) {
+			throw new BusinessLogicRunTimeException("必须提交参数classId");
+		}
+		if (list.isEmpty()) {
+			throw new BusinessLogicRunTimeException("没有可同步的数据");
+		}
 
-		syncService.getSupplierList(pageNum, pageSize);
-	}
+		List<Map<String, Object>> ret = syncService.sync(classId, list, userType);
 
-	// 查询分类
-	@RequestMapping(value = "getCategoryList")
-	public void getCategoryList(HttpServletRequest request, HttpServletResponse response) {
+		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
+		if (ret.isEmpty()) {
+			// 全部同步成功
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
+		} else {
+			// 有同步失败记录-返回同步失败，客户端解析失败原因
+			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "同步失败，请查看失败原因", ret);
+		}
 
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		List<Category> list = syncService.getCategoryList(pageNum, pageSize);
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, list);
-	}
-
-	// 查询证书
-	@RequestMapping(value = "getCertificateList")
-	public void getCertificateList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getCertificateList(pageNum, pageSize);
-	}
-
-	// 查询行业
-	@RequestMapping(value = "getIndustryList")
-	public void getIndustryList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getIndustryList(pageNum, pageSize);
-	}
-
-	// 查询币种
-	@RequestMapping(value = "getCurrencyList")
-	public void getCurrencyList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getCurrencyList(pageNum, pageSize);
-	}
-
-	// 查询结算方式
-	@RequestMapping(value = "getSettlementList")
-	public void getSettlementList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getSettlementList(pageNum, pageSize);
-	}
-
-	// 查询付款方式
-	@RequestMapping(value = "getPayList")
-	public void getPayList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getPayList(pageNum, pageSize);
-	}
-
-	// 查询物料
-	@RequestMapping(value = "getItemList")
-	public void getItemList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getItemList(pageNum, pageSize);
-	}
-
-	// 查询税种
-	@RequestMapping(value = "getTaxCategoryList")
-	public void getTaxCategoryList(HttpServletRequest request, HttpServletResponse response) {
-
-		int pageNum = ParameterUtils.getParameter(request, "pageNum", 1); // 默认获取第一页
-		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10); // 默认分页大小10
-
-		String condition = ParameterUtils.getParameter(request, "condition", ""); // 过滤条件
-		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段
-
-		syncService.getTaxCategoryList(pageNum, pageSize);
 	}
 
 }

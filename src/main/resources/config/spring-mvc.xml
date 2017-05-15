@@ -68,6 +68,7 @@
 						<entry value-type="java.lang.String" key="/sync/province" value="/sync/province" />
 						<entry value-type="java.lang.String" key="/template/delItemByHRP" value="/template/delItemByHRP" />
 						<entry value-type="java.lang.String" key="/sync/license" value="/sync/license" />
+						<entry value-type="java.lang.String" key="/sync/sync" value="/sync/sync" />
 						<entry value-type="java.lang.String" key="/sync/hrp/sendItem" value="/sync/hrp/sendItem" />
 						
 					</map>

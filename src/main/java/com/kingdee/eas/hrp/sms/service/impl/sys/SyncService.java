@@ -5,11 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
+import org.apache.ibatis.plugin.PluginException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -60,11 +64,16 @@ import com.kingdee.eas.hrp.sms.model.TaxCategory;
 import com.kingdee.eas.hrp.sms.model.TaxCategoryExample;
 import com.kingdee.eas.hrp.sms.model.Unit;
 import com.kingdee.eas.hrp.sms.model.UnitExample;
+import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
+import com.kingdee.eas.hrp.sms.service.impl.TemplateService;
 
 @Service
 public class SyncService extends BaseService implements ISyncService {
+
+	@Resource
+	ITemplateService templateService;
 
 	@Override
 	public List<Map<String, Object>> currency(List<Currency> list) {
@@ -215,7 +224,8 @@ public class SyncService extends BaseService implements ISyncService {
 			throw new BusinessLogicRunTimeException("内码为空");
 		}
 
-		Supplier_License_TypeMapper mapper = (Supplier_License_TypeMapper) sqlSession.getMapper(Supplier_License_Type.class);
+		Supplier_License_TypeMapper mapper = (Supplier_License_TypeMapper) sqlSession
+				.getMapper(Supplier_License_Type.class);
 		Supplier_License_TypeExample example = new Supplier_License_TypeExample();
 		com.kingdee.eas.hrp.sms.model.Supplier_License_TypeExample.Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(license_Type_Id);
@@ -835,7 +845,7 @@ public class SyncService extends BaseService implements ISyncService {
 		}
 
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> unit(List<Unit> list) {
 
@@ -892,200 +902,24 @@ public class SyncService extends BaseService implements ISyncService {
 	}
 
 	@Override
-	public List<Supplier> getSupplierList(int pageNum, int pageSize) {
-		Page<Supplier> page = PageHelper.startPage(pageNum, pageSize, true);
+	public List<Map<String, Object>> sync(int classId, JSONArray list, String userType) {
 
-		SupplierMapper mapper = sqlSession.getMapper(SupplierMapper.class);
+		// 同步失败的记录S
+		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
 
-		SupplierExample example = new SupplierExample();
-		example.setOrderByClause("supplierId desc ,supplierName asc");
+		for (Object item : list) {
 
-		List<Supplier> list = mapper.selectByExample(example);
+			Map<String, Object> errUnit = new HashMap<String, Object>(); // 记录错误信息
 
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<Supplier> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
+			try {
+				templateService.addItem(classId, item.toString(), userType);
+			} catch (Exception e) {
+				errUnit.put("desc", e.getMessage());
+				errUnit.put("item", item.toString());
+				errList.add(errUnit);
+			}
+		}
+		return errList;
 	}
 
-	@Override
-	public List<Category> getCategoryList(int pageNum, int pageSize) {
-		Page<Category> page = PageHelper.startPage(pageNum, pageSize, true);
-
-		CategoryMapper mapper = sqlSession.getMapper(CategoryMapper.class);
-
-		CategoryExample example = new CategoryExample();
-		example.setOrderByClause("categoryId desc ,categoryName asc");
-
-		List<Category> list = mapper.selectByExample(example);
-
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<Category> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
-	}
-
-	@Override
-	public List<Certificate> getCertificateList(int pageNum, int pageSize) {
-		Page<Certificate> page = PageHelper.startPage(pageNum, pageSize, true);
-
-		CertificateMapper mapper = sqlSession.getMapper(CertificateMapper.class);
-
-		CertificateExample example = new CertificateExample();
-		example.setOrderByClause("certificateId desc ,certificateName asc");
-
-		List<Certificate> list = mapper.selectByExample(example);
-
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<Certificate> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
-	}
-
-	@Override
-	public List<Industry> getIndustryList(int pageNum, int pageSize) {
-		Page<Industry> page = PageHelper.startPage(pageNum, pageSize, true);
-
-		IndustryMapper mapper = sqlSession.getMapper(IndustryMapper.class);
-
-		IndustryExample example = new IndustryExample();
-		example.setOrderByClause("industryId desc ,industryName asc");
-
-		List<Industry> list = mapper.selectByExample(example);
-
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<Industry> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
-	}
-
-	@Override
-	public List<Currency> getCurrencyList(int pageNum, int pageSize) {
-		Page<Currency> page = PageHelper.startPage(pageNum, pageSize, true);
-
-		CurrencyMapper mapper = sqlSession.getMapper(CurrencyMapper.class);
-
-		CurrencyExample example = new CurrencyExample();
-		example.setOrderByClause("currencyId desc ,currencyName asc");
-
-		List<Currency> list = mapper.selectByExample(example);
-
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<Currency> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
-	}
-
-	@Override
-	public List<Settlement> getSettlementList(int pageNum, int pageSize) {
-		Page<Settlement> page = PageHelper.startPage(pageNum, pageSize, true);
-
-		SettlementMapper mapper = sqlSession.getMapper(SettlementMapper.class);
-
-		SettlementExample example = new SettlementExample();
-		example.setOrderByClause("settlementId desc ,settlementName asc");
-
-		List<Settlement> list = mapper.selectByExample(example);
-
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<Settlement> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
-	}
-
-	@Override
-	public List<Pay> getPayList(int pageNum, int pageSize) {
-		Page<Pay> page = PageHelper.startPage(pageNum, pageSize, true);
-
-		PayMapper mapper = sqlSession.getMapper(PayMapper.class);
-
-		PayExample example = new PayExample();
-		example.setOrderByClause("payId desc ,payName asc");
-
-		List<Pay> list = mapper.selectByExample(example);
-
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<Pay> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
-	}
-
-	@Override
-	public List<Item> getItemList(int pageNum, int pageSize) {
-		Page<Item> page = PageHelper.startPage(pageNum, pageSize, true);
-
-		ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
-
-		ItemExample example = new ItemExample();
-		example.setOrderByClause("itemId desc ,itemName asc");
-
-		List<Item> list = mapper.selectByExample(example);
-
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<Item> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
-	}
-
-	@Override
-	public List<TaxCategory> getTaxCategoryList(int pageNum, int pageSize) {
-		Page<TaxCategory> page = PageHelper.startPage(pageNum, pageSize, true);
-
-		TaxCategoryMapper mapper = sqlSession.getMapper(TaxCategoryMapper.class);
-
-		TaxCategoryExample example = new TaxCategoryExample();
-		example.setOrderByClause("taxCategoryId desc ,taxCategoryName asc");
-
-		List<TaxCategory> list = mapper.selectByExample(example);
-
-		System.out.println(page.getTotal());
-		System.out.println(list.size());
-
-		PageInfo<TaxCategory> pageInfo = new PageInfo<>(list);
-
-		System.out.println(pageInfo.getOrderBy());
-		System.out.println(JSON.toJSONString(list));
-
-		return null;
-	}
 }
