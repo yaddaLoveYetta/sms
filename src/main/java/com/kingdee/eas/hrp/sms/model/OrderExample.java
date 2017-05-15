@@ -456,52 +456,52 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxEqualTo(Double value) {
+        public Criteria andIsInTaxEqualTo(Byte value) {
             addCriterion("isInTax =", value, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxNotEqualTo(Double value) {
+        public Criteria andIsInTaxNotEqualTo(Byte value) {
             addCriterion("isInTax <>", value, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxGreaterThan(Double value) {
+        public Criteria andIsInTaxGreaterThan(Byte value) {
             addCriterion("isInTax >", value, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxGreaterThanOrEqualTo(Double value) {
+        public Criteria andIsInTaxGreaterThanOrEqualTo(Byte value) {
             addCriterion("isInTax >=", value, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxLessThan(Double value) {
+        public Criteria andIsInTaxLessThan(Byte value) {
             addCriterion("isInTax <", value, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxLessThanOrEqualTo(Double value) {
+        public Criteria andIsInTaxLessThanOrEqualTo(Byte value) {
             addCriterion("isInTax <=", value, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxIn(List<Double> values) {
+        public Criteria andIsInTaxIn(List<Byte> values) {
             addCriterion("isInTax in", values, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxNotIn(List<Double> values) {
+        public Criteria andIsInTaxNotIn(List<Byte> values) {
             addCriterion("isInTax not in", values, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxBetween(Double value1, Double value2) {
+        public Criteria andIsInTaxBetween(Byte value1, Byte value2) {
             addCriterion("isInTax between", value1, value2, "isInTax");
             return (Criteria) this;
         }
 
-        public Criteria andIsInTaxNotBetween(Double value1, Double value2) {
+        public Criteria andIsInTaxNotBetween(Byte value1, Byte value2) {
             addCriterion("isInTax not between", value1, value2, "isInTax");
             return (Criteria) this;
         }
@@ -636,52 +636,52 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeEqualTo(Integer value) {
+        public Criteria andTickTypeEqualTo(Byte value) {
             addCriterion("tickType =", value, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeNotEqualTo(Integer value) {
+        public Criteria andTickTypeNotEqualTo(Byte value) {
             addCriterion("tickType <>", value, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeGreaterThan(Integer value) {
+        public Criteria andTickTypeGreaterThan(Byte value) {
             addCriterion("tickType >", value, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andTickTypeGreaterThanOrEqualTo(Byte value) {
             addCriterion("tickType >=", value, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeLessThan(Integer value) {
+        public Criteria andTickTypeLessThan(Byte value) {
             addCriterion("tickType <", value, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeLessThanOrEqualTo(Integer value) {
+        public Criteria andTickTypeLessThanOrEqualTo(Byte value) {
             addCriterion("tickType <=", value, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeIn(List<Integer> values) {
+        public Criteria andTickTypeIn(List<Byte> values) {
             addCriterion("tickType in", values, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeNotIn(List<Integer> values) {
+        public Criteria andTickTypeNotIn(List<Byte> values) {
             addCriterion("tickType not in", values, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeBetween(Integer value1, Integer value2) {
+        public Criteria andTickTypeBetween(Byte value1, Byte value2) {
             addCriterion("tickType between", value1, value2, "tickType");
             return (Criteria) this;
         }
 
-        public Criteria andTickTypeNotBetween(Integer value1, Integer value2) {
+        public Criteria andTickTypeNotBetween(Byte value1, Byte value2) {
             addCriterion("tickType not between", value1, value2, "tickType");
             return (Criteria) this;
         }
@@ -696,52 +696,52 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickEqualTo(Integer value) {
+        public Criteria andConfirmTickEqualTo(Byte value) {
             addCriterion("confirmTick =", value, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickNotEqualTo(Integer value) {
+        public Criteria andConfirmTickNotEqualTo(Byte value) {
             addCriterion("confirmTick <>", value, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickGreaterThan(Integer value) {
+        public Criteria andConfirmTickGreaterThan(Byte value) {
             addCriterion("confirmTick >", value, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickGreaterThanOrEqualTo(Integer value) {
+        public Criteria andConfirmTickGreaterThanOrEqualTo(Byte value) {
             addCriterion("confirmTick >=", value, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickLessThan(Integer value) {
+        public Criteria andConfirmTickLessThan(Byte value) {
             addCriterion("confirmTick <", value, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickLessThanOrEqualTo(Integer value) {
+        public Criteria andConfirmTickLessThanOrEqualTo(Byte value) {
             addCriterion("confirmTick <=", value, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickIn(List<Integer> values) {
+        public Criteria andConfirmTickIn(List<Byte> values) {
             addCriterion("confirmTick in", values, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickNotIn(List<Integer> values) {
+        public Criteria andConfirmTickNotIn(List<Byte> values) {
             addCriterion("confirmTick not in", values, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickBetween(Integer value1, Integer value2) {
+        public Criteria andConfirmTickBetween(Byte value1, Byte value2) {
             addCriterion("confirmTick between", value1, value2, "confirmTick");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickNotBetween(Integer value1, Integer value2) {
+        public Criteria andConfirmTickNotBetween(Byte value1, Byte value2) {
             addCriterion("confirmTick not between", value1, value2, "confirmTick");
             return (Criteria) this;
         }
@@ -826,52 +826,52 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenEqualTo(Integer value) {
+        public Criteria andIsQuickenEqualTo(Byte value) {
             addCriterion("isQuicken =", value, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenNotEqualTo(Integer value) {
+        public Criteria andIsQuickenNotEqualTo(Byte value) {
             addCriterion("isQuicken <>", value, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenGreaterThan(Integer value) {
+        public Criteria andIsQuickenGreaterThan(Byte value) {
             addCriterion("isQuicken >", value, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenGreaterThanOrEqualTo(Integer value) {
+        public Criteria andIsQuickenGreaterThanOrEqualTo(Byte value) {
             addCriterion("isQuicken >=", value, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenLessThan(Integer value) {
+        public Criteria andIsQuickenLessThan(Byte value) {
             addCriterion("isQuicken <", value, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenLessThanOrEqualTo(Integer value) {
+        public Criteria andIsQuickenLessThanOrEqualTo(Byte value) {
             addCriterion("isQuicken <=", value, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenIn(List<Integer> values) {
+        public Criteria andIsQuickenIn(List<Byte> values) {
             addCriterion("isQuicken in", values, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenNotIn(List<Integer> values) {
+        public Criteria andIsQuickenNotIn(List<Byte> values) {
             addCriterion("isQuicken not in", values, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenBetween(Integer value1, Integer value2) {
+        public Criteria andIsQuickenBetween(Byte value1, Byte value2) {
             addCriterion("isQuicken between", value1, value2, "isQuicken");
             return (Criteria) this;
         }
 
-        public Criteria andIsQuickenNotBetween(Integer value1, Integer value2) {
+        public Criteria andIsQuickenNotBetween(Byte value1, Byte value2) {
             addCriterion("isQuicken not between", value1, value2, "isQuicken");
             return (Criteria) this;
         }
@@ -943,146 +943,6 @@ public class OrderExample {
 
         public Criteria andCurrencyNotBetween(String value1, String value2) {
             addCriterion("currency not between", value1, value2, "currency");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionIsNull() {
-            addCriterion("paymentCondition is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionIsNotNull() {
-            addCriterion("paymentCondition is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionEqualTo(String value) {
-            addCriterion("paymentCondition =", value, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionNotEqualTo(String value) {
-            addCriterion("paymentCondition <>", value, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionGreaterThan(String value) {
-            addCriterion("paymentCondition >", value, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionGreaterThanOrEqualTo(String value) {
-            addCriterion("paymentCondition >=", value, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionLessThan(String value) {
-            addCriterion("paymentCondition <", value, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionLessThanOrEqualTo(String value) {
-            addCriterion("paymentCondition <=", value, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionLike(String value) {
-            addCriterion("paymentCondition like", value, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionNotLike(String value) {
-            addCriterion("paymentCondition not like", value, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionIn(List<String> values) {
-            addCriterion("paymentCondition in", values, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionNotIn(List<String> values) {
-            addCriterion("paymentCondition not in", values, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionBetween(String value1, String value2) {
-            addCriterion("paymentCondition between", value1, value2, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentConditionNotBetween(String value1, String value2) {
-            addCriterion("paymentCondition not between", value1, value2, "paymentCondition");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeIsNull() {
-            addCriterion("paymentType is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeIsNotNull() {
-            addCriterion("paymentType is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeEqualTo(String value) {
-            addCriterion("paymentType =", value, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeNotEqualTo(String value) {
-            addCriterion("paymentType <>", value, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeGreaterThan(String value) {
-            addCriterion("paymentType >", value, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("paymentType >=", value, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeLessThan(String value) {
-            addCriterion("paymentType <", value, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeLessThanOrEqualTo(String value) {
-            addCriterion("paymentType <=", value, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeLike(String value) {
-            addCriterion("paymentType like", value, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeNotLike(String value) {
-            addCriterion("paymentType not like", value, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeIn(List<String> values) {
-            addCriterion("paymentType in", values, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeNotIn(List<String> values) {
-            addCriterion("paymentType not in", values, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeBetween(String value1, String value2) {
-            addCriterion("paymentType between", value1, value2, "paymentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentTypeNotBetween(String value1, String value2) {
-            addCriterion("paymentType not between", value1, value2, "paymentType");
             return (Criteria) this;
         }
 

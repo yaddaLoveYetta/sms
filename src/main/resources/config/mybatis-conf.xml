@@ -81,7 +81,7 @@
 		<mapper resource="mapper/generate/TaxCategoryMapper.xml" />
 		<mapper resource="mapper/generate/OrderMapper.xml" />
 
-		<mapper resource="mapper/generate/MaterialMapper.xml"/>
+		<mapper resource="mapper/generate/OrderEntryMapper.xml"/>
 
 		<mapper resource="mapper/generate/PluginsMapper.xml" />
 

@@ -14,25 +14,21 @@ public class Order {
 
     private String saleProxy;
 
-    private Double isInTax;
+    private Byte isInTax;
 
     private Date tickTime;
 
     private Date confirmTickTime;
 
-    private Integer tickType;
+    private Byte tickType;
 
-    private Integer confirmTick;
+    private Byte confirmTick;
 
     private String number;
 
-    private Integer isQuicken;
+    private Byte isQuicken;
 
     private String currency;
-
-    private String paymentCondition;
-
-    private String paymentType;
 
     private String settlementType;
 
@@ -84,11 +80,11 @@ public class Order {
         this.saleProxy = saleProxy == null ? null : saleProxy.trim();
     }
 
-    public Double getIsInTax() {
+    public Byte getIsInTax() {
         return isInTax;
     }
 
-    public void setIsInTax(Double isInTax) {
+    public void setIsInTax(Byte isInTax) {
         this.isInTax = isInTax;
     }
 
@@ -108,19 +104,19 @@ public class Order {
         this.confirmTickTime = confirmTickTime;
     }
 
-    public Integer getTickType() {
+    public Byte getTickType() {
         return tickType;
     }
 
-    public void setTickType(Integer tickType) {
+    public void setTickType(Byte tickType) {
         this.tickType = tickType;
     }
 
-    public Integer getConfirmTick() {
+    public Byte getConfirmTick() {
         return confirmTick;
     }
 
-    public void setConfirmTick(Integer confirmTick) {
+    public void setConfirmTick(Byte confirmTick) {
         this.confirmTick = confirmTick;
     }
 
@@ -132,11 +128,11 @@ public class Order {
         this.number = number == null ? null : number.trim();
     }
 
-    public Integer getIsQuicken() {
+    public Byte getIsQuicken() {
         return isQuicken;
     }
 
-    public void setIsQuicken(Integer isQuicken) {
+    public void setIsQuicken(Byte isQuicken) {
         this.isQuicken = isQuicken;
     }
 
@@ -146,22 +142,6 @@ public class Order {
 
     public void setCurrency(String currency) {
         this.currency = currency == null ? null : currency.trim();
-    }
-
-    public String getPaymentCondition() {
-        return paymentCondition;
-    }
-
-    public void setPaymentCondition(String paymentCondition) {
-        this.paymentCondition = paymentCondition == null ? null : paymentCondition.trim();
-    }
-
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType == null ? null : paymentType.trim();
     }
 
     public String getSettlementType() {

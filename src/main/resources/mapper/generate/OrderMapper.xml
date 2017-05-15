@@ -7,16 +7,14 @@
     <result column="bizDate" jdbcType="TIMESTAMP" property="bizDate" />
     <result column="purchasePerson" jdbcType="VARCHAR" property="purchasePerson" />
     <result column="saleProxy" jdbcType="VARCHAR" property="saleProxy" />
-    <result column="isInTax" jdbcType="DOUBLE" property="isInTax" />
+    <result column="isInTax" jdbcType="TINYINT" property="isInTax" />
     <result column="tickTime" jdbcType="TIMESTAMP" property="tickTime" />
     <result column="confirmTickTime" jdbcType="TIMESTAMP" property="confirmTickTime" />
-    <result column="tickType" jdbcType="INTEGER" property="tickType" />
-    <result column="confirmTick" jdbcType="INTEGER" property="confirmTick" />
+    <result column="tickType" jdbcType="TINYINT" property="tickType" />
+    <result column="confirmTick" jdbcType="TINYINT" property="confirmTick" />
     <result column="number" jdbcType="VARCHAR" property="number" />
-    <result column="isQuicken" jdbcType="INTEGER" property="isQuicken" />
+    <result column="isQuicken" jdbcType="TINYINT" property="isQuicken" />
     <result column="currency" jdbcType="VARCHAR" property="currency" />
-    <result column="paymentCondition" jdbcType="VARCHAR" property="paymentCondition" />
-    <result column="paymentType" jdbcType="VARCHAR" property="paymentType" />
     <result column="settlementType" jdbcType="VARCHAR" property="settlementType" />
     <result column="totalAmount" jdbcType="DECIMAL" property="totalAmount" />
     <result column="totalTax" jdbcType="DECIMAL" property="totalTax" />
@@ -83,8 +81,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, supplier, bizDate, purchasePerson, saleProxy, isInTax, tickTime, confirmTickTime, 
-    tickType, confirmTick, [number], isQuicken, currency, paymentCondition, paymentType, 
-    settlementType, totalAmount, totalTax, totalTaxAmount, createTime
+    tickType, confirmTick, [number], isQuicken, currency, settlementType, totalAmount, 
+    totalTax, totalTaxAmount, createTime
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderExample" resultMap="BaseResultMap">
     select
@@ -121,16 +119,16 @@
       purchasePerson, saleProxy, isInTax, 
       tickTime, confirmTickTime, tickType, 
       confirmTick, [number], isQuicken, 
-      currency, paymentCondition, paymentType, 
-      settlementType, totalAmount, totalTax, 
-      totalTaxAmount, createTime)
+      currency, settlementType, totalAmount, 
+      totalTax, totalTaxAmount, createTime
+      )
     values (#{id,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
-      #{purchasePerson,jdbcType=VARCHAR}, #{saleProxy,jdbcType=VARCHAR}, #{isInTax,jdbcType=DOUBLE}, 
-      #{tickTime,jdbcType=TIMESTAMP}, #{confirmTickTime,jdbcType=TIMESTAMP}, #{tickType,jdbcType=INTEGER}, 
-      #{confirmTick,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{isQuicken,jdbcType=INTEGER}, 
-      #{currency,jdbcType=VARCHAR}, #{paymentCondition,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, 
-      #{settlementType,jdbcType=VARCHAR}, #{totalAmount,jdbcType=DECIMAL}, #{totalTax,jdbcType=DECIMAL}, 
-      #{totalTaxAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
+      #{purchasePerson,jdbcType=VARCHAR}, #{saleProxy,jdbcType=VARCHAR}, #{isInTax,jdbcType=TINYINT}, 
+      #{tickTime,jdbcType=TIMESTAMP}, #{confirmTickTime,jdbcType=TIMESTAMP}, #{tickType,jdbcType=TINYINT}, 
+      #{confirmTick,jdbcType=TINYINT}, #{number,jdbcType=VARCHAR}, #{isQuicken,jdbcType=TINYINT}, 
+      #{currency,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, #{totalAmount,jdbcType=DECIMAL}, 
+      #{totalTax,jdbcType=DECIMAL}, #{totalTaxAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     insert into t_sms_purchase_order
@@ -174,12 +172,6 @@
       <if test="currency != null">
         currency,
       </if>
-      <if test="paymentCondition != null">
-        paymentCondition,
-      </if>
-      <if test="paymentType != null">
-        paymentType,
-      </if>
       <if test="settlementType != null">
         settlementType,
       </if>
@@ -213,7 +205,7 @@
         #{saleProxy,jdbcType=VARCHAR},
       </if>
       <if test="isInTax != null">
-        #{isInTax,jdbcType=DOUBLE},
+        #{isInTax,jdbcType=TINYINT},
       </if>
       <if test="tickTime != null">
         #{tickTime,jdbcType=TIMESTAMP},
@@ -222,25 +214,19 @@
         #{confirmTickTime,jdbcType=TIMESTAMP},
       </if>
       <if test="tickType != null">
-        #{tickType,jdbcType=INTEGER},
+        #{tickType,jdbcType=TINYINT},
       </if>
       <if test="confirmTick != null">
-        #{confirmTick,jdbcType=INTEGER},
+        #{confirmTick,jdbcType=TINYINT},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
       </if>
       <if test="isQuicken != null">
-        #{isQuicken,jdbcType=INTEGER},
+        #{isQuicken,jdbcType=TINYINT},
       </if>
       <if test="currency != null">
         #{currency,jdbcType=VARCHAR},
-      </if>
-      <if test="paymentCondition != null">
-        #{paymentCondition,jdbcType=VARCHAR},
-      </if>
-      <if test="paymentType != null">
-        #{paymentType,jdbcType=VARCHAR},
       </if>
       <if test="settlementType != null">
         #{settlementType,jdbcType=VARCHAR},
@@ -284,7 +270,7 @@
         saleProxy = #{record.saleProxy,jdbcType=VARCHAR},
       </if>
       <if test="record.isInTax != null">
-        isInTax = #{record.isInTax,jdbcType=DOUBLE},
+        isInTax = #{record.isInTax,jdbcType=TINYINT},
       </if>
       <if test="record.tickTime != null">
         tickTime = #{record.tickTime,jdbcType=TIMESTAMP},
@@ -293,25 +279,19 @@
         confirmTickTime = #{record.confirmTickTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.tickType != null">
-        tickType = #{record.tickType,jdbcType=INTEGER},
+        tickType = #{record.tickType,jdbcType=TINYINT},
       </if>
       <if test="record.confirmTick != null">
-        confirmTick = #{record.confirmTick,jdbcType=INTEGER},
+        confirmTick = #{record.confirmTick,jdbcType=TINYINT},
       </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
       </if>
       <if test="record.isQuicken != null">
-        isQuicken = #{record.isQuicken,jdbcType=INTEGER},
+        isQuicken = #{record.isQuicken,jdbcType=TINYINT},
       </if>
       <if test="record.currency != null">
         currency = #{record.currency,jdbcType=VARCHAR},
-      </if>
-      <if test="record.paymentCondition != null">
-        paymentCondition = #{record.paymentCondition,jdbcType=VARCHAR},
-      </if>
-      <if test="record.paymentType != null">
-        paymentType = #{record.paymentType,jdbcType=VARCHAR},
       </if>
       <if test="record.settlementType != null">
         settlementType = #{record.settlementType,jdbcType=VARCHAR},
@@ -340,16 +320,14 @@
       bizDate = #{record.bizDate,jdbcType=TIMESTAMP},
       purchasePerson = #{record.purchasePerson,jdbcType=VARCHAR},
       saleProxy = #{record.saleProxy,jdbcType=VARCHAR},
-      isInTax = #{record.isInTax,jdbcType=DOUBLE},
+      isInTax = #{record.isInTax,jdbcType=TINYINT},
       tickTime = #{record.tickTime,jdbcType=TIMESTAMP},
       confirmTickTime = #{record.confirmTickTime,jdbcType=TIMESTAMP},
-      tickType = #{record.tickType,jdbcType=INTEGER},
-      confirmTick = #{record.confirmTick,jdbcType=INTEGER},
+      tickType = #{record.tickType,jdbcType=TINYINT},
+      confirmTick = #{record.confirmTick,jdbcType=TINYINT},
       [number] = #{record.number,jdbcType=VARCHAR},
-      isQuicken = #{record.isQuicken,jdbcType=INTEGER},
+      isQuicken = #{record.isQuicken,jdbcType=TINYINT},
       currency = #{record.currency,jdbcType=VARCHAR},
-      paymentCondition = #{record.paymentCondition,jdbcType=VARCHAR},
-      paymentType = #{record.paymentType,jdbcType=VARCHAR},
       settlementType = #{record.settlementType,jdbcType=VARCHAR},
       totalAmount = #{record.totalAmount,jdbcType=DECIMAL},
       totalTax = #{record.totalTax,jdbcType=DECIMAL},
@@ -375,7 +353,7 @@
         saleProxy = #{saleProxy,jdbcType=VARCHAR},
       </if>
       <if test="isInTax != null">
-        isInTax = #{isInTax,jdbcType=DOUBLE},
+        isInTax = #{isInTax,jdbcType=TINYINT},
       </if>
       <if test="tickTime != null">
         tickTime = #{tickTime,jdbcType=TIMESTAMP},
@@ -384,25 +362,19 @@
         confirmTickTime = #{confirmTickTime,jdbcType=TIMESTAMP},
       </if>
       <if test="tickType != null">
-        tickType = #{tickType,jdbcType=INTEGER},
+        tickType = #{tickType,jdbcType=TINYINT},
       </if>
       <if test="confirmTick != null">
-        confirmTick = #{confirmTick,jdbcType=INTEGER},
+        confirmTick = #{confirmTick,jdbcType=TINYINT},
       </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
       </if>
       <if test="isQuicken != null">
-        isQuicken = #{isQuicken,jdbcType=INTEGER},
+        isQuicken = #{isQuicken,jdbcType=TINYINT},
       </if>
       <if test="currency != null">
         currency = #{currency,jdbcType=VARCHAR},
-      </if>
-      <if test="paymentCondition != null">
-        paymentCondition = #{paymentCondition,jdbcType=VARCHAR},
-      </if>
-      <if test="paymentType != null">
-        paymentType = #{paymentType,jdbcType=VARCHAR},
       </if>
       <if test="settlementType != null">
         settlementType = #{settlementType,jdbcType=VARCHAR},
@@ -428,16 +400,14 @@
       bizDate = #{bizDate,jdbcType=TIMESTAMP},
       purchasePerson = #{purchasePerson,jdbcType=VARCHAR},
       saleProxy = #{saleProxy,jdbcType=VARCHAR},
-      isInTax = #{isInTax,jdbcType=DOUBLE},
+      isInTax = #{isInTax,jdbcType=TINYINT},
       tickTime = #{tickTime,jdbcType=TIMESTAMP},
       confirmTickTime = #{confirmTickTime,jdbcType=TIMESTAMP},
-      tickType = #{tickType,jdbcType=INTEGER},
-      confirmTick = #{confirmTick,jdbcType=INTEGER},
+      tickType = #{tickType,jdbcType=TINYINT},
+      confirmTick = #{confirmTick,jdbcType=TINYINT},
       [number] = #{number,jdbcType=VARCHAR},
-      isQuicken = #{isQuicken,jdbcType=INTEGER},
+      isQuicken = #{isQuicken,jdbcType=TINYINT},
       currency = #{currency,jdbcType=VARCHAR},
-      paymentCondition = #{paymentCondition,jdbcType=VARCHAR},
-      paymentType = #{paymentType,jdbcType=VARCHAR},
       settlementType = #{settlementType,jdbcType=VARCHAR},
       totalAmount = #{totalAmount,jdbcType=DECIMAL},
       totalTax = #{totalTax,jdbcType=DECIMAL},

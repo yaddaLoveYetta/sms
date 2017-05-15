@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
 
-	<classPathEntry location="D:\java\maven-repo\com\microsoft\sqlserver\mssql-jdbc\6.1.0.jre8\mssql-jdbc-6.1.0.jre8.jar" />
+	<classPathEntry location="D:\maven-repo\maven-repo\com\microsoft\sqlserver\mssql-jdbc\6.1.0.jre8\mssql-jdbc-6.1.0.jre8.jar" />
 
 	<context id="MSSQL_Tables2Java" targetRuntime="MyBatis3">
 
@@ -199,7 +199,7 @@
 		</table>
 
 		
-		<table tableName="t_sms_material_information" domainObjectName="Material">
+		<table tableName="t_sms_purchase_order_entry" domainObjectName="OrderEntry">
 
 			<property name="useActualColumnNames" value="true" />
 

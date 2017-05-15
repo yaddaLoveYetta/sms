@@ -46,6 +46,7 @@
 						<entry value-type="java.lang.String" key="/user/createToken" value="/user/createToken" />
 						<entry value-type="java.lang.String" key="/template/getFormTemplate" value="/template/getFormTemplate" />
 						<entry value-type="java.lang.String" key="/template/getItems" value="/template/getItems" />
+						<entry value-type="java.lang.String" key="/order/acquisitionOrder" value="/order/acquisitionOrder" />
 					</map>
 				</property>
 				<property name="clientUrls">
@@ -68,6 +69,7 @@
 						<entry value-type="java.lang.String" key="/template/delItemByHRP" value="/template/delItemByHRP" />
 						<entry value-type="java.lang.String" key="/sync/license" value="/sync/license" />
 						<entry value-type="java.lang.String" key="/sync/hrp/sendItem" value="/sync/hrp/sendItem" />
+						
 					</map>
 				</property>
 			</bean>

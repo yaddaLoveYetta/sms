@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.MaterialMapper">
-  <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Material">
+<mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper">
+  <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.OrderEntry">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="material" jdbcType="VARCHAR" property="material" />
     <result column="parent" jdbcType="VARCHAR" property="parent" />
@@ -82,13 +82,13 @@
     id, material, parent, price, qty, deliveryDate, discountRate, taxRate, taxPrice, 
     actualTaxPrice, discountAmount, tax, localAmount, seq, confirmDate, confirmQty, unit
   </sql>
-  <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.MaterialExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_sms_material_information
+    from t_sms_purchase_order_entry
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -99,21 +99,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_sms_material_information
+    from t_sms_purchase_order_entry
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_sms_material_information
+    delete from t_sms_purchase_order_entry
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.MaterialExample">
-    delete from t_sms_material_information
+  <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntryExample">
+    delete from t_sms_purchase_order_entry
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Material">
-    insert into t_sms_material_information (id, material, parent, 
+  <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntry">
+    insert into t_sms_purchase_order_entry (id, material, parent, 
       price, qty, deliveryDate, 
       discountRate, taxRate, taxPrice, 
       actualTaxPrice, discountAmount, tax, 
@@ -126,8 +126,8 @@
       #{localAmount,jdbcType=DECIMAL}, #{seq,jdbcType=INTEGER}, #{confirmDate,jdbcType=TIMESTAMP}, 
       #{confirmQty,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Material">
-    insert into t_sms_material_information
+  <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntry">
+    insert into t_sms_purchase_order_entry
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -235,14 +235,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.kingdee.eas.hrp.sms.model.MaterialExample" resultType="java.lang.Long">
-    select count(*) from t_sms_material_information
+  <select id="countByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntryExample" resultType="java.lang.Long">
+    select count(*) from t_sms_purchase_order_entry
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update t_sms_material_information
+    update t_sms_purchase_order_entry
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
@@ -301,7 +301,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update t_sms_material_information
+    update t_sms_purchase_order_entry
     set id = #{record.id,jdbcType=VARCHAR},
       material = #{record.material,jdbcType=VARCHAR},
       parent = #{record.parent,jdbcType=VARCHAR},
@@ -323,8 +323,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Material">
-    update t_sms_material_information
+  <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntry">
+    update t_sms_purchase_order_entry
     <set>
       <if test="material != null">
         material = #{material,jdbcType=VARCHAR},
@@ -377,8 +377,8 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Material">
-    update t_sms_material_information
+  <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntry">
+    update t_sms_purchase_order_entry
     set material = #{material,jdbcType=VARCHAR},
       parent = #{parent,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},

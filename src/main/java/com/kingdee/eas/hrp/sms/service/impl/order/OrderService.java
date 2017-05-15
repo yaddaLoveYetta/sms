@@ -12,11 +12,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.dao.generate.MaterialMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.model.Material;
 import com.kingdee.eas.hrp.sms.model.MaterialExample;
 import com.kingdee.eas.hrp.sms.model.MaterialExample.Criteria;
 import com.kingdee.eas.hrp.sms.model.Order;
+import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
@@ -26,7 +28,7 @@ public class OrderService extends BaseService implements IOrderService{
 	@Override
 	public String order(JSONObject orderjson){
 		Order order = new Order();
-		Material material = new Material();
+		OrderEntry orderEntry = new OrderEntry();
 		SimpleDateFormat sft = new SimpleDateFormat("yyyyMMddHHmmss");
 			try{
 			//录入订单抬头
@@ -34,12 +36,10 @@ public class OrderService extends BaseService implements IOrderService{
 				order.setSupplier(orderjson.getString("supplierId"));
 				order.setPurchasePerson(orderjson.getString("purchasePerson"));
 				order.setSaleProxy(orderjson.getString("saleProxy"));
-				order.setIsInTax(orderjson.getDouble("isInTax"));
+				order.setIsInTax(orderjson.getByte("isInTax"));
 				order.setNumber(orderjson.getString("number"));
-				order.setIsQuicken(orderjson.getInteger("isQuicken"));
+				order.setIsQuicken(orderjson.getByte("isQuicken"));
 				order.setCurrency(orderjson.getString("currency"));
-				order.setPaymentCondition(orderjson.getString("paymentCondition"));
-				order.setPaymentType(orderjson.getString("paymentType"));
 				order.setSettlementType(orderjson.getString("settlementType"));
 				order.setTotalAmount(orderjson.getBigDecimal("totalAmount"));
 				order.setTotalTax(orderjson.getBigDecimal("totalTax"));
@@ -57,25 +57,25 @@ public class OrderService extends BaseService implements IOrderService{
 			JSONArray materialJson = orderjson.getJSONArray("entries");
 			for(int j=0;j<materialJson.size();j++){
 				JSONObject materialObject = JSONObject.parseObject(JSON.toJSONString(materialJson.get(j)));
-				material.setMaterial(materialObject.getString("supplierMaterialNumber"));
-				material.setUnit(materialObject.getString("unit"));
-				material.setParent(materialObject.getString("parent"));
-				material.setPrice(materialObject.getBigDecimal("price"));
-				material.setQty(materialObject.getInteger("qty"));
-				material.setDiscountRate(materialObject.getDouble("discountRate"));
-				material.setTaxRate(materialObject.getDouble("taxRate"));
-				material.setTaxPrice(materialObject.getBigDecimal("taxPrice"));
-				material.setActualTaxPrice(materialObject.getBigDecimal("actualTaxPrice"));
-				material.setDiscountAmount(materialObject.getBigDecimal("discountAmount"));
-				material.setTax(materialObject.getBigDecimal("tax"));
-				material.setLocalAmount(materialObject.getBigDecimal("localAmount"));
-				material.setSeq(Integer.parseInt(materialObject.getString("seq")));
-				material.setId(materialObject.getString("id"));
+				orderEntry.setMaterial(materialObject.getString("supplierMaterialNumber"));
+				orderEntry.setUnit(materialObject.getString("unit"));
+				orderEntry.setParent(materialObject.getString("parent"));
+				orderEntry.setPrice(materialObject.getBigDecimal("price"));
+				orderEntry.setQty(materialObject.getInteger("qty"));
+				orderEntry.setDiscountRate(materialObject.getDouble("discountRate"));
+				orderEntry.setTaxRate(materialObject.getDouble("taxRate"));
+				orderEntry.setTaxPrice(materialObject.getBigDecimal("taxPrice"));
+				orderEntry.setActualTaxPrice(materialObject.getBigDecimal("actualTaxPrice"));
+				orderEntry.setDiscountAmount(materialObject.getBigDecimal("discountAmount"));
+				orderEntry.setTax(materialObject.getBigDecimal("tax"));
+				orderEntry.setLocalAmount(materialObject.getBigDecimal("localAmount"));
+				orderEntry.setSeq(Integer.parseInt(materialObject.getString("seq")));
+				orderEntry.setId(materialObject.getString("id"));
 				if(materialObject.getString("deliveryDate")!=null){
-				material.setDeliveryDate(sft.parse(materialObject.getString("deliveryDate")));
+					orderEntry.setDeliveryDate(sft.parse(materialObject.getString("deliveryDate")));
 				}
-				MaterialMapper materialMapper = sqlSession.getMapper(MaterialMapper.class);
-				materialMapper.insertSelective(material);
+				OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+				orderEntryMapper.insertSelective(orderEntry);
 			
 			}
 			} catch (ParseException e) {
@@ -85,12 +85,11 @@ public class OrderService extends BaseService implements IOrderService{
 	}
 
 	@Override
-	public Map<String, Object> updatetickType(Material material, Order order) {
-		MaterialMapper materialMapper = sqlSession.getMapper(MaterialMapper.class);
-		materialMapper.updateByPrimaryKey(material);
-		
+	public Map<String, Object> updatetickType(OrderEntry orderEntry, Order order) {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 }
