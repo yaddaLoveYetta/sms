@@ -122,8 +122,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
                 if (field.ctrlType == 6) {
                     var keyNmbModel = {
-                        name: field.name,// + '_NmbName',
-                        label: field.key,// + '_NmbName',
+                        name: field.name + '_NmbName',
+                        label: field.key + '_NmbName',
                         tabIndex: field.index,
                         hidden: true
                     };

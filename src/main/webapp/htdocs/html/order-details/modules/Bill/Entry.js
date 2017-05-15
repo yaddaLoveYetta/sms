@@ -21,33 +21,23 @@ define('Bill/Entry', function (require, module, exports) {
             $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
         },
         fnAfterEditCell_Before: function (rowId, cellName, cellValue) {
-            Combo.getCombo().selectByText(cellValue, false);
+            $.Combo.getCombo().selectByText(cellValue, false);
         }
     };
 
     //jqGrid初始化
-    var initGrid = function (entryData, metaData) {
-        gridConfig = GridBuilder.getConfig(metaData['formFields'][1], gridConfig, columns, isNeedOpt);
-        parkGrid.render(gridConfig, entryData, metaData, 1);
-        parkGrid.on('f7Selected', function (data) {
-            var itemData = {
-                'FPark': data[0].ID,
-                'FParkID': data[0].ID,
-                'FParkNumber': data[0].number,
-                'FParkName': data[0].name
-            };
-            Grid.setRowData(data.row, itemData);
-        });
-    };
-
-
     function gridRender(template, data) {
+
+        if (!template.formFields["1"]) {
+            return;
+        }
 
         SMS.use('Grid', function (Grid) {
 
             Grid = new Grid('bd-grid');
 
             gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, '', isNeedOpt);
+
             Grid.render(gridConfig, data, template, 1);
 
             Grid.on('f7Selected', function (data) {
