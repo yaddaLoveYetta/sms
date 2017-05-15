@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
-import com.kingdee.eas.hrp.sms.service.impl.order.OrderService;
+import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 
 @Controller
 @RequestMapping(value = "/order/")
 public class OrderController {
 	@Resource
-	OrderService orderservice;
+	IOrderService orderservice;
 	
 	@ControllerLog(desc = "同步订单") // 做日志
 	@RequestMapping(value = "acquisitionOrder")

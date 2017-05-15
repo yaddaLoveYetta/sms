@@ -64,6 +64,7 @@ public class OrderService extends BaseService implements IOrderService{
 				orderEntry.setLocalAmount(orderEntryObject.getBigDecimal("localAmount"));
 				orderEntry.setSeq(orderEntryObject.getInteger("seq"));
 				orderEntry.setId(orderEntryObject.getString("id"));
+				orderEntry.setAmount(orderEntryObject.getBigDecimal("amount"));
 			if(orderEntryObject.getString("deliveryDate")!=null){
 				orderEntry.setDeliveryDate(orderEntryObject.getDate("deliveryDate"));
 			}

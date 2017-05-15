@@ -9,4 +9,6 @@ public interface IOrderService {
 	public String order(JSONArray jsonarray);
 	
 	public String updatetickType (JSONObject jsonObject);
+	
+	 
 }

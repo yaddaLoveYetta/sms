@@ -38,6 +38,8 @@ public class OrderEntry {
 
     private String unit;
 
+    private BigDecimal amount;
+
     public String getId() {
         return id;
     }
@@ -172,5 +174,13 @@ public class OrderEntry {
 
     public void setUnit(String unit) {
         this.unit = unit == null ? null : unit.trim();
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }
