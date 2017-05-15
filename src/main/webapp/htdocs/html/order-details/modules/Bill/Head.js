@@ -38,27 +38,27 @@ define('Bill/Head', function (require, module, exports) {
              i++;
              }*/
 
-/*            div.innerHTML = $.String.format(samples["rows"], {
+            /*            div.innerHTML = $.String.format(samples["rows"], {
 
-                item: $.Array.keep(fields, function (group, no) {
-
-
-                    return $.Array.keep(group, function (field, no) {
-
-                        if (!field.visible) {
-                            return '';
-                        }
-                        return $.String.format(samples["row"], {
-                            name: group.name,
-                            value: data[group.key],
-                        })
-
-                    }).join("");
+             item: $.Array.keep(fields, function (group, no) {
 
 
-                }).join(""),
+             return $.Array.keep(group, function (field, no) {
 
-            });*/
+             if (!field.visible) {
+             return '';
+             }
+             return $.String.format(samples["row"], {
+             name: group.name,
+             value: data[group.key],
+             })
+
+             }).join("");
+
+
+             }).join(""),
+
+             });*/
 
 
             div.innerHTML = $.Array.keep(fields, function (group, no) {
@@ -72,7 +72,7 @@ define('Bill/Head', function (require, module, exports) {
                         }
                         return $.String.format(samples["row"], {
                             name: field.text,
-                            value: data[field.key],
+                            value: getHtml(field.type, data[field.key]),
                         })
 
                     }).join(""),
@@ -80,6 +80,28 @@ define('Bill/Head', function (require, module, exports) {
                 });
 
             }).join("");
+        }
+
+        function getHtml(type, data) {
+            /*
+             * if ( typeof data == 'boolean') { data = data ? '是' : '否'; }
+             */
+            if (data == null) {
+                data = "";
+            }
+            if (type == 4) {
+                // boolean 类型元数据
+                data = data ? "是" : "否";
+            }
+            if (type == 3) {
+                // 日期时间类型
+                console.log(data instanceof Date);
+            }
+            if (type == 98) {
+                // 处理男/女显示
+                data = data ? "女" : "男";
+            }
+            return data;
         }
 
         return {
