@@ -11,17 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
-import com.kingdee.eas.hrp.sms.model.Material;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
-import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.order.OrderService;
-import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 
 @Controller
@@ -33,8 +27,9 @@ public class OrderController {
 	@ControllerLog(desc = "同步订单") // 做日志
 	@RequestMapping(value = "acquisitionOrder")
 	public void synchronizationOrder(HttpServletRequest request, HttpServletResponse response) {
-		JSONObject json=JSONObject.parseObject(request.getParameter("list"));
-			orderservice.order(json);
+		String listStr = ParameterUtils.getParameter(request, "list", "");
+		JSONArray json =  JSONArray.parseArray(listStr);
+		orderservice.order(json);
 	}
 	
 	@ControllerLog(desc = "确认接单") 
