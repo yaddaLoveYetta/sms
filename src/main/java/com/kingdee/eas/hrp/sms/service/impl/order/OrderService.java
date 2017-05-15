@@ -1,6 +1,7 @@
 package com.kingdee.eas.hrp.sms.service.impl.order;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +22,6 @@ public class OrderService extends BaseService implements IOrderService{
 	public String order(JSONArray orderjson){
 		Order order = new Order();
 		OrderEntry orderEntry = new OrderEntry();
-		SimpleDateFormat sft = new SimpleDateFormat("yyyyMMddHHmmss");
 			for(int i=0;i<orderjson.size();i++){
 				//录入订单抬头
 				JSONObject ob = orderjson.getJSONObject(i);
@@ -75,9 +75,25 @@ public class OrderService extends BaseService implements IOrderService{
 	}
 
 	@Override
-	public Map<String, Object> updatetickType(OrderEntry orderEntry, Order order) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updatetickType(JSONObject jsonObject ) {  
+		OrderEntry orderEntry = new OrderEntry();
+		Order order = new Order();
+		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+		order.setTickTime(new Date());
+		order.setId(jsonObject.getString("id"));
+		order.setConfirmTick(Byte.parseByte("1"));
+		orderMapper.updateByPrimaryKey(order);
+		JSONArray orderEntryArray = JSONArray.parseArray(jsonObject.getString("entry"));
+		for(int i=0;i<orderEntryArray.size();i++){
+		JSONObject ob = orderEntryArray.getJSONObject(i);
+		orderEntry.setConfirmDate(ob.getDate("confirmDate"));
+		orderEntry.setConfirmQty(ob.getInteger("confirmQty"));
+		orderEntry.setId(ob.getString("id"));
+		order.setId(ob.getString("parent"));
+		OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+		orderEntryMapper.updateByPrimaryKey(orderEntry);
+		}
+		return "success";
 	}
 
 
