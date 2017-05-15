@@ -78,7 +78,7 @@ define('List/API', function (require, module, exports) {
                         });
 
                         return row;
-                    }),
+                    })
                 },
                 filterItems: filterItems
 
