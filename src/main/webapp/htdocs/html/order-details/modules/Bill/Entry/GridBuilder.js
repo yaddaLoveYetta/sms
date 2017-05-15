@@ -19,7 +19,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
         if (field.ctrlType == 6) {
             //if (field.FLookUpType == 1) {
-            //			model.name = field.FKey + '_DspName';
+            //
+            model.name = field.key + '_DspName';
             model.edittype = 'custom';
             function element(value, options) {
                 var el = $('.' + field.key + 'Auto')[0];
