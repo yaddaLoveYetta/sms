@@ -8,7 +8,7 @@ define('Bill/Entry', function (require, module, exports) {
     var GridBuilder = require('/GridBuilder');// 真实路径是'Bill/Entry/GridBuilder'
 
     var Grid;
-    var isNeedOpt = true;
+    var isNeedOpt = false; // 订单详情不可编辑
     var cleanGrid = function () {
         Grid.clear();
     };
