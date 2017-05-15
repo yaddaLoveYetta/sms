@@ -15,7 +15,7 @@ define('Bill/Entry', function (require, module, exports) {
 
     var gridConfig = {
         gridName: 'bd-grid',
-        width: 'auto',
+        width: $(window).width(),
         height: 'auto',
         fnAfterSaveCell_After: function (rowid, data) {
             $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
