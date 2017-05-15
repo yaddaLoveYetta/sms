@@ -17,7 +17,7 @@ define('Bill/Head', function (require, module, exports) {
         var i = 0;
         var fields = template['0'];
 
-        fields = $.Array.group(fields, 4);
+        fields = $.Array.group(fields, 4); // 分组，一行填充4个字段
 
         var innerHtml = '';
         var sample;
@@ -40,20 +40,20 @@ define('Bill/Head', function (require, module, exports) {
 
         div.innerHTML = $.String.format(samples["rows"], {
 
-            item: $.Array.keep(fields, function (field, no) {
+            item: $.Array.keep(fields, function (group, no) {
 
-                if (!field.visible) {
-                    return '';
-                }
 
-                return $.String.format(samples["row"], {
-                    name: field.name,
-                    value: data[field.key],
-                });
+                return $.Array.keep(group, function (field, no) {
 
-                return $.Array.keep(fields, function (field, no) {
+                    if (!field.visible) {
+                        return '';
+                    }
+                    return $.String.format(samples["row"], {
+                        name: group.name,
+                        value: data[group.key],
+                    })
 
-                });
+                }).join("");
 
 
             }).join(""),
