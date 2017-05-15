@@ -6,13 +6,13 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
 
-    function getColModel(field) {
+    function getColModel(field, isNeedOpt) {
         var model = {};
         model.name = field.key;
         model.label = field.name;
         model.width = field.showWidth;
         model.title = true;
-        model.editable = (field.ctrlType == 6);// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
+        model.editable = isNeedOpt || (field.ctrlType == 6);// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
 
         model.hidden = ((field.display & 1) != 1);
         model.tabIndex = field.index;
@@ -132,7 +132,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 }
             }
 
-            var model = getColModel(field);
+            var model = getColModel(field, isNeedOpt);
             cModel.push(model);
         }
 
