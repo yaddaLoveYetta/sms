@@ -71,8 +71,8 @@ define('Bill/Head', function (require, module, exports) {
                             return '';
                         }
                         return $.String.format(samples["row"], {
-                            name: group.name,
-                            value: data[group.key],
+                            name: field.text,
+                            value: data[field.key],
                         })
 
                     }).join(""),
