@@ -12,7 +12,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         model.label = field.name;
         model.width = field.showWidth;
         model.title = true;
-        model.editable = isNeedOpt || (field.ctrlType == 6);// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
+        model.editable = isNeedOpt && (field.ctrlType == 6);// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
 
         model.hidden = ((field.display & 1) != 1);
         model.tabIndex = field.index;
