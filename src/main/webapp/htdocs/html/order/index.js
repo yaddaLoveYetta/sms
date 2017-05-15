@@ -122,7 +122,7 @@
             }
 
             Iframe.open({
-                id: classId + '-add-',
+                id: classId + '-add-' + list[0].data[List.getPrimaryKey()],
                 name: '详情-采购订单',
                 url: 'html/order-details/index.html',
                 query: {
