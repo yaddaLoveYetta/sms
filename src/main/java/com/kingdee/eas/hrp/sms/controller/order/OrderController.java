@@ -22,6 +22,7 @@ import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.order.OrderService;
 import com.kingdee.eas.hrp.sms.util.Environ;
+import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 
 @Controller
 @RequestMapping(value = "/order/")
@@ -31,13 +32,9 @@ public class OrderController {
 	
 	@ControllerLog(desc = "同步订单") // 做日志
 	@RequestMapping(value = "acquisitionOrder")
-	public void synchronizationOrder(HttpServletRequest request, HttpServletResponse response,JSONObject orderjson) {
-		if(orderjson.size()<=0){
-			throw new BusinessLogicRunTimeException("没有可同步的数据");
-		}else{
-			orderservice.order(orderjson);
-		}
-		
+	public void synchronizationOrder(HttpServletRequest request, HttpServletResponse response) {
+		JSONObject json=JSONObject.parseObject(request.getParameter("list"));
+			orderservice.order(json);
 	}
 	
 	@ControllerLog(desc = "确认接单") 
