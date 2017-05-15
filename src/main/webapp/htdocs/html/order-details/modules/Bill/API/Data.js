@@ -2,7 +2,7 @@
  * Created by yadda on 2017/5/12.
  * 单据数据取数模块
  */
-define('Bill/API/Body', function (require, module, exports) {
+define('Bill/API/Data', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -90,74 +90,69 @@ define('Bill/API/Body', function (require, module, exports) {
     }
 
     /**
-     * 获取单据数据
+     * 获取单据数据(一张单据)
      * @param data
      * @param templateData
      * @param primaryKey
      * @returns {*|Array|{parent, leaf}}
      */
-    function getValueItems(data, templateData) {
-
+    function getValueItems(data, template, templateData) {
 
         if (!data) {
             return;
         }
 
-        var headTemplate = templateData.formFields[0];
+        var headTemplate = template[0];
         var billData = data;
-        var entryData = [];
+
+        var entryData = {};
 
         var primaryKey = templateData.formClass.primaryKey;
 
         if (data.entry) {
             entryData = data.entry;
+            delete  billData.entry;
         }
-        delete  billData.entry;
 
-        // 主表数据
-        return $.Array.keep(billData, function (item, index) {
+        /**
 
-            return {
-
-                'disabled': item['status'], // 是否禁用
-                'data': item,
-                'primaryValue': item[primaryKey], // 主键对应的值
-
-                'items': $.Array.keep(templateData, function (field, no) { // 列
-
-                    var key = field.key;
-                    var value
-                    // 后台的一种规定，很蛋疼
-                    if (field.lookupType > 0 && field.lookupType < 3) { // lookupType
-                        // 不为 0时，说明是引用类型
-                        key = key + '_DspName';
-                        // 此时要显示的字段为 key + '_DspName'
-                    }
-                    if (field.isEntry) { // 子表数据
-                        var entryIndex = field.entryIndex;
-                        var entryValues = item.entry[entryIndex];
-                        value = $.Array.keep(entryValues, function (field, no) {
-                            return field[key];
-                        })
-                    } else {
-                        value = item[key];
-                    }
-
-                    return {
-                        'key': key,
-                        'value': value,
-                    };
-
-                }),
-            };
-
+         // 过滤出表头要显示的字段
+         var headData = $.Object.grep(billData, function (key, value) {
+            if (key in headTemplate) {
+                return headTemplate[key].visible;
+            }
+            return false;
         });
 
+         // 过滤出子表要显示的字段
+         for (var page in entryData) {
+
+            entryData[page] = $.Array.keep(entryData[page], function (rowData, rowIndex) {
+
+                var row = $.Object.grep(rowData, function (key, value) {
+                    if (key in template[page]) {
+                        return template[page][key].visible;
+                    }
+                    return false;
+                });
+
+                return row;
+            });
+        }
+
+         */
+        return {
+
+            headData: billData,
+            entryData: entryData,
+
+        };
     }
 
     return {
         get: get,
         getItems: getItems,
+        getValueItems: getValueItems,
     };
 
 });

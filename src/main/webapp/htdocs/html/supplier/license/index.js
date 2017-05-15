@@ -172,13 +172,15 @@
                 SMS.Tips.error('只能对一条记录进行操作');
                 return;
             }
-            SMS.Tips.info('该功能正在研发中，敬请期待……');
+            //SMS.Tips.info('该功能正在研发中，敬请期待……');
 
             MessageBox.confirm('确定要将该记录发送给HRP系统?', function (result) {
                 if (result) {
-                    List.del(classId, list, function () {
+
+                    SMS.Tips.info('该功能正在研发中，敬请期待……');
+/*                    List.del(classId, list, function () {
                         refresh();
-                    });
+                    });*/
                 }
             });
             return;

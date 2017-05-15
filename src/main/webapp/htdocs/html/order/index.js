@@ -127,7 +127,7 @@
                 url: 'html/order-details/index.html',
                 query: {
                     'classId': classId,
-                    'id': list[0].data.id,
+                    'id': list[0].data[List.getPrimaryKey()],
                 }
             });
 

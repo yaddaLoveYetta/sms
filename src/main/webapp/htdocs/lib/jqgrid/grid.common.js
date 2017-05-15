@@ -666,4 +666,5 @@ $.extend($.jgrid,{
 		return [true,"",""];
 	}
 });
+
 })(jQuery);

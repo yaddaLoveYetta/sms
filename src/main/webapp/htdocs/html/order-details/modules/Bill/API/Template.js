@@ -1,8 +1,8 @@
 ﻿/**
- *
- *获取单据模板信息
+ * Created by yadda on 2017/5/12.
+ * 单据模板信息
  */
-define('Bill/API/Head', function (require, module, exports) {
+define('Bill/API/Template', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -11,7 +11,7 @@ define('Bill/API/Head', function (require, module, exports) {
     var user = SMS.Login.get();
 
     var cache = null;
-    var headItems = [];
+    var templateAll = {};
     var display;
     // 字段显示权限-后端FDisPlay定义 1：平台用户显示，2：供应商用户显示：3：都显示
     if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
@@ -65,41 +65,54 @@ define('Bill/API/Head', function (require, module, exports) {
 
     }
 
-    function getItems(fields) {
+    function getTemplate(templateDate) {
 
-        if (headItems.length > 0) {
-            return headItems;
+
+        if (!$.Object.isEmpty(templateAll)) {
+            return templateAll;
         }
-        //表头信息-Map对象
-        $.Object.each(fields, function (key, item) {
 
-            var key = item.key;
-            var mask = item.display || 0;
+        var templateAll = {};
 
-            var headItem = {
-                'text': item.name,
-                'type': item.dataType,
-                'key': item.key,
-                'width': item.showWidth,
-                'visible': !!(mask & display), //转成 boolean--字段按用户类别显示
-                'lookupType': item.lookUpType,
-                'isCount': item.isCount,
-            };
+        $.Object.each(templateDate, function (pageIndex, pageData) {
 
-            headItems.push(headItem);
+            var temp = {};
+
+            $.Object.each(pageData, function (key, item) {
+
+                var key = item.key;
+
+                var mask = item.display || 0;
+
+                var headItem = {
+                    'text': item.name,
+                    'type': item.dataType,
+                    'key': item.key,
+                    'width': item.showWidth,
+                    'visible': !!(mask & display), // 转成 boolean--字段按用户类别显示
+                    'lookupType': item.lookUpType,
+                    'dataIndex': item.index,
+                    'isCount': item.isCount,
+                    'index': item.index
+                };
+
+                temp[key] = headItem;
+
+            });
+
+            templateAll[pageIndex] = temp;
 
         });
 
-        return headItems;
-
+        return templateAll;
     }
 
     function getformFildItems(formFields) {
 
-
-        if (headItems.length > 0) {
-            return headItems;
+        if (templateAll.length > 0) {
+            return templateAll;
         }
+
         // 表头信息-Map对象
         for (var index in formFields) {
             var fields = formFields[index];
@@ -124,11 +137,11 @@ define('Bill/API/Head', function (require, module, exports) {
                     'entryIndex': index
                 };
 
-                headItems.push(headItem);
+                templateAll.push(headItem);
 
             });
         }
-        return headItems.sort(function (a, b) {//数字排序
+        return templateAll.sort(function (a, b) {//数字排序
             return a.dataIndex > b.dataIndex ? 1 : -1;
         });
 
@@ -136,8 +149,7 @@ define('Bill/API/Head', function (require, module, exports) {
 
     return {
         get: get,
-        getItems: getItems,
-        getformFildItems: getformFildItems,
+        getTemplate: getTemplate,
     };
 
 });

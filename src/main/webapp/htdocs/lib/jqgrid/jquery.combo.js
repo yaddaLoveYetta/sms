@@ -1,4 +1,5 @@
 (function($) {
+
 	$.fn.combo = function(opts) {
 		if(this.length == 0) {
 			return this;
@@ -1157,5 +1158,6 @@
 			onCollapse: null
 		}
 	}
+
 })(jQuery)
 

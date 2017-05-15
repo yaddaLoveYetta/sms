@@ -9,20 +9,20 @@ define('Bill/API', function (require, module, exports) {
 
     var Multitask = SMS.require('Multitask');
 
-    var Head = require('/Head');
-    //完整名称为 List/API/Head
-    var Body = require('/Body');
-    //完整名称为 List/API/Body
+    var Template = require('/Template');
+    //完整名称为 Bill/API/Template
+    var Data = require('/Data');
+    //完整名称为 Bill/API/Data
 
     function get(config, fn) {
 
         var tasks = [{
-            fn: Head.get,
+            fn: Template.get,
             args: [{
                 'classId': config.classId
             }]
         }, {
-            fn: Body.get,
+            fn: Data.get,
             args: [{
                 'classId': config.classId,
                 'id': config.id,
@@ -32,40 +32,30 @@ define('Bill/API', function (require, module, exports) {
         //并行发起请求
         Multitask.concurrency(tasks, function (list) {
 
-            var templateData = list[0];
+            var template = list[0];
             var valueData = list[1];
-            var headItems0;
+
             console.dir(list);
 
-            headItems0 = Head.getItems(templateData.formFields[0]);
+            var formFields = Template.getTemplate(template.formFields); // 整理模板
+            var data = Data.getValueItems(valueData, formFields, template); // 处理数据
 
-            var valueItems = Body.getValueItems(valueData, templateData);
 
-            var bodyItems = Body.getItems(valueData.list, headItems0, templateData.formClass.primaryKey);
+            var visibleTemplate = {}; // 过滤出可显示的模板
+
+            $.Object.each(formFields, function (pageIndex, pageData) {
+
+                visibleTemplate[pageIndex] = $.Object.grep(pageData, function (key, value) {
+                    return value.visible;
+                });
+
+            });
+
 
             fn && fn({
-
-                checkbox: true,
-                primaryKey: templateData.formClass.primaryKey,
-                head: {
-                    //过滤出 visible: true 的项
-                    'items': $.Array.grep(headItems0, function (item, index) {
-                        return item.visible;
-                    }),
-                },
-                body: {
-                    'total': valueData.count,
-
-                    'items': valueData.total == 0 ? '' : $.Array.keep(bodyItems, function (row, no) { //行
-
-                        //过滤出 visible: true 的项
-                        row.items = $.Array.grep(row.items, function (item, index) { //列
-                            var field = headItems0[index];
-                            return field.visible;
-                        });
-                        return row;
-                    }),
-                },
+                template: template,
+                visibleTemplate: visibleTemplate,
+                data: data,
             });
         });
 

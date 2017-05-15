@@ -6171,6 +6171,7 @@
 
         var $ = require('$');
         var MiniQuery = require('MiniQuery');
+        var Seajs = require('Seajs');
 
         var mapper = new $.Mapper();
         var guidKey = $.Mapper.getGuidKey();
@@ -6239,7 +6240,6 @@
             } else {
                 newId = data.length + 1;
             }
-            ;
 
             bdGrid.jqGrid({
                 data: data,
@@ -6248,13 +6248,15 @@
                 colModel: config.colModel,
                 width: config.width,
                 height: config.height,
+                autoScroll: true,
                 cmTemplate: {
                     sortable: false
                 },
                 rownumbers: true,
                 cellEdit: true,
                 //altRows: true,
-                shrinkToFit: true,
+                shrinkToFit: false,
+                autoScroll: true,
                 forceFit: true,
                 cellsubmit: 'clientArray',
                 loadonce: true,
@@ -6355,10 +6357,10 @@
         }
 
         function showF7(field, filterID, emitter, container, rowNumb) {
-            var formClassID = field.FLookUpClassID;
+            var formClassID = field.lookUpClassID;
             var url = $.Url.setQueryString('./html/base/index.html', 'classId', formClassID);
             var condition = {};
-            var title = '';
+            var title = field.name || '';
 
             SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
@@ -6381,7 +6383,7 @@
                         filterID: filterID,
                         multiSelect: false,
                         hasBreadcrumbs: false,
-                        pageSize: 10,
+                        pageSize: 8,
                         conditions: condition
                     },
                 });
@@ -6480,7 +6482,7 @@
 
         function getPrimaryKey(metaData, entryIndex) {
             var entry = metaData['formEntries'][entryIndex];
-            return entry['FPrimaryKey'];
+            return entry['primaryKey'];
         }
 
         function getGridData(bdGrid, metaData, needSaveKeys, mustInputFields) {
@@ -6726,13 +6728,10 @@
         return {
 
             use: function (fn) {
-
+                // 4.5.4
                 Seajs.use([
-                    'grid-base-js',
-                    'grid-celledit-js',
-                    'grid-custom-js',
-                    'grid-common-js',
                     'grid-locale-cn-js',
+                    'grid-base-js',
                     'jquery-combo-js',
                     'jqgrid-css',
                     'ui-css',
@@ -6740,6 +6739,17 @@
                 ], function () {
                     fn && fn(Grid);
                 });
+                //5.1.0-all
+                /*                Seajs.use([
+                 'grid-locale-cn-js',
+                 'ui-css',
+                 'common-css',
+                 'jqgrid-all-css',
+                 'jqgrid-all-js',
+
+                 ], function () {
+                 fn && fn(Grid);
+                 });*/
 
             },
 

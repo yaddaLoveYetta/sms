@@ -140,7 +140,6 @@ define('Grid', function (require, module, exports) {
                 if (row[primaryKey]) {
                     deleteRows.push(row);
                 }
-                ;
 
                 bdGrid.jqGrid("clearGridData");
                 bdGrid.jqGrid('addRowData', 'num_1', {
@@ -155,7 +154,6 @@ define('Grid', function (require, module, exports) {
             if (su && row[primaryKey]) {
                 deleteRows.push(row);
             }
-            ;
         });
 
         //取消分录编辑状态
@@ -163,7 +161,6 @@ define('Grid', function (require, module, exports) {
             if (!$(e.target).closest(".ui-jqgrid-bdiv").length > 0) {
                 saveGrid(bdGrid, cfg.curCell);
             }
-            ;
         });
 
         //$('.grid-wrap').on('click', '.ui-icon-ellipsis', function (e) {
@@ -187,7 +184,7 @@ define('Grid', function (require, module, exports) {
     }
 
     function showF7(field, filterID, emitter, container, rowNumb) {
-        var formClassID = field.FLookUpClassID;
+        var formClassID = field.lookUpClassID;
         var url = $.Url.setQueryString('./html/base/index.html', 'classId', formClassID);
         var condition = {};
         var title = '';
@@ -542,7 +539,8 @@ define('Grid', function (require, module, exports) {
             }
             meta.grid.jqGrid('setRowData', row, gridData);
 
-        }, on: function (name, fn) {
+        },
+        on: function (name, fn) {
 
             var meta = mapper.get(this);
             var emitter = meta.emitter;
