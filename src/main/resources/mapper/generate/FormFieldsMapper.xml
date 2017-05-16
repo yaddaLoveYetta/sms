@@ -30,6 +30,7 @@
     <result column="lock" jdbcType="INTEGER" property="lock" />
     <result column="isCondition" jdbcType="INTEGER" property="isCondition" />
     <result column="isCount" jdbcType="INTEGER" property="isCount" />
+    <result column="needSave" jdbcType="TINYINT" property="needSave" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -93,7 +94,7 @@
     classId, page, [name], sqlColumnName, [key], dataType, ctrlType, ctlIndex, [index], 
     display, showWidth, lookUpType, lookUpClassID, srcTable, srcTableAlisAs, srcField, 
     disPlayField, disPlayNum, joinType, [filter], defaultValue, [maxValue], [minValue], 
-    mustInput, [length], [lock], isCondition, isCount
+    mustInput, [length], [lock], isCondition, isCount, needSave
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.FormFieldsExample" resultMap="BaseResultMap">
     select
@@ -125,7 +126,7 @@
       joinType, [filter], defaultValue, 
       [maxValue], [minValue], mustInput, 
       [length], [lock], isCondition, 
-      isCount)
+      isCount, needSave)
     values (#{classId,jdbcType=INTEGER}, #{page,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{sqlColumnName,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{dataType,jdbcType=INTEGER}, 
       #{ctrlType,jdbcType=INTEGER}, #{ctlIndex,jdbcType=INTEGER}, #{index,jdbcType=INTEGER}, 
@@ -135,7 +136,7 @@
       #{joinType,jdbcType=VARCHAR}, #{filter,jdbcType=VARCHAR}, #{defaultValue,jdbcType=VARCHAR}, 
       #{maxValue,jdbcType=NUMERIC}, #{minValue,jdbcType=NUMERIC}, #{mustInput,jdbcType=INTEGER}, 
       #{length,jdbcType=INTEGER}, #{lock,jdbcType=INTEGER}, #{isCondition,jdbcType=INTEGER}, 
-      #{isCount,jdbcType=INTEGER})
+      #{isCount,jdbcType=INTEGER}, #{needSave,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.FormFields">
     insert into t_sms_formFields
@@ -224,6 +225,9 @@
       <if test="isCount != null">
         isCount,
       </if>
+      <if test="needSave != null">
+        needSave,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="classId != null">
@@ -309,6 +313,9 @@
       </if>
       <if test="isCount != null">
         #{isCount,jdbcType=INTEGER},
+      </if>
+      <if test="needSave != null">
+        #{needSave,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -405,6 +412,9 @@
       <if test="record.isCount != null">
         isCount = #{record.isCount,jdbcType=INTEGER},
       </if>
+      <if test="record.needSave != null">
+        needSave = #{record.needSave,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -439,7 +449,8 @@
       [length] = #{record.length,jdbcType=INTEGER},
       [lock] = #{record.lock,jdbcType=INTEGER},
       isCondition = #{record.isCondition,jdbcType=INTEGER},
-      isCount = #{record.isCount,jdbcType=INTEGER}
+      isCount = #{record.isCount,jdbcType=INTEGER},
+      needSave = #{record.needSave,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

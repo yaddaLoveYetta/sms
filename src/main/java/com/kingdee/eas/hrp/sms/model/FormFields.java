@@ -59,6 +59,8 @@ public class FormFields {
 
     private Integer isCount;
 
+    private Byte needSave;
+
     public Integer getClassId() {
         return classId;
     }
@@ -281,5 +283,13 @@ public class FormFields {
 
     public void setIsCount(Integer isCount) {
         this.isCount = isCount;
+    }
+
+    public Byte getNeedSave() {
+        return needSave;
+    }
+
+    public void setNeedSave(Byte needSave) {
+        this.needSave = needSave;
     }
 }
