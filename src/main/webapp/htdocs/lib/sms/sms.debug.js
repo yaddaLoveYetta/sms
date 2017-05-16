@@ -6498,7 +6498,7 @@
                 var mustInputCaptions = [];
                 for (var validIndex in mustInputFields) {
                     if (row[mustInputFields[validIndex].key] == '') {
-                        var caption = mustInputFields[validIndex].caption;
+                        var caption = mustInputFields[validIndex].name;
                         mustInputCaptions.push(caption);
                         valid = false;
                     }
