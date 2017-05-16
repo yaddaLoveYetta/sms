@@ -22,7 +22,8 @@
 
     //检查登录
     if (!SMS.Login.check(true)) {
-        return;
+        SMS.Login.show();
+        //return;
     }
 
     //默认配置

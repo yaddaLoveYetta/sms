@@ -11,7 +11,7 @@ define('Bill', function (require, module, exports) {
     var API = require("/API");
     // 完整名称为 Bill/API
 
-   // var Head = require('/Head');// 完整名称为 Bill/Head
+    // var Head = require('/Head');// 完整名称为 Bill/Head
     var Entry = require('/Entry'); // 完整名称为 Bill/Entry
 
     var template = {};
@@ -41,7 +41,25 @@ define('Bill', function (require, module, exports) {
         });
     }
 
+    function getHeadData() {
+        return Head.getData();
+    }
+
+    function getEntryData() {
+        return Entry.getData();
+    }
+
+    function getBillData() {
+        return {
+            head: getHeadData(),
+            entry: getEntryData(),
+        }
+    }
+
     return {
         render: render,
+        getBillData: getBillData,
+        getHeadData: getHeadData,
+        getEntryData: getEntryData
     }
 });

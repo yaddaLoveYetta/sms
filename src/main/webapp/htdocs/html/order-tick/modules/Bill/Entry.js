@@ -9,13 +9,16 @@ define('Bill/Entry', function (require, module, exports) {
 
     var Grid;
     var isNeedOpt = true; // 订单详情不可编辑
+
+    var billTemplate = {};
+
     var cleanGrid = function () {
         Grid.clear();
     };
 
     var gridConfig = {
         gridName: 'bd-grid',
-        width: $(window).width(),
+        width: $(window).width() - 5,
         height: 'auto',
         fnAfterSaveCell_After: function (rowid, data) {
             $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
@@ -32,6 +35,8 @@ define('Bill/Entry', function (require, module, exports) {
             return;
         }
 
+        billTemplate = template;
+
         SMS.use('Grid', function (Grid) {
 
             Grid = new Grid('bd-grid');
@@ -47,10 +52,78 @@ define('Bill/Entry', function (require, module, exports) {
                     'FParkNumber': data[0].number,
                     'FParkName': data[0].name
                 };
-                parkGrid.setRowData(data.row, itemData);
+                Grid.setRowData(data.row, itemData);
             });
 
         });
+    }
+
+    function getData() {
+
+        var entry = [];
+        /*
+         'data':{
+         FEntryID:0, 新增可不传
+         FParkID:1,
+         FParkName:'ade',
+         FParkNumber:'001'
+         },
+         'flag':'1' 0删除, 1新增，2修改
+         */
+        var gridData = Grid.getGridDatas();
+
+        var entryTemplate = billTemplate.formFields["1"]
+
+        //新增数据
+        $.Array.each(gridData["add"], function (item, index) {
+            var adData = {
+                data: {
+                    FPark: item.FPark,
+                    FParkName: item.FParkName,
+                    FParkNumber: item.FParkNumber
+                },
+                flag: '1'
+            };
+            entry.push(adData);
+            if (!$.Array.contains(parkIDs, item.FPark)) {
+                parkIDs.push(item.FPark);
+            } else {
+                parkIDExisted = true;
+            }
+        });
+
+        //修改数据
+        $.Array.each(gridData["update"], function (item, index) {
+            var upData = {
+                data: {
+                    FEntryID: item.FEntryID,
+                    FPark: item.FPark,
+                    FParkName: item.FParkName,
+                    FParkNumber: item.FParkNumber
+                },
+                flag: '2'
+            };
+            entry.push(upData);
+        });
+        //删除数据
+        $.Array.each(gridData["delete"], function (item, index) {
+            var delData = {
+                data: {
+                    FEntryID: item.FEntryID,
+                    FPark: item.FPark,
+                    FParkName: item.FParkName,
+                    FParkNumber: item.FParkNumber
+                },
+                flag: '0'
+            };
+            entry.push(delData);
+        });
+
+        var entryData = {
+            1: entry
+        };
+
+        return entryData;
     }
 
     function render(template, data) {
@@ -59,5 +132,6 @@ define('Bill/Entry', function (require, module, exports) {
 
     return {
         render: render,
+        getData: getData,
     };
 });

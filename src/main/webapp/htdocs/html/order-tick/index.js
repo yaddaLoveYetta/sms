@@ -34,7 +34,7 @@
     dialog.on({
 
         get: function () {
-            dialog.setData(data);
+            dialog.setData(Bill.getEntryData());
         },
         serverBack: function () {
             // 回调
