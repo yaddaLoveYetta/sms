@@ -55,6 +55,10 @@
                 text: '详情',
                 name: 'detail',
             },
+            {
+                text: '发货',
+                name: 'outStock',
+            }
         ]
     };
 
@@ -151,7 +155,9 @@
         'refresh': function (item, index) {
             refresh();
         },
-
+        'outStock': function (item, index) {
+            SMS.Tips.info('功能研发中，敬请期待……');
+        }
     });
 
     function refresh(data) {
