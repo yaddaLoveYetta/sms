@@ -78,13 +78,13 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
     /**
      * 构造grid初始化参数
      * @param fields  单据模板
-     * @param gridConfig 默认配置
+     * @param defaults 默认配置
      * @param showKeys 需要展现的字段-null将按照单据模板确定
      * @param editKeys 可以编辑的字段-null将不可编辑
      * @param operator 控制是否有新增，删除行功能-true：可以添加/删除 false：不出现添加/删除行功能
      * @returns {*}
      */
-    function getConfig(fields, gridConfig, showKeys, editKeys, operator) {
+    function getConfig(fields, defaults, showKeys, editKeys, operator) {
 
         var cNames = [];
         var cModel = [];
@@ -96,7 +96,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             var params = fields;
 
             fields = params.fields;
-            gridConfig = params.gridConfig;
+            defaults = params.defaults;
             showKeys = params.showKeys;
             editKeys = params.editKeys;
             operator = params.operator;
@@ -166,27 +166,27 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             cNames.push(cModel[m].label);
         }
 
-        gridConfig.colNames = cNames;
-        gridConfig.colModel = cModel;
+        defaults.colNames = cNames;
+        defaults.colModel = cModel;
 
-        gridConfig.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
+        defaults.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
 
-            var rowdata = $("#" + gridConfig.gridName).getRowData(rowid);
+            var rowdata = $("#" + defaults.gridName).getRowData(rowid);
             rowdata[cellname] = value;
             console.log(rowdata);
             $("#" + iRow + "_" + cellname).val(value);
             $('#initCombo').data('selectedRow', rowid);
             $('#initCombo').data('selectedVal' + rowid, rowdata);
-            gridConfig.fnAfterEditCell_Before && gridConfig.fnAfterEditCell_Before(rowid, cellname, value);
-            $("#" + iRow + "_" + name_dsp, "#" + gridConfig.gridName).val(value);
+            defaults.fnAfterEditCell_Before && defaults.fnAfterEditCell_Before(rowid, cellname, value);
+            $("#" + iRow + "_" + name_dsp, "#" + defaults.gridName).val(value);
 
         };
-        gridConfig.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
+        defaults.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
             var gridData = $('#initCombo').data('selectedVal' + rowid);
-            $("#" + gridConfig.gridName).jqGrid('setRowData', rowid, gridData);
+            $("#" + defaults.gridName).jqGrid('setRowData', rowid, gridData);
         };
 
-        gridConfig.fnLoadComplete = function (data) {
+        defaults.fnLoadComplete = function (data) {
             //var rows = data['rows'];
             //var len = rows.length;
             //for (var i = 0; i < len; i++) {
@@ -198,7 +198,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             //};
         };
 
-        return gridConfig;
+        return defaults;
     }
 
     function sortModels(models) {

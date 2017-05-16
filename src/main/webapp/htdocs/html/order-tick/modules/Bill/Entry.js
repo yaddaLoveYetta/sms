@@ -16,7 +16,7 @@ define('Bill/Entry', function (require, module, exports) {
         billGrid.clear();
     };
 
-    var gridConfig = {
+    var defaults = {
         gridName: 'bd-grid',
         width: $(window).width() - 5,
         height: 'auto',
@@ -49,15 +49,15 @@ define('Bill/Entry', function (require, module, exports) {
             var editKeys = ['confirmQty', 'confirmDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
-            gridConfig = GridBuilder.getConfig({
+            defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
-                'default': gridConfig,
+                'defaults': defaults,
                 'showKeys': showKeys,
                 'editKeys': editKeys,
                 'operator': false,
             });
 
-            billGrid.render(gridConfig, data, template, 1);
+            billGrid.render(defaults, data, template, 1);
 
             billGrid.on('f7Selected', function (data) {
                 var itemData = {
