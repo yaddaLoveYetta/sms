@@ -30,12 +30,23 @@
         typeId: '',
         pageNo: 1,
         hasBreadcrumbs: true,
-        multiSelect: false
+        multiSelect: true
     };
 
     $(txtSimpleSearch).bind('keypress', function (event) {
         if (event.keyCode == 13) {
             /*conditions['name'] = $(txtSimpleSearch).val();*/
+
+            conditions['number'] = {
+                'andOr': 'AND',
+                'leftParenTheses': '(',
+                'fieldKey': 'number',
+                'logicOperator': '=',
+                'value': $(txtSimpleSearch).val(),
+                'rightParenTheses': ')',
+            };
+
+
             refresh();
         }
     });
