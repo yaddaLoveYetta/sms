@@ -70,7 +70,7 @@ define('Bill/Entry', function (require, module, exports) {
          },
          'flag':'1' 0删除, 1新增，2修改
          */
-        var gridData = billGrid.getGridDatas();
+        var gridData = billGrid.getGridDatas(1); // 获取第一个表体数据
 
         var entryTemplate = billTemplate.formFields["1"]
 
