@@ -84,13 +84,28 @@
                 var dialog = new Dialog({
                     title: '编辑-供应商资质',
                     width: 700,
-                    height: 550,
-                    url: $.Url.setQueryString('html/base_edit/index.html', {
+                    height: 300,
+                    url: $.Url.setQueryString('html/order-tick/index.html', {
                         'classId': classId,
-                        id: list[0].data.id,
+                        'orderId': list[0].data.id,
                     }),
                     data: {},
-                    button: [],
+                    button: [
+                        {
+                            value: '取消',
+                            className: 'sms-cancel-btn',
+                        },
+                        {
+                            value: '确定',
+                            className: 'sms-submit-btn',
+                            callback: function () {
+                                dialog.__dispatchEvent('get');
+                                var data = dialog.getData();
+                                console.log(data);
+                                return false; // 可能不成功，默认不关闭对话框
+                            }
+                        }
+                    ],
                 });
 
                 //默认关闭行为为不提交

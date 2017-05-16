@@ -1525,9 +1525,34 @@
                 var a = exports.grep(array, fn);
                 return a.length;
 
+            },
+            /**
+             * 使用冒泡排序法对数组用指定的规则排序，返回排序后的数组
+             * @param array 待排序的数组
+             * @param fn 排序函数,用于处理当前数组项的函数，返回一个新值代替原来的数组项。
+             * 此函数传递两个待过滤数组参数。排序函数必须返回 true 以交换量元素位置 false 不交换。
+             *
+             * @returns {*}
+             */
+            sort: function (array, fn) {
+
+                if (arguments.length < 2) {
+                    return array;
+                }
+
+                for (var i = 0; i < array.length; i++) {
+                    for (var j = i + 1; j < array.length; j++) {
+                        if (fn(array[i], array[j])) {
+                            var tmp = array[i];
+                            array[i] = array[j];
+                            array[j] = tmp;
+                        }
+                    }
+                }
+
+                return array;
+
             }
-
-
         });
 
     });
@@ -4366,11 +4391,11 @@
             getLength: function (obj) {
 
                 var objType = typeof obj;
-                if(objType == "string"){
+                if (objType == "string") {
                     return obj.length;
-                }else if(objType == "object"){
+                } else if (objType == "object") {
                     var objLen = 0;
-                    for(var i in obj){
+                    for (var i in obj) {
                         objLen++;
                     }
                     return objLen;
@@ -4676,7 +4701,7 @@
                         return $Object.getItems(this.value, isDeep);
                     },
 
-                    getLength:function(obj){
+                    getLength: function (obj) {
                         return $Object.getLength(obj);
                     }
                 };
