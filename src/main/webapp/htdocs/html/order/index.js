@@ -41,7 +41,7 @@
                 'andOr': 'AND',
                 'leftParenTheses': '(',
                 'fieldKey': 'number',
-                'logicOperator': '=',
+                'logicOperator': 'like',
                 'value': $(txtSimpleSearch).val(),
                 'rightParenTheses': ')',
             };

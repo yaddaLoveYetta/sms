@@ -360,8 +360,8 @@
                     fnSuccess && fnSuccess(json['data'] || {}, json, xhr);
                 } else if (code == sessionLostCode) {
                     $.SessionStorage.remove('SMS.Login.user.F5F2BA55218E'); // 只移除会话级的
-                    SMS.Login.show();
-                    //SMS.Login.check(true);
+                    //SMS.Login.show();
+                    SMS.Login.check(true);
                     return;
                 }
                 else {
