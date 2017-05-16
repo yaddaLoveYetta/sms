@@ -6530,8 +6530,8 @@
 
                 itemData.bos_modify = row.bos_modify;
 
-                //			gridData.push(itemData); 修改需要全部数据，不只是要主键
-                gridData.push(row);
+                gridData.push(itemData); //修改需要全部数据，不只是要主键
+                //gridData.push(row);
             }
 
             return gridData;
