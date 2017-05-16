@@ -7,36 +7,46 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
 
-    function getColModel(field, isNeedOpt) {
+    /**
+     * 构建grid model
+     * @param field 字段模板
+     * @param editAble 是否可编辑
+     * @returns {{}}
+     */
+    function getColModel(field, editAble) {
+
         var model = {};
+
         model.name = field.key;
         model.label = field.name;
         model.width = field.showWidth;
         model.title = true;
-        model.editable = isNeedOpt;// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
+        model.editable = editAble;// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
         model.hidden = ((field.display & 1) != 1);
         model.tabIndex = field.index;
 
         if (field.ctrlType == 6) {
             //if (field.FLookUpType == 1) {
             //
-            model.name = field.key + '_DspName';
+            model.name = field.key + '_DspName'; // 显示的值保存在 field.key + '_DspName' 的key中
             model.edittype = 'custom';
+
             function element(value, options) {
                 var el = $('.' + field.key + 'Auto')[0];
                 return el;
-            };
+            }
+
             function value(elem, operation, value) {
                 if (operation === 'get') {
                     return "";
                 } else if (operation === 'set') {
                     $('input', elem).val(value);
                 }
-            };
+            }
 
             function handle() {
                 $('#initCombo').append($('.' + field.key + 'Auto').val(''));
-            };
+            }
 
             var triggerClass = 'ui-icon-ellipsis';
 
@@ -48,8 +58,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             };
 
             model.formatter = function (val, opt, row) {
-                //				if (row[field.FKey + '_DspName']) {
-                //					return row[field.FKey + '_DspName'];
+                //				if (row[field.key + '_DspName']) {
+                //					return row[field.key + '_DspName'];
                 //				} else
 
                 if (val) {
@@ -65,16 +75,57 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         return model;
     }
 
-    function getConfig(fields, gridConfig, names, isNeedOpt) {
+    /**
+     * 构造grid初始化参数
+     * @param fields  单据模板
+     * @param gridConfig 默认配置
+     * @param showKeys 需要展现的字段-null将按照单据模板确定
+     * @param editKeys 可以编辑的字段-null将不可编辑
+     * @param operator 控制是否有新增，删除行功能-true：可以添加/删除 false：不出现添加/删除行功能
+     * @returns {*}
+     */
+    function getConfig(fields, gridConfig, showKeys, editKeys, operator) {
 
         var cNames = [];
         var cModel = [];
-        if (isNeedOpt) {
-            cModel = [{
+
+        var model = {};
+
+        if (typeof fields == 'object') {
+            //重载方法
+            var params = fields;
+
+            fields = params.fields;
+            gridConfig = params.gridConfig;
+            showKeys = params.showKeys;
+            editKeys = params.editKeys;
+            operator = params.operator;
+
+        }
+
+        //按照单据模板确定
+        if (!showKeys) {
+            showKeys = fields;
+        }
+        if (!editKeys) {
+            editKeys = fields;
+        }
+
+        // 有需要编辑的列
+        if (editKeys) {
+            // 增加一列标识-方便数据控制
+            model = {
                 name: 'bos_modify',
                 label: 'bos_modify',
                 hidden: true
-            }, {
+            };
+            cModel.push(model);
+        }
+
+        // 需要有添加/删除行功能
+        if (operator) {
+            // 增加一列添加/删除行功能的按钮
+            model = {
                 name: 'operate',
                 label: ' ',
                 width: 40,
@@ -84,31 +135,28 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                     return html_con;
                 },
                 align: "center",
-                editable: false, // 不能新增删除行
-                hidden: true
-            }];
+                editable: false,
+                hidden: true // 不能新增删除行
+            };
+            cModel.push(model);
         }
 
+
         //要展示的字段
-/*        var keys = ['entryId', 'parent', 'seq', 'material', 'unit', 'qty', 'price',
-            'confirmDate', 'deliveryDate', 'discountRate', 'taxRate', 'taxPrice',
-            'actualTaxPrice', 'discountAmount', 'tax', 'localAmount', 'confirmQty'];*/
-        var keys = ['entryId', 'parent', 'seq', 'material', 'unit', 'qty', 'price',
-            'confirmDate', 'deliveryDate', 'localAmount', 'confirmQty'];
+        /*        var keys = ['entryId', 'parent', 'seq', 'material', 'unit', 'qty', 'price',
+         'confirmDate', 'deliveryDate', 'discountRate', 'taxRate', 'taxPrice',
+         'actualTaxPrice', 'discountAmount', 'tax', 'localAmount', 'confirmQty'];*/
 
-        for (var key in keys) {
+        for (var key in showKeys) {
 
-            var field = fields[keys[key]];
+            var field = fields[showKeys[key]];
 
             if (!field) {
                 continue;
             }
 
-            isNeedOpt = false;
-            if ($.Array.contains(['localAmount', 'confirmQty'], field.key)) {
-                isNeedOpt = true;
-            }
-            var model = getColModel(field, isNeedOpt);
+            model = getColModel(field, $.Array.contains(editKeys, field.key));
+
             cModel.push(model);
         }
 

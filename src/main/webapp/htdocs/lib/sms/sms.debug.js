@@ -6491,11 +6491,13 @@
             var ids = bdGrid.jqGrid('getDataIDs');
 
             for (var i = 0, len = ids.length; i < len; i++) {
+
                 var id = ids[i];
                 var row = bdGrid.jqGrid('getRowData', id);
 
                 var valid = true;
                 var mustInputCaptions = [];
+
                 for (var validIndex in mustInputFields) {
                     if (row[mustInputFields[validIndex].key] == '') {
                         var caption = mustInputFields[validIndex].name;
