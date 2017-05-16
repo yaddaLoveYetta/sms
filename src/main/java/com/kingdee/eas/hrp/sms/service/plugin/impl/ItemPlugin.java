@@ -77,16 +77,20 @@ public class ItemPlugin extends PlugInAdpter {
 			String key = ff.getKey();
 			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10,
 					"QpXq24FxxE6c3lvHMPyYCxACEAI=");
-			List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("list");
-			for (Map<String, Object> item : items) {
-				// 如果此记录被引用，则不删除
-				String id = (String) item.get(key);
-				if (idList.contains(id)) {
+			int count=((Long) result.get("count")).intValue();
+			for (int i = 1; i <= (count / 10 + 1); i++) {
+				Map<String, Object> r = templateService.getItems(citedClassId, "", orderBy, i, 10,
+						"QpXq24FxxE6c3lvHMPyYCxACEAI=");
+				List<Map<String, Object>> items = (List<Map<String, Object>>) r.get("list");
+				for (Map<String, Object> item : items) {
+					// 如果此记录被引用，则不删除
+					String id = (String) item.get(key);
+					if (idList.contains(id)) {
 
-					throw new PlugInRuntimeException("内码：" + item.get("name") + "已被引用，无法删除");
+						throw new PlugInRuntimeException("该记录已被引用，无法删除");
+					}
 				}
 			}
-
 		}
 
 		return super.beforeDelete(classId, formData, data);
@@ -146,11 +150,16 @@ public class ItemPlugin extends PlugInAdpter {
 		String orderBy = JSON.toJSONString(orderByArray);
 		Map<String, Object> result = templateService.getItems(classId, "", orderBy, 1, 10,
 				"QpXq24FxxE6c3lvHMPyYCxACEAI=");
-		List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("list");
-		for (Map<String, Object> item : items) {
-			if (item.get("name").equals(data.get("name")) && item.get("number").equals(data.get("number"))) {
-				if (id.equals("-1") || !item.get(primaryKey).equals(id)) {
-					throw new PlugInRuntimeException("该记录已存在");
+		int count=((Long) result.get("count")).intValue();
+		for (int i = 1; i <= (count / 10 + 1); i++) {
+			Map<String, Object> r = templateService.getItems(classId, "", orderBy, i, 10,
+					"QpXq24FxxE6c3lvHMPyYCxACEAI=");
+			List<Map<String, Object>> items = (List<Map<String, Object>>) r.get("list");
+			for (Map<String, Object> item : items) {
+				if (item.get("name").equals(data.get("name")) && item.get("number").equals(data.get("number"))) {
+					if (id.equals("-1") || !item.get(primaryKey).equals(id)) {
+						throw new PlugInRuntimeException("该记录已存在");
+					}
 				}
 			}
 		}
@@ -232,17 +241,17 @@ public class ItemPlugin extends PlugInAdpter {
 
 	@SuppressWarnings("unchecked")
 	private void checkMustInput(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
-		
-		//用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
-		if(classId==1001){
-			if("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(data.getString("type"))){
-				if(data.getString("supplier")!=null&&!"".equals(data.getString("supplier"))){
+
+		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
+		if (classId == 1001) {
+			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(data.getString("type"))) {
+				if (data.getString("supplier") != null && !"".equals(data.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
 			}
 		}
 
-		//如果flag是true，表明这个字段需要验证是否非空
+		// 如果flag是true，表明这个字段需要验证是否非空
 		boolean flag = false;
 		// 主表字段模板
 		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData

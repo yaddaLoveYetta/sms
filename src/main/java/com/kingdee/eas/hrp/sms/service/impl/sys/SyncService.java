@@ -14,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.JsonObject;
 import com.kingdee.eas.hrp.sms.dao.generate.CategoryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.CertificateMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.CityMapper;
@@ -909,14 +911,19 @@ public class SyncService extends BaseService implements ISyncService {
 
 		for (Object item : list) {
 
-			Map<String, Object> errUnit = new HashMap<String, Object>(); // 记录错误信息
+			Map<String, Object> errItem = new HashMap<String, Object>(); // 记录错误信息
 
 			try {
-				templateService.addItem(classId, item.toString(), userType);
+				String id = ((JSONObject) item).getString("id");
+				if (templateService.getItemById(classId, id, userType) == null) {
+					templateService.addItem(classId, item.toString(), userType);
+				} else {
+					templateService.editItem(classId, id, item.toString(), userType);
+				}
 			} catch (Exception e) {
-				errUnit.put("desc", e.getMessage());
-				errUnit.put("item", item.toString());
-				errList.add(errUnit);
+				errItem.put("desc", e.getMessage());
+				errItem.put("item", item.toString());
+				errList.add(errItem);
 			}
 		}
 		return errList;
