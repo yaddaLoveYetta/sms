@@ -30,7 +30,7 @@
         typeId: '',
         pageNo: 1,
         hasBreadcrumbs: true,
-        multiSelect: true
+        multiSelect: false
     };
 
     $(txtSimpleSearch).bind('keypress', function (event) {
