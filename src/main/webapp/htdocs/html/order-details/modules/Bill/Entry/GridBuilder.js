@@ -33,16 +33,13 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                     $('input', elem).val(value);
                 }
             };
+
             function handle() {
                 $('#initCombo').append($('.' + field.key + 'Auto').val(''));
             };
 
-            triggerClass = 'ui-icon-ellipsis';
-            if (field.ctrlType == 5) {
-                triggerClass = 'ui-icon-triangle-1-s';
-            } else if (field.ctrlType == 6) {
-                triggerClass = 'ui-icon-ellipsis';
-            }
+            var triggerClass = 'ui-icon-ellipsis';
+
             model.editoptions = {
                 custom_element: element,
                 custom_value: value,
@@ -110,6 +107,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             }];
         }
         for (var key in fields) {
+
             var field = fields[key];
 
             if (field.lookUpType == 1) {
@@ -146,6 +144,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         gridConfig.colModel = cModel;
 
         gridConfig.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
+
             var rowdata = $("#" + gridConfig.gridName).getRowData(rowid);
             rowdata[cellname] = value;
             console.log(rowdata);
@@ -177,17 +176,21 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
     }
 
     function sortModels(models) {
-        for (var i = 0; i < models.length; i++) {
-            for (var j = i + 1; j < models.length; j++) {
-                if (models[i].tabIndex > models[j].tabIndex) {
-                    var tmp = models[i];
-                    models[i] = models[j];
-                    models[j] = tmp;
-                }
-            }
-        }
 
-        return models;
+        return $.Array.sort(models, function (models1, models2) {
+            return models1.tabIndex > models2.tabIndex;
+        });
+
+        /*        for (var i = 0; i < models.length; i++) {
+         for (var j = i + 1; j < models.length; j++) {
+         if (models[i].tabIndex > models[j].tabIndex) {
+         var tmp = models[i];
+         models[i] = models[j];
+         models[j] = tmp;
+         }
+         }
+         }
+         return models;*/
     }
 
     function getImagePath(path) {

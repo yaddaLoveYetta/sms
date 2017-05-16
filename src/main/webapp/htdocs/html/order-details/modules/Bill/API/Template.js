@@ -84,7 +84,7 @@ define('Bill/API/Template', function (require, module, exports) {
 
                 var mask = item.display || 0;
 
-                var headItem = {
+                var t = {
                     'text': item.name,
                     'type': item.dataType,
                     'key': item.key,
@@ -96,8 +96,7 @@ define('Bill/API/Template', function (require, module, exports) {
                     'index': item.index
                 };
 
-                //temp[key] = headItem;
-                temp.push(headItem);
+                temp.push(t);
 
             });
 

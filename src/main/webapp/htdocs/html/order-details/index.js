@@ -28,5 +28,4 @@
         'id': itemId
     });
 
-    //alert('done');
 })();

@@ -1886,6 +1886,11 @@
                         this.value = $Array.pad.apply(null, args);
 
                         return this;
+                    },
+
+                    sort:function (array,fn) {
+                        var args = $.toArray(arguments);
+                        return $Array.sort.apply(null, args);
                     }
                 };
 
