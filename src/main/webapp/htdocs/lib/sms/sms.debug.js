@@ -360,7 +360,8 @@
                     fnSuccess && fnSuccess(json['data'] || {}, json, xhr);
                 } else if (code == sessionLostCode) {
                     $.SessionStorage.remove('SMS.Login.user.F5F2BA55218E'); // 只移除会话级的
-                    SMS.Login.check(true);
+                    SMS.Login.show();
+                    //SMS.Login.check(true);
                     return;
                 }
                 else {
@@ -6532,7 +6533,6 @@
                 //			gridData.push(itemData); 修改需要全部数据，不只是要主键
                 gridData.push(row);
             }
-            ;
 
             return gridData;
         }
@@ -6629,7 +6629,6 @@
                 var errorDatas = [];
                 /*删除数据获取*/
                 for (var index in deletedData) {
-
                     var row = deletedData[index];
                     //deleteData[primaryKey] = row, updateDatas.push(deleteData);
                     deleteDatas.push(row);
@@ -6648,11 +6647,15 @@
                     }
                     /*添加数据获取  [entryId] 为空表示新增数据*/
 
-                    if (!row['entryId']) {
+                    /*  if (!row['entryId']) {
+                     addDatas.push(row);
+                     }*/
+                    // 行数据主键为空表示新增数据
+                    if (!row[primaryKey]) {
                         addDatas.push(row);
                     }
-                    /*修改数据获取  [FEntryID]不为空表示修改数据*/
-                    if (!!row['entryId']) {
+                    /*修改数据获取  [primaryKey]不为空表示修改数据*/
+                    if (!!row[primaryKey]) {
                         updateDatas.push(row);
                     }
                     //				var addData = $.Object.grep(row, function(key, value) {
