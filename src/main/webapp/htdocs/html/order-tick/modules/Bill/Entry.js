@@ -7,13 +7,13 @@ define('Bill/Entry', function (require, module, exports) {
     var SMS = require('SMS');
     var GridBuilder = require('/GridBuilder');// 真实路径是'Bill/Entry/GridBuilder'
 
-    var Grid;
+    var billGrid;
     var isNeedOpt = true; // 订单详情不可编辑
 
     var billTemplate = {};
 
     var cleanGrid = function () {
-        Grid.clear();
+        billGrid.clear();
     };
 
     var gridConfig = {
@@ -39,20 +39,20 @@ define('Bill/Entry', function (require, module, exports) {
 
         SMS.use('Grid', function (Grid) {
 
-            Grid = new Grid('bd-grid');
+            billGrid = new Grid('bd-grid');
 
             gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, '', isNeedOpt);
 
-            Grid.render(gridConfig, data, template, 1);
+            billGrid.render(gridConfig, data, template, 1);
 
-            Grid.on('f7Selected', function (data) {
+            billGrid.on('f7Selected', function (data) {
                 var itemData = {
                     'FPark': data[0].ID,
                     'FParkID': data[0].ID,
                     'FParkNumber': data[0].number,
                     'FParkName': data[0].name
                 };
-                Grid.setRowData(data.row, itemData);
+                billGrid.setRowData(data.row, itemData);
             });
 
         });
@@ -70,7 +70,7 @@ define('Bill/Entry', function (require, module, exports) {
          },
          'flag':'1' 0删除, 1新增，2修改
          */
-        var gridData = Grid.getGridDatas();
+        var gridData = billGrid.getGridDatas();
 
         var entryTemplate = billTemplate.formFields["1"]
 
