@@ -113,6 +113,12 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
+		
+		<table tableName="t_sms_sys_profile" domainObjectName="SysProfile">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
 
 		<table tableName="t_sms_role" domainObjectName="Role">
 
