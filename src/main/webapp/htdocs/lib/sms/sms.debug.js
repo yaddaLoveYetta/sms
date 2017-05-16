@@ -6444,7 +6444,7 @@
             for (var item in fields) {
                 var field = fields[item];
                 if (field['needSave']) {
-                    keys[field['fieldKey']] = field;
+                    keys[field['key']] = field;
                 }
             }
 
@@ -6497,7 +6497,7 @@
                 var valid = true;
                 var mustInputCaptions = [];
                 for (var validIndex in mustInputFields) {
-                    if (row[mustInputFields[validIndex].fieldKey] == '') {
+                    if (row[mustInputFields[validIndex].key] == '') {
                         var caption = mustInputFields[validIndex].caption;
                         mustInputCaptions.push(caption);
                         valid = false;
