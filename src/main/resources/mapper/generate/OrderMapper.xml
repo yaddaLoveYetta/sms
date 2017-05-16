@@ -20,6 +20,7 @@
     <result column="totalTax" jdbcType="DECIMAL" property="totalTax" />
     <result column="totalTaxAmount" jdbcType="DECIMAL" property="totalTaxAmount" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="baseStatus" jdbcType="TINYINT" property="baseStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -82,7 +83,7 @@
   <sql id="Base_Column_List">
     id, supplier, bizDate, purchasePerson, saleProxy, isInTax, tickTime, confirmTickTime, 
     tickType, confirmTick, [number], isQuicken, currency, settlementType, totalAmount, 
-    totalTax, totalTaxAmount, createTime
+    totalTax, totalTaxAmount, createTime, baseStatus
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderExample" resultMap="BaseResultMap">
     select
@@ -120,15 +121,15 @@
       tickTime, confirmTickTime, tickType, 
       confirmTick, [number], isQuicken, 
       currency, settlementType, totalAmount, 
-      totalTax, totalTaxAmount, createTime
-      )
+      totalTax, totalTaxAmount, createTime, 
+      baseStatus)
     values (#{id,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
       #{purchasePerson,jdbcType=VARCHAR}, #{saleProxy,jdbcType=VARCHAR}, #{isInTax,jdbcType=TINYINT}, 
       #{tickTime,jdbcType=TIMESTAMP}, #{confirmTickTime,jdbcType=TIMESTAMP}, #{tickType,jdbcType=TINYINT}, 
       #{confirmTick,jdbcType=TINYINT}, #{number,jdbcType=VARCHAR}, #{isQuicken,jdbcType=TINYINT}, 
       #{currency,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, #{totalAmount,jdbcType=DECIMAL}, 
-      #{totalTax,jdbcType=DECIMAL}, #{totalTaxAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{totalTax,jdbcType=DECIMAL}, #{totalTaxAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{baseStatus,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     insert into t_sms_purchase_order
@@ -187,6 +188,9 @@
       <if test="createTime != null">
         createTime,
       </if>
+      <if test="baseStatus != null">
+        baseStatus,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -242,6 +246,9 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="baseStatus != null">
+        #{baseStatus,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -308,6 +315,9 @@
       <if test="record.createTime != null">
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.baseStatus != null">
+        baseStatus = #{record.baseStatus,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -332,7 +342,8 @@
       totalAmount = #{record.totalAmount,jdbcType=DECIMAL},
       totalTax = #{record.totalTax,jdbcType=DECIMAL},
       totalTaxAmount = #{record.totalTaxAmount,jdbcType=DECIMAL},
-      createTime = #{record.createTime,jdbcType=TIMESTAMP}
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      baseStatus = #{record.baseStatus,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -391,6 +402,9 @@
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="baseStatus != null">
+        baseStatus = #{baseStatus,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -412,7 +426,8 @@
       totalAmount = #{totalAmount,jdbcType=DECIMAL},
       totalTax = #{totalTax,jdbcType=DECIMAL},
       totalTaxAmount = #{totalTaxAmount,jdbcType=DECIMAL},
-      createTime = #{createTime,jdbcType=TIMESTAMP}
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      baseStatus = #{baseStatus,jdbcType=TINYINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

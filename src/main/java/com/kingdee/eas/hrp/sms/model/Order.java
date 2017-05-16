@@ -40,6 +40,8 @@ public class Order {
 
     private Date createTime;
 
+    private Byte baseStatus;
+
     public String getId() {
         return id;
     }
@@ -182,5 +184,13 @@ public class Order {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Byte getBaseStatus() {
+        return baseStatus;
+    }
+
+    public void setBaseStatus(Byte baseStatus) {
+        this.baseStatus = baseStatus;
     }
 }

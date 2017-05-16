@@ -10,27 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.print.attribute.Size2DSyntax;
-import javax.wsdl.extensions.soap.SOAPHeader;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPException;
 
 import org.apache.axis.client.Call;
-import org.apache.axis.message.SOAPBodyElement;
 import org.apache.axis.message.SOAPHeaderElement;
-import org.apache.http.conn.util.PublicSuffixList;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.ibm.wsdl.extensions.soap.SOAPHeaderImpl;
 import com.kingdee.eas.hrp.sms.log.ServiceLog;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
