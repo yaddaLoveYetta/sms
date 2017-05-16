@@ -6646,13 +6646,13 @@
                         }
 
                     }
-                    /*添加数据获取  [FEntryID] 为空表示新增数据*/
+                    /*添加数据获取  [entryId] 为空表示新增数据*/
 
-                    if (!row['FEntryID']) {
+                    if (!row['entryId']) {
                         addDatas.push(row);
                     }
                     /*修改数据获取  [FEntryID]不为空表示修改数据*/
-                    if (!!row['FEntryID']) {
+                    if (!!row['entryId']) {
                         updateDatas.push(row);
                     }
                     //				var addData = $.Object.grep(row, function(key, value) {
