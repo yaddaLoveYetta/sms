@@ -506,123 +506,123 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeIsNull() {
-            addCriterion("tickTime is null");
+        public Criteria andTickDateIsNull() {
+            addCriterion("tickDate is null");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeIsNotNull() {
-            addCriterion("tickTime is not null");
+        public Criteria andTickDateIsNotNull() {
+            addCriterion("tickDate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeEqualTo(Date value) {
-            addCriterion("tickTime =", value, "tickTime");
+        public Criteria andTickDateEqualTo(Date value) {
+            addCriterion("tickDate =", value, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeNotEqualTo(Date value) {
-            addCriterion("tickTime <>", value, "tickTime");
+        public Criteria andTickDateNotEqualTo(Date value) {
+            addCriterion("tickDate <>", value, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeGreaterThan(Date value) {
-            addCriterion("tickTime >", value, "tickTime");
+        public Criteria andTickDateGreaterThan(Date value) {
+            addCriterion("tickDate >", value, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("tickTime >=", value, "tickTime");
+        public Criteria andTickDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("tickDate >=", value, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeLessThan(Date value) {
-            addCriterion("tickTime <", value, "tickTime");
+        public Criteria andTickDateLessThan(Date value) {
+            addCriterion("tickDate <", value, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeLessThanOrEqualTo(Date value) {
-            addCriterion("tickTime <=", value, "tickTime");
+        public Criteria andTickDateLessThanOrEqualTo(Date value) {
+            addCriterion("tickDate <=", value, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeIn(List<Date> values) {
-            addCriterion("tickTime in", values, "tickTime");
+        public Criteria andTickDateIn(List<Date> values) {
+            addCriterion("tickDate in", values, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeNotIn(List<Date> values) {
-            addCriterion("tickTime not in", values, "tickTime");
+        public Criteria andTickDateNotIn(List<Date> values) {
+            addCriterion("tickDate not in", values, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeBetween(Date value1, Date value2) {
-            addCriterion("tickTime between", value1, value2, "tickTime");
+        public Criteria andTickDateBetween(Date value1, Date value2) {
+            addCriterion("tickDate between", value1, value2, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andTickTimeNotBetween(Date value1, Date value2) {
-            addCriterion("tickTime not between", value1, value2, "tickTime");
+        public Criteria andTickDateNotBetween(Date value1, Date value2) {
+            addCriterion("tickDate not between", value1, value2, "tickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeIsNull() {
-            addCriterion("confirmTickTime is null");
+        public Criteria andConfirmTickDateIsNull() {
+            addCriterion("confirmTickDate is null");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeIsNotNull() {
-            addCriterion("confirmTickTime is not null");
+        public Criteria andConfirmTickDateIsNotNull() {
+            addCriterion("confirmTickDate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeEqualTo(Date value) {
-            addCriterion("confirmTickTime =", value, "confirmTickTime");
+        public Criteria andConfirmTickDateEqualTo(Date value) {
+            addCriterion("confirmTickDate =", value, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeNotEqualTo(Date value) {
-            addCriterion("confirmTickTime <>", value, "confirmTickTime");
+        public Criteria andConfirmTickDateNotEqualTo(Date value) {
+            addCriterion("confirmTickDate <>", value, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeGreaterThan(Date value) {
-            addCriterion("confirmTickTime >", value, "confirmTickTime");
+        public Criteria andConfirmTickDateGreaterThan(Date value) {
+            addCriterion("confirmTickDate >", value, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("confirmTickTime >=", value, "confirmTickTime");
+        public Criteria andConfirmTickDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("confirmTickDate >=", value, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeLessThan(Date value) {
-            addCriterion("confirmTickTime <", value, "confirmTickTime");
+        public Criteria andConfirmTickDateLessThan(Date value) {
+            addCriterion("confirmTickDate <", value, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeLessThanOrEqualTo(Date value) {
-            addCriterion("confirmTickTime <=", value, "confirmTickTime");
+        public Criteria andConfirmTickDateLessThanOrEqualTo(Date value) {
+            addCriterion("confirmTickDate <=", value, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeIn(List<Date> values) {
-            addCriterion("confirmTickTime in", values, "confirmTickTime");
+        public Criteria andConfirmTickDateIn(List<Date> values) {
+            addCriterion("confirmTickDate in", values, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeNotIn(List<Date> values) {
-            addCriterion("confirmTickTime not in", values, "confirmTickTime");
+        public Criteria andConfirmTickDateNotIn(List<Date> values) {
+            addCriterion("confirmTickDate not in", values, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeBetween(Date value1, Date value2) {
-            addCriterion("confirmTickTime between", value1, value2, "confirmTickTime");
+        public Criteria andConfirmTickDateBetween(Date value1, Date value2) {
+            addCriterion("confirmTickDate between", value1, value2, "confirmTickDate");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTickTimeNotBetween(Date value1, Date value2) {
-            addCriterion("confirmTickTime not between", value1, value2, "confirmTickTime");
+        public Criteria andConfirmTickDateNotBetween(Date value1, Date value2) {
+            addCriterion("confirmTickDate not between", value1, value2, "confirmTickDate");
             return (Criteria) this;
         }
 

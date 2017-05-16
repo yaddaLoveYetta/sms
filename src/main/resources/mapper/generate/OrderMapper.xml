@@ -8,8 +8,8 @@
     <result column="purchasePerson" jdbcType="VARCHAR" property="purchasePerson" />
     <result column="saleProxy" jdbcType="VARCHAR" property="saleProxy" />
     <result column="isInTax" jdbcType="TINYINT" property="isInTax" />
-    <result column="tickTime" jdbcType="TIMESTAMP" property="tickTime" />
-    <result column="confirmTickTime" jdbcType="TIMESTAMP" property="confirmTickTime" />
+    <result column="tickDate" jdbcType="TIMESTAMP" property="tickDate" />
+    <result column="confirmTickDate" jdbcType="TIMESTAMP" property="confirmTickDate" />
     <result column="tickType" jdbcType="TINYINT" property="tickType" />
     <result column="confirmTick" jdbcType="TINYINT" property="confirmTick" />
     <result column="number" jdbcType="VARCHAR" property="number" />
@@ -81,7 +81,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, supplier, bizDate, purchasePerson, saleProxy, isInTax, tickTime, confirmTickTime, 
+    id, supplier, bizDate, purchasePerson, saleProxy, isInTax, tickDate, confirmTickDate, 
     tickType, confirmTick, [number], isQuicken, currency, settlementType, totalAmount, 
     totalTax, totalTaxAmount, createTime, baseStatus
   </sql>
@@ -118,14 +118,14 @@
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     insert into t_sms_purchase_order (id, supplier, bizDate, 
       purchasePerson, saleProxy, isInTax, 
-      tickTime, confirmTickTime, tickType, 
+      tickDate, confirmTickDate, tickType, 
       confirmTick, [number], isQuicken, 
       currency, settlementType, totalAmount, 
       totalTax, totalTaxAmount, createTime, 
       baseStatus)
     values (#{id,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
       #{purchasePerson,jdbcType=VARCHAR}, #{saleProxy,jdbcType=VARCHAR}, #{isInTax,jdbcType=TINYINT}, 
-      #{tickTime,jdbcType=TIMESTAMP}, #{confirmTickTime,jdbcType=TIMESTAMP}, #{tickType,jdbcType=TINYINT}, 
+      #{tickDate,jdbcType=TIMESTAMP}, #{confirmTickDate,jdbcType=TIMESTAMP}, #{tickType,jdbcType=TINYINT}, 
       #{confirmTick,jdbcType=TINYINT}, #{number,jdbcType=VARCHAR}, #{isQuicken,jdbcType=TINYINT}, 
       #{currency,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, #{totalAmount,jdbcType=DECIMAL}, 
       #{totalTax,jdbcType=DECIMAL}, #{totalTaxAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
@@ -152,11 +152,11 @@
       <if test="isInTax != null">
         isInTax,
       </if>
-      <if test="tickTime != null">
-        tickTime,
+      <if test="tickDate != null">
+        tickDate,
       </if>
-      <if test="confirmTickTime != null">
-        confirmTickTime,
+      <if test="confirmTickDate != null">
+        confirmTickDate,
       </if>
       <if test="tickType != null">
         tickType,
@@ -211,11 +211,11 @@
       <if test="isInTax != null">
         #{isInTax,jdbcType=TINYINT},
       </if>
-      <if test="tickTime != null">
-        #{tickTime,jdbcType=TIMESTAMP},
+      <if test="tickDate != null">
+        #{tickDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="confirmTickTime != null">
-        #{confirmTickTime,jdbcType=TIMESTAMP},
+      <if test="confirmTickDate != null">
+        #{confirmTickDate,jdbcType=TIMESTAMP},
       </if>
       <if test="tickType != null">
         #{tickType,jdbcType=TINYINT},
@@ -279,11 +279,11 @@
       <if test="record.isInTax != null">
         isInTax = #{record.isInTax,jdbcType=TINYINT},
       </if>
-      <if test="record.tickTime != null">
-        tickTime = #{record.tickTime,jdbcType=TIMESTAMP},
+      <if test="record.tickDate != null">
+        tickDate = #{record.tickDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.confirmTickTime != null">
-        confirmTickTime = #{record.confirmTickTime,jdbcType=TIMESTAMP},
+      <if test="record.confirmTickDate != null">
+        confirmTickDate = #{record.confirmTickDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.tickType != null">
         tickType = #{record.tickType,jdbcType=TINYINT},
@@ -331,8 +331,8 @@
       purchasePerson = #{record.purchasePerson,jdbcType=VARCHAR},
       saleProxy = #{record.saleProxy,jdbcType=VARCHAR},
       isInTax = #{record.isInTax,jdbcType=TINYINT},
-      tickTime = #{record.tickTime,jdbcType=TIMESTAMP},
-      confirmTickTime = #{record.confirmTickTime,jdbcType=TIMESTAMP},
+      tickDate = #{record.tickDate,jdbcType=TIMESTAMP},
+      confirmTickDate = #{record.confirmTickDate,jdbcType=TIMESTAMP},
       tickType = #{record.tickType,jdbcType=TINYINT},
       confirmTick = #{record.confirmTick,jdbcType=TINYINT},
       [number] = #{record.number,jdbcType=VARCHAR},
@@ -366,11 +366,11 @@
       <if test="isInTax != null">
         isInTax = #{isInTax,jdbcType=TINYINT},
       </if>
-      <if test="tickTime != null">
-        tickTime = #{tickTime,jdbcType=TIMESTAMP},
+      <if test="tickDate != null">
+        tickDate = #{tickDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="confirmTickTime != null">
-        confirmTickTime = #{confirmTickTime,jdbcType=TIMESTAMP},
+      <if test="confirmTickDate != null">
+        confirmTickDate = #{confirmTickDate,jdbcType=TIMESTAMP},
       </if>
       <if test="tickType != null">
         tickType = #{tickType,jdbcType=TINYINT},
@@ -415,8 +415,8 @@
       purchasePerson = #{purchasePerson,jdbcType=VARCHAR},
       saleProxy = #{saleProxy,jdbcType=VARCHAR},
       isInTax = #{isInTax,jdbcType=TINYINT},
-      tickTime = #{tickTime,jdbcType=TIMESTAMP},
-      confirmTickTime = #{confirmTickTime,jdbcType=TIMESTAMP},
+      tickDate = #{tickDate,jdbcType=TIMESTAMP},
+      confirmTickDate = #{confirmTickDate,jdbcType=TIMESTAMP},
       tickType = #{tickType,jdbcType=TINYINT},
       confirmTick = #{confirmTick,jdbcType=TINYINT},
       [number] = #{number,jdbcType=VARCHAR},

@@ -16,9 +16,9 @@ public class Order {
 
     private Byte isInTax;
 
-    private Date tickTime;
+    private Date tickDate;
 
-    private Date confirmTickTime;
+    private Date confirmTickDate;
 
     private Byte tickType;
 
@@ -90,20 +90,20 @@ public class Order {
         this.isInTax = isInTax;
     }
 
-    public Date getTickTime() {
-        return tickTime;
+    public Date getTickDate() {
+        return tickDate;
     }
 
-    public void setTickTime(Date tickTime) {
-        this.tickTime = tickTime;
+    public void setTickDate(Date tickDate) {
+        this.tickDate = tickDate;
     }
 
-    public Date getConfirmTickTime() {
-        return confirmTickTime;
+    public Date getConfirmTickDate() {
+        return confirmTickDate;
     }
 
-    public void setConfirmTickTime(Date confirmTickTime) {
-        this.confirmTickTime = confirmTickTime;
+    public void setConfirmTickDate(Date confirmTickDate) {
+        this.confirmTickDate = confirmTickDate;
     }
 
     public Byte getTickType() {

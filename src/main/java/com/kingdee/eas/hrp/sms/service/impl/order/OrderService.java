@@ -99,7 +99,7 @@ public class OrderService extends BaseService implements IOrderService{
 				OrderEntry orderEntry = new OrderEntry();
 				Order order = new Order();
 				OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-				order.setTickTime(new Date());
+				order.setConfirmTickDate(new Date());
 				order.setId(jsonObject.getString("id"));
 				order.setConfirmTick(Byte.parseByte("1"));
 				orderMapper.updateByPrimaryKey(order);
