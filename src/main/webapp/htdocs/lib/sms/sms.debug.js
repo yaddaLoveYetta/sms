@@ -6372,7 +6372,7 @@
                 //重载方法
                 var params = field;
                 field = params.field;
-                cfg = params.field;
+                cfg = params.cfg;
                 container = params.container;
 
             }
