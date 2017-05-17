@@ -6263,7 +6263,7 @@
                 loadonce: true,
                 triggerAdd: false,
 
-                afterEditCell: function (rowid, cellname, value, iRow, iCol) {
+/*                afterEditCell: function (rowid, cellname, value, iRow, iCol) {
                     cfg.curCell.row = iRow;
                     cfg.curCell.col = iCol;
                     console.log("abcd");
@@ -6278,7 +6278,7 @@
 
                 loadComplete: function (data) {
                     config.fnLoadComplete && config.fnLoadComplete(data);
-                },
+                },*/
             });
 
             //bdGrid.jqGrid('setGridParam', { cellEdit: true });
