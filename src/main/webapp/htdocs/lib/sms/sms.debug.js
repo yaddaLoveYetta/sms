@@ -6348,7 +6348,14 @@
                 //var colNumb = cfg.curCell.col;
                 var colNumb = gridRow.iCol;
 
-                showF7(colModels[colNumb].data, emitter, $_comboAuto, rowNumb, colNumb, colModels);
+                //showF7(colModels[colNumb].data, emitter, $_comboAuto, rowNumb, colNumb, colModels);
+
+                showF7({
+                    field: colModels[colNumb].data,
+                    cfg: cfg,
+                    container: $_comboAuto
+                });
+
             });
 
             bdGrid.on('click', '.ui-icon-triangle-1-s', function (e) {
@@ -6359,11 +6366,22 @@
             });
         }
 
-        function showF7(field, emitter, container, rowNumb, colNumb, colModels) {
+        function showF7(field, cfg, container, rowNumb, colNumb, colModels) {
+
+            if (typeof field == 'object') {
+                //重载方法
+                var params = field;
+                field = params.field;
+                cfg = params.field;
+                container = params.container;
+
+            }
 
             var formClassID = field.lookUpClassID;
             var url = $.Url.setQueryString('./html/base/index.html', 'classId', formClassID);
+
             var condition = {};
+
             var title = field.name || '';
 
             SMS.use('Dialog', function (Dialog) {
@@ -6401,21 +6419,25 @@
                         var data = dialog.getData();
                         if (dialog.isSubmit && data[0].hasOwnProperty('ID')) {
                             // data中增加当前编辑grid单元格的信息
-                        /*    data.field = field;
-                            data.container = container;
-                            data.row = rowNumb;
-                            data.col = colNumb;
-                            data.colModels = colModels;
-                            emitter.fire('f7Selected', [data]);*/
+                            /*    data.field = field;
+                             data.container = container;
+                             data.row = rowNumb;
+                             data.col = colNumb;
+                             data.colModels = colModels;
+                             emitter.fire('f7Selected', [data]);*/
 
 
+                            //cfg.grid.setCell(data.row, data.col, data[0].name);
 
-                            billGrid.setCell(data.row, data.col, data[0].name);
 
-                            var idModel = billGrid.getColProp(data.field.key); // 真实的key-保存的内码
+                            var gridRow = cfg.grid.jqGrid('getGridParam');
+                            var row = gridRow.selrow;
+                            var col = gridRow.iCol;
 
-                            if(idModel){
-                                billGrid.setCell(data.row, idModel.name, data[0].ID);
+                            var idModel = cfg.grid.getColProp(data.field.key)// 真实的key-保存的内码
+
+                            if (idModel) {
+                                cfg.grid.setCell(row, idModel.name, data[0].ID);
                             }
 
                             $(container).val(data[0].name);
