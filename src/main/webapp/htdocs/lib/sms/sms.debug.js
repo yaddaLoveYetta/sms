@@ -6434,7 +6434,7 @@
                             var row = gridRow.selrow;
                             var col = gridRow.iCol;
 
-                            var idModel = cfg.grid.getColProp(data.field.key)// 真实的key-保存的内码
+                            var idModel = cfg.grid.getColProp(field.key)// 真实的key-保存的内码
 
                             if (idModel) {
                                 cfg.grid.setCell(row, idModel.name, data[0].ID);
