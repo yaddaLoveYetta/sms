@@ -38,7 +38,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
             function value(elem, operation, value) {
                 if (operation === 'get') {
-                    return "";
+                    return $(elem).val();
+                    //return "";
                 } else if (operation === 'set') {
                     $('input', elem).val(value);
                 }
@@ -221,20 +222,20 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
         config.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
 
-/*            var rowdata = $("#" + config.gridName).getRowData(rowid);
-            rowdata[cellname] = value;
-            console.log(rowdata);*/
+            /*            var rowdata = $("#" + config.gridName).getRowData(rowid);
+             rowdata[cellname] = value;
+             console.log(rowdata);*/
             $("#" + iRow + "_" + cellname).val(value);
-/*            $('#initCombo').data('selectedRow', rowid);
-            $('#initCombo').data('selectedVal' + rowid, rowdata);
-            config.fnAfterEditCell_Before && config.fnAfterEditCell_Before(rowid, cellname, value);
-            $("#" + iRow + "_" + name_dsp, "#" + config.gridName).val(value);*/
+            /*            $('#initCombo').data('selectedRow', rowid);
+             $('#initCombo').data('selectedVal' + rowid, rowdata);
+             config.fnAfterEditCell_Before && config.fnAfterEditCell_Before(rowid, cellname, value);
+             $("#" + iRow + "_" + name_dsp, "#" + config.gridName).val(value);*/
 
         };
         config.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
-/*            var gridData = $('#initCombo').data('selectedVal' + rowid);
-            //gridData[cellname] = val;
-            $("#" + config.gridName).jqGrid('setRowData', rowid, gridData);*/
+            /*            var gridData = $('#initCombo').data('selectedVal' + rowid);
+             //gridData[cellname] = val;
+             $("#" + config.gridName).jqGrid('setRowData', rowid, gridData);*/
         };
 
 
