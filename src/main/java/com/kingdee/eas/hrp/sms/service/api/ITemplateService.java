@@ -106,5 +106,5 @@ public interface ITemplateService {
 	 * @return
 	 * @date 2017-05-02 17:49:38 星期二
 	 */
-	void delItem(Integer classId, String items);
+	void delItem(Integer classId, String items, String userType);
 }

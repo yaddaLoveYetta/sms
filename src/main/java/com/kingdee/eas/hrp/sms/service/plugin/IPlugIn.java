@@ -54,7 +54,8 @@ public interface IPlugIn {
 	 *            业务数据
 	 * @return
 	 */
-	public PlugInRet beforeModify(int classId, String id,Map<String, Object> formData, JSONObject data, String userType);
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
+			String userType);
 
 	/**
 	 * 基础资料修改后操作
@@ -76,7 +77,7 @@ public interface IPlugIn {
 	 *            删除的内码集合
 	 * @return
 	 */
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data);
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data, String userType);
 
 	/**
 	 * 基础资料删除后操作
@@ -110,4 +111,5 @@ public interface IPlugIn {
 	 * @return
 	 */
 	public PlugInRet afterQuery(int classId, List<Map<String, Object>> list);
+
 }

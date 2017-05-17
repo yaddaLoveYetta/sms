@@ -30,10 +30,12 @@ public class ItemPlugin extends PlugInAdpter {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data,String userType) {
 
 		ITemplateService templateService = Environ.getBean(ITemplateService.class);
-		// String primaryKey = formClass.getPrimaryKey();
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) formData.get("formClass");
+		String primaryKey = formClass.getPrimaryKey();
 		// 装配待删除ID
 		String[] idString = data.split(",");
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
@@ -65,25 +67,27 @@ public class ItemPlugin extends PlugInAdpter {
 		for (FormFields ff : list) {
 			Integer citedClassId = ff.getClassId();
 			String key = ff.getKey();
-			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10,
-					"QpXq24FxxE6c3lvHMPyYCxACEAI=");
-			int count = ((Long) result.get("count")).intValue();
-			for (int i = 1; i <= (count / 10 + 1); i++) {
-				Map<String, Object> r = templateService.getItems(citedClassId, "", orderBy, i, 10,
-						"QpXq24FxxE6c3lvHMPyYCxACEAI=");
-				List<Map<String, Object>> items = (List<Map<String, Object>>) r.get("list");
-				for (Map<String, Object> item : items) {
-					// 如果此记录被引用，则不删除
-					String id = (String) item.get(key);
-					if (idList.contains(id)) {
 
-						throw new PlugInRuntimeException("该记录已被引用，无法删除");
-					}
+			for (String id : idList) {
+				JSONArray conditionArry = new JSONArray();
+				JSONObject condition = new JSONObject(true);
+				condition.put("fieldKey", key);
+				condition.put("logicOperator", "=");
+				condition.put("value", id);
+				condition.put("needConvert", false);
+				conditionArry.add(condition);
+
+				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy,
+						1, 10, userType);
+
+				if ((long) result.get("count") > 0) {
+					Map<String, Object> errData = templateService.getItemById(classId, id, userType);
+					throw new PlugInRuntimeException("该记录(" + errData.get("number") + ")已被引用，无法删除");
 				}
 			}
 		}
 
-		return super.beforeDelete(classId, formData, data);
+		return super.beforeDelete(classId, formData, data,userType);
 	}
 
 	@Override
@@ -117,7 +121,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 	@SuppressWarnings("unchecked")
 	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userTyepe) {
+			String userType) {
 
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) formData.get("formClass");
@@ -157,10 +161,11 @@ public class ItemPlugin extends PlugInAdpter {
 		condition.put("logicOperator", "!=");
 		condition.put("value", id);
 		conditionArry.add(condition);
-		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1,
-				10, "QpXq24FxxE6c3lvHMPyYCxACEAI=");
 
-		if((long)result.get("count")>0){
+		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10,
+				userType);
+
+		if ((long) result.get("count") > 0) {
 			throw new PlugInRuntimeException("该记录已存在");
 		}
 	}
@@ -207,6 +212,15 @@ public class ItemPlugin extends PlugInAdpter {
 		if (errMsg.length() > 0) {
 			throw new PlugInRuntimeException(errMsg.toString() + "为必填值");
 		}
+	}
+	
+	@Override
+	public PlugInRet beforeQuery(int classId, Map<String, Object> param) {
+		if(classId==1019){
+			String id = (String) param.get("userId");
+			
+		}
+		return null;
 	}
 
 }

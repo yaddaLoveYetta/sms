@@ -71,7 +71,8 @@ public class TemplateController {
 		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10);
 		int pageNo = ParameterUtils.getParameter(request, "pageNo", 1);
 		String userType = SessionUtil.getUserType(request);
-
+		String userId = SessionUtil.getUserID(request);
+		
 		if (classId < 0) {
 			throw new BusinessLogicRunTimeException("参数错误：必须提交classId");
 		}
@@ -149,7 +150,7 @@ public class TemplateController {
 
 		Map<String, Object> ret = new HashMap<String, Object>();
 		ret.put("id", id);
-		
+
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, ret);
 
 	}
@@ -195,6 +196,7 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
+		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classID");
@@ -206,7 +208,7 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.delItem(classId, items);
+		templateService.delItem(classId, items, userType);
 
 		ResponseWriteUtil.output(response, "删除成功！");
 
@@ -217,6 +219,7 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
+		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classID");
@@ -228,7 +231,7 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.delItem(classId, items);
+		templateService.delItem(classId, items, userType);
 		ResponseWriteUtil.output(response, "删除成功！");
 
 	}

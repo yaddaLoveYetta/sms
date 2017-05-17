@@ -1650,7 +1650,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void delItem(Integer classId, String items) {
+	public void delItem(Integer classId, String items,String userType) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
@@ -1666,7 +1666,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		PlugInRet result = new PlugInRet();
 		PlugInFactory factory = new PlugInFactory(classId);
-		result = factory.beforeDelete(classId, template, items);
+		result = factory.beforeDelete(classId, template, items,userType);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());
