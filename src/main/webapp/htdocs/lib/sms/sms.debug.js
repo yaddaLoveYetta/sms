@@ -6267,17 +6267,17 @@
                     cfg.curCell.row = iRow;
                     cfg.curCell.col = iCol;
                     console.log("abcd");
-                    config.fnAfterEditCell(rowid, cellname, value, iRow, iCol);
+                    config.fnAfterEditCell && config.fnAfterEditCell(rowid, cellname, value, iRow, iCol);
                 },
 
                 afterSaveCell: function (rowid, name, val, iRow, iCol) {
 
                     console.log("abcd宿舍");
-                    config.fnAfterSaveCell(rowid, name, val, iRow, iCol);
+                    config.fnAfterSaveCell && config.fnAfterSaveCell(rowid, name, val, iRow, iCol);
                 },
 
                 loadComplete: function (data) {
-                    config.fnLoadComplete(data);
+                    config.fnLoadComplete && config.fnLoadComplete(data);
                 },
             });
 
