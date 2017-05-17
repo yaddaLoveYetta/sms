@@ -72,6 +72,14 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             model.data = field;
         }
 
+        if (field.ctrlType == 12) {
+            // 日期
+            model.edittype = 'date';
+            model.formatter = "date";
+            model.formatoptions = {
+                srcformat: 'Y-m-d H:i:s', newformat: 'Y-m-d H:i:s'
+            }
+        }
         return model;
     }
 
@@ -107,6 +115,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         if (!showKeys) {
             showKeys = fields;
         }
+
+        //按照单据模板确定
         if (!editKeys) {
             editKeys = fields;
         }
