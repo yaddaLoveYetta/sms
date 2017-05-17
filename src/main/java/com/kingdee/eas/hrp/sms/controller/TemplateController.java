@@ -72,14 +72,15 @@ public class TemplateController {
 		int pageNo = ParameterUtils.getParameter(request, "pageNo", 1);
 		String userType = SessionUtil.getUserType(request);
 		String userId = SessionUtil.getUserID(request);
-		
+
 		if (classId < 0) {
 			throw new BusinessLogicRunTimeException("参数错误：必须提交classId");
 		}
 
 		// sqlserver ROW_BUMBER分页一定要设置 orderBy--此处指定默认
 
-		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType);
+		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType,
+				userId);
 
 		ResponseWriteUtil.output(response, result);
 

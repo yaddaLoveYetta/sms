@@ -2,6 +2,7 @@ package com.kingdee.eas.hrp.sms.service.plugin.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,14 +29,10 @@ public class ItemPlugin extends PlugInAdpter {
 	@Resource
 	private ITemplateService templateService;
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data,String userType) {
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data, String userType) {
 
 		ITemplateService templateService = Environ.getBean(ITemplateService.class);
-		// 主表资料描述信息
-		FormClass formClass = (FormClass) formData.get("formClass");
-		String primaryKey = formClass.getPrimaryKey();
 		// 装配待删除ID
 		String[] idString = data.split(",");
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
@@ -78,7 +75,7 @@ public class ItemPlugin extends PlugInAdpter {
 				conditionArry.add(condition);
 
 				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy,
-						1, 10, userType);
+						1, 10, userType,"");
 
 				if ((long) result.get("count") > 0) {
 					Map<String, Object> errData = templateService.getItemById(classId, id, userType);
@@ -87,12 +84,11 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 		}
 
-		return super.beforeDelete(classId, formData, data,userType);
+		return super.beforeDelete(classId, formData, data, userType);
 	}
 
 	@Override
 	public PlugInRet afterDelete(int classId, String items) {
-		// TODO Auto-generated method stub
 		return super.afterDelete(classId, items);
 	}
 
@@ -119,7 +115,6 @@ public class ItemPlugin extends PlugInAdpter {
 		return super.beforeSave(classId, formData, data, userTyepe);
 	}
 
-	@SuppressWarnings("unchecked")
 	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data,
 			String userType) {
 
@@ -163,7 +158,7 @@ public class ItemPlugin extends PlugInAdpter {
 		conditionArry.add(condition);
 
 		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10,
-				userType);
+				userType,"");
 
 		if ((long) result.get("count") > 0) {
 			throw new PlugInRuntimeException("该记录已存在");
@@ -213,14 +208,30 @@ public class ItemPlugin extends PlugInAdpter {
 			throw new PlugInRuntimeException(errMsg.toString() + "为必填值");
 		}
 	}
-	
-	@Override
-	public PlugInRet beforeQuery(int classId, Map<String, Object> param) {
-		if(classId==1019){
-			String id = (String) param.get("userId");
-			
-		}
-		return null;
-	}
 
+	@Override
+	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
+		// 当业务用户查询订单时，只能显示跟自己相关的订单
+		if (classId == 2019) {
+			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
+				String id = (String) param.get("userId");
+				Map<String, Object> user = templateService.getItemById(1001, id, userType);
+				String supplierId = (String) user.get("supplier");
+				JSONArray conditionArry = new JSONArray();
+				JSONObject condition = new JSONObject(true);
+				condition.put("fieldKey", "supplier");
+				condition.put("logicOperator", "=");
+				condition.put("value", supplierId);
+				condition.put("needConvert", false);
+				conditionArry.add(condition);
+				Map<String, Object> data = new HashMap<String, Object>();
+				data.put("condition", conditionArry.toString());
+				PlugInRet ret = new PlugInRet();
+				ret.setData(data);
+				ret.setCode(200);
+				return ret;
+			}
+		}
+		return super.beforeQuery(classId, param, userType);
+	}
 }

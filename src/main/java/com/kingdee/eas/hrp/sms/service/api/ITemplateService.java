@@ -54,7 +54,8 @@ public interface ITemplateService {
 	 * @return Map<String,Object>
 	 * @date 2017-04-20 13:49:24 星期四
 	 */
-	Map<String, Object> getItems(int classId, String condition, String orderBy, int pageNo, int pageSize, String userType);
+	Map<String, Object> getItems(int classId, String condition, String orderBy, int pageNo, int pageSize,
+			String userType, String userId);
 
 	/**
 	 * 根据模板查询单个业务数据，如查询id=2的物料

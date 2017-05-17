@@ -250,13 +250,14 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeQuery(int classId, Map<String, Object> param) {
+	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeQuery(classId, param);
-			if (ret.getCode() != 200) {
-				// 插件返回了阻止继续运行的情况--返回不继续执行
+			PlugInRet ret = plugin.beforeQuery(classId, param, userType);
+			//if (ret.getCode() != 200) {
+			if (ret.getData() != null) {
+				// 插件返回了condition查询条件
 				return ret;
 			}
 		}

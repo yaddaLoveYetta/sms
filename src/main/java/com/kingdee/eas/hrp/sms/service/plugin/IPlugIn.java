@@ -99,7 +99,7 @@ public interface IPlugIn {
 	 *            查询参数
 	 * @return
 	 */
-	public PlugInRet beforeQuery(int classId, Map<String, Object> param);
+	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType);
 
 	/**
 	 * 基础资料查询后操作

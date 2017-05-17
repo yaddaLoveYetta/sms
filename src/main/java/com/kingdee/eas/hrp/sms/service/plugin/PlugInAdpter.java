@@ -48,7 +48,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeQuery(int classId, Map<String, Object> param) {
+	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
 		return result;
 	}
 
