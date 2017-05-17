@@ -219,22 +219,23 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         config.colNames = cNames;
         config.colModel = cModel;
 
-        /*        config.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
+    /
+        config.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
 
-         var rowdata = $("#" + config.gridName).getRowData(rowid);
-         rowdata[cellname] = value;
-         console.log(rowdata);
-         $("#" + iRow + "_" + cellname).val(value);
-         $('#initCombo').data('selectedRow', rowid);
-         $('#initCombo').data('selectedVal' + rowid, rowdata);
-         config.fnAfterEditCell_Before && config.fnAfterEditCell_Before(rowid, cellname, value);
-         $("#" + iRow + "_" + name_dsp, "#" + config.gridName).val(value);
+            var rowdata = $("#" + config.gridName).getRowData(rowid);
+            rowdata[cellname] = value;
+            console.log(rowdata);
+            $("#" + iRow + "_" + cellname).val(value);
+            $('#initCombo').data('selectedRow', rowid);
+            $('#initCombo').data('selectedVal' + rowid, rowdata);
+            config.fnAfterEditCell_Before && config.fnAfterEditCell_Before(rowid, cellname, value);
+            $("#" + iRow + "_" + name_dsp, "#" + config.gridName).val(value);
 
-         };
-         config.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
-         var gridData = $('#initCombo').data('selectedVal' + rowid);
-         $("#" + config.gridName).jqGrid('setRowData', rowid, gridData);
-         };*/
+        };
+        config.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
+            var gridData = $('#initCombo').data('selectedVal' + rowid);
+            $("#" + config.gridName).jqGrid('setRowData', rowid, gridData);
+        };
 
 
         return config;
