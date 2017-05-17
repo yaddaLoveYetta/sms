@@ -222,8 +222,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         config.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
 
 /*            var rowdata = $("#" + config.gridName).getRowData(rowid);
-            rowdata[cellname] = value;*/
-            console.log(rowdata);
+            rowdata[cellname] = value;
+            console.log(rowdata);*/
             $("#" + iRow + "_" + cellname).val(value);
 /*            $('#initCombo').data('selectedRow', rowid);
             $('#initCombo').data('selectedVal' + rowid, rowdata);
