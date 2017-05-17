@@ -6337,6 +6337,9 @@
 
             //$('.grid-wrap').on('click', '.ui-icon-ellipsis', function (e) {
             bdGrid.on('click', '.ui-icon-ellipsis', function (e) {
+
+                var meta = mapper.get(this);
+
                 console.log("ellipsis");
                 var $_comboAuto = $(this).prev();
                 var gridRow = bdGrid.jqGrid('getGridParam');
@@ -6404,6 +6407,17 @@
                             data.col = colNumb;
                             data.colModels = colModels;
                             emitter.fire('f7Selected', [data]);*/
+
+
+
+                            billGrid.setCell(data.row, data.col, data[0].name);
+
+                            var idModel = billGrid.getColProp(data.field.key); // 真实的key-保存的内码
+
+                            if(idModel){
+                                billGrid.setCell(data.row, idModel.name, data[0].ID);
+                            }
+
                             $(container).val(data[0].name);
                         }
                     }
