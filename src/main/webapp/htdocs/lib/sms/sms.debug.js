@@ -6357,7 +6357,7 @@
             });
         }
 
-        function showF7(field, emitter, container, rowNumb, colNumb,colModels) {
+        function showF7(field, emitter, container, rowNumb, colNumb, colModels) {
 
             var formClassID = field.lookUpClassID;
             var url = $.Url.setQueryString('./html/base/index.html', 'classId', formClassID);
@@ -6721,8 +6721,17 @@
                     }
                 }
                 meta.grid.jqGrid('setRowData', row, gridData);
+            },
+            setCell: function (rowid, colname, data, cssClass, properties) {
+                // 设置单元格的值-调用原始控件方法
+                meta.grid.jqGrid('setCell', rowid, colname, data, cssClass, properties);
 
-            }, on: function (name, fn) {
+            },
+            getColProp: function (name) {
+                // 返回指定列的属性集合。name为colModel中名称-调用原始控件方法
+                return meta.grid.jqGrid('getColProp', name);
+            },
+            on: function (name, fn) {
 
                 var meta = mapper.get(this);
                 var emitter = meta.emitter;
