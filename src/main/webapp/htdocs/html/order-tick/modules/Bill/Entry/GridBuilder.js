@@ -132,12 +132,12 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
         //按照单据模板确定
         if (!showKeys) {
-            showKeys = fields;
+            showKeys = $.Object.getKeys(fields);
         }
 
         //按照单据模板确定
         if (!editKeys) {
-            editKeys = fields;
+            editKeys = $.Object.getKeys(fields);
         }
 
         // 有需要编辑的列
@@ -164,8 +164,6 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                     return html_con;
                 },
                 align: "center",
-                editable: false,
-                hidden: true // 不能新增删除行
             };
             cModel.push(model);
         }

@@ -49,12 +49,18 @@ define('Bill/Entry', function (require, module, exports) {
             var editKeys = ['confirmQty', 'confirmDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
-            defaults = GridBuilder.getConfig({
+           /* defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
                 'showKeys': showKeys,
                 'editKeys': editKeys,
                 'operator': false,
+            });*/
+
+            defaults = GridBuilder.getConfig({
+                'fields': template.formFields["1"],
+                'defaults': defaults,
+                'operator': true,
             });
 
             billGrid.render(defaults, data, template, 1);

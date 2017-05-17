@@ -6358,6 +6358,7 @@
         }
 
         function showF7(field, filterID, emitter, container, rowNumb) {
+
             var formClassID = field.lookUpClassID;
             var url = $.Url.setQueryString('./html/base/index.html', 'classId', formClassID);
             var condition = {};
