@@ -6344,9 +6344,9 @@
                 var gridRow = bdGrid.jqGrid('getGridParam');
                 var rowNumb = gridRow.selrow;
                 var colModels = gridRow.colModel;
-                var col = cfg.curCell.col;
+                var colNumb = cfg.curCell.col;
 
-                showF7(colModels[col].data, '', emitter, $_comboAuto, rowNumb);
+                showF7(colModels[col].data, emitter, $_comboAuto, rowNumb, colNumb, colModels);
             });
 
             bdGrid.on('click', '.ui-icon-triangle-1-s', function (e) {
@@ -6357,7 +6357,7 @@
             });
         }
 
-        function showF7(field, filterID, emitter, container, rowNumb) {
+        function showF7(field, emitter, container, rowNumb, colNumb) {
 
             var formClassID = field.lookUpClassID;
             var url = $.Url.setQueryString('./html/base/index.html', 'classId', formClassID);
@@ -6382,7 +6382,6 @@
                     }],
 
                     data: {
-                        filterID: filterID,
                         multiSelect: false,
                         hasBreadcrumbs: false,
                         pageSize: 8,
@@ -6399,8 +6398,12 @@
                     remove: function () {
                         var data = dialog.getData();
                         if (dialog.isSubmit && data[0].hasOwnProperty('ID')) {
+                            // data中增加当前编辑grid单元格的信息
+                            data.field = field;
                             data.container = container;
                             data.row = rowNumb;
+                            data.col = colNumb;
+                            data.colModels = colModels;
                             emitter.fire('f7Selected', [data]);
                         }
                     }
@@ -6512,6 +6515,7 @@
                 //该行记录有值时，需要提示必录项
                 var hasValue = false;
                 for (var key in needSaveKeys) {
+
                     if (row[key] !== '') {
                         itemData[key] = row[key];
                         hasValue = true;

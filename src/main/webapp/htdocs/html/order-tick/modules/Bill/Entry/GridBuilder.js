@@ -182,6 +182,29 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 continue;
             }
 
+            if (field.lookUpType == 1) {
+                // 引用类型增加保存列-不显示-用作表格保存时取数
+                var keyModel = {
+                    name: field.key,
+                    label: field.name,
+                    tabIndex: field.index,
+                    hidden: true
+                };
+
+                cModel.push(keyModel);
+
+                if (field.FCtrlType == 6 && field.disPlayNum) {
+                    // 有配置显示代码时增加代码显示
+                    var keyNmbModel = {
+                        name: field.name + '_NmbName',
+                        label: field.key + '_NmbName',
+                        tabIndex: field.index,
+                        hidden: true
+                    };
+                    cModel.push(keyNmbModel);
+                }
+            }
+
             model = getColModel(field, $.Array.contains(editKeys, field.key));
 
             cModel.push(model);

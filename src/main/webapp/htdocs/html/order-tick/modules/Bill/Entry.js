@@ -49,13 +49,13 @@ define('Bill/Entry', function (require, module, exports) {
             var editKeys = ['confirmQty', 'confirmDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
-           /* defaults = GridBuilder.getConfig({
-                'fields': template.formFields["1"],
-                'defaults': defaults,
-                'showKeys': showKeys,
-                'editKeys': editKeys,
-                'operator': false,
-            });*/
+            /* defaults = GridBuilder.getConfig({
+             'fields': template.formFields["1"],
+             'defaults': defaults,
+             'showKeys': showKeys,
+             'editKeys': editKeys,
+             'operator': false,
+             });*/
 
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
@@ -66,13 +66,28 @@ define('Bill/Entry', function (require, module, exports) {
             billGrid.render(defaults, data, template, 1);
 
             billGrid.on('f7Selected', function (data) {
-                var itemData = {
-                    'FPark': data[0].ID,
-                    'FParkID': data[0].ID,
-                    'FParkNumber': data[0].number,
-                    'FParkName': data[0].name
-                };
-                billGrid.setRowData(data.row, itemData);
+
+/*                data.container = container;
+                data.row = rowNumb;
+                data.col = colNumb;
+                data.colModels = colModels;*/
+
+                //rowid,colname, data, class, properties
+                billGrid.setCell(data.row, data.col, data[0].name);
+
+                var idModel = billGrid.getColProp(data.field.key); // 真实的key-保存的内码
+
+                if(idModel){
+                    billGrid.setCell(data.row, idModel.name, data[0].ID);
+                }
+
+                /*                var itemData = {
+                 'FPark': data[0].ID,
+                 'FParkID': data[0].ID,
+                 'FParkNumber': data[0].number,
+                 'FParkName': data[0].name
+                 };
+                 billGrid.setRowData(data.row, itemData);*/
             });
 
         });
