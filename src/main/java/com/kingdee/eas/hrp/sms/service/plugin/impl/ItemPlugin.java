@@ -67,7 +67,7 @@ public class ItemPlugin extends PlugInAdpter {
 			String key = ff.getKey();
 			Map<String, Object> result = templateService.getItems(citedClassId, "", orderBy, 1, 10,
 					"QpXq24FxxE6c3lvHMPyYCxACEAI=");
-			int count=((Long) result.get("count")).intValue();
+			int count = ((Long) result.get("count")).intValue();
 			for (int i = 1; i <= (count / 10 + 1); i++) {
 				Map<String, Object> r = templateService.getItems(citedClassId, "", orderBy, i, 10,
 						"QpXq24FxxE6c3lvHMPyYCxACEAI=");
@@ -138,95 +138,31 @@ public class ItemPlugin extends PlugInAdpter {
 		orderByArray.add(orderByItem);
 
 		String orderBy = JSON.toJSONString(orderByArray);
-		Map<String, Object> result = templateService.getItems(classId, "", orderBy, 1, 10,
-				"QpXq24FxxE6c3lvHMPyYCxACEAI=");
-		int count=((Long) result.get("count")).intValue();
-		for (int i = 1; i <= (count / 10 + 1); i++) {
-			Map<String, Object> r = templateService.getItems(classId, "", orderBy, i, 10,
-					"QpXq24FxxE6c3lvHMPyYCxACEAI=");
-			List<Map<String, Object>> items = (List<Map<String, Object>>) r.get("list");
-			for (Map<String, Object> item : items) {
-				if (item.get("name").equals(data.get("name")) && item.get("number").equals(data.get("number"))) {
-					if (id.equals("-1") || !item.get(primaryKey).equals(id)) {
-						throw new PlugInRuntimeException("该记录已存在");
-					}
-				}
-			}
+
+		JSONArray conditionArry = new JSONArray();
+		JSONObject condition = new JSONObject(true);
+		condition.put("andOr", "and");
+		condition.put("fieldKey", "name");
+		condition.put("logicOperator", "=");
+		condition.put("value", data.get("name"));
+		conditionArry.add(condition);
+		condition = new JSONObject();
+		condition.put("andOr", "and");
+		condition.put("fieldKey", "number");
+		condition.put("logicOperator", "=");
+		condition.put("value", data.get("number"));
+		conditionArry.add(condition);
+		condition = new JSONObject();
+		condition.put("fieldKey", primaryKey);
+		condition.put("logicOperator", "!=");
+		condition.put("value", id);
+		conditionArry.add(condition);
+		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1,
+				10, "QpXq24FxxE6c3lvHMPyYCxACEAI=");
+
+		if((long)result.get("count")>0){
+			throw new PlugInRuntimeException("该记录已存在");
 		}
-
-		// SqlSession sqlSession = Environ.getBean(SqlSession.class);
-
-		// if (classId == 1001) {
-		//
-		// UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-		//
-		// UserExample example = new UserExample();
-		// com.kingdee.eas.hrp.sms.model.UserExample.Criteria criteria =
-		// example.createCriteria();
-		//
-		// criteria.andNameEqualTo(data.getString("name"));
-		// criteria.andNumberEqualTo(data.getString("number"));
-		//
-		// criteria.andUserIdNotEqualTo(id);// 排除自身
-		//
-		// List<User> list = mapper.selectByExample(example);
-		// if (list.size() > 0) {
-		// User user = list.get(0);
-		// if (!user.getUserId().equals(id)) {
-		// throw new PlugInRuntimeException("该用户已存在");
-		// }
-		// }
-		//
-		// if (data.getString("type").equals("B3sMo22ZLkWApjO/oEeDOxACEAI=")) {
-		// if (data.getString("supplier") == null ||
-		// data.getString("supplier").equals("")) {
-		// throw new PlugInRuntimeException("业务用户必须选择一个供应商");
-		// }
-		// }
-		// }
-		//
-		// if (classId == 1002) {
-		//
-		// UserTypeMapper mapper = sqlSession.getMapper(UserTypeMapper.class);
-		//
-		// UserTypeExample example = new UserTypeExample();
-		// com.kingdee.eas.hrp.sms.model.UserTypeExample.Criteria criteria =
-		// example.createCriteria();
-		//
-		// criteria.andNameEqualTo(data.getString("name"));
-		// criteria.andNumberEqualTo(data.getString("number"));
-		//
-		// criteria.andTypeIdNotEqualTo(id);// 排除自身
-		//
-		// List<UserType> list = mapper.selectByExample(example);
-		// if (list.size() > 0) {
-		// UserType userType = list.get(0);
-		// if (!userType.getTypeId().equals(data.getString("typeId"))) {
-		// throw new PlugInRuntimeException("该用户类别已存在");
-		// }
-		// }
-		// }
-		//
-		// if (classId == 1003) {
-		//
-		// RoleMapper mapper = sqlSession.getMapper(RoleMapper.class);
-		//
-		// RoleExample example = new RoleExample();
-		// com.kingdee.eas.hrp.sms.model.RoleExample.Criteria criteria =
-		// example.createCriteria();
-		//
-		// criteria.andNameEqualTo(data.getString("name"));
-		// criteria.andNumberEqualTo(data.getString("number"));
-		//
-		// List<Role> list = mapper.selectByExample(example);
-		// if (list.size() > 0) {
-		// Role role = list.get(0);
-		// if (!role.getRoleId().equals(data.getString("roleId"))) {
-		// throw new PlugInRuntimeException("该角色已存在");
-		// }
-		// }
-		// }
-
 	}
 
 	@SuppressWarnings("unchecked")

@@ -32,7 +32,7 @@ public class TemplateControllerTest extends BaseControllerTest {
 	public void getItems() {
 
 		Map<String, String> commonParams = new HashMap<String, String>();
-		commonParams.put("classId", "1019");
+		commonParams.put("classId", "1022");
 
 		HttpParam param = HttpParam.init();
 		param.setCommonParams(commonParams);
