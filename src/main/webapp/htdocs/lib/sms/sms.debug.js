@@ -6344,7 +6344,8 @@
                 var gridRow = bdGrid.jqGrid('getGridParam');
                 var rowNumb = gridRow.selrow;
                 var colModels = gridRow.colModel;
-                var colNumb = cfg.curCell.col;
+                //var colNumb = cfg.curCell.col;
+                var colNumb = gridRow.iCol;
 
                 showF7(colModels[colNumb].data, emitter, $_comboAuto, rowNumb, colNumb, colModels);
             });
