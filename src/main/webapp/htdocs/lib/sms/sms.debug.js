@@ -6388,8 +6388,8 @@
                 var dialog = new Dialog({
                     title: title,
                     url: url,
-                    width: 900,
-                    height: 520,
+                    width: 800,
+                    height: 450,
                     button: [{
                         value: '取消',
                         className: 'sms-cancel-btn'
