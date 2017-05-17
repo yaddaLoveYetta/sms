@@ -6398,12 +6398,13 @@
                         var data = dialog.getData();
                         if (dialog.isSubmit && data[0].hasOwnProperty('ID')) {
                             // data中增加当前编辑grid单元格的信息
-                            data.field = field;
+                        /*    data.field = field;
                             data.container = container;
                             data.row = rowNumb;
                             data.col = colNumb;
                             data.colModels = colModels;
-                            emitter.fire('f7Selected', [data]);
+                            emitter.fire('f7Selected', [data]);*/
+                            $(container).val(data[0].name);
                         }
                     }
                 });
