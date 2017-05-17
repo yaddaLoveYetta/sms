@@ -6723,11 +6723,13 @@
                 meta.grid.jqGrid('setRowData', row, gridData);
             },
             setCell: function (rowid, colname, data, cssClass, properties) {
+                var meta = mapper.get(this);
                 // 设置单元格的值-调用原始控件方法
                 meta.grid.jqGrid('setCell', rowid, colname, data, cssClass, properties);
 
             },
             getColProp: function (name) {
+                var meta = mapper.get(this);
                 // 返回指定列的属性集合。name为colModel中名称-调用原始控件方法
                 return meta.grid.jqGrid('getColProp', name);
             },
