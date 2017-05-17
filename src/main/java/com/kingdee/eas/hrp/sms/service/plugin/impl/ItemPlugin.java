@@ -75,7 +75,7 @@ public class ItemPlugin extends PlugInAdpter {
 				conditionArry.add(condition);
 
 				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy,
-						1, 10, userType,"");
+						1, 10, userType, "");
 
 				if ((long) result.get("count") > 0) {
 					Map<String, Object> errData = templateService.getItemById(classId, id, userType);
@@ -158,7 +158,7 @@ public class ItemPlugin extends PlugInAdpter {
 		conditionArry.add(condition);
 
 		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10,
-				userType,"");
+				userType, "");
 
 		if ((long) result.get("count") > 0) {
 			throw new PlugInRuntimeException("该记录已存在");
@@ -211,15 +211,20 @@ public class ItemPlugin extends PlugInAdpter {
 
 	@Override
 	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
-		// 当业务用户查询订单时，只能显示跟自己相关的订单
-		if (classId == 2019) {
+
+		// 当业务用户查询时，相关item需做数据隔离
+		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(2019, 1001, 1005, 2020, 1019, 1020, 1022,1020));
+		if (classIdList.contains(classId)) {
 			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
 				String id = (String) param.get("userId");
 				Map<String, Object> user = templateService.getItemById(1001, id, userType);
 				String supplierId = (String) user.get("supplier");
 				JSONArray conditionArry = new JSONArray();
 				JSONObject condition = new JSONObject(true);
-				condition.put("fieldKey", "supplier");
+				if (classId == 1005)
+					condition.put("fieldKey", "id");
+				else
+					condition.put("fieldKey", "supplier");					
 				condition.put("logicOperator", "=");
 				condition.put("value", supplierId);
 				condition.put("needConvert", false);
