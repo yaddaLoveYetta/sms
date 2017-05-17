@@ -233,6 +233,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         };
         config.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
             var gridData = $('#initCombo').data('selectedVal' + rowid);
+            gridData[cellname] = val;
             $("#" + config.gridName).jqGrid('setRowData', rowid, gridData);
         };
 
