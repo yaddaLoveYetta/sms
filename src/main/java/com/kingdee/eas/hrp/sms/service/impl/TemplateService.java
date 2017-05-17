@@ -1209,7 +1209,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @date 2017-04-21 09:26:55 星期五
 	 */
 	private String handleSqlInjection(String str) {
-		return str.replace("'", "").replace("\\", "\\\\").replace("--", "");
+		return str.replace("'", "").replace("\\", "\\\\").replace("--", "").replace("(", "").replace(")", "");
 	}
 
 	/**
@@ -1650,7 +1650,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void delItem(Integer classId, String items,String userType) {
+	public void delItem(Integer classId, String items, String userType) {
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
@@ -1666,7 +1666,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		PlugInRet result = new PlugInRet();
 		PlugInFactory factory = new PlugInFactory(classId);
-		result = factory.beforeDelete(classId, template, items,userType);
+		result = factory.beforeDelete(classId, template, items, userType);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());
