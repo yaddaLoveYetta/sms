@@ -165,6 +165,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                     return html_con;
                 },
                 align: "center",
+                hidden: !operator,
             };
             cModel.push(model);
         }

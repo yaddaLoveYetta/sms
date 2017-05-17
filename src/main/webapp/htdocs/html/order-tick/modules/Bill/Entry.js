@@ -20,12 +20,12 @@ define('Bill/Entry', function (require, module, exports) {
         gridName: 'bd-grid',
         width: $(window).width() - 5,
         height: 'auto',
-/*        fnAfterSaveCell_After: function (rowid, data) {
-            $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
-        },
-        fnAfterEditCell_Before: function (rowId, cellName, cellValue) {
-            $.Combo.getCombo().selectByText(cellValue, false);
-        }*/
+        /*        fnAfterSaveCell_After: function (rowid, data) {
+         $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
+         },
+         fnAfterEditCell_Before: function (rowId, cellName, cellValue) {
+         $.Combo.getCombo().selectByText(cellValue, false);
+         }*/
     };
 
     //jqGrid初始化
@@ -49,32 +49,27 @@ define('Bill/Entry', function (require, module, exports) {
             var editKeys = ['confirmQty', 'confirmDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
-            /* defaults = GridBuilder.getConfig({
-             'fields': template.formFields["1"],
-             'defaults': defaults,
-             'showKeys': showKeys,
-             'editKeys': editKeys,
-             'operator': false,
-             });*/
-
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
-                'operator': true,
+                'showKeys': showKeys,
+                'editKeys': editKeys,
+                'operator': false,
             });
+
 
             billGrid.render(defaults, data, template, 1);
 
             billGrid.on('f7Selected', function (data) {
 
                 //rowid,colname, data, class, properties
-/*                billGrid.setCell(data.row, data.col, data[0].name);
+                /*                billGrid.setCell(data.row, data.col, data[0].name);
 
-                var idModel = billGrid.getColProp(data.field.key); // 真实的key-保存的内码
+                 var idModel = billGrid.getColProp(data.field.key); // 真实的key-保存的内码
 
-                if(idModel){
-                    billGrid.setCell(data.row, idModel.name, data[0].ID);
-                }*/
+                 if(idModel){
+                 billGrid.setCell(data.row, idModel.name, data[0].ID);
+                 }*/
 
                 /*                var itemData = {
                  'FPark': data[0].ID,
