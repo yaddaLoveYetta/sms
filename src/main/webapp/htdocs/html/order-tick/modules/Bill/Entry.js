@@ -20,12 +20,12 @@ define('Bill/Entry', function (require, module, exports) {
         gridName: 'bd-grid',
         width: $(window).width() - 5,
         height: 'auto',
-/*        fnAfterSaveCell_After: function (rowid, data) {
+        fnAfterSaveCell_After: function (rowid, data) {
             $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
         },
         fnAfterEditCell_Before: function (rowId, cellName, cellValue) {
             $.Combo.getCombo().selectByText(cellValue, false);
-        }*/
+        }
     };
 
     //jqGrid初始化
