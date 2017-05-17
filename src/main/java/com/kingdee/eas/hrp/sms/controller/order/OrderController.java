@@ -1,6 +1,5 @@
 package com.kingdee.eas.hrp.sms.controller.order;
 
-
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -24,32 +23,37 @@ import com.kingdee.eas.hrp.sms.util.StatusCode;
 public class OrderController {
 	@Resource
 	IOrderService orderservice;
-	
+
 	@ControllerLog(desc = "同步订单") // 做日志
 	@RequestMapping(value = "acquisitionOrder")
 	public void synchronizationOrder(HttpServletRequest request, HttpServletResponse response) {
 		String listStr = ParameterUtils.getParameter(request, "list", "");
-		JSONArray json =  JSONArray.parseArray(listStr);
+		JSONArray json = JSONArray.parseArray(listStr);
 		orderservice.order(json);
 	}
-	
-	@ControllerLog(desc = "确认接单") 
+
+	@ControllerLog(desc = "确认接单")
 	@RequestMapping(value = "updatetickType")
 	public void updatetickType(HttpServletRequest request, HttpServletResponse response) {
+
+		String id = ParameterUtils.getParameter(request, "id", "");
+		String entry = ParameterUtils.getParameter(request, "entry", "");
+
 		String listStr = ParameterUtils.getParameter(request, "list", "");
-		JSONObject json =  JSONObject.parseObject(listStr);
+		JSONObject json = JSONObject.parseObject(listStr);
 		orderservice.updatetickType(json);
 	}
+
 	@ControllerLog(desc = "产生发货单")
 	@RequestMapping(value = "invoice")
-	public void invoice(HttpServletRequest request, HttpServletResponse response){
+	public void invoice(HttpServletRequest request, HttpServletResponse response) {
 		String list = ParameterUtils.getParameter(request, "list", "");
 		String userType = SessionUtil.getUserType(request);
 		if (list.equals("")) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
 			return;
 		}
-		Map<String, Object> result = orderservice.invoice(list,userType);
+		Map<String, Object> result = orderservice.invoice(list, userType);
 		request.setAttribute("result", "result");
 	}
 }
