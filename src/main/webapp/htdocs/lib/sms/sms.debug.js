@@ -6346,7 +6346,7 @@
                 var colModels = gridRow.colModel;
                 var colNumb = cfg.curCell.col;
 
-                showF7(colModels[col].data, emitter, $_comboAuto, rowNumb, colNumb, colModels);
+                showF7(colModels[colNumb].data, emitter, $_comboAuto, rowNumb, colNumb, colModels);
             });
 
             bdGrid.on('click', '.ui-icon-triangle-1-s', function (e) {
