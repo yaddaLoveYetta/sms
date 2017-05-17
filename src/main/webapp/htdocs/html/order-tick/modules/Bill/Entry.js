@@ -62,22 +62,6 @@ define('Bill/Entry', function (require, module, exports) {
 
             billGrid.on('f7Selected', function (data) {
 
-                //rowid,colname, data, class, properties
-                /*                billGrid.setCell(data.row, data.col, data[0].name);
-
-                 var idModel = billGrid.getColProp(data.field.key); // 真实的key-保存的内码
-
-                 if(idModel){
-                 billGrid.setCell(data.row, idModel.name, data[0].ID);
-                 }*/
-
-                /*                var itemData = {
-                 'FPark': data[0].ID,
-                 'FParkID': data[0].ID,
-                 'FParkNumber': data[0].number,
-                 'FParkName': data[0].name
-                 };
-                 billGrid.setRowData(data.row, itemData);*/
             });
 
         });
