@@ -219,7 +219,6 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         config.colNames = cNames;
         config.colModel = cModel;
 
-    /
         config.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
 
             var rowdata = $("#" + config.gridName).getRowData(rowid);
