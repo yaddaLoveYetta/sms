@@ -42,11 +42,11 @@ define('Bill/Entry', function (require, module, exports) {
             billGrid = new Grid('bd-grid');
 
             //要展示的列
-            var showKeys = ['entryId', 'parent', , 'material', 'unit', 'qty',
+            var showKeys = ['entryId', 'parent', 'material', 'unit', 'qty',
                 'confirmDate', 'deliveryDate', 'confirmQty'];
 
             //可编辑的列
-            var editKeys = ['confirmQty', 'confirmDate'];
+            var editKeys = ['material','confirmQty', 'confirmDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
             defaults = GridBuilder.getConfig({
