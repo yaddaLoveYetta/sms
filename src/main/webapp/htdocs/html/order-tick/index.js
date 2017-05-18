@@ -34,7 +34,10 @@
     dialog.on({
 
         get: function () {
-            dialog.setData(Bill.getEntryData());
+            dialog.setData({
+                id:orderId,
+                entry:Bill.getEntryData(),
+            });
         },
         serverBack: function () {
             // 回调

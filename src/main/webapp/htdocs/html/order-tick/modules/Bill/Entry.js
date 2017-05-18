@@ -83,49 +83,14 @@ define('Bill/Entry', function (require, module, exports) {
 
         var entryTemplate = billTemplate.formFields["1"]
 
-        //新增数据
-        $.Array.each(gridData["add"], function (item, index) {
-            var adData = {
-                data: {
-                    FPark: item.FPark,
-                    FParkName: item.FParkName,
-                    FParkNumber: item.FParkNumber
-                },
-                flag: '1'
-            };
-            entry.push(adData);
-            if (!$.Array.contains(parkIDs, item.FPark)) {
-                parkIDs.push(item.FPark);
-            } else {
-                parkIDExisted = true;
-            }
-        });
-
         //修改数据
         $.Array.each(gridData["update"], function (item, index) {
             var upData = {
-                data: {
-                    FEntryID: item.FEntryID,
-                    FPark: item.FPark,
-                    FParkName: item.FParkName,
-                    FParkNumber: item.FParkNumber
-                },
-                flag: '2'
+                entryId: item.entryId,
+                confirmQty: item.confirmQty,
+                confirmDate: item.confirmDate,
             };
             entry.push(upData);
-        });
-        //删除数据
-        $.Array.each(gridData["delete"], function (item, index) {
-            var delData = {
-                data: {
-                    FEntryID: item.FEntryID,
-                    FPark: item.FPark,
-                    FParkName: item.FParkName,
-                    FParkNumber: item.FParkNumber
-                },
-                flag: '0'
-            };
-            entry.push(delData);
         });
 
         var entryData = {

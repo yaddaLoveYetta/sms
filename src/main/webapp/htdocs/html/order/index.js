@@ -117,6 +117,11 @@
                                 dialog.__dispatchEvent('get');
                                 var data = dialog.getData();
                                 console.log(data);
+                                tick(data, function (data) {
+                                    SMS.Tips.success("接单成功", 1500);
+                                    return true;
+                                });
+
                                 return false; // 可能不成功，默认不关闭对话框
                             }
                         }
@@ -135,8 +140,6 @@
                 });
 
             });
-
-
         },
         'detail': function (item, index) {
             // 订单详情
@@ -170,6 +173,30 @@
             SMS.Tips.info('功能研发中，敬请期待……');
         }
     });
+
+    //保存接单数据
+    function tick(data, fn) {
+
+        var api = new API('order/tick');
+        api.post({
+            id: data.id,
+            entry: data.entry,
+        });
+
+        api.on({
+            'success': function (data, json) {
+                fn && fn(data);
+            },
+
+            'fail': function (code, msg, json) {
+                SMS.Tips.error(msg);
+            },
+
+            'error': function () {
+                SMS.Tips.error('网络错误，请稍候再试');
+            }
+        });
+    }
 
     function refresh(data) {
 
