@@ -1,6 +1,7 @@
 package com.kingdee.eas.hrp.sms.service.impl.order;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,7 +142,14 @@ public class OrderService extends BaseService implements IOrderService {
 
 						String entryId = entryItem.getString("entryId"); // 分录id
 						float confirmQty = entryItem.getFloatValue("confirmQty"); // 接单数量
-						Date confirmDate = sdf.parse(entryItem.getString("confirmDate")); // 接单日期
+
+						String dataStr = entryItem.getString("confirmDate");
+						
+						if (dataStr == null || dataStr.isEmpty()) {
+							throw new BusinessLogicRunTimeException("数据错误,缺少接单日期");
+						}
+						
+						Date confirmDate = sdf.parse(dataStr); // 接单日期
 
 						if ("".equals(entryId)) {
 							throw new BusinessLogicRunTimeException("数据错误,缺少分录内码");
@@ -150,7 +158,7 @@ public class OrderService extends BaseService implements IOrderService {
 							throw new BusinessLogicRunTimeException("数据错误,缺少接单数量");
 						}
 						if (null == confirmDate) {
-							throw new BusinessLogicRunTimeException("数据错误,缺少接单日期");
+							throw new BusinessLogicRunTimeException("数据错误,缺少接单日期或格式不正确");
 						}
 						if (confirmDate.before(sdf.parse(sdf.format(new Date())))) {
 							throw new BusinessLogicRunTimeException("数据错误,接单日期不能早于当前日期");
@@ -170,6 +178,9 @@ public class OrderService extends BaseService implements IOrderService {
 
 					}
 
+				} catch (ParseException e) {
+					status.setRollbackOnly();
+					throw new BusinessLogicRunTimeException("日期格式不正确");
 				} catch (Exception e) {
 					status.setRollbackOnly();
 					throw new BusinessLogicRunTimeException(e);
