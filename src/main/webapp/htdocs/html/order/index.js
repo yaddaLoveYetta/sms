@@ -94,7 +94,7 @@
                 return;
             }
 
-            if (list[0].tickType) {
+            if (list[0].data.tickType) {
                 SMS.Tips.error('该订单HRP已确认接单，不可修改接单数据');
                 return;
             }
