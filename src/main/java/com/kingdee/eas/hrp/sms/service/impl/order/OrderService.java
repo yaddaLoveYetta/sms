@@ -216,9 +216,13 @@ public class OrderService extends BaseService implements IOrderService {
 	public Map<String, Object> invoice(String data, String userType) {
 
 		String[] idString = data.split(",");
+		//表头map
 		Map<String, Object> order = new HashMap();
+		//表体EntryMap
 		Map<String, Object> orderEntry = new HashMap();
+		//子表1
 		ArrayList<Object> list = new ArrayList();
+		//子表1关联数据
 		Map<String, Object> entry = new HashMap();
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
 		ITemplateService template = Environ.getBean(ITemplateService.class);
