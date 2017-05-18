@@ -3,23 +3,13 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.InvoiceMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Invoice">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="orderId" jdbcType="VARCHAR" property="orderId" />
-    <result column="orderlineNumbers" jdbcType="INTEGER" property="orderlineNumbers" />
-    <result column="materialCode" jdbcType="VARCHAR" property="materialCode" />
-    <result column="materialName" jdbcType="VARCHAR" property="materialName" />
-    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
-    <result column="batch" jdbcType="VARCHAR" property="batch" />
-    <result column="productBatchNumber" jdbcType="VARCHAR" property="productBatchNumber" />
-    <result column="individualCode" jdbcType="VARCHAR" property="individualCode" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="basicUnitMeasurement" jdbcType="VARCHAR" property="basicUnitMeasurement" />
-    <result column="numbers" jdbcType="INTEGER" property="numbers" />
-    <result column="productionTime" jdbcType="TIMESTAMP" property="productionTime" />
-    <result column="productionManufacturer" jdbcType="VARCHAR" property="productionManufacturer" />
-    <result column="productRegistrationNumber" jdbcType="INTEGER" property="productRegistrationNumber" />
-    <result column="amount" jdbcType="DECIMAL" property="amount" />
-    <result column="effectiveTime" jdbcType="VARCHAR" property="effectiveTime" />
-    <result column="invoiceNo" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="Date" jdbcType="TIMESTAMP" property="date" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="logistics" jdbcType="VARCHAR" property="logistics" />
+    <result column="baseStatus" jdbcType="TINYINT" property="baseStatus" />
+    <result column="baseType" jdbcType="VARCHAR" property="baseType" />
+    <result column="logisticsNo" jdbcType="VARCHAR" property="logisticsNo" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -80,9 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, orderId, orderlineNumbers, materialCode, materialName, specifications, batch, 
-    productBatchNumber, individualCode, price, basicUnitMeasurement, numbers, productionTime, 
-    productionManufacturer, productRegistrationNumber, amount, effectiveTime, invoiceNo
+    id, [number], [Date], supplier, logistics, baseStatus, baseType, logisticsNo
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.InvoiceExample" resultMap="BaseResultMap">
     select
@@ -115,20 +103,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
-    insert into t_sms_invoice (id, orderId, orderlineNumbers, 
-      materialCode, materialName, specifications, 
-      batch, productBatchNumber, individualCode, 
-      price, basicUnitMeasurement, numbers, 
-      productionTime, productionManufacturer, 
-      productRegistrationNumber, amount, effectiveTime, 
-      invoiceNo)
-    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{orderlineNumbers,jdbcType=INTEGER}, 
-      #{materialCode,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, 
-      #{batch,jdbcType=VARCHAR}, #{productBatchNumber,jdbcType=VARCHAR}, #{individualCode,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{basicUnitMeasurement,jdbcType=VARCHAR}, #{numbers,jdbcType=INTEGER}, 
-      #{productionTime,jdbcType=TIMESTAMP}, #{productionManufacturer,jdbcType=VARCHAR}, 
-      #{productRegistrationNumber,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{effectiveTime,jdbcType=VARCHAR}, 
-      #{invoiceNo,jdbcType=VARCHAR})
+    insert into t_sms_invoice (id, [number], [Date], 
+      supplier, logistics, baseStatus, 
+      baseType, logisticsNo)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{supplier,jdbcType=VARCHAR}, #{logistics,jdbcType=VARCHAR}, #{baseStatus,jdbcType=TINYINT}, 
+      #{baseType,jdbcType=VARCHAR}, #{logisticsNo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
     insert into t_sms_invoice
@@ -136,112 +116,52 @@
       <if test="id != null">
         id,
       </if>
-      <if test="orderId != null">
-        orderId,
+      <if test="number != null">
+        [number],
       </if>
-      <if test="orderlineNumbers != null">
-        orderlineNumbers,
+      <if test="date != null">
+        [Date],
       </if>
-      <if test="materialCode != null">
-        materialCode,
+      <if test="supplier != null">
+        supplier,
       </if>
-      <if test="materialName != null">
-        materialName,
+      <if test="logistics != null">
+        logistics,
       </if>
-      <if test="specifications != null">
-        specifications,
+      <if test="baseStatus != null">
+        baseStatus,
       </if>
-      <if test="batch != null">
-        batch,
+      <if test="baseType != null">
+        baseType,
       </if>
-      <if test="productBatchNumber != null">
-        productBatchNumber,
-      </if>
-      <if test="individualCode != null">
-        individualCode,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="basicUnitMeasurement != null">
-        basicUnitMeasurement,
-      </if>
-      <if test="numbers != null">
-        numbers,
-      </if>
-      <if test="productionTime != null">
-        productionTime,
-      </if>
-      <if test="productionManufacturer != null">
-        productionManufacturer,
-      </if>
-      <if test="productRegistrationNumber != null">
-        productRegistrationNumber,
-      </if>
-      <if test="amount != null">
-        amount,
-      </if>
-      <if test="effectiveTime != null">
-        effectiveTime,
-      </if>
-      <if test="invoiceNo != null">
-        invoiceNo,
+      <if test="logisticsNo != null">
+        logisticsNo,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR},
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
       </if>
-      <if test="orderlineNumbers != null">
-        #{orderlineNumbers,jdbcType=INTEGER},
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
       </if>
-      <if test="materialCode != null">
-        #{materialCode,jdbcType=VARCHAR},
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
       </if>
-      <if test="materialName != null">
-        #{materialName,jdbcType=VARCHAR},
+      <if test="logistics != null">
+        #{logistics,jdbcType=VARCHAR},
       </if>
-      <if test="specifications != null">
-        #{specifications,jdbcType=VARCHAR},
+      <if test="baseStatus != null">
+        #{baseStatus,jdbcType=TINYINT},
       </if>
-      <if test="batch != null">
-        #{batch,jdbcType=VARCHAR},
+      <if test="baseType != null">
+        #{baseType,jdbcType=VARCHAR},
       </if>
-      <if test="productBatchNumber != null">
-        #{productBatchNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="individualCode != null">
-        #{individualCode,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="basicUnitMeasurement != null">
-        #{basicUnitMeasurement,jdbcType=VARCHAR},
-      </if>
-      <if test="numbers != null">
-        #{numbers,jdbcType=INTEGER},
-      </if>
-      <if test="productionTime != null">
-        #{productionTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="productionManufacturer != null">
-        #{productionManufacturer,jdbcType=VARCHAR},
-      </if>
-      <if test="productRegistrationNumber != null">
-        #{productRegistrationNumber,jdbcType=INTEGER},
-      </if>
-      <if test="amount != null">
-        #{amount,jdbcType=DECIMAL},
-      </if>
-      <if test="effectiveTime != null">
-        #{effectiveTime,jdbcType=VARCHAR},
-      </if>
-      <if test="invoiceNo != null">
-        #{invoiceNo,jdbcType=VARCHAR},
+      <if test="logisticsNo != null">
+        #{logisticsNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -257,56 +177,26 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.orderId != null">
-        orderId = #{record.orderId,jdbcType=VARCHAR},
+      <if test="record.number != null">
+        [number] = #{record.number,jdbcType=VARCHAR},
       </if>
-      <if test="record.orderlineNumbers != null">
-        orderlineNumbers = #{record.orderlineNumbers,jdbcType=INTEGER},
+      <if test="record.date != null">
+        [Date] = #{record.date,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.materialCode != null">
-        materialCode = #{record.materialCode,jdbcType=VARCHAR},
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
       </if>
-      <if test="record.materialName != null">
-        materialName = #{record.materialName,jdbcType=VARCHAR},
+      <if test="record.logistics != null">
+        logistics = #{record.logistics,jdbcType=VARCHAR},
       </if>
-      <if test="record.specifications != null">
-        specifications = #{record.specifications,jdbcType=VARCHAR},
+      <if test="record.baseStatus != null">
+        baseStatus = #{record.baseStatus,jdbcType=TINYINT},
       </if>
-      <if test="record.batch != null">
-        batch = #{record.batch,jdbcType=VARCHAR},
+      <if test="record.baseType != null">
+        baseType = #{record.baseType,jdbcType=VARCHAR},
       </if>
-      <if test="record.productBatchNumber != null">
-        productBatchNumber = #{record.productBatchNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="record.individualCode != null">
-        individualCode = #{record.individualCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
-      </if>
-      <if test="record.basicUnitMeasurement != null">
-        basicUnitMeasurement = #{record.basicUnitMeasurement,jdbcType=VARCHAR},
-      </if>
-      <if test="record.numbers != null">
-        numbers = #{record.numbers,jdbcType=INTEGER},
-      </if>
-      <if test="record.productionTime != null">
-        productionTime = #{record.productionTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.productionManufacturer != null">
-        productionManufacturer = #{record.productionManufacturer,jdbcType=VARCHAR},
-      </if>
-      <if test="record.productRegistrationNumber != null">
-        productRegistrationNumber = #{record.productRegistrationNumber,jdbcType=INTEGER},
-      </if>
-      <if test="record.amount != null">
-        amount = #{record.amount,jdbcType=DECIMAL},
-      </if>
-      <if test="record.effectiveTime != null">
-        effectiveTime = #{record.effectiveTime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.invoiceNo != null">
-        invoiceNo = #{record.invoiceNo,jdbcType=VARCHAR},
+      <if test="record.logisticsNo != null">
+        logisticsNo = #{record.logisticsNo,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -316,23 +206,13 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_invoice
     set id = #{record.id,jdbcType=INTEGER},
-      orderId = #{record.orderId,jdbcType=VARCHAR},
-      orderlineNumbers = #{record.orderlineNumbers,jdbcType=INTEGER},
-      materialCode = #{record.materialCode,jdbcType=VARCHAR},
-      materialName = #{record.materialName,jdbcType=VARCHAR},
-      specifications = #{record.specifications,jdbcType=VARCHAR},
-      batch = #{record.batch,jdbcType=VARCHAR},
-      productBatchNumber = #{record.productBatchNumber,jdbcType=VARCHAR},
-      individualCode = #{record.individualCode,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL},
-      basicUnitMeasurement = #{record.basicUnitMeasurement,jdbcType=VARCHAR},
-      numbers = #{record.numbers,jdbcType=INTEGER},
-      productionTime = #{record.productionTime,jdbcType=TIMESTAMP},
-      productionManufacturer = #{record.productionManufacturer,jdbcType=VARCHAR},
-      productRegistrationNumber = #{record.productRegistrationNumber,jdbcType=INTEGER},
-      amount = #{record.amount,jdbcType=DECIMAL},
-      effectiveTime = #{record.effectiveTime,jdbcType=VARCHAR},
-      invoiceNo = #{record.invoiceNo,jdbcType=VARCHAR}
+      [number] = #{record.number,jdbcType=VARCHAR},
+      [Date] = #{record.date,jdbcType=TIMESTAMP},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      logistics = #{record.logistics,jdbcType=VARCHAR},
+      baseStatus = #{record.baseStatus,jdbcType=TINYINT},
+      baseType = #{record.baseType,jdbcType=VARCHAR},
+      logisticsNo = #{record.logisticsNo,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -340,79 +220,39 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
     update t_sms_invoice
     <set>
-      <if test="orderId != null">
-        orderId = #{orderId,jdbcType=VARCHAR},
+      <if test="number != null">
+        [number] = #{number,jdbcType=VARCHAR},
       </if>
-      <if test="orderlineNumbers != null">
-        orderlineNumbers = #{orderlineNumbers,jdbcType=INTEGER},
+      <if test="date != null">
+        [Date] = #{date,jdbcType=TIMESTAMP},
       </if>
-      <if test="materialCode != null">
-        materialCode = #{materialCode,jdbcType=VARCHAR},
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
       </if>
-      <if test="materialName != null">
-        materialName = #{materialName,jdbcType=VARCHAR},
+      <if test="logistics != null">
+        logistics = #{logistics,jdbcType=VARCHAR},
       </if>
-      <if test="specifications != null">
-        specifications = #{specifications,jdbcType=VARCHAR},
+      <if test="baseStatus != null">
+        baseStatus = #{baseStatus,jdbcType=TINYINT},
       </if>
-      <if test="batch != null">
-        batch = #{batch,jdbcType=VARCHAR},
+      <if test="baseType != null">
+        baseType = #{baseType,jdbcType=VARCHAR},
       </if>
-      <if test="productBatchNumber != null">
-        productBatchNumber = #{productBatchNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="individualCode != null">
-        individualCode = #{individualCode,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="basicUnitMeasurement != null">
-        basicUnitMeasurement = #{basicUnitMeasurement,jdbcType=VARCHAR},
-      </if>
-      <if test="numbers != null">
-        numbers = #{numbers,jdbcType=INTEGER},
-      </if>
-      <if test="productionTime != null">
-        productionTime = #{productionTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="productionManufacturer != null">
-        productionManufacturer = #{productionManufacturer,jdbcType=VARCHAR},
-      </if>
-      <if test="productRegistrationNumber != null">
-        productRegistrationNumber = #{productRegistrationNumber,jdbcType=INTEGER},
-      </if>
-      <if test="amount != null">
-        amount = #{amount,jdbcType=DECIMAL},
-      </if>
-      <if test="effectiveTime != null">
-        effectiveTime = #{effectiveTime,jdbcType=VARCHAR},
-      </if>
-      <if test="invoiceNo != null">
-        invoiceNo = #{invoiceNo,jdbcType=VARCHAR},
+      <if test="logisticsNo != null">
+        logisticsNo = #{logisticsNo,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
     update t_sms_invoice
-    set orderId = #{orderId,jdbcType=VARCHAR},
-      orderlineNumbers = #{orderlineNumbers,jdbcType=INTEGER},
-      materialCode = #{materialCode,jdbcType=VARCHAR},
-      materialName = #{materialName,jdbcType=VARCHAR},
-      specifications = #{specifications,jdbcType=VARCHAR},
-      batch = #{batch,jdbcType=VARCHAR},
-      productBatchNumber = #{productBatchNumber,jdbcType=VARCHAR},
-      individualCode = #{individualCode,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      basicUnitMeasurement = #{basicUnitMeasurement,jdbcType=VARCHAR},
-      numbers = #{numbers,jdbcType=INTEGER},
-      productionTime = #{productionTime,jdbcType=TIMESTAMP},
-      productionManufacturer = #{productionManufacturer,jdbcType=VARCHAR},
-      productRegistrationNumber = #{productRegistrationNumber,jdbcType=INTEGER},
-      amount = #{amount,jdbcType=DECIMAL},
-      effectiveTime = #{effectiveTime,jdbcType=VARCHAR},
-      invoiceNo = #{invoiceNo,jdbcType=VARCHAR}
+    set [number] = #{number,jdbcType=VARCHAR},
+      [Date] = #{date,jdbcType=TIMESTAMP},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      logistics = #{logistics,jdbcType=VARCHAR},
+      baseStatus = #{baseStatus,jdbcType=TINYINT},
+      baseType = #{baseType,jdbcType=VARCHAR},
+      logisticsNo = #{logisticsNo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,44 +1,23 @@
 package com.kingdee.eas.hrp.sms.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class Invoice {
     private Integer id;
 
-    private String orderId;
+    private String number;
 
-    private Integer orderlineNumbers;
+    private Date date;
 
-    private String materialCode;
+    private String supplier;
 
-    private String materialName;
+    private String logistics;
 
-    private String specifications;
+    private Byte baseStatus;
 
-    private String batch;
+    private String baseType;
 
-    private String productBatchNumber;
-
-    private String individualCode;
-
-    private BigDecimal price;
-
-    private String basicUnitMeasurement;
-
-    private Integer numbers;
-
-    private Date productionTime;
-
-    private String productionManufacturer;
-
-    private Integer productRegistrationNumber;
-
-    private BigDecimal amount;
-
-    private String effectiveTime;
-
-    private String invoiceNo;
+    private String logisticsNo;
 
     public Integer getId() {
         return id;
@@ -48,139 +27,59 @@ public class Invoice {
         this.id = id;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getNumber() {
+        return number;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 
-    public Integer getOrderlineNumbers() {
-        return orderlineNumbers;
+    public Date getDate() {
+        return date;
     }
 
-    public void setOrderlineNumbers(Integer orderlineNumbers) {
-        this.orderlineNumbers = orderlineNumbers;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getMaterialCode() {
-        return materialCode;
+    public String getSupplier() {
+        return supplier;
     }
 
-    public void setMaterialCode(String materialCode) {
-        this.materialCode = materialCode == null ? null : materialCode.trim();
+    public void setSupplier(String supplier) {
+        this.supplier = supplier == null ? null : supplier.trim();
     }
 
-    public String getMaterialName() {
-        return materialName;
+    public String getLogistics() {
+        return logistics;
     }
 
-    public void setMaterialName(String materialName) {
-        this.materialName = materialName == null ? null : materialName.trim();
+    public void setLogistics(String logistics) {
+        this.logistics = logistics == null ? null : logistics.trim();
     }
 
-    public String getSpecifications() {
-        return specifications;
+    public Byte getBaseStatus() {
+        return baseStatus;
     }
 
-    public void setSpecifications(String specifications) {
-        this.specifications = specifications == null ? null : specifications.trim();
+    public void setBaseStatus(Byte baseStatus) {
+        this.baseStatus = baseStatus;
     }
 
-    public String getBatch() {
-        return batch;
+    public String getBaseType() {
+        return baseType;
     }
 
-    public void setBatch(String batch) {
-        this.batch = batch == null ? null : batch.trim();
+    public void setBaseType(String baseType) {
+        this.baseType = baseType == null ? null : baseType.trim();
     }
 
-    public String getProductBatchNumber() {
-        return productBatchNumber;
+    public String getLogisticsNo() {
+        return logisticsNo;
     }
 
-    public void setProductBatchNumber(String productBatchNumber) {
-        this.productBatchNumber = productBatchNumber == null ? null : productBatchNumber.trim();
-    }
-
-    public String getIndividualCode() {
-        return individualCode;
-    }
-
-    public void setIndividualCode(String individualCode) {
-        this.individualCode = individualCode == null ? null : individualCode.trim();
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getBasicUnitMeasurement() {
-        return basicUnitMeasurement;
-    }
-
-    public void setBasicUnitMeasurement(String basicUnitMeasurement) {
-        this.basicUnitMeasurement = basicUnitMeasurement == null ? null : basicUnitMeasurement.trim();
-    }
-
-    public Integer getNumbers() {
-        return numbers;
-    }
-
-    public void setNumbers(Integer numbers) {
-        this.numbers = numbers;
-    }
-
-    public Date getProductionTime() {
-        return productionTime;
-    }
-
-    public void setProductionTime(Date productionTime) {
-        this.productionTime = productionTime;
-    }
-
-    public String getProductionManufacturer() {
-        return productionManufacturer;
-    }
-
-    public void setProductionManufacturer(String productionManufacturer) {
-        this.productionManufacturer = productionManufacturer == null ? null : productionManufacturer.trim();
-    }
-
-    public Integer getProductRegistrationNumber() {
-        return productRegistrationNumber;
-    }
-
-    public void setProductRegistrationNumber(Integer productRegistrationNumber) {
-        this.productRegistrationNumber = productRegistrationNumber;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public String getEffectiveTime() {
-        return effectiveTime;
-    }
-
-    public void setEffectiveTime(String effectiveTime) {
-        this.effectiveTime = effectiveTime == null ? null : effectiveTime.trim();
-    }
-
-    public String getInvoiceNo() {
-        return invoiceNo;
-    }
-
-    public void setInvoiceNo(String invoiceNo) {
-        this.invoiceNo = invoiceNo == null ? null : invoiceNo.trim();
+    public void setLogisticsNo(String logisticsNo) {
+        this.logisticsNo = logisticsNo == null ? null : logisticsNo.trim();
     }
 }
