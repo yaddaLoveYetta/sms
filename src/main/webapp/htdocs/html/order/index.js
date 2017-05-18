@@ -231,8 +231,8 @@
 
                 var dialog = new Dialog({
                     title: '生成发货单',
-                    width: 700,
-                    height: 300,
+                    width: $(window).width,
+                    height: $(window).height,
                     url: $.Url.setQueryString('html/order-deliver/index.html', {
                         'classId': 2020,
                         'items': items,

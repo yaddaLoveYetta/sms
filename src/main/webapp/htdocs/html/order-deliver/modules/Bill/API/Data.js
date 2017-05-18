@@ -113,33 +113,6 @@ define('Bill/API/Data', function (require, module, exports) {
             delete  billData.entry;
         }
 
-        /**
-
-         // 过滤出表头要显示的字段
-         var headData = $.Object.grep(billData, function (key, value) {
-            if (key in headTemplate) {
-                return headTemplate[key].visible;
-            }
-            return false;
-        });
-
-         // 过滤出子表要显示的字段
-         for (var page in entryData) {
-
-            entryData[page] = $.Array.keep(entryData[page], function (rowData, rowIndex) {
-
-                var row = $.Object.grep(rowData, function (key, value) {
-                    if (key in template[page]) {
-                        return template[page][key].visible;
-                    }
-                    return false;
-                });
-
-                return row;
-            });
-        }
-
-         */
         return {
 
             headData: billData,
