@@ -13,7 +13,7 @@
     var Bill = require('Bill');
 
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
-    var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
+    var items = MiniQuery.Url.getQueryString(window.location.href, 'items');
 
     var conditions = {};
 
@@ -25,7 +25,7 @@
 
     Bill.render({
         'classId': classId,
-        'id': itemId
+        'id': items
     });
 
 })();

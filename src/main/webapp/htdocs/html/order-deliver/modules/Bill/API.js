@@ -24,8 +24,7 @@ define('Bill/API', function (require, module, exports) {
         }, {
             fn: Data.get,
             args: [{
-                'classId': config.classId,
-                'id': config.id,
+                'items': config.items,
             }]
         }];
 

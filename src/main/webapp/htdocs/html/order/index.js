@@ -234,7 +234,7 @@
                     width: 700,
                     height: 300,
                     url: $.Url.setQueryString('html/order-deliver/index.html', {
-                        'classId': classId,
+                        'classId': 2020,
                         'items': items,
                     }),
                     data: {},

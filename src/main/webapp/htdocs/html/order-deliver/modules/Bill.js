@@ -23,7 +23,7 @@ define('Bill', function (require, module, exports) {
         SMS.Tips.loading("数据加载中...");
         API.get({
             classId: config.classId,
-            id: config.id,
+            items: config.items,
         }, function (data) {
             SMS.Tips.success("数据加载成功", 1500);
             console.log(data.template);

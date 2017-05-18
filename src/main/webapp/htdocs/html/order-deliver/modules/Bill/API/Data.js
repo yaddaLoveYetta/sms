@@ -17,11 +17,10 @@ define('Bill/API/Data', function (require, module, exports) {
      */
     function get(config, fn) {
 
-        var api = new API('template/getItemById');
+        var api = new API('order/invoice');
 
         var params = {
-            'classId': config.classId,
-            'id': config.id,
+            'items': config.items,
         };
 
         api.post(params);
