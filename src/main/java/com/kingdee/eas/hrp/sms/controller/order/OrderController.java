@@ -47,7 +47,7 @@ public class OrderController {
 		}
 
 		orderservice.tick(id, entry);
-
+		
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS);
 
 		// String listStr = ParameterUtils.getParameter(request, "list", "");
@@ -58,13 +58,13 @@ public class OrderController {
 	@ControllerLog(desc = "产生发货单")
 	@RequestMapping(value = "invoice")
 	public void invoice(HttpServletRequest request, HttpServletResponse response) {
-		String items = ParameterUtils.getParameter(request, "items", "");
+		String list = ParameterUtils.getParameter(request, "list", "");
 		String userType = SessionUtil.getUserType(request);
-		if (items.equals("")) {
+		if (list.equals("")) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
 			return;
 		}
-		Map<String, Object> result = orderservice.invoice(items, userType);
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, result);
+		Map<String, Object> result = orderservice.invoice(list, userType);
+		request.setAttribute("result", "result");
 	}
 }
