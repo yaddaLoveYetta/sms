@@ -105,7 +105,6 @@ public class OrderService extends BaseService implements IOrderService {
 	/**
 	 * 采购订单接单
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation = Propagation.NEVER)
 	public void tick(String id, String entryStr) {
