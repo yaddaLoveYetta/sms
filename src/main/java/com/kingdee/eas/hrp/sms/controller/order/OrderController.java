@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
@@ -21,6 +22,7 @@ import com.kingdee.eas.hrp.sms.util.StatusCode;
 @Controller
 @RequestMapping(value = "/order/")
 public class OrderController {
+
 	@Resource
 	IOrderService orderservice;
 
@@ -33,15 +35,24 @@ public class OrderController {
 	}
 
 	@ControllerLog(desc = "确认接单")
-	@RequestMapping(value = "updatetickType")
-	public void updatetickType(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "tick")
+	public void tick(HttpServletRequest request, HttpServletResponse response) {
 
 		String id = ParameterUtils.getParameter(request, "id", "");
 		String entry = ParameterUtils.getParameter(request, "entry", "");
 
-		String listStr = ParameterUtils.getParameter(request, "list", "");
-		JSONObject json = JSONObject.parseObject(listStr);
-		orderservice.updatetickType(json);
+		// 基本的参数校验
+		if ("".equals(id) || "".equals(entry)) {
+			throw new BusinessLogicRunTimeException("请选择订单进行接单操作！");
+		}
+
+		orderservice.tick(id, entry);
+		
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS);
+
+		// String listStr = ParameterUtils.getParameter(request, "list", "");
+		// JSONObject json = JSONObject.parseObject(listStr);
+		// orderservice.updatetickType(json);
 	}
 
 	@ControllerLog(desc = "产生发货单")

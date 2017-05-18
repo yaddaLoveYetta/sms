@@ -386,52 +386,52 @@ public class OrderEntryExample {
             return (Criteria) this;
         }
 
-        public Criteria andQtyEqualTo(Integer value) {
+        public Criteria andQtyEqualTo(BigDecimal value) {
             addCriterion("qty =", value, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyNotEqualTo(Integer value) {
+        public Criteria andQtyNotEqualTo(BigDecimal value) {
             addCriterion("qty <>", value, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyGreaterThan(Integer value) {
+        public Criteria andQtyGreaterThan(BigDecimal value) {
             addCriterion("qty >", value, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyGreaterThanOrEqualTo(Integer value) {
+        public Criteria andQtyGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("qty >=", value, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyLessThan(Integer value) {
+        public Criteria andQtyLessThan(BigDecimal value) {
             addCriterion("qty <", value, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyLessThanOrEqualTo(Integer value) {
+        public Criteria andQtyLessThanOrEqualTo(BigDecimal value) {
             addCriterion("qty <=", value, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyIn(List<Integer> values) {
+        public Criteria andQtyIn(List<BigDecimal> values) {
             addCriterion("qty in", values, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyNotIn(List<Integer> values) {
+        public Criteria andQtyNotIn(List<BigDecimal> values) {
             addCriterion("qty not in", values, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyBetween(Integer value1, Integer value2) {
+        public Criteria andQtyBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("qty between", value1, value2, "qty");
             return (Criteria) this;
         }
 
-        public Criteria andQtyNotBetween(Integer value1, Integer value2) {
+        public Criteria andQtyNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("qty not between", value1, value2, "qty");
             return (Criteria) this;
         }
@@ -1046,52 +1046,52 @@ public class OrderEntryExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyEqualTo(Integer value) {
+        public Criteria andConfirmQtyEqualTo(BigDecimal value) {
             addCriterion("confirmQty =", value, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyNotEqualTo(Integer value) {
+        public Criteria andConfirmQtyNotEqualTo(BigDecimal value) {
             addCriterion("confirmQty <>", value, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyGreaterThan(Integer value) {
+        public Criteria andConfirmQtyGreaterThan(BigDecimal value) {
             addCriterion("confirmQty >", value, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyGreaterThanOrEqualTo(Integer value) {
+        public Criteria andConfirmQtyGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("confirmQty >=", value, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyLessThan(Integer value) {
+        public Criteria andConfirmQtyLessThan(BigDecimal value) {
             addCriterion("confirmQty <", value, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyLessThanOrEqualTo(Integer value) {
+        public Criteria andConfirmQtyLessThanOrEqualTo(BigDecimal value) {
             addCriterion("confirmQty <=", value, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyIn(List<Integer> values) {
+        public Criteria andConfirmQtyIn(List<BigDecimal> values) {
             addCriterion("confirmQty in", values, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyNotIn(List<Integer> values) {
+        public Criteria andConfirmQtyNotIn(List<BigDecimal> values) {
             addCriterion("confirmQty not in", values, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyBetween(Integer value1, Integer value2) {
+        public Criteria andConfirmQtyBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("confirmQty between", value1, value2, "confirmQty");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmQtyNotBetween(Integer value1, Integer value2) {
+        public Criteria andConfirmQtyNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("confirmQty not between", value1, value2, "confirmQty");
             return (Criteria) this;
         }

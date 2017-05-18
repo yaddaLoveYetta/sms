@@ -12,7 +12,7 @@ public class OrderEntry {
 
     private BigDecimal price;
 
-    private Integer qty;
+    private BigDecimal qty;
 
     private Date deliveryDate;
 
@@ -34,7 +34,7 @@ public class OrderEntry {
 
     private Date confirmDate;
 
-    private Integer confirmQty;
+    private BigDecimal confirmQty;
 
     private String unit;
 
@@ -72,11 +72,11 @@ public class OrderEntry {
         this.price = price;
     }
 
-    public Integer getQty() {
+    public BigDecimal getQty() {
         return qty;
     }
 
-    public void setQty(Integer qty) {
+    public void setQty(BigDecimal qty) {
         this.qty = qty;
     }
 
@@ -160,11 +160,11 @@ public class OrderEntry {
         this.confirmDate = confirmDate;
     }
 
-    public Integer getConfirmQty() {
+    public BigDecimal getConfirmQty() {
         return confirmQty;
     }
 
-    public void setConfirmQty(Integer confirmQty) {
+    public void setConfirmQty(BigDecimal confirmQty) {
         this.confirmQty = confirmQty;
     }
 
