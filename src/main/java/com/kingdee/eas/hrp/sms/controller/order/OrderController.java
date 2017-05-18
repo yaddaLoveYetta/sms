@@ -47,7 +47,7 @@ public class OrderController {
 		}
 
 		orderservice.tick(id, entry);
-		
+
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS);
 
 		// String listStr = ParameterUtils.getParameter(request, "list", "");
@@ -65,6 +65,6 @@ public class OrderController {
 			return;
 		}
 		Map<String, Object> result = orderservice.invoice(items, userType);
-		request.setAttribute("result", "result");
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, result);
 	}
 }
