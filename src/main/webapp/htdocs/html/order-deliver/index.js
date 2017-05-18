@@ -25,7 +25,7 @@
 
     Bill.render({
         'classId': classId,
-        'id': items
+        'items': items
     });
 
 })();
