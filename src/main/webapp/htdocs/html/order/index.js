@@ -97,7 +97,7 @@
             SMS.use('Dialog', function (Dialog) {
 
                 var dialog = new Dialog({
-                    title: '编辑-供应商资质',
+                    title: '接单信息',
                     width: 700,
                     height: 300,
                     url: $.Url.setQueryString('html/order-tick/index.html', {
