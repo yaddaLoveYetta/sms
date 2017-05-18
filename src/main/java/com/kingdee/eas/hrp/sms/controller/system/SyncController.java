@@ -549,7 +549,7 @@ public class SyncController {
 		int classId = ParameterUtils.getParameter(request, "classId", -1); // 提交同步的记录数
 		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
 
-		String userType = SessionUtil.getUserType(request);
+		String userType ="QpXq24FxxE6c3lvHMPyYCxACEAI=";
 
 		JSONArray list = JSON.parseArray(listStr);
 
