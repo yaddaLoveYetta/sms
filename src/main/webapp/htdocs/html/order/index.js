@@ -176,12 +176,13 @@
         },
         'deliver': function (item, index) {
 
+            var done = true;
             //SMS.Tips.info('功能研发中，敬请期待……');
 
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项',1500);
+                SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
             // 判断订单状态是否符合发货条件
@@ -189,11 +190,13 @@
                 if (!item.data.confirmTick) {
                     // 供应商没有接单
                     SMS.Tips.error(item.data.number + ' 还未接单，不能发货');
+                    done = false;
                     return false;
                 }
                 if (!item.data.tickType) {
                     // HRP没有确认接单
                     SMS.Tips.error(item.data.number + ' HRP未确认接单，不能发货');
+                    done = false;
                     return false;
                 }
             });
@@ -204,11 +207,16 @@
                     if (row.invoiceQty || 0 >= row.confirmQty || 0) {
                         // 接单数量已经全部发货
                         SMS.Tips.error(item.data.number + 'seq' + row + '接单数量已发货完毕，不能再发货');
+                        done = false;
                         return false;
                     }
                 });
             });
 
+            if (!done) {
+                // 不满足发货条件
+                return;
+            }
             var items; // 发货订单主键集合，多个逗号分隔
 
             for (var item in list) {
