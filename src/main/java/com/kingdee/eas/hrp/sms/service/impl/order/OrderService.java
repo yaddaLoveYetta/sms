@@ -109,7 +109,7 @@ public class OrderService extends BaseService implements IOrderService {
 		
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 		Order order  =orderMapper.selectByPrimaryKey(id);
-		if(order.getTickType().equals("1")){
+		if(order.getTickType().equals("0")){
 		// 調用hrp-web-service --发送接单数据至HRP
 
 		// 发送成功后开启事务更新本地订单接单状态
@@ -225,7 +225,7 @@ public class OrderService extends BaseService implements IOrderService {
 			for (int j = 0; j < arrayList.size(); j++) {
 				HashMap<String, Object> orderEntrys = (HashMap<String, Object>) arrayList.get(j);
 				BigDecimal qty = (BigDecimal)orderEntrys.get("qty") ;
-				if(Integer.parseInt(String.valueOf(map.get("tickType")))==1){
+				if(Integer.parseInt(String.valueOf(map.get("tickType")))==0){
 					throw new BusinessLogicRunTimeException("HRP未同意接单,不可发货");
 				}
 				if (Integer.parseInt(String.valueOf(map.get("saleProxy")))==2){
