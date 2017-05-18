@@ -5,10 +5,12 @@ package com.kingdee.eas.hrp.sms.controller;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.model.Supplier_License_Type;
 import com.kingdee.eas.hrp.sms.util.http.HttpParam;
@@ -212,18 +214,37 @@ public class SyncControllerTest extends BaseControllerTest {
 		List<Supplier_License_Type> list = JSONObject.parseArray(str, Supplier_License_Type.class);
 
 	}
-	
+
 	@Test
 	public void sync() {
 
 		HttpParam param = HttpParam.init();
 		param.setCookieParams(cookie);
-		//String str = "[{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'}]";
+		// String str =
+		// "[{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'}]";
 		String str = "[{'id':'qwh6eCeuTaStSVRAgxsQnUQJ5/A=','number':'44010100080002','name':'显微剪（手部外科)'}]";
 		param.addCommon("classId", "1013");
 		param.addCommon("list", str);
 
 		String ret = HttpUtil.sendGet(BASE_URL + "sync/sync", param);
 		System.out.println(ret);
+	}
+
+	@Test
+	public void sync2() {
+
+		HttpParam param = HttpParam.init();
+		param.setCookieParams(cookie);
+
+		String str = "[{'id':'yyyyyyyyy','number':'1111111111111111111','name':'22222222222222222'},{'id':'xxxxxxxxxxxxxx','number':'333333333333333333','name':'444444444444444'}]";
+		param.addCommon("classId", "1013");
+		param.addCommon("list", str);
+
+		String ret = HttpUtil.sendGet(BASE_URL + "sync/sync", param);
+
+		JSONObject object = (JSONObject) JSON.parse(ret);
+
+		Assert.assertEquals(object.getIntValue("code"), 200);
+	
 	}
 }

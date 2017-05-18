@@ -1,7 +1,11 @@
 package com.kingdee.eas.hrp.sms.service.impl.sys;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +13,12 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.plugin.PluginException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -27,6 +35,7 @@ import com.kingdee.eas.hrp.sms.dao.generate.CountyMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.CurrencyMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.IndustryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.PayMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ProvinceMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SettlementMapper;
@@ -47,11 +56,14 @@ import com.kingdee.eas.hrp.sms.model.County;
 import com.kingdee.eas.hrp.sms.model.CountyExample;
 import com.kingdee.eas.hrp.sms.model.Currency;
 import com.kingdee.eas.hrp.sms.model.CurrencyExample;
+import com.kingdee.eas.hrp.sms.model.FormClass;
+import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.model.CurrencyExample.Criteria;
 import com.kingdee.eas.hrp.sms.model.Industry;
 import com.kingdee.eas.hrp.sms.model.IndustryExample;
 import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.ItemExample;
+import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.model.Pay;
 import com.kingdee.eas.hrp.sms.model.PayExample;
 import com.kingdee.eas.hrp.sms.model.Province;
@@ -70,6 +82,7 @@ import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.service.impl.TemplateService;
+import com.kingdee.eas.hrp.sms.util.Environ;
 
 @Service
 public class SyncService extends BaseService implements ISyncService {
@@ -226,8 +239,7 @@ public class SyncService extends BaseService implements ISyncService {
 			throw new BusinessLogicRunTimeException("内码为空");
 		}
 
-		Supplier_License_TypeMapper mapper = (Supplier_License_TypeMapper) sqlSession
-				.getMapper(Supplier_License_Type.class);
+		Supplier_License_TypeMapper mapper = (Supplier_License_TypeMapper) sqlSession.getMapper(Supplier_License_Type.class);
 		Supplier_License_TypeExample example = new Supplier_License_TypeExample();
 		com.kingdee.eas.hrp.sms.model.Supplier_License_TypeExample.Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(license_Type_Id);
@@ -903,8 +915,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	}
 
-	@Override
-	public List<Map<String, Object>> sync(int classId, JSONArray list, String userType) {
+	public List<Map<String, Object>> sync_old(int classId, JSONArray list, String userType) {
 
 		// 同步失败的记录S
 		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
@@ -927,6 +938,89 @@ public class SyncService extends BaseService implements ISyncService {
 			}
 		}
 		return errList;
+	}
+
+	/**
+	 * 同步基础资料 (non-Javadoc)
+	 * 
+	 * @see com.kingdee.eas.hrp.sms.service.api.sys.ISyncService#sync(int, com.alibaba.fastjson.JSONArray,
+	 *      java.lang.String)
+	 * @param classId
+	 * @param list
+	 * @param userType
+	 * @return
+	 * @date 2017-05-18 09:52:21 星期四
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(propagation = Propagation.NEVER)
+	public List<Map<String, Object>> sync(int classId, JSONArray list, String userType) {
+
+		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
+
+		PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
+
+		ITemplateService templateService = Environ.getBean(ITemplateService.class);
+
+		// 基础资料模板
+		Map<String, Object> formTemplate = templateService.getFormTemplate(classId, 1);
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) formTemplate.get("formClass");
+
+		String primaryKey = formClass.getPrimaryKey(); // 主表主键key
+
+		for (int i = 0; i < list.size(); i++) {
+
+			Map<String, Object> errItem = new HashMap<String, Object>();
+
+			String baseItemStr = list.getString(i);
+
+			JSONObject baseItem = JSON.parseObject(baseItemStr); // 一条基础资料数据
+
+			if (!baseItem.containsKey(primaryKey)) {
+				// 同步的数据必须包含主键
+				errItem.put("msg", "同步的数据必须包含主键");
+				errItem.put("item", baseItem);
+				ret.add(errItem);
+
+				continue; // 忽略该条记录
+			}
+
+			String interId = baseItem.getString(primaryKey);// 主键值
+
+			TransactionTemplate template = new TransactionTemplate(txManager);
+
+			boolean success = template.execute(new TransactionCallback<Boolean>() {
+
+				@Override
+				public Boolean doInTransaction(TransactionStatus status) {
+
+					try {
+
+						if (templateService.getItemById(classId, interId, userType) == null) {
+							templateService.addItem(classId, baseItem.toJSONString(), userType);
+						} else {
+							templateService.editItem(classId, interId, baseItem.toJSONString(), userType);
+						}
+
+						return true; // 同步成功
+
+					} catch (Exception e) {
+
+						status.setRollbackOnly();// 回滚事务
+						errItem.put("desc", e.getMessage());
+						errItem.put("item", baseItem);
+						ret.add(errItem);
+
+						return false; // 同步失败
+					}
+
+				}
+			});
+
+		}
+
+		return ret;
 	}
 
 }

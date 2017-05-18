@@ -144,7 +144,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		String orderByString = orderBy; // 排序字段
 
 		// 基础资料模板
-		Map<String, Object> template = getFormTemplate(classId, 1);
+		Map<String, Object> template =this.getFormTemplate(classId, 1);
 
 		// 主表字段模板
 		Map<String, Object> formFields0 = (Map<String, Object>) ((Map<String, Object>) template.get("formFields"))

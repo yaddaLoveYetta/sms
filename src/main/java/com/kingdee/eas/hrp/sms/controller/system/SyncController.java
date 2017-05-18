@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.authority.Permission;
@@ -33,6 +35,7 @@ import com.kingdee.eas.hrp.sms.model.Unit;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+import com.kingdee.eas.hrp.sms.util.SessionUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 @Controller
@@ -545,8 +548,10 @@ public class SyncController {
 
 		int classId = ParameterUtils.getParameter(request, "classId", -1); // 提交同步的记录数
 		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
-		JSONArray list = JSONArray.parseArray(listStr);
-		String userType = "QpXq24FxxE6c3lvHMPyYCxACEAI=";
+
+		String userType = SessionUtil.getUserType(request);
+
+		JSONArray list = JSON.parseArray(listStr);
 
 		// 基本参数校验
 		if (classId <= 0) {

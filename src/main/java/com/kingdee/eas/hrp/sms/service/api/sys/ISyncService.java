@@ -23,7 +23,7 @@ import com.kingdee.eas.hrp.sms.model.Unit;
 /**
  * @author Sunny
  *
- * 2017年4月25日
+ *         2017年4月25日
  */
 public interface ISyncService {
 
@@ -40,136 +40,156 @@ public interface ISyncService {
 
 	/**
 	 * 同步分类
+	 * 
 	 * @Title category
 	 * @param list
-	 * 		  category 集合
+	 *            category 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> category(List<Category> list);
-	
+
 	/**
 	 * 同步证书
+	 * 
 	 * @Title certificate
 	 * @param list
-	 * 		  certificate 集合
+	 *            certificate 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> certificate(List<Certificate> list);
-	
+
 	/**
 	 * 同步证书
+	 * 
 	 * @Title license
 	 * @param list
-	 * 		  license 集合
+	 *            license 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> license(List<Supplier_License_Type> list);
-	
+
 	/**
 	 * 同步行业
+	 * 
 	 * @Title industry
 	 * @param list
-	 * 		  industry 集合
+	 *            industry 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> industry(List<Industry> list);
-	
+
 	/**
 	 * 同步结算方式
+	 * 
 	 * @Title settlement
 	 * @param list
-	 * 		  settlement 集合
+	 *            settlement 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> settlement(List<Settlement> list);
-	
+
 	/**
 	 * 同步付款方式
+	 * 
 	 * @Title pay
 	 * @param list
-	 * 		  pay 集合
+	 *            pay 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> pay(List<Pay> list);
-	
+
 	/**
 	 * 同步物料
+	 * 
 	 * @Title item
 	 * @param list
-	 * 		  item 集合
+	 *            item 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> item(List<Item> list);
-	
+
 	/**
 	 * 同步税种
+	 * 
 	 * @Title taxCategory
 	 * @param list
-	 * 		  taxCategory 集合
+	 *            taxCategory 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> taxCategory(List<TaxCategory> list);
 
 	/**
 	 * 同步供应商
+	 * 
 	 * @Title supplier
 	 * @param list
-	 * 		  supplier 集合
+	 *            supplier 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> supplier(List<Supplier> list);
 
 	/**
 	 * 同步国家
+	 * 
 	 * @Title country
 	 * @param list
-	 * 		  country 集合
+	 *            country 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> country(List<Country> list);
 
 	/**
 	 * 同步城市
+	 * 
 	 * @Title city
 	 * @param list
-	 * 		  city 集合
+	 *            city 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> city(List<City> list);
 
 	/**
 	 * 同步省份
+	 * 
 	 * @Title province
 	 * @param list
-	 * 		  province 集合
+	 *            province 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> province(List<Province> list);
 
 	/**
 	 * 同步区县
+	 * 
 	 * @Title county
 	 * @param list
-	 * 		  county 集合
+	 *            county 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> county(List<County> list);
 
 	/**
 	 * 同步单位
+	 * 
 	 * @Title unit
 	 * @param list
-	 * 		  unit 集合
+	 *            unit 集合
 	 * @return List<Map<String,Object>> 同步失败记录及失败原因
 	 */
 	List<Map<String, Object>> unit(List<Unit> list);
 
 	/**
-	 * 同步item
-	 * @Title item
+	 * 同步基础资料
+	 * 
+	 * @Title sync
+	 * @param classId
+	 *            业务类型
 	 * @param list
-	 * 		  item JsonArray
-	 * @return List<Map<String,Object>> 同步失败记录及失败原因
+	 *            同步数据列表
+	 * @param userType
+	 *            用户类别
+	 * @return List<Map<String,Object>> 同步失败记录
+	 * @date 2017-05-18 09:53:06 星期四
 	 */
 	List<Map<String, Object>> sync(int classId, JSONArray list, String userType);
 
