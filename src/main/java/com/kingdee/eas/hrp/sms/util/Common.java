@@ -353,7 +353,7 @@ public class Common {
 	}
 
 	public static String createOrderNo() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss", Locale.CHINA);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss", Locale.CHINA);
 		return "Pur-" + sdf.format(new Date()) + RandomUtils.nextInt(1000);
 
 	}
