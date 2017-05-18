@@ -217,7 +217,7 @@
                 // 不满足发货条件
                 return;
             }
-            var items; // 发货订单主键集合，多个逗号分隔
+            var items = ''; // 发货订单主键集合，多个逗号分隔
 
             for (var item in list) {
                 if (list[item]) {
