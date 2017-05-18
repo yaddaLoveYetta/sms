@@ -48,10 +48,6 @@ define('Bill/API', function (require, module, exports) {
                     return item.visible;
                 })
 
-                /*                visibleTemplate[pageIndex] = $.Object.grep(pageData, function (key, value) {
-                 return value.visible;
-                 });*/
-
             });
 
 
