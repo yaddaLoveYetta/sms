@@ -54,7 +54,7 @@ define('Bill/Entry', function (require, module, exports) {
                 'defaults': defaults,
                 'showKeys': showKeys,
                 'editKeys': editKeys,
-                'operator': true,
+                'operator': false,
             });
 
 
