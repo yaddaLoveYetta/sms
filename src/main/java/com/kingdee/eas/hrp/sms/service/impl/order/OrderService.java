@@ -230,6 +230,15 @@ public class OrderService extends BaseService implements IOrderService {
 				}
 				if (Integer.parseInt(String.valueOf(map.get("saleProxy")))==2){
 					for (int k = 0; k < qty.intValue(); k++) {
+						// 表头数据
+						order.put("number", Common.createInvoiceNo());
+						order.put("Date", "");
+						order.put("logistics", "");
+						order.put("baseType", "采购订单");
+						order.put("logisticsNo", "");
+						order.put("supplier_DspName", map.get("supplier_DspName"));
+						order.put("supplier", map.get("supplier"));
+						order.put("baseStatus", map.get("baseStatus"));
 						// 表体数据
 						entry.put("number", map.get("number"));
 						entry.put("orderSeq", orderEntrys.get("seq"));
@@ -248,15 +257,7 @@ public class OrderService extends BaseService implements IOrderService {
 						entry.put("registrationNo", "");
 						entry.put("effectiveDate", "");
 						entry.put("seq", ++s);
-						// 表头数据
-						order.put("number", Common.createInvoiceNo());
-						order.put("Date", "");
-						order.put("logistics", "");
-						order.put("baseType", "采购订单");
-						order.put("logisticsNo", "");
-						order.put("supplier_DspName", map.get("supplier_DspName"));
-						order.put("supplier", map.get("supplier"));
-						order.put("baseStatus", map.get("baseStatus"));
+						entry.put("specification", orderEntrys.get("specification"));
 						list.add(entry);
 						orderEntry.put("1", list);
 						order.put("entry", orderEntry);
@@ -289,6 +290,7 @@ public class OrderService extends BaseService implements IOrderService {
 					entry.put("registrationNo", "");
 					entry.put("effectiveDate", "");
 					entry.put("seq", ++s);
+					entry.put("specification", orderEntrys.get("specification"));
 					list.add(entry);
 					orderEntry.put("1", list);
 					order.put("entry", orderEntry);
