@@ -67,8 +67,8 @@
                 name: 'detail',
             },
             {
-                text: '发货',
-                name: 'outStock',
+                text: '生成发货单',
+                name: 'deliver',
             }
         ]
     };
@@ -174,10 +174,106 @@
         'refresh': function (item, index) {
             refresh();
         },
-        'outStock': function (item, index) {
-            SMS.Tips.info('功能研发中，敬请期待……');
+        'deliver': function (item, index) {
+
+            //SMS.Tips.info('功能研发中，敬请期待……');
+
+            var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择要操作的项',1500);
+                return;
+            }
+            // 判断订单状态是否符合发货条件
+            $.Array.each(list, function (item, index) {
+                if (!item.data.confirmTick) {
+                    // 供应商没有接单
+                    SMS.Tips.error(item.data.number + ' 还未接单，不能发货');
+                    return false;
+                }
+                if (!item.data.tickType) {
+                    // HRP没有确认接单
+                    SMS.Tips.error(item.data.number + ' HRP未确认接单，不能发货');
+                    return false;
+                }
+            });
+            // 判断订单数量是否符合发货条件
+            $.Array.each(list, function (item, index) {
+
+                $.Array.each(item.data.entry[1], function (row, index) {
+                    if (row.invoiceQty || 0 >= row.confirmQty || 0) {
+                        // 接单数量已经全部发货
+                        SMS.Tips.error(item.data.number + 'seq' + row + '接单数量已发货完毕，不能再发货');
+                        return false;
+                    }
+                });
+            });
+
+            var items; // 发货订单主键集合，多个逗号分隔
+
+            for (var item in list) {
+                if (list[item]) {
+                    items += (',' + list[item].primaryValue);
+                }
+            }
+
+            items = items.substr(1);
+
+            SMS.use('Dialog', function (Dialog) {
+
+                var dialog = new Dialog({
+                    title: '生成发货单',
+                    width: 700,
+                    height: 300,
+                    url: $.Url.setQueryString('html/order-deliver/index.html', {
+                        'classId': classId,
+                        'items': items,
+                    }),
+                    data: {},
+                    button: [
+                        {
+                            value: '取消',
+                            className: 'sms-cancel-btn',
+                        },
+                        {
+                            value: '确定',
+                            className: 'sms-submit-btn',
+                            callback: function () {
+                                dialog.__dispatchEvent('get');
+                                var data = dialog.getData();
+                                console.log(data);
+                                tick(data, function (data) {
+                                    SMS.Tips.success("接单成功", 1500);
+                                    return true;
+                                });
+
+                                return false; // 可能不成功，默认不关闭对话框
+                            }
+                        }
+                    ],
+                });
+
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
+
+                dialog.showModal();
+
+                dialog.on({
+                    remove: function () {
+                        refresh();
+                    }
+                });
+
+            });
+
+
         }
     });
+
+    //生成发货单
+    function deliver() {
+
+    }
 
     //保存接单数据
     function tick(data, fn) {
