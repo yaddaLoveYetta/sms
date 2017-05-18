@@ -352,7 +352,7 @@ public class Common {
 		return retSb.toString();
 	}
 
-	public static String createOrderNo() {
+	public static String createInvoiceNo() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss", Locale.CHINA);
 		return "Pur-" + sdf.format(new Date()) + RandomUtils.nextInt(1000);
 
