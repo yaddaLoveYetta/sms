@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -23,14 +24,16 @@ import java.util.UUID;
 //import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mysql.fabric.xmlrpc.base.Data;
 
 public class Common {
 
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		System.out.println(getBarCodeISN(16));
-	}
+	}*/
 
 	/*
 	 * 获取随机的字符
@@ -347,5 +350,18 @@ public class Common {
 		}
 
 		return retSb.toString();
+	}
+
+	public static String orderNo() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss", Locale.CHINA);
+		return "Pur-" + sdf.format(new Date()) + RandomUtils.nextInt(1000);
+
+	}
+	
+	public static void main(String[] args) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss-", Locale.CHINA);
+		System.out.println("Pur-" + sdf.format(new Date()) + RandomUtils.nextInt(1000));
+		
 	}
 }
