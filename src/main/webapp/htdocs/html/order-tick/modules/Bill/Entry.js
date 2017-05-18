@@ -46,7 +46,7 @@ define('Bill/Entry', function (require, module, exports) {
                 'confirmDate', 'deliveryDate', 'confirmQty'];
 
             //可编辑的列
-            var editKeys = ['material','confirmQty', 'confirmDate'];
+            var editKeys = ['confirmQty', 'confirmDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
             defaults = GridBuilder.getConfig({
