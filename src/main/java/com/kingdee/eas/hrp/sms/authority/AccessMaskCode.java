@@ -29,7 +29,7 @@ package com.kingdee.eas.hrp.sms.authority;
 public class AccessMaskCode {
 
 	private AccessMaskCode() {
-		super();
+
 	}
 
 	/**
