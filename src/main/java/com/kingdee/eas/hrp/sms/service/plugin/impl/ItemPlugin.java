@@ -128,21 +128,11 @@ public class ItemPlugin extends PlugInAdpter {
 		orderByItem.put("orderDirection", "ASC");
 		orderByArray.add(orderByItem);
 
-		orderByItem = new JSONObject();
-		orderByItem.put("fieldKey", "name");
-		orderByItem.put("orderDirection", "ASC");
-		orderByArray.add(orderByItem);
-
 		String orderBy = JSON.toJSONString(orderByArray);
 
 		JSONArray conditionArry = new JSONArray();
 		JSONObject condition = new JSONObject(true);
-		condition.put("andOr", "and");
-		condition.put("fieldKey", "name");
-		condition.put("logicOperator", "=");
-		condition.put("value", data.get("name"));
-		conditionArry.add(condition);
-		condition = new JSONObject();
+		
 		condition.put("andOr", "and");
 		condition.put("fieldKey", "number");
 		condition.put("logicOperator", "=");
