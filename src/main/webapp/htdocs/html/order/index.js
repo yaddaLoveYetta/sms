@@ -86,11 +86,16 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要删除的项');
+                SMS.Tips.error('请选择要操作的项');
                 return;
             }
             if (list.length > 1) {
                 SMS.Tips.error('只能对一条记录进行操作');
+                return;
+            }
+
+            if (list[0].tickType) {
+                SMS.Tips.error('该订单HRP已确认接单，不可修改接单数据');
                 return;
             }
 

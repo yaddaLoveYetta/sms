@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>订单详情</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--grunt.css.begin-->
+    <link href="../../css/base.css" rel="stylesheet"/>
+    <link href="../../css/global.debug.css" rel="stylesheet"/>
+    <link href="../../css/order-details/index.debug.css" rel="stylesheet"/>
+    <!--grunt.css.end-->
+</head>
+<body class="iframe">
+
+<div class="panel main">
+
+    <dl>
+        <dt>
+            <b>订单主信息</b>
+        </dt>
+        <dd id="dd-head">
+            <div class="logistics-row">
+                <span class="container-col"><span class="title" title="{单据编号}">单据编号：</span><span title="{orderNo}">{orderNo}</span></span>
+                <span class="container-col"><span class="title">订单日期：</span><span>{date}</span></span>
+                <span class="container-col"><span class="title">采购类型：</span><span>{pType}</span></span>
+                <span class="container-col"><span class="title">供应商：</span><span>{supplier}</span></span>
+            </div>
+            <!--
+            <div class="logistics-row">
+                #--row.item.begin--#
+                <span class="container-col"><span class="title" title="{name}">{name}：</span><span title="{value}">{value}</span></span>
+                #--row.item.end--#
+            </div>
+            -->
+        </dd>
+    </dl>
+</div>
+
+<div class="panel detail">
+
+    <dl>
+        <dt>
+            <b>订单物料信息</b>
+        </dt>
+
+        <dd>
+
+            <div class="col-value">
+                <div id="initCombo" class="dn">
+                    <input type="text" class="textbox materialAuto" name="material" autocomplete="off">
+                    <input type="text" class="textbox unitAuto" name="unit" autocomplete="off">
+                </div>
+                <div class="grid-wrap">
+                    <!-- jqGrid table -->
+                    <table id="bd-grid"></table>
+                    <!-- jqGrid 分页 div -->
+                    <div id="bd-grid-pager"></div>
+                </div>
+                <span class="error-msg" id="bd-grid-msg"></span>
+            </div>
+
+        </dd>
+    </dl>
+</div>
+
+
+<script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+<script src="../../lib/miniquery/miniquery.debug.js"></script>
+<script src="../../lib/sms/sms.debug.js"></script>
+<script src="../../config.js"></script>
+
+<!--grunt.js.begin-->
+<script src="modules/Bill/API/Template.js"></script>
+<script src="modules/Bill/API/Data.js"></script>
+<script src="modules/Bill/API.js"></script>
+<script src="modules/Bill/Head/Samples.js"></script>
+<script src="modules/Bill/Head.js"></script>
+<script src="modules/Bill/Entry/Samples.js"></script>
+<script src="modules/Bill/Entry/GridBuilder.js"></script>
+<script src="modules/Bill/Entry.js"></script>
+<script src="modules/Bill.js"></script>
+<script src="index.js"></script>
+<!--grunt.js.end-->
+
+</body>
+</html>
