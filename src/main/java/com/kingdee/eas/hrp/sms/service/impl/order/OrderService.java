@@ -110,6 +110,9 @@ public class OrderService extends BaseService implements IOrderService {
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 		Order order  =orderMapper.selectByPrimaryKey(id);
 		if(order.getTickType().equals("0")){
+		throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
+		}
+			
 		// 調用hrp-web-service --发送接单数据至HRP
 
 		// 发送成功后开启事务更新本地订单接单状态
@@ -195,9 +198,6 @@ public class OrderService extends BaseService implements IOrderService {
 				return "success";
 			}
 		});
-	}else{
-		throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
-	}
 	}
 
 	/**
