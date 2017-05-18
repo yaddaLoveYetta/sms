@@ -229,7 +229,7 @@ public class OrderService extends BaseService implements IOrderService {
 			for (int j = 0; j < arrayList.size(); j++) {
 				HashMap<String, Object> orderEntrys = (HashMap<String, Object>) arrayList.get(j);
 				int qty = (int) orderEntrys.get("qty");
-				if (map.get("saleProxy").equals("2"))
+				if (map.get("saleProxy").equals("2")){
 					for (int k = 0; k < qty; k++) {
 						// 表体数据
 						entry.put("number", map.get("number"));
@@ -240,7 +240,7 @@ public class OrderService extends BaseService implements IOrderService {
 						entry.put("price", orderEntrys.get("price"));
 						entry.put("unit_DspName", orderEntrys.get("unit_DspName"));
 						entry.put("qty", 1);
-						entry.put("amount", orderEntrys.get("localAmount"));
+						entry.put("amount", orderEntrys.get("price"));
 						entry.put("lot", "");
 						entry.put("dyBatchNum", "");
 						entry.put("code", "");
@@ -249,7 +249,7 @@ public class OrderService extends BaseService implements IOrderService {
 						entry.put("registrationNo", "");
 						entry.put("effectiveDate", "");
 						// 表头数据
-						order.put("number", "123456");
+						order.put("number", Common.createInvoiceNo());
 						order.put("Date", "");
 						order.put("logistics", "");
 						order.put("baseType", "采购订单");
@@ -261,6 +261,37 @@ public class OrderService extends BaseService implements IOrderService {
 						orderEntry.put("1", list);
 						order.put("entry", orderEntry);
 					}
+				}else if(map.get("saleProxy").equals("1")){
+					//表头
+					order.put("number", Common.createInvoiceNo());
+					order.put("Date", "");
+					order.put("logistics", "");
+					order.put("baseType", "采购订单");
+					order.put("logisticsNo", "");
+					order.put("supplier_DspName", map.get("supplier_DspName"));
+					order.put("supplier", map.get("supplier"));
+					order.put("baseStatus", map.get("baseStatus"));
+					//表体
+					entry.put("number", map.get("number"));
+					entry.put("seq", orderEntrys.get("seq"));
+					entry.put("material", orderEntrys.get("material"));
+					entry.put("material_NmbName", orderEntrys.get("material_NmbName"));
+					entry.put("material_DspName", orderEntrys.get("material_DspName"));
+					entry.put("price", orderEntrys.get("price"));
+					entry.put("unit_DspName", orderEntrys.get("unit_DspName"));
+					entry.put("qty", orderEntrys.get("qty"));
+					entry.put("amount", orderEntrys.get("localAmount"));
+					entry.put("lot", "");
+					entry.put("dyBatchNum", "");
+					entry.put("code", "");
+					entry.put("dyProDate", "");
+					entry.put("dyManufacturer", "");
+					entry.put("registrationNo", "");
+					entry.put("effectiveDate", "");
+					list.add(entry);
+					orderEntry.put("1", list);
+					order.put("entry", orderEntry);
+				}
 			}
 		}
 		return order;
