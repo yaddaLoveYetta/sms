@@ -20,6 +20,7 @@
     <result column="confirmQty" jdbcType="NUMERIC" property="confirmQty" />
     <result column="unit" jdbcType="VARCHAR" property="unit" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="invoiceQty" jdbcType="NUMERIC" property="invoiceQty" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -82,7 +83,7 @@
   <sql id="Base_Column_List">
     id, material, parent, price, qty, deliveryDate, discountRate, taxRate, taxPrice, 
     actualTaxPrice, discountAmount, tax, localAmount, seq, confirmDate, confirmQty, unit, 
-    amount
+    amount, invoiceQty
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntryExample" resultMap="BaseResultMap">
     select
@@ -120,15 +121,15 @@
       discountRate, taxRate, taxPrice, 
       actualTaxPrice, discountAmount, tax, 
       localAmount, seq, confirmDate, 
-      confirmQty, unit, amount
-      )
+      confirmQty, unit, amount, 
+      invoiceQty)
     values (#{id,jdbcType=VARCHAR}, #{material,jdbcType=VARCHAR}, #{parent,jdbcType=VARCHAR}, 
       #{price,jdbcType=DECIMAL}, #{qty,jdbcType=NUMERIC}, #{deliveryDate,jdbcType=TIMESTAMP}, 
       #{discountRate,jdbcType=DOUBLE}, #{taxRate,jdbcType=DOUBLE}, #{taxPrice,jdbcType=DECIMAL}, 
       #{actualTaxPrice,jdbcType=DECIMAL}, #{discountAmount,jdbcType=DECIMAL}, #{tax,jdbcType=DECIMAL}, 
       #{localAmount,jdbcType=DECIMAL}, #{seq,jdbcType=INTEGER}, #{confirmDate,jdbcType=TIMESTAMP}, 
-      #{confirmQty,jdbcType=NUMERIC}, #{unit,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}
-      )
+      #{confirmQty,jdbcType=NUMERIC}, #{unit,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{invoiceQty,jdbcType=NUMERIC})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.OrderEntry">
     insert into t_sms_purchase_order_entry
@@ -187,6 +188,9 @@
       <if test="amount != null">
         amount,
       </if>
+      <if test="invoiceQty != null">
+        invoiceQty,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -242,6 +246,9 @@
       </if>
       <if test="amount != null">
         #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceQty != null">
+        #{invoiceQty,jdbcType=NUMERIC},
       </if>
     </trim>
   </insert>
@@ -308,6 +315,9 @@
       <if test="record.amount != null">
         amount = #{record.amount,jdbcType=DECIMAL},
       </if>
+      <if test="record.invoiceQty != null">
+        invoiceQty = #{record.invoiceQty,jdbcType=NUMERIC},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -332,7 +342,8 @@
       confirmDate = #{record.confirmDate,jdbcType=TIMESTAMP},
       confirmQty = #{record.confirmQty,jdbcType=NUMERIC},
       unit = #{record.unit,jdbcType=VARCHAR},
-      amount = #{record.amount,jdbcType=DECIMAL}
+      amount = #{record.amount,jdbcType=DECIMAL},
+      invoiceQty = #{record.invoiceQty,jdbcType=NUMERIC}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -391,6 +402,9 @@
       <if test="amount != null">
         amount = #{amount,jdbcType=DECIMAL},
       </if>
+      <if test="invoiceQty != null">
+        invoiceQty = #{invoiceQty,jdbcType=NUMERIC},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -412,7 +426,8 @@
       confirmDate = #{confirmDate,jdbcType=TIMESTAMP},
       confirmQty = #{confirmQty,jdbcType=NUMERIC},
       unit = #{unit,jdbcType=VARCHAR},
-      amount = #{amount,jdbcType=DECIMAL}
+      amount = #{amount,jdbcType=DECIMAL},
+      invoiceQty = #{invoiceQty,jdbcType=NUMERIC}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

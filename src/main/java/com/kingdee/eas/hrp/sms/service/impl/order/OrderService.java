@@ -23,20 +23,16 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
-import com.kingdee.eas.hrp.sms.model.OrderEntryExample;
-import com.kingdee.eas.hrp.sms.model.OrderEntryExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.Environ;
-import com.sun.jersey.core.header.QualityFactor;
 
 @Service
 public class OrderService extends BaseService implements IOrderService {
@@ -54,7 +50,7 @@ public class OrderService extends BaseService implements IOrderService {
 			order.setId(ob.getString("id"));
 			order.setSupplier(ob.getString("supplier"));
 			order.setPurchasePerson(ob.getString("purchasePerson"));
-			order.setSaleProxy(ob.getString("saleProxy"));
+			order.setSaleProxy(ob.getByte("saleProxy"));
 			order.setIsInTax(ob.getByte("isInTax"));
 			order.setNumber(ob.getString("number"));
 			order.setIsQuicken(ob.getByte("isQuicken"));
@@ -110,7 +106,10 @@ public class OrderService extends BaseService implements IOrderService {
 	public void tick(String id, String entryStr) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-
+		
+		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+		Order order  =orderMapper.selectByPrimaryKey(id);
+		if(order.getTickType().equals("1")){
 		// 調用hrp-web-service --发送接单数据至HRP
 
 		// 发送成功后开启事务更新本地订单接单状态
@@ -166,13 +165,21 @@ public class OrderService extends BaseService implements IOrderService {
 						// 更新采购订单接单数据
 
 						OrderEntryMapper entryMapper = sqlSession.getMapper(OrderEntryMapper.class);
-
+						
+						OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+						
+						Order order = new Order();
+						order.setConfirmTick(Byte.parseByte("1"));
+						order.setConfirmTickDate(new Date());
+						order.setId(id);
+						
 						OrderEntry orderEntry = new OrderEntry();
-
+						
 						orderEntry.setId(entryId);
 						orderEntry.setConfirmQty(BigDecimal.valueOf(confirmQty));
 						orderEntry.setConfirmDate(confirmDate);
-
+						
+						orderMapper.updateByPrimaryKeySelective(order);
 						entryMapper.updateByPrimaryKeySelective(orderEntry);
 
 					}
@@ -185,28 +192,12 @@ public class OrderService extends BaseService implements IOrderService {
 					throw new BusinessLogicRunTimeException(e);
 				}
 
-				return null;
+				return "success";
 			}
 		});
-
-		/*
-		 * template.execute(new TransactionCallback() {
-		 * 
-		 * @Override public Object doInTransaction(TransactionStatus status) {
-		 * 
-		 * OrderEntry orderEntry = new OrderEntry(); Order order = new Order(); OrderMapper orderMapper =
-		 * sqlSession.getMapper(OrderMapper.class); order.setConfirmTickDate(new Date());
-		 * order.setId(jsonObject.getString("id")); order.setConfirmTick(Byte.parseByte("1"));
-		 * orderMapper.updateByPrimaryKey(order); JSONArray orderEntryArray =
-		 * JSONArray.parseArray(jsonObject.getString("entry")); for (int i = 0; i < orderEntryArray.size(); i++) {
-		 * JSONObject ob = orderEntryArray.getJSONObject(i); orderEntry.setConfirmDate(ob.getDate("confirmDate"));
-		 * orderEntry.setConfirmQty(ob.getInteger("confirmQty")); orderEntry.setId(ob.getString("id")); OrderEntryMapper
-		 * orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
-		 * orderEntryMapper.updateByPrimaryKey(orderEntry); } return "success"; } });
-		 * 
-		 * return "success";
-		 */
-
+	}else{
+		throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
+	}
 	}
 
 	/**
@@ -230,14 +221,18 @@ public class OrderService extends BaseService implements IOrderService {
 			Map<String, Object> map = template.getItemById(2019, idList.get(i), userType);
 			Map<String, Object> mapEntry = (Map<String, Object>) map.get("entry");
 			ArrayList<Object> arrayList = (ArrayList<Object>) mapEntry.get("1");
+			int s = 0;
 			for (int j = 0; j < arrayList.size(); j++) {
 				HashMap<String, Object> orderEntrys = (HashMap<String, Object>) arrayList.get(j);
-				int qty = (int) orderEntrys.get("qty");
-				if (map.get("saleProxy").equals("2")){
-					for (int k = 0; k < qty; k++) {
+				BigDecimal qty = (BigDecimal)orderEntrys.get("qty") ;
+				if(Integer.parseInt(String.valueOf(map.get("tickType")))==1){
+					throw new BusinessLogicRunTimeException("HRP未同意接单,不可发货");
+				}
+				if (Integer.parseInt(String.valueOf(map.get("saleProxy")))==2){
+					for (int k = 0; k < qty.intValue(); k++) {
 						// 表体数据
 						entry.put("number", map.get("number"));
-						entry.put("seq", orderEntrys.get("seq"));
+						entry.put("orderSeq", orderEntrys.get("seq"));
 						entry.put("material", orderEntrys.get("material"));
 						entry.put("material_NmbName", orderEntrys.get("material_NmbName"));
 						entry.put("material_DspName", orderEntrys.get("material_DspName"));
@@ -252,6 +247,7 @@ public class OrderService extends BaseService implements IOrderService {
 						entry.put("dyManufacturer", "");
 						entry.put("registrationNo", "");
 						entry.put("effectiveDate", "");
+						entry.put("seq", ++s);
 						// 表头数据
 						order.put("number", Common.createInvoiceNo());
 						order.put("Date", "");
@@ -265,7 +261,7 @@ public class OrderService extends BaseService implements IOrderService {
 						orderEntry.put("1", list);
 						order.put("entry", orderEntry);
 					}
-				}else if(map.get("saleProxy").equals("1")){
+				}else if(Integer.parseInt(String.valueOf(map.get("saleProxy")))==1){
 					//表头
 					order.put("number", Common.createInvoiceNo());
 					order.put("Date", "");
@@ -277,7 +273,7 @@ public class OrderService extends BaseService implements IOrderService {
 					order.put("baseStatus", map.get("baseStatus"));
 					//表体
 					entry.put("number", map.get("number"));
-					entry.put("seq", orderEntrys.get("seq"));
+					entry.put("orderSeq", orderEntrys.get("seq"));
 					entry.put("material", orderEntrys.get("material"));
 					entry.put("material_NmbName", orderEntrys.get("material_NmbName"));
 					entry.put("material_DspName", orderEntrys.get("material_DspName"));
@@ -292,6 +288,7 @@ public class OrderService extends BaseService implements IOrderService {
 					entry.put("dyManufacturer", "");
 					entry.put("registrationNo", "");
 					entry.put("effectiveDate", "");
+					entry.put("seq", ++s);
 					list.add(entry);
 					orderEntry.put("1", list);
 					order.put("entry", orderEntry);

@@ -12,7 +12,7 @@ public class Order {
 
     private String purchasePerson;
 
-    private String saleProxy;
+    private Byte saleProxy;
 
     private Byte isInTax;
 
@@ -74,12 +74,12 @@ public class Order {
         this.purchasePerson = purchasePerson == null ? null : purchasePerson.trim();
     }
 
-    public String getSaleProxy() {
+    public Byte getSaleProxy() {
         return saleProxy;
     }
 
-    public void setSaleProxy(String saleProxy) {
-        this.saleProxy = saleProxy == null ? null : saleProxy.trim();
+    public void setSaleProxy(Byte saleProxy) {
+        this.saleProxy = saleProxy;
     }
 
     public Byte getIsInTax() {

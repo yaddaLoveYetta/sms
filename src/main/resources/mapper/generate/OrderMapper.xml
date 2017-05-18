@@ -6,7 +6,7 @@
     <result column="supplier" jdbcType="VARCHAR" property="supplier" />
     <result column="bizDate" jdbcType="TIMESTAMP" property="bizDate" />
     <result column="purchasePerson" jdbcType="VARCHAR" property="purchasePerson" />
-    <result column="saleProxy" jdbcType="VARCHAR" property="saleProxy" />
+    <result column="saleProxy" jdbcType="TINYINT" property="saleProxy" />
     <result column="isInTax" jdbcType="TINYINT" property="isInTax" />
     <result column="tickDate" jdbcType="TIMESTAMP" property="tickDate" />
     <result column="confirmTickDate" jdbcType="TIMESTAMP" property="confirmTickDate" />
@@ -124,7 +124,7 @@
       totalTax, totalTaxAmount, createTime, 
       baseStatus)
     values (#{id,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
-      #{purchasePerson,jdbcType=VARCHAR}, #{saleProxy,jdbcType=VARCHAR}, #{isInTax,jdbcType=TINYINT}, 
+      #{purchasePerson,jdbcType=VARCHAR}, #{saleProxy,jdbcType=TINYINT}, #{isInTax,jdbcType=TINYINT}, 
       #{tickDate,jdbcType=TIMESTAMP}, #{confirmTickDate,jdbcType=TIMESTAMP}, #{tickType,jdbcType=TINYINT}, 
       #{confirmTick,jdbcType=TINYINT}, #{number,jdbcType=VARCHAR}, #{isQuicken,jdbcType=TINYINT}, 
       #{currency,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, #{totalAmount,jdbcType=DECIMAL}, 
@@ -206,7 +206,7 @@
         #{purchasePerson,jdbcType=VARCHAR},
       </if>
       <if test="saleProxy != null">
-        #{saleProxy,jdbcType=VARCHAR},
+        #{saleProxy,jdbcType=TINYINT},
       </if>
       <if test="isInTax != null">
         #{isInTax,jdbcType=TINYINT},
@@ -274,7 +274,7 @@
         purchasePerson = #{record.purchasePerson,jdbcType=VARCHAR},
       </if>
       <if test="record.saleProxy != null">
-        saleProxy = #{record.saleProxy,jdbcType=VARCHAR},
+        saleProxy = #{record.saleProxy,jdbcType=TINYINT},
       </if>
       <if test="record.isInTax != null">
         isInTax = #{record.isInTax,jdbcType=TINYINT},
@@ -329,7 +329,7 @@
       supplier = #{record.supplier,jdbcType=VARCHAR},
       bizDate = #{record.bizDate,jdbcType=TIMESTAMP},
       purchasePerson = #{record.purchasePerson,jdbcType=VARCHAR},
-      saleProxy = #{record.saleProxy,jdbcType=VARCHAR},
+      saleProxy = #{record.saleProxy,jdbcType=TINYINT},
       isInTax = #{record.isInTax,jdbcType=TINYINT},
       tickDate = #{record.tickDate,jdbcType=TIMESTAMP},
       confirmTickDate = #{record.confirmTickDate,jdbcType=TIMESTAMP},
@@ -361,7 +361,7 @@
         purchasePerson = #{purchasePerson,jdbcType=VARCHAR},
       </if>
       <if test="saleProxy != null">
-        saleProxy = #{saleProxy,jdbcType=VARCHAR},
+        saleProxy = #{saleProxy,jdbcType=TINYINT},
       </if>
       <if test="isInTax != null">
         isInTax = #{isInTax,jdbcType=TINYINT},
@@ -413,7 +413,7 @@
     set supplier = #{supplier,jdbcType=VARCHAR},
       bizDate = #{bizDate,jdbcType=TIMESTAMP},
       purchasePerson = #{purchasePerson,jdbcType=VARCHAR},
-      saleProxy = #{saleProxy,jdbcType=VARCHAR},
+      saleProxy = #{saleProxy,jdbcType=TINYINT},
       isInTax = #{isInTax,jdbcType=TINYINT},
       tickDate = #{tickDate,jdbcType=TIMESTAMP},
       confirmTickDate = #{confirmTickDate,jdbcType=TIMESTAMP},

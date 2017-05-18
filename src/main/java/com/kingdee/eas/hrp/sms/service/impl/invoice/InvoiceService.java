@@ -11,9 +11,11 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 public class InvoiceService extends BaseService implements IInvoiceService{
 
 	@Override
-	public void addInvoice(Invoice invoice) {
+	public String addInvoice(String list) {
 		InvoiceMapper invoiceMapper = sqlSession.getMapper(InvoiceMapper.class);
+		Invoice  invoice = new Invoice();
 		invoiceMapper.insertSelective(invoice);
+		return "success";
 	}
  
 }

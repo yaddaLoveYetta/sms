@@ -386,62 +386,52 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyEqualTo(String value) {
+        public Criteria andSaleProxyEqualTo(Byte value) {
             addCriterion("saleProxy =", value, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyNotEqualTo(String value) {
+        public Criteria andSaleProxyNotEqualTo(Byte value) {
             addCriterion("saleProxy <>", value, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyGreaterThan(String value) {
+        public Criteria andSaleProxyGreaterThan(Byte value) {
             addCriterion("saleProxy >", value, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyGreaterThanOrEqualTo(String value) {
+        public Criteria andSaleProxyGreaterThanOrEqualTo(Byte value) {
             addCriterion("saleProxy >=", value, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyLessThan(String value) {
+        public Criteria andSaleProxyLessThan(Byte value) {
             addCriterion("saleProxy <", value, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyLessThanOrEqualTo(String value) {
+        public Criteria andSaleProxyLessThanOrEqualTo(Byte value) {
             addCriterion("saleProxy <=", value, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyLike(String value) {
-            addCriterion("saleProxy like", value, "saleProxy");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleProxyNotLike(String value) {
-            addCriterion("saleProxy not like", value, "saleProxy");
-            return (Criteria) this;
-        }
-
-        public Criteria andSaleProxyIn(List<String> values) {
+        public Criteria andSaleProxyIn(List<Byte> values) {
             addCriterion("saleProxy in", values, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyNotIn(List<String> values) {
+        public Criteria andSaleProxyNotIn(List<Byte> values) {
             addCriterion("saleProxy not in", values, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyBetween(String value1, String value2) {
+        public Criteria andSaleProxyBetween(Byte value1, Byte value2) {
             addCriterion("saleProxy between", value1, value2, "saleProxy");
             return (Criteria) this;
         }
 
-        public Criteria andSaleProxyNotBetween(String value1, String value2) {
+        public Criteria andSaleProxyNotBetween(Byte value1, Byte value2) {
             addCriterion("saleProxy not between", value1, value2, "saleProxy");
             return (Criteria) this;
         }
