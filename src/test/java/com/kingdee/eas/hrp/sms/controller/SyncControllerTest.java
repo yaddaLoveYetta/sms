@@ -236,8 +236,8 @@ public class SyncControllerTest extends BaseControllerTest {
 		HttpParam param = HttpParam.init();
 		param.setCookieParams(cookie);
 
-		String str = "[{'id':'yyyyyyyyy','number':'1111111111111111111','name':'22222222222222222'},{'id':'xxxxxxxxxxxxxx','number':'333333333333333333','name':'444444444444444'}]";
-		param.addCommon("classId", "1013");
+		String str = "[{'categoryId': '5j+2iTRjREKc00hBgnFfB3olaaI=','createOrganization': 'px6r/xY4TU2E3EKF8XOjysznrtQ=','currencyId': 'dfd38d11-00fd-1000-e000-1ebdc0a8100dDEB58FDC','id': 'bHKwiwOuRzSzl26sHqA38DfGffw=','name': '甘肃宝信生物科技有限公司','number': '002','status': '1','taxRate': 0}]";
+		param.addCommon("classId", "1005");
 		param.addCommon("list", str);
 
 		String ret = HttpUtil.sendGet(BASE_URL + "sync/sync", param);

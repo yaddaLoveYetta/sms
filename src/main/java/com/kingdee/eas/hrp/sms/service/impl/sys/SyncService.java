@@ -1008,7 +1008,7 @@ public class SyncService extends BaseService implements ISyncService {
 					} catch (Exception e) {
 
 						status.setRollbackOnly();// 回滚事务
-						errItem.put("desc", e.getMessage());
+						errItem.put("msg", e.getMessage());
 						errItem.put("item", baseItem);
 						ret.add(errItem);
 

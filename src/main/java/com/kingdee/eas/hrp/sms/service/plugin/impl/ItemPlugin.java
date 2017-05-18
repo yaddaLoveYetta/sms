@@ -74,8 +74,7 @@ public class ItemPlugin extends PlugInAdpter {
 				condition.put("needConvert", false);
 				conditionArry.add(condition);
 
-				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy,
-						1, 10, userType, "");
+				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy, 1, 10, userType, "");
 
 				if ((long) result.get("count") > 0) {
 					Map<String, Object> errData = templateService.getItemById(classId, id, userType);
@@ -93,8 +92,7 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
 
 		checkMustInput(classId, formData, data, userType);
 
@@ -115,8 +113,7 @@ public class ItemPlugin extends PlugInAdpter {
 		return super.beforeSave(classId, formData, data, userTyepe);
 	}
 
-	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userType) {
+	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
 
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) formData.get("formClass");
@@ -151,14 +148,14 @@ public class ItemPlugin extends PlugInAdpter {
 		condition.put("logicOperator", "=");
 		condition.put("value", data.get("number"));
 		conditionArry.add(condition);
+
 		condition = new JSONObject();
 		condition.put("fieldKey", primaryKey);
 		condition.put("logicOperator", "!=");
-		condition.put("value", id);
+		condition.put("value", data.get(primaryKey));
 		conditionArry.add(condition);
 
-		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10,
-				userType, "");
+		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10, userType, "");
 
 		if ((long) result.get("count") > 0) {
 			throw new PlugInRuntimeException("该记录已存在");
@@ -180,8 +177,7 @@ public class ItemPlugin extends PlugInAdpter {
 		// 如果flag是true，表明这个字段需要验证是否非空
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -213,7 +209,7 @@ public class ItemPlugin extends PlugInAdpter {
 	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
 
 		// 当业务用户查询时，相关item需做数据隔离
-		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(2019, 1001, 1005, 2020, 1019, 1020, 1022,1020));
+		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(2019, 1001, 1005, 2020, 1019, 1020, 1022, 1020));
 		if (classIdList.contains(classId)) {
 			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
 				String id = (String) param.get("userId");
@@ -224,7 +220,7 @@ public class ItemPlugin extends PlugInAdpter {
 				if (classId == 1005)
 					condition.put("fieldKey", "id");
 				else
-					condition.put("fieldKey", "supplier");					
+					condition.put("fieldKey", "supplier");
 				condition.put("logicOperator", "=");
 				condition.put("value", supplierId);
 				condition.put("needConvert", false);
