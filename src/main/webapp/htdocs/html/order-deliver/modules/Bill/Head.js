@@ -17,7 +17,7 @@ define('Bill/Head', function (require, module, exports) {
 
             div.innerHTML = $.Array.keep(fields, function (group, no) {
 
-                return $.String.format(samples["rows"], {
+                var text= $.String.format(samples["rows"], {
 
                     items: $.Array.keep(group, function (field, no) {
 
@@ -74,6 +74,9 @@ define('Bill/Head', function (require, module, exports) {
                     }).join(""),
 
                 });
+
+                console.log(text);
+                return text;
 
             }).join("");
 
