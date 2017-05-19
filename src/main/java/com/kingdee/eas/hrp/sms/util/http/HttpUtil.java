@@ -520,4 +520,40 @@ public final class HttpUtil {
 		// =================================================================================
 
 	}
+	
+	/**
+	 * 封装sendGet方法
+	 * 
+	 * @param url
+	 *            请求地址
+	 * @param hp
+	 *            参数
+	 * @return
+	 */
+
+	public static String doGetRequest(String url) {
+
+		HttpClient http = null;
+		try {
+			http = new DefaultHttpClient();
+
+			HttpGet get = new HttpGet(url);
+
+			logger.debug("send get with url:" + url);
+
+			HttpEntity entity = http.execute(get).getEntity();
+
+			return EntityUtils.toString(entity, "utf-8").trim();
+
+		} catch (ClientProtocolException e) {
+			logger.error(e.getMessage(), e);
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+			throw new RuntimeException(e);
+		} finally {
+			http.getConnectionManager().shutdown();
+		}
+
+	}
 }
