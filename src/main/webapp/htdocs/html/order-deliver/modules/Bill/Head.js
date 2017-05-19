@@ -154,13 +154,13 @@ define('Bill/Head', function (require, module, exports) {
                     SMS.use('DateTimePicker', function (DateTimePicker) {
 
                         new DateTimePicker(document.getElementById(field.key), {
-/*                            format: 'yyyy-mm-dd',
+                            format: 'yyyy-mm-dd',
                             autoclose: true,
                             todayBtn: true,
                             todayHighlight: true,
                             timepicker: false,
                             startView: 'month',
-                            minView: 2,*/
+                            minView: 2,
                         });
                     });
 
