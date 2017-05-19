@@ -80,21 +80,11 @@ define('Bill/API/Template', function (require, module, exports) {
 
             $.Object.each(pageData, function (key, item) {
 
-                var key = item.key;
-
                 var mask = item.display || 0;
 
-                var t = {
-                    'text': item.name,
-                    'type': item.dataType,
-                    'key': item.key,
-                    'width': item.showWidth,
-                    'visible': !!(mask & display), // 转成 boolean--字段按用户类别显示
-                    'lookupType': item.lookUpType,
-                    'dataIndex': item.index,
-                    'isCount': item.isCount,
-                    'index': item.index
-                };
+                var t = item;
+
+                t['visible'] = !!(mask & display);// 转成 boolean--字段按用户类别显示
 
                 temp.push(t);
 

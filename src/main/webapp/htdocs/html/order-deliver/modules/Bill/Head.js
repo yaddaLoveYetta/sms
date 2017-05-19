@@ -24,7 +24,7 @@ define('Bill/Head', function (require, module, exports) {
                         var sample = "";
                         var key = field.key;
 
-                        if (!field.visible) {
+                        if (!field.display) {
                             return '';
                         }
 
