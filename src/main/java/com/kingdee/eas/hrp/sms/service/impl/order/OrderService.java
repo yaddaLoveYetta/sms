@@ -239,6 +239,8 @@ public class OrderService extends BaseService implements IOrderService {
 						order.put("supplier_DspName", map.get("supplier_DspName"));
 						order.put("supplier", map.get("supplier"));
 						order.put("baseStatus", map.get("baseStatus"));
+						order.put("baseStatus_NmbName", map.get("baseStatus_NmbName"));
+						order.put("baseStatus_DspName", map.get("baseStatus_DspName"));
 						// 表体数据
 						entry.put("number", map.get("number"));
 						entry.put("orderSeq", orderEntrys.get("seq"));
@@ -246,7 +248,9 @@ public class OrderService extends BaseService implements IOrderService {
 						entry.put("material_NmbName", orderEntrys.get("material_NmbName"));
 						entry.put("material_DspName", orderEntrys.get("material_DspName"));
 						entry.put("price", orderEntrys.get("price"));
+						entry.put("unit", orderEntrys.get("unit"));
 						entry.put("unit_DspName", orderEntrys.get("unit_DspName"));
+						entry.put("unit_NmbName", orderEntrys.get("unit_NmbName"));
 						entry.put("qty", 1);
 						entry.put("amount", orderEntrys.get("price"));
 						entry.put("lot", "");
