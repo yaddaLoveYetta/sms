@@ -238,14 +238,16 @@ public class OrderService extends BaseService implements IOrderService {
 						order.put("logisticsNo", "");
 						order.put("supplier_DspName", map.get("supplier_DspName"));
 						order.put("supplier", map.get("supplier"));
-
+						order.put("baseStatus", 0);
+						order.put("baseStatus_NmbName", map.get("baseStatus_NmbName"));
+						order.put("baseStatus_DspName", map.get("baseStatus_DspName"));
 						order.put("baseStatus", 0); // 发货单状态为新增 内码0
-						
 						ITemplateService templateService =Environ.getBean(ITemplateService.class);
-						Map<String, Object> itemById = templateService.getItemById(1025, "0", "ssss");
+						Map<String, Object> itemById = templateService.getItemById(1025, "0", "QpXq24FxxE6c3lvHMPyYCxACEAI=");
 						order.put("baseStatus_NmbName", itemById.get("name"));
 						order.put("baseStatus_DspName", itemById.get("number"));
 						
+
 						// 表体数据
 						entry.put("number", map.get("number"));
 						entry.put("orderSeq", orderEntrys.get("seq"));
@@ -280,7 +282,14 @@ public class OrderService extends BaseService implements IOrderService {
 					order.put("logisticsNo", "");
 					order.put("supplier_DspName", map.get("supplier_DspName"));
 					order.put("supplier", map.get("supplier"));
-					order.put("baseStatus", map.get("baseStatus"));
+					order.put("baseStatus", 0);
+					order.put("baseStatus_NmbName", map.get("baseStatus_NmbName"));
+					order.put("baseStatus_DspName", map.get("baseStatus_DspName"));
+					order.put("baseStatus", 0); // 发货单状态为新增 内码0
+					ITemplateService templateService =Environ.getBean(ITemplateService.class);
+					Map<String, Object> itemById = templateService.getItemById(1025, "0", "QpXq24FxxE6c3lvHMPyYCxACEAI=");
+					order.put("baseStatus_NmbName", itemById.get("name"));
+					order.put("baseStatus_DspName", itemById.get("number"));
 					// 表体
 					entry.put("number", map.get("number"));
 					entry.put("orderSeq", orderEntrys.get("seq"));
@@ -288,7 +297,9 @@ public class OrderService extends BaseService implements IOrderService {
 					entry.put("material_NmbName", orderEntrys.get("material_NmbName"));
 					entry.put("material_DspName", orderEntrys.get("material_DspName"));
 					entry.put("price", orderEntrys.get("price"));
+					entry.put("unit", orderEntrys.get("unit"));
 					entry.put("unit_DspName", orderEntrys.get("unit_DspName"));
+					entry.put("unit_NmbName", orderEntrys.get("unit_NmbName"));
 					entry.put("qty", orderEntrys.get("qty"));
 					entry.put("amount", orderEntrys.get("localAmount"));
 					entry.put("lot", "");
