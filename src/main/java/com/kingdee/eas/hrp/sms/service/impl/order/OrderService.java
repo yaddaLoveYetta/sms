@@ -106,13 +106,13 @@ public class OrderService extends BaseService implements IOrderService {
 	public void tick(String id, String entryStr) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-		
+
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-		Order order  =orderMapper.selectByPrimaryKey(id);
-		if(order.getTickType().equals("0")){
-		throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
+		Order order = orderMapper.selectByPrimaryKey(id);
+		if (order.getTickType().equals("0")) {
+			throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
 		}
-			
+
 		// 調用hrp-web-service --发送接单数据至HRP
 
 		// 发送成功后开启事务更新本地订单接单状态
@@ -145,11 +145,11 @@ public class OrderService extends BaseService implements IOrderService {
 						float confirmQty = entryItem.getFloatValue("confirmQty"); // 接单数量
 
 						String dataStr = entryItem.getString("confirmDate");
-						
+
 						if (dataStr == null || dataStr.isEmpty()) {
 							throw new BusinessLogicRunTimeException("数据错误,缺少接单日期");
 						}
-						
+
 						Date confirmDate = sdf.parse(dataStr); // 接单日期
 
 						if ("".equals(entryId)) {
@@ -168,20 +168,20 @@ public class OrderService extends BaseService implements IOrderService {
 						// 更新采购订单接单数据
 
 						OrderEntryMapper entryMapper = sqlSession.getMapper(OrderEntryMapper.class);
-						
+
 						OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-						
+
 						Order order = new Order();
 						order.setConfirmTick(Byte.parseByte("1"));
 						order.setConfirmTickDate(new Date());
 						order.setId(id);
-						
+
 						OrderEntry orderEntry = new OrderEntry();
-						
+
 						orderEntry.setId(entryId);
 						orderEntry.setConfirmQty(BigDecimal.valueOf(confirmQty));
 						orderEntry.setConfirmDate(confirmDate);
-						
+
 						orderMapper.updateByPrimaryKeySelective(order);
 						entryMapper.updateByPrimaryKeySelective(orderEntry);
 
@@ -207,13 +207,13 @@ public class OrderService extends BaseService implements IOrderService {
 	public Map<String, Object> invoice(String data, String userType) {
 
 		String[] idString = data.split(",");
-		//表头map
+		// 表头map
 		Map<String, Object> order = new HashMap();
-		//表体EntryMap
+		// 表体EntryMap
 		Map<String, Object> orderEntry = new HashMap();
-		//子表1
+		// 子表1
 		ArrayList<Object> list = new ArrayList();
-		//子表1关联数据
+		// 子表1关联数据
 		Map<String, Object> entry = new HashMap();
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
 		ITemplateService template = Environ.getBean(ITemplateService.class);
@@ -224,11 +224,11 @@ public class OrderService extends BaseService implements IOrderService {
 			int s = 0;
 			for (int j = 0; j < arrayList.size(); j++) {
 				HashMap<String, Object> orderEntrys = (HashMap<String, Object>) arrayList.get(j);
-				BigDecimal qty = (BigDecimal)orderEntrys.get("qty") ;
-				if(Integer.parseInt(String.valueOf(map.get("tickType")))==0){
+				BigDecimal qty = (BigDecimal) orderEntrys.get("qty");
+				if (Integer.parseInt(String.valueOf(map.get("tickType"))) == 0) {
 					throw new BusinessLogicRunTimeException("HRP未同意接单,不可发货");
 				}
-				if (Integer.parseInt(String.valueOf(map.get("saleProxy")))==2){
+				if (Integer.parseInt(String.valueOf(map.get("saleProxy"))) == 2) {
 					for (int k = 0; k < qty.intValue(); k++) {
 						// 表头数据
 						order.put("number", Common.createInvoiceNo());
@@ -238,9 +238,14 @@ public class OrderService extends BaseService implements IOrderService {
 						order.put("logisticsNo", "");
 						order.put("supplier_DspName", map.get("supplier_DspName"));
 						order.put("supplier", map.get("supplier"));
-						order.put("baseStatus", map.get("baseStatus"));
-						order.put("baseStatus_NmbName", map.get("baseStatus_NmbName"));
-						order.put("baseStatus_DspName", map.get("baseStatus_DspName"));
+
+						order.put("baseStatus", 0); // 发货单状态为新增 内码0
+						
+						ITemplateService templateService =Environ.getBean(ITemplateService.class);
+						Map<String, Object> itemById = templateService.getItemById(1025, "0", "ssss");
+						order.put("baseStatus_NmbName", itemById.get("name"));
+						order.put("baseStatus_DspName", itemById.get("number"));
+						
 						// 表体数据
 						entry.put("number", map.get("number"));
 						entry.put("orderSeq", orderEntrys.get("seq"));
@@ -266,8 +271,8 @@ public class OrderService extends BaseService implements IOrderService {
 						orderEntry.put("1", list);
 						order.put("entry", orderEntry);
 					}
-				}else if(Integer.parseInt(String.valueOf(map.get("saleProxy")))==1){
-					//表头
+				} else if (Integer.parseInt(String.valueOf(map.get("saleProxy"))) == 1) {
+					// 表头
 					order.put("number", Common.createInvoiceNo());
 					order.put("Date", "");
 					order.put("logistics", "");
@@ -276,7 +281,7 @@ public class OrderService extends BaseService implements IOrderService {
 					order.put("supplier_DspName", map.get("supplier_DspName"));
 					order.put("supplier", map.get("supplier"));
 					order.put("baseStatus", map.get("baseStatus"));
-					//表体
+					// 表体
 					entry.put("number", map.get("number"));
 					entry.put("orderSeq", orderEntrys.get("seq"));
 					entry.put("material", orderEntrys.get("material"));
