@@ -51,13 +51,13 @@ define('Samples', function (require, module, exports) {
                 name: 'tr.textarea',
                 begin: '#--tr.textarea.begin--#',
                 end: '#--tr.textarea.end--#',
-                outer: 'textarea',
+                outer: '{textarea}',
             },
             {
                 name: 'tr.datatime',
                 begin:'#--tr.datatime.begin--#',
                 end: '#--tr.datatime.end--#',
-                outer: 'datatime',
+                outer: '{datatime}',
             },
             {
                 name: 'tr.password',

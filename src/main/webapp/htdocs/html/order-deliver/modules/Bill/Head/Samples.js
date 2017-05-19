@@ -22,7 +22,7 @@ define('Bill/Head/Samples', function (require, module, exports) {
                 name: 'items',
                 begin: '#--row.items.begin--#',
                 end: '#--row.items.end--#',
-                out: 'items'
+                out: '{items}'
             },
             {
                 name: 'row.checkbox',
@@ -49,13 +49,13 @@ define('Bill/Head/Samples', function (require, module, exports) {
                 name: 'row.textarea',
                 begin: '#--row.textarea.begin--#',
                 end: '#--row.textarea.end--#',
-                outer: 'textarea',
+                outer: '{textarea}',
             },
             {
                 name: 'row.datatime',
                 begin: '#--row.datatime.begin--#',
                 end: '#--row.datatime.end--#',
-                outer: 'datatime',
+                outer: '{datatime}',
             },
             {
                 name: 'row.password',
