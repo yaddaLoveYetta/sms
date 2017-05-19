@@ -41,7 +41,7 @@ public class MsgHttpClient {
 
 	public static MsgHttpClient getInstance() {
 		if (instance == null)
-			synchronized (MsgClient.class) {
+			synchronized (MsgHttpClient.class) {
 				if (instance == null)
 					instance = new MsgHttpClient();
 			}
@@ -130,12 +130,14 @@ public class MsgHttpClient {
 	}
 
 	public static void main(String[] args) {
-		String[] mobiles = new String[] { " "};
+		String[] mobiles = new String[] { "18802088452","18500303025"};
 		String smsContent = "好好上班！";
+		String times = "20170519155100";
 
 		MsgHttpClient client = MsgHttpClient.getInstance();
-		client.sendSMS(mobiles, smsContent);
-		System.out.println(client.getBalance());
+		//client.sendSMS(mobiles, smsContent);
+		client.sendtimesMS(mobiles, smsContent, times);
+		//System.out.println(client.getBalance());
 	}
 
 }
