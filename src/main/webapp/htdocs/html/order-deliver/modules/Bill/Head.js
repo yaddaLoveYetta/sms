@@ -197,7 +197,7 @@ define('Bill/Head', function (require, module, exports) {
                 return;
             }
 
-            var fields = metaData[0];
+            var fields = metaData['formFields'][0];
             // var formClass = metaData['formClass'];
             // var data = data.items;
             var data = data;
