@@ -123,7 +123,9 @@ dd {
 }
 .sms-F7selector input {
     border: 1px solid #dddddd;
-    height: 20px;
-    width: 174px;
-    padding: 5px 28px 5px 8px;
+    /*width: 174px;*/
+    border-image: initial;
+    padding: 0px 28px 0px 8px;
+    height: 24px;
+    line-height: 24px;
 }

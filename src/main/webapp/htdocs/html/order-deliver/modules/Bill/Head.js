@@ -258,7 +258,7 @@ define('Bill/Head', function (require, module, exports) {
                 element.value = value;
             }
 
-            emitter.fire('afterFill', [formClassId, metaData, data]);
+            emitter.fire('afterFill', [metaData, data]);
 
             SMS.Tips.success('数据加载成功', 2000);
         }
