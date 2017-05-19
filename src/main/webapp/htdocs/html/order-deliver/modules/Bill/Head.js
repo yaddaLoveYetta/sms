@@ -76,6 +76,8 @@ define('Bill/Head', function (require, module, exports) {
                 });
 
             }).join("");
+
+            console.log(div.innerHTML);
         }
 
         function getHtml(type, data) {
