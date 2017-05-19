@@ -22,7 +22,7 @@ define('Bill/Head/Samples', function (require, module, exports) {
                 name: 'items',
                 begin: '#--row.items.begin--#',
                 end: '#--row.items.end--#',
-                outer: '{item}'
+                outer: '{items}'
             },
             {
                 name: 'row.checkbox',
