@@ -5,8 +5,6 @@
 
 define('Bill/Head', function (require, module, exports) {
 
-        var data;
-
         var div = document.getElementById("dd-head");
         var samples = require("/Samples")(div);
 
@@ -21,24 +19,57 @@ define('Bill/Head', function (require, module, exports) {
 
                 return $.String.format(samples["rows"], {
 
-                    item: $.Array.keep(group, function (field, no) {
+                    items: $.Array.keep(group, function (field, no) {
 
+                        var sample = "";
                         var key = field.key;
 
                         if (!field.visible) {
                             return '';
                         }
 
-                        if (field.lookupType > 0 && field.lookupType < 3) { // lookupType
-                            // 不为 0时，说明是引用类型
-                            key = key + '_DspName';
-                            // 此时要显示的字段为 key + '_DspName'
+                        var domType = field.ctrlType;
+
+                        if (!!!domType) {
+                            // 默认文本
+                            domType = 10;
                         }
 
-                        return $.String.format(samples["row"], {
-                            name: field.text,
-                            value: getHtml(field.type, data[key]),
-                        })
+                        /*
+                         1,3,5,6,7,8,9,10,12,98,99
+                         */
+                        switch (domType) {
+                            case 1: // 小数
+                            case 8: // 手机号码
+                            case 9://座机电话
+                            case 10: // 普通文本
+                                sample = samples["row.text"];
+                                break;
+                            case 11://多行文本
+                                sample = samples["row.textarea"];
+                                break;
+                            case 12:
+                                sample = samples["row.datatime"];
+                                break;
+                            case 3: // checkbox
+                                sample = samples["row.checkbox"];
+                                break;
+                            case 6:
+                                sample = samples["row.f7"];
+                                break;
+                            case 99:
+                                sample = samples["row.password"];
+                                break;
+                            default:
+                                sample = samples["row.text"];
+                        }
+
+                        return $.String.format(sample, {
+                            mustInput: field.mustInput ? $.String.format(samples["row.mustInput"], {}) : "",
+                            name: field.name,
+                            key: field.key,
+                            // disabled: item.lookUpType && item.lookUpType == 3 ? "disabled" : "", // 辅助属性不可编辑
+                        });
 
                     }).join(""),
 

@@ -38,7 +38,7 @@ body, button, input, select, textarea {
 }
 
 dt {
-    border-top: 1px solid #84c4df;
+    /*border-top: 1px solid #84c4df;*/
     height: 32px;
     background: #ecedf1;
     font-size: 14px;

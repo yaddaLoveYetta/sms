@@ -1,0 +1,95 @@
+
+.clear {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+dt {
+    height: 32px;
+    background: #ecedf1;
+    font-size: 14px;
+    line-height: 32px;
+}
+
+dt b {
+    margin-left: 10px;
+}
+
+.main {
+    margin-bottom: 20px;
+}
+
+/**************************************************************/
+dd {
+    overflow-x: auto;
+}
+
+.logistics-row {
+    display: -webkit-box;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    flex-direction: row;
+    -ms-flex-flow: row nowrap;
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    -webkit-justify-content: space-between;
+    margin: 10px 30px;
+
+}
+
+.logistics-row .item {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0px 5px;
+}
+
+.logistics-row .item .col-title {
+    display: block;
+    width: 60px;
+    line-height: 24px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 5px;
+    color: #2b2d33;
+}
+
+.logistics-row .item .col-value {
+    display: inline-block;
+    /*width: 100px;*/
+}
+
+.logistics-row .item .col-value .edit-input {
+    width: 150px;
+    /*   overflow: scroll;*/
+    text-align: left;
+}
+
+/*************************菜单*/
+.options-panel {
+    /*background: #f1f2f4;*/
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #3985ff;
+}
+
+.options-panel:before {
+    clear: both;
+    content: "";
+    display: block;
+    zoom: 1;
+
+}
+
+.options-panel .btn-box {
+    height: 25px;
+    width: 100%;
+}

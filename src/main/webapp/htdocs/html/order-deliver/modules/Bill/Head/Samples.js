@@ -1,8 +1,7 @@
 /**
- * 单据头页面模板
- * Created by yadda on 2017/5/13.
+ * List/Samples 模块
+ *
  */
-
 define('Bill/Head/Samples', function (require, module, exports) {
 
     var $ = require('$');
@@ -18,13 +17,58 @@ define('Bill/Head/Samples', function (require, module, exports) {
                 name: 'rows',
                 begin: '<!--',
                 end: '-->',
+            },
+            {
+                name: 'items',
+                begin: '#--row.items.begin--#',
+                end: '#--row.items.end--#',
+                out: 'items'
+            },
+            {
+                name: 'row.checkbox',
+                begin: '#--row.checkbox.begin--#',
+                end: '#--row.checkbox.end--#',
+                outer: '{checkbox}',
                 //fn: trim,
             },
             {
-                name: 'row',
-                begin: '#--row.item.begin--#',
-                end: '#--row.item.end--#',
-                outer: '{item}',
+                name: 'row.mustInput',
+                begin: '#--row.mustInput.begin--#',
+                end: '#--row.mustInput.end--#',
+                outer: '{mustInput}',
+                //fn: trim,
+            },
+            {
+                name: 'row.text',
+                begin: '#--row.text.begin--#',
+                end: '#--row.text.end--#',
+                outer: '{text}',
+                //fn: trim,
+            },
+            {
+                name: 'row.textarea',
+                begin: '#--row.textarea.begin--#',
+                end: '#--row.textarea.end--#',
+                outer: 'textarea',
+            },
+            {
+                name: 'row.datatime',
+                begin: '#--row.datatime.begin--#',
+                end: '#--row.datatime.end--#',
+                outer: 'datatime',
+            },
+            {
+                name: 'row.password',
+                begin: '#--row.password.begin--#',
+                end: '#--row.password.end--#',
+                outer: '{password}',
+                //fn: trim,
+            },
+            {
+                name: 'row.f7',
+                begin: '#--row.f7.begin--#',
+                end: '#--row.f7.end--#',
+                outer: '{f7}',
                 //fn: trim,
             },
 
@@ -37,3 +81,10 @@ define('Bill/Head/Samples', function (require, module, exports) {
     return get;
 
 });
+
+
+
+
+
+
+    
