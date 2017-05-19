@@ -8,6 +8,8 @@ define('Bill/Head', function (require, module, exports) {
         var $ = require('$');
         var MiniQuery = require('MiniQuery');
         var SMS = require('SMS');
+        var emitter = MiniQuery.Event.create();
+
         var API = SMS.require('API');
         var DataSelector = require('DataSelector');
 
