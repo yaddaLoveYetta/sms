@@ -16,26 +16,22 @@ define('Bill/Head', function (require, module, exports) {
         var div = document.getElementById("dd-head");
         var samples = require("/Samples")(div);
 
-        var metaData = {};
         var template = {};
         var visibleTemplate = [];
-        var data = {};
 
         var selectors = {};
         var fnSelectors;
 
         function render(metaData, data) {
 
-            metaData = metaData;
             template = metaData.template;
             visibleTemplate = metaData.visibleTemplate;
-            data = data;
 
             initPage(metaData.visibleTemplate); // 初始化页面DOM
 
             initControls(metaData.visibleTemplate);// 特殊控件初始化
 
-            fill();
+            fill(metaData.template, data);
         }
 
         /**
@@ -189,7 +185,7 @@ define('Bill/Head', function (require, module, exports) {
         }
 
         // 填充页面数据
-        function fill() {
+        function fill(metaData, data) {
 
             if (!metaData || !metaData['formFields']) {
                 SMS.Tips.error('元数据错误，请联系管理员');
