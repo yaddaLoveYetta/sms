@@ -142,7 +142,7 @@ public class ItemPlugin extends PlugInAdpter {
 		condition = new JSONObject();
 		condition.put("fieldKey", primaryKey);
 		condition.put("logicOperator", "!=");
-		condition.put("value", data.get(primaryKey));
+		condition.put("value", id);
 		conditionArry.add(condition);
 
 		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10, userType, "");
@@ -158,7 +158,7 @@ public class ItemPlugin extends PlugInAdpter {
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(data.getString("type"))) {
-				if (data.getString("supplier") != null && !"".equals(data.getString("supplier"))) {
+				if (data.getString("supplier") != null && !"".equals(data.getString("supplier"))&&!"0".equals(data.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
 			}

@@ -31,7 +31,10 @@ public class OrderController {
 	public void synchronizationOrder(HttpServletRequest request, HttpServletResponse response) {
 		String listStr = ParameterUtils.getParameter(request, "list", "");
 		JSONArray json = JSONArray.parseArray(listStr);
-		orderservice.order(json);
+		String ret = orderservice.order(json);
+		if(ret.equals("success")){
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
+		}
 	}
 
 	@ControllerLog(desc = "确认接单")
