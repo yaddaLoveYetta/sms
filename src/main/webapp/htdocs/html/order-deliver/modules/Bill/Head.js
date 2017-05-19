@@ -25,7 +25,7 @@ define('Bill/Head', function (require, module, exports) {
 
             initControls(template);// 特殊控件初始化
 
-            fill(template.data);
+            fill(template, data);
         }
 
         /**
@@ -147,7 +147,7 @@ define('Bill/Head', function (require, module, exports) {
 
                     SMS.use('DateTimePicker', function (DateTimePicker) {
 
-                        new DateTimePicker(getValueElement(field.key), {
+                        new DateTimePicker(document.getElementById(field.key), {
                             format: 'yyyy-mm-dd',
                             autoclose: true,
                             todayBtn: true,
