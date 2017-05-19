@@ -52,7 +52,7 @@ dd {
 
 .logistics-row .item .col-title {
     display: block;
-    width: 60px;
+    width: 70px;
     line-height: 24px;
     text-align: left;
     overflow: hidden;
@@ -92,4 +92,10 @@ dd {
 .options-panel .btn-box {
     height: 25px;
     width: 100%;
+}
+
+.must-mark {
+    font-size: 14px;
+    padding: 0 3px;
+    color: #f00;
 }
