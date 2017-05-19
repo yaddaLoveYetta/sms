@@ -16,6 +16,7 @@ define('Bill/Head', function (require, module, exports) {
         var div = document.getElementById("dd-head");
         var samples = require("/Samples")(div);
 
+        var metaData = {};
         var template = {};
         var visibleTemplate = [];
         var data = {};
@@ -25,6 +26,7 @@ define('Bill/Head', function (require, module, exports) {
 
         function render(metaData, data) {
 
+            metaData = metaData;
             template = metaData.template;
             visibleTemplate = metaData.visibleTemplate;
             data = data;
