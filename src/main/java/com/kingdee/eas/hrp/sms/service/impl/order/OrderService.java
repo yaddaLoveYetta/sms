@@ -215,6 +215,9 @@ public class OrderService extends BaseService implements IOrderService {
 		ArrayList<Object> list = new ArrayList();
 		// 子表1关联数据
 		Map<String, Object> entry = new HashMap();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
 		ITemplateService template = Environ.getBean(ITemplateService.class);
 		for (int i = 0; i < idList.size(); i++) {
@@ -232,7 +235,7 @@ public class OrderService extends BaseService implements IOrderService {
 					for (int k = 0; k < qty.intValue(); k++) {
 						// 表头数据
 						order.put("number", Common.createInvoiceNo());
-						order.put("Date", "");
+						order.put("Date", sdf.format(new Date()));
 						order.put("logistics", "");
 						order.put("baseType", "采购订单");
 						order.put("logisticsNo", "");
@@ -276,7 +279,7 @@ public class OrderService extends BaseService implements IOrderService {
 				} else if (Integer.parseInt(String.valueOf(map.get("saleProxy"))) == 1) {
 					// 表头
 					order.put("number", Common.createInvoiceNo());
-					order.put("Date", "");
+					order.put("Date", sdf.format(new Date()));
 					order.put("logistics", "");
 					order.put("baseType", "采购订单");
 					order.put("logisticsNo", "");
