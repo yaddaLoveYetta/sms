@@ -34,7 +34,7 @@ define('Bill', function (require, module, exports) {
         load(config, function (data) {
             // 填充数据
             console.log(data);
-            Head.render(data.visibleTemplate, data.data.headData);
+            Head.render(data, data.data.headData);
            // Entry.render(data.visibleTemplate, data.data.entryData);
             Entry.render(data.template, data.data.entryData);
         });

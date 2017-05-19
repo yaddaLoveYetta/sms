@@ -26,9 +26,6 @@ define('Bill', function (require, module, exports) {
             id: config.id,
         }, function (data) {
             SMS.Tips.success("数据加载成功", 1500);
-            console.log(data.template);
-            console.log(data.visibleTemplate);
-            console.log(data.data);
             fn && fn(data);
         });
     }
