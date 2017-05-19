@@ -107,7 +107,7 @@ define('Bill/Head', function (require, module, exports) {
         // 初始化特殊控件
         function initControls(metaData) {
 
-            var fields = metaData['formFields'][0];
+            var fields = metaData[0];
 
             for (var item in fields) {
 
@@ -179,7 +179,7 @@ define('Bill/Head', function (require, module, exports) {
         // 填充页面数据
         function fill(metaData, data) {
 
-            if (!metaData || !metaData['formFields']) {
+            if (!metaData[0]) {
                 SMS.Tips.error('元数据错误，请联系管理员');
                 return;
             }
@@ -189,7 +189,7 @@ define('Bill/Head', function (require, module, exports) {
                 return;
             }
 
-            var fields = metaData['formFields'][0];
+            var fields = metaData[0];
             // var formClass = metaData['formClass'];
             // var data = data.items;
             var data = data;
