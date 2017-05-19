@@ -150,10 +150,10 @@ define('Bill/Head', function (require, module, exports) {
 
                 if (field.ctrlType === 12) {
                     // 日期控件
-                    //var key = field.key; // SMS.use 异步作业，field.key容易被覆盖
-                    var fiel = SMS.use('DateTimePicker', function (DateTimePicker) {
+                    var key = field.key; // SMS.use 异步作业，field.key容易被覆盖
+                    SMS.use('DateTimePicker', function (DateTimePicker) {
 
-                        new DateTimePicker(document.getElementById(field.key), {
+                        new DateTimePicker(document.getElementById(key), {
                             format: 'yyyy-mm-dd',
                             autoclose: true,
                             todayBtn: true,
