@@ -75,10 +75,9 @@ dd {
 
 /*************************菜单*/
 .options-panel {
-    /*background: #f1f2f4;*/
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: #3985ff;
+    background-color: #f1f2f4;
 }
 
 .options-panel:before {

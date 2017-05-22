@@ -7,22 +7,25 @@ define('Bill/Entry', function (require, module, exports) {
     var SMS = require('SMS');
     var GridBuilder = require('/GridBuilder');// 真实路径是'Bill/Entry/GridBuilder'
 
-    var Grid;
-    var isNeedOpt = false; // 订单详情不可编辑
+    var billGrid;
+    var isNeedOpt = true; // 订单详情不可编辑
+
+    var billTemplate = {};
+
     var cleanGrid = function () {
-        Grid.clear();
+        billGrid.clear();
     };
 
-    var gridConfig = {
+    var defaults = {
         gridName: 'bd-grid',
-        width: $(window).width(),
+        width: $(window).width() - 5,
         height: 'auto',
-        fnAfterSaveCell_After: function (rowid, data) {
-            $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
-        },
-        fnAfterEditCell_Before: function (rowId, cellName, cellValue) {
-            $.Combo.getCombo().selectByText(cellValue, false);
-        }
+        /*        fnAfterSaveCell_After: function (rowid, data) {
+         $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
+         },
+         fnAfterEditCell_Before: function (rowId, cellName, cellValue) {
+         $.Combo.getCombo().selectByText(cellValue, false);
+         }*/
     };
 
     //jqGrid初始化
@@ -32,25 +35,89 @@ define('Bill/Entry', function (require, module, exports) {
             return;
         }
 
+        billTemplate = template;
+
         SMS.use('Grid', function (Grid) {
 
-            Grid = new Grid('bd-grid');
+            billGrid = new Grid('bd-grid');
 
-            gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, '', isNeedOpt);
+            /**
+             entryId
+             parent
+             seq
+             orderId
+             orderNumber
+             orderSeq
+             material
+             specification
+             lot
+             dyBatchNum
+             code
+             price
+             unit
+             qty
+             dyProDate
+             dyManufacturer
+             registrationNo
+             amount
+             effectiveDate
+             */
+            //要展示的列
+            var showKeys = [];
 
-            Grid.render(gridConfig, data, template, 1);
+            //可编辑的列
+            var editKeys = ['material', 'lot','dyBatchNum','code','dyProDate','dyManufacturer','registrationNo','effectiveDate'];
 
-            Grid.on('f7Selected', function (data) {
-                var itemData = {
-                    'FPark': data[0].ID,
-                    'FParkID': data[0].ID,
-                    'FParkNumber': data[0].number,
-                    'FParkName': data[0].name
-                };
-                parkGrid.setRowData(data.row, itemData);
+            // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
+            defaults = GridBuilder.getConfig({
+                'fields': template.formFields["1"],
+                'defaults': defaults,
+                'showKeys': showKeys,
+                'editKeys': editKeys,
+                'operator': false,
+            });
+
+
+            billGrid.render(defaults, data, template, 1);
+
+            billGrid.on('f7Selected', function (data) {
+
             });
 
         });
+    }
+
+    function getData() {
+
+        var entry = [];
+        /*
+         'data':{
+         FEntryID:0, 新增可不传
+         FParkID:1,
+         FParkName:'ade',
+         FParkNumber:'001'
+         },
+         'flag':'1' 0删除, 1新增，2修改
+         */
+        var gridData = billGrid.getGridDatas(1); // 获取第一个表体数据
+
+        var entryTemplate = billTemplate.formFields["1"]
+
+        //修改数据
+        $.Array.each(gridData["update"], function (item, index) {
+            var upData = {
+                entryId: item.entryId,
+                confirmQty: item.confirmQty,
+                confirmDate: item.confirmDate,
+            };
+            entry.push(upData);
+        });
+
+        var entryData = {
+            1: entry
+        };
+
+        return entryData;
     }
 
     function render(template, data) {
@@ -59,5 +126,6 @@ define('Bill/Entry', function (require, module, exports) {
 
     return {
         render: render,
+        getData: getData,
     };
 });

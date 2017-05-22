@@ -221,6 +221,7 @@ define('Bill/Head', function (require, module, exports) {
                     //初始化控件
                     try {
                         ne.autoNumeric('set', (value || 0));
+                        ne.title = value || 0;
                     } catch (e) {
                         ne.val((value || 0));
                     }
@@ -233,7 +234,7 @@ define('Bill/Head', function (require, module, exports) {
                 }
 
                 if (fields[keyName]['ctrlType'] == 5) { // 下拉框
-                    element.value = value == null ? '' : Number(value);
+                    element.title = element.value = value == null ? '' : Number(value);
                     continue;
                 }
                 if (fields[keyName]['ctrlType'] == 6) { // F7选择框
@@ -254,7 +255,7 @@ define('Bill/Head', function (require, module, exports) {
                     continue;
                 }
 
-                element.value = value;
+                element.title = element.value = value;
             }
 
             emitter.fire('afterFill', [metaData, data]);

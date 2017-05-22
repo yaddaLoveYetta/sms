@@ -28,9 +28,9 @@
     function DataSelector(config) {
 
         this[guidKey] = 'DataSelector-' + $.String.random();
-        var isFirst = false;
         var meta = {
             container: config.container,
+            hasData: false,
             fieldKey: config.fieldKey,
             typeId: config.typeId,
             hasBreadcrumbs: config.hasBreadcrumbs,
@@ -64,6 +64,7 @@
         meta.bindEvents = function (selector) {
 
             var meta = mapper.get(selector);
+
             $(meta.container).delegate('[data-role="btn"]', 'click', function () {
 
                 var url = $.Url.setQueryString(defaults.targetList[meta.targetType], 'classId', meta.classID);
@@ -175,14 +176,15 @@
                                     emitter.fire('change', [meta.destClassId, meta.fieldKey, data]);
                                 }
                                 meta.data = dialog.getData();
-                                label.value = meta.data[0].number;
+                                label.title = label.value = meta.data[0].number;
                                 //抛出个确认事件
                                 emitter.fire('done', [meta.destClassId + '-' + meta.container.getAttribute("id") + '.DialogOk', meta.data]);
                                 label.focus();
-                                isFirst = true;
-                            } else {
-                                isFirst = false;
+                                meta.hasData = true;
                             }
+                            /*else {
+                             meta.hasData = false;
+                             }*/
                         }
                     });
                 });
@@ -193,7 +195,7 @@
 
                 'focus': function () {
                     var self = this;
-                    if (isFirst) {
+                    if (meta.hasData) {
                         if (meta.data[0].number) {
                             self.value = meta.data[0].number;
                         }
@@ -201,7 +203,7 @@
                 },
                 'blur': function () {
                     var self = this;
-                    if (isFirst) {
+                    if (meta.hasData) {
                         if (meta.data[0].name) {
                             self.value = meta.data[0].name;
                         }
@@ -251,7 +253,8 @@
             if (meta.container) {
                 var label = $(meta.container).find('[data-role="label"]')[0];
                 meta.data = data;
-                label.value = meta.data[0].name;
+                label.title = label.value = meta.data[0].name;
+                meta.hasData = true;
             }
 
         },

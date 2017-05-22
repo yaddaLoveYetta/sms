@@ -10,9 +10,10 @@
     var SMS = require('SMS');
     var MessageBox = SMS.require('MessageBox');
     var Iframe = SMS.require('Iframe');
-
+    var bl = require('ButtonList');
     var Bill = require('Bill');
 
+    var ButtonList=bl.create();
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var items = MiniQuery.Url.getQueryString(window.location.href, 'items');
 
@@ -23,7 +24,7 @@
     if (!SMS.Login.check(true)) {
         return;
     }
-
+    ButtonList.render();
     Bill.render({
         'classId': classId,
         'items': items

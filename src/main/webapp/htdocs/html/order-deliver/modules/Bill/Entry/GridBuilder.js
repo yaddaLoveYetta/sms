@@ -2,41 +2,52 @@
  * 编辑处理逻辑模块
  */
 define('Bill/Entry/GridBuilder', function (require, module, exports) {
+
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
 
-    function getColModel(field, isNeedOpt) {
+    /**
+     * 构建grid model
+     * @param field 字段模板
+     * @param editAble 是否可编辑
+     * @returns {{}}
+     */
+    function getColModel(field, editAble) {
+
         var model = {};
+
         model.name = field.key;
         model.label = field.name;
         model.width = field.showWidth;
         model.title = true;
-        model.editable = isNeedOpt && (field.ctrlType == 6);// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
-
+        model.editable = editAble;// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
         model.hidden = ((field.display & 1) != 1);
         model.tabIndex = field.index;
 
         if (field.ctrlType == 6) {
             //if (field.FLookUpType == 1) {
             //
-            model.name = field.key + '_DspName';
+            model.name = field.key + '_DspName'; // 显示的值保存在 field.key + '_DspName' 的key中
             model.edittype = 'custom';
+
             function element(value, options) {
                 var el = $('.' + field.key + 'Auto')[0];
                 return el;
-            };
+            }
+
             function value(elem, operation, value) {
                 if (operation === 'get') {
-                    return "";
+                    return $(elem).val();
+                    //return "";
                 } else if (operation === 'set') {
                     $('input', elem).val(value);
                 }
-            };
+            }
 
             function handle() {
                 $('#initCombo').append($('.' + field.key + 'Auto').val(''));
-            };
+            }
 
             var triggerClass = 'ui-icon-ellipsis';
 
@@ -48,8 +59,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             };
 
             model.formatter = function (val, opt, row) {
-                //				if (row[field.FKey + '_DspName']) {
-                //					return row[field.FKey + '_DspName'];
+                //				if (row[field.key + '_DspName']) {
+                //					return row[field.key + '_DspName'];
                 //				} else
 
                 if (val) {
@@ -62,39 +73,89 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             model.data = field;
         }
 
-        if (field.ctrlType == 15 && !model.hidden) {
-            model.formatter = function (cellvalue, options, rowObject) {
-                if (cellvalue) {
-                    return '<img class="assisPropImg" src="' + cellvalue + '"/>';
-                } else if (rowObject[field.key]) {
-                    return '<img class="assisPropImg" src="' + rowObject[field.key] + '"/>';
-                } else {
-                    return '';
+        if (field.ctrlType == 12) {
+            // 日期
+            /*
+             * model.edittype = 'date'; model.formatter = "date";
+             * model.formatoptions = { srcformat: 'Y-m-d H:i:s',
+             * newformat: 'Y-m-d H:i:s' }
+             */
+            model.edittype = 'text';
+            model.editrules = {required: true};
+            model.editoptions = {
+                size: 10, maxlengh: 10,
+                dataInit: function (element) {
+
+                    SMS.use('DateTimePicker', function (DateTimePicker) {
+                        new DateTimePicker($(element), {
+                            format: 'yyyy-mm-dd',
+                            autoclose: true,
+                            todayBtn: true,
+                            todayHighlight: true,
+                            timepicker: false,
+                            startView: 'month',
+                            minView: 2,
+                        });
+                    });
                 }
-                //return '<img class="assisPropImg" src="' + getImagePath(cellvalue, rowObject) + '"/>';
-            };
-            model.unformat = function (cellvalue, options, cell) {
-                return $('img', cell).attr('src');
-            };
-            model.align = 'center';
-
-            //todo:gaozf 临时处理
-            model.editable = false;
-            model.hidden = true;
+            }
         }
-
         return model;
     }
 
-    function getConfig(fields, gridConfig, names, isNeedOpt) {
+    /**
+     * 构造grid初始化参数
+     * @param fields  单据模板
+     * @param config 默认配置
+     * @param showKeys 需要展现的字段-null将按照单据模板确定
+     * @param editKeys 可以编辑的字段-null将不可编辑
+     * @param operator 控制是否有新增，删除行功能-true：可以添加/删除 false：不出现添加/删除行功能
+     * @returns {*}
+     */
+    function getConfig(fields, config, showKeys, editKeys, operator) {
+
         var cNames = [];
         var cModel = [];
-        if (isNeedOpt) {
-            cModel = [{
+
+        var model = {};
+
+        if (typeof fields == 'object') {
+            //重载方法
+            var params = fields;
+
+            fields = params.fields;
+            config = params.defaults;
+            showKeys = params.showKeys;
+            editKeys = params.editKeys;
+            operator = params.operator;
+
+        }
+
+        //按照单据模板确定
+        if (!showKeys || showKeys.length == 0) {
+            showKeys = $.Object.getKeys(fields);
+        }
+
+        //按照单据模板确定
+        if (!editKeys || showKeys.length == 0) {
+            editKeys = $.Object.getKeys(fields);
+        }
+
+        // 有需要编辑的列
+        if (editKeys) {
+            // 增加一列标识-方便数据控制
+            model = {
                 name: 'bos_modify',
                 label: 'bos_modify',
                 hidden: true
-            }, {
+            };
+            cModel.push(model);
+        }
+
+        // 需要有添加/删除行功能
+        if (operator) {
+            // 增加一列添加/删除行功能的按钮
+            model = {
                 name: 'operate',
                 label: ' ',
                 width: 40,
@@ -104,22 +165,38 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                     return html_con;
                 },
                 align: "center",
-            }];
+                hidden: !operator,
+            };
+            cModel.push(model);
         }
-        for (var key in fields) {
 
-            var field = fields[key];
+
+        //要展示的字段
+        /*        var keys = ['entryId', 'parent', 'seq', 'material', 'unit', 'qty', 'price',
+         'confirmDate', 'deliveryDate', 'discountRate', 'taxRate', 'taxPrice',
+         'actualTaxPrice', 'discountAmount', 'tax', 'localAmount', 'confirmQty'];*/
+
+        for (var key in showKeys) {
+
+            var field = fields[showKeys[key]];
+
+            if (!field) {
+                continue;
+            }
 
             if (field.lookUpType == 1) {
+                // 引用类型增加保存列-不显示-用作表格保存时取数
                 var keyModel = {
                     name: field.key,
                     label: field.name,
                     tabIndex: field.index,
                     hidden: true
                 };
+
                 cModel.push(keyModel);
 
-                if (field.ctrlType == 6) {
+                if (field.FCtrlType == 6 && field.disPlayNum) {
+                    // 有配置显示代码时增加代码显示
                     var keyNmbModel = {
                         name: field.name + '_NmbName',
                         label: field.key + '_NmbName',
@@ -130,7 +207,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 }
             }
 
-            var model = getColModel(field, isNeedOpt);
+            model = getColModel(field, $.Array.contains(editKeys, field.key));
+
             cModel.push(model);
         }
 
@@ -140,39 +218,29 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             cNames.push(cModel[m].label);
         }
 
-        gridConfig.colNames = cNames;
-        gridConfig.colModel = cModel;
+        config.colNames = cNames;
+        config.colModel = cModel;
 
-        gridConfig.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
+        config.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
 
-            var rowdata = $("#" + gridConfig.gridName).getRowData(rowid);
-            rowdata[cellname] = value;
-            console.log(rowdata);
+            /*            var rowdata = $("#" + config.gridName).getRowData(rowid);
+             rowdata[cellname] = value;
+             console.log(rowdata);*/
             $("#" + iRow + "_" + cellname).val(value);
-            $('#initCombo').data('selectedRow', rowid);
-            $('#initCombo').data('selectedVal' + rowid, rowdata);
-            gridConfig.fnAfterEditCell_Before && gridConfig.fnAfterEditCell_Before(rowid, cellname, value);
-            $("#" + iRow + "_" + name_dsp, "#" + gridConfig.gridName).val(value);
+            /*            $('#initCombo').data('selectedRow', rowid);
+             $('#initCombo').data('selectedVal' + rowid, rowdata);
+             config.fnAfterEditCell_Before && config.fnAfterEditCell_Before(rowid, cellname, value);
+             $("#" + iRow + "_" + name_dsp, "#" + config.gridName).val(value);*/
 
         };
-        gridConfig.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
-            var gridData = $('#initCombo').data('selectedVal' + rowid);
-            $("#" + gridConfig.gridName).jqGrid('setRowData', rowid, gridData);
+        config.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
+            /*            var gridData = $('#initCombo').data('selectedVal' + rowid);
+             //gridData[cellname] = val;
+             $("#" + config.gridName).jqGrid('setRowData', rowid, gridData);*/
         };
 
-        gridConfig.fnLoadComplete = function (data) {
-            //var rows = data['rows'];
-            //var len = rows.length;
-            //for (var i = 0; i < len; i++) {
-            //    var tempId = i + 1, row = rows[i];
-            //    if ($.isEmptyObject(rows[i])) {
-            //        break;
-            //    };
-            //    $('#' + tempId).data('rowInfo', row);
-            //};
-        };
 
-        return gridConfig;
+        return config;
     }
 
     function sortModels(models) {

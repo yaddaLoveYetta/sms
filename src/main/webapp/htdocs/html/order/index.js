@@ -221,7 +221,7 @@
 
             for (var item in list) {
                 if (list[item]) {
-                    items += (',' + list[item].primaryValue);
+                    items += (',' + list[item].primaryValue );
                 }
             }
 
@@ -232,7 +232,7 @@
                 var dialog = new Dialog({
                     title: '生成发货单',
                     width: 1024,
-                    height:550,
+                    height: 550,
                     url: $.Url.setQueryString('html/order-deliver/index.html', {
                         'classId': 2020,
                         'items': items,

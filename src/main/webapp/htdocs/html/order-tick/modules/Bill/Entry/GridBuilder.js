@@ -132,12 +132,12 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         }
 
         //按照单据模板确定
-        if (!showKeys) {
+        if (!showKeys || showKeys.length == 0) {
             showKeys = $.Object.getKeys(fields);
         }
 
         //按照单据模板确定
-        if (!editKeys) {
+        if (!editKeys || showKeys.length == 0) {
             editKeys = $.Object.getKeys(fields);
         }
 

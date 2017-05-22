@@ -17,7 +17,8 @@ define('Bill/API/Data', function (require, module, exports) {
      */
     function get(config, fn) {
 
-        var api = new API('order/invoice');
+        //var api = new API('order/invoice');
+        var api = new API('order/deliver');
 
         var params = {
             'items': config.items,
