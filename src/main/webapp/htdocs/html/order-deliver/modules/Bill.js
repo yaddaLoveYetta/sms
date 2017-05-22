@@ -61,5 +61,6 @@ define('Bill', function (require, module, exports) {
 
     return {
         render: render,
+        save: save,
     }
 });
