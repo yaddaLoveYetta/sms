@@ -420,7 +420,7 @@ public class OrderService extends BaseService implements IOrderService {
 			Map<String, Object> entry = isInShipOrderEntries(shipOrder, purOrderId, purOrderEntrySeq);
 
 			if (saleProxy == 2) {
-				// 代销物料--拆单--拆成一个一个的物料
+				//TODO 代销物料--拆单--拆成一个一个的物料
 				purOrderEntry.getBigDecimal("qty"); // 采购订单分录数量
 			}
 			if (saleProxy == 1) {
