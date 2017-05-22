@@ -43,16 +43,21 @@ define('Bill', function (require, module, exports) {
     //保存
     function save(fn) {
 
+        var valid = true;
         billData = Head.getData();
         var entry = Entry.getData();
 
         if (billData.errorData && !$.Object.isEmpty(billData.errorData)) {
             Head.showValidInfo(billData.successData, billData.errorData);
-            return;
+            valid = false;
         }
 
         if (entry.errorData && !$.Object.isEmpty(entry.errorData)) {
             entry.showValidInfo(entry.errorData);
+            valid = false;
+        }
+
+        if (!valid) {
             return;
         }
 
