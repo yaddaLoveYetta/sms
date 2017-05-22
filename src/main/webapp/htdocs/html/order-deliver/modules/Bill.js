@@ -48,6 +48,7 @@ define('Bill', function (require, module, exports) {
 
         if (billData.errorData && !$.Object.isEmpty(billData.errorData)) {
             Head.showValidInfo(billData.successData, billData.errorData);
+            return;
         }
 
         if (entry) {
