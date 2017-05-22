@@ -97,27 +97,40 @@ define('Bill/Entry', function (require, module, exports) {
 
         var entryTemplate = billTemplate.formFields["1"]
 
-        var errorDatas = gridData["errorDatas"];
-
-        //修改数据
-        $.Array.each(gridData["update"], function (item, index) {
-            var upData = {
-                entryId: item.entryId,
-                confirmQty: item.confirmQty,
-                confirmDate: item.confirmDate,
-            };
-            entry.push(upData);
-        });
+        var errorData = gridData["error"] || {};
+        var addData = gridData["add"] || [];
 
         var entryData = {
-            1: entry
+            1: addData
         };
 
-        return entryData;
+        return {
+            errorData: errorData,
+            entryData: entryData,
+        };
     }
 
     function render(template, data) {
         gridRender(template, data);
+    }
+
+
+    function showValidInfo(errorData) {
+
+        if (errorData) {
+
+            var errors = '';
+            // 显示错误提示
+            for (var item in errorData) {
+                errors = errors + '<br/>第' + item + '行[' + errorData[item].join('') + ']是必录项';
+            }
+
+            var msgElement = document.getElementById('bd-grid-msg');
+            if (!$(msgElement).hasClass('show')) {
+                $(msgElement).toggleClass('show');
+            }
+            $(msgElement).html(errors);
+        }
     }
 
     return {

@@ -51,6 +51,11 @@ define('Bill', function (require, module, exports) {
             return;
         }
 
+        if (entry.errorData && !$.Object.isEmpty(entry.errorData)) {
+            entry.showValidInfo(entry.errorData);
+            return;
+        }
+
         if (entry) {
             billData['entry'] = entry;
         }
