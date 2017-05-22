@@ -6669,7 +6669,7 @@
                 var addDatas = [];
                 var deleteDatas = [];
                 var updateDatas = [];
-                var errorDatas = [];
+                var errorDatas = {};
                 /*删除数据获取*/
                 for (var index in deletedData) {
                     var row = deletedData[index];
@@ -6681,12 +6681,13 @@
                     var row = gridData[index];
                     console.log(row);
                     if (row.bos_mustInput === 'true') {
+                        var errorData = [];
                         for (var captionIndex in row.bos_mustInputCaptions) {
                             if (!$.Array.contains(errorDatas, row.bos_mustInputCaptions[captionIndex])) {
-                                errorDatas.push(row.bos_mustInputCaptions[captionIndex]);
+                                errorData.push(row.bos_mustInputCaptions[captionIndex]);
                             }
                         }
-
+                        errorDatas[++index] = errorData;
                     }
                     /*添加数据获取  [entryId] 为空表示新增数据*/
 

@@ -56,11 +56,11 @@ define('Bill/Entry', function (require, module, exports) {
              amount
              effectiveDate
              */
-            //要展示的列
+                //要展示的列
             var showKeys = [];
 
             //可编辑的列
-            var editKeys = ['material', 'lot','dyBatchNum','code','dyProDate','dyManufacturer','registrationNo','effectiveDate'];
+            var editKeys = ['material', 'lot', 'dyBatchNum', 'code', 'dyProDate', 'dyManufacturer', 'registrationNo', 'effectiveDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
             defaults = GridBuilder.getConfig({
@@ -96,6 +96,8 @@ define('Bill/Entry', function (require, module, exports) {
         var gridData = billGrid.getGridDatas(1); // 获取第一个表体数据
 
         var entryTemplate = billTemplate.formFields["1"]
+
+        var errorDatas = gridData["errorDatas"];
 
         //修改数据
         $.Array.each(gridData["update"], function (item, index) {
