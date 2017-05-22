@@ -26,7 +26,7 @@
     }
     ButtonList.render();
 
-    ButtonList.on({
+    ButtonList.on('click', {
         'optRefresh': function () {
             Bill.render({
                 'classId': classId,
