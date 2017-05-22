@@ -104,6 +104,9 @@ dd {
     display: none;
     vertical-align: middle;
 }
+.main .logistics-row .col-value .show {
+    display: inline-block;
+}
 
 .sms-F7selector {
     position: relative;
