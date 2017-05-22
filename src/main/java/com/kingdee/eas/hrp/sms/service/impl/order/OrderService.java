@@ -345,8 +345,6 @@ public class OrderService extends BaseService implements IOrderService {
 
 		for (int i = 0; i < split.length; i++) {
 
-			// Map<String, Object> ret = templateService.getItems(2019, JSON.toJSONString(conditions), "", 1, 500,
-			// userType, userId);
 			Map<String, Object> purOrder = templateService.getItemById(2019, split[i], userType);
 
 			if (null != purOrder) {
@@ -421,8 +419,7 @@ public class OrderService extends BaseService implements IOrderService {
 
 			if (saleProxy == 2) {
 				// TODO 代销物料--拆单--拆成一个一个的物料
-				purOrderEntry.getBigDecimal("qty"); // 采购订单分录数量
-
+				
 				List<Map<String, Object>> entryItems = generateEntryItems(purOrderEntry, purOrder);
 				addToShipOrderEntry(shipOrder, entryItems);
 
