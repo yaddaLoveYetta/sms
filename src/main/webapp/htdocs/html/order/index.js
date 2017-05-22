@@ -239,25 +239,7 @@
                     }),
                     data: {},
                     button: [
-                        {
-                            value: '取消',
-                            className: 'sms-cancel-btn',
-                        },
-                        {
-                            value: '确定',
-                            className: 'sms-submit-btn',
-                            callback: function () {
-                                dialog.__dispatchEvent('get');
-                                var data = dialog.getData();
-                                console.log(data);
-                                tick(data, function (data) {
-                                    SMS.Tips.success("接单成功", 1500);
-                                    return true;
-                                });
 
-                                return false; // 可能不成功，默认不关闭对话框
-                            }
-                        }
                     ],
                 });
 
