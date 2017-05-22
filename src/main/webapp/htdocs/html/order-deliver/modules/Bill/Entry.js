@@ -136,5 +136,6 @@ define('Bill/Entry', function (require, module, exports) {
     return {
         render: render,
         getData: getData,
+        showValidInfo:showValidInfo,
     };
 });
