@@ -122,7 +122,7 @@ define('Bill/Entry', function (require, module, exports) {
             var errors = '';
             // 显示错误提示
             for (var item in errorData) {
-                errors = errors + '<br/>第' + item + '行[' + errorData[item].join('') + ']是必录项';
+                errors = errors + '<br/>第' + item + '行[' + errorData[item].join('-') + ']是必录项';
             }
 
             var msgElement = document.getElementById('bd-grid-msg');
