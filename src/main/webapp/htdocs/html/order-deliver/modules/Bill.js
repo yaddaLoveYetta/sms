@@ -53,7 +53,7 @@ define('Bill', function (require, module, exports) {
         }
 
         if (entry.errorData && !$.Object.isEmpty(entry.errorData)) {
-            entry.showValidInfo(entry.errorData);
+            Entry.showValidInfo(entry.errorData);
             valid = false;
         }
 
