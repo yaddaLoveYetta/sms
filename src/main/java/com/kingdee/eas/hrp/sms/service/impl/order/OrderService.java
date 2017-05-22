@@ -517,7 +517,7 @@ public class OrderService extends BaseService implements IOrderService {
 			for (int i = 0; i < entryItems.size(); i++) {
 				Map<String, Object> entryItem = entryItems.get(i);
 				entryItem.put("seq", i + 1); // 添加发货单行号
-				entry1Array.add(entryItems);
+				entry1Array.add(entryItems.get(i));
 			}
 
 			entries.put("1", entry1Array);
@@ -661,7 +661,6 @@ public class OrderService extends BaseService implements IOrderService {
 		float lastLineQty = bQty.floatValue() > qty ? bQty.floatValue() - qty + 1 : 1;
 		// 金额尾差，尾差放到最后一行
 		BigDecimal lastLineAmount = amount.compareTo(new BigDecimal(price * qty)) > 0 ? amount.subtract(new BigDecimal(price * qty)) : new BigDecimal(price);
-
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 
 		for (int i = 0; i < qty; i++) {
@@ -740,9 +739,9 @@ public class OrderService extends BaseService implements IOrderService {
 			return null;
 		}
 
-		for (Object object : entryList) {
+		for (int i=0;i<entryList.size();i++)  {
 
-			JSONObject entryItem = JSON.parseObject(JSON.toJSONString(object));
+			JSONObject entryItem = entryList.getJSONObject(i);
 
 			String orderId = entryItem.getString("orderId");
 			int orderSeq = entryItem.getIntValue("orderSeq");
