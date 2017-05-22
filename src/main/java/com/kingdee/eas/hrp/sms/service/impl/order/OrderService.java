@@ -420,8 +420,12 @@ public class OrderService extends BaseService implements IOrderService {
 			Map<String, Object> entry = isInShipOrderEntries(shipOrder, purOrderId, purOrderEntrySeq);
 
 			if (saleProxy == 2) {
-				//TODO 代销物料--拆单--拆成一个一个的物料
+				// TODO 代销物料--拆单--拆成一个一个的物料
 				purOrderEntry.getBigDecimal("qty"); // 采购订单分录数量
+
+				List<Map<String, Object>> entryItems = generateEntryItems(purOrderEntry, purOrder);
+				addToShipOrderEntry(shipOrder, entryItems);
+
 			}
 			if (saleProxy == 1) {
 				// 非代销物料--一条采购订单分录对应一条发货单分录
@@ -494,6 +498,72 @@ public class OrderService extends BaseService implements IOrderService {
 	}
 
 	/**
+	 * 向发货单上增加多条条分录数据
+	 * 
+	 * @Title addToShipOrderEntry
+	 * @param shipOrder
+	 *            发货单
+	 * @param entryItems
+	 *            发货单分录数据
+	 * @return void
+	 * @date 2017-05-20 13:26:03 星期六
+	 */
+	private void addToShipOrderEntry(Map<String, Object> shipOrder, List<Map<String, Object>> entryItems) {
+
+		Object obj = shipOrder.get("entry");
+
+		if (null == obj) {
+			// 没有任何分录,没有entry节点
+			JSONObject entries = new JSONObject();
+			JSONArray entry1Array = new JSONArray();
+
+			for (int i = 0; i < entryItems.size(); i++) {
+				Map<String, Object> entryItem = entryItems.get(i);
+				entryItem.put("seq", i + 1); // 添加发货单行号
+				entry1Array.add(entryItems);
+			}
+
+			entries.put("1", entry1Array);
+			shipOrder.put("entry", entries);
+
+			return;
+		}
+
+		JSONObject entry = JSON.parseObject(JSON.toJSONString(obj));
+
+		if (null == entry || entry.isEmpty()) {
+			// 有entry节点但没有任何分录
+			JSONArray entry1Array = new JSONArray();
+
+			for (int i = 0; i < entryItems.size(); i++) {
+				Map<String, Object> entryItem = entryItems.get(i);
+				entryItem.put("seq", i + 1); // 添加发货单行号
+				entry1Array.add(entryItems);
+			}
+
+			entry.put("1", entry1Array);
+			shipOrder.put("entry", entry);
+			return;
+		}
+
+		JSONArray entry1List = entry.getJSONArray("1");
+
+		for (int i = 0; i < entryItems.size(); i++) {
+			Map<String, Object> entryItem = entryItems.get(i);
+			entryItem.put("seq", entry1List.size() + 1); // 添加发货单行号
+			entry1List.add(entryItems);
+		}
+
+		JSONObject entries = new JSONObject();
+
+		entries.put("1", entry1List);
+
+		shipOrder.put("entry", entries);
+
+		return;
+	}
+
+	/**
 	 * 根据一条采购订单分录，生成一条发货单分录数据
 	 * 
 	 * @Title generateEntryItem
@@ -550,6 +620,91 @@ public class OrderService extends BaseService implements IOrderService {
 		entry.put("effectiveDate", "");
 
 		return entry;
+	}
+
+	/**
+	 * 根据一条采购订单分录，生成多条发货单分录数据
+	 * 
+	 * @Title generateEntryItem
+	 * @param purOrderEntry
+	 *            采购订单的一条分录
+	 * @return Map<String,Object>
+	 * @date 2017-05-20 12:27:43 星期六
+	 */
+	private List<Map<String, Object>> generateEntryItems(JSONObject purOrderEntry, JSONObject purOrder) {
+
+		// 采购订单-->发货单 转换规则
+
+		// entryId --->"" 内码
+		// parent --->"" 发货单内码(主表内码)
+		// seq --->1,2,3 行号
+		// orderId --->parent 采购订单内码
+		// orderSeq --->seq 采购订单行号
+		// material --->material 物料
+		// specification --->specification 规格型号
+		// lot --->"" 批次
+		// dyBatchNum --->"" 批号
+		// code --->"" 个体码
+		// price --->price 单价
+		// unit --->unit 单位
+		// qty --->qty(拆分) 数量
+		// dyProDate --->"" 生产日期
+		// dyManufacturer --->"" 生产厂家
+		// registrationNo --->"" 产品注册号
+		// amount --->localAmount 金额
+		// effectiveDate --->"" 有效期
+
+		BigDecimal bQty = purOrderEntry.getBigDecimal("qty"); // 采购订单分录数量
+		BigDecimal amount = purOrderEntry.getBigDecimal("localAmount");
+		float price = purOrderEntry.getFloatValue("price");
+
+		int qty = bQty.intValue();
+
+		// 数量尾差，尾差放到最后一行
+		float lastLineQty = bQty.floatValue() > qty ? bQty.floatValue() - qty + 1 : 1;
+		// 金额尾差，尾差放到最后一行
+		BigDecimal lastLineAmount = amount.compareTo(new BigDecimal(price * qty)) > 0 ? amount.subtract(new BigDecimal(price * qty)) : new BigDecimal(price);
+
+		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
+
+		for (int i = 0; i < qty; i++) {
+
+			Map<String, Object> entry = new HashMap<String, Object>();
+
+			entry.put("seq", 0);
+			entry.put("orderId", purOrderEntry.getString("parent"));
+			entry.put("orderNumber", purOrder.getString("number"));
+			entry.put("orderSeq", purOrderEntry.getIntValue("seq"));
+			entry.put("material", purOrderEntry.getString("material"));
+			entry.put("material_DspName", purOrderEntry.getString("material_DspName"));
+			entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
+			entry.put("specification", purOrderEntry.getString("specification"));
+			entry.put("lot", "");
+			entry.put("dyBatchNum", "");
+			entry.put("code", "");
+			entry.put("price", purOrderEntry.getFloatValue("price"));
+			entry.put("unit", purOrderEntry.getString("unit"));
+			entry.put("unit_DspName", purOrderEntry.getString("unit_DspName"));
+			entry.put("unit_NmbName", purOrderEntry.getString("unit_NmbName"));
+
+			entry.put("dyProDate", "");
+			entry.put("dyManufacturer", "");
+			entry.put("registrationNo", "");
+			entry.put("effectiveDate", "");
+
+			entry.put("qty", 1); // 拆单后，发货单明细行数量为1
+			entry.put("amount", purOrderEntry.getFloatValue("price")); // ? 本位币金额 No Amount
+
+			if (i == qty - 1) {
+				// lastLine
+				entry.put("qty", lastLineQty); // 拆单后，发货单明细行数量为1
+				entry.put("amount", lastLineAmount); // ? 本位币金额 No Amount
+			}
+
+			ret.add(entry);
+		}
+
+		return ret;
 	}
 
 	/**
