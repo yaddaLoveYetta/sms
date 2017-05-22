@@ -15,6 +15,7 @@ define('Bill/Head', function (require, module, exports) {
 
         var div = document.getElementById("dd-head");
         var samples = require("/Samples")(div);
+        var user = SMS.Login.get();
 
         var template = {};
         var visibleTemplate = [];
