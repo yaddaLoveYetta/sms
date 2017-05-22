@@ -20,8 +20,8 @@ define('MenuData', function (require, module, exports) {
         isHome: true,
         id: $.String.random(5),
         //url: 'html/home/index.html',
-        url: 'html/home/index-hrp.html',
-        //url: 'html/home/520/index.html',
+        //url: 'html/home/index-hrp.html',
+        url: 'html/home/520/index.html',
     };
 
     //加载数据。

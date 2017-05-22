@@ -195,7 +195,7 @@
                 }
                 if (!item.data.tickType) {
                     // HRP没有确认接单
-                    SMS.Tips.error(item.data.number + ' 医院未确认接单，不能发货');
+                    SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货');
                     done = false;
                     return false;
                 }
