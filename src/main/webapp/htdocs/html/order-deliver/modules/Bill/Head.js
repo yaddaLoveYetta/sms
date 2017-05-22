@@ -285,8 +285,162 @@ define('Bill/Head', function (require, module, exports) {
             return data;
         }
 
+        function getData(isUpdate) {
+
+            if (!template || !template['formFields']) {
+                alert('元数据错误，请联系管理员');
+                return;
+            }
+
+            var fields = template['formFields'][0];
+            var validate = true; // 是否检验成功
+            var successData = {};
+            var errorData = {};
+
+            //合并错误提示信息
+
+            for (var item in fields) {
+
+                var field = fields[item];
+                var keyName = field['key'];
+
+                var element = document.getElementById(keyName);
+
+                if (!element) {
+                    // todo: 按元数据未找到控件，跳过此字段
+                    continue;
+                }
+
+                if (field['ctrlType'] == 1) { // 数字
+                    var ne = $(keyName);
+                    var domValue = ne.val();
+                    var widgetData = ne.autoNumeric && ne.autoNumeric("get") || domValue;
+                    if (!domValue) {
+                        if (isMustFiled(isUpdate, field)) {
+                            var msg = field['name'] + '为必填项';
+                            errorData[keyName] = msg;
+                            validate = false;
+                        } else {
+                            successData[keyName] = widgetData;
+                        }
+                    } else {
+                        successData[keyName] = widgetData;
+
+                    }
+                    continue;
+                }
+                if (field['ctrlType'] == 3) { // 多选按钮，无需校验
+                    successData[keyName] = element.checked;
+                    continue;
+                }
+                if (field['ctrlType'] == 6) { // F7选择框
+                    var selector = selectors[keyName];
+                    var selectorID = selector.getData()[0]['ID'];
+
+                    if (!selectorID) {
+                        if (isMustFiled(isUpdate, field)) {
+                            var msg = field['name'] + '为必填项';
+                            errorData[keyName] = msg;
+                            validate = false;
+                        } else {
+                            successData[keyName] = '';
+                        }
+                    } else {
+                        successData[keyName] = selectorID;
+                    }
+                    continue;
+                }
+
+                if (fields[keyName]['ctrlType'] == 99) {
+                    // 合作商家基础资料多一个密码字段特殊，蛋疼的处理-写死它，用来判断是否修改-加密
+                    if (!element.value && isMustFiled(isUpdate, field)) {
+                        var msg = field['name'] + '为必填项';
+                        errorData[keyName] = msg;
+                        validate = false;
+                    } else {
+                        if (element.value != 'XXXXXXXX') {
+                            successData[keyName] = MD5.encrypt(element.value);
+                        }
+                    }
+                    continue;
+                }
+
+                if (!element.value) {
+                    if (isMustFiled(isUpdate, field)) {
+                        var msg = field['name'] + '为必填项';
+                        errorData[keyName] = msg;
+                        validate = false;
+                    } else {
+                        if (fields[keyName]['dataType'] == 2 || fields[keyName]['ctrlType'] == 7) { //文本类型、级联选择器 给空字符串
+                            successData[keyName] = element.value;
+                        }
+                    }
+                } else {
+                    successData[keyName] = element.value;
+                }
+            }
+
+            return {
+                'successData': successData,
+                'errorData': errorData,
+            }
+
+        }
+
+        //------是否必填校验逻辑(因多地方使用所以抽出来) BEGIN-----//
+        function isMustFiled(isUpdate, field) {
+            var mustInput = field['mustInput'] || 0;
+            var mustInputMask = 0; //是否必填掩码
+            if (isUpdate) {
+                //FMustInput  字段显示权限-后端mustInput定义 4 编辑时平台用户必填，8编辑时候物业用户必填
+                if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                    // 平台用户
+                    mustInputMask = 2;
+                } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                    //物业用户
+                    mustInputMask = 8;
+                }
+            } else {
+                //FMustInput  字段显示权限-后端mustInput定义 4 编辑时平台用户必填，8编辑时候物业用户必填
+                if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                    // 平台用户
+                    mustInputMask = 1;
+                } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                    //物业用户
+                    mustInputMask = 4;
+                }
+            }
+            return !!(mustInputMask & mustInput); //是否必填
+        }
+
+
+        function showValidInfo(successData, errorData) {
+
+            for (var item in successData) {
+                // 去掉错误提示
+                var msgElement = document.getElementById(item + '-msg');
+                if ($(msgElement).hasClass('show')) {
+                    $(msgElement).toggleClass('show');
+                }
+                $(msgElement).html('');
+            }
+            if (errorData) {
+                // 显示错误提示
+                for (var item in errorData) {
+
+                    var msgElement = document.getElementById(item + '-msg');
+                    if (!$(msgElement).hasClass('show')) {
+                        $(msgElement).toggleClass('show');
+                    }
+                    $(msgElement).html(errorData[item]);
+                }
+            }
+        }
+
         return {
             render: render,
+            getData: getData,
+            showValidInfo: showValidInfo,
         };
     }
 );

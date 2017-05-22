@@ -35,8 +35,27 @@ define('Bill', function (require, module, exports) {
             // 填充数据
             console.log(data);
             Head.render(data, data.data.headData);
-           // Entry.render(data.visibleTemplate, data.data.entryData);
+            // Entry.render(data.visibleTemplate, data.data.entryData);
             Entry.render(data.template, data.data.entryData);
+        });
+    }
+
+    //保存
+    function save(fn) {
+
+        billData = Head.getData();
+        var entry = Entry.getData();
+
+        if (billData.errorData && !$.Object.isEmpty(billData.errorData)) {
+            Head.showValidInfo(billData.successData, billData.errorData);
+        }
+
+        if (entry) {
+            billData['entry'] = entry;
+        }
+
+        submit(billData, function (data) {
+            fn && fn(data);
         });
     }
 

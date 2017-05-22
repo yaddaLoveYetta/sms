@@ -13,7 +13,7 @@
     var bl = require('ButtonList');
     var Bill = require('Bill');
 
-    var ButtonList=bl.create();
+    var ButtonList = bl.create();
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var items = MiniQuery.Url.getQueryString(window.location.href, 'items');
 
@@ -25,6 +25,21 @@
         return;
     }
     ButtonList.render();
+
+    ButtonList.on({
+        'optRefresh': function () {
+            Bill.render({
+                'classId': classId,
+                'items': items
+            });
+        },
+        'optSave': function () {
+            Bill.save(function (data) {
+                SMS.Tips.success("发货成功", 1500);
+            });
+        }
+
+    });
     Bill.render({
         'classId': classId,
         'items': items
