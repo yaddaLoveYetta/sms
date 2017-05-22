@@ -32,7 +32,7 @@ public class OrderController {
 		String listStr = ParameterUtils.getParameter(request, "list", "");
 		JSONArray json = JSONArray.parseArray(listStr);
 		String ret = orderservice.order(json);
-		if(ret.equals("success")){
+		if (ret.equals("success")) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		}
 	}
@@ -50,7 +50,7 @@ public class OrderController {
 		}
 
 		orderservice.tick(id, entry);
-		
+
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS);
 
 		// String listStr = ParameterUtils.getParameter(request, "list", "");
@@ -68,6 +68,34 @@ public class OrderController {
 			return;
 		}
 		Map<String, Object> result = orderservice.invoice(items, userType);
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS,result);
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, result);
+	}
+
+	/**
+	 * 采购订单发货<br/>
+	 * 
+	 * 选择一张或多张订单，根据业务规则，生成一张发货单数据返回前端
+	 * 
+	 * @Title deliver
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-05-19 23:56:27 星期五
+	 */
+	@ControllerLog(desc = "采购订单发货")
+	@RequestMapping(value = "deliver")
+	public void deliver(HttpServletRequest request, HttpServletResponse response) {
+
+		String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
+		String userType = SessionUtil.getUserType(request);
+		String userId = SessionUtil.getUserId(request);
+
+		if ("".equals(items.trim())) {
+			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
+		}
+
+		Map<String, Object> shipOrder = orderservice.deliver(items, userType, userId);
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipOrder);
+
 	}
 }

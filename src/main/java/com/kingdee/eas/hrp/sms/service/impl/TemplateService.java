@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.DruidPooledConnection;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -36,6 +38,7 @@ import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInFactory;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
+import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ValidateUtil;
 
 @Service
@@ -263,6 +266,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		statementParam.put("orderby", orderByStr);
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+		//DruidDataSource ds = Environ.getBean(DruidDataSource.class);
 
 		if (pageNo == 1) {
 			PageHelper.startPage(pageNo, pageSize, true);
@@ -794,7 +798,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				}
 
 				if (lookUpType != null && (lookUpType == 1 || lookUpType == 2)) {
-					// 基础资料引用类型
+					// 基础资料/辅助资料引用类型
 					// 强制显示关联字段名称
 					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
@@ -861,16 +865,17 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 				} else if (lookUpType != null && lookUpType == 4) {
 					// 普通引用-引用其他表数据
-					// sbSelect.append(String.format("%s.%s AS %s,",
-					// primaryTableName, FSQLColumnName, FKey))
-					// .append(separator);
 
-					if (dataType != null && dataType == 2) {
-						// 文本类的关联字段，未防止关联表中无记录，此处取主表字段值-如订单查询FCarNo字段取数
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
-					} else {
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
-					}
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+					
+					// if (dataType != null && dataType == 2) {
+					// // 文本类的关联字段，未防止关联表中无记录，此处取主表字段值-如订单查询CarNo字段取数
+					// sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter,
+					// sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+					// } else {
+					// sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField,
+					// eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+					// }
 
 					// from 中同时增加关联表
 					sbFrom.append(joinType).append(srcTable);
@@ -884,7 +889,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 							.append(separator);
 				} else if (lookUpType != null && lookUpType == 5) {
 
-					// 普通引用其他表的其他字段-主要为了避免为4即引用他表数据时，需引用多个字段时关联表重复问题。依附于=4时存在,即模板中肯定存在FLookUpType=4的字段模板
+					// 普通引用其他表的其他字段-主要为了避免为4即引用他表数据时，需引用多个字段时关联表重复问题。依附于=4时存在,即模板中肯定存在lookUpType=4的字段模板
 
 					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
@@ -1114,6 +1119,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 					value = "'%" + value + "%'";
 					break;
 				}
+				// if (logicOperator.equalsIgnoreCase("IN")) {
+				// value = "(" + value + ")";
+				// break;
+				// }
 				value = String.format("'%s'", value);
 				break;
 			case TIME:
@@ -1226,7 +1235,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @date 2017-04-21 09:26:55 星期五
 	 */
 	private String handleSqlInjection(String str) {
-		return str.replace("'", "").replace("\\", "\\\\").replace("--", "").replace("(", "").replace(")", "");
+		return str.replace("'", "").replace("\\", "\\\\").replace("--", "");
 	}
 
 	/**

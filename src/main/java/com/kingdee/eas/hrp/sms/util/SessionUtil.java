@@ -24,7 +24,7 @@ public final class SessionUtil {
 	 * @param request
 	 * @return
 	 */
-	public static String getUserID(HttpServletRequest request) {
+	public static String getUserId(HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute("user");
 		return user.getUserId();
 	}

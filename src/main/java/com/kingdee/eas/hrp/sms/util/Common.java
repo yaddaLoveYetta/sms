@@ -31,9 +31,9 @@ import com.mysql.fabric.xmlrpc.base.Data;
 
 public class Common {
 
-/*	public static void main(String[] args) {
-		System.out.println(getBarCodeISN(16));
-	}*/
+	/*
+	 * public static void main(String[] args) { System.out.println(getBarCodeISN(16)); }
+	 */
 
 	/*
 	 * 获取随机的字符
@@ -352,16 +352,23 @@ public class Common {
 		return retSb.toString();
 	}
 
-	public static String createInvoiceNo() {
+	/**
+	 * 创建发货单订单号
+	 * 
+	 * @Title createShipOrderNo
+	 * @return String
+	 * @date 2017-05-20 09:46:06 星期六
+	 */
+	public static String createShipOrderNo() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss", Locale.CHINA);
 		return "Pur-" + sdf.format(new Date()) + RandomUtils.nextInt(1000);
 
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss-", Locale.CHINA);
 		System.out.println("Pur-" + sdf.format(new Date()) + RandomUtils.nextInt(1000));
-		
+
 	}
 }

@@ -71,7 +71,7 @@ public class TemplateController {
 		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10);
 		int pageNo = ParameterUtils.getParameter(request, "pageNo", 1);
 		String userType = SessionUtil.getUserType(request);
-		String userId = SessionUtil.getUserID(request);
+		String userId = SessionUtil.getUserId(request);
 
 		if (classId < 0) {
 			throw new BusinessLogicRunTimeException("参数错误：必须提交classId");
