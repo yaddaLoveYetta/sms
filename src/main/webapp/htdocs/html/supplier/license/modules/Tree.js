@@ -13,7 +13,6 @@ define('Tree', function (require, module, exports) {
     var emitter = MiniQuery.Event.create();
     var container = document.getElementById('tree');
 
-    var classId = 1005;
     var tree = {};
     //默认配置
     var defaults = {
@@ -51,7 +50,7 @@ define('Tree', function (require, module, exports) {
         });
     };
 
-    function render() {
+    function render(classId) {
 
         SMS.Tips.loading("数据加载中...");
         load({

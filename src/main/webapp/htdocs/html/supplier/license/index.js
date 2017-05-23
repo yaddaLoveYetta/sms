@@ -16,7 +16,8 @@
     var Tree = require('Tree');
     var ClassMapping = require('ClassMapping');
 
-    var classId = 1019;
+    var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
+
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
 
@@ -25,6 +26,9 @@
     if (!SMS.Login.check(true)) {
         return;
     }
+
+    // 供应商资质维护tree中显示供应商，物料证件维护tree中显示供应商中标库物料
+    var treeClassId = classId == 1019 ? 1005 : classId == 1022 ? 1020 : 0;
 
     //默认配置
     var defaults = {
@@ -250,6 +254,6 @@
         }
     });
 
-    Tree.render();
+    Tree.render(treeClassId);
 
 })();
