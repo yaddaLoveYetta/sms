@@ -28,7 +28,7 @@
     }
 
     // 供应商资质维护tree中显示供应商，物料证件维护tree中显示供应商中标库物料
-    var treeClassId = classId == 1019 ? 1005 : classId == 1022 ? 1020 : 0;
+    var treeClassId = classId == 3010 ? 1005 : classId == 3020 ? 3030 : 0;
 
     //默认配置
     var defaults = {
