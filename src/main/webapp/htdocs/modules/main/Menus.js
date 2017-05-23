@@ -166,7 +166,7 @@ define('Menus', function (require, module, exports) {
 
         show();
         fixed(hasFixed);
-        $(div).addClass('items-' + list.length);
+        //$(div).addClass('items-' + list.length);
         bindEvents();
     }
 
