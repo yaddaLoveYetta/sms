@@ -70,7 +70,7 @@
 						<entry value-type="java.lang.String" key="/sync/license" value="/sync/license" />
 						<entry value-type="java.lang.String" key="/sync/sync" value="/sync/sync" />
 						<entry value-type="java.lang.String" key="/sync/hrp/sendItem" value="/sync/hrp/sendItem" />
-						
+						<entry value-type="java.lang.String" key="/sync/hrp/delItem" value="/sync/hrp/delItem" />
 					</map>
 				</property>
 			</bean>

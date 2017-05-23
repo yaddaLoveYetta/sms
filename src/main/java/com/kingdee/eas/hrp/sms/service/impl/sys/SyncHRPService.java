@@ -5,7 +5,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +30,11 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 	@Resource
 	ITemplateService templateService;
 
-	@ServiceLog(desc="同步item到HRP")
+	@ServiceLog(desc = "同步item到HRP")
 	@Override
-	public Map<String, String> sendItem(int classId, String data, String userType) {
+	public String sendItem(int classId, String data, String userType) {
 
+		StringBuilder result = new StringBuilder("");
 		String[] idString = data.split(",");
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
 		List<String> idTargetList = new ArrayList<String>();
@@ -53,34 +53,37 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			}
 
 		}
-		Map<String, String> result = new HashMap<String, String>();
-		result.put("size", String.valueOf(targetList.size()));
-		result.put("list", targetList.toString());
 
 		String sessionId = loginInEAS();
-
-		String failId = sendItemByWS(sessionId, targetList.toString());
+		String failId = sendItemByWS(sessionId, targetList.toString(), "sms2hrpSupplier");
 		String[] failIdStr = failId.split(",");
 		List<String> failIdList = new ArrayList<String>(Arrays.asList(failIdStr));
 
 		for (String id : idTargetList) {
 			try {
-				if (!failIdList.contains(id))
-					templateService.editItem(classId, id, "{}", userType);
+				if (failIdList.size() != 0)
+					if (failIdList.contains(id))
+						continue;
+				templateService.editItem(classId, id, "{}", userType);
 			} catch (Exception e) {
+				failIdList.add(id);
 			}
 		}
-		return result;
+		for (String id : failIdList) {
+			Map<String, Object> failData = templateService.getItemById(classId, id, userType);
+			result.append((String) failData.get("number")).append("\n");
+		}
+		return result.toString();
 	}
 
-	private String sendItemByWS(String sessionId, String data) {
+	private String sendItemByWS(String sessionId, String data, String method) {
 
 		String response = "";
 		try {
 			URL url = new URL("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade?wsdl");
 			String nameSpace = "http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade";
 			String headerNamespace = "http://login.webservice.bos.kingdee.com";
-			String method = "sms2hrpSupplier";
+			// String method = "sms2hrpSupplier";
 
 			org.apache.axis.client.Service sv = new org.apache.axis.client.Service();
 			Call call = (Call) sv.createCall();
@@ -103,9 +106,6 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 
 		} catch (RemoteException | ServiceException | MalformedURLException e) {
 			e.printStackTrace();
-			// } catch (SOAPException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
 		}
 
 		return response;
@@ -142,6 +142,35 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			e.printStackTrace();
 		}
 		return sessionId;
+	}
+
+	@Override
+	public String delItem(int classId, String data, String userType) {
+
+		StringBuilder result = new StringBuilder("");
+		String[] idString = data.split(",");
+		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
+
+		String sessionId = loginInEAS();
+		String failId = sendItemByWS(sessionId, data, "sms2hrpSupplier");
+		String[] failIdStr = failId.split(",");
+		List<String> failIdList = new ArrayList<String>(Arrays.asList(failIdStr));
+
+		for (String id : idList) {
+			try {
+				if (failIdList.size() != 0)
+					if (failIdList.contains(id))
+						continue;
+				templateService.delItem(classId, id, userType);
+			} catch (Exception e) {
+				failIdList.add(id);
+			}
+		}
+		for (String id : failIdList) {
+			Map<String, Object> failData = templateService.getItemById(classId, id, userType);
+			result.append((String) failData.get("number")).append("\n");
+		}
+		return result.toString();
 	}
 
 }

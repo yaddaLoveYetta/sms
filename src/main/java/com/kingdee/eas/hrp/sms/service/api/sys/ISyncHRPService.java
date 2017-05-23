@@ -1,7 +1,5 @@
 package com.kingdee.eas.hrp.sms.service.api.sys;
 
-import java.util.Map;
-
 /**
  * @author Sunny
  *
@@ -23,6 +21,21 @@ public interface ISyncHRPService {
 	 * 2017年5月11日下午5:31:13
 	 * @return 
 	 */
-	Map<String, String> sendItem(int classId, String data, String userType);
+	String sendItem(int classId, String data, String userType);
+
+	/**
+	 * 删除item
+	 * Title delItem
+	 * 
+	 * @param classId
+	 * @param data
+	 * @param userType
+	 *
+	 *return void 
+	 *
+	 * 2017年5月11日下午5:31:13
+	 * @return 
+	 */
+	String delItem(int classId, String data, String userType);
 
 }

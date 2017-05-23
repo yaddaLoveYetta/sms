@@ -590,13 +590,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) template.get("formClass");
 
-		// if (formFields.containsKey("syncStatus")) {
-		// StringBuilder data1 = new StringBuilder(data);
-		// int i = data.lastIndexOf("}");
-		// data1.insert(i, ",\"syncStatus\":\"0\"");
-		// data = data1.toString();
-		// }
-
 		// 模板参数
 
 		JSONObject json = JSONObject.parseObject(data);
