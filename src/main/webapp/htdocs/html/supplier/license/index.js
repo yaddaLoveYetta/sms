@@ -64,7 +64,7 @@
             {
                 text: '审核',
                 name: 'check',
-                items:[{
+                items: [{
                     text: '反审核',
                     name: 'unCheck',
                 }],
@@ -125,7 +125,7 @@
                 }
             });
         },
-        'edit': function () {
+        'edit': function (item, index) {
 
             var list = List.getSelectedItems();
 
@@ -167,6 +167,12 @@
 
 
         },
+        'check': function (item, index) {
+            SMS.Tips.info('研发中，敬请期待……', 2000);
+        },
+        'unCheck': function (item, index) {
+            SMS.Tips.info('研发中，敬请期待……', 2000);
+        },
         'send': function (item, index) {
             // 发送到HRP
 
@@ -185,10 +191,10 @@
             MessageBox.confirm('确定要将该记录发送给HRP系统?', function (result) {
                 if (result) {
 
-                    SMS.Tips.info('该功能正在研发中，敬请期待……');
-/*                    List.del(classId, list, function () {
-                        refresh();
-                    });*/
+                    SMS.Tips.info('研发中，敬请期待……');
+                    /*                    List.del(classId, list, function () {
+                     refresh();
+                     });*/
                 }
             });
             return;
