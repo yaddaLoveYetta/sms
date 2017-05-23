@@ -249,16 +249,6 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             return models1.tabIndex > models2.tabIndex;
         });
 
-        /*        for (var i = 0; i < models.length; i++) {
-         for (var j = i + 1; j < models.length; j++) {
-         if (models[i].tabIndex > models[j].tabIndex) {
-         var tmp = models[i];
-         models[i] = models[j];
-         models[j] = tmp;
-         }
-         }
-         }
-         return models;*/
     }
 
     function getImagePath(path) {

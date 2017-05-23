@@ -156,21 +156,7 @@ define('Bill/Head', function (require, module, exports) {
 
                 if (field.ctrlType === 12) {
                     // 日期控件
-                    var key = field.key; // SMS.use 异步作业，field.key容易被覆盖
-                    SMS.use('DateTimePicker', function (DateTimePicker) {
-
-                        new DateTimePicker(document.getElementById(key), {
-                            format: 'yyyy-mm-dd',
-                            autoclose: true,
-                            todayBtn: true,
-                            todayHighlight: true,
-                            timepicker: false,
-                            startView: 'month',
-                            minView: 2,
-                        });
-                    });
-
-
+                    generateDateTimePicker(field.key); // SMS.use 异步作业，field.key容易被覆盖
                 }
             }
 
@@ -187,6 +173,23 @@ define('Bill/Head', function (require, module, exports) {
                 },
             });
 
+        }
+
+        function generateDateTimePicker(key) {
+            // 异步执行，不可放入for循环，否则key存在被覆盖的风险
+            SMS.use('DateTimePicker', function (DateTimePicker) {
+
+                new DateTimePicker(document.getElementById(key), {
+                    format: 'yyyy-mm-dd',
+                    autoclose: true,
+                    todayBtn: true,
+                    todayHighlight: true,
+                    timepicker: false,
+                    startView: 'month',
+                    minView: 2,
+                });
+
+            });
         }
 
         // 字段锁定性处理
