@@ -185,11 +185,27 @@
                 SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
+            // 判断订单类别是否符合发货条件-代销与非代销订单不能合并发货
+            var saleProxy;
+            $.Array.each(list, function (item, index) {
+
+                if (index === 0) {
+                    saleProxy = item.data.saleProxy;
+                    return true;
+                }
+
+                if (item.data.saleProxy !== saleProxy) {
+                    SMS.Tips.error('代销订单不能与非代销订单合并发货');
+                    done = false;
+                    return false;
+                }
+
+            });
             // 判断订单状态是否符合发货条件
             $.Array.each(list, function (item, index) {
                 if (!item.data.confirmTick) {
                     // 供应商没有接单
-                    SMS.Tips.error(item.data.number + ' 还未接单，不能发货');
+                    SMS.Tips.error(item.data.number + ' 供应商未接单，不能发货');
                     done = false;
                     return false;
                 }
@@ -238,9 +254,7 @@
                         'items': items,
                     }),
                     data: {},
-                    button: [
-
-                    ],
+                    button: [],
                 });
 
                 //默认关闭行为为不提交
