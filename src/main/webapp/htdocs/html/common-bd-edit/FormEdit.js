@@ -408,26 +408,29 @@
 
             if (field.ctrlType === 12) {
                 // 日期控件
-                var key = field.key;
-                SMS.use('DateTimePicker', function (DateTimePicker) {
-
-                    new DateTimePicker(getValueElement(key), {
-                        format: 'yyyy-mm-dd',
-                        autoclose: true,
-                        todayBtn: true,
-                        todayHighlight: true,
-                        timepicker: false,
-                        startView: 'month',
-                        minView: 2,
-                    });
-
-                });
-
+                generateDateTimePicker(field.key);
 
             }
         }
         emitter.fire("afterInitDateTimerPicker", []);
 
+    }
+
+    function generateDateTimePicker(key) {
+        // 异步执行，不可放入for循环，否则key存在被覆盖的风险
+        SMS.use('DateTimePicker', function (DateTimePicker) {
+
+            new DateTimePicker(getValueElement(key), {
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayBtn: true,
+                todayHighlight: true,
+                timepicker: false,
+                startView: 'month',
+                minView: 2,
+            });
+
+        });
     }
 
     function show(formClassId, itemId, fnEntry) {
