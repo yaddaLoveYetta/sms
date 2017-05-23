@@ -434,7 +434,7 @@ public class OrderService extends BaseService implements IOrderService {
 		for (int i = 0; i < entryItems.size(); i++) {
 			Map<String, Object> entryItem = entryItems.get(i);
 			entryItem.put("seq", entry1List.size() + 1); // 添加发货单行号
-			entry1List.add(entryItems);
+			entry1List.add(entryItems.get(i));
 		}
 
 		JSONObject entries = new JSONObject();
