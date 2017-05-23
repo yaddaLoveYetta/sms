@@ -180,7 +180,10 @@
                 SMS.Tips.error('请选择要操作的项');
                 return;
             }
-
+            if (list.length > 1) {
+                SMS.Tips.error('一次只能对一条记录进行操作');
+                return;
+            }
             List.review(classId, list, function () {
                 refresh();
             });
@@ -194,6 +197,10 @@
 
             if (list.length == 0) {
                 SMS.Tips.error('请选择要操作的项');
+                return;
+            }
+            if (list.length > 1) {
+                SMS.Tips.error('一次只能对一条记录进行操作');
                 return;
             }
 
@@ -211,7 +218,7 @@
                 return;
             }
             if (list.length > 1) {
-                SMS.Tips.error('只能对一条记录进行操作');
+                SMS.Tips.error('一次只能对一条记录进行操作');
                 return;
             }
             //SMS.Tips.info('该功能正在研发中，敬请期待……');
