@@ -6,10 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
+import org.apache.ibatis.session.SqlSession;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonArray;
+import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Environ;
@@ -22,6 +28,7 @@ import com.kingdee.eas.hrp.sms.util.Environ;
  * @date 2017-05-18 17:49:52 星期四
  */
 public class BillPlugin extends PlugInAdpter {
+	
 
 	@SuppressWarnings("unused")
 	@Override

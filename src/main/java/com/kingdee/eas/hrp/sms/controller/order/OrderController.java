@@ -58,19 +58,6 @@ public class OrderController {
 		// orderservice.updatetickType(json);
 	}
 
-	@ControllerLog(desc = "产生发货单")
-	@RequestMapping(value = "invoice")
-	public void invoice(HttpServletRequest request, HttpServletResponse response) {
-		String items = ParameterUtils.getParameter(request, "items", "");
-		String userType = SessionUtil.getUserType(request);
-		if (items.equals("")) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
-			return;
-		}
-		Map<String, Object> result = orderservice.invoice(items, userType);
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, result);
-	}
-
 	/**
 	 * 采购订单发货<br/>
 	 * 

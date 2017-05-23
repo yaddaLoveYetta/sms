@@ -205,132 +205,7 @@ public class OrderService extends BaseService implements IOrderService {
 		});
 	}
 
-	/**
-	 * 产生发货单
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public Map<String, Object> invoice(String data, String userType) {
-
-		String[] idString = data.split(",");
-		// 表头map
-		Map<String, Object> order = new HashMap<String, Object>();
-		// 表体EntryMap
-		Map<String, Object> orderEntry = new HashMap<String, Object>();
-		// 子表1
-		ArrayList<Object> list = new ArrayList<Object>();
-		// 子表1关联数据
-		Map<String, Object> entry = new HashMap<String, Object>();
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
-		ITemplateService template = Environ.getBean(ITemplateService.class);
-
-		for (int i = 0; i < idList.size(); i++) {
-
-			Map<String, Object> map = template.getItemById(2019, idList.get(i), userType);
-			Map<String, Object> mapEntry = (Map<String, Object>) map.get("entry");
-			ArrayList<Object> arrayList = (ArrayList<Object>) mapEntry.get("1");
-
-			int s = 0;
-			for (int j = 0; j < arrayList.size(); j++) {
-				HashMap<String, Object> orderEntrys = (HashMap<String, Object>) arrayList.get(j);
-				BigDecimal qty = (BigDecimal) orderEntrys.get("qty");
-				if (Integer.parseInt(String.valueOf(map.get("tickType"))) == 0) {
-					throw new BusinessLogicRunTimeException("HRP未同意接单,不可发货");
-				}
-				if (Integer.parseInt(String.valueOf(map.get("saleProxy"))) == 2) {
-					for (int k = 0; k < qty.intValue(); k++) {
-						// 表头数据
-						order.put("number", Common.createShipOrderNo());
-						order.put("Date", sdf.format(new Date()));
-						order.put("logistics", "");
-						order.put("baseType", "采购订单");
-						order.put("logisticsNo", "");
-						order.put("supplier_DspName", map.get("supplier_DspName"));
-						order.put("supplier_NmbName", map.get("supplier_NmbName"));
-						order.put("supplier", map.get("supplier"));
-						order.put("baseStatus", 0);
-						order.put("baseStatus_NmbName", map.get("baseStatus_NmbName"));
-						order.put("baseStatus_DspName", map.get("baseStatus_DspName"));
-
-						order.put("baseStatus", 0); // 发货单状态为新增 内码0
-
-						Map<String, Object> itemById = template.getItemById(1025, "0", "QpXq24FxxE6c3lvHMPyYCxACEAI=");
-						order.put("baseStatus_NmbName", itemById.get("number"));
-						order.put("baseStatus_DspName", itemById.get("name"));
-
-						// 表体数据
-						entry.put("number", map.get("number"));
-						entry.put("orderSeq", orderEntrys.get("seq"));
-						entry.put("material", orderEntrys.get("material"));
-						entry.put("material_NmbName", orderEntrys.get("material_NmbName"));
-						entry.put("material_DspName", orderEntrys.get("material_DspName"));
-						entry.put("price", orderEntrys.get("price"));
-						entry.put("unit", orderEntrys.get("unit"));
-						entry.put("unit_DspName", orderEntrys.get("unit_DspName"));
-						entry.put("unit_NmbName", orderEntrys.get("unit_NmbName"));
-						entry.put("qty", 1);
-						entry.put("amount", orderEntrys.get("price"));
-						entry.put("lot", "");
-						entry.put("dyBatchNum", "");
-						entry.put("code", "");
-						entry.put("dyProDate", "");
-						entry.put("dyManufacturer", "");
-						entry.put("registrationNo", "");
-						entry.put("effectiveDate", "");
-						entry.put("seq", ++s);
-						entry.put("specification", orderEntrys.get("specification"));
-						list.add(entry);
-						orderEntry.put("1", list);
-						order.put("entry", orderEntry);
-					}
-				} else if (Integer.parseInt(String.valueOf(map.get("saleProxy"))) == 1) {
-					// 表头
-					order.put("number", Common.createShipOrderNo());
-					order.put("Date", sdf.format(new Date()));
-					order.put("logistics", "");
-					order.put("baseType", "采购订单");
-					order.put("logisticsNo", "");
-					order.put("supplier", map.get("supplier"));
-					order.put("supplier_DspName", map.get("supplier_DspName"));
-					order.put("supplier_NmbName", map.get("supplier_NmbName"));
-
-					order.put("baseStatus", 0); // 发货单状态为新增 内码0
-
-					Map<String, Object> itemById = template.getItemById(1025, "0", "QpXq24FxxE6c3lvHMPyYCxACEAI=");
-					order.put("baseStatus_NmbName", itemById.get("number"));
-					order.put("baseStatus_DspName", itemById.get("name"));
-					// 表体
-					entry.put("number", map.get("number"));
-					entry.put("orderSeq", orderEntrys.get("seq"));
-					entry.put("material", orderEntrys.get("material"));
-					entry.put("material_NmbName", orderEntrys.get("material_NmbName"));
-					entry.put("material_DspName", orderEntrys.get("material_DspName"));
-					entry.put("price", orderEntrys.get("price"));
-					entry.put("unit", orderEntrys.get("unit"));
-					entry.put("unit_DspName", orderEntrys.get("unit_DspName"));
-					entry.put("unit_NmbName", orderEntrys.get("unit_NmbName"));
-					entry.put("qty", orderEntrys.get("qty"));
-					entry.put("amount", orderEntrys.get("localAmount"));
-					entry.put("lot", "");
-					entry.put("dyBatchNum", "");
-					entry.put("code", "");
-					entry.put("dyProDate", "");
-					entry.put("dyManufacturer", "");
-					entry.put("registrationNo", "");
-					entry.put("effectiveDate", "");
-					entry.put("seq", ++s);
-					entry.put("specification", orderEntrys.get("specification"));
-					list.add(entry);
-					orderEntry.put("1", list);
-					order.put("entry", orderEntry);
-				}
-			}
-		}
-		return order;
-	}
+	
 
 	@Override
 	public Map<String, Object> deliver(String items, String userType, String userId) {
@@ -374,8 +249,15 @@ public class OrderService extends BaseService implements IOrderService {
 			}
 
 			if (purOrder.getIntValue("tickType") == 0) {
-				throw new BusinessLogicRunTimeException("采购订单[" + purOrderNo + "]HRP未确认接单,不可发货");
+				throw new BusinessLogicRunTimeException("采购订单[" + purOrderNo + "]医院未确认接单,不可发货");
 			}
+			int saleProxy = 0;
+			if(i==0){
+				saleProxy = purOrder.getInteger("saleProxy");
+			}else if(saleProxy!=purOrder.getInteger("saleProxy")){
+				throw new BusinessLogicRunTimeException("采购模式不同的订单不能产生一张发货单");
+			}
+			
 
 			if (i == 0) {
 				// 第一张订单-构建发货单表头
@@ -406,6 +288,7 @@ public class OrderService extends BaseService implements IOrderService {
 
 		int saleProxy = purOrder.getIntValue("saleProxy"); // 销售模式 1：非代销 2：代销
 		JSONArray purOrderEntries = purOrder.getJSONObject("entry").getJSONArray("1"); // 采购订单子表数据，值处理第一个子表
+		
 
 		for (int j = 0; j < purOrderEntries.size(); j++) {
 
@@ -778,11 +661,13 @@ public class OrderService extends BaseService implements IOrderService {
 		shipOrderHead.put("logisticsNo", "");
 		shipOrderHead.put("number", Common.createShipOrderNo());
 
-		shipOrderHead.put("baseType", "采购订单");
 		shipOrderHead.put("Date", sdf.format(new Date()));
 		shipOrderHead.put("supplier", purOrder.get("supplier")); // 采购订单"供应商"携带到发货单"供应商"字段
 		shipOrderHead.put("supplier_DspName", purOrder.get("supplier_DspName")); // 采购订单"供应商名称"携带到发货单"供应商名称"字段
 		shipOrderHead.put("supplier_NmbName", purOrder.get("supplier_NmbName")); // 采购订单"供应商代码"携带到发货单"供应商代码"字段
+		shipOrderHead.put("saleProxy", purOrder.get("saleProxy"));//采购订单 "采购模式携带到发货单"单据状态""
+		shipOrderHead.put("saleProxy_DspName", purOrder.get("saleProxy_DspName"));//采购订单 "采购模式名称"
+		shipOrderHead.put("saleProxy_NmbName", purOrder.get("saleProxy_NmbName"));//采购订单 "采购模式代码"
 		shipOrderHead.put("baseStatus", 0);
 
 		Map<String, Object> itemById = templateService.getItemById(1025, "0", "QpXq24FxxE6c3lvHMPyYCxACEAI=");

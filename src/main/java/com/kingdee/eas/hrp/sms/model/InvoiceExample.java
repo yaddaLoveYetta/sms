@@ -495,76 +495,6 @@ public class InvoiceExample {
             return (Criteria) this;
         }
 
-        public Criteria andBaseTypeIsNull() {
-            addCriterion("baseType is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeIsNotNull() {
-            addCriterion("baseType is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeEqualTo(String value) {
-            addCriterion("baseType =", value, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeNotEqualTo(String value) {
-            addCriterion("baseType <>", value, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeGreaterThan(String value) {
-            addCriterion("baseType >", value, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("baseType >=", value, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeLessThan(String value) {
-            addCriterion("baseType <", value, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeLessThanOrEqualTo(String value) {
-            addCriterion("baseType <=", value, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeLike(String value) {
-            addCriterion("baseType like", value, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeNotLike(String value) {
-            addCriterion("baseType not like", value, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeIn(List<String> values) {
-            addCriterion("baseType in", values, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeNotIn(List<String> values) {
-            addCriterion("baseType not in", values, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeBetween(String value1, String value2) {
-            addCriterion("baseType between", value1, value2, "baseType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseTypeNotBetween(String value1, String value2) {
-            addCriterion("baseType not between", value1, value2, "baseType");
-            return (Criteria) this;
-        }
-
         public Criteria andLogisticsNoIsNull() {
             addCriterion("logisticsNo is null");
             return (Criteria) this;
@@ -632,6 +562,66 @@ public class InvoiceExample {
 
         public Criteria andLogisticsNoNotBetween(String value1, String value2) {
             addCriterion("logisticsNo not between", value1, value2, "logisticsNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyIsNull() {
+            addCriterion("saleProxy is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyIsNotNull() {
+            addCriterion("saleProxy is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyEqualTo(Byte value) {
+            addCriterion("saleProxy =", value, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyNotEqualTo(Byte value) {
+            addCriterion("saleProxy <>", value, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyGreaterThan(Byte value) {
+            addCriterion("saleProxy >", value, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyGreaterThanOrEqualTo(Byte value) {
+            addCriterion("saleProxy >=", value, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyLessThan(Byte value) {
+            addCriterion("saleProxy <", value, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyLessThanOrEqualTo(Byte value) {
+            addCriterion("saleProxy <=", value, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyIn(List<Byte> values) {
+            addCriterion("saleProxy in", values, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyNotIn(List<Byte> values) {
+            addCriterion("saleProxy not in", values, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyBetween(Byte value1, Byte value2) {
+            addCriterion("saleProxy between", value1, value2, "saleProxy");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleProxyNotBetween(Byte value1, Byte value2) {
+            addCriterion("saleProxy not between", value1, value2, "saleProxy");
             return (Criteria) this;
         }
     }

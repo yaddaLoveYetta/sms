@@ -22,7 +22,6 @@ public interface IOrderService {
 	 */
 	public void tick(String id, String entry);
 
-	Map<String, Object> invoice(String data, String userType);
 
 	/**
 	 * 采购订单发货<br/>

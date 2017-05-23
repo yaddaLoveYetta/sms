@@ -15,9 +15,9 @@ public class Invoice {
 
     private Byte baseStatus;
 
-    private String baseType;
-
     private String logisticsNo;
+
+    private Byte saleProxy;
 
     public Integer getId() {
         return id;
@@ -67,19 +67,19 @@ public class Invoice {
         this.baseStatus = baseStatus;
     }
 
-    public String getBaseType() {
-        return baseType;
-    }
-
-    public void setBaseType(String baseType) {
-        this.baseType = baseType == null ? null : baseType.trim();
-    }
-
     public String getLogisticsNo() {
         return logisticsNo;
     }
 
     public void setLogisticsNo(String logisticsNo) {
         this.logisticsNo = logisticsNo == null ? null : logisticsNo.trim();
+    }
+
+    public Byte getSaleProxy() {
+        return saleProxy;
+    }
+
+    public void setSaleProxy(Byte saleProxy) {
+        this.saleProxy = saleProxy;
     }
 }
