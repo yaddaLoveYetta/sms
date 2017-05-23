@@ -13,15 +13,15 @@ define('Tree', function (require, module, exports) {
     var emitter = MiniQuery.Event.create();
     var container = document.getElementById('tree');
 
+    var formClassId;
     var tree = {};
     //默认配置
     var defaults = {
-        pageSize: 20,
+        pageSize: 15,
         pageNo: 1,
     };
 
     function load(config, fn) {
-
 
         var api = new API('template/getItems');
 
@@ -52,6 +52,8 @@ define('Tree', function (require, module, exports) {
 
     function render(classId) {
 
+        formClassId = classId;
+
         SMS.Tips.loading("数据加载中...");
         load({
             classId: classId,
@@ -80,6 +82,17 @@ define('Tree', function (require, module, exports) {
     };
 
     function buildTree(treeData) {
+
+        if (formClassId === 1005) {
+            // 供应商
+
+        } else if (formClassId === 3030) {
+            // 中标库
+            treeData = $.Array.keep(treeData, function (item, index) {
+                // tree默认显示array中name属性-中标库模板无name
+                item['name'] = item.materialItem_DspName || '';
+            });
+        }
 
         SMS.use('ZTree', function (zTree) {
 

@@ -6120,6 +6120,7 @@
             },
 
             getTrueZTree: function () {
+                // 获取原始控件
                 var meta = mapper.get(this);
                 return meta.$this;
             },
