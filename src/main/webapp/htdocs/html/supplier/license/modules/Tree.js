@@ -85,13 +85,21 @@ define('Tree', function (require, module, exports) {
 
         if (formClassId === 1005) {
             // 供应商
-
+            treeData = $.Array.keep(treeData, function (item, index) {
+                return {
+                    id: item.id,
+                    pid: 0,
+                    name: item.name || '',
+                }
+            });
         } else if (formClassId === 3030) {
             // 中标库
             treeData = $.Array.keep(treeData, function (item, index) {
-                // tree默认显示array中name属性-中标库模板无name
-                item['name'] = item.materialItem_DspName || '';
-                return item;
+                return {
+                    id: item.id,
+                    pid: 0,
+                    name: item.materialItem_DspName || '',
+                }
             });
         }
 
