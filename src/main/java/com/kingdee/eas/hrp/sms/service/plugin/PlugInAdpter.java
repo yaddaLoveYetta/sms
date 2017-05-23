@@ -27,8 +27,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
 		return result;
 	}
 
@@ -57,4 +56,8 @@ public abstract class PlugInAdpter implements IPlugIn {
 		return result;
 	}
 
+	@Override
+	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType) {
+		return conditon;
+	}
 }

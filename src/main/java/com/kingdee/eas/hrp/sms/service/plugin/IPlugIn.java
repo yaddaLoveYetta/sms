@@ -54,8 +54,7 @@ public interface IPlugIn {
 	 *            业务数据
 	 * @return
 	 */
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userType);
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType);
 
 	/**
 	 * 基础资料修改后操作
@@ -111,5 +110,17 @@ public interface IPlugIn {
 	 * @return
 	 */
 	public PlugInRet afterQuery(int classId, List<Map<String, Object>> list);
+
+	/**
+	 * 
+	 * @Title getConditions
+	 * @param classId
+	 * @param formData
+	 * @param userType
+	 * @return
+	 * @return String
+	 * @date 2017-05-23 17:52:35 星期二
+	 */
+	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType);
 
 }

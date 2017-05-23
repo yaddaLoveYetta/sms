@@ -15,6 +15,7 @@ import com.kingdee.eas.hrp.sms.model.Plugins;
 import com.kingdee.eas.hrp.sms.model.PluginsExample;
 import com.kingdee.eas.hrp.sms.model.PluginsExample.Criteria;
 import com.kingdee.eas.hrp.sms.util.Environ;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 /**
  * 用于生产服务中所需的所有插件，并统一提供所有插件的方法调用
@@ -86,8 +87,7 @@ public class PlugInFactory implements IPlugIn {
 				if (isPlugIn(clazz, "com.kingdee.eas.hrp.sms.service.plugin.IPlugIn")) {
 
 					/**
-					 * 从spring中获取插件bean，如果没有则将插件加入到spring中管理-
-					 * bean注册的名字为插件不包含包名的类名
+					 * 从spring中获取插件bean，如果没有则将插件加入到spring中管理- bean注册的名字为插件不包含包名的类名
 					 */
 					String className = clazz.getName();
 					String beanName = className.substring(className.lastIndexOf(".") + 1);
@@ -116,12 +116,10 @@ public class PlugInFactory implements IPlugIn {
 	private void registerBean(String name, Class clazz) {
 
 		// 将applicationContext转换为ConfigurableApplicationContext
-		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) Environ
-				.getApplicationContext();
+		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) Environ.getApplicationContext();
 
 		// 获取bean工厂并转换为DefaultListableBeanFactory
-		DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext
-				.getBeanFactory();
+		DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory();
 
 		// 通过BeanDefinitionBuilder创建bean定义
 		BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(clazz);
@@ -193,8 +191,7 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
 
 		for (IPlugIn plugin : plugIns) {
 
@@ -255,7 +252,7 @@ public class PlugInFactory implements IPlugIn {
 		for (IPlugIn plugin : plugIns) {
 
 			PlugInRet ret = plugin.beforeQuery(classId, param, userType);
-			//if (ret.getCode() != 200) {
+			// if (ret.getCode() != 200) {
 			if (ret.getData() != null) {
 				// 插件返回了condition查询条件
 				return ret;
@@ -276,6 +273,19 @@ public class PlugInFactory implements IPlugIn {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType) {
+
+		String ret = conditon;
+		for (IPlugIn plugin : plugIns) {
+
+			ret = plugin.getConditions(classId, formData, ret, userType);
+
+		}
+
+		return ret;
 	}
 
 }

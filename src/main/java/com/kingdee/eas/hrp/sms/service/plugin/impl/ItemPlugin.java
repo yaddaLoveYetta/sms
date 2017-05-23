@@ -132,7 +132,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 		JSONArray conditionArry = new JSONArray();
 		JSONObject condition = new JSONObject(true);
-		
+
 		condition.put("andOr", "and");
 		condition.put("fieldKey", "number");
 		condition.put("logicOperator", "=");
@@ -158,7 +158,7 @@ public class ItemPlugin extends PlugInAdpter {
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(data.getString("type"))) {
-				if (data.getString("supplier") != null && !"".equals(data.getString("supplier"))&&!"0".equals(data.getString("supplier"))) {
+				if (data.getString("supplier") != null && !"".equals(data.getString("supplier")) && !"0".equals(data.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
 			}
@@ -224,5 +224,11 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 		}
 		return super.beforeQuery(classId, param, userType);
+	}
+
+	@Override
+	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType) {
+		
+		return super.getConditions(classId, formData, conditon, userType);
 	}
 }

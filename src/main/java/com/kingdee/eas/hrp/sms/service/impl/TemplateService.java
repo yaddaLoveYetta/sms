@@ -185,6 +185,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 			conditionString = conditionArrayTemp1.toJSONString();
 		}
 
+		conditionString = factory.getConditions(classId, template, conditionString, userType);
+
 		// 主表表名
 		String primaryTableName = formClass.getTableName();
 		// 主表主键
