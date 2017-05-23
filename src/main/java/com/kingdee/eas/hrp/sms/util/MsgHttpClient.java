@@ -73,12 +73,6 @@ public class MsgHttpClient {
 
 	/**
 	 * 调用该方法进行即时短信发送.
-	 * 
-	 * @param mobiles
-	 *            手机号码
-	 * @param smsContent
-	 *            发送内容（最多500个汉字或1000个纯英文）
-	 * @return 成功返回0, 失败或异常返回带负号'-'的字符串.
 	 */
 	public String sendSMS(String[] mobiles, String smsContent) {
 		String url = baseUrl + "sendsms.action";
@@ -94,13 +88,6 @@ public class MsgHttpClient {
 	
 	/**
 	 * 调用该方法进行定时短信发送.
-	 * 
-	 * @param mobiles
-	 *            手机号码
-	 * @param smsContent
-	 *            发送内容（最多500个汉字或1000个纯英文）
-	 * @param times yyyymmddhhmmss          
-	 * @return 成功返回0, 失败或异常返回带负号'-'的字符串.
 	 */
 	public String sendtimesMS(String[] mobiles, String smsContent,String times) {
 		String url = baseUrl + "sendtimesms.action";
@@ -127,17 +114,6 @@ public class MsgHttpClient {
 			return resultMap.get("message").toString();
 		}
 		return "获取余额失败";
-	}
-
-	public static void main(String[] args) {
-		String[] mobiles = new String[] { "18802088452","18500303025"};
-		String smsContent = "好好上班！";
-		String times = "20170519155100";
-
-		MsgHttpClient client = MsgHttpClient.getInstance();
-		//client.sendSMS(mobiles, smsContent);
-		client.sendtimesMS(mobiles, smsContent, times);
-		//System.out.println(client.getBalance());
 	}
 
 }
