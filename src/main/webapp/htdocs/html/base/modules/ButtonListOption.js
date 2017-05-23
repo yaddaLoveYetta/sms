@@ -19,15 +19,7 @@ define('ButtonListOption', function (require, module, exports) {
                 }, {
                     text: '刷新',
                     name: 'refresh',
-                },
-                    {
-                        text: '接单',
-                        name: 'enable',
-                        items: [{
-                            text: '反接单',
-                            name: 'disable'
-                        }],
-                    }
+                }
                 ]
             };
         } else if (classId == 1003) {
