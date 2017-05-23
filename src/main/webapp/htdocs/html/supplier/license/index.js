@@ -225,15 +225,30 @@
     function refresh(data) {
 
         if (data) {
-            conditions['id'] = {
-                'andOr': 'AND',
-                'leftParenTheses': '(',
-                'fieldKey': 'supplier',
-                'logicOperator': '=',
-                'value': data.id,
-                'rightParenTheses': ')',
-                'needConvert': false,
-            };
+
+            if (treeClassId === 1005) {
+                // 供应商
+                conditions['id'] = {
+                    'andOr': 'AND',
+                    'leftParenTheses': '(',
+                    'fieldKey': 'supplier',
+                    'logicOperator': '=',
+                    'value': data.id,
+                    'rightParenTheses': ')',
+                    'needConvert': false,
+                };
+            } else if (treeClassId === 3030) {
+                // 中标库
+                conditions['id'] = {
+                    'andOr': 'AND',
+                    'leftParenTheses': '(',
+                    'fieldKey': 'materialItem',
+                    'logicOperator': '=',
+                    'value': data.id,
+                    'rightParenTheses': ')',
+                    'needConvert': false,
+                };
+            }
         }
 
         List.render({
