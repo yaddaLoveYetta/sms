@@ -53,12 +53,14 @@ define('Tree', function (require, module, exports) {
 
     function render() {
 
+        SMS.Tips.loading("数据加载中...");
         load({
             classId: classId,
             pageNo: 1,
             pageSize: defaults.pageSize,
             conditions: [],
         }, function (data, pageSize) {
+            SMS.Tips.success("数据加载成功", 1500);
             buildTree(data.list || []);
             SupplierPager.render({
                 size: pageSize,
