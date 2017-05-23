@@ -125,6 +125,20 @@ dd {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.sms-F7selector span[data-role="btnDisalbe"] {
+    vertical-align: top;
+    display: inline-block;
+    background: #ddd;
+    cursor: pointer;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    background: url(../img/ui_kit_updt.png);
+    height: 24px;
+    width: 24px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 .sms-F7selector input {
     border: 1px solid #dddddd;
