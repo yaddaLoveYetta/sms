@@ -96,7 +96,7 @@ define('Tree', function (require, module, exports) {
             // 中标库
             treeData = $.Array.keep(treeData, function (item, index) {
                 return {
-                    id: item.id,
+                    id: item.supplier,
                     pid: 0,
                     name: item.materialItem_DspName || '',
                 }
@@ -119,7 +119,7 @@ define('Tree', function (require, module, exports) {
 
             if (treeData.length > 0) {
 
-                var node = tree.getNodeByParam('id', treeData[0].id, null);//获取第一个供应商
+                var node = tree.getNodeByParam('id', treeData[0].id, null);//获取第一个
                 tree.selectNode(node);//选择点
                 tree.getTrueZTree().setting.callback.onClick(null, tree.getTrueZTree().setting.treeId, node);//调用事件
 

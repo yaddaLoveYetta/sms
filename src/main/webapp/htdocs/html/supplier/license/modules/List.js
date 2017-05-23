@@ -1,6 +1,6 @@
 ﻿/**
  * List 模块
- * 
+ *
  */
 define("List", function (require, module, exports) {
     var $ = require("$");
@@ -39,8 +39,8 @@ define("List", function (require, module, exports) {
 
     function getHtml(type, data) {
         /*
-		 * if ( typeof data == 'boolean') { data = data ? '是' : '否'; }
-		 */
+         * if ( typeof data == 'boolean') { data = data ? '是' : '否'; }
+         */
         if (data == null) {
             data = "";
         }
@@ -119,7 +119,7 @@ define("List", function (require, module, exports) {
                     return $.String.format(samples["tdtotal"], {
                         index: index,
                         key: field.key,
-                        needTotal: field.isCount=="1",//(field.type == 1 && field.lookupType == 0),
+                        needTotal: field.isCount == "1",//(field.type == 1 && field.lookupType == 0),
                         width: field.width
                     });
                 }).join("")
@@ -273,6 +273,15 @@ define("List", function (require, module, exports) {
     function del(classId, list, fn) {
         Operation.del(classId, list, fn);
     }
+
+    function review(classId, list, fn) {
+        Operation.review(classId, list, fn);
+    }
+
+    function unReview(classId, list, fn) {
+        Operation.unReview(classId, list, fn);
+    }
+
     return {
         load: load,
         render: render,
@@ -281,6 +290,8 @@ define("List", function (require, module, exports) {
         getPrimaryKey: getPrimaryKey,
         del: del,
         getFilterItems: getFilterItems,
-        forbid: forbid
+        forbid: forbid,
+        review: review,
+        unReview: unReview,
     };
 });

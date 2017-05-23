@@ -118,7 +118,7 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要删除的项');
+                SMS.Tips.error('请选择要操作的项');
                 return;
             }
             MessageBox.confirm('确定删除选择的项?', function (result) {
@@ -173,6 +173,19 @@
         },
         'check': function (item, index) {
             SMS.Tips.info('研发中，敬请期待……', 2000);
+
+            var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择要操作的项');
+                return;
+            }
+
+            List.check(classId, list, function () {
+                refresh();
+            });
+
+
         },
         'unCheck': function (item, index) {
             SMS.Tips.info('研发中，敬请期待……', 2000);
