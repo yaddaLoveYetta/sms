@@ -334,7 +334,7 @@
                     mustInput: item.mustInput ? $.String.format(samples["td.mustInput"], {}) : "",
                     name: item.name,
                     key: item.key,
-                   // disabled: item.lookUpType && item.lookUpType == 3 ? "disabled" : "", // 辅助属性不可编辑
+                    // disabled: item.lookUpType && item.lookUpType == 3 ? "disabled" : "", // 辅助属性不可编辑
                 });
 
             }).join(""),
@@ -408,10 +408,10 @@
 
             if (field.ctrlType === 12) {
                 // 日期控件
-
+                var key = field.key;
                 SMS.use('DateTimePicker', function (DateTimePicker) {
 
-                    new DateTimePicker(getValueElement(field.key), {
+                    new DateTimePicker(getValueElement(key), {
                         format: 'yyyy-mm-dd',
                         autoclose: true,
                         todayBtn: true,
