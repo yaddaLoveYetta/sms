@@ -221,15 +221,15 @@
                 SMS.Tips.error('一次只能对一条记录进行操作');
                 return;
             }
-            //SMS.Tips.info('该功能正在研发中，敬请期待……');
+            if (list[0].review === 0) {
+                SMS.Tips.error('该记录未审核，不可发送');
+                return;
+            }
 
             MessageBox.confirm('确定要将该记录发送给HRP系统?', function (result) {
                 if (result) {
 
                     SMS.Tips.info('研发中，敬请期待……');
-                    /*                    List.del(classId, list, function () {
-                     refresh();
-                     });*/
                 }
             });
             return;
