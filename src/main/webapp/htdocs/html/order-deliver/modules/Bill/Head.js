@@ -205,7 +205,7 @@ define('Bill/Head', function (require, module, exports) {
                 var field = fields[item];
                 var keyName = field['key'];
                 var lookUpClassId = field['lookUpClassID'];
-                var element = document.getElementById(keyName);
+                var element = $(keyName);
 
                 if (!element) {
                     continue;
