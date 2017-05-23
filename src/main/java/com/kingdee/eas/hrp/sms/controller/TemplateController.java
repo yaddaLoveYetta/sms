@@ -79,8 +79,7 @@ public class TemplateController {
 
 		// sqlserver ROW_BUMBER分页一定要设置 orderBy--此处指定默认
 
-		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType,
-				userId);
+		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType, userId);
 
 		ResponseWriteUtil.output(response, result);
 
@@ -192,6 +191,15 @@ public class TemplateController {
 
 	}
 
+	/**
+	 * 删除基础资料
+	 * 
+	 * @Title delItem
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-05-23 16:09:51 星期二
+	 */
 	@RequestMapping(value = "delItem")
 	public void delItem(HttpServletRequest request, HttpServletResponse response) {
 
@@ -213,6 +221,66 @@ public class TemplateController {
 
 		ResponseWriteUtil.output(response, "删除成功！");
 
+	}
+
+	/**
+	 * 审核基础资料
+	 * 
+	 * @Title checkItem
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-05-23 16:10:07 星期二
+	 */
+	@RequestMapping(value="checkItem")
+	public void checkItem(HttpServletRequest request, HttpServletResponse response) {
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		String items = ParameterUtils.getParameter(request, "items", "");
+		String userType = SessionUtil.getUserType(request);
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+
+		if (items.length() == 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交items");
+			return;
+		}
+
+		templateService.checkItem(classId, items, userType);
+
+		ResponseWriteUtil.output(response, "审核成功！");
+	}
+
+	/**
+	 * 反审核基础资料
+	 * 
+	 * @Title unCheckItem
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-05-23 16:10:07 星期二
+	 */
+	@RequestMapping(value="unCheckItem")
+	public void unCheckItem(HttpServletRequest request, HttpServletResponse response) {
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		String items = ParameterUtils.getParameter(request, "items", "");
+		String userType = SessionUtil.getUserType(request);
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+
+		if (items.length() == 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交items");
+			return;
+		}
+
+		templateService.unCheckItem(classId, items, userType);
+
+		ResponseWriteUtil.output(response, "反审核成功！");
 	}
 
 	@RequestMapping(value = "delItemByHRP")

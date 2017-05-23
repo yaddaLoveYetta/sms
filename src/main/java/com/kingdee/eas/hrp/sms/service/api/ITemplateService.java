@@ -54,8 +54,7 @@ public interface ITemplateService {
 	 * @return Map<String,Object>
 	 * @date 2017-04-20 13:49:24 星期四
 	 */
-	Map<String, Object> getItems(int classId, String condition, String orderBy, int pageNo, int pageSize,
-			String userType, String userId);
+	Map<String, Object> getItems(int classId, String condition, String orderBy, int pageNo, int pageSize, String userType, String userId);
 
 	/**
 	 * 根据模板查询单个业务数据，如查询id=2的物料
@@ -103,9 +102,38 @@ public interface ITemplateService {
 	 * @param classId
 	 *            业务类型
 	 * @param items
-	 *            待删除的基础资料内码集合 void
+	 *            待删除的基础资料内码集合
+	 * @return void
 	 * @return
 	 * @date 2017-05-02 17:49:38 星期二
 	 */
 	void delItem(Integer classId, String items, String userType);
+
+	/**
+	 * 审核基础资料
+	 * 
+	 * @Title checkItem
+	 * @param classId
+	 *            业务类型
+	 * @param items
+	 *            待审核的基础资料内码集合
+	 * @param userType
+	 * @return void
+	 * @date 2017-05-23 16:11:01 星期二
+	 */
+	void checkItem(Integer classId, String items, String userType);
+
+	/**
+	 * 反审核
+	 * 
+	 * @Title checkItem
+	 * @param classId
+	 *            业务类型
+	 * @param items
+	 *            待反审核的基础资料内码集合
+	 * @param userType
+	 * @return void
+	 * @date 2017-05-23 16:48:45 星期二
+	 */
+	void unCheckItem(Integer classId, String items, String userType);
 }

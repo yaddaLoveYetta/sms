@@ -11,7 +11,7 @@
 	</select>
 
 	<!-- 增加基础资料 -->
-	<insert id="add" parameterType="HashMap" >
+	<insert id="add" parameterType="HashMap">
 		insert into ${tableName} (${
 		fieldStr}) values(${valueStr})
 	</insert>
@@ -23,6 +23,16 @@
 	<!--删除基础资料 -->
 	<delete id="del" parameterType="HashMap">
 		delete from ${tableName} where ${primaryKey} in ( ${items}
+		)
+	</delete>
+	<!--审核基础资料 -->
+	<delete id="check" parameterType="HashMap">
+		update ${tableName} set review=1 where ${primaryKey} in ( ${items}
+		)
+	</delete>
+	<!--反审核基础资料 -->
+	<delete id="unCheck" parameterType="HashMap">
+		update ${tableName} set review=0 where ${primaryKey} in ( ${items}
 		)
 	</delete>
 </mapper>

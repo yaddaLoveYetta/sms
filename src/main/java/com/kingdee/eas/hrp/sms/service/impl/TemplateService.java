@@ -266,7 +266,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		statementParam.put("orderby", orderByStr);
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
-		//DruidDataSource ds = Environ.getBean(DruidDataSource.class);
+		// DruidDataSource ds = Environ.getBean(DruidDataSource.class);
 
 		if (pageNo == 1) {
 			PageHelper.startPage(pageNo, pageSize, true);
@@ -632,6 +632,107 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public void delItem(Integer classId, String items, String userType) {
+
+		// 基础资料模板
+		Map<String, Object> template = getFormTemplate(classId, 1);
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) template.get("formClass");
+		// 主表字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+
+		String primaryTableName = formClass.getTableName();
+		String primaryKey = formClass.getPrimaryKey();
+		FormFields ff = formFields.get(primaryKey);
+		int dataType = ff.getDataType();
+
+		PlugInRet result = new PlugInRet();
+		PlugInFactory factory = new PlugInFactory(classId);
+		result = factory.beforeDelete(classId, template, items, userType);
+
+		if (result != null && result.getCode() != 200) {
+			throw new PlugInRuntimeException(result.getMsg());
+		}
+
+		// 子表资料描述信息
+		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
+		// 先删除分录数据（子表）
+
+		delEntryData(formEntries, items);
+
+		// 再删除基础资料（主表）
+
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+
+		// 准备删除模板
+		Map<String, Object> statement = prepareStatement(items, primaryTableName, primaryKey, dataType);
+		if (!statement.isEmpty()) {
+			templateDaoMapper.del(statement);
+		}
+
+		result = factory.afterDelete(classId, items);
+
+		if (result != null && result.getCode() != 200) {
+			throw new PlugInRuntimeException(result.getMsg());
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public void checkItem(Integer classId, String items, String userType) {
+
+		// 基础资料模板
+		Map<String, Object> template = getFormTemplate(classId, 1);
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) template.get("formClass");
+		// 主表字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+
+		String primaryTableName = formClass.getTableName();
+		String primaryKey = formClass.getPrimaryKey();
+		FormFields ff = formFields.get(primaryKey);
+		int dataType = ff.getDataType();
+
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+
+		Map<String, Object> statement = prepareStatement(items, primaryTableName, primaryKey, dataType);
+
+		if (!statement.isEmpty()) {
+			templateDaoMapper.check(statement);
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public void unCheckItem(Integer classId, String items, String userType) {
+
+		// 基础资料模板
+		Map<String, Object> template = getFormTemplate(classId, 1);
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) template.get("formClass");
+		// 主表字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
+
+		String primaryTableName = formClass.getTableName();
+		String primaryKey = formClass.getPrimaryKey();
+		FormFields ff = formFields.get(primaryKey);
+		int dataType = ff.getDataType();
+
+		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+
+		Map<String, Object> statement = prepareStatement(items, primaryTableName, primaryKey, dataType);
+
+		if (!statement.isEmpty()) {
+			templateDaoMapper.unCheck(statement);
+		}
+
+	}
+
 	/**
 	 * 判断List<Map<String, Object>>中的Map中key为targetKey的元素的值是否为targetValue，是则并返回该元素，否则返回null
 	 * 
@@ -867,7 +968,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 					// 普通引用-引用其他表数据
 
 					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
-					
+
 					// if (dataType != null && dataType == 2) {
 					// // 文本类的关联字段，未防止关联表中无记录，此处取主表字段值-如订单查询CarNo字段取数
 					// sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter,
@@ -1645,7 +1746,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		return map;
 	}
 
-	private Map<String, Object> prepareDeleteMap(String data, String primaryTableName, String primaryKey, int dataType) {
+	private Map<String, Object> prepareStatement(String data, String primaryTableName, String primaryKey, int dataType) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -1684,55 +1785,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 		return map;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void delItem(Integer classId, String items, String userType) {
-
-		// 基础资料模板
-		Map<String, Object> template = getFormTemplate(classId, 1);
-		// 主表资料描述信息
-		FormClass formClass = (FormClass) template.get("formClass");
-		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) template.get("formFields")).get("0"); // 主表的字段模板
-
-		String primaryTableName = formClass.getTableName();
-		String primaryKey = formClass.getPrimaryKey();
-		FormFields ff = formFields.get(primaryKey);
-		int dataType = ff.getDataType();
-
-		PlugInRet result = new PlugInRet();
-		PlugInFactory factory = new PlugInFactory(classId);
-		result = factory.beforeDelete(classId, template, items, userType);
-
-		if (result != null && result.getCode() != 200) {
-			throw new PlugInRuntimeException(result.getMsg());
-		}
-
-		// 子表资料描述信息
-		Map<String, Object> formEntries = (Map<String, Object>) template.get("formEntries");
-		// 先删除分录数据（子表）
-
-		delEntryData(formEntries, items);
-
-		// 再删除基础资料（主表）
-
-		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
-
-		// 准备删除模板
-		Map<String, Object> statement = prepareDeleteMap(items, primaryTableName, primaryKey, dataType);
-		if (!statement.isEmpty()) {
-			templateDaoMapper.del(statement);
-		}
-
-		result = factory.afterDelete(classId, items);
-
-		if (result != null && result.getCode() != 200) {
-			throw new PlugInRuntimeException(result.getMsg());
-		}
-
-	}
-
 	/**
 	 * 处理分录数据
 	 * 
@@ -1761,4 +1813,5 @@ public class TemplateService extends BaseService implements ITemplateService {
 			templateDaoMapper.del(statement);
 		}
 	}
+
 }
