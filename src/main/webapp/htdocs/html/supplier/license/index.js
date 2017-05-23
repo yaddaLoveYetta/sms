@@ -181,7 +181,7 @@
                 return;
             }
 
-            List.check(classId, list, function () {
+            List.review(classId, list, function () {
                 refresh();
             });
 
@@ -189,6 +189,17 @@
         },
         'unCheck': function (item, index) {
             SMS.Tips.info('研发中，敬请期待……', 2000);
+
+            var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择要操作的项');
+                return;
+            }
+
+            List.unReview(classId, list, function () {
+                refresh();
+            });
         },
         'send': function (item, index) {
             // 发送到HRP
@@ -242,7 +253,7 @@
                 conditions['id'] = {
                     'andOr': 'AND',
                     'leftParenTheses': '(',
-                    'fieldKey': 'materialItem',
+                    'fieldKey': 'item',
                     'logicOperator': '=',
                     'value': data.id,
                     'rightParenTheses': ')',
