@@ -46,7 +46,7 @@
     var blConfig = {
         'items': [
             {
-                text: '添加',
+                text: '新增',
                 name: 'add',
             },
             {
@@ -54,7 +54,7 @@
                 name: 'del',
             },
             {
-                text: '编辑',
+                text: '修改',
                 name: 'edit',
             },
             {
@@ -62,7 +62,15 @@
                 name: 'refresh',
             },
             {
-                text: '发送到HRP',
+                text: '审核',
+                name: 'check',
+                items:[{
+                    text: '反审核',
+                    name: 'unCheck',
+                }],
+            },
+            {
+                text: '发送到医院',
                 name: 'send',
             }]
     };
