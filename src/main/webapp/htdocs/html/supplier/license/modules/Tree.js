@@ -91,6 +91,7 @@ define('Tree', function (require, module, exports) {
             treeData = $.Array.keep(treeData, function (item, index) {
                 // tree默认显示array中name属性-中标库模板无name
                 item['name'] = item.materialItem_DspName || '';
+                return item;
             });
         }
 
