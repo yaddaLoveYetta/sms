@@ -22,8 +22,11 @@ define('Bill/Head', function (require, module, exports) {
 
         var selectors = {};
         var fnSelectors;
+        var id; // 单据内码-判断是新增还是修改
 
-        function render(metaData, data) {
+        function render(metaData, data, itemId) {
+
+            id = itemId;
 
             template = metaData.template;
             visibleTemplate = metaData.visibleTemplate;
@@ -189,7 +192,7 @@ define('Bill/Head', function (require, module, exports) {
         // 字段锁定性处理
         function lockControls(metaData) {
 
-            var isUpdate = !!itemId;//是否是修改
+            var isUpdate = !!id;//是否是修改
 
             if (!metaData || !metaData['formFields'] || !metaData['formFields'][0]) {
                 SMS.Tips.error('元数据错误，请联系管理员');

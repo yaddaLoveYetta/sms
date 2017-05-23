@@ -18,6 +18,7 @@ define('Bill', function (require, module, exports) {
     var visibleTemplate = {};
     var billData = {};
     var headData = {};
+    var itemId;
 
     function load(config, fn) {
         SMS.Tips.loading("数据加载中...");
@@ -34,6 +35,9 @@ define('Bill', function (require, module, exports) {
         load(config, function (data) {
             // 填充数据
             console.log(data);
+
+            itemId = data.data.headData[data.template.formClass.primaryKey] || 0; // 单据内码
+
             Head.render(data, data.data.headData);
             // Entry.render(data.visibleTemplate, data.data.entryData);
             Entry.render(data.template, data.data.entryData);
