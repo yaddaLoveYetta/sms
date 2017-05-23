@@ -32,6 +32,8 @@ define('Bill/Head', function (require, module, exports) {
 
             initControls(metaData.visibleTemplate);// 特殊控件初始化
 
+            lockControls(metaData.template);// 控件锁定性(是否可编辑)处理
+
             fill(metaData.template, data);
         }
 
@@ -182,6 +184,69 @@ define('Bill/Head', function (require, module, exports) {
                 },
             });
 
+        }
+
+        // 字段锁定性处理
+        function lockControls(metaData) {
+
+            var isUpdate = !!itemId;//是否是修改
+
+            if (!metaData || !metaData['formFields'] || !metaData['formFields'][0]) {
+                SMS.Tips.error('元数据错误，请联系管理员');
+                return;
+            }
+            var fields = metaData['formFields'][0];
+
+            for (var item in fields) {
+
+                var field = fields[item];
+                var keyName = field['key'];
+                var lookUpClassId = field['lookUpClassID'];
+                var element = document.getElementById(keyName);
+
+                if (!element) {
+                    continue;
+                }
+
+                var lockMaskDisplay = 0;
+
+                if (isUpdate) {
+                    //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
+                    if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                        // 平台用户
+                        lockMaskDisplay = 2;
+                    } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                        //供应商用户
+                        lockMaskDisplay = 8;
+                    }
+                } else {
+                    //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
+                    if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                        // 平台用户
+                        lockMaskDisplay = 1;
+                    } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                        //物业用户
+                        lockMaskDisplay = 4;
+                    }
+                }
+                var lockMask = field['lock'] || 0;
+                //是否锁定
+                var isLock = !!(lockMask & lockMaskDisplay);
+
+
+                //锁定处理
+                if (isLock) {
+
+                    if (field['ctrlType'] == 6) {
+                        //F7选择框处理
+                        selectors[keyName].lock();
+                    } else {
+                        element.prop("disabled", "disabled");
+                    }
+                } else {
+                    element.prop("disabled", "");
+                }
+            }
         }
 
         // 填充页面数据

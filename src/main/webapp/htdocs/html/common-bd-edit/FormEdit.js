@@ -272,7 +272,6 @@
             var domId = $(item).attr("id").replace("bd-", "");
             if ($.inArray(domId, fildKeys) < 0) {
                 $(item).parents("tr").remove();
-                ;
             }
         });
     }
