@@ -233,6 +233,7 @@ public class OrderService extends BaseService implements IOrderService {
 		}
 
 		String supplier = "";
+		int saleProxy = 0;
 
 		// 循环采购订单，构建发货单
 		// 多张订单合并时，发货单单据头只携带第一张采购订单数据
@@ -251,7 +252,9 @@ public class OrderService extends BaseService implements IOrderService {
 			if (purOrder.getIntValue("tickType") == 0) {
 				throw new BusinessLogicRunTimeException("采购订单[" + purOrderNo + "]医院未确认接单,不可发货");
 			}
-			int saleProxy = 0;
+			
+			
+			
 			if(i==0){
 				saleProxy = purOrder.getInteger("saleProxy");
 			}else if(saleProxy!=purOrder.getInteger("saleProxy")){

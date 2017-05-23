@@ -13,8 +13,6 @@ public class Invoice {
 
     private String logistics;
 
-    private Byte baseStatus;
-
     private String logisticsNo;
 
     private Byte saleProxy;
@@ -57,14 +55,6 @@ public class Invoice {
 
     public void setLogistics(String logistics) {
         this.logistics = logistics == null ? null : logistics.trim();
-    }
-
-    public Byte getBaseStatus() {
-        return baseStatus;
-    }
-
-    public void setBaseStatus(Byte baseStatus) {
-        this.baseStatus = baseStatus;
     }
 
     public String getLogisticsNo() {

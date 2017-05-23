@@ -7,9 +7,8 @@
     <result column="Date" jdbcType="TIMESTAMP" property="date" />
     <result column="supplier" jdbcType="VARCHAR" property="supplier" />
     <result column="logistics" jdbcType="VARCHAR" property="logistics" />
-    <result column="baseStatus" jdbcType="TINYINT" property="baseStatus" />
-    <result column="baseType" jdbcType="VARCHAR" property="baseType" />
     <result column="logisticsNo" jdbcType="VARCHAR" property="logisticsNo" />
+    <result column="saleProxy" jdbcType="TINYINT" property="saleProxy" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, [number], [Date], supplier, logistics, baseStatus, baseType, logisticsNo
+    id, [number], [Date], supplier, logistics, logisticsNo, saleProxy
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.InvoiceExample" resultMap="BaseResultMap">
     select
@@ -104,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
     insert into t_sms_invoice (id, [number], [Date], 
-      supplier, logistics, baseStatus, 
-      baseType, logisticsNo)
+      supplier, logistics, logisticsNo, 
+      saleProxy)
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
-      #{supplier,jdbcType=VARCHAR}, #{logistics,jdbcType=VARCHAR}, #{baseStatus,jdbcType=TINYINT}, 
-      #{baseType,jdbcType=VARCHAR}, #{logisticsNo,jdbcType=VARCHAR})
+      #{supplier,jdbcType=VARCHAR}, #{logistics,jdbcType=VARCHAR}, #{logisticsNo,jdbcType=VARCHAR}, 
+      #{saleProxy,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
     insert into t_sms_invoice
@@ -128,14 +127,11 @@
       <if test="logistics != null">
         logistics,
       </if>
-      <if test="baseStatus != null">
-        baseStatus,
-      </if>
-      <if test="baseType != null">
-        baseType,
-      </if>
       <if test="logisticsNo != null">
         logisticsNo,
+      </if>
+      <if test="saleProxy != null">
+        saleProxy,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -154,14 +150,11 @@
       <if test="logistics != null">
         #{logistics,jdbcType=VARCHAR},
       </if>
-      <if test="baseStatus != null">
-        #{baseStatus,jdbcType=TINYINT},
-      </if>
-      <if test="baseType != null">
-        #{baseType,jdbcType=VARCHAR},
-      </if>
       <if test="logisticsNo != null">
         #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="saleProxy != null">
+        #{saleProxy,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -189,14 +182,11 @@
       <if test="record.logistics != null">
         logistics = #{record.logistics,jdbcType=VARCHAR},
       </if>
-      <if test="record.baseStatus != null">
-        baseStatus = #{record.baseStatus,jdbcType=TINYINT},
-      </if>
-      <if test="record.baseType != null">
-        baseType = #{record.baseType,jdbcType=VARCHAR},
-      </if>
       <if test="record.logisticsNo != null">
         logisticsNo = #{record.logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleProxy != null">
+        saleProxy = #{record.saleProxy,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -210,9 +200,8 @@
       [Date] = #{record.date,jdbcType=TIMESTAMP},
       supplier = #{record.supplier,jdbcType=VARCHAR},
       logistics = #{record.logistics,jdbcType=VARCHAR},
-      baseStatus = #{record.baseStatus,jdbcType=TINYINT},
-      baseType = #{record.baseType,jdbcType=VARCHAR},
-      logisticsNo = #{record.logisticsNo,jdbcType=VARCHAR}
+      logisticsNo = #{record.logisticsNo,jdbcType=VARCHAR},
+      saleProxy = #{record.saleProxy,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -232,14 +221,11 @@
       <if test="logistics != null">
         logistics = #{logistics,jdbcType=VARCHAR},
       </if>
-      <if test="baseStatus != null">
-        baseStatus = #{baseStatus,jdbcType=TINYINT},
-      </if>
-      <if test="baseType != null">
-        baseType = #{baseType,jdbcType=VARCHAR},
-      </if>
       <if test="logisticsNo != null">
         logisticsNo = #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="saleProxy != null">
+        saleProxy = #{saleProxy,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -250,9 +236,8 @@
       [Date] = #{date,jdbcType=TIMESTAMP},
       supplier = #{supplier,jdbcType=VARCHAR},
       logistics = #{logistics,jdbcType=VARCHAR},
-      baseStatus = #{baseStatus,jdbcType=TINYINT},
-      baseType = #{baseType,jdbcType=VARCHAR},
-      logisticsNo = #{logisticsNo,jdbcType=VARCHAR}
+      logisticsNo = #{logisticsNo,jdbcType=VARCHAR},
+      saleProxy = #{saleProxy,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

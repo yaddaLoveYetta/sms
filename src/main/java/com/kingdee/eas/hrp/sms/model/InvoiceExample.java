@@ -435,66 +435,6 @@ public class InvoiceExample {
             return (Criteria) this;
         }
 
-        public Criteria andBaseStatusIsNull() {
-            addCriterion("baseStatus is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusIsNotNull() {
-            addCriterion("baseStatus is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusEqualTo(Byte value) {
-            addCriterion("baseStatus =", value, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusNotEqualTo(Byte value) {
-            addCriterion("baseStatus <>", value, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusGreaterThan(Byte value) {
-            addCriterion("baseStatus >", value, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("baseStatus >=", value, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusLessThan(Byte value) {
-            addCriterion("baseStatus <", value, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("baseStatus <=", value, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusIn(List<Byte> values) {
-            addCriterion("baseStatus in", values, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusNotIn(List<Byte> values) {
-            addCriterion("baseStatus not in", values, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusBetween(Byte value1, Byte value2) {
-            addCriterion("baseStatus between", value1, value2, "baseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("baseStatus not between", value1, value2, "baseStatus");
-            return (Criteria) this;
-        }
-
         public Criteria andLogisticsNoIsNull() {
             addCriterion("logisticsNo is null");
             return (Criteria) this;
