@@ -46,6 +46,15 @@ define('ButtonListOption', function (require, module, exports) {
                 }, {
                     text: '刷新',
                     name: 'refresh',
+                }, {
+                    text: '审核',
+                    name: 'check',
+                    items: [
+                        {
+                            text: '反审核',
+                            name: 'unCheck',
+                        }
+                    ],
                 }]
             };
         } else if (classId == 1007) {
