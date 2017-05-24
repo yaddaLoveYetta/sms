@@ -104,7 +104,7 @@ define('Bill/Entry', function (require, module, exports) {
 
             var addData = {
                 data: $.Object.grep(item, function (key, value) {
-                    return !!value;
+                    return value === null;
                 }),
                 flag: '1'
             };
