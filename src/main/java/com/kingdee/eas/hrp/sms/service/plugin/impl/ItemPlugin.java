@@ -95,8 +95,12 @@ public class ItemPlugin extends PlugInAdpter {
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
 
 		checkMustInput(classId, formData, data, userType);
-
+		
+		if(classId / 100 == 10){
+		
 		checkIfExistRecord(classId, id, formData, data, userType);
+		
+		}
 
 		return super.beforeModify(classId, id, formData, data, userType);
 	}
