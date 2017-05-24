@@ -75,17 +75,28 @@ define('Bill', function (require, module, exports) {
             billData.successData['entry'] = entry.entryData;
         }
 
-        submit(billData.successData, function (data) {
+        submit(itemId, billData.successData, function (data) {
+            itemId = data.id;// 新增成功后记录id，界面变修改逻辑
+            if (itemId) {
+                SMS.Tips.success("修改发货单成功", 1500);
+            }
+            SMS.Tips.success("新增发货单成功", 1500);
+
             fn && fn(data);
         });
     }
 
-    function submit(data, fn) {
+    function submit(itemId, data, fn) {
 
-        var api = new $API('template/addItem');
+        var action = 'template/addItem';
+        if (itemId) {
+            action = 'template/editItem';
+        }
+        var api = new $API(action);
 
         api.post({
             classId: classId,
+            id: itemId,
             data: data,
         });
 

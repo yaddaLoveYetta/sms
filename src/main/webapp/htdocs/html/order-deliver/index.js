@@ -35,7 +35,7 @@
         },
         'optSave': function () {
             Bill.save(function (data) {
-                SMS.Tips.success("生成发货成功", 1500);
+
             });
         }
 
