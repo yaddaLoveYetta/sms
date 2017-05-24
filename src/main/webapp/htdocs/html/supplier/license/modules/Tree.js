@@ -106,11 +106,15 @@ define('Tree', function (require, module, exports) {
             // 对于平台用户来说，显示多个相同名称
             treeData = $.Array.grep(treeData, function (item, index) {
 
-                if ($.Array.contains(treeData, item)) {
-                    return false;
-                }
+                var c = $.Array.findItemCount(treeData, item, function (i1, i2) {
 
-                return true;
+                    return i1.id === i2.id && i1.name === i2.name
+
+                });
+
+                return c > 1;
+
+
             });
         }
 
