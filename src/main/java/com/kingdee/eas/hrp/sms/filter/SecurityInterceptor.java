@@ -10,6 +10,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+import com.kingdee.eas.hrp.sms.util.SessionUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 /**
@@ -66,6 +67,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			ResponseWriteUtil.output(response, StatusCode.SESSION_LOST, "会话结束请重新登陆!");
 			return false;
 		}
+
+		SessionUtil.set("user", user);// 将user放入ThreadLocal中，方便service层调用
 
 		return super.preHandle(request, response, handler);
 
