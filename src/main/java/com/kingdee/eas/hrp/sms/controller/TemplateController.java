@@ -80,7 +80,8 @@ public class TemplateController {
 
 		// sqlserver ROW_BUMBER分页一定要设置 orderBy--此处指定默认
 
-		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType, userId);
+		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType,
+				userId);
 
 		ResponseWriteUtil.output(response, result);
 

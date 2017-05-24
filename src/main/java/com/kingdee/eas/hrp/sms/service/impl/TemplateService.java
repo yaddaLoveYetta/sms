@@ -160,28 +160,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		}
 
 		// 查询前获取condition
-		// Map<String, Object> param = new HashMap<String, Object>();
-		// param.put("userId", userId);
 		PlugInFactory factory = new PlugInFactory(classId);
-		// PlugInRet result = factory.beforeQuery(classId, param, userType);
-		// Map<String, Object> resultData = new HashMap<String, Object>();
-		// if (result != null)
-		// resultData = result.getData();
-		//
-		// if (result != null && result.getCode() != 200) {
-		// throw new PluginException(result.getMsg());
-		// } else if (resultData.containsKey("condition")) {
-		// String con = (String) resultData.get("condition");
-		// JSONArray conditionArrayTemp1 = JSONArray.parseArray(conditionString);
-		// JSONArray conditionArrayTemp2 = JSONArray.parseArray(con);
-		// if (conditionArrayTemp1 == null) {
-		// conditionArrayTemp1 = conditionArrayTemp2;
-		// } else {
-		// conditionArrayTemp1.add(conditionArrayTemp2.getJSONObject(0));
-		// }
-		// conditionString = conditionArrayTemp1.toJSONString();
-		// }
-
 		conditionString = factory.getConditions(classId, template, conditionString, userType, userId);
 
 		// 主表表名
