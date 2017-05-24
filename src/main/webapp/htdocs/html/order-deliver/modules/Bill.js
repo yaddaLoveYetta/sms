@@ -71,8 +71,8 @@ define('Bill', function (require, module, exports) {
             return;
         }
 
-        if (entry) {
-            billData.successData['entry'] = entry;
+        if (entry.entryData) {
+            billData.successData['entry'] = entry.entryData;
         }
 
         submit(billData.successData, function (data) {
