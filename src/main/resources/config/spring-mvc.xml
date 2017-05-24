@@ -44,14 +44,12 @@
 						<!-- 如果请求中包含以下路径，则不进行拦截 -->
 						<entry value-type="java.lang.String" key="/user/login" value="/user/login" />
 						<entry value-type="java.lang.String" key="/user/createToken" value="/user/createToken" />
-						<entry value-type="java.lang.String" key="/template/getFormTemplate" value="/template/getFormTemplate" />
-						<entry value-type="java.lang.String" key="/template/getItems" value="/template/getItems" />
-						<entry value-type="java.lang.String" key="/order/acquisitionOrder" value="/order/acquisitionOrder" />
+						
 					</map>
 				</property>
 				<property name="clientUrls">
 					<map key-type="java.lang.String">
-						<!-- 如果请求中包含以下路径，则不进行拦截 -->
+						<!-- 如果请求中包含以下路径，验证token -->
 						<entry value-type="java.lang.String" key="/sync/category" value="/sync/category" />
 						<entry value-type="java.lang.String" key="/sync/certificate" value="certificate" />
 						<entry value-type="java.lang.String" key="/sync/industry" value="/sync/industry" />
@@ -71,6 +69,7 @@
 						<entry value-type="java.lang.String" key="/sync/sync" value="/sync/sync" />
 						<entry value-type="java.lang.String" key="/sync/hrp/sendItem" value="/sync/hrp/sendItem" />
 						<entry value-type="java.lang.String" key="/sync/hrp/delItem" value="/sync/hrp/delItem" />
+						<entry value-type="java.lang.String" key="/order/acquisitionOrder" value="/order/acquisitionOrder" />
 					</map>
 				</property>
 			</bean>

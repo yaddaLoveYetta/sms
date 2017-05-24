@@ -81,4 +81,8 @@ public class UserController {
 		return;
 
 	}
+
+	public void getUserByToken(HttpServletRequest request, HttpServletResponse response){
+		
+	}
 }

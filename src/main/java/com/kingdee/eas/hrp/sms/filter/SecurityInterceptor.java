@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.kingdee.eas.hrp.sms.model.User;
+import com.kingdee.eas.hrp.sms.service.api.user.IUserService;
+import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
@@ -57,7 +59,21 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		if (null != clientUrls && clientUrls.containsKey(requestUrl)) {
-			// 不拦截的请求
+			// HRP调用的业务接口--验证token合法性
+
+			IUserService userService = Environ.getBean(IUserService.class);
+
+			String token = ParameterUtils.getParameter(request, "token", "");
+
+			User user = userService.getUserByToken(token);
+
+			if (null == user) {
+				ResponseWriteUtil.output(response, StatusCode.ACCESS_TOKEN_INVALID, "token无效或过期!");
+				return false;
+			}
+
+			SessionUtil.set("user", user);// 保存下用户信息
+
 			return super.preHandle(request, response, handler);
 		}
 

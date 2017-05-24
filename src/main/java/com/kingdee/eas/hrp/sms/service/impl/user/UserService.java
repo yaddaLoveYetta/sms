@@ -243,4 +243,24 @@ public class UserService extends BaseService implements IUserService {
 		return true;
 	}
 
+	
+	@Override
+	public User getUserByToken(String token) {
+		
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+		UserExample example = new UserExample();
+		com.kingdee.eas.hrp.sms.model.UserExample.Criteria criteria = example.createCriteria();
+
+		criteria.andTokenEqualTo(token);
+
+		List<User> list = mapper.selectByExample(example);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
 }

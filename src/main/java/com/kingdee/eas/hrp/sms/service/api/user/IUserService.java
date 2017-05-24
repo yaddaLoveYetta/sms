@@ -31,6 +31,18 @@ public interface IUserService {
 	User getUser(String userId);
 
 	/**
+	 * 
+	 * 根据token获取用户
+	 * 
+	 * @Title getUserByToken
+	 * @param token
+	 * @return
+	 * @return User
+	 * @date 2017-05-24 13:57:32 星期三
+	 */
+	User getUserByToken(String token);
+
+	/**
 	 * 根据用户获取可用菜单列表
 	 * 
 	 * @Title getSysMenu
