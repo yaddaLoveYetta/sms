@@ -117,10 +117,11 @@ public interface IPlugIn {
 	 * @param classId
 	 * @param formData
 	 * @param userType
+	 * @param userId 
 	 * @return
 	 * @return String
 	 * @date 2017-05-23 17:52:35 星期二
 	 */
-	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType);
+	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType, String userId);
 
 }

@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.pool.DruidPooledConnection;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -38,7 +36,6 @@ import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInFactory;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
-import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ValidateUtil;
 
 @Service
@@ -162,30 +159,30 @@ public class TemplateService extends BaseService implements ITemplateService {
 			throw new BusinessLogicRunTimeException("资料模板不存在");
 		}
 
-		// 查询前插件事件
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("userId", userId);
+		// 查询前获取condition
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		param.put("userId", userId);
 		PlugInFactory factory = new PlugInFactory(classId);
-		PlugInRet result = factory.beforeQuery(classId, param, userType);
-		Map<String, Object> resultData = new HashMap<String, Object>();
-		if (result != null)
-			resultData = result.getData();
+//		PlugInRet result = factory.beforeQuery(classId, param, userType);
+//		Map<String, Object> resultData = new HashMap<String, Object>();
+//		if (result != null)
+//			resultData = result.getData();
+//
+//		if (result != null && result.getCode() != 200) {
+//			throw new PluginException(result.getMsg());
+//		} else if (resultData.containsKey("condition")) {
+//			String con = (String) resultData.get("condition");
+//			JSONArray conditionArrayTemp1 = JSONArray.parseArray(conditionString);
+//			JSONArray conditionArrayTemp2 = JSONArray.parseArray(con);
+//			if (conditionArrayTemp1 == null) {
+//				conditionArrayTemp1 = conditionArrayTemp2;
+//			} else {
+//				conditionArrayTemp1.add(conditionArrayTemp2.getJSONObject(0));
+//			}
+//			conditionString = conditionArrayTemp1.toJSONString();
+//		}
 
-		if (result != null && result.getCode() != 200) {
-			throw new PluginException(result.getMsg());
-		} else if (resultData.containsKey("condition")) {
-			String con = (String) resultData.get("condition");
-			JSONArray conditionArrayTemp1 = JSONArray.parseArray(conditionString);
-			JSONArray conditionArrayTemp2 = JSONArray.parseArray(con);
-			if (conditionArrayTemp1 == null) {
-				conditionArrayTemp1 = conditionArrayTemp2;
-			} else {
-				conditionArrayTemp1.add(conditionArrayTemp2.getJSONObject(0));
-			}
-			conditionString = conditionArrayTemp1.toJSONString();
-		}
-
-		conditionString = factory.getConditions(classId, template, conditionString, userType);
+		conditionString = factory.getConditions(classId, template, conditionString, userType,userId);
 
 		// 主表表名
 		String primaryTableName = formClass.getTableName();

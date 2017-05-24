@@ -74,7 +74,8 @@ public class ItemPlugin extends PlugInAdpter {
 				condition.put("needConvert", false);
 				conditionArry.add(condition);
 
-				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy, 1, 10, userType, "");
+				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy,
+						1, 10, userType, "");
 
 				if ((long) result.get("count") > 0) {
 					Map<String, Object> errData = templateService.getItemById(classId, id, userType);
@@ -92,7 +93,8 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
+			String userType) {
 
 		checkMustInput(classId, formData, data, userType);
 
@@ -113,7 +115,8 @@ public class ItemPlugin extends PlugInAdpter {
 		return super.beforeSave(classId, formData, data, userTyepe);
 	}
 
-	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
+	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data,
+			String userType) {
 
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) formData.get("formClass");
@@ -132,7 +135,12 @@ public class ItemPlugin extends PlugInAdpter {
 
 		JSONArray conditionArry = new JSONArray();
 		JSONObject condition = new JSONObject(true);
-
+		condition.put("fieldKey", "name");
+		condition.put("logicOperator", "=");
+		condition.put("value", data.get("name"));
+		conditionArry.add(condition);
+		
+		condition = new JSONObject(true);
 		condition.put("andOr", "and");
 		condition.put("fieldKey", "number");
 		condition.put("logicOperator", "=");
@@ -145,7 +153,8 @@ public class ItemPlugin extends PlugInAdpter {
 		condition.put("value", id);
 		conditionArry.add(condition);
 
-		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10, userType, "");
+		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10,
+				userType, "");
 
 		if ((long) result.get("count") > 0) {
 			throw new PlugInRuntimeException("该记录已存在");
@@ -158,7 +167,8 @@ public class ItemPlugin extends PlugInAdpter {
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(data.getString("type"))) {
-				if (data.getString("supplier") != null && !"".equals(data.getString("supplier")) && !"0".equals(data.getString("supplier"))) {
+				if (data.getString("supplier") != null && !"".equals(data.getString("supplier"))
+						&& !"0".equals(data.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
 			}
@@ -167,7 +177,8 @@ public class ItemPlugin extends PlugInAdpter {
 		// 如果flag是true，表明这个字段需要验证是否非空
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
+				.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -199,7 +210,7 @@ public class ItemPlugin extends PlugInAdpter {
 	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
 
 		// 当业务用户查询时，相关item需做数据隔离
-		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(2019, 1001, 1005, 2020, 1019, 1020, 1022, 1020));
+		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(2019, 1001, 1005, 2020, 3010, 3020, 3030));
 		if (classIdList.contains(classId)) {
 			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
 				String id = (String) param.get("userId");
@@ -227,8 +238,32 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType) {
-		
-		return super.getConditions(classId, formData, conditon, userType);
+	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType,
+			String userId) {
+		// 当业务用户查询时，相关item需做数据隔离，增加condition条件
+		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(2019, 1001, 1005, 2020, 3010, 3020, 3030));
+		if (classIdList.contains(classId)) {
+			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
+				Map<String, Object> user = templateService.getItemById(1001, userId, userType);
+				String supplierId = (String) user.get("supplier");
+				JSONObject con = new JSONObject(true);
+				if (classId == 1005)
+					con.put("fieldKey", "id");
+				else
+					con.put("fieldKey", "supplier");
+				con.put("logicOperator", "=");
+				con.put("value", supplierId);
+				con.put("needConvert", false);
+				JSONArray conditionArray = JSONArray.parseArray(conditon);
+				if(null==conditionArray){
+					conditionArray = new JSONArray();
+				}
+				conditionArray.add(con);
+
+				return conditionArray.toString();
+			}
+		}
+		return conditon;
+		//return super.getConditions(classId, formData, conditon, userType, userId);
 	}
 }

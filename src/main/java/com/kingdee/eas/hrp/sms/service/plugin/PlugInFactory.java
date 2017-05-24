@@ -276,12 +276,12 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType) {
+	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType, String userId) {
 
 		String ret = conditon;
 		for (IPlugIn plugin : plugIns) {
 
-			ret = plugin.getConditions(classId, formData, ret, userType);
+			ret = plugin.getConditions(classId, formData, ret, userType,userId);
 
 		}
 
