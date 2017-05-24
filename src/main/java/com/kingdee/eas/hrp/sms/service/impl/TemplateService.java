@@ -549,6 +549,14 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 处理分录数据
 		handleEntryData(classId, id, jsonData);
+		
+		
+		result = factory.afterSave(classId, id, jsonData); // 抛出新增后事件
+
+		if (result != null && result.getCode() != 200) {
+			throw new PluginException(result.getMsg());
+		}
+		
 
 		return id;
 
