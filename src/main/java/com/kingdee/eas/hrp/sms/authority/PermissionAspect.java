@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -25,6 +27,8 @@ import com.kingdee.eas.hrp.sms.service.api.sys.IPermissionService;
  * @author yadda
  * @date 2017-04-15 20:22:50 星期六
  */
+@Aspect
+@Component
 public class PermissionAspect {
 
 	// 权限检验组件
