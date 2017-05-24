@@ -160,29 +160,29 @@ public class TemplateService extends BaseService implements ITemplateService {
 		}
 
 		// 查询前获取condition
-//		Map<String, Object> param = new HashMap<String, Object>();
-//		param.put("userId", userId);
+		// Map<String, Object> param = new HashMap<String, Object>();
+		// param.put("userId", userId);
 		PlugInFactory factory = new PlugInFactory(classId);
-//		PlugInRet result = factory.beforeQuery(classId, param, userType);
-//		Map<String, Object> resultData = new HashMap<String, Object>();
-//		if (result != null)
-//			resultData = result.getData();
-//
-//		if (result != null && result.getCode() != 200) {
-//			throw new PluginException(result.getMsg());
-//		} else if (resultData.containsKey("condition")) {
-//			String con = (String) resultData.get("condition");
-//			JSONArray conditionArrayTemp1 = JSONArray.parseArray(conditionString);
-//			JSONArray conditionArrayTemp2 = JSONArray.parseArray(con);
-//			if (conditionArrayTemp1 == null) {
-//				conditionArrayTemp1 = conditionArrayTemp2;
-//			} else {
-//				conditionArrayTemp1.add(conditionArrayTemp2.getJSONObject(0));
-//			}
-//			conditionString = conditionArrayTemp1.toJSONString();
-//		}
+		// PlugInRet result = factory.beforeQuery(classId, param, userType);
+		// Map<String, Object> resultData = new HashMap<String, Object>();
+		// if (result != null)
+		// resultData = result.getData();
+		//
+		// if (result != null && result.getCode() != 200) {
+		// throw new PluginException(result.getMsg());
+		// } else if (resultData.containsKey("condition")) {
+		// String con = (String) resultData.get("condition");
+		// JSONArray conditionArrayTemp1 = JSONArray.parseArray(conditionString);
+		// JSONArray conditionArrayTemp2 = JSONArray.parseArray(con);
+		// if (conditionArrayTemp1 == null) {
+		// conditionArrayTemp1 = conditionArrayTemp2;
+		// } else {
+		// conditionArrayTemp1.add(conditionArrayTemp2.getJSONObject(0));
+		// }
+		// conditionString = conditionArrayTemp1.toJSONString();
+		// }
 
-		conditionString = factory.getConditions(classId, template, conditionString, userType,userId);
+		conditionString = factory.getConditions(classId, template, conditionString, userType, userId);
 
 		// 主表表名
 		String primaryTableName = formClass.getTableName();
@@ -1477,6 +1477,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 		StringBuffer fieldNames = new StringBuffer("");
 		StringBuffer fieldValues = new StringBuffer("");
 
+		Map<String, String> dbDelimiter = getDBDelimiter();
+		String bDelimiter = dbDelimiter.get("bDelimiter");// 数据库字段-关键字处理
+		String eDelimiter = dbDelimiter.get("eDelimiter");
+
 		for (Iterator<String> iterator = data.keySet().iterator(); iterator.hasNext();) {
 
 			String key = iterator.next();
@@ -1498,7 +1502,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				continue;
 			}
 			String fieldName = formField.getSqlColumnName();
-			fieldNames.append(",").append(fieldName);
+			//fieldNames.append(",").append(fieldName);
+			fieldNames.append(",").append(String.format("%s%s%s", bDelimiter, fieldName, eDelimiter));
 
 			int dataType = formField.getDataType();
 

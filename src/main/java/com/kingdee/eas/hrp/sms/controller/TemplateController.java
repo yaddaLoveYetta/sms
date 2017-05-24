@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
@@ -130,6 +131,7 @@ public class TemplateController {
 	 * @date 2017-04-27 14:09:59 星期四
 	 */
 	@RequestMapping(value = "addItem")
+	@Permission(objectType = 10, objectId = 1005, accessMask = 2, desc = "新增")
 	public void addItem(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
@@ -232,7 +234,7 @@ public class TemplateController {
 	 *            void
 	 * @date 2017-05-23 16:10:07 星期二
 	 */
-	@RequestMapping(value="checkItem")
+	@RequestMapping(value = "checkItem")
 	public void checkItem(HttpServletRequest request, HttpServletResponse response) {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
@@ -262,7 +264,7 @@ public class TemplateController {
 	 *            void
 	 * @date 2017-05-23 16:10:07 星期二
 	 */
-	@RequestMapping(value="unCheckItem")
+	@RequestMapping(value = "unCheckItem")
 	public void unCheckItem(HttpServletRequest request, HttpServletResponse response) {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");

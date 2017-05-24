@@ -35,7 +35,7 @@ public class PermissionAspect {
 	@Resource
 	private IPermissionService permissionService;
 
-	@Pointcut("@annotation(com.kingdee.eas.hrp.sms.access.Permission)")
+	@Pointcut("@annotation(com.kingdee.eas.hrp.sms.authority.Permission)")
 	public void checkPermissionAspect() {
 	}
 
