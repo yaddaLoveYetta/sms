@@ -106,7 +106,7 @@ define('Tree', function (require, module, exports) {
             // 对于平台用户来说，显示多个相同名称
             treeData = $.Array.grep(treeData, function (item, index) {
 
-                if (treeData.contains(item)) {
+                if ($.Array.contains(treeData, item)) {
                     return false;
                 }
 
