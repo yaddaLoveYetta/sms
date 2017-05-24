@@ -103,7 +103,9 @@ define('Bill/Entry', function (require, module, exports) {
         $.Array.each(gridData["add"] || [], function (item, index) {
 
             var addData = {
-                data: item,
+                data: $.Object.grep(item, function (key, value) {
+                    return !!value;
+                }),
                 flag: '1'
             };
             entry.push(addData);
