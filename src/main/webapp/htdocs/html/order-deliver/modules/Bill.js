@@ -8,6 +8,8 @@ define('Bill', function (require, module, exports) {
     var $ = require("$");
     var MiniQuery = require("MiniQuery");
     var SMS = require("SMS");
+    var $API = SMS.require("API");
+
     var API = require("/API");
     // 完整名称为 Bill/API
 
@@ -18,6 +20,7 @@ define('Bill', function (require, module, exports) {
     var visibleTemplate = {};
     var billData = {};
     var headData = {};
+    var classId;
     var itemId;
 
     function load(config, fn) {
@@ -32,13 +35,16 @@ define('Bill', function (require, module, exports) {
     }
 
     function render(config) {
+
+        classId = config.classId;
+
         load(config, function (data) {
             // 填充数据
             console.log(data);
 
             itemId = data.data.headData[data.template.formClass.primaryKey] || 0; // 单据内码
 
-            Head.render(data, data.data.headData,itemId);
+            Head.render(data, data.data.headData, itemId);
             // Entry.render(data.visibleTemplate, data.data.entryData);
             Entry.render(data.template, data.data.entryData);
         });
@@ -66,13 +72,43 @@ define('Bill', function (require, module, exports) {
         }
 
         if (entry) {
-            billData['entry'] = entry;
+            billData.successData['entry'] = entry;
         }
 
-        submit(billData, function (data) {
+        submit(billData.successData, function (data) {
             fn && fn(data);
         });
     }
+
+    function submit(data, fn) {
+
+        var api = new $API('template/addItem');
+
+        api.post({
+            classId: classId,
+            data: data,
+        });
+
+        api.on('success', function (data, json) {
+
+            fn && fn(data);
+
+        });
+
+        api.on('fail', function (code, msg, json) {
+
+            var s = $.String.format('{0} (错误码: {1})', msg, code);
+            SMS.Tips.error(s);
+
+        });
+
+        api.on('error', function () {
+            SMS.Tips.error('网络繁忙，请稍候再试');
+
+        });
+
+    }
+
 
     return {
         render: render,
