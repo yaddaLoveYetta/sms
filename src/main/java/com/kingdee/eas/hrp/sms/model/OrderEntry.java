@@ -40,7 +40,7 @@ public class OrderEntry {
 
     private BigDecimal amount;
 
-    private Long invoiceQty;
+    private BigDecimal invoiceQty;
 
     public String getId() {
         return id;
@@ -186,11 +186,11 @@ public class OrderEntry {
         this.amount = amount;
     }
 
-    public Long getInvoiceQty() {
+    public BigDecimal getInvoiceQty() {
         return invoiceQty;
     }
 
-    public void setInvoiceQty(Long invoiceQty) {
+    public void setInvoiceQty(BigDecimal invoiceQty) {
         this.invoiceQty = invoiceQty;
     }
 }

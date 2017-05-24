@@ -595,8 +595,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, Object> statement = prepareEditMap(json, formFields, primaryTableName, primaryKey, id);
 
 		// 修改基础资料
+		if(!statement.get("kvStr").equals("")&&(statement.get("kvStr")!= null)){
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 		templateDaoMapper.edit(statement);
+		}
 
 		// 处理分录数据
 		handleEntryData(classId, id, json);

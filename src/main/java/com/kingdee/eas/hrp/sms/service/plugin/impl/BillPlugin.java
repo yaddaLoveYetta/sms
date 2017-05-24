@@ -14,6 +14,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonArray;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
+import com.kingdee.eas.hrp.sms.model.OrderEntry;
+import com.kingdee.eas.hrp.sms.model.OrderEntryExample;
+import com.kingdee.eas.hrp.sms.model.OrderEntryExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
@@ -44,11 +48,11 @@ public class BillPlugin extends PlugInAdpter {
 			if (i == 0) {
 				entry.put("seq", invoiceEntry.get("orderSeq"));
 				entry.put("parent", invoiceEntry.get("orderId"));
-				entry.put("invoiceQty", invoiceEntry.get("qty"));
+				entry.put("invoiceQty", invoiceEntry.get("actualQty"));
 				list.add(entry);
 			} else {
 				// 判斷
-				BigDecimal qty = (BigDecimal) invoiceEntry.get("qty");
+				BigDecimal qty = (BigDecimal) invoiceEntry.get("actualQty");
 
 				String orderId = (String) invoiceEntry.get("orderId");
 				int seq = Integer.parseInt(invoiceEntry.get("orderSeq").toString());
@@ -63,22 +67,30 @@ public class BillPlugin extends PlugInAdpter {
 					Map<String, Object> entry1 = new HashMap();
 					entry1.put("seq", invoiceEntry.get("orderSeq"));
 					entry1.put("parent", invoiceEntry.get("orderId"));
-					entry1.put("invoiceQty", invoiceEntry.get("qty"));
+					entry1.put("invoiceQty", invoiceEntry.get("actualQty"));
 					list.add(entry1);
 				}
 
 			}
 		}
-		String da = "";
-		JSONObject json = new JSONObject();
+		OrderEntry orderEntry = new OrderEntry();
+		SqlSession sqlSession =(SqlSession) Environ.getBean("sqlSession");
+		OrderEntryMapper orderEntryMapper = (OrderEntryMapper) sqlSession.getMapper(OrderEntryMapper.class);
 		for (int i = 0; i < list.size(); i++) {
-			Map<String, Object> map = list.get(i);
-			json.put("seq",map.get("seq"));
-			json.put("parent",map.get("parent"));
-			json.put("invoiceQty", map.get("invoiceQty"));
+			Map<String, Object> lists = list.get(i);
+			OrderEntryExample e=new OrderEntryExample();
+			Criteria c = e.createCriteria();
+			c.andSeqEqualTo(Integer.parseInt(lists.get("seq").toString()));
+			c.andParentEqualTo(lists.get("parent").toString());
+			//根据订单号和行号查询对应的记录
+			List<OrderEntry> o = orderEntryMapper.selectByExample(e);
+			if(o.size()>0){
+			orderEntry.setInvoiceQty(new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
+			orderEntry.setId(o.get(0).getId());
+			//根据订单ID  修改发货数量
+			orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+			}
 		}
-		temp.editItem(2019, id, json.toString(), "QpXq24FxxE6c3lvHMPyYCxACEAI=");
-		
 		return super.afterSave(classId, id, data);
 	}
 
@@ -100,8 +112,7 @@ public class BillPlugin extends PlugInAdpter {
 	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
 
 		if (classId == 2020) {
-			// 检验单据数据包
-
+			
 		}
 
 		return super.beforeSave(classId, formData, data, userTyepe);

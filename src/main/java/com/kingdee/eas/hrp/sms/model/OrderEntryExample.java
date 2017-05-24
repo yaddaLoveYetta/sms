@@ -1236,52 +1236,52 @@ public class OrderEntryExample {
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyEqualTo(Long value) {
+        public Criteria andInvoiceQtyEqualTo(BigDecimal value) {
             addCriterion("invoiceQty =", value, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyNotEqualTo(Long value) {
+        public Criteria andInvoiceQtyNotEqualTo(BigDecimal value) {
             addCriterion("invoiceQty <>", value, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyGreaterThan(Long value) {
+        public Criteria andInvoiceQtyGreaterThan(BigDecimal value) {
             addCriterion("invoiceQty >", value, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyGreaterThanOrEqualTo(Long value) {
+        public Criteria andInvoiceQtyGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("invoiceQty >=", value, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyLessThan(Long value) {
+        public Criteria andInvoiceQtyLessThan(BigDecimal value) {
             addCriterion("invoiceQty <", value, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyLessThanOrEqualTo(Long value) {
+        public Criteria andInvoiceQtyLessThanOrEqualTo(BigDecimal value) {
             addCriterion("invoiceQty <=", value, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyIn(List<Long> values) {
+        public Criteria andInvoiceQtyIn(List<BigDecimal> values) {
             addCriterion("invoiceQty in", values, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyNotIn(List<Long> values) {
+        public Criteria andInvoiceQtyNotIn(List<BigDecimal> values) {
             addCriterion("invoiceQty not in", values, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyBetween(Long value1, Long value2) {
+        public Criteria andInvoiceQtyBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("invoiceQty between", value1, value2, "invoiceQty");
             return (Criteria) this;
         }
 
-        public Criteria andInvoiceQtyNotBetween(Long value1, Long value2) {
+        public Criteria andInvoiceQtyNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("invoiceQty not between", value1, value2, "invoiceQty");
             return (Criteria) this;
         }
