@@ -353,6 +353,66 @@ public class AccessControlExample {
             addCriterion("accessMask not between", value1, value2, "accessMask");
             return (Criteria) this;
         }
+
+        public Criteria andClassIdIsNull() {
+            addCriterion("classId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdIsNotNull() {
+            addCriterion("classId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdEqualTo(Integer value) {
+            addCriterion("classId =", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotEqualTo(Integer value) {
+            addCriterion("classId <>", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdGreaterThan(Integer value) {
+            addCriterion("classId >", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("classId >=", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdLessThan(Integer value) {
+            addCriterion("classId <", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdLessThanOrEqualTo(Integer value) {
+            addCriterion("classId <=", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdIn(List<Integer> values) {
+            addCriterion("classId in", values, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotIn(List<Integer> values) {
+            addCriterion("classId not in", values, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdBetween(Integer value1, Integer value2) {
+            addCriterion("classId between", value1, value2, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("classId not between", value1, value2, "classId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

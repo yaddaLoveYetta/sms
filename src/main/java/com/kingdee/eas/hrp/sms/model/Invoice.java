@@ -3,7 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 import java.util.Date;
 
 public class Invoice {
-    private Integer id;
+    private String id;
 
     private String number;
 
@@ -17,12 +17,12 @@ public class Invoice {
 
     private Byte saleProxy;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getNumber() {

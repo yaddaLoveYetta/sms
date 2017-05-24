@@ -10,7 +10,7 @@ public interface InvoiceMapper {
 
     int deleteByExample(InvoiceExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(Invoice record);
 
@@ -18,7 +18,7 @@ public interface InvoiceMapper {
 
     List<Invoice> selectByExample(InvoiceExample example);
 
-    Invoice selectByPrimaryKey(Integer id);
+    Invoice selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Invoice record, @Param("example") InvoiceExample example);
 

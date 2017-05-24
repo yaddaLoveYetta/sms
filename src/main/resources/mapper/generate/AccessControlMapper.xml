@@ -6,6 +6,7 @@
     <id column="objectId" jdbcType="INTEGER" property="objectId" />
     <id column="roleId" jdbcType="VARCHAR" property="roleId" />
     <result column="accessMask" jdbcType="INTEGER" property="accessMask" />
+    <result column="classId" jdbcType="INTEGER" property="classId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    objectType, objectId, roleId, accessMask
+    objectType, objectId, roleId, accessMask, classId
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.AccessControlExample" resultMap="BaseResultMap">
     select
@@ -104,9 +105,9 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.AccessControl">
     insert into t_sms_accessControl (objectType, objectId, roleId, 
-      accessMask)
+      accessMask, classId)
     values (#{objectType,jdbcType=INTEGER}, #{objectId,jdbcType=INTEGER}, #{roleId,jdbcType=VARCHAR}, 
-      #{accessMask,jdbcType=INTEGER})
+      #{accessMask,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.AccessControl">
     insert into t_sms_accessControl
@@ -123,6 +124,9 @@
       <if test="accessMask != null">
         accessMask,
       </if>
+      <if test="classId != null">
+        classId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="objectType != null">
@@ -136,6 +140,9 @@
       </if>
       <if test="accessMask != null">
         #{accessMask,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -160,6 +167,9 @@
       <if test="record.accessMask != null">
         accessMask = #{record.accessMask,jdbcType=INTEGER},
       </if>
+      <if test="record.classId != null">
+        classId = #{record.classId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -170,7 +180,8 @@
     set objectType = #{record.objectType,jdbcType=INTEGER},
       objectId = #{record.objectId,jdbcType=INTEGER},
       roleId = #{record.roleId,jdbcType=VARCHAR},
-      accessMask = #{record.accessMask,jdbcType=INTEGER}
+      accessMask = #{record.accessMask,jdbcType=INTEGER},
+      classId = #{record.classId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -181,6 +192,9 @@
       <if test="accessMask != null">
         accessMask = #{accessMask,jdbcType=INTEGER},
       </if>
+      <if test="classId != null">
+        classId = #{classId,jdbcType=INTEGER},
+      </if>
     </set>
     where objectType = #{objectType,jdbcType=INTEGER}
       and objectId = #{objectId,jdbcType=INTEGER}
@@ -188,7 +202,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.AccessControl">
     update t_sms_accessControl
-    set accessMask = #{accessMask,jdbcType=INTEGER}
+    set accessMask = #{accessMask,jdbcType=INTEGER},
+      classId = #{classId,jdbcType=INTEGER}
     where objectType = #{objectType,jdbcType=INTEGER}
       and objectId = #{objectId,jdbcType=INTEGER}
       and roleId = #{roleId,jdbcType=VARCHAR}

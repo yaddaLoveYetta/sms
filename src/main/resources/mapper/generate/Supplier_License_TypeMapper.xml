@@ -7,8 +7,8 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="isMust" jdbcType="TINYINT" property="isMust" />
     <result column="isControl" jdbcType="TINYINT" property="isControl" />
-    <result column="syncStatus" jdbcType="VARCHAR" property="syncStatus" />
-    <result column="review" jdbcType="VARCHAR" property="review" />
+    <result column="syncStatus" jdbcType="TINYINT" property="syncStatus" />
+    <result column="review" jdbcType="TINYINT" property="review" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -106,8 +106,8 @@
       isMust, isControl, syncStatus, 
       review)
     values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{isMust,jdbcType=TINYINT}, #{isControl,jdbcType=TINYINT}, #{syncStatus,jdbcType=VARCHAR}, 
-      #{review,jdbcType=VARCHAR})
+      #{isMust,jdbcType=TINYINT}, #{isControl,jdbcType=TINYINT}, #{syncStatus,jdbcType=TINYINT}, 
+      #{review,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier_License_Type">
     insert into t_sms_supplier_license_type
@@ -151,10 +151,10 @@
         #{isControl,jdbcType=TINYINT},
       </if>
       <if test="syncStatus != null">
-        #{syncStatus,jdbcType=VARCHAR},
+        #{syncStatus,jdbcType=TINYINT},
       </if>
       <if test="review != null">
-        #{review,jdbcType=VARCHAR},
+        #{review,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -183,10 +183,10 @@
         isControl = #{record.isControl,jdbcType=TINYINT},
       </if>
       <if test="record.syncStatus != null">
-        syncStatus = #{record.syncStatus,jdbcType=VARCHAR},
+        syncStatus = #{record.syncStatus,jdbcType=TINYINT},
       </if>
       <if test="record.review != null">
-        review = #{record.review,jdbcType=VARCHAR},
+        review = #{record.review,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -200,8 +200,8 @@
       [name] = #{record.name,jdbcType=VARCHAR},
       isMust = #{record.isMust,jdbcType=TINYINT},
       isControl = #{record.isControl,jdbcType=TINYINT},
-      syncStatus = #{record.syncStatus,jdbcType=VARCHAR},
-      review = #{record.review,jdbcType=VARCHAR}
+      syncStatus = #{record.syncStatus,jdbcType=TINYINT},
+      review = #{record.review,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -222,10 +222,10 @@
         isControl = #{isControl,jdbcType=TINYINT},
       </if>
       <if test="syncStatus != null">
-        syncStatus = #{syncStatus,jdbcType=VARCHAR},
+        syncStatus = #{syncStatus,jdbcType=TINYINT},
       </if>
       <if test="review != null">
-        review = #{review,jdbcType=VARCHAR},
+        review = #{review,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -236,8 +236,8 @@
       [name] = #{name,jdbcType=VARCHAR},
       isMust = #{isMust,jdbcType=TINYINT},
       isControl = #{isControl,jdbcType=TINYINT},
-      syncStatus = #{syncStatus,jdbcType=VARCHAR},
-      review = #{review,jdbcType=VARCHAR}
+      syncStatus = #{syncStatus,jdbcType=TINYINT},
+      review = #{review,jdbcType=TINYINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
