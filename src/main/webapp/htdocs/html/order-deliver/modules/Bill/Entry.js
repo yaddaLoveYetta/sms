@@ -60,7 +60,7 @@ define('Bill/Entry', function (require, module, exports) {
             var showKeys = [];
 
             //可编辑的列
-            var editKeys = ['material', 'lot', 'dyBatchNum', 'code', 'dyProDate', 'dyManufacturer', 'registrationNo', 'effectiveDate'];
+            var editKeys = ['material', 'lot', 'dyBatchNum','actualQty', 'code', 'dyProDate', 'dyManufacturer', 'registrationNo', 'effectiveDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
             defaults = GridBuilder.getConfig({
