@@ -106,7 +106,7 @@ define('Bill/Entry', function (require, module, exports) {
                 data: item,
                 flag: '1'
             };
-            entry.push(adData);
+            entry.push(addData);
         });
 
         var entryData = {
