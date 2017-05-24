@@ -98,10 +98,19 @@ define('Bill/Entry', function (require, module, exports) {
         var entryTemplate = billTemplate.formFields["1"]
 
         var errorData = gridData["error"] || {};
-        var addData = gridData["add"] || [];
+
+        //新增数据
+        $.Array.each(gridData["add"] || [], function (item, index) {
+
+            var addData = {
+                data: item,
+                flag: '1'
+            };
+            entry.push(adData);
+        });
 
         var entryData = {
-            1: addData
+            1: entry
         };
 
         return {
@@ -136,6 +145,6 @@ define('Bill/Entry', function (require, module, exports) {
     return {
         render: render,
         getData: getData,
-        showValidInfo:showValidInfo,
+        showValidInfo: showValidInfo,
     };
 });
