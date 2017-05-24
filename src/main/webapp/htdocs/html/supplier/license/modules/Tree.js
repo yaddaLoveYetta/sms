@@ -104,7 +104,7 @@ define('Tree', function (require, module, exports) {
 
             // 中标库中可能一个物料有多个供应商，tree中只显示物料名称，可能会显示多行一样的物料（背后关联的供应商不同）
             // 对于平台用户来说，显示多个相同名称
-            treeData = $.Array.gerp(treeData, function (item, index) {
+            treeData = $.Array.grep(treeData, function (item, index) {
 
                 if (treeData.contains(item)) {
                     return false;
