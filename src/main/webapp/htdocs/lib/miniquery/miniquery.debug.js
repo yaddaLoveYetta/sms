@@ -863,22 +863,14 @@
              * 查找符合条件的单个元素在数组中出现的次数。
              * @param array {Array} list 要进行排序的数组。
              * @param fn 比较函数，只有在回调函数中中明确返回 true 才算是找到1次。
-             * @param startIndex 指定数组中开始查找位置，默认0，从头开始查找
              * @returns {number} 返回元素在数组中出现的次数。
              */
-            findItemCount: function (array, fn, startIndex) {
-                startIndex = startIndex || 0;
+            findItemCount: function (array, item, fn) {
                 var count = 0;
-                for (var i = startIndex, len_i = array.length; i < len_i; i++) {
-
-                    for (var j = startIndex, len_j = array.length; j < len_j; j++) {
-
-                        if (fn(array[i], array[j]) === true) { // 只有在 fn 中明确返回 true 才算是找到
-                            return count++;
-                        }
-
+                for (var i = 0, len = array.length; i < len; i++) {
+                    if (fn(array[i], item) === true) { // 只有在 fn 中明确返回 true 才算是找到
+                        count++;
                     }
-
                 }
                 return count;
             },
@@ -1733,7 +1725,7 @@
 
                         return $Array.findItem.apply(null, args);
                     },
-                    findItemCount: function (fn, startIndex) {
+                    findItemCount: function (item, fn) {
                         var args = $.concat([this.value], arguments);
 
                         return $Array.findItemCount.apply(null, args);
