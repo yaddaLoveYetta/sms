@@ -861,7 +861,7 @@
 
             /**
              * 查找符合条件的单个元素在数组中出现的次数。
-             * @param array {Array} list 要进行排序的数组。
+             * @param array {Array} list 要进行统计的数组。
              * @param fn 比较函数，只有在回调函数中中明确返回 true 才算是找到1次。
              * @returns {number} 返回元素在数组中出现的次数。
              */
@@ -873,6 +873,34 @@
                     }
                 }
                 return count;
+            },
+
+            /**
+             *  去掉重复项
+             * @param array  {Array} list 要进行去重的数组。
+             * @param fn 比较函数，只有在回调函数中中明确返回 true 才算是重复项。
+             * @return 返回一个新数组
+             */
+            distinct: function (array, fn) {
+                var a = [];
+
+                for (var i = 0, len = array.length; i < len; i++) {
+
+                    if (i === 0) {
+                        // 第一个元素不需比较
+                        a.push(array[0]);
+                        continue;
+                    }
+                    if (exports.findItemCount(a, array[i], function (i1, i2) {
+                            return fn(i1, i2);
+                        }) === 0) {
+
+                        a.push(array[i]);
+                    }
+
+                }
+
+                return a;
             },
 
             /**
@@ -1730,7 +1758,10 @@
 
                         return $Array.findItemCount.apply(null, args);
                     },
-
+                    distinct: function (fn) {
+                        var args = $.concat([this.value], arguments);
+                        return $Array.findItemCount.apply(null, args);
+                    },
                     random: function () {
                         this.value = $Array.random(this.value);
                         return this;
