@@ -201,6 +201,11 @@
                 }
 
             });
+
+            if (!done) {
+                // 不满足发货条件
+                return;
+            }
             // 判断订单状态是否符合发货条件
             $.Array.each(list, function (item, index) {
                 if (!item.data.confirmTick) {
@@ -216,6 +221,10 @@
                     return false;
                 }
             });
+            if (!done) {
+                // 不满足发货条件
+                return;
+            }
             // 判断订单数量是否符合发货条件
             $.Array.each(list, function (item, index) {
 
