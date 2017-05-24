@@ -10,13 +10,13 @@ public class PermissionService implements IPermissionService {
 	@Override
 	public boolean checkPermissionByUserId(String userId, int objectType, int objectId, int accessMask) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean checkPermissionByRole(int roleId, int objectType, int objectId, int accessMask) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

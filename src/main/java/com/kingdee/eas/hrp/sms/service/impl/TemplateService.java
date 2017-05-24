@@ -1471,7 +1471,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			if (formField == null)
 				continue;
 			Integer lookUpType = formField.getLookUpType();
-			if (lookUpType == 3)// 引用基础资料的附加属性，无需保存
+			if (lookUpType == 3 || lookUpType == 5)// 引用基础资料的附加属性/普通表关联显示字段，无需保存
 				continue;
 
 			String value = data.getString(key);
@@ -1481,7 +1481,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				continue;
 			}
 			String fieldName = formField.getSqlColumnName();
-			//fieldNames.append(",").append(fieldName);
+			// fieldNames.append(",").append(fieldName);
 			fieldNames.append(",").append(String.format("%s%s%s", bDelimiter, fieldName, eDelimiter));
 
 			int dataType = formField.getDataType();
@@ -1609,7 +1609,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 				String entryId = getId(bosType);
 
-				if (data.containsKey(primaryKey)) {
+				if (data.containsKey(primaryKey) && null != data.get(primaryKey)) {
 					// 数据中有主键，HRP同步数据(如订单时)自带主键
 					entryId = data.getString(primaryKey);
 				}
@@ -1622,7 +1622,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 					if (fieldStr.indexOf("," + foreignKey) < 0) {
 						fieldStr += "," + foreignKey;
-						String valueStr = statement.get("valueStr").toString() + "," + id;
+						String valueStr = statement.get("valueStr").toString() + ",'" + id + "'";
 						statement.put("fieldStr", fieldStr);
 						statement.put("valueStr", valueStr);
 					}
