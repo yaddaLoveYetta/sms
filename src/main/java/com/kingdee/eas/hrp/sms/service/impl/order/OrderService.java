@@ -38,6 +38,7 @@ import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.Environ;
+import com.kingdee.eas.hrp.sms.util.MsgUtil;
 
 @Service
 public class OrderService extends BaseService implements IOrderService {
@@ -189,7 +190,9 @@ public class OrderService extends BaseService implements IOrderService {
 
 						orderMapper.updateByPrimaryKeySelective(order);
 						entryMapper.updateByPrimaryKeySelective(orderEntry);
-
+						
+						//调用短信接口发送短信
+						//MsgUtil.sendSMS("a", "a");
 					}
 
 				} catch (ParseException e) {
@@ -203,6 +206,7 @@ public class OrderService extends BaseService implements IOrderService {
 				return "success";
 			}
 		});
+		
 	}
 
 	

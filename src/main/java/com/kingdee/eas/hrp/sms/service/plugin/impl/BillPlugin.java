@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
@@ -95,6 +96,7 @@ public class BillPlugin extends PlugInAdpter {
 				orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
 			}
 		}
+		
 		return super.afterSave(classId, id, data);
 	}
 
@@ -130,17 +132,14 @@ public class BillPlugin extends PlugInAdpter {
 			}
 			JSONObject entry = data.getJSONObject("entry");
 			JSONArray array = entry.getJSONArray("1");
-			for (Iterator<Object> it = array.iterator(); it.hasNext();) {
-				Object obj = it.next();
-				JSONObject entryItem = (JSONObject) JSON.toJSON(obj);
-				BigDecimal actualQty = entryItem.getBigDecimal("actualQty");// 实发数量
-				BigDecimal qty = entryItem.getBigDecimal("qty");// 应发数量
-				String lot = entryItem.getString("lot");// 批次
-				String dyBatchNum = entryItem.getString("dyBatchNum");// 批号
-				Date dyProDate = entryItem.getDate("dyProDate");// 生产日期
-				String dyManufacturer = entryItem.getString("dyManufacturer");// 生产厂家
-				String registrationNo = entryItem.getString("registrationNo");// 产品注册号
-				Date effectiveDate = entryItem.getDate("effectiveDate");// 有效期
+			for (int i = 0; i < array.size(); i++) {
+				JSONObject entrys = array.getJSONObject(i);
+				JSONObject datas = entrys.getJSONObject("data");
+				BigDecimal actualQty = datas.getBigDecimal("actualQty");// 实发数量
+				BigDecimal qty = datas.getBigDecimal("qty");// 应发数量
+				String lot = datas.getString("lot");// 批次
+				String dyBatchNum = datas.getString("dyBatchNum");// 批号
+				Date effectiveDate = datas.getDate("effectiveDate");// 有效期
 				if (actualQty.equals("") || actualQty == null) {
 					throw new BusinessLogicRunTimeException("实发数量不能为空");
 				}
@@ -156,7 +155,7 @@ public class BillPlugin extends PlugInAdpter {
 				if (effectiveDate.equals("") || effectiveDate == null) {
 					throw new BusinessLogicRunTimeException("有效期不能为空");
 				}
-			}
+			}			
 		}
 
 		return super.beforeSave(classId, formData, data, userTyepe);
