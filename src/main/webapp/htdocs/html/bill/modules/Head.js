@@ -3,7 +3,7 @@
  * Created by yadda on 2017/5/13.
  */
 
-define('Bill/Head', function (require, module, exports) {
+define('Head', function (require, module, exports) {
 
         var $ = require('$');
         var MiniQuery = require('MiniQuery');

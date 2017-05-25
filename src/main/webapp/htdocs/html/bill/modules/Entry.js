@@ -2,7 +2,7 @@
  * 单据体模块
  * Created by yadda on 2017/5/13.
  */
-define('Bill/Entry', function (require, module, exports) {
+define('Entry', function (require, module, exports) {
 
     var SMS = require('SMS');
     var GridBuilder = require('/GridBuilder');// 真实路径是'Bill/Entry/GridBuilder'
