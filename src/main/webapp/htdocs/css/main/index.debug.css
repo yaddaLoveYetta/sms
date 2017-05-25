@@ -161,6 +161,10 @@ body {
   line-height: 55px;
   height: 55px;
 }
+.content .header .weather{
+  display: inline-block;
+  height: 55px;
+}
 .content .header .search-box {
   margin-left: 35px;
   border-bottom: 1px solid #d9dcdf;
