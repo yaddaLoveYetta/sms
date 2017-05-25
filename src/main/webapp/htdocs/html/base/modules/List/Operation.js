@@ -11,7 +11,7 @@ define('List/Operation', function (require, module, exports) {
     var API = SMS.require('API');
 
 
-    function post(name, action, params, fn, msg) {
+    function post(name, params, fn, msg) {
 
         //延迟显示。 避免数据很快回来造成的只显示瞬间
         SMS.Tips.loading({
@@ -19,11 +19,10 @@ define('List/Operation', function (require, module, exports) {
             delay: 500
         });
 
-        var obj = $.extend(action, params);
 
         var api = new API(name, {
 
-            data: obj,
+            data: params,
 
             'success': function (data, json) { //success
                 fn && fn(data, json);
@@ -133,7 +132,7 @@ define('List/Operation', function (require, module, exports) {
         post('template/checkItem', {
             'classId': classId,
             'items': items
-        }, args, fn);
+        }, fn);
 
         /*var api = new API('template/checkItem');
          api.get({

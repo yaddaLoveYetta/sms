@@ -153,7 +153,6 @@
             ButtonList.toggle(index);
         },
         'check': function (item, index) {
-            SMS.Tips.info('研发中，敬请期待……', 2000);
 
             var list = List.getSelectedItems();
 
@@ -172,7 +171,6 @@
 
         },
         'unCheck': function (item, index) {
-            SMS.Tips.info('研发中，敬请期待……', 2000);
 
             var list = List.getSelectedItems();
 
