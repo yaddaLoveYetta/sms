@@ -42,7 +42,7 @@ public class SyncHRPController {
 		}
 
 		String result = (String) syncHRPService.sendItem(classId, items, userType);
-		if ("" == result) {
+		if ("".equals(result)) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功！");
 			return;
 		} else {

@@ -87,7 +87,8 @@ public class PlugInFactory implements IPlugIn {
 				if (isPlugIn(clazz, "com.kingdee.eas.hrp.sms.service.plugin.IPlugIn")) {
 
 					/**
-					 * 从spring中获取插件bean，如果没有则将插件加入到spring中管理- bean注册的名字为插件不包含包名的类名
+					 * 从spring中获取插件bean，如果没有则将插件加入到spring中管理-
+					 * bean注册的名字为插件不包含包名的类名
 					 */
 					String className = clazz.getName();
 					String beanName = className.substring(className.lastIndexOf(".") + 1);
@@ -116,10 +117,12 @@ public class PlugInFactory implements IPlugIn {
 	private void registerBean(String name, Class clazz) {
 
 		// 将applicationContext转换为ConfigurableApplicationContext
-		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) Environ.getApplicationContext();
+		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) Environ
+				.getApplicationContext();
 
 		// 获取bean工厂并转换为DefaultListableBeanFactory
-		DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory();
+		DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext
+				.getBeanFactory();
 
 		// 通过BeanDefinitionBuilder创建bean定义
 		BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(clazz);
@@ -191,9 +194,10 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data, String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
+			String userType) {
 
-		PlugInRet ret=new PlugInRet();
+		PlugInRet ret = new PlugInRet();
 		for (IPlugIn plugin : plugIns) {
 
 			ret = plugin.beforeModify(classId, id, formData, data, userType);
@@ -274,12 +278,13 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType, String userId) {
+	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType,
+			String userId) {
 
 		String ret = conditon;
 		for (IPlugIn plugin : plugIns) {
 
-			ret = plugin.getConditions(classId, formData, ret, userType,userId);
+			ret = plugin.getConditions(classId, formData, ret, userType, userId);
 
 		}
 

@@ -43,7 +43,8 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		for (int i = 0; i < idList.size(); i++) {
 			Map<String, Object> item = templateService.getItemById(classId, idList.get(i), userType);
 			String id = (String) item.get("id");
-			if (idList.contains(id) && ("0".equals(item.get("syncStatus")) || item.get("syncStatus") == null) || item.get("syncStatus").equals("")) {
+			if (idList.contains(id) && (0 == (short) item.get("syncStatus") || item.get("syncStatus") == null
+					|| item.get("syncStatus").equals(""))) {
 				idTargetList.add(id);
 				JSONObject targetItem = (JSONObject) JSONObject.toJSON(item);
 				targetList.add(targetItem);
@@ -53,15 +54,25 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 
 		}
 
+		if (idTargetList.size() == 0) {
+			throw new RuntimeException("没有可同步项！");
+		}
+
 		String sessionId = loginInEAS();
+		List<String> failIdList;
 		String failId = sendItemByWS(sessionId, targetList.toString(), "sms2hrpSupplier");
 		String[] failIdStr = failId.split(",");
-		List<String> failIdList = new ArrayList<String>(Arrays.asList(failIdStr));
+		if (null == failId || "".equals(failId)) {
+			failIdList = new ArrayList<String>();
+		} else {
+			failIdList = new ArrayList<String>(Arrays.asList(failIdStr));
+		}
 
 		for (String id : idTargetList) {
 			try {
-				if (failIdList.size() != 0 || failIdList.contains(id))
+				if (failIdList.size() != 0 || failIdList.contains(id)) {
 					continue;
+				}
 				templateService.editItem(classId, id, "{}", userType);
 			} catch (Exception e) {
 				failIdList.add(id);
@@ -125,12 +136,14 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			call.addParameter("dcName", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
 			call.addParameter("language", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
 			call.addParameter("dbType", org.apache.axis.encoding.XMLType.XSD_INT, javax.xml.rpc.ParameterMode.IN);
-			call.addParameter("authPattern", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
+			call.addParameter("authPattern", org.apache.axis.encoding.XMLType.XSD_STRING,
+					javax.xml.rpc.ParameterMode.IN);
 
 			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_ANYTYPE);//
 			// 返回参数类型
 			call.setReturnClass(WSContext.class);
-			WSContext wsContext = (WSContext) call.invoke(new Object[] { "user", "kduser100", "eas", "gshrp", "L2", 1, "BaseDB" });
+			WSContext wsContext = (WSContext) call
+					.invoke(new Object[] { "user", "kduser100", "eas", "gshrp", "L2", 1, "BaseDB" });
 			System.out.println(wsContext);// 打印字符串
 			sessionId = wsContext.getSessionId();
 
