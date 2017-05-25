@@ -28,7 +28,7 @@ public class SyncHRPController {
 	public void sendItem(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
-		String data = ParameterUtils.getParameter(request, "data", "");
+		String items = ParameterUtils.getParameter(request, "items", "");
 		String userType = "QpXq24FxxE6c3lvHMPyYCxACEAI=";
 
 		if (classId < 0) {
@@ -36,12 +36,12 @@ public class SyncHRPController {
 			return;
 		}
 
-		if (data.equals("")) {
+		if (items.equals("")) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
 			return;
 		}
 
-		String result = (String) syncHRPService.sendItem(classId, data, userType);
+		String result = (String) syncHRPService.sendItem(classId, items, userType);
 		if ("" == result) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功！");
 			return;
