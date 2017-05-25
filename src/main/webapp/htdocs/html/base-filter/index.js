@@ -10,12 +10,12 @@
 	// 获取从dialog传入iframe的数据
 	var dialog = Iframe.getDialog();
 	var iframeData = dialog.getData();
-	var filterConditions = dialog.filterConditions;
+	var conditionExt = dialog.conditionExt;
 	var $qrcode = "";
 	if (iframeData) {
 		console.log(iframeData)
 		Filter.render(iframeData, function() {
-			Filter.setDefaultFilter(filterConditions);
+			Filter.setDefaultFilter(conditionExt);
 		});
 	}
 
