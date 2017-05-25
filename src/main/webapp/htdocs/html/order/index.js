@@ -229,7 +229,7 @@
             $.Array.each(list, function (item, index) {
 
                 $.Array.each(item.data.entry[1], function (row, index) {
-                    if (row.invoiceQty || 0 >= row.confirmQty || 0) {
+                    if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
                         // 接单数量已经全部发货
                         SMS.Tips.error(item.data.number + 'seq' + index + '接单数量已发货完毕，不能再发货');
                         done = false;
