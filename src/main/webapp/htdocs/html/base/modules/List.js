@@ -24,7 +24,11 @@ define("List", function (require, module, exports) {
     var index$selected = {};
     // 记录选中的索引
     function load(config, fn) {
-        SMS.Tips.loading("数据加载中...");
+        //SMS.Tips.loading("数据加载中...");
+        SMS.Tips.loading({
+            text: '数据加载中...',
+            delay: 500
+        });
         API.get({
             classId: config.classId,
             pageNo: config.pageNo,

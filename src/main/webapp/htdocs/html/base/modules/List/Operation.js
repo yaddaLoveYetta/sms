@@ -10,6 +10,40 @@ define('List/Operation', function (require, module, exports) {
 
     var API = SMS.require('API');
 
+
+    function post(name, action, params, fn, msg) {
+
+        //延迟显示。 避免数据很快回来造成的只显示瞬间
+        SMS.Tips.loading({
+            text: msg || '数据加载中...',
+            delay: 500
+        });
+
+        var obj = $.extend(action, params);
+
+        var api = new API(name, {
+
+            data: obj,
+
+            'success': function (data, json) { //success
+                fn && fn(data, json);
+
+            },
+
+            'fail': function (code, msg, json) {
+                SMS.Tips.error(msg, 2000);
+
+            },
+
+            'error': function () {
+                SMS.Tips.error('网络错误，请稍候再试', 2000);
+            },
+
+        });
+        api.post();
+
+    }
+
     function del(classId, list, fn) {
         var items = '';
         for (var item in list) {
@@ -21,6 +55,7 @@ define('List/Operation', function (require, module, exports) {
         items = items.substr(1);
 
         var api = new API('template/delItem');
+
         api.get({
 
             'classId': classId,
@@ -95,29 +130,34 @@ define('List/Operation', function (require, module, exports) {
 
         items = items.substr(1);
 
-        var api = new API('template/checkItem');
-        api.get({
-
+        post('template/checkItem', {
             'classId': classId,
             'items': items
+        }, args, fn);
 
-        });
+        /*var api = new API('template/checkItem');
+         api.get({
 
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success('审核成功', 2000);
-                fn();
-            },
+         'classId': classId,
+         'items': items
 
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
+         });
 
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
-            }
-        });
+         api.on({
+         'success': function (data, json) {
+         SMS.Tips.success('审核成功', 2000);
+         fn();
+         },
+
+         'fail': function (code, msg, json) {
+         var s = $.String.format('{0} (错误码: {1})', msg, code);
+         SMS.Tips.error(s);
+         },
+
+         'error': function () {
+         SMS.Tips.error('网络繁忙，请稍候再试');
+         }
+         });*/
     }
 
     function unReview(classId, list, fn) {

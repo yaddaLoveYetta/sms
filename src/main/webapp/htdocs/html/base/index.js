@@ -18,6 +18,7 @@
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
+    var conditionExt = {};
 
 
     //检查登录
@@ -220,6 +221,37 @@
              }
              });
              return;*/
+        },
+        'filter': function (item, index) {
+            var items = List.getfilterItems();
+            YWTC.use('Dialog', function (Dialog) {
+                var dialog = new Dialog({
+                    title: '数据过滤',
+                    url: '../htdocs/dialog/base-filter/index.html',
+                    data: items,
+                    conditionExt: conditionExt,
+                    width: 550,
+                    button: [{
+                        className: 'sms-cancel-btn',
+                        value: '取消',
+                        callback: function () {
+                        }
+                    }, {
+                        value: '确定',
+                        className: 'sms-submit-btn',
+                        autofocus: true,
+                        callback: function () {
+                            this.isSubmit = true;
+                            dialog.__dispatchEvent('get');
+                            var dialogData = dialog.getData();
+                            conditionExt = dialogData;
+                            refresh(dialogData);
+                        }
+                    }]
+                });
+
+                dialog.showModal();
+            });
         },
     });
 
