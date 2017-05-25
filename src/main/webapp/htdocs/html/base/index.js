@@ -148,44 +148,45 @@
         'refresh': function (item, index) {
             refresh();
         },
-        'tick': function (item, index) {
+        'more': function (item, index) {
+            ButtonList.toggle(index);
+        },
+        'check': function (item, index) {
+            SMS.Tips.info('研发中，敬请期待……', 2000);
+
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择接单项');
+                SMS.Tips.error('请选择要操作的项');
                 return;
             }
             if (list.length > 1) {
-                SMS.Tips.error('只能选择一条订单接单');
+                SMS.Tips.error('一次只能对一条记录进行操作');
+                return;
             }
+            List.review(classId, list, function () {
+                refresh();
+            });
 
-            var index = ClassMapping.getIndex(classId);
-            if (index > 0) {
-                // 有菜单项的跳转
-                Iframe.open(index.first, index.second, {
-                    query: {}
-                });
-            } else {
 
-                var url = ClassMapping.getPage(classId);
-                var name = ClassMapping.getTabName(classId) || '';
-
-                if (!url) {
-                    // 没有配置编辑页面或不需要编辑功能
-                    return;
-                }
-                Iframe.open({
-                    id: classId + '-add-',
-                    name: '' + name,
-                    url: url,
-                    query: {
-                        'classId': classId,
-                    }
-                });
-            }
         },
-        'more': function (item, index) {
-            ButtonList.toggle(index);
+        'unCheck': function (item, index) {
+            SMS.Tips.info('研发中，敬请期待……', 2000);
+
+            var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择要操作的项');
+                return;
+            }
+            if (list.length > 1) {
+                SMS.Tips.error('一次只能对一条记录进行操作');
+                return;
+            }
+
+            List.unReview(classId, list, function () {
+                refresh();
+            });
         },
     });
 

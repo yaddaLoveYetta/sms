@@ -273,6 +273,13 @@ define("List", function (require, module, exports) {
     function del(classId, list, fn) {
         Operation.del(classId, list, fn);
     }
+    function review(classId, list, fn) {
+        Operation.review(classId, list, fn);
+    }
+
+    function unReview(classId, list, fn) {
+        Operation.unReview(classId, list, fn);
+    }
     return {
         load: load,
         render: render,
@@ -281,6 +288,8 @@ define("List", function (require, module, exports) {
         getPrimaryKey: getPrimaryKey,
         del: del,
         getFilterItems: getFilterItems,
-        forbid: forbid
+        forbid: forbid,
+        review: review,
+        unReview: unReview,
     };
 });
