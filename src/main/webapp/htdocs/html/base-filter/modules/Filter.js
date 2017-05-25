@@ -49,7 +49,7 @@ define('Filter', function (require, module, exports) {
             return;
         }
 
-        var html
+        var html = '';
 
         for (var i = 0; i < 2; i++) {
             // 提供两个过滤条件-and关系
