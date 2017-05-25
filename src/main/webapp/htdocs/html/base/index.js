@@ -190,7 +190,7 @@
         },
         'send': function (item, index) {
             // 发送到HRP
-            if (classId !== 1005) {
+            if (classId != 1005) {
                 //目前基础资料只有供应商可同步回HRP
                 return;
             }
