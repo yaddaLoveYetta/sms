@@ -55,6 +55,9 @@ define('ButtonListOption', function (require, module, exports) {
                             name: 'unCheck',
                         }
                     ],
+                }, {
+                    text: '发送到医院',
+                    name: 'send'
                 }]
             };
         } else if (classId == 1007) {

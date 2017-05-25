@@ -188,6 +188,31 @@
                 refresh();
             });
         },
+        'send': function (item, index) {
+            // 发送到HRP
+            var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择要操作的项');
+                return;
+            }
+            if (list.length > 1) {
+                SMS.Tips.error('一次只能对一条记录进行操作');
+                return;
+            }
+            if (list[0].data.review === 0) {
+                SMS.Tips.error('该记录未审核，不可发送');
+                return;
+            }
+
+            MessageBox.confirm('确定要将该记录发送给医院HRP系统?', function (result) {
+                if (result) {
+
+                    SMS.Tips.info('研发中，敬请期待……');
+                }
+            });
+            return;
+        },
     });
 
     List.on({
