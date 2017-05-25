@@ -45,9 +45,9 @@ public class Supplier {
 
     private String number;
 
-    private String syncStatus;
+    private Byte syncStatus;
 
-    private String review;
+    private Byte review;
 
     public String getId() {
         return id;
@@ -217,19 +217,19 @@ public class Supplier {
         this.number = number == null ? null : number.trim();
     }
 
-    public String getSyncStatus() {
+    public Byte getSyncStatus() {
         return syncStatus;
     }
 
-    public void setSyncStatus(String syncStatus) {
-        this.syncStatus = syncStatus == null ? null : syncStatus.trim();
+    public void setSyncStatus(Byte syncStatus) {
+        this.syncStatus = syncStatus;
     }
 
-    public String getReview() {
+    public Byte getReview() {
         return review;
     }
 
-    public void setReview(String review) {
-        this.review = review == null ? null : review.trim();
+    public void setReview(Byte review) {
+        this.review = review;
     }
 }

@@ -1575,62 +1575,52 @@ public class SupplierExample {
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusEqualTo(String value) {
+        public Criteria andSyncStatusEqualTo(Byte value) {
             addCriterion("syncStatus =", value, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusNotEqualTo(String value) {
+        public Criteria andSyncStatusNotEqualTo(Byte value) {
             addCriterion("syncStatus <>", value, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusGreaterThan(String value) {
+        public Criteria andSyncStatusGreaterThan(Byte value) {
             addCriterion("syncStatus >", value, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusGreaterThanOrEqualTo(String value) {
+        public Criteria andSyncStatusGreaterThanOrEqualTo(Byte value) {
             addCriterion("syncStatus >=", value, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusLessThan(String value) {
+        public Criteria andSyncStatusLessThan(Byte value) {
             addCriterion("syncStatus <", value, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusLessThanOrEqualTo(String value) {
+        public Criteria andSyncStatusLessThanOrEqualTo(Byte value) {
             addCriterion("syncStatus <=", value, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusLike(String value) {
-            addCriterion("syncStatus like", value, "syncStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andSyncStatusNotLike(String value) {
-            addCriterion("syncStatus not like", value, "syncStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andSyncStatusIn(List<String> values) {
+        public Criteria andSyncStatusIn(List<Byte> values) {
             addCriterion("syncStatus in", values, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusNotIn(List<String> values) {
+        public Criteria andSyncStatusNotIn(List<Byte> values) {
             addCriterion("syncStatus not in", values, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusBetween(String value1, String value2) {
+        public Criteria andSyncStatusBetween(Byte value1, Byte value2) {
             addCriterion("syncStatus between", value1, value2, "syncStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSyncStatusNotBetween(String value1, String value2) {
+        public Criteria andSyncStatusNotBetween(Byte value1, Byte value2) {
             addCriterion("syncStatus not between", value1, value2, "syncStatus");
             return (Criteria) this;
         }
@@ -1645,62 +1635,52 @@ public class SupplierExample {
             return (Criteria) this;
         }
 
-        public Criteria andReviewEqualTo(String value) {
+        public Criteria andReviewEqualTo(Byte value) {
             addCriterion("review =", value, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewNotEqualTo(String value) {
+        public Criteria andReviewNotEqualTo(Byte value) {
             addCriterion("review <>", value, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewGreaterThan(String value) {
+        public Criteria andReviewGreaterThan(Byte value) {
             addCriterion("review >", value, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewGreaterThanOrEqualTo(String value) {
+        public Criteria andReviewGreaterThanOrEqualTo(Byte value) {
             addCriterion("review >=", value, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewLessThan(String value) {
+        public Criteria andReviewLessThan(Byte value) {
             addCriterion("review <", value, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewLessThanOrEqualTo(String value) {
+        public Criteria andReviewLessThanOrEqualTo(Byte value) {
             addCriterion("review <=", value, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewLike(String value) {
-            addCriterion("review like", value, "review");
-            return (Criteria) this;
-        }
-
-        public Criteria andReviewNotLike(String value) {
-            addCriterion("review not like", value, "review");
-            return (Criteria) this;
-        }
-
-        public Criteria andReviewIn(List<String> values) {
+        public Criteria andReviewIn(List<Byte> values) {
             addCriterion("review in", values, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewNotIn(List<String> values) {
+        public Criteria andReviewNotIn(List<Byte> values) {
             addCriterion("review not in", values, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewBetween(String value1, String value2) {
+        public Criteria andReviewBetween(Byte value1, Byte value2) {
             addCriterion("review between", value1, value2, "review");
             return (Criteria) this;
         }
 
-        public Criteria andReviewNotBetween(String value1, String value2) {
+        public Criteria andReviewNotBetween(Byte value1, Byte value2) {
             addCriterion("review not between", value1, value2, "review");
             return (Criteria) this;
         }

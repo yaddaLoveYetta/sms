@@ -23,8 +23,8 @@
     <result column="settlementId" jdbcType="VARCHAR" property="settlementId" />
     <result column="payId" jdbcType="VARCHAR" property="payId" />
     <result column="number" jdbcType="VARCHAR" property="number" />
-    <result column="syncStatus" jdbcType="VARCHAR" property="syncStatus" />
-    <result column="review" jdbcType="VARCHAR" property="review" />
+    <result column="syncStatus" jdbcType="TINYINT" property="syncStatus" />
+    <result column="review" jdbcType="TINYINT" property="review" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -135,7 +135,7 @@
       #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{createOrganization,jdbcType=VARCHAR}, 
       #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{currencyId,jdbcType=VARCHAR}, 
       #{settlementId,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
-      #{syncStatus,jdbcType=VARCHAR}, #{review,jdbcType=VARCHAR})
+      #{syncStatus,jdbcType=TINYINT}, #{review,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -275,10 +275,10 @@
         #{number,jdbcType=VARCHAR},
       </if>
       <if test="syncStatus != null">
-        #{syncStatus,jdbcType=VARCHAR},
+        #{syncStatus,jdbcType=TINYINT},
       </if>
       <if test="review != null">
-        #{review,jdbcType=VARCHAR},
+        #{review,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -355,10 +355,10 @@
         [number] = #{record.number,jdbcType=VARCHAR},
       </if>
       <if test="record.syncStatus != null">
-        syncStatus = #{record.syncStatus,jdbcType=VARCHAR},
+        syncStatus = #{record.syncStatus,jdbcType=TINYINT},
       </if>
       <if test="record.review != null">
-        review = #{record.review,jdbcType=VARCHAR},
+        review = #{record.review,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -388,8 +388,8 @@
       settlementId = #{record.settlementId,jdbcType=VARCHAR},
       payId = #{record.payId,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR},
-      syncStatus = #{record.syncStatus,jdbcType=VARCHAR},
-      review = #{record.review,jdbcType=VARCHAR}
+      syncStatus = #{record.syncStatus,jdbcType=TINYINT},
+      review = #{record.review,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -458,10 +458,10 @@
         [number] = #{number,jdbcType=VARCHAR},
       </if>
       <if test="syncStatus != null">
-        syncStatus = #{syncStatus,jdbcType=VARCHAR},
+        syncStatus = #{syncStatus,jdbcType=TINYINT},
       </if>
       <if test="review != null">
-        review = #{review,jdbcType=VARCHAR},
+        review = #{review,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -488,8 +488,8 @@
       settlementId = #{settlementId,jdbcType=VARCHAR},
       payId = #{payId,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR},
-      syncStatus = #{syncStatus,jdbcType=VARCHAR},
-      review = #{review,jdbcType=VARCHAR}
+      syncStatus = #{syncStatus,jdbcType=TINYINT},
+      review = #{review,jdbcType=TINYINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
