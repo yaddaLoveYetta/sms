@@ -479,7 +479,7 @@ public class OrderService extends BaseService implements IOrderService {
 		// effectiveDate --->"" 有效期
 
 		Map<String, Object> entry = new HashMap<String, Object>();
-
+		BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty"));
 		entry.put("seq", 0);
 		entry.put("orderId", purOrderEntry.getString("parent"));
 		entry.put("orderNumber", purOrder.getString("number"));
@@ -495,11 +495,11 @@ public class OrderService extends BaseService implements IOrderService {
 		entry.put("unit", purOrderEntry.getString("unit"));
 		entry.put("unit_DspName", purOrderEntry.getString("unit_DspName"));
 		entry.put("unit_NmbName", purOrderEntry.getString("unit_NmbName"));
-		entry.put("qty", purOrderEntry.getBigDecimal("qty").subtract(purOrderEntry.getBigDecimal("invoiceQty")));
+		entry.put("qty", qty);
 		entry.put("dyProDate", "");
 		entry.put("dyManufacturer", "");
 		entry.put("registrationNo", "");
-		entry.put("amount", purOrderEntry.getBigDecimal("localAmount")); // ? 本位币金额 No Amount
+		entry.put("amount", purOrderEntry.getBigDecimal("price").multiply(qty)); // ? 本位币金额 No Amount
 		entry.put("effectiveDate", "");
 
 		return entry;
@@ -537,7 +537,7 @@ public class OrderService extends BaseService implements IOrderService {
 		// amount --->localAmount 金额
 		// effectiveDate --->"" 有效期
 
-		BigDecimal bQty = purOrderEntry.getBigDecimal("qty").subtract(purOrderEntry.getBigDecimal("invoiceQty")); // 采购订单分录数量
+		BigDecimal bQty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty")); // 采购订单分录数量
 		BigDecimal amount = purOrderEntry.getBigDecimal("localAmount");
 		float price = purOrderEntry.getFloatValue("price");
 
