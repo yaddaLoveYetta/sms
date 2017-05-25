@@ -43,7 +43,7 @@ dd {
 }
 
 .logistics-row .item {
-    width: auto;
+    width: 237px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -73,6 +73,10 @@ dd {
     text-align: left;
 }
 
+.logistics-row .item .col-value .edit-input input[type='checkbox'] {
+    width: auto;
+}
+
 /*************************菜单*/
 .options-panel {
     margin-top: 20px;
@@ -98,12 +102,14 @@ dd {
     padding: 0 3px;
     color: #f00;
 }
+
 .main .logistics-row .col-value .msg {
     color: red;
     margin-left: 10px;
     display: none;
     vertical-align: middle;
 }
+
 .main .logistics-row .col-value .show {
     display: inline-block;
 }
@@ -111,6 +117,7 @@ dd {
 .sms-F7selector {
     position: relative;
 }
+
 .sms-F7selector span[data-role="btn"] {
     vertical-align: top;
     display: inline-block;
@@ -125,6 +132,7 @@ dd {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .sms-F7selector span[data-role="btnDisalbe"] {
     vertical-align: top;
     display: inline-block;
