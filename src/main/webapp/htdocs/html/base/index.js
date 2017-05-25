@@ -208,7 +208,7 @@
             MessageBox.confirm('确定要将该记录发送给医院HRP系统?', function (result) {
                 if (result) {
 
-                    SMS.Tips.info('研发中，敬请期待……');
+                    SMS.Tips.info('研发中，敬请期待……',1500);
                 }
             });
             return;
