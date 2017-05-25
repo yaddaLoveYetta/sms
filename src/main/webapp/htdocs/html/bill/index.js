@@ -125,7 +125,7 @@
             Entry.render(data.template, data.data.entryData, id);
             SMS.Tips.success("数据加载成功", 1500);
         });
-
     }
 
+    refresh();
 })();
