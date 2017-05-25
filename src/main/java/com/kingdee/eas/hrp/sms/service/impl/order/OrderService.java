@@ -495,7 +495,7 @@ public class OrderService extends BaseService implements IOrderService {
 		entry.put("unit", purOrderEntry.getString("unit"));
 		entry.put("unit_DspName", purOrderEntry.getString("unit_DspName"));
 		entry.put("unit_NmbName", purOrderEntry.getString("unit_NmbName"));
-		entry.put("qty", purOrderEntry.getBigDecimal("qty"));
+		entry.put("qty", purOrderEntry.getBigDecimal("qty").subtract(purOrderEntry.getBigDecimal("invoiceQty")));
 		entry.put("dyProDate", "");
 		entry.put("dyManufacturer", "");
 		entry.put("registrationNo", "");
@@ -537,7 +537,7 @@ public class OrderService extends BaseService implements IOrderService {
 		// amount --->localAmount 金额
 		// effectiveDate --->"" 有效期
 
-		BigDecimal bQty = purOrderEntry.getBigDecimal("qty"); // 采购订单分录数量
+		BigDecimal bQty = purOrderEntry.getBigDecimal("qty").subtract(purOrderEntry.getBigDecimal("invoiceQty")); // 采购订单分录数量
 		BigDecimal amount = purOrderEntry.getBigDecimal("localAmount");
 		float price = purOrderEntry.getFloatValue("price");
 
