@@ -246,7 +246,7 @@
                             dialog.__dispatchEvent('get');
                             var dialogData = dialog.getData();
                             conditionExt = dialogData;
-                            refresh(dialogData);
+                            refresh();
                         }
                     }]
                 });
@@ -310,6 +310,8 @@
                 'rightParenTheses': '))'
             };
         }
+
+        conditions = $.extend({}, conditions, conditionExt);
 
         console.log('render');
         List.render({
