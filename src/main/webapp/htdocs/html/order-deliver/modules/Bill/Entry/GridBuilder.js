@@ -272,7 +272,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
             var field = fields[key];
 
-            if (!(field.display & display)) {
+            if (!!(field.display & display)) {
                 // 字段可编辑
                 displayKeys.push(key);
             }
@@ -299,7 +299,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
             var field = fields[key];
 
-            if (!(field.lock & lock)) {
+            if (!!(field.lock & lock)) {
                 // 字段可编辑
                 lockKeys.push(key);
             }
