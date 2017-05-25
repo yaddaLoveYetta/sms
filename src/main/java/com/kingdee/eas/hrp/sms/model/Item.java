@@ -9,6 +9,8 @@ public class Item {
 
     private String specification;
 
+    private Byte highConsumable;
+
     public String getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class Item {
 
     public void setSpecification(String specification) {
         this.specification = specification == null ? null : specification.trim();
+    }
+
+    public Byte getHighConsumable() {
+        return highConsumable;
+    }
+
+    public void setHighConsumable(Byte highConsumable) {
+        this.highConsumable = highConsumable;
     }
 }

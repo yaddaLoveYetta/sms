@@ -6,6 +6,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="specification" jdbcType="VARCHAR" property="specification" />
+    <result column="highConsumable" jdbcType="TINYINT" property="highConsumable" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, [name], [number], specification
+    id, [name], [number], specification, highConsumable
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.ItemExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Item">
     insert into t_sms_item (id, [name], [number], 
-      specification)
+      specification, highConsumable)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
-      #{specification,jdbcType=VARCHAR})
+      #{specification,jdbcType=VARCHAR}, #{highConsumable,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Item">
     insert into t_sms_item
@@ -119,6 +120,9 @@
       <if test="specification != null">
         specification,
       </if>
+      <if test="highConsumable != null">
+        highConsumable,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="specification != null">
         #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="highConsumable != null">
+        #{highConsumable,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.specification != null">
         specification = #{record.specification,jdbcType=VARCHAR},
       </if>
+      <if test="record.highConsumable != null">
+        highConsumable = #{record.highConsumable,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set id = #{record.id,jdbcType=VARCHAR},
       [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR},
-      specification = #{record.specification,jdbcType=VARCHAR}
+      specification = #{record.specification,jdbcType=VARCHAR},
+      highConsumable = #{record.highConsumable,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="specification != null">
         specification = #{specification,jdbcType=VARCHAR},
       </if>
+      <if test="highConsumable != null">
+        highConsumable = #{highConsumable,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -190,7 +204,8 @@
     update t_sms_item
     set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR},
-      specification = #{specification,jdbcType=VARCHAR}
+      specification = #{specification,jdbcType=VARCHAR},
+      highConsumable = #{highConsumable,jdbcType=TINYINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

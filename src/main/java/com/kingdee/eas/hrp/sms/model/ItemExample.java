@@ -383,6 +383,66 @@ public class ItemExample {
             addCriterion("specification not between", value1, value2, "specification");
             return (Criteria) this;
         }
+
+        public Criteria andHighConsumableIsNull() {
+            addCriterion("highConsumable is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableIsNotNull() {
+            addCriterion("highConsumable is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableEqualTo(Byte value) {
+            addCriterion("highConsumable =", value, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableNotEqualTo(Byte value) {
+            addCriterion("highConsumable <>", value, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableGreaterThan(Byte value) {
+            addCriterion("highConsumable >", value, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableGreaterThanOrEqualTo(Byte value) {
+            addCriterion("highConsumable >=", value, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableLessThan(Byte value) {
+            addCriterion("highConsumable <", value, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableLessThanOrEqualTo(Byte value) {
+            addCriterion("highConsumable <=", value, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableIn(List<Byte> values) {
+            addCriterion("highConsumable in", values, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableNotIn(List<Byte> values) {
+            addCriterion("highConsumable not in", values, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableBetween(Byte value1, Byte value2) {
+            addCriterion("highConsumable between", value1, value2, "highConsumable");
+            return (Criteria) this;
+        }
+
+        public Criteria andHighConsumableNotBetween(Byte value1, Byte value2) {
+            addCriterion("highConsumable not between", value1, value2, "highConsumable");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
