@@ -18,6 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.kingdee.eas.hrp.sms.exception.PermissionDeniedRuntimeTimeException;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.sys.IPermissionService;
+import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 
 /**
  * 系统权限统一检验
@@ -53,6 +54,9 @@ public class PermissionAspect {
 
 		// 读取session中的用户
 		User user = (User) session.getAttribute("user");
+		
+		//读取classId
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 
 		// 请求的IP
 		String ip = request.getRemoteAddr();
@@ -78,8 +82,9 @@ public class PermissionAspect {
 			int accessMask = permission.accessMask();
 			String desc = permission.desc();
 
-			boolean hasAuthority = permissionService.checkPermissionByUserId(user.getUserId(), objectType, objectId, accessMask);
-
+			//boolean hasAuthority = permissionService.checkPermissionByUserId(user.getUserId(), objectType, objectId, accessMask);
+			boolean hasAuthority = permissionService.checkPermissionByRole(classId,user.getRole(), objectType, objectId, accessMask);
+			
 			if (hasAuthority) {
 				// 有权限
 				return;

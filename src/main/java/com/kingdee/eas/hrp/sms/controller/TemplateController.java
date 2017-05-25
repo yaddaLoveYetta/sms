@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kingdee.eas.hrp.sms.authority.AccessMaskCode;
+import com.kingdee.eas.hrp.sms.authority.Permission;
+
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
@@ -63,6 +66,7 @@ public class TemplateController {
 	 * @date 2017-04-20 13:41:06 星期四
 	 */
 	@RequestMapping(value = "getItems")
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_VIEW, desc = "查看")
 	public void getItems(HttpServletRequest request, HttpServletResponse response) {
 
 		int classId = ParameterUtils.getParameter(request, "classId", -1);
@@ -96,6 +100,7 @@ public class TemplateController {
 	 * @date 2017-04-26 14:39:30 星期三
 	 */
 	@RequestMapping(value = "getItemById")
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_VIEW, desc = "查看")
 	public void getItemById(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1); // 业务类别代码
@@ -131,7 +136,7 @@ public class TemplateController {
 	 * @date 2017-04-27 14:09:59 星期四
 	 */
 	@RequestMapping(value = "addItem")
-	//@Permission(objectType = 10, objectId = 1005, accessMask = AccessMaskCode.MASK_ADD, desc = "新增")
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_ADD, desc = "新增")
 	public void addItem(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
@@ -167,6 +172,7 @@ public class TemplateController {
 	 * @date 2017-04-27 14:09:59 星期四
 	 */
 	@RequestMapping(value = "editItem")
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_EDIT, desc = "修改")
 	public void editItem(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
@@ -203,6 +209,7 @@ public class TemplateController {
 	 * @date 2017-05-23 16:09:51 星期二
 	 */
 	@RequestMapping(value = "delItem")
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_DELETE, desc = "删除")
 	public void delItem(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
@@ -235,6 +242,7 @@ public class TemplateController {
 	 * @date 2017-05-23 16:10:07 星期二
 	 */
 	@RequestMapping(value = "checkItem")
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_CHECK, desc = "审核")
 	public void checkItem(HttpServletRequest request, HttpServletResponse response) {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
@@ -265,6 +273,7 @@ public class TemplateController {
 	 * @date 2017-05-23 16:10:07 星期二
 	 */
 	@RequestMapping(value = "unCheckItem")
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_UNCHECK, desc = "反审核")
 	public void unCheckItem(HttpServletRequest request, HttpServletResponse response) {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");

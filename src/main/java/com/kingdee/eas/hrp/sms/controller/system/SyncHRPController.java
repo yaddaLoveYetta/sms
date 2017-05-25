@@ -23,7 +23,7 @@ public class SyncHRPController {
 	ISyncHRPService syncHRPService;
 
 	@ControllerLog(desc = "同步item") // 做日志
-	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步item") // 权限
+	@Permission(objectType = 0, objectId = 0, accessMask = 256, desc = "同步item") // 权限
 	@RequestMapping(value = "sendItem")
 	public void sendItem(HttpServletRequest request, HttpServletResponse response) {
 

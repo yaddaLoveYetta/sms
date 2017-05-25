@@ -38,5 +38,5 @@ public interface IPermissionService {
 	 * @return boolean
 	 * @date 2017-04-15 20:58:18 星期六
 	 */
-	boolean checkPermissionByRole(int roleId, int objectType, int objectId, int accessMask);
+	boolean checkPermissionByRole(Integer classId, String roleId, int objectType, int objectId, int accessMask);
 }
