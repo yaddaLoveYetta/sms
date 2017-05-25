@@ -9,6 +9,7 @@ define('Bill/Entry', function (require, module, exports) {
 
     var billGrid;
     var isNeedOpt = true; // 订单详情不可编辑
+    var id; // 单据内码-判断是新增还是修改
 
     var billTemplate = {};
 
@@ -60,15 +61,14 @@ define('Bill/Entry', function (require, module, exports) {
             var showKeys = [];
 
             //可编辑的列
-            var editKeys = ['material', 'lot', 'dyBatchNum','actualQty', 'code', 'dyProDate', 'dyManufacturer', 'registrationNo', 'effectiveDate'];
+            var editKeys = ['material', 'lot', 'dyBatchNum', 'actualQty', 'code', 'dyProDate', 'dyManufacturer', 'registrationNo', 'effectiveDate'];
 
             // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
-                'showKeys': showKeys,
-                'editKeys': editKeys,
                 'operator': false,
+                'itemId':id,
             });
 
 
@@ -121,7 +121,8 @@ define('Bill/Entry', function (require, module, exports) {
         };
     }
 
-    function render(template, data) {
+    function render(template, data, itemId) {
+        id = itemId;
         gridRender(template, data);
     }
 

@@ -6,6 +6,9 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
+    var user = SMS.Login.get();
+
+    var id; // 单据内码-判断是新增还是修改
 
     /**
      * 构建grid model
@@ -132,13 +135,15 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         }
 
         //按照单据模板确定
-        if (!showKeys || showKeys.length == 0) {
-            showKeys = $.Object.getKeys(fields);
+        if (!showKeys) {
+            //showKeys = $.Object.getKeys(fields);
+            showKeys = getShowKeys(fields);
         }
 
         //按照单据模板确定
-        if (!editKeys || showKeys.length == 0) {
-            editKeys = $.Object.getKeys(fields);
+        if (!editKeys) {
+            // editKeys = $.Object.getKeys(fields);
+            editKeys = getEditKeys(fields);
         }
 
         // 有需要编辑的列
@@ -222,21 +227,9 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         config.colModel = cModel;
 
         config.fnAfterEditCell = function (rowid, cellname, value, iRow, iCol) {
-
-            /*            var rowdata = $("#" + config.gridName).getRowData(rowid);
-             rowdata[cellname] = value;
-             console.log(rowdata);*/
             $("#" + iRow + "_" + cellname).val(value);
-            /*            $('#initCombo').data('selectedRow', rowid);
-             $('#initCombo').data('selectedVal' + rowid, rowdata);
-             config.fnAfterEditCell_Before && config.fnAfterEditCell_Before(rowid, cellname, value);
-             $("#" + iRow + "_" + name_dsp, "#" + config.gridName).val(value);*/
-
         };
         config.fnAfterSaveCell = function (rowid, cellname, val, iRow, iCol) {
-            /*            var gridData = $('#initCombo').data('selectedVal' + rowid);
-             //gridData[cellname] = val;
-             $("#" + config.gridName).jqGrid('setRowData', rowid, gridData);*/
         };
 
 
@@ -259,6 +252,61 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         }
 
         return $.Array.randomItem(images);
+    }
+
+    // 根据模板获取显示列
+    function getShowKeys(fields) {
+
+        var displayKeys = [];
+        var display = 0;
+
+        if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+            // 平台用户
+            display = !!id ? 16 : 4;
+        } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+            //供应商用户用户
+            display = !!id ? 32 : 8;
+        }
+
+        for (var key in fields) {
+
+            var field = fields[key];
+
+            if (!(field.display & display)) {
+                // 字段可编辑
+                displayKeys.push(key);
+            }
+        }
+
+        return displayKeys;
+    }
+
+    //根据模板获取编辑列
+    function getEditKeys(fields) {
+
+        var lockKeys = [];
+        var lock = 0;
+
+        if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+            // 平台用户
+            lock = !!id ? 2 : 1;
+        } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+            //供应商用户用户
+            lock = !!id ? 8 : 4;
+        }
+
+        for (var key in fields) {
+
+            var field = fields[key];
+
+            if (!(field.lock & lock)) {
+                // 字段可编辑
+                lockKeys.push(key);
+            }
+        }
+
+        return lockKeys;
+
     }
 
     return {

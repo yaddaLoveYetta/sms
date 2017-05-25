@@ -132,7 +132,7 @@
                 // 平台用户
                 mustInputMask = 2;
             } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
-                //物业用户
+                //供应商用户
                 mustInputMask = 8;
             }
         } else {
@@ -141,7 +141,7 @@
                 // 平台用户
                 mustInputMask = 1;
             } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
-                //物业用户
+                //供应商用户
                 mustInputMask = 4;
             }
         }
