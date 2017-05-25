@@ -224,7 +224,7 @@
              return;*/
         },
         'filter': function (item, index) {
-            var items = List.getfilterItems();
+            var items = List.getFilterItems();
             SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
                     title: '数据过滤',
