@@ -262,10 +262,10 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
         if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
             // 平台用户
-            display = !!id ? 16 : 4;
+            display = !!id ? 4 : 16;
         } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
             //供应商用户用户
-            display = !!id ? 32 : 8;
+            display = !!id ? 8 : 32;
         }
 
         for (var key in fields) {
@@ -289,10 +289,10 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
         if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
             // 平台用户
-            lock = !!id ? 2 : 1;
+            lock = !!id ? 1 : 2;
         } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
             //供应商用户用户
-            lock = !!id ? 8 : 4;
+            lock = !!id ? 4 : 8;
         }
 
         for (var key in fields) {
