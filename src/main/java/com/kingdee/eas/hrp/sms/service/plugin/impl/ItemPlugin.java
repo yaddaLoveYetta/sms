@@ -29,6 +29,10 @@ public class ItemPlugin extends PlugInAdpter {
 	@Resource
 	private ITemplateService templateService;
 
+	// 当业务用户查询时，相关item需做数据隔离
+	List<Integer> classIdList = new ArrayList<Integer>(
+			Arrays.asList(2019, 2020, 1001, 1005, 3010, 3020, 3030, 1023, 1007));
+
 	@Override
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data, String userType) {
 
@@ -36,6 +40,11 @@ public class ItemPlugin extends PlugInAdpter {
 		// 装配待删除ID
 		String[] idString = data.split(",");
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
+
+		// 检查数据是否为未审核状态
+		for (String id : idList) {
+			checkIfReview(classId, id, userType);
+		}
 
 		// 查找引用待删除资料的模板
 		SqlSession sqlSession = Environ.getBean(SqlSession.class);
@@ -96,6 +105,8 @@ public class ItemPlugin extends PlugInAdpter {
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
 			String userType) {
 
+		checkIfReview(classId, id, userType);
+
 		checkMustInput(classId, formData, data, userType);
 
 		if (classId / 100 == 10) {
@@ -104,7 +115,35 @@ public class ItemPlugin extends PlugInAdpter {
 
 		}
 
-		return super.beforeModify(classId, id, formData, data, userType);
+		// 如果字段含有同步到HRP的字段syncStatus，设置同步状态
+		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(1005, 3010, 3020, 3030, 1023, 1007));
+		if (classIdList.contains(classId)) {
+			if (data.isEmpty()) { // 构造的json为空即同步到HRP的记录需将同步状态标记为已同步
+				data.put("syncStatus", "1");
+			} else { // 构造的json不为空即为修改记录，需将同步状态标记为未同步
+				data.put("syncStatus", "0");
+			}
+		}
+
+		PlugInRet ret = new PlugInRet();
+		ret.setCode(200);
+		ret.setData(data);
+		return ret;
+
+	}
+
+	private void checkIfReview(int classId, String id, String userType) {
+
+		Map<String, Object> result = templateService.getItemById(classId, id, userType);
+		short review;
+		if (null == result.get("review")) {
+			review = 1;
+		} else {
+			review = (short) result.get("review");
+		}
+		if (1 == review) {
+			throw new PlugInRuntimeException("记录" + result.get("number") + "已审核，无法进行操作！");
+		}
 	}
 
 	@Override
@@ -179,12 +218,16 @@ public class ItemPlugin extends PlugInAdpter {
 				}
 			}
 		}
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) formData.get("formClass");
+		String primaryKey = formClass.getPrimaryKey();
 
 		// 如果flag是true，表明这个字段需要验证是否非空
 		boolean flag = false;
 		// 主表字段模板
 		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
 				.get("formFields")).get("0"); // 主表的字段模板
+		formFields.remove(primaryKey);
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -192,11 +235,11 @@ public class ItemPlugin extends PlugInAdpter {
 			FormFields ff = formFields.get(key);
 			int mustInput = ff.getMustInput();
 			if (("QpXq24FxxE6c3lvHMPyYCxACEAI=").equals(userTyepe)) {
-				if ((mustInput & 4) == 1 && (mustInput & 8) == 1) {
+				if ((mustInput & 1) == 1 && (mustInput & 2) == 2) {
 					flag = true;
 				}
 			} else {
-				if ((mustInput & 1) == 1 && (mustInput & 2) == 1) {
+				if ((mustInput & 4) == 4 && (mustInput & 8) == 8) {
 					flag = true;
 				}
 			}
@@ -215,31 +258,6 @@ public class ItemPlugin extends PlugInAdpter {
 	@Override
 	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
 
-		// 当业务用户查询时，相关item需做数据隔离
-		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(2019, 1001, 1005, 2020, 3010, 3020, 3030));
-		if (classIdList.contains(classId)) {
-			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
-				String id = (String) param.get("userId");
-				Map<String, Object> user = templateService.getItemById(1001, id, userType);
-				String supplierId = (String) user.get("supplier");
-				JSONArray conditionArry = new JSONArray();
-				JSONObject condition = new JSONObject(true);
-				if (classId == 1005)
-					condition.put("fieldKey", "id");
-				else
-					condition.put("fieldKey", "supplier");
-				condition.put("logicOperator", "=");
-				condition.put("value", supplierId);
-				condition.put("needConvert", false);
-				conditionArry.add(condition);
-				Map<String, Object> data = new HashMap<String, Object>();
-				data.put("condition", conditionArry.toString());
-				PlugInRet ret = new PlugInRet();
-				ret.setData(data);
-				ret.setCode(200);
-				return ret;
-			}
-		}
 		return super.beforeQuery(classId, param, userType);
 	}
 
@@ -249,7 +267,6 @@ public class ItemPlugin extends PlugInAdpter {
 		if (userId == "")
 			return conditon;
 		// 当业务用户查询时，相关item需做数据隔离，增加condition条件
-		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(2019, 1001, 1005, 2020, 3010, 3020, 3030));
 		if (classIdList.contains(classId)) {
 			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
 				Map<String, Object> user = templateService.getItemById(1001, userId, userType);
@@ -273,7 +290,5 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 		}
 		return conditon;
-		// return super.getConditions(classId, formData, conditon, userType,
-		// userId);
 	}
 }

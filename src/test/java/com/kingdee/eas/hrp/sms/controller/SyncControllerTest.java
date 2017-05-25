@@ -222,8 +222,8 @@ public class SyncControllerTest extends BaseControllerTest {
 		param.setCookieParams(cookie);
 		// String str =
 		// "[{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'}]";
-		String str = "[{'id':'qwh6eCeuTaStSVRAgxsQnUQJ5/A=','number':'44010100080002','name':'显微剪（手部外科)'}]";
-		param.addCommon("classId", "1013");
+		String str = "[{'id':'11111111111111','number':'111111111','name':'11111111111'}]";
+		param.addCommon("classId", "1005");
 		param.addCommon("list", str);
 
 		String ret = HttpUtil.sendGet(BASE_URL + "sync/sync", param);

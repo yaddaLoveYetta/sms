@@ -50,22 +50,7 @@
 				<property name="clientUrls">
 					<map key-type="java.lang.String">
 						<!-- 如果请求中包含以下路径，验证token -->
-						<entry value-type="java.lang.String" key="/sync/category" value="/sync/category" />
-						<entry value-type="java.lang.String" key="/sync/certificate" value="certificate" />
-						<entry value-type="java.lang.String" key="/sync/industry" value="/sync/industry" />
-						<entry value-type="java.lang.String" key="/sync/currency" value="/sync/currency" />
-						<entry value-type="java.lang.String" key="/sync/settlement" value="/sync//sync/settlement" />
-						<entry value-type="java.lang.String" key="/sync/pay" value="/sync/pay" />
-						<entry value-type="java.lang.String" key="/sync/item" value="/sync/item" />
-						<entry value-type="java.lang.String" key="/sync/taxCategory" value="/sync/taxCategory" />
-						<entry value-type="java.lang.String" key="/sync/supplier" value="/sync/supplier" />
-						<entry value-type="java.lang.String" key="/sync/unit" value="/sync/unit" />
-						<entry value-type="java.lang.String" key="/sync/city" value="/sync/city" />
-						<entry value-type="java.lang.String" key="/sync/country" value="/sync/country" />
-						<entry value-type="java.lang.String" key="/sync/county" value="/sync/county" />
-						<entry value-type="java.lang.String" key="/sync/province" value="/sync/province" />
 						<entry value-type="java.lang.String" key="/template/delItemByHRP" value="/template/delItemByHRP" />
-						<entry value-type="java.lang.String" key="/sync/license" value="/sync/license" />
 						<entry value-type="java.lang.String" key="/sync/sync" value="/sync/sync" />
 						<entry value-type="java.lang.String" key="/sync/hrp/sendItem" value="/sync/hrp/sendItem" />
 						<entry value-type="java.lang.String" key="/sync/hrp/delItem" value="/sync/hrp/delItem" />
