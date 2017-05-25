@@ -33,7 +33,7 @@ public class PermissionService extends BaseService implements IPermissionService
 		return true;
 	}
 
-	public int getAccessMask(Integer classId, String roleId) {
+	private int getAccessMask(Integer classId, String roleId) {
 
 		int accessMask;
 		AccessControlMapper mapper = sqlSession.getMapper(AccessControlMapper.class);

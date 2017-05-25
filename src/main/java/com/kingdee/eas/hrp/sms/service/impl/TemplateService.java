@@ -549,14 +549,12 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 处理分录数据
 		handleEntryData(classId, id, jsonData);
-		
-		
+
 		result = factory.afterSave(classId, id, jsonData); // 抛出新增后事件
 
 		if (result != null && result.getCode() != 200) {
 			throw new PluginException(result.getMsg());
 		}
-		
 
 		return id;
 
@@ -580,13 +578,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		JSONObject json = JSONObject.parseObject(data);
 		// 如果字段含有同步到HRP的字段syncStatus，设置同步状态
-		if (formFields.containsKey("syncStatus")) {
-			if (json.isEmpty()) { // 构造的json为空即同步到HRP的记录需将同步状态标记为已同步
-				json.put("syncStatus", "1");
-			} else { // 构造的json不为空即为修改记录，需将同步状态标记为未同步
-				json.put("syncStatus", "0");
-			}
-		}
+		// if (formFields.containsKey("syncStatus")) {
+		// if (json.isEmpty()) { // 构造的json为空即同步到HRP的记录需将同步状态标记为已同步
+		// json.put("syncStatus", "1");
+		// } else { // 构造的json不为空即为修改记录，需将同步状态标记为未同步
+		// json.put("syncStatus", "0");
+		// }
+		// }
 
 		// 修改前插件事件
 		PlugInFactory factory = new PlugInFactory(classId);
@@ -603,9 +601,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 		Map<String, Object> statement = prepareEditMap(json, formFields, primaryTableName, primaryKey, id);
 
 		// 修改基础资料
-		if(!statement.get("kvStr").equals("")&&(statement.get("kvStr")!= null)){
-		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
-		templateDaoMapper.edit(statement);
+		if (!statement.get("kvStr").equals("") && (statement.get("kvStr") != null)) {
+			TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
+			templateDaoMapper.edit(statement);
 		}
 
 		// 处理分录数据
