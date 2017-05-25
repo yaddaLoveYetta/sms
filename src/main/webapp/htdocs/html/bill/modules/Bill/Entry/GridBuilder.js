@@ -212,7 +212,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 }
             }
 
-            model = getColModel(field, !$.Array.contains(editKeys, field.key));
+            model = getColModel(field, $.Array.contains(editKeys, field.key));
 
             cModel.push(model);
         }
