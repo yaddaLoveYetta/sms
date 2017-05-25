@@ -1,7 +1,7 @@
 ﻿/**
  * API模块
  */
-define('Bill/API', function (require, module, exports) {
+define('API', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -10,9 +10,9 @@ define('Bill/API', function (require, module, exports) {
     var Multitask = SMS.require('Multitask');
 
     var Template = require('/Template');
-    //完整名称为 Bill/API/Template
+    //完整名称为 API/Template
     var Data = require('/Data');
-    //完整名称为 Bill/API/Data
+    //完整名称为 API/Data
 
     function get(config, fn) {
 
@@ -24,7 +24,8 @@ define('Bill/API', function (require, module, exports) {
         }, {
             fn: Data.get,
             args: [{
-                'items': config.items,
+                'classId': config.classId,
+                'id': config.id,
             }]
         }];
 

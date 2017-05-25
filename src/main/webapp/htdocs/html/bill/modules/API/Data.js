@@ -2,7 +2,7 @@
  * Created by yadda on 2017/5/12.
  * 单据数据取数模块
  */
-define('Bill/API/Data', function (require, module, exports) {
+define('API/Data', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -17,11 +17,11 @@ define('Bill/API/Data', function (require, module, exports) {
      */
     function get(config, fn) {
 
-        //var api = new API('order/invoice');
-        var api = new API('order/deliver');
+        var api = new API('template/getItemById');
 
         var params = {
-            'items': config.items,
+            'classId': config.classId,
+            'id': config.id,
         };
 
         api.post(params);

@@ -1,7 +1,7 @@
 /**
  * 编辑处理逻辑模块
  */
-define('Bill/Entry/GridBuilder', function (require, module, exports) {
+define('Entry/GridBuilder', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -212,7 +212,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 }
             }
 
-            model = getColModel(field, $.Array.contains(editKeys, field.key));
+            model = getColModel(field, !$.Array.contains(editKeys, field.key));
 
             cModel.push(model);
         }

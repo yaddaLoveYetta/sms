@@ -2,7 +2,7 @@
  * Created by yadda on 2017/5/12.
  * 单据模板信息
  */
-define('Bill/API/Template', function (require, module, exports) {
+define('API/Template', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');

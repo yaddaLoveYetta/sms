@@ -162,7 +162,7 @@
             Iframe.open({
                 id: classId + '-add-' + list[0].data[List.getPrimaryKey()],
                 name: '详情-采购订单',
-                url: 'html/order-details/index.html',
+                url: 'html/bill/index.html',
                 query: {
                     'classId': classId,
                     'id': list[0].data[List.getPrimaryKey()],
