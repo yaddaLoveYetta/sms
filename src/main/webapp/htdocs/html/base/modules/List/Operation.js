@@ -154,8 +154,42 @@ define('List/Operation', function (require, module, exports) {
                 SMS.Tips.error('网络繁忙，请稍候再试');
             }
         });
+    }
 
+    function send(classId, list, fn) {
 
+        var items = '';
+        for (var item in list) {
+            if (list[item]) {
+                items += (',' + list[item].primaryValue);
+            }
+        }
+
+        items = items.substr(1);
+
+        var api = new API('sync/hrp/sendItem');
+        api.get({
+
+            'classId': classId,
+            'items': items
+
+        });
+
+        api.on({
+            'success': function (data, json) {
+                SMS.Tips.success('发送到医院成功', 2000);
+                fn();
+            },
+
+            'fail': function (code, msg, json) {
+                var s = $.String.format('{0} (错误码: {1})', msg, code);
+                SMS.Tips.error(s);
+            },
+
+            'error': function () {
+                SMS.Tips.error('网络繁忙，请稍候再试');
+            }
+        });
     }
 
     return {
@@ -163,6 +197,7 @@ define('List/Operation', function (require, module, exports) {
         forbid: forbid,
         review: review,
         unReview: unReview,
+        send: send,
     };
 
 });

@@ -190,6 +190,10 @@
         },
         'send': function (item, index) {
             // 发送到HRP
+            if (classId !== 1005) {
+                //目前基础资料只有供应商可同步回HRP
+                return;
+            }
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
@@ -205,13 +209,17 @@
                 return;
             }
 
-            MessageBox.confirm('确定要将该记录发送给医院HRP系统?', function (result) {
-                if (result) {
-
-                    SMS.Tips.info('研发中，敬请期待……',1500);
-                }
+            List.send(classId, list, function () {
+                refresh();
             });
-            return;
+
+            /*            MessageBox.confirm('确定要将该记录发送给医院HRP系统?', function (result) {
+             if (result) {
+
+             SMS.Tips.info('研发中，敬请期待……', 1500);
+             }
+             });
+             return;*/
         },
     });
 
