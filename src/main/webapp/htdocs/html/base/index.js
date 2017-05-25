@@ -227,7 +227,7 @@
             var items = List.getFilterItems();
             SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
-                    title: '数据过滤',
+                    title: '高级过滤',
                     url: 'html/base-filter/index.html',
                     data: items,
                     conditionExt: conditionExt,
