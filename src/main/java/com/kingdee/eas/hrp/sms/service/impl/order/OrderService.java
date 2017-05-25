@@ -488,13 +488,14 @@ public class OrderService extends BaseService implements IOrderService {
 		entry.put("material_DspName", purOrderEntry.getString("material_DspName"));
 		entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
 		entry.put("specification", purOrderEntry.getString("specification"));
-		entry.put("lot", "");
+		entry.put("lot", Common.createLotNo());
 		entry.put("dyBatchNum", "");
 		entry.put("code", "");
 		entry.put("price", purOrderEntry.getFloatValue("price"));
 		entry.put("unit", purOrderEntry.getString("unit"));
 		entry.put("unit_DspName", purOrderEntry.getString("unit_DspName"));
 		entry.put("unit_NmbName", purOrderEntry.getString("unit_NmbName"));
+		entry.put("actualQty", qty);
 		entry.put("qty", qty);
 		entry.put("dyProDate", "");
 		entry.put("dyManufacturer", "");
@@ -548,7 +549,6 @@ public class OrderService extends BaseService implements IOrderService {
 		// 金额尾差，尾差放到最后一行
 		BigDecimal lastLineAmount = amount.compareTo(new BigDecimal(price * qty)) > 0 ? amount.subtract(new BigDecimal(price * qty)) : new BigDecimal(price);
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
-
 		for (int i = 0; i < qty; i++) {
 
 			Map<String, Object> entry = new HashMap<String, Object>();
@@ -561,25 +561,25 @@ public class OrderService extends BaseService implements IOrderService {
 			entry.put("material_DspName", purOrderEntry.getString("material_DspName"));
 			entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
 			entry.put("specification", purOrderEntry.getString("specification"));
-			entry.put("lot", "");
+			entry.put("lot", Common.createLotNo());
 			entry.put("dyBatchNum", "");
 			entry.put("code", "");
 			entry.put("price", purOrderEntry.getFloatValue("price"));
 			entry.put("unit", purOrderEntry.getString("unit"));
 			entry.put("unit_DspName", purOrderEntry.getString("unit_DspName"));
 			entry.put("unit_NmbName", purOrderEntry.getString("unit_NmbName"));
-
 			entry.put("dyProDate", "");
 			entry.put("dyManufacturer", "");
 			entry.put("registrationNo", "");
 			entry.put("effectiveDate", "");
-
+			entry.put("actualQty", 1);
 			entry.put("qty", 1); // 拆单后，发货单明细行数量为1
 			entry.put("amount", purOrderEntry.getFloatValue("price")); // ? 本位币金额 No Amount
 
 			if (i == qty - 1) {
 				// lastLine
 				entry.put("qty", lastLineQty); // 拆单后，发货单明细行数量为1
+				entry.put("actualQty", lastLineQty);
 				entry.put("amount", lastLineAmount); // ? 本位币金额 No Amount
 			}
 

@@ -361,14 +361,30 @@ public class Common {
 	 */
 	public static String createShipOrderNo() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss", Locale.CHINA);
-		return "Pur-" + sdf.format(new Date()) + RandomUtils.nextInt(1000);
+		Random rm = new Random();
+		// 获得随机数
+		double pross = (1 + rm.nextDouble()) * Math.pow(10, 3);
+		// 将获得的获得随机数转化为字符串  
+	    String fixLenthString = String.valueOf(pross);  
+		return "Pur-" + sdf.format(new Date()) + fixLenthString.substring(1, 3 + 1);
+
+	}
+	/**
+	 * 
+	 * 创建发货单批次
+	 */
+	public static String createLotNo() {
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd", Locale.CHINA);
+		Random rm = new Random();
+		// 获得随机数
+		double pross = (1 + rm.nextDouble()) * Math.pow(10, 3);
+		// 将获得的获得随机数转化为字符串  
+	    String fixLenthString = String.valueOf(pross);  
+		return sdf.format(new Date())+ "-" + fixLenthString.substring(1, 3 + 1);
 
 	}
 
 	public static void main(String[] args) {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss-", Locale.CHINA);
-		System.out.println("Pur-" + sdf.format(new Date()) + RandomUtils.nextInt(1000));
-
+		    
 	}
 }
