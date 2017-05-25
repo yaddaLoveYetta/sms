@@ -311,14 +311,14 @@
             };
         }
 
-        conditions = $.extend({}, conditions, conditionExt);
+        var conditionAll = $.extend({}, conditions, conditionExt);
 
         console.log('render');
         List.render({
             classId: classId,
             pageNo: 1,
             pageSize: defaults.pageSize,
-            conditions: conditions,
+            conditions: conditionAll,
             multiSelect: defaults.multiSelect
         }, function (total, pageSize) {
 
@@ -330,7 +330,7 @@
                         classId: classId,
                         pageNo: no,
                         pageSize: defaults.pageSize,
-                        conditions: conditions,
+                        conditions: conditionAll,
                         multiSelect: defaults.multiSelect
                     });
                 }
