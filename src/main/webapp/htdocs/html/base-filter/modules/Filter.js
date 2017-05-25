@@ -50,10 +50,10 @@ define('Filter', function(require, module, exports) {
 			'index': index,
 			"filterKeys": $.Array.keep(fields, function(item, index) {
 				return $.String.format(samples['t.filterKeys'], {
-					'name': item.FName,
-					'value': item.FKey,
-					'ctrlType': item.FCtrlType,
-					'dataType': item.FDataType,
+					'name': item.name,
+					'value': item.key,
+					'ctrlType': item.ctrlType,
+					'dataType': item.dataType,
 					'keyIndex': index
 				})
 			}).join("")

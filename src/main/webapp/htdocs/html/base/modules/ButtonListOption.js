@@ -44,6 +44,9 @@ define('ButtonListOption', function (require, module, exports) {
                     text: '删除',
                     name: 'delete',
                 }, {
+                    text: '过滤',
+                    name: 'filter',
+                }, {
                     text: '刷新',
                     name: 'refresh',
                 }, {

@@ -1,7 +1,5 @@
-﻿﻿
-/**
- *
- *
+﻿/**
+ * List/API模块
  */
 define('List/API', function (require, module, exports) {
 
@@ -41,16 +39,11 @@ define('List/API', function (require, module, exports) {
             var headData = list[0];
             var bodyData = list[1];
             var headItems;
-            console.dir(list);
-
-            // var headItems = Head.getItems(bodyData['fieldShow'], headData.formFields[0]);  //old
 
             headItems = Head.getItems(headData.formFields[0]);
 
-            //var entry= Head.getItems(headData.formFields[1]);
             var filterItems = Head.getFilterItem(headData.formFields);
 
-            //var bodyItems = Body.getItems(bodyData.items, headItems, headData.formClass.primaryKey);//old
             var bodyItems = Body.getItems(bodyData.list, headItems, headData.formClass.primaryKey);
 
             fn && fn({

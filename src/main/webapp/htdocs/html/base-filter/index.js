@@ -3,8 +3,8 @@
 
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
-	var YWTC = require('YWTC');
-	var Iframe = YWTC.require('Iframe');
+	var SMS = require('SMS');
+	var Iframe = SMS.require('Iframe');
 	var Filter = require('Filter');
 
 	// 获取从dialog传入iframe的数据

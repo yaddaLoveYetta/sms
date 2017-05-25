@@ -52,31 +52,10 @@ define('List/Operation', function (require, module, exports) {
         }
 
         items = items.substr(1);
-
-        var api = new API('template/delItem');
-
-        api.get({
-
+        post('template/delItem', {
             'classId': classId,
-            'items': items
-
-        });
-
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success('删除成功', 2000);
-                fn();
-            },
-
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
-
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
-            }
-        });
+            'items': items,
+        }, fn);
     }
 
     function forbid(classId, list, operateType, fn) {
@@ -92,30 +71,12 @@ define('List/Operation', function (require, module, exports) {
             return;
         }
 
-        var api = new API('template/forbid');
-        api.get({
-
+        post('template/forbid', {
             'classId': classId,
             'items': items,
             'operateType': operateType
+        }, fn);
 
-        });
-
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success(operateType === 1 ? '禁用成功' : '反禁用成功', 2000);
-                fn();
-            },
-
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
-
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
-            }
-        });
     }
 
     function review(classId, list, fn) {
@@ -133,30 +94,6 @@ define('List/Operation', function (require, module, exports) {
             'classId': classId,
             'items': items
         }, fn);
-
-        /*var api = new API('template/checkItem');
-         api.get({
-
-         'classId': classId,
-         'items': items
-
-         });
-
-         api.on({
-         'success': function (data, json) {
-         SMS.Tips.success('审核成功', 2000);
-         fn();
-         },
-
-         'fail': function (code, msg, json) {
-         var s = $.String.format('{0} (错误码: {1})', msg, code);
-         SMS.Tips.error(s);
-         },
-
-         'error': function () {
-         SMS.Tips.error('网络繁忙，请稍候再试');
-         }
-         });*/
     }
 
     function unReview(classId, list, fn) {
@@ -170,29 +107,10 @@ define('List/Operation', function (require, module, exports) {
 
         items = items.substr(1);
 
-        var api = new API('template/unCheckItem');
-        api.get({
-
+        post('template/unCheckItem', {
             'classId': classId,
             'items': items
-
-        });
-
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success('反审核成功', 2000);
-                fn();
-            },
-
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
-
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
-            }
-        });
+        }, fn);
     }
 
     function send(classId, list, fn) {
@@ -206,29 +124,10 @@ define('List/Operation', function (require, module, exports) {
 
         items = items.substr(1);
 
-        var api = new API('sync/hrp/sendItem');
-        api.get({
-
+        post('sync/hrp/sendItem', {
             'classId': classId,
-            'items': items
-
-        });
-
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success('发送到医院成功', 2000);
-                fn();
-            },
-
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
-
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
-            }
-        });
+            'items': items,
+        }, fn);
     }
 
     return {

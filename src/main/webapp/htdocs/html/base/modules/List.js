@@ -267,7 +267,7 @@ define("List", function (require, module, exports) {
     }
 
     function getPrimaryKey() {
-        return primaryKey;
+        return list.primaryKey;
     }
 
     function forbid(classId, list, operateType, fn) {

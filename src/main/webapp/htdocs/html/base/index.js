@@ -165,6 +165,7 @@
                 return;
             }
             List.review(classId, list, function () {
+                SMS.Tips.success('审核成功', 2000);
                 refresh();
             });
 
@@ -184,6 +185,7 @@
             }
 
             List.unReview(classId, list, function () {
+                SMS.Tips.success('反审核成功', 2000);
                 refresh();
             });
         },
@@ -209,6 +211,7 @@
             }
 
             List.send(classId, list, function () {
+                SMS.Tips.success('发送成功', 2000);
                 refresh();
             });
 
@@ -222,10 +225,10 @@
         },
         'filter': function (item, index) {
             var items = List.getfilterItems();
-            YWTC.use('Dialog', function (Dialog) {
+            SMS.use('Dialog', function (Dialog) {
                 var dialog = new Dialog({
                     title: '数据过滤',
-                    url: '../htdocs/dialog/base-filter/index.html',
+                    url: 'html/base-filter/index.html',
                     data: items,
                     conditionExt: conditionExt,
                     width: 550,
