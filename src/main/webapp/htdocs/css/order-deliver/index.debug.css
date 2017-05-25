@@ -73,7 +73,7 @@ dd {
     text-align: left;
 }
 
-.logistics-row .item .col-value .edit-input input[type='checkbox'] {
+.logistics-row .item .col-value input[type='checkbox'] {
     width: auto;
 }
 
