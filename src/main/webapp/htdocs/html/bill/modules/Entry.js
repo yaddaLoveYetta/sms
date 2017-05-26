@@ -35,10 +35,6 @@ define('Entry', function (require, module, exports) {
         SMS.use('Grid', function (Grid) {
 
             billGrid = new Grid('bd-grid');
-            //要展示的列
-            var showKeys = [];
-            //可编辑的列
-            var editKeys = [];
 
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],

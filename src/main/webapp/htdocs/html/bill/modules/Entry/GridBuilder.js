@@ -13,10 +13,11 @@ define('Entry/GridBuilder', function (require, module, exports) {
     /**
      * 构建grid model
      * @param field 字段模板
-     * @param editAble 是否可编辑
+     * @param isShow 是否显示
+     * @param isEditAble 是否可编辑
      * @returns {{}}
      */
-    function getColModel(field, editAble) {
+    function getColModel(field, isShow, isEditAble) {
 
         var model = {};
 
@@ -24,13 +25,12 @@ define('Entry/GridBuilder', function (require, module, exports) {
         model.label = field.name;
         model.width = field.showWidth;
         model.title = true;
-        model.editable = editAble;// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
-        model.hidden = ((field.display & 1) != 1);
+        model.editable = isEditAble;
+        model.hidden = !isShow;
         model.tabIndex = field.index;
 
         if (field.ctrlType == 6) {
-            //if (field.FLookUpType == 1) {
-            //
+
             model.name = field.key + '_DspName'; // 显示的值保存在 field.key + '_DspName' 的key中
             model.edittype = 'custom';
 
@@ -62,9 +62,6 @@ define('Entry/GridBuilder', function (require, module, exports) {
             };
 
             model.formatter = function (val, opt, row) {
-                //				if (row[field.key + '_DspName']) {
-                //					return row[field.key + '_DspName'];
-                //				} else
 
                 if (val) {
                     return val;
@@ -113,9 +110,10 @@ define('Entry/GridBuilder', function (require, module, exports) {
      * @param showKeys 需要展现的字段-null将按照单据模板确定
      * @param editKeys 可以编辑的字段-null将不可编辑
      * @param operator 控制是否有新增，删除行功能-true：可以添加/删除 false：不出现添加/删除行功能
+     * @param type 0:1:2-查看/新增/编辑
      * @returns {*}
      */
-    function getConfig(fields, config, showKeys, editKeys, operator, showType) {
+    function getConfig(fields, config, showKeys, editKeys, operator, type) {
 
         var cNames = [];
         var cModel = [];
@@ -131,16 +129,16 @@ define('Entry/GridBuilder', function (require, module, exports) {
             showKeys = params.showKeys;
             editKeys = params.editKeys;
             operator = params.operator;
-            showType = params.showType;
+            showType = type = params.showType;
 
         }
 
-        //按照单据模板确定
+        //按照单据模板确定显示字段
         if (!showKeys) {
             showKeys = getShowKeys(fields);
         }
 
-        //按照单据模板确定
+        //按照单据模板确定可编辑字段
         if (!editKeys) {
             editKeys = getEditKeys(fields);
         }
@@ -174,15 +172,9 @@ define('Entry/GridBuilder', function (require, module, exports) {
             cModel.push(model);
         }
 
+        for (var key in fields) {
 
-        //要展示的字段
-        /*        var keys = ['entryId', 'parent', 'seq', 'material', 'unit', 'qty', 'price',
-         'confirmDate', 'deliveryDate', 'discountRate', 'taxRate', 'taxPrice',
-         'actualTaxPrice', 'discountAmount', 'tax', 'localAmount', 'confirmQty'];*/
-
-        for (var key in showKeys) {
-
-            var field = fields[showKeys[key]];
+            var field = fields[key];
 
             if (!field) {
                 continue;
@@ -211,7 +203,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
                 }
             }
 
-            model = getColModel(field, !$.Array.contains(editKeys, field.key));
+            model = getColModel(field, $.Array.contains(showKeys, field.key), $.Array.contains(editKeys, field.key));
 
             cModel.push(model);
         }
@@ -237,8 +229,8 @@ define('Entry/GridBuilder', function (require, module, exports) {
 
     function sortModels(models) {
 
-        return $.Array.sort(models, function (models1, models2) {
-            return models1.tabIndex > models2.tabIndex;
+        return $.Array.sort(models, function (m1, m2) {
+            return m1.tabIndex > m2.tabIndex;
         });
 
     }
@@ -259,12 +251,26 @@ define('Entry/GridBuilder', function (require, module, exports) {
         var displayKeys = [];
         var display = 0;
 
-        if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
-            // 平台用户
-            display = !!id ? 4 : 16;
-        } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
-            //供应商用户用户
-            display = !!id ? 8 : 32;
+        if (showType == 2) {
+            // 编辑
+            //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                display = 4;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //供应商用户
+                display = 8;
+            }
+        } else if (showType == 1) {
+            // 新增
+            //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                display = 16;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //供应商用户
+                display = 32;
+            }
         }
 
         for (var key in fields) {
@@ -272,45 +278,66 @@ define('Entry/GridBuilder', function (require, module, exports) {
             var field = fields[key];
 
             if (!!(field.display & display)) {
-                // 字段可编辑
+                // 字段需要显示在编辑页面
                 displayKeys.push(key);
             }
         }
 
         return displayKeys;
+
     }
 
-    //根据模板获取编辑列
+    //根据模板获取可编辑列
     function getEditKeys(fields) {
 
-        var lockKeys = [];
+        var editKeys = [];
         var lock = 0;
 
-        if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
-            // 平台用户
-            lock = !!id ? 2 : 1;
-        } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
-            //供应商用户用户
-            lock = !!id ? 8 : 4;
+        if (showType == 2) {
+            // 编辑
+            //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                lock = 2;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //供应商用户
+                lock = 8;
+            }
+        } else if (showType == 1) {
+            // 新增
+            //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                lock = 1;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //物业用户
+                lock = 4;
+            }
         }
 
         for (var key in fields) {
 
             var field = fields[key];
 
-            if (!!(field.lock & lock)) {
+            var lockMask = field.lock || 0;
+
+            if (showType == 0) {
+                // 查看锁定所有字段
+                lockMask = 15;
+            }
+
+            if (!(lockMask & lock)) {
                 // 字段可编辑
-                lockKeys.push(key);
+                editKeys.push(key);
             }
         }
 
-        return lockKeys;
+        return editKeys;
 
     }
 
     return {
         getConfig: getConfig,
-
     };
 
 });
