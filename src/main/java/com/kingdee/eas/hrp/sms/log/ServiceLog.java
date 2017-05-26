@@ -22,10 +22,10 @@ public @interface ServiceLog {
 	 * 
 	 * @Title desc
 	 * @Description 方法功能描述
-	 * @param @return
+	 * @param
 	 * @return String
-	 * @throws @date
-	 *             2017年4月14日 下午2:24:48
+	 * @date 2017年4月14日 下午2:24:48
+	 * 
 	 */
 	String desc() default "";
 }
