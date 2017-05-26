@@ -282,6 +282,10 @@ define("List", function (require, module, exports) {
         Operation.unReview(classId, list, fn);
     }
 
+    function send(classId, list, fn) {
+        Operation.send(classId, list, fn);
+    }
+
     return {
         load: load,
         render: render,
@@ -293,5 +297,6 @@ define("List", function (require, module, exports) {
         forbid: forbid,
         review: review,
         unReview: unReview,
+        send: send,
     };
 });

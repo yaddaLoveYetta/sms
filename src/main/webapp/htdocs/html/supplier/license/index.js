@@ -124,6 +124,7 @@
             MessageBox.confirm('确定删除选择的项?', function (result) {
                 if (result) {
                     List.del(classId, list, function () {
+                        SMS.Tips.success("删除成功", 1500);
                         refresh();
                     });
                 }
@@ -172,7 +173,6 @@
 
         },
         'check': function (item, index) {
-            SMS.Tips.info('研发中，敬请期待……', 2000);
 
             var list = List.getSelectedItems();
 
@@ -185,13 +185,13 @@
                 return;
             }
             List.review(classId, list, function () {
+                SMS.Tips.success("审核成功", 1500);
                 refresh();
             });
 
 
         },
         'unCheck': function (item, index) {
-            SMS.Tips.info('研发中，敬请期待……', 2000);
 
             var list = List.getSelectedItems();
 
@@ -205,6 +205,7 @@
             }
 
             List.unReview(classId, list, function () {
+                SMS.Tips.success("反审核成功", 1500);
                 refresh();
             });
         },
@@ -225,14 +226,14 @@
                 SMS.Tips.error('该记录未审核，不可发送');
                 return;
             }
-
-            MessageBox.confirm('确定要将该记录发送给HRP系统?', function (result) {
+            MessageBox.confirm('确定要将该记录发送给医院?', function (result) {
                 if (result) {
-
-                    SMS.Tips.info('研发中，敬请期待……');
+                    List.send(classId, list, function () {
+                        SMS.Tips.success('发送成功', 2000);
+                        refresh();
+                    });
                 }
             });
-            return;
         },
         'refresh': function (item, index) {
             refresh();

@@ -10,6 +10,39 @@ define('List/Operation', function (require, module, exports) {
 
     var API = SMS.require('API');
 
+
+    function post(name, params, fn, msg) {
+
+        //延迟显示。 避免数据很快回来造成的只显示瞬间
+        SMS.Tips.loading({
+            text: msg || '数据加载中...',
+            delay: 500
+        });
+
+
+        var api = new API(name, {
+
+            data: params,
+
+            'success': function (data, json) { //success
+                fn && fn(data, json);
+
+            },
+
+            'fail': function (code, msg, json) {
+                SMS.Tips.error(msg, 2000);
+
+            },
+
+            'error': function () {
+                SMS.Tips.error('网络错误，请稍候再试', 2000);
+            },
+
+        });
+        api.post();
+
+    }
+
     function del(classId, list, fn) {
         var items = '';
         for (var item in list) {
@@ -19,30 +52,10 @@ define('List/Operation', function (require, module, exports) {
         }
 
         items = items.substr(1);
-
-        var api = new API('template/delItem');
-        api.get({
-
+        post('template/delItem', {
             'classId': classId,
-            'items': items
-
-        });
-
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success('删除成功', 2000);
-                fn();
-            },
-
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
-
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
-            }
-        });
+            'items': items,
+        }, fn);
     }
 
     function forbid(classId, list, operateType, fn) {
@@ -58,30 +71,12 @@ define('List/Operation', function (require, module, exports) {
             return;
         }
 
-        var api = new API('template/forbid');
-        api.get({
-
+        post('template/forbid', {
             'classId': classId,
             'items': items,
             'operateType': operateType
+        }, fn);
 
-        });
-
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success(operateType === 1 ? '禁用成功' : '反禁用成功', 2000);
-                fn();
-            },
-
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
-
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
-            }
-        });
     }
 
     function review(classId, list, fn) {
@@ -95,29 +90,10 @@ define('List/Operation', function (require, module, exports) {
 
         items = items.substr(1);
 
-        var api = new API('template/checkItem');
-        api.get({
-
+        post('template/checkItem', {
             'classId': classId,
             'items': items
-
-        });
-
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success('审核成功', 2000);
-                fn();
-            },
-
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
-
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
-            }
-        });
+        }, fn);
     }
 
     function unReview(classId, list, fn) {
@@ -131,31 +107,27 @@ define('List/Operation', function (require, module, exports) {
 
         items = items.substr(1);
 
-        var api = new API('template/unCheckItem');
-        api.get({
-
+        post('template/unCheckItem', {
             'classId': classId,
             'items': items
+        }, fn);
+    }
 
-        });
+    function send(classId, list, fn) {
 
-        api.on({
-            'success': function (data, json) {
-                SMS.Tips.success('反审核成功', 2000);
-                fn();
-            },
-
-            'fail': function (code, msg, json) {
-                var s = $.String.format('{0} (错误码: {1})', msg, code);
-                SMS.Tips.error(s);
-            },
-
-            'error': function () {
-                SMS.Tips.error('网络繁忙，请稍候再试');
+        var items = '';
+        for (var item in list) {
+            if (list[item]) {
+                items += (',' + list[item].primaryValue);
             }
-        });
+        }
 
+        items = items.substr(1);
 
+        post('sync/hrp/sendItem', {
+            'classId': classId,
+            'items': items,
+        }, fn);
     }
 
     return {
@@ -163,6 +135,7 @@ define('List/Operation', function (require, module, exports) {
         forbid: forbid,
         review: review,
         unReview: unReview,
+        send: send,
     };
 
 });

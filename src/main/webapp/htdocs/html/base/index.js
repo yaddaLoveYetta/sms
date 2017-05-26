@@ -210,18 +210,16 @@
                 return;
             }
 
-            List.send(classId, list, function () {
-                SMS.Tips.success('发送成功', 2000);
-                refresh();
+
+            MessageBox.confirm('确定要将该记录发送给医院?', function (result) {
+                if (result) {
+                    List.send(classId, list, function () {
+                        SMS.Tips.success('发送成功', 2000);
+                        refresh();
+                    });
+                }
             });
 
-            /*            MessageBox.confirm('确定要将该记录发送给医院HRP系统?', function (result) {
-             if (result) {
-
-             SMS.Tips.info('研发中，敬请期待……', 1500);
-             }
-             });
-             return;*/
         },
         'filter': function (item, index) {
             var items = List.getFilterItems();
