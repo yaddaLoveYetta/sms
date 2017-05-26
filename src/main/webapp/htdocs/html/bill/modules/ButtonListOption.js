@@ -4,7 +4,12 @@
 
 define('ButtonListOption', function (require, module, exports) {
 
-    var config = {'items': []};
+    var config = {
+        'items': [{
+            text: '刷新',
+            name: 'optRefresh'
+        }]
+    };
 
     function get(classId, type) {
 
