@@ -28,13 +28,15 @@ define('ButtonList', function (require, module, exports) {
             name: 'optSave',
 
         }, {
-            text: '恢复',
+            text: '刷新',
             name: 'optRefresh',
 
         }]
     };
 
-    function create() {
+    function create(c) {
+
+        config = $.Object.extend({}, config, c);
 
         var bl = new ButtonList(config);
 

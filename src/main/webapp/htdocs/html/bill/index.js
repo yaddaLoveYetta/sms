@@ -8,30 +8,47 @@
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
+    var Iframe = SMS.require('Iframe');
     var $API = SMS.require("API");
     var API = require("API");
     var MessageBox = SMS.require('MessageBox');
+    var ButtonListOption = require('ButtonListOption');
+
     var bl = require('ButtonList');
 
     var Head = require('Head');
     var Entry = require('Entry');
 
-    var ButtonList = bl.create();
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var id = MiniQuery.Url.getQueryString(window.location.href, 'id');
+    var type = MiniQuery.Url.getQueryString(window.location.href, 'type');
+
+    type = type || 0;// 0:1:2-查看/新增/编辑-查看时所有字段锁定，新增/编辑时根据模板控制-默认查看
 
     //检查登录
     if (!SMS.Login.check(true)) {
         return;
     }
+
+    var dialog = Iframe.getDialog();
+
+    var blConfig;
+    if (dialog) {
+        // 对话框中不要工具栏
+        blConfig = {
+            'items': []
+        };
+    } else {
+        blConfig = ButtonListOption.get(classId, type);
+    }
+
+    var ButtonList = bl.create(blConfig);
+
     ButtonList.render();
 
     ButtonList.on('click', {
         'optRefresh': function () {
-            Bill.render({
-                'classId': classId,
-                'items': items
-            });
+            refresh();
         },
         'optSave': function () {
             Bill.save(function (data) {
@@ -121,11 +138,12 @@
         }, function (data) {
             // 填充数据
             console.log(data);
-            Head.render(data, data.data.headData, id);
-            Entry.render(data.template, data.data.entryData, id);
+            Head.render(data, data.data.headData, type);
+            Entry.render(data.template, data.data.entryData, type);
             SMS.Tips.success("数据加载成功", 1500);
         });
     }
 
     refresh();
+
 })();

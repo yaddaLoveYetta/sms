@@ -166,6 +166,7 @@
                 query: {
                     'classId': classId,
                     'id': list[0].data[List.getPrimaryKey()],
+                    'type': 0,
                 }
             });
 

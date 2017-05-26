@@ -22,11 +22,11 @@ define('Head', function (require, module, exports) {
 
         var selectors = {};
         var fnSelectors;
-        var id; // 单据内码-判断是新增还是修改
+        var showType = 0; // 0:1:2-查看/新增/编辑
 
-        function render(metaData, data, itemId) {
+        function render(metaData, data, type) {
 
-            id = itemId;
+            showType = type;
 
             template = metaData.template;
             visibleTemplate = metaData.visibleTemplate;
@@ -192,12 +192,39 @@ define('Head', function (require, module, exports) {
         // 字段锁定性处理
         function lockControls(metaData) {
 
-            var isUpdate = !!id;//是否是修改
 
             if (!metaData || !metaData['formFields'] || !metaData['formFields'][0]) {
                 SMS.Tips.error('元数据错误，请联系管理员');
                 return;
             }
+
+            var lockMaskDisplay = 15;
+
+            if (showType === 2) {
+                // 编辑
+                //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
+                if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                    // 平台用户
+                    lockMaskDisplay = 2;
+                } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                    //供应商用户
+                    lockMaskDisplay = 8;
+                }
+            } else if (showType === 1) {
+                // 新增
+                //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
+                if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                    // 平台用户
+                    lockMaskDisplay = 1;
+                } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                    //物业用户
+                    lockMaskDisplay = 4;
+                }
+            } else {
+                // 查看-锁定所有字段
+                lockMaskDisplay = 15;
+            }
+
             var fields = metaData['formFields'][0];
 
             for (var item in fields) {
@@ -211,31 +238,9 @@ define('Head', function (require, module, exports) {
                     continue;
                 }
 
-                var lockMaskDisplay = 0;
-
-                if (isUpdate) {
-                    //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
-                    if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
-                        // 平台用户
-                        lockMaskDisplay = 2;
-                    } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
-                        //供应商用户
-                        lockMaskDisplay = 8;
-                    }
-                } else {
-                    //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
-                    if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
-                        // 平台用户
-                        lockMaskDisplay = 1;
-                    } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
-                        //物业用户
-                        lockMaskDisplay = 4;
-                    }
-                }
                 var lockMask = field['lock'] || 0;
                 //是否锁定
                 var isLock = !!(lockMask & lockMaskDisplay);
-
 
                 //锁定处理
                 if (isLock) {
