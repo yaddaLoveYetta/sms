@@ -220,9 +220,6 @@ define('Head', function (require, module, exports) {
                     //物业用户
                     lockMaskDisplay = 4;
                 }
-            } else {
-                // 查看-锁定所有字段
-                lockMaskDisplay = 15;
             }
 
             var fields = metaData['formFields'][0];
@@ -239,6 +236,11 @@ define('Head', function (require, module, exports) {
                 }
 
                 var lockMask = field['lock'] || 0;
+
+                if (showType === 0) {
+                    // 查看锁定所有字段
+                    lockMask = 15;
+                }
                 //是否锁定
                 var isLock = !!(lockMask & lockMaskDisplay);
 
