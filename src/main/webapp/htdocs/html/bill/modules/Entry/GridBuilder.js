@@ -271,6 +271,9 @@ define('Entry/GridBuilder', function (require, module, exports) {
                 //供应商用户
                 display = 32;
             }
+        } else if (showType == 0) {
+            // 查看时都显示
+            display = 63;
         }
 
         for (var key in fields) {
@@ -313,6 +316,9 @@ define('Entry/GridBuilder', function (require, module, exports) {
                 //物业用户
                 lock = 4;
             }
+        } else if (showType == 0) {
+            // 查看时都锁定
+            lock = 15;
         }
 
         for (var key in fields) {
