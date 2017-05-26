@@ -30,7 +30,7 @@ public class PermissionService extends BaseService implements IPermissionService
 		int ac = getAccessMask(classId, roleId);
 		if ((ac & accessMask) == accessMask)
 			return true;
-		return true;
+		return false;
 	}
 
 	private int getAccessMask(Integer classId, String roleId) {

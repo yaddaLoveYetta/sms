@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kingdee.eas.hrp.sms.authority.AccessMaskCode;
 import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
@@ -23,7 +24,7 @@ public class SyncHRPController {
 	ISyncHRPService syncHRPService;
 
 	@ControllerLog(desc = "同步item") // 做日志
-	@Permission(objectType = 0, objectId = 0, accessMask = 256, desc = "同步item") // 权限
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_SYNC, desc = "同步item") // 权限
 	@RequestMapping(value = "sendItem")
 	public void sendItem(HttpServletRequest request, HttpServletResponse response) {
 

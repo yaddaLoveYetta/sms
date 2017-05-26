@@ -14,7 +14,7 @@ package com.kingdee.eas.hrp.sms.authority;
  *               32 反审核<br>
  *               64 禁用<br>
  *               128 反禁用<br>
- *               256 待定<br>
+ *               256 同步<br>
  *               512 待定<br>
  *               1024 待定<br>
  *               2048 待定<br>
@@ -64,6 +64,10 @@ public class AccessMaskCode {
 	 * 反禁用
 	 */
 	public static final int MASK_ENABLE = 128;
+	/**
+	 * 同步
+	 */
+	public static final int MASK_SYNC = 256;
 
 	// 各模块特殊特殊的自定义的权限值============================================Begin===============================
 
