@@ -43,7 +43,7 @@ dd {
 }
 
 .logistics-row .item {
-    width: 237px;
+    width: 250px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -54,7 +54,7 @@ dd {
     display: block;
     width: 70px;
     line-height: 24px;
-    text-align: left;
+    text-align: right;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
