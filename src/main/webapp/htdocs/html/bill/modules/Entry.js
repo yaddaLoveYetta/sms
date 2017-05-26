@@ -5,11 +5,11 @@
 define('Entry', function (require, module, exports) {
 
     var SMS = require('SMS');
-    var GridBuilder = require('/GridBuilder');// 真实路径是'Bill/Entry/GridBuilder'
+    var GridBuilder = require('/GridBuilder');// 真实路径是'Entry/GridBuilder'
 
     var billGrid;
     var isNeedOpt = true; // 订单详情不可编辑
-    var id; // 单据内码-判断是新增还是修改
+    var showType = 0; // 0:1:2-查看/新增/编辑
 
     var billTemplate = {};
 
@@ -35,40 +35,16 @@ define('Entry', function (require, module, exports) {
         SMS.use('Grid', function (Grid) {
 
             billGrid = new Grid('bd-grid');
-
-            /**
-             entryId
-             parent
-             seq
-             orderId
-             orderNumber
-             orderSeq
-             material
-             specification
-             lot
-             dyBatchNum
-             code
-             price
-             unit
-             qty
-             dyProDate
-             dyManufacturer
-             registrationNo
-             amount
-             effectiveDate
-             */
-                //要展示的列
+            //要展示的列
             var showKeys = [];
-
             //可编辑的列
-            var editKeys = ['material', 'lot', 'dyBatchNum', 'actualQty', 'code', 'dyProDate', 'dyManufacturer', 'registrationNo', 'effectiveDate'];
+            var editKeys = [];
 
-            // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
                 'operator': false,
-                'itemId':id,
+                'showType': showType,
             });
 
 
@@ -85,12 +61,6 @@ define('Entry', function (require, module, exports) {
 
         var entry = [];
         /*
-         'data':{
-         FEntryID:0, 新增可不传
-         FParkID:1,
-         FParkName:'ade',
-         FParkNumber:'001'
-         },
          'flag':'1' 0删除, 1新增，2修改
          */
         var gridData = billGrid.getGridDatas(1); // 获取第一个表体数据
@@ -121,8 +91,8 @@ define('Entry', function (require, module, exports) {
         };
     }
 
-    function render(template, data, itemId) {
-        id = itemId;
+    function render(template, data, type) {
+        showType = type;
         gridRender(template, data);
     }
 

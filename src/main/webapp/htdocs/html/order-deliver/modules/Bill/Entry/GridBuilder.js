@@ -13,10 +13,11 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
     /**
      * 构建grid model
      * @param field 字段模板
-     * @param editAble 是否可编辑
+     * @param isShow 是否显示
+     * @param isEditAble 是否可编辑
      * @returns {{}}
      */
-    function getColModel(field, editAble) {
+    function getColModel(field, isShow, isEditAble) {
 
         var model = {};
 
@@ -24,8 +25,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         model.label = field.name;
         model.width = field.showWidth;
         model.title = true;
-        model.editable = editAble;// ((field.enableMask & 1) == 1 || (field.enableMask & 2) == 2);
-        model.hidden = ((field.display & 1) != 1);
+        model.editable = isEditAble;
+        model.hidden = isShow;
         model.tabIndex = field.index;
 
         if (field.ctrlType == 6) {
@@ -62,10 +63,6 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             };
 
             model.formatter = function (val, opt, row) {
-                //				if (row[field.key + '_DspName']) {
-                //					return row[field.key + '_DspName'];
-                //				} else
-
                 if (val) {
                     return val;
                 } else {
@@ -86,7 +83,8 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             model.edittype = 'text';
             model.editrules = {required: true};
             model.editoptions = {
-                size: 10, maxlengh: 10,
+                size: 10,
+                maxlengh: 10,
                 dataInit: function (element) {
 
                     SMS.use('DateTimePicker', function (DateTimePicker) {
@@ -181,9 +179,9 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
          'confirmDate', 'deliveryDate', 'discountRate', 'taxRate', 'taxPrice',
          'actualTaxPrice', 'discountAmount', 'tax', 'localAmount', 'confirmQty'];*/
 
-        for (var key in showKeys) {
+        for (var key in fields) {
 
-            var field = fields[showKeys[key]];
+            var field = fields[key];
 
             if (!field) {
                 continue;
@@ -212,7 +210,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 }
             }
 
-            model = getColModel(field, !$.Array.contains(editKeys, field.key));
+            model = getColModel(field, !$.Array.contains(showKeys, field.key), !$.Array.contains(editKeys, field.key));
 
             cModel.push(model);
         }

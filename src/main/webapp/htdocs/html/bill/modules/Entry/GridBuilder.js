@@ -8,7 +8,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
     var SMS = require('SMS');
     var user = SMS.Login.get();
 
-    var id; // 单据内码-判断是新增还是修改
+    var showType = 0; // 0:1:2-查看/新增/编辑
 
     /**
      * 构建grid model
@@ -115,7 +115,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
      * @param operator 控制是否有新增，删除行功能-true：可以添加/删除 false：不出现添加/删除行功能
      * @returns {*}
      */
-    function getConfig(fields, config, showKeys, editKeys, operator) {
+    function getConfig(fields, config, showKeys, editKeys, operator, showType) {
 
         var cNames = [];
         var cModel = [];
@@ -131,18 +131,17 @@ define('Entry/GridBuilder', function (require, module, exports) {
             showKeys = params.showKeys;
             editKeys = params.editKeys;
             operator = params.operator;
+            showType = params.showType;
 
         }
 
         //按照单据模板确定
         if (!showKeys) {
-            //showKeys = $.Object.getKeys(fields);
             showKeys = getShowKeys(fields);
         }
 
         //按照单据模板确定
         if (!editKeys) {
-            // editKeys = $.Object.getKeys(fields);
             editKeys = getEditKeys(fields);
         }
 
