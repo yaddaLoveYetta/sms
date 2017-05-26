@@ -7,8 +7,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
     var user = SMS.Login.get();
-
-    var id; // 单据内码-判断是新增还是修改
+    var showType = 0; // 0:1:2-查看/新增/编辑
 
     /**
      * 构建grid model
@@ -26,7 +25,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         model.width = field.showWidth;
         model.title = true;
         model.editable = isEditAble;
-        model.hidden = isShow;
+        model.hidden = !isShow;
         model.tabIndex = field.index;
 
         if (field.ctrlType == 6) {
@@ -113,7 +112,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
      * @param operator 控制是否有新增，删除行功能-true：可以添加/删除 false：不出现添加/删除行功能
      * @returns {*}
      */
-    function getConfig(fields, config, showKeys, editKeys, operator) {
+    function getConfig(fields, config, showKeys, editKeys, operator, type) {
 
         var cNames = [];
         var cModel = [];
@@ -129,6 +128,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             showKeys = params.showKeys;
             editKeys = params.editKeys;
             operator = params.operator;
+            showType = params.showType;
 
         }
 
@@ -173,12 +173,6 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             cModel.push(model);
         }
 
-
-        //要展示的字段
-        /*        var keys = ['entryId', 'parent', 'seq', 'material', 'unit', 'qty', 'price',
-         'confirmDate', 'deliveryDate', 'discountRate', 'taxRate', 'taxPrice',
-         'actualTaxPrice', 'discountAmount', 'tax', 'localAmount', 'confirmQty'];*/
-
         for (var key in fields) {
 
             var field = fields[key];
@@ -210,7 +204,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 }
             }
 
-            model = getColModel(field, !$.Array.contains(showKeys, field.key), !$.Array.contains(editKeys, field.key));
+            model = getColModel(field, $.Array.contains(showKeys, field.key), $.Array.contains(editKeys, field.key));
 
             cModel.push(model);
         }
@@ -258,12 +252,26 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         var displayKeys = [];
         var display = 0;
 
-        if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
-            // 平台用户
-            display = !!id ? 4 : 16;
-        } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
-            //供应商用户用户
-            display = !!id ? 8 : 32;
+        if (showType == 2) {
+            // 编辑
+            //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                display = 4;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //供应商用户
+                display = 8;
+            }
+        } else if (showType == 1) {
+            // 新增
+            //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                display = 16;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //供应商用户
+                display = 32;
+            }
         }
 
         for (var key in fields) {
@@ -271,7 +279,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
             var field = fields[key];
 
             if (!!(field.display & display)) {
-                // 字段可编辑
+                // 字段需要显示在编辑页面
                 displayKeys.push(key);
             }
         }
@@ -285,12 +293,26 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
         var lockKeys = [];
         var lock = 0;
 
-        if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
-            // 平台用户
-            lock = !!id ? 2 : 1;
-        } else if (user.type == 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
-            //供应商用户用户
-            lock = !!id ? 8 : 4;
+        if (showType == 2) {
+            // 编辑
+            //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                lock = 2;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //供应商用户
+                lock = 8;
+            }
+        } else if (showType == 1) {
+            // 新增
+            //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                lock = 1;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //物业用户
+                lock = 4;
+            }
         }
 
         for (var key in fields) {
@@ -309,7 +331,6 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
     return {
         getConfig: getConfig,
-
     };
 
 });
