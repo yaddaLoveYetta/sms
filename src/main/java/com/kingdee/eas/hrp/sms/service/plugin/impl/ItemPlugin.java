@@ -137,13 +137,15 @@ public class ItemPlugin extends PlugInAdpter {
 
 		Map<String, Object> result = templateService.getItemById(classId, id, userType);
 		short review;
-		if (null == result.get("review")) {
-			review = 1;
-		} else {
-			review = (short) result.get("review");
-		}
-		if (1 == review && json != null && !json.isEmpty()) {
-			throw new PlugInRuntimeException("记录" + result.get("number") + "已审核，无法进行操作！");
+		if (result.containsKey("review")) {
+			if (null == result.get("review")) {
+				review = 1;
+			} else {
+				review = (short) result.get("review");
+			}
+			if (1 == review && json != null && !json.isEmpty()) {
+				throw new PlugInRuntimeException("记录" + result.get("number") + "已审核，无法进行操作！");
+			}
 		}
 	}
 
