@@ -200,7 +200,7 @@ define('Head', function (require, module, exports) {
 
             var lockMaskDisplay = 15;
 
-            if (showType === 2) {
+            if (showType == 2) {
                 // 编辑
                 //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
                 if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
@@ -210,7 +210,7 @@ define('Head', function (require, module, exports) {
                     //供应商用户
                     lockMaskDisplay = 8;
                 }
-            } else if (showType === 1) {
+            } else if (showType == 1) {
                 // 新增
                 //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
                 if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
@@ -237,7 +237,7 @@ define('Head', function (require, module, exports) {
 
                 var lockMask = field['lock'] || 0;
 
-                if (showType === 0) {
+                if (showType == 0) {
                     // 查看锁定所有字段
                     lockMask = 15;
                 }
