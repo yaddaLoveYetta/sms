@@ -68,7 +68,7 @@ define('Bill/Entry', function (require, module, exports) {
                 'fields': template.formFields["1"],
                 'defaults': defaults,
                 'operator': false,
-                'itemId':id,
+                'showType': 1,
             });
 
 
