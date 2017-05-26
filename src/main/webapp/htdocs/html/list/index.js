@@ -191,22 +191,6 @@
             SMS.Tips.error('请选择要操作的项', 1500);
             return;
         }
-        // 判断订单类别是否符合发货条件-代销与非代销订单不能合并发货
-        var saleProxy;
-        $.Array.each(list, function (item, index) {
-
-            if (index === 0) {
-                saleProxy = item.data.saleProxy;
-                return true;
-            }
-
-            if (item.data.saleProxy !== saleProxy) {
-                SMS.Tips.error('代销订单不能与非代销订单合并发货');
-                done = false;
-                return false;
-            }
-
-        });
 
         if (!done) {
             // 不满足发货条件
