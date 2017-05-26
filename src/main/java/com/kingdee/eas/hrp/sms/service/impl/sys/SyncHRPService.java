@@ -79,7 +79,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 
 		for (String id : idTargetList) {
 			try {
-				if (!(null == failId || "".equals(failId)) && failIdList.contains(id)) {
+				if ( failIdList.contains(id)) {
 					continue;
 				}
 				templateService.editItem(classId, id, "{}", userType);
