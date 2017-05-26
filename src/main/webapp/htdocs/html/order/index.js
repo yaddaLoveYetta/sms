@@ -14,7 +14,7 @@
     var MessageBox = SMS.require('MessageBox');
     var Iframe = SMS.require('Iframe');
 
-    var classId = 2019;
+    var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
 
@@ -52,27 +52,17 @@
     });
 
 
-    var blConfig = {
-        'items': [
-            {
-                text: '接单',
-                name: 'tick',
-            },
-            {
-                text: '刷新',
-                name: 'refresh',
-            },
-            {
-                text: '详情',
-                name: 'detail',
-            },
-            {
-                text: '生成发货单',
-                name: 'deliver',
-            }
-        ]
-    };
+    var dialog = Iframe.getDialog();
 
+    var blConfig;
+    if (dialog) {
+        // 对话框中不要工具栏
+        blConfig = {
+            'items': []
+        };
+    } else {
+        blConfig = ButtonListOption.get(classId);
+    }
 
     var ButtonList = bl.create(blConfig);
 
@@ -283,11 +273,6 @@
 
         }
     });
-
-    //生成发货单
-    function deliver() {
-
-    }
 
     //保存接单数据
     function tick(data, fn) {

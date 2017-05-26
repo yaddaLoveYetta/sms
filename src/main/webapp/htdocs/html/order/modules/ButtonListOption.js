@@ -8,66 +8,41 @@ define('ButtonListOption', function (require, module, exports) {
 
     function get(classId) {
 
-        if (classId == 1001) { // 用户
+        if (classId == 2019) {
+            // 采购订单
             config = {
-                'items': [{
-                    text: '新增',
-                    name: 'add',
-                }, {
-                    text: '删除',
-                    name: 'delete',
-                }, {
-                    text: '刷新',
-                    name: 'refresh',
-                },
+                'items': [
                     {
                         text: '接单',
-                        name: 'enable',
-                        items: [{
-                            text: '反接单',
-                            name: 'disable'
-                        }],
+                        name: 'tick',
+                    },
+                    {
+                        text: '刷新',
+                        name: 'refresh',
+                    },
+                    {
+                        text: '详情',
+                        name: 'detail',
+                    },
+                    {
+                        text: '生成发货单',
+                        name: 'deliver',
                     }
                 ]
             };
-        } else if (classId == 1003) {
+        } else if (classId == 2020) {
+            // 发货单
             config = {
-                'items': [{
-                    text: '新增',
-                    name: 'add',
-                }, {
-                    text: '删除',
-                    name: 'delete',
-                }, {
-                    text: '刷新',
-                    name: 'refresh',
-                }]
-            };
-        } else if (classId == 1005) {
-            config = {
-                'items': [{
-                    text: '新增',
-                    name: 'add',
-                }, {
-                    text: '删除',
-                    name: 'delete',
-                }, {
-                    text: '刷新',
-                    name: 'refresh',
-                }]
-            };
-        } else if (classId == 1007) {
-            config = {
-                'items': [{
-                    text: '新增',
-                    name: 'add',
-                }, {
-                    text: '删除',
-                    name: 'delete',
-                }, {
-                    text: '刷新',
-                    name: 'refresh',
-                }]
+                'items': [
+                    {
+                        text: '刷新',
+                        name: 'refresh',
+                    },
+                    {
+                        text: '详情',
+                        name: 'detail',
+                    },
+                ]
             };
         } else {
 
