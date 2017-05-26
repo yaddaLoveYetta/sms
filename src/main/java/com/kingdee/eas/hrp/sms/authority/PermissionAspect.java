@@ -100,7 +100,7 @@ public class PermissionAspect {
 				return;
 			}
 
-			throw new PermissionDeniedRuntimeTimeException(String.format("您无[%s]的权限，请联系管理员!", desc));
+			throw new PermissionDeniedRuntimeTimeException(String.format("您无[%s]权限，请联系管理员!", desc));
 		}
 
 	}
