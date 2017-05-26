@@ -1,17 +1,16 @@
 package com.kingdee.eas.hrp.sms.service.impl.sys;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.kingdee.eas.hrp.sms.dao.generate.AccessControlMapper;
-import com.kingdee.eas.hrp.sms.exception.PermissionDeniedRuntimeTimeException;
+import com.kingdee.eas.hrp.sms.dao.generate.ObjectTypeMapper;
 import com.kingdee.eas.hrp.sms.model.AccessControl;
 import com.kingdee.eas.hrp.sms.model.AccessControlExample;
-import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.model.ObjectType;
+import com.kingdee.eas.hrp.sms.model.ObjectTypeExample;
+import com.kingdee.eas.hrp.sms.model.ObjectTypeExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.sys.IPermissionService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
@@ -25,31 +24,54 @@ public class PermissionService extends BaseService implements IPermissionService
 	}
 
 	@Override
-	public boolean checkPermissionByRole(Integer classId, String roleId, int objectType, int objectId, int accessMask) {
+	public boolean checkPermissionByRole(String roleId, int objectType, int objectId, int accessMask) {
 
-		int ac = getAccessMask(classId, roleId);
-		if ((ac & accessMask) == accessMask)
+		int mask = getAccessMask(objectType, objectId, roleId);
+
+		if ((mask & accessMask) == accessMask) {
+			// 有权限
 			return true;
+		}
+
 		return false;
 	}
 
-	private int getAccessMask(Integer classId, String roleId) {
+	private int getAccessMask(int objectType, int objectId, String roleId) {
 
-		int accessMask;
 		AccessControlMapper mapper = sqlSession.getMapper(AccessControlMapper.class);
 
 		AccessControlExample example = new AccessControlExample();
 		com.kingdee.eas.hrp.sms.model.AccessControlExample.Criteria criteria = example.createCriteria();
 		criteria.andRoleIdEqualTo(roleId);
+		criteria.andObjectTypeEqualTo(objectType);
+		criteria.andObjectIdEqualTo(objectId);
 
 		List<AccessControl> selectByExample = mapper.selectByExample(example);
-		if (selectByExample.size() > 0) {
+
+		if (null != selectByExample && selectByExample.size() > 0) {
 			AccessControl accessControl = selectByExample.get(0);
-			accessMask = accessControl.getAccessMask();
-		} else {
-			throw new PermissionDeniedRuntimeTimeException("该业务还没分配权限，请联系管理员!");
+			return accessControl.getAccessMask();
 		}
-		return accessMask;
+
+		return 0;
+	}
+
+	@Override
+	public ObjectType getAccessType(int classId) {
+
+		ObjectTypeMapper mapper = sqlSession.getMapper(ObjectTypeMapper.class);
+		ObjectTypeExample example = new ObjectTypeExample();
+		Criteria criteria = example.createCriteria();
+
+		criteria.andClassIdEqualTo(classId);
+
+		List<ObjectType> selectByExample = mapper.selectByExample(example);
+
+		if (null != selectByExample && !selectByExample.isEmpty()) {
+			return selectByExample.get(0);
+		}
+
+		return null;
 	}
 
 }

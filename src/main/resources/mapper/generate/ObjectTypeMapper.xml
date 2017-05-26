@@ -8,6 +8,7 @@
     <result column="objectId" jdbcType="INTEGER" property="objectId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="classId" jdbcType="INTEGER" property="classId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    topClassId, subSysId, objectType, objectId, [name], description
+    topClassId, subSysId, objectType, objectId, [name], description, classId
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.ObjectTypeExample" resultMap="BaseResultMap">
     select
@@ -92,11 +93,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.ObjectType">
     insert into t_sms_objectType (topClassId, subSysId, objectType, 
-      objectId, [name], description
-      )
+      objectId, [name], description, 
+      classId)
     values (#{topClassId,jdbcType=INTEGER}, #{subSysId,jdbcType=INTEGER}, #{objectType,jdbcType=INTEGER}, 
-      #{objectId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
-      )
+      #{objectId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{classId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.ObjectType">
     insert into t_sms_objectType
@@ -119,6 +120,9 @@
       <if test="description != null">
         description,
       </if>
+      <if test="classId != null">
+        classId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="topClassId != null">
@@ -138,6 +142,9 @@
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -168,6 +175,9 @@
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
       </if>
+      <if test="record.classId != null">
+        classId = #{record.classId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -180,7 +190,8 @@
       objectType = #{record.objectType,jdbcType=INTEGER},
       objectId = #{record.objectId,jdbcType=INTEGER},
       [name] = #{record.name,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR}
+      description = #{record.description,jdbcType=VARCHAR},
+      classId = #{record.classId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

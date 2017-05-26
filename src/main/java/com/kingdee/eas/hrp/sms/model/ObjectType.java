@@ -13,6 +13,8 @@ public class ObjectType {
 
     private String description;
 
+    private Integer classId;
+
     public Integer getTopClassId() {
         return topClassId;
     }
@@ -59,5 +61,13 @@ public class ObjectType {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Integer getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
     }
 }

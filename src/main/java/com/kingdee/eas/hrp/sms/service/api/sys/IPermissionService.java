@@ -1,5 +1,7 @@
 package com.kingdee.eas.hrp.sms.service.api.sys;
 
+import com.kingdee.eas.hrp.sms.model.ObjectType;
+
 public interface IPermissionService {
 
 	/**
@@ -38,5 +40,16 @@ public interface IPermissionService {
 	 * @return boolean
 	 * @date 2017-04-15 20:58:18 星期六
 	 */
-	boolean checkPermissionByRole(Integer classId, String roleId, int objectType, int objectId, int accessMask);
+	boolean checkPermissionByRole(String roleId, int objectType, int objectId, int accessMask);
+
+	/**
+	 * 通过classId转换获取objectType-objectId
+	 * 
+	 * @Title getAccessType
+	 * @param classId
+	 * @return
+	 * @return Map<String,Integer>
+	 * @date 2017-05-26 15:16:07 星期五
+	 */
+	ObjectType getAccessType(int classId);
 }
