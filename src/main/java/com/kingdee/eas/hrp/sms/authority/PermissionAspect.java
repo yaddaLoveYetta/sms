@@ -81,6 +81,7 @@ public class PermissionAspect {
 			String desc = permission.desc();
 
 			if (objectType == 0 && objectId == 0) {
+				// 模板查询接口特殊配置
 				// 获取调用参数中的classId，通过此classId去转换真实的objectType，objectId
 				// 读取classId
 				int classId = ParameterUtils.getParameter(request, "classId", -1);
