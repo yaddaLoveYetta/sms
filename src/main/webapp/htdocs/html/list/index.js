@@ -137,142 +137,155 @@
             });
         },
         'detail': function (item, index) {
-            // 订单详情
-            var list = List.getSelectedItems();
-
-            if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项');
-                return;
-            }
-            if (list.length > 1) {
-                SMS.Tips.error('只能对一条记录进行操作');
-                return;
-            }
-
-            Iframe.open({
-                id: classId + '-add-' + list[0].data[List.getPrimaryKey()],
-                name: '详情-采购订单',
-                url: 'html/bill/index.html',
-                query: {
-                    'classId': classId,
-                    'id': list[0].data[List.getPrimaryKey()],
-                    'type': 0,
-                }
-            });
-
-
+            detailView();
         },
         'refresh': function (item, index) {
             refresh();
         },
         'deliver': function (item, index) {
-
-            var done = true;
-            //SMS.Tips.info('功能研发中，敬请期待……');
-
-            var list = List.getSelectedItems();
-
-            if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项', 1500);
-                return;
-            }
-            // 判断订单类别是否符合发货条件-代销与非代销订单不能合并发货
-            var saleProxy;
-            $.Array.each(list, function (item, index) {
-
-                if (index === 0) {
-                    saleProxy = item.data.saleProxy;
-                    return true;
-                }
-
-                if (item.data.saleProxy !== saleProxy) {
-                    SMS.Tips.error('代销订单不能与非代销订单合并发货');
-                    done = false;
-                    return false;
-                }
-
-            });
-
-            if (!done) {
-                // 不满足发货条件
-                return;
-            }
-            // 判断订单状态是否符合发货条件
-            $.Array.each(list, function (item, index) {
-                if (!item.data.confirmTick) {
-                    // 供应商没有接单
-                    SMS.Tips.error(item.data.number + ' 供应商未接单，不能发货');
-                    done = false;
-                    return false;
-                }
-                if (!item.data.tickType) {
-                    // HRP没有确认接单
-                    SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货');
-                    done = false;
-                    return false;
-                }
-            });
-            if (!done) {
-                // 不满足发货条件
-                return;
-            }
-            // 判断订单数量是否符合发货条件
-            $.Array.each(list, function (item, index) {
-
-                $.Array.each(item.data.entry[1], function (row, index) {
-                    if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
-                        // 接单数量已经全部发货
-                        SMS.Tips.error(item.data.number + 'seq' + index + '接单数量已发货完毕，不能再发货');
-                        done = false;
-                        return false;
-                    }
-                });
-            });
-
-            if (!done) {
-                // 不满足发货条件
-                return;
-            }
-            var items = ''; // 发货订单主键集合，多个逗号分隔
-
-            for (var item in list) {
-                if (list[item]) {
-                    items += (',' + list[item].primaryValue );
-                }
-            }
-
-            items = items.substr(1);
-
-            SMS.use('Dialog', function (Dialog) {
-
-                var dialog = new Dialog({
-                    title: '生成发货单',
-                    width: 1024,
-                    height: 550,
-                    url: $.Url.setQueryString('html/order-deliver/index.html', {
-                        'classId': 2020,
-                        'items': items,
-                    }),
-                    data: {},
-                    button: [],
-                });
-
-                //默认关闭行为为不提交
-                dialog.isSubmit = false;
-
-                dialog.showModal();
-
-                dialog.on({
-                    remove: function () {
-                        refresh();
-                    }
-                });
-
-            });
-
-
+            deliver();
         }
     });
+
+    function detailView() {
+
+        // 单据详情
+        var list = List.getSelectedItems();
+
+        if (list.length == 0) {
+            SMS.Tips.error('请选择要操作的项');
+            return;
+        }
+        if (list.length > 1) {
+            SMS.Tips.error('只能对一条记录进行操作');
+            return;
+        }
+
+        var name = '';
+        switch (parseInt(classId)) {
+            case 2019:
+                name = '采购订单';
+                break;
+            case 2020:
+                name = '发货单';
+        }
+
+        Iframe.open({
+            id: classId + '-detail-' + list[0].data[List.getPrimaryKey()],
+            name: '详情-' + name,
+            url: 'html/bill/index.html',
+            query: {
+                'classId': classId,
+                'id': list[0].data[List.getPrimaryKey()],
+                'type': 0,
+            }
+        });
+    }
+
+    function deliver() {
+
+        var done = true;
+        var list = List.getSelectedItems();
+
+        if (list.length == 0) {
+            SMS.Tips.error('请选择要操作的项', 1500);
+            return;
+        }
+        // 判断订单类别是否符合发货条件-代销与非代销订单不能合并发货
+        var saleProxy;
+        $.Array.each(list, function (item, index) {
+
+            if (index === 0) {
+                saleProxy = item.data.saleProxy;
+                return true;
+            }
+
+            if (item.data.saleProxy !== saleProxy) {
+                SMS.Tips.error('代销订单不能与非代销订单合并发货');
+                done = false;
+                return false;
+            }
+
+        });
+
+        if (!done) {
+            // 不满足发货条件
+            return;
+        }
+        // 判断订单状态是否符合发货条件
+        $.Array.each(list, function (item, index) {
+            if (!item.data.confirmTick) {
+                // 供应商没有接单
+                SMS.Tips.error(item.data.number + ' 供应商未接单，不能发货');
+                done = false;
+                return false;
+            }
+            if (!item.data.tickType) {
+                // HRP没有确认接单
+                SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货');
+                done = false;
+                return false;
+            }
+        });
+        if (!done) {
+            // 不满足发货条件
+            return;
+        }
+        // 判断订单数量是否符合发货条件
+        $.Array.each(list, function (item, index) {
+
+            $.Array.each(item.data.entry[1], function (row, index) {
+                if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
+                    // 接单数量已经全部发货
+                    SMS.Tips.error(item.data.number + 'seq' + index + '接单数量已发货完毕，不能再发货');
+                    done = false;
+                    return false;
+                }
+            });
+        });
+
+        if (!done) {
+            // 不满足发货条件
+            return;
+        }
+        var items = ''; // 发货订单主键集合，多个逗号分隔
+
+        for (var item in list) {
+            if (list[item]) {
+                items += (',' + list[item].primaryValue );
+            }
+        }
+
+        items = items.substr(1);
+
+        SMS.use('Dialog', function (Dialog) {
+
+            var dialog = new Dialog({
+                title: '生成发货单',
+                width: 1024,
+                height: 550,
+                url: $.Url.setQueryString('html/order-deliver/index.html', {
+                    'classId': 2020,
+                    'items': items,
+                }),
+                data: {},
+                button: [],
+            });
+
+            //默认关闭行为为不提交
+            dialog.isSubmit = false;
+
+            dialog.showModal();
+
+            dialog.on({
+                remove: function () {
+                    refresh();
+                }
+            });
+
+        });
+
+    }
 
     //保存接单数据
     function tick(data, fn) {
