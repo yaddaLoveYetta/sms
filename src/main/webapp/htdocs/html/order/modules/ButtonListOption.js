@@ -8,7 +8,7 @@ define('ButtonListOption', function (require, module, exports) {
 
     function get(classId) {
 
-        switch (classId) {
+        switch (parseInt(classId)) {
 
             case 2019:
                 // 采购订单
