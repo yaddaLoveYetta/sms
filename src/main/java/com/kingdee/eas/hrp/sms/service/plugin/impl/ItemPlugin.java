@@ -109,6 +109,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 		checkMustInput(classId, formData, json, userType);
 
+		// 如果json为空说明是同步到HRP修改同步字段，不用验证是否数据重复
 		if (classId / 100 == 10 && !json.isEmpty()) {
 
 			checkIfExistRecord(classId, id, formData, json, userType);
@@ -223,13 +224,9 @@ public class ItemPlugin extends PlugInAdpter {
 		if (!json.isEmpty()) {
 			// 如果flag是true，表明这个字段需要验证是否非空
 			boolean flag = false;
-			// 主表资料描述信息
-			FormClass formClass = (FormClass) formData.get("formClass");
-			String primaryKey = formClass.getPrimaryKey();
 			// 主表字段模板
 			Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
 					.get("formFields")).get("0"); // 主表的字段模板
-			formFields.remove(primaryKey);
 			Set<String> keySet = formFields.keySet();
 			StringBuilder errMsg = new StringBuilder();
 			for (String key : keySet) {
