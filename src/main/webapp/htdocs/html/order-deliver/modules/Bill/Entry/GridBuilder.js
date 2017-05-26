@@ -290,7 +290,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
     //根据模板获取编辑列
     function getEditKeys(fields) {
 
-        var lockKeys = [];
+        var editKeys = [];
         var lock = 0;
 
         if (showType == 2) {
@@ -319,13 +319,13 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
 
             var field = fields[key];
 
-            if (!!(field.lock & lock)) {
+            if (!(field.lock & lock)) {
                 // 字段可编辑
-                lockKeys.push(key);
+                editKeys.push(key);
             }
         }
 
-        return lockKeys;
+        return editKeys;
 
     }
 
