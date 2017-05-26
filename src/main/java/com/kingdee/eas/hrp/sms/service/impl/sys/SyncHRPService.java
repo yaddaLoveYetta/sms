@@ -43,8 +43,8 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		for (int i = 0; i < idList.size(); i++) {
 			Map<String, Object> item = templateService.getItemById(classId, idList.get(i), userType);
 			String id = (String) item.get("id");
-			if (idList.contains(id) && (0 == (short) item.get("syncStatus") || item.get("syncStatus") == null
-					|| item.get("syncStatus").equals(""))) {
+			if (0 == (short) item.get("syncStatus") || null == item.get("syncStatus")
+					|| "".equals(item.get("syncStatus"))) {
 				idTargetList.add(id);
 				JSONObject targetItem = (JSONObject) JSONObject.toJSON(item);
 				targetList.add(targetItem);
@@ -59,8 +59,17 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		}
 
 		String sessionId = loginInEAS();
+		// if (null == sessionId) {
+		// throw new RuntimeException("网络异常！");
+		// }
 		List<String> failIdList;
-		String failId = sendItemByWS(sessionId, targetList.toString(), "sms2hrpSupplier");
+		String ret = sendItemByWS(sessionId, targetList.toString(), "sms2hrpSupplier");
+		// if (null == ret || "".equals(ret)) {
+		// throw new RuntimeException("网络异常！");
+		// }
+		ret = "{'data':''}";
+		JSONObject json = JSONObject.parseObject(ret);
+		String failId = json.getString("data");
 		String[] failIdStr = failId.split(",");
 		if (null == failId || "".equals(failId)) {
 			failIdList = new ArrayList<String>();
@@ -70,7 +79,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 
 		for (String id : idTargetList) {
 			try {
-				if (failIdList.size() != 0 || failIdList.contains(id)) {
+				if (!(null == failId || "".equals(failId)) && failIdList.contains(id)) {
 					continue;
 				}
 				templateService.editItem(classId, id, "{}", userType);
@@ -139,6 +148,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			call.addParameter("authPattern", org.apache.axis.encoding.XMLType.XSD_STRING,
 					javax.xml.rpc.ParameterMode.IN);
 
+			call.setTimeout(20000);// 超时时间为20s
 			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_ANYTYPE);//
 			// 返回参数类型
 			call.setReturnClass(WSContext.class);

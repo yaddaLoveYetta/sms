@@ -2,7 +2,6 @@ package com.kingdee.eas.hrp.sms.service.plugin.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,8 +29,10 @@ public class ItemPlugin extends PlugInAdpter {
 	private ITemplateService templateService;
 
 	// 当业务用户查询时，相关item需做数据隔离
-	List<Integer> classIdList = new ArrayList<Integer>(
+	List<Integer> isolateClassIdList = new ArrayList<Integer>(
 			Arrays.asList(2019, 2020, 1001, 1005, 3010, 3020, 3030, 1023, 1007));
+	// 需要同步和审核classId
+	List<Integer> reviewAndSyncClassIdList = new ArrayList<Integer>(Arrays.asList(1005, 3010, 3020, 3030, 1023, 1007));
 
 	@Override
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data, String userType) {
@@ -41,9 +42,11 @@ public class ItemPlugin extends PlugInAdpter {
 		String[] idString = data.split(",");
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
 
-		// 检查数据是否为未审核状态
-		for (String id : idList) {
-			checkIfReview(classId, id, null, userType);
+		// 需要审核的数据检查是否为未审核状态
+		if (reviewAndSyncClassIdList.contains(classId)) {
+			for (String id : idList) {
+				checkIfReview(classId, id, null, userType);
+			}
 		}
 
 		// 查找引用待删除资料的模板
@@ -105,7 +108,9 @@ public class ItemPlugin extends PlugInAdpter {
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject json,
 			String userType) {
 
-		checkIfReview(classId, id, json, userType);
+		// 需要审核的数据检查审核状态
+		if (reviewAndSyncClassIdList.contains(classId))
+			checkIfReview(classId, id, json, userType);
 
 		modifyCheckMustInput(classId, formData, json, userType);
 
@@ -117,8 +122,7 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 
 		// 如果字段含有同步到HRP的字段syncStatus，设置同步状态
-		List<Integer> classIdList = new ArrayList<Integer>(Arrays.asList(1005, 3010, 3020, 3030, 1023, 1007));
-		if (classIdList.contains(classId)) {
+		if (reviewAndSyncClassIdList.contains(classId)) {
 			if (json.isEmpty()) { // 构造的json为空即同步到HRP的记录需将同步状态标记为已同步
 				json.put("syncStatus", "true");
 			} else { // 构造的json不为空即为修改记录，需将同步状态标记为未同步
@@ -316,7 +320,7 @@ public class ItemPlugin extends PlugInAdpter {
 		if (userId == "")
 			return conditon;
 		// 当业务用户查询时，相关item需做数据隔离，增加condition条件
-		if (classIdList.contains(classId)) {
+		if (isolateClassIdList.contains(classId)) {
 			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
 				Map<String, Object> user = templateService.getItemById(1001, userId, userType);
 				String supplierId = (String) user.get("supplier");
