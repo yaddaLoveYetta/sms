@@ -21,13 +21,23 @@ import java.lang.annotation.Target;
 public @interface ControllerLog {
 
 	/**
+	 * 日志描述信息
 	 * 
 	 * @Title desc
-	 * @Description 方法功能描述
-	 * @param @return
+	 * @return
 	 * @return String
-	 * @throws @date
-	 *             2017年4月14日 下午2:18:56
+	 * @date 2017-05-27 17:01:55 星期六
 	 */
 	String desc();
+
+	/**
+	 * getItem等通过模板去操作的公共接口补充<br/>
+	 * annotation中若有classId=0，最终的描述会是通过classId查询到t_sms_objectType表中的 desc()+name<br/>
+	 * 
+	 * @Title classId
+	 * @return
+	 * @return int
+	 * @date 2017年4月14日 下午2:18:56
+	 */
+	int classId() default -1;
 }

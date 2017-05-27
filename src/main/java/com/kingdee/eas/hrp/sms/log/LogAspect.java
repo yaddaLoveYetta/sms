@@ -25,9 +25,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
+import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.LogErrorRuntimeException;
+import com.kingdee.eas.hrp.sms.model.ObjectType;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.sys.ILogService;
+import com.kingdee.eas.hrp.sms.service.api.sys.IPermissionService;
+import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
 
@@ -89,12 +93,6 @@ public class LogAspect {
 
 		String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
 
-		// Method method = getSourceMethod(joinPoint);// 当前调用的方法
-		// if (null == method) {
-		// // 没有该方法！
-		// return;
-		// }
-
 		Map<String, String> paramsMap = ParameterUtils.getParameters(request); // 所有请求参数
 
 		if ("/user/login".equalsIgnoreCase(requestUrl)) {
@@ -104,22 +102,46 @@ public class LogAspect {
 		} else {
 			userName = SessionUtil.getUser().getName();
 		}
-		// 读取session中的用户
 
-		// 请求的IP
+		Method method = getSourceMethod(joinPoint);// 验权的方法
+
+		ControllerLog cLog = method.getAnnotation(ControllerLog.class);
+
+		String desc = "";
+		if (cLog != null) {
+
+			desc = cLog.desc();
+			int classId = cLog.classId();
+
+			if (classId == 0) {
+
+				// Annotation特殊配置
+				// 模板查询接口特殊配置
+				// 获取调用参数中的classId，通过此classId去转换真实的操作功能
+
+				IPermissionService permissionService = Environ.getBean(IPermissionService.class);
+				// 读取classId,request中一定要有classId
+				classId = ParameterUtils.getParameter(request, "classId", -1);
+				ObjectType obj = permissionService.getAccessType(classId);
+
+				if (null != obj) {
+					desc = String.format("%s:%s", desc, obj.getName() + "");
+				}
+
+			}
+		}
 
 		try {
 
 			String ip = request.getRemoteAddr();
-			String desc = getControllerMethodDesc(joinPoint);
 			Date optTime = sdf.parse(sdf.format(new Date()));
 			String clazz = joinPoint.getSignature().getDeclaringTypeName();
-			String method = joinPoint.getSignature().getName();
+			String methodStr = joinPoint.getSignature().getName();
 			String params = paramsMap.toString();
 			params = params.length() > 1000 ? params.substring(0, 1000) : params;
 
 			// 操作日志记录到数据库中
-			logService.add(userName, ip, desc, optTime, clazz, method, params);
+			logService.add(userName, ip, desc, optTime, clazz, methodStr, params);
 
 		} catch (Exception e) {
 			// 日志操作异常不处理-不影响业务流程
