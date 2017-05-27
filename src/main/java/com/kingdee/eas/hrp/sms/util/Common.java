@@ -432,6 +432,6 @@ public class Common {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(createNo(5, "MMdd", ""));
+
 	}
 }

@@ -492,7 +492,7 @@ public class OrderService extends BaseService implements IOrderService {
 		}
 		entry.put("isLotNumber", purOrderEntry.getByte("isLotNumber"));
 		entry.put("dyBatchNum", "");
-		if (purOrderEntry.getByte("code") == 1 && !purOrderEntry.getByte("code").equals(1)) {
+		if (purOrderEntry.getByte("highConsumable") == 1 && !purOrderEntry.getByte("highConsumable").equals(1)) {
 			entry.put("code", Common.createNo(5, "yyMMdd", ""));
 		} else {
 			entry.put("code", "");
@@ -575,7 +575,7 @@ public class OrderService extends BaseService implements IOrderService {
 			}
 			entry.put("isLotNumber", purOrderEntry.getByte("isLotNumber"));
 			entry.put("dyBatchNum", "");
-			if (purOrderEntry.getByte("code") == 1 && !purOrderEntry.getByte("code").equals(1)) {
+			if (purOrderEntry.getByte("highConsumable") == 1 && !purOrderEntry.getByte("highConsumable").equals(1)) {
 				entry.put("code", Common.createNo(5, "yyMMdd", ""));
 			} else {
 				entry.put("code", "");

@@ -139,7 +139,7 @@ public class BillPlugin extends PlugInAdpter {
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject entrys = array.getJSONObject(i);
 				JSONObject datas = entrys.getJSONObject("data");
-				if (datas == null||datas.equals("")) {
+				if (datas == null || datas.equals("")) {
 					throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
 				}
 				BigDecimal actualQty = datas.getBigDecimal("actualQty");// 实发数量
@@ -147,17 +147,27 @@ public class BillPlugin extends PlugInAdpter {
 				String lot = datas.getString("lot");// 批次
 				String dyBatchNum = datas.getString("dyBatchNum");// 批号
 				Date effectiveDate = datas.getDate("effectiveDate");// 有效期
+				Byte isLotNumber = datas.getByte("isLotNumber");
+				Byte highConsumable = datas.getByte("highConsumable");
+				String code = datas.getString("code");
 				if (actualQty.equals("") || actualQty == null) {
 					throw new BusinessLogicRunTimeException("实发数量不能为空");
 				}
 				if (actualQty.compareTo(qty) > 0) {
 					throw new BusinessLogicRunTimeException("发货数量不能大于应发数量");
 				}
-				if (lot.equals("") || lot == null) {
-					throw new BusinessLogicRunTimeException("批次不能为空");
+				if (isLotNumber.equals("1") || isLotNumber == 1) {
+					if (lot.equals("") || lot == null) {
+						throw new BusinessLogicRunTimeException("批次不能为空");
+					}
+					if (dyBatchNum.equals("") || dyBatchNum == null) {
+						throw new BusinessLogicRunTimeException("批号不能为空");
+					}
 				}
-				if (dyBatchNum.equals("") || dyBatchNum == null) {
-					throw new BusinessLogicRunTimeException("批号不能为空");
+				if (highConsumable.equals("1") || highConsumable == 1) {
+					if (code.equals("") || code == null) {
+						throw new BusinessLogicRunTimeException("高值物料个体码不能为空");
+					}
 				}
 				if (effectiveDate.equals("") || effectiveDate == null) {
 					throw new BusinessLogicRunTimeException("有效期不能为空");
