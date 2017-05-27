@@ -373,18 +373,18 @@ public class Common {
 	 * 
 	 * 创建发货单批次
 	 */
-	public static String createLotNo() {
-		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd", Locale.CHINA);
+	public static String createNo(int Num,String SDF,String ZF) {
+		SimpleDateFormat sdf = new SimpleDateFormat(SDF, Locale.CHINA);
 		Random rm = new Random();
 		// 获得随机数
-		double pross = (1 + rm.nextDouble()) * Math.pow(10, 3);
+		double pross = (1 + rm.nextDouble()) * Math.pow(10, Num);
 		// 将获得的获得随机数转化为字符串  
 	    String fixLenthString = String.valueOf(pross);  
-		return sdf.format(new Date())+ "-" + fixLenthString.substring(1, 3 + 1);
+		return sdf.format(new Date())+ ZF + fixLenthString.substring(1, Num + 1);
 
 	}
 
 	public static void main(String[] args) {
-		    
+		System.out.println(createNo(5,"MMdd",""));
 	}
 }

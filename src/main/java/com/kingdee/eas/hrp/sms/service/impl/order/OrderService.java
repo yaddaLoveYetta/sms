@@ -119,7 +119,7 @@ public class OrderService extends BaseService implements IOrderService {
 		}
 
 		// 調用hrp-web-service --发送接单数据至HRP
-
+ 
 		// 发送成功后开启事务更新本地订单接单状态
 
 		PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
@@ -189,9 +189,9 @@ public class OrderService extends BaseService implements IOrderService {
 
 						orderMapper.updateByPrimaryKeySelective(order);
 						entryMapper.updateByPrimaryKeySelective(orderEntry);
-						
-						//调用短信接口发送短信
-						//MsgUtil.sendSMS("a", "a");
+
+						// 调用短信接口发送短信
+						// MsgUtil.sendSMS("a", "a");
 					}
 
 				} catch (ParseException e) {
@@ -205,10 +205,8 @@ public class OrderService extends BaseService implements IOrderService {
 				return "success";
 			}
 		});
-		
-	}
 
-	
+	}
 
 	@Override
 	public Map<String, Object> deliver(String items, String userType, String userId) {
@@ -255,15 +253,12 @@ public class OrderService extends BaseService implements IOrderService {
 			if (purOrder.getIntValue("tickType") == 0) {
 				throw new BusinessLogicRunTimeException("采购订单[" + purOrderNo + "]医院未确认接单,不可发货");
 			}
-			
-			
-			
-			if(i==0){
+
+			if (i == 0) {
 				saleProxy = purOrder.getInteger("saleProxy");
-			}else if(saleProxy!=purOrder.getInteger("saleProxy")){
+			} else if (saleProxy != purOrder.getInteger("saleProxy")) {
 				throw new BusinessLogicRunTimeException("采购模式不同的订单不能产生一张发货单");
 			}
-			
 
 			if (i == 0) {
 				// 第一张订单-构建发货单表头
@@ -294,7 +289,6 @@ public class OrderService extends BaseService implements IOrderService {
 
 		int saleProxy = purOrder.getIntValue("saleProxy"); // 销售模式 1：非代销 2：代销
 		JSONArray purOrderEntries = purOrder.getJSONObject("entry").getJSONArray("1"); // 采购订单子表数据，值处理第一个子表
-		
 
 		for (int j = 0; j < purOrderEntries.size(); j++) {
 
@@ -308,7 +302,7 @@ public class OrderService extends BaseService implements IOrderService {
 
 			if (saleProxy == 2) {
 				// TODO 代销物料--拆单--拆成一个一个的物料
-				
+
 				List<Map<String, Object>> entryItems = generateEntryItems(purOrderEntry, purOrder);
 				addToShipOrderEntry(shipOrder, entryItems);
 
@@ -491,9 +485,18 @@ public class OrderService extends BaseService implements IOrderService {
 		entry.put("material_DspName", purOrderEntry.getString("material_DspName"));
 		entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
 		entry.put("specification", purOrderEntry.getString("specification"));
-		entry.put("lot", Common.createLotNo());
+		if (purOrderEntry.getByte("isLotNumber") == 1 && !purOrderEntry.getByte("isLotNumber").equals(1)) {
+			entry.put("lot", Common.createNo(3, "MM-dd", "-"));
+		} else {
+			entry.put("lot", "");
+		}
+		entry.put("isLotNumber", purOrderEntry.getByte("isLotNumber"));
 		entry.put("dyBatchNum", "");
-		entry.put("code", "");
+		if (purOrderEntry.getByte("code") == 1 && !purOrderEntry.getByte("code").equals(1)) {
+			entry.put("code", Common.createNo(5, "yyMMdd", ""));
+		} else {
+			entry.put("code", "");
+		}
 		entry.put("price", purOrderEntry.getFloatValue("price"));
 		entry.put("unit", purOrderEntry.getString("unit"));
 		entry.put("unit_DspName", purOrderEntry.getString("unit_DspName"));
@@ -503,7 +506,7 @@ public class OrderService extends BaseService implements IOrderService {
 		entry.put("dyProDate", "");
 		entry.put("dyManufacturer", "");
 		entry.put("registrationNo", "");
-		entry.put("amount", purOrderEntry.getBigDecimal("price").multiply(qty)); // ? 本位币金额 No Amount
+		entry.put("amount", purOrderEntry.getBigDecimal("price").multiply(qty));
 		entry.put("effectiveDate", "");
 
 		return entry;
@@ -550,7 +553,8 @@ public class OrderService extends BaseService implements IOrderService {
 		// 数量尾差，尾差放到最后一行
 		float lastLineQty = bQty.floatValue() > qty ? bQty.floatValue() - qty + 1 : 1;
 		// 金额尾差，尾差放到最后一行
-		BigDecimal lastLineAmount = amount.compareTo(new BigDecimal(price * qty)) > 0 ? amount.subtract(new BigDecimal(price * qty)) : new BigDecimal(price);
+		BigDecimal lastLineAmount = amount.compareTo(new BigDecimal(price * qty)) > 0
+				? amount.subtract(new BigDecimal(price * qty)) : new BigDecimal(price);
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 		for (int i = 0; i < qty; i++) {
 
@@ -564,9 +568,18 @@ public class OrderService extends BaseService implements IOrderService {
 			entry.put("material_DspName", purOrderEntry.getString("material_DspName"));
 			entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
 			entry.put("specification", purOrderEntry.getString("specification"));
-			entry.put("lot", Common.createLotNo());
+			if (purOrderEntry.getByte("isLotNumber") == 1 && !purOrderEntry.getByte("isLotNumber").equals(1)) {
+				entry.put("lot", Common.createNo(3, "MM-dd", "-"));
+			} else {
+				entry.put("lot", "");
+			}
+			entry.put("isLotNumber", purOrderEntry.getByte("isLotNumber"));
 			entry.put("dyBatchNum", "");
-			entry.put("code", "");
+			if (purOrderEntry.getByte("code") == 1 && !purOrderEntry.getByte("code").equals(1)) {
+				entry.put("code", Common.createNo(5, "yyMMdd", ""));
+			} else {
+				entry.put("code", "");
+			}
 			entry.put("price", purOrderEntry.getFloatValue("price"));
 			entry.put("unit", purOrderEntry.getString("unit"));
 			entry.put("unit_DspName", purOrderEntry.getString("unit_DspName"));
@@ -577,7 +590,7 @@ public class OrderService extends BaseService implements IOrderService {
 			entry.put("effectiveDate", "");
 			entry.put("actualQty", 1);
 			entry.put("qty", 1); // 拆单后，发货单明细行数量为1
-			entry.put("amount", purOrderEntry.getFloatValue("price")); // ? 本位币金额 No Amount
+			entry.put("amount", purOrderEntry.getFloatValue("price"));
 
 			if (i == qty - 1) {
 				// lastLine
@@ -609,7 +622,8 @@ public class OrderService extends BaseService implements IOrderService {
 	 * @return Map<String,Object> 采购订单分录号
 	 * @date 2017-05-20 12:20:26 星期六
 	 */
-	private Map<String, Object> isInShipOrderEntries(Map<String, Object> shipOrder, String purOrderId, int purOrderEntrySeq) {
+	private Map<String, Object> isInShipOrderEntries(Map<String, Object> shipOrder, String purOrderId,
+			int purOrderEntrySeq) {
 
 		Object obj = shipOrder.get("entry");
 		if (null == obj) {
@@ -628,7 +642,7 @@ public class OrderService extends BaseService implements IOrderService {
 			return null;
 		}
 
-		for (int i=0;i<entryList.size();i++)  {
+		for (int i = 0; i < entryList.size(); i++) {
 
 			JSONObject entryItem = entryList.getJSONObject(i);
 
@@ -671,9 +685,12 @@ public class OrderService extends BaseService implements IOrderService {
 		shipOrderHead.put("supplier", purOrder.get("supplier")); // 采购订单"供应商"携带到发货单"供应商"字段
 		shipOrderHead.put("supplier_DspName", purOrder.get("supplier_DspName")); // 采购订单"供应商名称"携带到发货单"供应商名称"字段
 		shipOrderHead.put("supplier_NmbName", purOrder.get("supplier_NmbName")); // 采购订单"供应商代码"携带到发货单"供应商代码"字段
-		shipOrderHead.put("saleProxy", purOrder.get("saleProxy"));//采购订单 "采购模式携带到发货单"单据状态""
-		shipOrderHead.put("saleProxy_DspName", purOrder.get("saleProxy_DspName"));//采购订单 "采购模式名称"
-		shipOrderHead.put("saleProxy_NmbName", purOrder.get("saleProxy_NmbName"));//采购订单 "采购模式代码"
+		shipOrderHead.put("saleProxy", purOrder.get("saleProxy"));// "采购模式携带到发货单"单据状态""
+
+		shipOrderHead.put("saleProxy_DspName", purOrder.get("saleProxy_DspName"));// "采购模式名称"
+
+		shipOrderHead.put("saleProxy_NmbName", purOrder.get("saleProxy_NmbName"));// "采购模式代码"
+
 		shipOrderHead.put("baseStatus", 0);
 
 		Map<String, Object> itemById = templateService.getItemById(1025, "0", "QpXq24FxxE6c3lvHMPyYCxACEAI=");
