@@ -4579,6 +4579,7 @@
             var emitter = new MiniQuery.Event(this);
 
             var meta = {
+                total: total,
                 ulId: ulId,
                 txtId: txtId,
                 container: container,
