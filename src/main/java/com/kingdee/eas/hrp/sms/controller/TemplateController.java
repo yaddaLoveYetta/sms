@@ -67,7 +67,6 @@ public class TemplateController {
 	 * @date 2017-04-20 13:41:06 星期四
 	 */
 	@RequestMapping(value = "getItems")
-	@ControllerLog(desc = "模板获取数据")
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_VIEW, desc = "查看")
 	public void getItems(HttpServletRequest request, HttpServletResponse response) {
 
@@ -85,8 +84,7 @@ public class TemplateController {
 
 		// sqlserver ROW_BUMBER分页一定要设置 orderBy--此处指定默认
 
-		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType,
-				userId);
+		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType, userId);
 
 		ResponseWriteUtil.output(response, result);
 
@@ -174,6 +172,7 @@ public class TemplateController {
 	 * @date 2017-04-27 14:09:59 星期四
 	 */
 	@RequestMapping(value = "editItem")
+	@ControllerLog(desc = "新增")
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_EDIT, desc = "修改")
 	public void editItem(HttpServletRequest request, HttpServletResponse response) {
 
@@ -211,6 +210,7 @@ public class TemplateController {
 	 * @date 2017-05-23 16:09:51 星期二
 	 */
 	@RequestMapping(value = "delItem")
+	@ControllerLog(desc = "删除")
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_DELETE, desc = "删除")
 	public void delItem(HttpServletRequest request, HttpServletResponse response) {
 
@@ -244,6 +244,7 @@ public class TemplateController {
 	 * @date 2017-05-23 16:10:07 星期二
 	 */
 	@RequestMapping(value = "checkItem")
+	@ControllerLog(desc = "审核")
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_CHECK, desc = "审核")
 	public void checkItem(HttpServletRequest request, HttpServletResponse response) {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
@@ -275,6 +276,7 @@ public class TemplateController {
 	 * @date 2017-05-23 16:10:07 星期二
 	 */
 	@RequestMapping(value = "unCheckItem")
+	@ControllerLog(desc = "反审核")
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_UNCHECK, desc = "反审核")
 	public void unCheckItem(HttpServletRequest request, HttpServletResponse response) {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);

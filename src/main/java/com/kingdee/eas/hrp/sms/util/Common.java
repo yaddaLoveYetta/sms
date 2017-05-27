@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,16 +19,16 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //import net.sf.json.JSONArray;
 //import net.sf.json.JSONNull;
 //import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 public class Common {
 
@@ -364,27 +365,73 @@ public class Common {
 		Random rm = new Random();
 		// 获得随机数
 		double pross = (1 + rm.nextDouble()) * Math.pow(10, 3);
-		// 将获得的获得随机数转化为字符串  
-	    String fixLenthString = String.valueOf(pross);  
+		// 将获得的获得随机数转化为字符串
+		String fixLenthString = String.valueOf(pross);
 		return "Pur-" + sdf.format(new Date()) + fixLenthString.substring(1, 3 + 1);
 
 	}
+
 	/**
 	 * 
 	 * 创建发货单批次
 	 */
-	public static String createNo(int Num,String SDF,String ZF) {
+	public static String createNo(int Num, String SDF, String ZF) {
 		SimpleDateFormat sdf = new SimpleDateFormat(SDF, Locale.CHINA);
 		Random rm = new Random();
 		// 获得随机数
 		double pross = (1 + rm.nextDouble()) * Math.pow(10, Num);
-		// 将获得的获得随机数转化为字符串  
-	    String fixLenthString = String.valueOf(pross);  
-		return sdf.format(new Date())+ ZF + fixLenthString.substring(1, Num + 1);
+		// 将获得的获得随机数转化为字符串
+		String fixLenthString = String.valueOf(pross);
+		return sdf.format(new Date()) + ZF + fixLenthString.substring(1, Num + 1);
 
 	}
 
+	/**
+	 * 判断日期是否为正确的长日期(yyyy-MM-dd HH:mm:ss)
+	 * 
+	 * @param timeStr
+	 * @return
+	 */
+	public static boolean valiDateTimeWithLongFormat(String timeStr) {
+		String format = "((19|20)[0-9]{2})-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) " + "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
+		Pattern pattern = Pattern.compile(format);
+		Matcher matcher = pattern.matcher(timeStr);
+		if (matcher.matches()) {
+			pattern = Pattern.compile("(\\d{4})-(\\d+)-(\\d+).*");
+			matcher = pattern.matcher(timeStr);
+			if (matcher.matches()) {
+				int y = Integer.valueOf(matcher.group(1));
+				int m = Integer.valueOf(matcher.group(2));
+				int d = Integer.valueOf(matcher.group(3));
+				if (d > 28) {
+					Calendar c = Calendar.getInstance();
+					c.set(y, m - 1, 1);
+					int lastDay = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+					return (lastDay >= d);
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 判断日期是否为长日期(yyyy-MM-dd HH:mm:ss)
+	 * 
+	 * @Title isLongDate
+	 * @param timeStr
+	 * @return
+	 * @return boolean
+	 * @date 2017-05-27 16:41:17 星期六
+	 */
+	public static boolean isLongDate(String timeStr) {
+		String format = "((19|20)[0-9]{2})-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) " + "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
+		Pattern pattern = Pattern.compile(format);
+		Matcher matcher = pattern.matcher(timeStr);
+		return matcher.matches();
+	}
+
 	public static void main(String[] args) {
-		System.out.println(createNo(5,"MMdd",""));
+		System.out.println(createNo(5, "MMdd", ""));
 	}
 }

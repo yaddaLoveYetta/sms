@@ -36,6 +36,7 @@ import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInFactory;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
+import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.ValidateUtil;
 
 @Service
@@ -1234,7 +1235,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 				break;
 			case TIME:
 				if (logicOperator.equalsIgnoreCase("<=")) {
-					value = value + " 23:59:59"; // 小于等于结束时间
+
+					if (!Common.isLongDate(value)) {
+						//由于数据库中日期可能存储有时分秒，过滤天时过滤到当前23:59:59
+						value = value + " 23:59:59"; // 小于等于结束时间
+					}
 				}
 				value = String.format("'%s'", value);
 				break;
