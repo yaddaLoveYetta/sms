@@ -4678,7 +4678,7 @@
                 var html = $.String.format(samples.ul, {
                     'ul-id': meta.ulId,
                     'txt-id': meta.txtId,
-
+                    total:total,
                     current: current,
                     count: count,
                     toNo: toNo,
