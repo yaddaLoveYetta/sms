@@ -123,7 +123,7 @@
 
 		</table>
 
-		<table tableName="t_sms_log" domainObjectName="Log">
+		<table tableName="t_sms_log" domainObjectName="SysLog">
 
 			<property name="useActualColumnNames" value="true" />
 

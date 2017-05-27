@@ -1,6 +1,7 @@
 package com.kingdee.eas.hrp.sms.log;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,6 @@ import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.sys.ILogService;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 import javassist.ClassClassPath;
 import javassist.ClassPool;
@@ -112,7 +112,7 @@ public class LogAspect {
 			System.out.println("用户名:" + user.getName());
 			System.out.println("请求IP:" + request.getRemoteAddr());
 			System.out.println("方法描述:" + getControllerMethodDesc(joinPoint));
-			System.out.println("请求时间:" + new Data().toString());
+			System.out.println("请求时间:" + new Date().toString());
 			System.out.println("请求路径:" + joinPoint.getTarget().getClass().getName());
 			System.out.println("请求方法:" + joinPoint.getSignature().getName());
 
@@ -120,7 +120,7 @@ public class LogAspect {
 			String userName = user.getName();
 			String ip = request.getRemoteAddr();
 			String desc = getControllerMethodDesc(joinPoint);
-			Data optTime = new Data();
+			Date optTime = new Date();
 			String clazz = joinPoint.getTarget().getClass().getName();
 			String meth = joinPoint.getSignature().getName();
 
@@ -128,9 +128,7 @@ public class LogAspect {
 			logService.add(userId, userName, ip, desc, optTime, clazz, meth);
 
 		} catch (Exception e) {
-			// 记录本地异常日志
-			// logger.error("==前置通知异常==");
-			// logger.error("异常信息:{}", e.getMessage());
+			// 日志操作异常不处理-不影响业务流程
 		}
 	}
 

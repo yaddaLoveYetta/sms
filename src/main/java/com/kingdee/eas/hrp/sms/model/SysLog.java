@@ -2,7 +2,7 @@ package com.kingdee.eas.hrp.sms.model;
 
 import java.util.Date;
 
-public class Log {
+public class SysLog {
     private Integer id;
 
     private String userId;

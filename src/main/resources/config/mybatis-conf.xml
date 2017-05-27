@@ -69,6 +69,7 @@
 		<mapper resource="mapper/generate/FormFieldsMapper.xml" />
 		<mapper resource="mapper/generate/ObjectTypeMapper.xml" />
 		<mapper resource="mapper/generate/SysProfileMapper.xml" />
+		<mapper resource="mapper/generate/SysLogMapper.xml" />
 		<mapper resource="mapper/generate/RoleMapper.xml" />
 		<mapper resource="mapper/generate/UserMapper.xml" />
 		<mapper resource="mapper/generate/CategoryMapper.xml" />

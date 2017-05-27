@@ -1,18 +1,36 @@
 package com.kingdee.eas.hrp.sms.service.impl.sys;
 
-import org.springframework.stereotype.Service;
+import java.util.Date;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.kingdee.eas.hrp.sms.dao.generate.SysLogMapper;
+import com.kingdee.eas.hrp.sms.model.SysLog;
 import com.kingdee.eas.hrp.sms.service.api.sys.ILogService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 @Service
 public class LogService extends BaseService implements ILogService {
 
 	@Override
-	public void add(String userId, String userName, String ip, String desc, Data optTime, String clazz, String meth) {
-		//sqlSession.getMapper(type)
-		
+	@Transactional
+	public void add(String userId, String userName, String ip, String desc, Date optTime, String clazz, String method) {
+
+		SysLogMapper mapper = sqlSession.getMapper(SysLogMapper.class);
+
+		SysLog log = new SysLog();
+
+		log.setUserId(userId);
+		log.setUserName(userName);
+		log.setIp(ip);
+		log.setMessage(desc);
+		log.setOperateTime(optTime);
+		log.setClazz(clazz);
+		log.setMethod(method);
+
+		mapper.insert(log);
+
 	}
 
 }

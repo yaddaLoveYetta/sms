@@ -1,6 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.api.sys;
 
-import com.mysql.fabric.xmlrpc.base.Data;
+import java.util.Date;
 
 public interface ILogService {
 
@@ -14,10 +14,10 @@ public interface ILogService {
 	 * @param desc
 	 * @param optTime
 	 * @param clazz
-	 * @param meth
+	 * @param method
 	 * @return void
 	 * @date 2017-05-27 10:42:11 星期六
 	 */
-	void add(String userId, String userName, String ip, String desc, Data optTime, String clazz, String meth);
+	void add(String userId, String userName, String ip, String desc, Date optTime, String clazz, String method);
 
 }
