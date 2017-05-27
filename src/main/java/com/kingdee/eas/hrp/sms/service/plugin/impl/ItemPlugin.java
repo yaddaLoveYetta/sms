@@ -227,9 +227,9 @@ public class ItemPlugin extends PlugInAdpter {
 		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10,
 				userType, "");
 
-//		if ((long) result.get("count") > 0) {
-//			throw new PlugInRuntimeException("该记录已存在");
-//		}
+		if ((long) result.get("count") > 0) {
+			throw new PlugInRuntimeException("该记录已存在");
+		}
 	}
 
 	@SuppressWarnings("unchecked")
