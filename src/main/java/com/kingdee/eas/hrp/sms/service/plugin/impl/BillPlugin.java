@@ -96,7 +96,7 @@ public class BillPlugin extends PlugInAdpter {
 				orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
 			}
 		}
-		
+
 		return super.afterSave(classId, id, data);
 	}
 
@@ -132,9 +132,16 @@ public class BillPlugin extends PlugInAdpter {
 			}
 			JSONObject entry = data.getJSONObject("entry");
 			JSONArray array = entry.getJSONArray("1");
+			if (array == null || array.equals("")) {
+				throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
+			}
+			System.out.println(array.size());
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject entrys = array.getJSONObject(i);
 				JSONObject datas = entrys.getJSONObject("data");
+				if (datas == null||datas.equals("")) {
+					throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
+				}
 				BigDecimal actualQty = datas.getBigDecimal("actualQty");// 实发数量
 				BigDecimal qty = datas.getBigDecimal("qty");// 应发数量
 				String lot = datas.getString("lot");// 批次
@@ -155,7 +162,7 @@ public class BillPlugin extends PlugInAdpter {
 				if (effectiveDate.equals("") || effectiveDate == null) {
 					throw new BusinessLogicRunTimeException("有效期不能为空");
 				}
-			}			
+			}
 		}
 
 		return super.beforeSave(classId, formData, data, userTyepe);
