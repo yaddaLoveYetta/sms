@@ -36,38 +36,13 @@ define('Bill/Entry', function (require, module, exports) {
 
             billGrid = new Grid('bd-grid');
 
-            /**
-             entryId
-             parent
-             seq
-             orderId
-             orderNumber
-             orderSeq
-             material
-             specification
-             lot
-             dyBatchNum
-             code
-             price
-             unit
-             qty
-             dyProDate
-             dyManufacturer
-             registrationNo
-             amount
-             effectiveDate
-             */
-                //要展示的列
+            //要展示的列
             var showKeys = [];
 
-            //可编辑的列
-            var editKeys = ['material', 'lot', 'dyBatchNum', 'actualQty', 'code', 'dyProDate', 'dyManufacturer', 'registrationNo', 'effectiveDate'];
-
-            // gridConfig = GridBuilder.getConfig(template.formFields["1"], gridConfig, showKeys, editKeys);
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
-                'operator': false,
+                'operator': true,
                 'showType': 1,
             });
 
@@ -84,15 +59,7 @@ define('Bill/Entry', function (require, module, exports) {
     function getData() {
 
         var entry = [];
-        /*
-         'data':{
-         FEntryID:0, 新增可不传
-         FParkID:1,
-         FParkName:'ade',
-         FParkNumber:'001'
-         },
-         'flag':'1' 0删除, 1新增，2修改
-         */
+
         var gridData = billGrid.getGridDatas(1); // 获取第一个表体数据
 
         var entryTemplate = billTemplate.formFields["1"]
