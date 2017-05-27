@@ -13,15 +13,20 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
+import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.sys.ILogService;
+import com.kingdee.eas.hrp.sms.util.SessionUtil;
+import com.mysql.fabric.xmlrpc.base.Data;
 
 import javassist.ClassClassPath;
 import javassist.ClassPool;
@@ -43,6 +48,7 @@ import javassist.bytecode.MethodInfo;
  */
 @Aspect
 @Component
+@Order(2)
 public class LogAspect {
 
 	// 注入Service用于把日志保存数据库
@@ -53,12 +59,12 @@ public class LogAspect {
 
 	// Service层切点
 	@Pointcut("@annotation(com.kingdee.eas.hrp.sms.log.ServiceLog)")
-	public void serviceAspect() {
+	public void serviceLogAspect() {
 	}
 
 	// Controller层切点
 	@Pointcut("@annotation(com.kingdee.eas.hrp.sms.log.ControllerLog)")
-	public void controllerAspect() {
+	public void controllerLogAspect() {
 	}
 
 	/**
@@ -66,16 +72,25 @@ public class LogAspect {
 	 * 
 	 * @param joinPoint
 	 *            切点
-	 * @throws ClassNotFoundException 
-	 * @throws NotFoundException 
+	 * @throws ClassNotFoundException
+	 * @throws NotFoundException
 	 */
-	@Before("controllerAspect()")
-	public void doBefore(JoinPoint joinPoint) throws ClassNotFoundException, NotFoundException {
+	@Before("controllerLogAspect()")
+	public void doBefore(JoinPoint joinPoint) {
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		HttpSession session = request.getSession();
 
 		String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
+
+		Method method = getSourceMethod(joinPoint);// 当前调用的方法
+
+		if (null == method) {
+			// 没有该方法！
+			return;
+		}
+
+		ControllerLog log = method.getAnnotation(ControllerLog.class);
 
 		User user = null;
 
@@ -84,49 +99,33 @@ public class LogAspect {
 			user.setName(joinPoint.getArgs()[0].toString());
 		} else {
 			user = (User) session.getAttribute("user");
+			user = SessionUtil.getUser();
 		}
 		// 读取session中的用户
 
-		// ----------------------------------------------------------------
-		String classType = joinPoint.getTarget().getClass().getName();
-		Class<?> clazz = Class.forName(classType);
-		String clazzName = clazz.getName();
-		String methodName = joinPoint.getSignature().getName(); // 获取方法名称
-		Object[] args = joinPoint.getArgs();// 参数
-		// 获取参数名称和值
-		Map<String, Object> nameAndArgs = getFieldsName(this.getClass(), clazzName, methodName, args);
-		System.out.println(nameAndArgs.toString());
-
-		// ------------------------------------------------------------------
-
 		// 请求的IP
-		String ip = request.getRemoteAddr();
 
 		try {
 			// *========控制台输出=========*//
 			System.out.println("=====前置通知开始=====");
-			System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
+			System.out.println("用户id:" + user.getUserId());
+			System.out.println("用户名:" + user.getName());
+			System.out.println("请求IP:" + request.getRemoteAddr());
 			System.out.println("方法描述:" + getControllerMethodDesc(joinPoint));
-			System.out.println("请求人:" + user.getName());
-			System.out.println("请求IP:" + ip);
+			System.out.println("请求时间:" + new Data().toString());
+			System.out.println("请求路径:" + joinPoint.getTarget().getClass().getName());
+			System.out.println("请求方法:" + joinPoint.getSignature().getName());
+
+			String userId = user.getUserId();
+			String userName = user.getName();
+			String ip = request.getRemoteAddr();
+			String desc = getControllerMethodDesc(joinPoint);
+			Data optTime = new Data();
+			String clazz = joinPoint.getTarget().getClass().getName();
+			String meth = joinPoint.getSignature().getName();
 
 			// 操作日志记录到数据库中
-
-			// Log log = SpringContextHolder.getBean("logxx");
-			// log.setDescription(getControllerMethodDescription(joinPoint));
-			// log.setMethod(
-			// (joinPoint.getTarget().getClass().getName() + "." +
-			// joinPoint.getSignature().getName() + "()"));
-			// log.setType("0");
-			// log.setRequestIp(ip);
-			// log.setExceptionCode(null);
-			// log.setExceptionDetail(null);
-			// log.setParams(null);
-			// log.setCreateBy(user);
-			// log.setCreateDate(DateUtil.getCurrentDate());
-			// // 保存数据库
-			// logService.add(log);
-			System.out.println("=====前置通知结束=====");
+			logService.add(userId, userName, ip, desc, optTime, clazz, meth);
 
 		} catch (Exception e) {
 			// 记录本地异常日志
@@ -141,7 +140,7 @@ public class LogAspect {
 	 * @param joinPoint
 	 * @param e
 	 */
-	@AfterThrowing(pointcut = "serviceAspect()", throwing = "e")
+	@AfterThrowing(pointcut = "serviceLogAspect()", throwing = "e")
 	public void doAfterThrowing(JoinPoint joinPoint, Throwable e) {
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -210,7 +209,7 @@ public class LogAspect {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("rawtypes")
-	public static String getServiceMthodDesc(JoinPoint joinPoint) throws Exception {
+	private static String getServiceMthodDesc(JoinPoint joinPoint) throws Exception {
 
 		String targetName = joinPoint.getTarget().getClass().getName();
 		String methodName = joinPoint.getSignature().getName();
@@ -244,7 +243,7 @@ public class LogAspect {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("rawtypes")
-	public static String getControllerMethodDesc(JoinPoint joinPoint) throws Exception {
+	private static String getControllerMethodDesc(JoinPoint joinPoint) throws Exception {
 
 		String targetName = joinPoint.getTarget().getClass().getName();
 		String methodName = joinPoint.getSignature().getName();
@@ -266,7 +265,7 @@ public class LogAspect {
 	}
 
 	private Map<String, Object> getFieldsName(Class cls, String clazzName, String methodName, Object[] args) throws NotFoundException {
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		ClassPool pool = ClassPool.getDefault();
@@ -290,5 +289,26 @@ public class LogAspect {
 
 		// Map<>
 		return map;
+	}
+
+	/**
+	 * 获取当前调用的方法
+	 * 
+	 * @Title getSourceMethod
+	 * @Description 获取当前调用的方法
+	 * @param joinPoint
+	 * @return Method
+	 * @date 2017-04-15 21:20:51 星期六
+	 */
+	private Method getSourceMethod(JoinPoint joinPoint) {
+		Method proxyMethod = ((MethodSignature) joinPoint.getSignature()).getMethod();
+		try {
+			return joinPoint.getTarget().getClass().getMethod(proxyMethod.getName(), proxyMethod.getParameterTypes());
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

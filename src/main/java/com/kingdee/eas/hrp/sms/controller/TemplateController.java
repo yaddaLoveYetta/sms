@@ -14,6 +14,7 @@ import com.kingdee.eas.hrp.sms.authority.AccessMaskCode;
 import com.kingdee.eas.hrp.sms.authority.Permission;
 
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
@@ -66,6 +67,7 @@ public class TemplateController {
 	 * @date 2017-04-20 13:41:06 星期四
 	 */
 	@RequestMapping(value = "getItems")
+	@ControllerLog(desc = "模板获取数据")
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_VIEW, desc = "查看")
 	public void getItems(HttpServletRequest request, HttpServletResponse response) {
 
