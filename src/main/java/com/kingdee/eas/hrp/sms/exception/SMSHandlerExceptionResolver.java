@@ -40,16 +40,4 @@ public class SMSHandlerExceptionResolver implements HandlerExceptionResolver {
 		return null;
 	}
 
-	/**
-	 * @Title: test
-	 * @Description: TODO(描述一下这个方法的作用)
-	 * @param
-	 * @return void
-	 * @throws @date
-	 *             2017年4月13日 下午2:23:15
-	 */
-	public void test() {
-
-	}
-
 }
