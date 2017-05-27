@@ -4654,7 +4654,7 @@
             render: function () {
 
                 var meta = mapper.get(this);
-
+                var total = meta.total; //总条数
                 var count = meta.count; // 总页数
                 if (count < meta.hideIfLessThen) {
                     $(meta.container).hide();
