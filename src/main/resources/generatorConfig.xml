@@ -29,9 +29,9 @@
 		<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://10.0.0.180:1433;database=hrp-sms"
 			userId="sa" password="Kingdee123">
 		</jdbcConnection>
-<!-- 		<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://127.0.0.1:52663;database=hrp-sms" -->
-<!-- 			userId="sa" password="yadda0925"> -->
-<!-- 		</jdbcConnection> -->
+		<!-- <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://127.0.0.1:52663;database=hrp-sms" -->
+		<!-- userId="sa" password="yadda0925"> -->
+		<!-- </jdbcConnection> -->
 
 		<javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
 
@@ -116,8 +116,14 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_sys_profile" domainObjectName="SysProfile">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
+		<table tableName="t_sms_log" domainObjectName="Log">
 
 			<property name="useActualColumnNames" value="true" />
 
@@ -207,14 +213,14 @@
 
 		</table>
 
-		
+
 		<table tableName="t_sms_purchase_order_entry" domainObjectName="OrderEntry">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
 
-		
+
 		<table tableName="t_sms_country" domainObjectName="Country">
 
 			<property name="useActualColumnNames" value="true" />
@@ -240,7 +246,7 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_supplier_license_type" domainObjectName="Supplier_License_Type">
 
 			<property name="useActualColumnNames" value="true" />
