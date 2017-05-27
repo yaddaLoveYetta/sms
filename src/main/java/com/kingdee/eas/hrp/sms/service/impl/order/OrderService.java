@@ -61,7 +61,6 @@ public class OrderService extends BaseService implements IOrderService {
 			order.setNumber(ob.getString("number"));
 			order.setIsQuicken(ob.getByte("isQuicken"));
 			order.setCurrency(ob.getString("currency"));
-			order.setSettlementType(ob.getString("settlementType"));
 			order.setTotalAmount(ob.getBigDecimal("totalAmount"));
 			order.setTotalTax(ob.getBigDecimal("totalTax"));
 			order.setTotalTaxAmount(ob.getBigDecimal("totalTaxAmount"));
