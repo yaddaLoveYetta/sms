@@ -15,7 +15,6 @@
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="isQuicken" jdbcType="TINYINT" property="isQuicken" />
     <result column="currency" jdbcType="VARCHAR" property="currency" />
-    <result column="settlementType" jdbcType="VARCHAR" property="settlementType" />
     <result column="totalAmount" jdbcType="DECIMAL" property="totalAmount" />
     <result column="totalTax" jdbcType="DECIMAL" property="totalTax" />
     <result column="totalTaxAmount" jdbcType="DECIMAL" property="totalTaxAmount" />
@@ -82,8 +81,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, supplier, bizDate, purchasePerson, saleProxy, isInTax, tickDate, confirmTickDate, 
-    tickType, confirmTick, [number], isQuicken, currency, settlementType, totalAmount, 
-    totalTax, totalTaxAmount, createTime, baseStatus
+    tickType, confirmTick, [number], isQuicken, currency, totalAmount, totalTax, totalTaxAmount, 
+    createTime, baseStatus
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.OrderExample" resultMap="BaseResultMap">
     select
@@ -120,16 +119,16 @@
       purchasePerson, saleProxy, isInTax, 
       tickDate, confirmTickDate, tickType, 
       confirmTick, [number], isQuicken, 
-      currency, settlementType, totalAmount, 
-      totalTax, totalTaxAmount, createTime, 
-      baseStatus)
+      currency, totalAmount, totalTax, 
+      totalTaxAmount, createTime, baseStatus
+      )
     values (#{id,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
       #{purchasePerson,jdbcType=VARCHAR}, #{saleProxy,jdbcType=TINYINT}, #{isInTax,jdbcType=TINYINT}, 
       #{tickDate,jdbcType=TIMESTAMP}, #{confirmTickDate,jdbcType=TIMESTAMP}, #{tickType,jdbcType=TINYINT}, 
       #{confirmTick,jdbcType=TINYINT}, #{number,jdbcType=VARCHAR}, #{isQuicken,jdbcType=TINYINT}, 
-      #{currency,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, #{totalAmount,jdbcType=DECIMAL}, 
-      #{totalTax,jdbcType=DECIMAL}, #{totalTaxAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{baseStatus,jdbcType=TINYINT})
+      #{currency,jdbcType=VARCHAR}, #{totalAmount,jdbcType=DECIMAL}, #{totalTax,jdbcType=DECIMAL}, 
+      #{totalTaxAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{baseStatus,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     insert into t_sms_purchase_order
@@ -172,9 +171,6 @@
       </if>
       <if test="currency != null">
         currency,
-      </if>
-      <if test="settlementType != null">
-        settlementType,
       </if>
       <if test="totalAmount != null">
         totalAmount,
@@ -231,9 +227,6 @@
       </if>
       <if test="currency != null">
         #{currency,jdbcType=VARCHAR},
-      </if>
-      <if test="settlementType != null">
-        #{settlementType,jdbcType=VARCHAR},
       </if>
       <if test="totalAmount != null">
         #{totalAmount,jdbcType=DECIMAL},
@@ -300,9 +293,6 @@
       <if test="record.currency != null">
         currency = #{record.currency,jdbcType=VARCHAR},
       </if>
-      <if test="record.settlementType != null">
-        settlementType = #{record.settlementType,jdbcType=VARCHAR},
-      </if>
       <if test="record.totalAmount != null">
         totalAmount = #{record.totalAmount,jdbcType=DECIMAL},
       </if>
@@ -338,7 +328,6 @@
       [number] = #{record.number,jdbcType=VARCHAR},
       isQuicken = #{record.isQuicken,jdbcType=TINYINT},
       currency = #{record.currency,jdbcType=VARCHAR},
-      settlementType = #{record.settlementType,jdbcType=VARCHAR},
       totalAmount = #{record.totalAmount,jdbcType=DECIMAL},
       totalTax = #{record.totalTax,jdbcType=DECIMAL},
       totalTaxAmount = #{record.totalTaxAmount,jdbcType=DECIMAL},
@@ -387,9 +376,6 @@
       <if test="currency != null">
         currency = #{currency,jdbcType=VARCHAR},
       </if>
-      <if test="settlementType != null">
-        settlementType = #{settlementType,jdbcType=VARCHAR},
-      </if>
       <if test="totalAmount != null">
         totalAmount = #{totalAmount,jdbcType=DECIMAL},
       </if>
@@ -422,7 +408,6 @@
       [number] = #{number,jdbcType=VARCHAR},
       isQuicken = #{isQuicken,jdbcType=TINYINT},
       currency = #{currency,jdbcType=VARCHAR},
-      settlementType = #{settlementType,jdbcType=VARCHAR},
       totalAmount = #{totalAmount,jdbcType=DECIMAL},
       totalTax = #{totalTax,jdbcType=DECIMAL},
       totalTaxAmount = #{totalTaxAmount,jdbcType=DECIMAL},

@@ -30,8 +30,6 @@ public class Order {
 
     private String currency;
 
-    private String settlementType;
-
     private BigDecimal totalAmount;
 
     private BigDecimal totalTax;
@@ -144,14 +142,6 @@ public class Order {
 
     public void setCurrency(String currency) {
         this.currency = currency == null ? null : currency.trim();
-    }
-
-    public String getSettlementType() {
-        return settlementType;
-    }
-
-    public void setSettlementType(String settlementType) {
-        this.settlementType = settlementType == null ? null : settlementType.trim();
     }
 
     public BigDecimal getTotalAmount() {
