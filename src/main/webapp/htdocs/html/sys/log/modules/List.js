@@ -50,7 +50,7 @@ define("List", function (require, exports, module) {
 
     function render(config, fn) {
         load({
-            classID: config.classID,
+            classId: config.classId,
             pageNo: config.pageNo,
             pageSize: config.pageSize,
             conditions: config.conditions
