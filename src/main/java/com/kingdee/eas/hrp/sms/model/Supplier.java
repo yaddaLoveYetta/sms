@@ -9,9 +9,9 @@ public class Supplier {
 
     private String taxId;
 
-    private String CORP;
+    private String corp;
 
-    private String BRNO;
+    private String brno;
 
     private String taxCategoryId;
 
@@ -30,10 +30,6 @@ public class Supplier {
     private String industryId;
 
     private String categoryId;
-
-    private String createOrganization;
-
-    private String banOrganization;
 
     private String status;
 
@@ -67,20 +63,20 @@ public class Supplier {
         this.taxId = taxId == null ? null : taxId.trim();
     }
 
-    public String getCORP() {
-        return CORP;
+    public String getCorp() {
+        return corp;
     }
 
-    public void setCORP(String CORP) {
-        this.CORP = CORP == null ? null : CORP.trim();
+    public void setCorp(String corp) {
+        this.corp = corp == null ? null : corp.trim();
     }
 
-    public String getBRNO() {
-        return BRNO;
+    public String getBrno() {
+        return brno;
     }
 
-    public void setBRNO(String BRNO) {
-        this.BRNO = BRNO == null ? null : BRNO.trim();
+    public void setBrno(String brno) {
+        this.brno = brno == null ? null : brno.trim();
     }
 
     public String getTaxCategoryId() {
@@ -153,22 +149,6 @@ public class Supplier {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId == null ? null : categoryId.trim();
-    }
-
-    public String getCreateOrganization() {
-        return createOrganization;
-    }
-
-    public void setCreateOrganization(String createOrganization) {
-        this.createOrganization = createOrganization == null ? null : createOrganization.trim();
-    }
-
-    public String getBanOrganization() {
-        return banOrganization;
-    }
-
-    public void setBanOrganization(String banOrganization) {
-        this.banOrganization = banOrganization == null ? null : banOrganization.trim();
     }
 
     public String getStatus() {

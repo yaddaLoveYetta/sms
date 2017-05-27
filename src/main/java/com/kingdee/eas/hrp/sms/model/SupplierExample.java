@@ -315,143 +315,143 @@ public class SupplierExample {
             return (Criteria) this;
         }
 
-        public Criteria andCORPIsNull() {
-            addCriterion("CORP is null");
+        public Criteria andCorpIsNull() {
+            addCriterion("corp is null");
             return (Criteria) this;
         }
 
-        public Criteria andCORPIsNotNull() {
-            addCriterion("CORP is not null");
+        public Criteria andCorpIsNotNull() {
+            addCriterion("corp is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCORPEqualTo(String value) {
-            addCriterion("CORP =", value, "CORP");
+        public Criteria andCorpEqualTo(String value) {
+            addCriterion("corp =", value, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPNotEqualTo(String value) {
-            addCriterion("CORP <>", value, "CORP");
+        public Criteria andCorpNotEqualTo(String value) {
+            addCriterion("corp <>", value, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPGreaterThan(String value) {
-            addCriterion("CORP >", value, "CORP");
+        public Criteria andCorpGreaterThan(String value) {
+            addCriterion("corp >", value, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPGreaterThanOrEqualTo(String value) {
-            addCriterion("CORP >=", value, "CORP");
+        public Criteria andCorpGreaterThanOrEqualTo(String value) {
+            addCriterion("corp >=", value, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPLessThan(String value) {
-            addCriterion("CORP <", value, "CORP");
+        public Criteria andCorpLessThan(String value) {
+            addCriterion("corp <", value, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPLessThanOrEqualTo(String value) {
-            addCriterion("CORP <=", value, "CORP");
+        public Criteria andCorpLessThanOrEqualTo(String value) {
+            addCriterion("corp <=", value, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPLike(String value) {
-            addCriterion("CORP like", value, "CORP");
+        public Criteria andCorpLike(String value) {
+            addCriterion("corp like", value, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPNotLike(String value) {
-            addCriterion("CORP not like", value, "CORP");
+        public Criteria andCorpNotLike(String value) {
+            addCriterion("corp not like", value, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPIn(List<String> values) {
-            addCriterion("CORP in", values, "CORP");
+        public Criteria andCorpIn(List<String> values) {
+            addCriterion("corp in", values, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPNotIn(List<String> values) {
-            addCriterion("CORP not in", values, "CORP");
+        public Criteria andCorpNotIn(List<String> values) {
+            addCriterion("corp not in", values, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPBetween(String value1, String value2) {
-            addCriterion("CORP between", value1, value2, "CORP");
+        public Criteria andCorpBetween(String value1, String value2) {
+            addCriterion("corp between", value1, value2, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andCORPNotBetween(String value1, String value2) {
-            addCriterion("CORP not between", value1, value2, "CORP");
+        public Criteria andCorpNotBetween(String value1, String value2) {
+            addCriterion("corp not between", value1, value2, "corp");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOIsNull() {
-            addCriterion("BRNO is null");
+        public Criteria andBrnoIsNull() {
+            addCriterion("brno is null");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOIsNotNull() {
-            addCriterion("BRNO is not null");
+        public Criteria andBrnoIsNotNull() {
+            addCriterion("brno is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOEqualTo(String value) {
-            addCriterion("BRNO =", value, "BRNO");
+        public Criteria andBrnoEqualTo(String value) {
+            addCriterion("brno =", value, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNONotEqualTo(String value) {
-            addCriterion("BRNO <>", value, "BRNO");
+        public Criteria andBrnoNotEqualTo(String value) {
+            addCriterion("brno <>", value, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOGreaterThan(String value) {
-            addCriterion("BRNO >", value, "BRNO");
+        public Criteria andBrnoGreaterThan(String value) {
+            addCriterion("brno >", value, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOGreaterThanOrEqualTo(String value) {
-            addCriterion("BRNO >=", value, "BRNO");
+        public Criteria andBrnoGreaterThanOrEqualTo(String value) {
+            addCriterion("brno >=", value, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOLessThan(String value) {
-            addCriterion("BRNO <", value, "BRNO");
+        public Criteria andBrnoLessThan(String value) {
+            addCriterion("brno <", value, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOLessThanOrEqualTo(String value) {
-            addCriterion("BRNO <=", value, "BRNO");
+        public Criteria andBrnoLessThanOrEqualTo(String value) {
+            addCriterion("brno <=", value, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOLike(String value) {
-            addCriterion("BRNO like", value, "BRNO");
+        public Criteria andBrnoLike(String value) {
+            addCriterion("brno like", value, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNONotLike(String value) {
-            addCriterion("BRNO not like", value, "BRNO");
+        public Criteria andBrnoNotLike(String value) {
+            addCriterion("brno not like", value, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOIn(List<String> values) {
-            addCriterion("BRNO in", values, "BRNO");
+        public Criteria andBrnoIn(List<String> values) {
+            addCriterion("brno in", values, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNONotIn(List<String> values) {
-            addCriterion("BRNO not in", values, "BRNO");
+        public Criteria andBrnoNotIn(List<String> values) {
+            addCriterion("brno not in", values, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNOBetween(String value1, String value2) {
-            addCriterion("BRNO between", value1, value2, "BRNO");
+        public Criteria andBrnoBetween(String value1, String value2) {
+            addCriterion("brno between", value1, value2, "brno");
             return (Criteria) this;
         }
 
-        public Criteria andBRNONotBetween(String value1, String value2) {
-            addCriterion("BRNO not between", value1, value2, "BRNO");
+        public Criteria andBrnoNotBetween(String value1, String value2) {
+            addCriterion("brno not between", value1, value2, "brno");
             return (Criteria) this;
         }
 
@@ -1072,146 +1072,6 @@ public class SupplierExample {
 
         public Criteria andCategoryIdNotBetween(String value1, String value2) {
             addCriterion("categoryId not between", value1, value2, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationIsNull() {
-            addCriterion("createOrganization is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationIsNotNull() {
-            addCriterion("createOrganization is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationEqualTo(String value) {
-            addCriterion("createOrganization =", value, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationNotEqualTo(String value) {
-            addCriterion("createOrganization <>", value, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationGreaterThan(String value) {
-            addCriterion("createOrganization >", value, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationGreaterThanOrEqualTo(String value) {
-            addCriterion("createOrganization >=", value, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationLessThan(String value) {
-            addCriterion("createOrganization <", value, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationLessThanOrEqualTo(String value) {
-            addCriterion("createOrganization <=", value, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationLike(String value) {
-            addCriterion("createOrganization like", value, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationNotLike(String value) {
-            addCriterion("createOrganization not like", value, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationIn(List<String> values) {
-            addCriterion("createOrganization in", values, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationNotIn(List<String> values) {
-            addCriterion("createOrganization not in", values, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationBetween(String value1, String value2) {
-            addCriterion("createOrganization between", value1, value2, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateOrganizationNotBetween(String value1, String value2) {
-            addCriterion("createOrganization not between", value1, value2, "createOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationIsNull() {
-            addCriterion("banOrganization is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationIsNotNull() {
-            addCriterion("banOrganization is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationEqualTo(String value) {
-            addCriterion("banOrganization =", value, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationNotEqualTo(String value) {
-            addCriterion("banOrganization <>", value, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationGreaterThan(String value) {
-            addCriterion("banOrganization >", value, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationGreaterThanOrEqualTo(String value) {
-            addCriterion("banOrganization >=", value, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationLessThan(String value) {
-            addCriterion("banOrganization <", value, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationLessThanOrEqualTo(String value) {
-            addCriterion("banOrganization <=", value, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationLike(String value) {
-            addCriterion("banOrganization like", value, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationNotLike(String value) {
-            addCriterion("banOrganization not like", value, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationIn(List<String> values) {
-            addCriterion("banOrganization in", values, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationNotIn(List<String> values) {
-            addCriterion("banOrganization not in", values, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationBetween(String value1, String value2) {
-            addCriterion("banOrganization between", value1, value2, "banOrganization");
-            return (Criteria) this;
-        }
-
-        public Criteria andBanOrganizationNotBetween(String value1, String value2) {
-            addCriterion("banOrganization not between", value1, value2, "banOrganization");
             return (Criteria) this;
         }
 

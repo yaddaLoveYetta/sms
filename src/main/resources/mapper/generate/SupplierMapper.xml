@@ -5,8 +5,8 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="taxId" jdbcType="VARCHAR" property="taxId" />
-    <result column="CORP" jdbcType="VARCHAR" property="CORP" />
-    <result column="BRNO" jdbcType="VARCHAR" property="BRNO" />
+    <result column="corp" jdbcType="VARCHAR" property="corp" />
+    <result column="brno" jdbcType="VARCHAR" property="brno" />
     <result column="taxCategoryId" jdbcType="VARCHAR" property="taxCategoryId" />
     <result column="taxRate" jdbcType="DECIMAL" property="taxRate" />
     <result column="country" jdbcType="VARCHAR" property="country" />
@@ -16,8 +16,6 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="industryId" jdbcType="VARCHAR" property="industryId" />
     <result column="categoryId" jdbcType="VARCHAR" property="categoryId" />
-    <result column="createOrganization" jdbcType="VARCHAR" property="createOrganization" />
-    <result column="banOrganization" jdbcType="VARCHAR" property="banOrganization" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="syncStatus" jdbcType="TINYINT" property="syncStatus" />
@@ -82,9 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, [name], taxId, CORP, BRNO, taxCategoryId, taxRate, country, city, province, county, 
-    address, industryId, categoryId, createOrganization, banOrganization, [status], [number], 
-    syncStatus, review
+    id, [name], taxId, corp, brno, taxCategoryId, taxRate, country, city, province, county, 
+    address, industryId, categoryId, [status], [number], syncStatus, review
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -118,19 +115,19 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier (id, [name], taxId, 
-      CORP, BRNO, taxCategoryId, 
+      corp, brno, taxCategoryId, 
       taxRate, country, city, 
       province, county, address, 
-      industryId, categoryId, createOrganization, 
-      banOrganization, [status], [number], 
-      syncStatus, review)
+      industryId, categoryId, [status], 
+      [number], syncStatus, review
+      )
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=VARCHAR}, 
-      #{CORP,jdbcType=VARCHAR}, #{BRNO,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=VARCHAR}, 
+      #{corp,jdbcType=VARCHAR}, #{brno,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=VARCHAR}, 
       #{taxRate,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{createOrganization,jdbcType=VARCHAR}, 
-      #{banOrganization,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
-      #{syncStatus,jdbcType=TINYINT}, #{review,jdbcType=TINYINT})
+      #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{number,jdbcType=VARCHAR}, #{syncStatus,jdbcType=TINYINT}, #{review,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -144,11 +141,11 @@
       <if test="taxId != null">
         taxId,
       </if>
-      <if test="CORP != null">
-        CORP,
+      <if test="corp != null">
+        corp,
       </if>
-      <if test="BRNO != null">
-        BRNO,
+      <if test="brno != null">
+        brno,
       </if>
       <if test="taxCategoryId != null">
         taxCategoryId,
@@ -177,12 +174,6 @@
       <if test="categoryId != null">
         categoryId,
       </if>
-      <if test="createOrganization != null">
-        createOrganization,
-      </if>
-      <if test="banOrganization != null">
-        banOrganization,
-      </if>
       <if test="status != null">
         [status],
       </if>
@@ -206,11 +197,11 @@
       <if test="taxId != null">
         #{taxId,jdbcType=VARCHAR},
       </if>
-      <if test="CORP != null">
-        #{CORP,jdbcType=VARCHAR},
+      <if test="corp != null">
+        #{corp,jdbcType=VARCHAR},
       </if>
-      <if test="BRNO != null">
-        #{BRNO,jdbcType=VARCHAR},
+      <if test="brno != null">
+        #{brno,jdbcType=VARCHAR},
       </if>
       <if test="taxCategoryId != null">
         #{taxCategoryId,jdbcType=VARCHAR},
@@ -238,12 +229,6 @@
       </if>
       <if test="categoryId != null">
         #{categoryId,jdbcType=VARCHAR},
-      </if>
-      <if test="createOrganization != null">
-        #{createOrganization,jdbcType=VARCHAR},
-      </if>
-      <if test="banOrganization != null">
-        #{banOrganization,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
@@ -277,11 +262,11 @@
       <if test="record.taxId != null">
         taxId = #{record.taxId,jdbcType=VARCHAR},
       </if>
-      <if test="record.CORP != null">
-        CORP = #{record.CORP,jdbcType=VARCHAR},
+      <if test="record.corp != null">
+        corp = #{record.corp,jdbcType=VARCHAR},
       </if>
-      <if test="record.BRNO != null">
-        BRNO = #{record.BRNO,jdbcType=VARCHAR},
+      <if test="record.brno != null">
+        brno = #{record.brno,jdbcType=VARCHAR},
       </if>
       <if test="record.taxCategoryId != null">
         taxCategoryId = #{record.taxCategoryId,jdbcType=VARCHAR},
@@ -310,12 +295,6 @@
       <if test="record.categoryId != null">
         categoryId = #{record.categoryId,jdbcType=VARCHAR},
       </if>
-      <if test="record.createOrganization != null">
-        createOrganization = #{record.createOrganization,jdbcType=VARCHAR},
-      </if>
-      <if test="record.banOrganization != null">
-        banOrganization = #{record.banOrganization,jdbcType=VARCHAR},
-      </if>
       <if test="record.status != null">
         [status] = #{record.status,jdbcType=VARCHAR},
       </if>
@@ -338,8 +317,8 @@
     set id = #{record.id,jdbcType=VARCHAR},
       [name] = #{record.name,jdbcType=VARCHAR},
       taxId = #{record.taxId,jdbcType=VARCHAR},
-      CORP = #{record.CORP,jdbcType=VARCHAR},
-      BRNO = #{record.BRNO,jdbcType=VARCHAR},
+      corp = #{record.corp,jdbcType=VARCHAR},
+      brno = #{record.brno,jdbcType=VARCHAR},
       taxCategoryId = #{record.taxCategoryId,jdbcType=VARCHAR},
       taxRate = #{record.taxRate,jdbcType=DECIMAL},
       country = #{record.country,jdbcType=VARCHAR},
@@ -349,8 +328,6 @@
       address = #{record.address,jdbcType=VARCHAR},
       industryId = #{record.industryId,jdbcType=VARCHAR},
       categoryId = #{record.categoryId,jdbcType=VARCHAR},
-      createOrganization = #{record.createOrganization,jdbcType=VARCHAR},
-      banOrganization = #{record.banOrganization,jdbcType=VARCHAR},
       [status] = #{record.status,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR},
       syncStatus = #{record.syncStatus,jdbcType=TINYINT},
@@ -368,11 +345,11 @@
       <if test="taxId != null">
         taxId = #{taxId,jdbcType=VARCHAR},
       </if>
-      <if test="CORP != null">
-        CORP = #{CORP,jdbcType=VARCHAR},
+      <if test="corp != null">
+        corp = #{corp,jdbcType=VARCHAR},
       </if>
-      <if test="BRNO != null">
-        BRNO = #{BRNO,jdbcType=VARCHAR},
+      <if test="brno != null">
+        brno = #{brno,jdbcType=VARCHAR},
       </if>
       <if test="taxCategoryId != null">
         taxCategoryId = #{taxCategoryId,jdbcType=VARCHAR},
@@ -401,12 +378,6 @@
       <if test="categoryId != null">
         categoryId = #{categoryId,jdbcType=VARCHAR},
       </if>
-      <if test="createOrganization != null">
-        createOrganization = #{createOrganization,jdbcType=VARCHAR},
-      </if>
-      <if test="banOrganization != null">
-        banOrganization = #{banOrganization,jdbcType=VARCHAR},
-      </if>
       <if test="status != null">
         [status] = #{status,jdbcType=VARCHAR},
       </if>
@@ -426,8 +397,8 @@
     update t_sms_supplier
     set [name] = #{name,jdbcType=VARCHAR},
       taxId = #{taxId,jdbcType=VARCHAR},
-      CORP = #{CORP,jdbcType=VARCHAR},
-      BRNO = #{BRNO,jdbcType=VARCHAR},
+      corp = #{corp,jdbcType=VARCHAR},
+      brno = #{brno,jdbcType=VARCHAR},
       taxCategoryId = #{taxCategoryId,jdbcType=VARCHAR},
       taxRate = #{taxRate,jdbcType=DECIMAL},
       country = #{country,jdbcType=VARCHAR},
@@ -437,8 +408,6 @@
       address = #{address,jdbcType=VARCHAR},
       industryId = #{industryId,jdbcType=VARCHAR},
       categoryId = #{categoryId,jdbcType=VARCHAR},
-      createOrganization = #{createOrganization,jdbcType=VARCHAR},
-      banOrganization = #{banOrganization,jdbcType=VARCHAR},
       [status] = #{status,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR},
       syncStatus = #{syncStatus,jdbcType=TINYINT},
