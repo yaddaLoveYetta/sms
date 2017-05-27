@@ -375,7 +375,7 @@ public class Common {
 	 * 
 	 * 创建发货单批次
 	 */
-	public static String createNo(int Num, String SDF, String ZF) {
+	public static String createNo( String SDF, String ZF,int Num) {
 		SimpleDateFormat sdf = new SimpleDateFormat(SDF, Locale.CHINA);
 		Random rm = new Random();
 		// 获得随机数

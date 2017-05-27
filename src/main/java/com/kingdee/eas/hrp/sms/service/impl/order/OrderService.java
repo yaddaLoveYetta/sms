@@ -486,14 +486,14 @@ public class OrderService extends BaseService implements IOrderService {
 		entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
 		entry.put("specification", purOrderEntry.getString("specification"));
 		if (purOrderEntry.getByte("isLotNumber") == 1 && !purOrderEntry.getByte("isLotNumber").equals(1)) {
-			entry.put("lot", Common.createNo(3, "MM-dd", "-"));
+			entry.put("lot", Common.createNo("MM-dd", "-",3));
 		} else {
 			entry.put("lot", "");
 		}
 		entry.put("isLotNumber", purOrderEntry.getByte("isLotNumber"));
 		entry.put("dyBatchNum", "");
 		if (purOrderEntry.getByte("highConsumable") == 1 && !purOrderEntry.getByte("highConsumable").equals(1)) {
-			entry.put("code", Common.createNo(5, "yyMMdd", ""));
+			entry.put("code", Common.createNo("yyMMdd", "", 5));
 		} else {
 			entry.put("code", "");
 		}
@@ -569,14 +569,14 @@ public class OrderService extends BaseService implements IOrderService {
 			entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
 			entry.put("specification", purOrderEntry.getString("specification"));
 			if (purOrderEntry.getByte("isLotNumber") == 1 && !purOrderEntry.getByte("isLotNumber").equals(1)) {
-				entry.put("lot", Common.createNo(3, "MM-dd", "-"));
+				entry.put("lot", Common.createNo("MM-dd", "-",3));
 			} else {
 				entry.put("lot", "");
 			}
 			entry.put("isLotNumber", purOrderEntry.getByte("isLotNumber"));
 			entry.put("dyBatchNum", "");
 			if (purOrderEntry.getByte("highConsumable") == 1 && !purOrderEntry.getByte("highConsumable").equals(1)) {
-				entry.put("code", Common.createNo(5, "yyMMdd", ""));
+				entry.put("code", Common.createNo("yyMMdd", "", 5));
 			} else {
 				entry.put("code", "");
 			}
