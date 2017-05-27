@@ -168,15 +168,13 @@ public class PlugInFactory implements IPlugIn {
 	@Override
 	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userType) {
 
+		PlugInRet ret = new PlugInRet();
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeSave(classId, formData, data, userType);
-			if (ret.getCode() != 200) {
-				// 插件返回了阻止继续运行的情况--返回不继续执行
-				return ret;
-			}
+			ret = plugin.beforeSave(classId, formData, data, userType);
+			data = (JSONObject) ret.getData();
 		}
-		return null;
+		return ret;
 	}
 
 	@Override
@@ -285,6 +283,19 @@ public class PlugInFactory implements IPlugIn {
 		for (IPlugIn plugin : plugIns) {
 
 			ret = plugin.getConditions(classId, formData, ret, userType, userId);
+
+		}
+
+		return ret;
+	}
+
+	@Override
+	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json, String userType) {
+
+		JSONObject ret = json;
+		for (IPlugIn plugin : plugIns) {
+
+			ret = plugin.getJson(classId, formData, ret, userType);
 
 		}
 

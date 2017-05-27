@@ -126,4 +126,18 @@ public interface IPlugIn {
 	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType,
 			String userId);
 
+	/**
+	 * 
+	 * @Title getJson
+	 * @param classId
+	 * @param formData
+	 * @param json
+	 * @param userType
+	 * 
+	 * @return JSONObject
+	 *
+	 * 2017年5月27日下午2:41:32
+	 */
+	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json, String userType);
+
 }

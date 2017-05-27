@@ -44,8 +44,9 @@ public class ItemPlugin extends PlugInAdpter {
 
 		// 需要审核的数据检查是否为未审核状态
 		if (reviewAndSyncClassIdList.contains(classId)) {
+			JSONObject deleteJson = JSONObject.parseObject("{'delete':'delete'}");
 			for (String id : idList) {
-				checkIfReview(classId, id, null, userType);
+				checkIfReview(classId, id, deleteJson, userType);
 			}
 		}
 
@@ -126,7 +127,9 @@ public class ItemPlugin extends PlugInAdpter {
 			if (json.isEmpty()) { // 构造的json为空即同步到HRP的记录需将同步状态标记为已同步
 				json.put("syncStatus", "true");
 			} else { // 构造的json不为空即为修改记录，需将同步状态标记为未同步
-				json.put("syncStatus", "false");
+				if (!json.containsKey("syncStatus")) {
+					json.put("syncStatus", "false");
+				}
 			}
 		}
 
@@ -139,7 +142,8 @@ public class ItemPlugin extends PlugInAdpter {
 
 	private void checkIfReview(int classId, String id, JSONObject json, String userType) {
 
-		if (null == json || !json.isEmpty()) {
+		// 如果json是“{}”说明是同步到HRP数据修改同步状态，不需要验证，如果json有review字段说明是HRP同步过来，也不需要验证
+		if (!json.isEmpty()&&!json.containsKey("review")) {
 			Map<String, Object> result = templateService.getItemById(classId, id, userType);
 			short review;
 			if (result.containsKey("review")) {
@@ -156,17 +160,30 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject json, String userTyepe) {
 
-		saveCheckMustInput(classId, formData, data, userTyepe);
+		saveCheckMustInput(classId, formData, json, userTyepe);
 
 		if (classId / 100 == 10) {
 
 			String id = "-1";
-			checkIfExistRecord(classId, id, formData, data, userTyepe);
+			checkIfExistRecord(classId, id, formData, json, userTyepe);
 		}
 
-		return super.beforeSave(classId, formData, data, userTyepe);
+		// 如果字段含有同步到HRP的字段syncStatus，设置同步状态
+		if (reviewAndSyncClassIdList.contains(classId)) {
+			if (!json.containsKey("syncStatus")) {
+				json.put("syncStatus", "false");
+			}
+			if (!json.containsKey("review")) {
+				json.put("review", "false");
+			}
+		}
+
+		PlugInRet ret = new PlugInRet();
+		ret.setCode(200);
+		ret.setData(json);
+		return ret;
 	}
 
 	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data,
@@ -344,4 +361,18 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 		return conditon;
 	}
+
+	@Override
+	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json, String userType) {
+
+		JSONObject jsonData = json;
+		if (reviewAndSyncClassIdList.contains(classId)) {
+			jsonData.put("reviwe", "true");
+			jsonData.put("syncStatus", "true");
+			return jsonData;
+		}
+		return json;
+
+	}
+
 }

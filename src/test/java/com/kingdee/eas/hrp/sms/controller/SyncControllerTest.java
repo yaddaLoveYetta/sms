@@ -222,7 +222,7 @@ public class SyncControllerTest extends BaseControllerTest {
 		param.setCookieParams(cookie);
 		// String str =
 		// "[{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'}]";
-		String str = "[{'id':'11111111111111','number':'111111111','name':'11111111111'}]";
+		String str = "[{'id':'11111111111111','number':'111111112','name':'11111111111'}]";
 		param.addCommon("classId", "1005");
 		param.addCommon("list", str);
 

@@ -82,6 +82,8 @@ import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.service.impl.TemplateService;
+import com.kingdee.eas.hrp.sms.service.plugin.PlugInFactory;
+import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Environ;
 
 @Service
@@ -239,7 +241,8 @@ public class SyncService extends BaseService implements ISyncService {
 			throw new BusinessLogicRunTimeException("内码为空");
 		}
 
-		Supplier_License_TypeMapper mapper = (Supplier_License_TypeMapper) sqlSession.getMapper(Supplier_License_Type.class);
+		Supplier_License_TypeMapper mapper = (Supplier_License_TypeMapper) sqlSession
+				.getMapper(Supplier_License_Type.class);
 		Supplier_License_TypeExample example = new Supplier_License_TypeExample();
 		com.kingdee.eas.hrp.sms.model.Supplier_License_TypeExample.Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(license_Type_Id);
@@ -943,8 +946,8 @@ public class SyncService extends BaseService implements ISyncService {
 	/**
 	 * 同步基础资料 (non-Javadoc)
 	 * 
-	 * @see com.kingdee.eas.hrp.sms.service.api.sys.ISyncService#sync(int, com.alibaba.fastjson.JSONArray,
-	 *      java.lang.String)
+	 * @see com.kingdee.eas.hrp.sms.service.api.sys.ISyncService#sync(int,
+	 *      com.alibaba.fastjson.JSONArray, java.lang.String)
 	 * @param classId
 	 * @param list
 	 * @param userType
@@ -966,6 +969,10 @@ public class SyncService extends BaseService implements ISyncService {
 		Map<String, Object> formTemplate = templateService.getFormTemplate(classId, 1);
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) formTemplate.get("formClass");
+		
+		// 主表字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formTemplate
+						.get("formFields")).get("0");
 
 		String primaryKey = formClass.getPrimaryKey(); // 主表主键key
 
@@ -984,6 +991,12 @@ public class SyncService extends BaseService implements ISyncService {
 				ret.add(errItem);
 
 				continue; // 忽略该条记录
+			}
+			
+			if(formFields.containsKey("review")){
+				baseItem.put("review", "true");
+			}if(formFields.containsKey("syncStatus")){
+				baseItem.put("syncStatus", "true");
 			}
 
 			String interId = baseItem.getString(primaryKey);// 主键值
@@ -1020,7 +1033,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 		}
 
-		return ret;
-	}
+	return ret;
+}
 
 }

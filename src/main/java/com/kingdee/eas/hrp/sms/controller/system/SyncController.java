@@ -542,7 +542,6 @@ public class SyncController {
 	}
 
 	@ControllerLog(desc = "同步item") // 做日志
-	//@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "同步item") // 权限
 	@RequestMapping(value = "sync")
 	public void sync(HttpServletRequest request, HttpServletResponse response) {
 

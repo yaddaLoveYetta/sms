@@ -62,4 +62,9 @@ public abstract class PlugInAdpter implements IPlugIn {
 			String userId) {
 		return conditon;
 	}
+
+	@Override
+	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json, String userType) {
+		return json;
+	}
 }
