@@ -111,9 +111,9 @@ public class ParameterUtils {
 	 * @param request
 	 * @return Map<String, Object>
 	 */
-	public static Map<String, Object> getParameters(HttpServletRequest request) {
+	public static Map<String, String> getParameters(HttpServletRequest request) {
 
-		Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, String> params = new HashMap<String, String>();
 
 		Enumeration<String> paramEnumeration = request.getParameterNames();
 

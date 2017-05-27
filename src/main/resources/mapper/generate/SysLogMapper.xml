@@ -3,13 +3,13 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.SysLogMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.SysLog">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="userId" jdbcType="VARCHAR" property="userId" />
     <result column="userName" jdbcType="VARCHAR" property="userName" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="message" jdbcType="VARCHAR" property="message" />
     <result column="operateTime" jdbcType="TIMESTAMP" property="operateTime" />
     <result column="clazz" jdbcType="VARCHAR" property="clazz" />
     <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userId, userName, ip, message, operateTime, clazz, [method]
+    id, userName, ip, message, operateTime, clazz, [method], params
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SysLogExample" resultMap="BaseResultMap">
     select
@@ -103,21 +103,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.SysLog">
-    insert into t_sms_log (id, userId, userName, 
-      ip, message, operateTime, 
-      clazz, [method])
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{ip,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
-      #{clazz,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR})
+    insert into t_sms_log (id, userName, ip, 
+      message, operateTime, clazz, 
+      [method], params)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{message,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{clazz,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.SysLog">
     insert into t_sms_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
-      </if>
-      <if test="userId != null">
-        userId,
       </if>
       <if test="userName != null">
         userName,
@@ -137,13 +134,13 @@
       <if test="method != null">
         [method],
       </if>
+      <if test="params != null">
+        params,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -163,6 +160,9 @@
       <if test="method != null">
         #{method,jdbcType=VARCHAR},
       </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.kingdee.eas.hrp.sms.model.SysLogExample" resultType="java.lang.Long">
@@ -176,9 +176,6 @@
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.userId != null">
-        userId = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.userName != null">
         userName = #{record.userName,jdbcType=VARCHAR},
@@ -198,6 +195,9 @@
       <if test="record.method != null">
         [method] = #{record.method,jdbcType=VARCHAR},
       </if>
+      <if test="record.params != null">
+        params = #{record.params,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -206,13 +206,13 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_log
     set id = #{record.id,jdbcType=INTEGER},
-      userId = #{record.userId,jdbcType=VARCHAR},
       userName = #{record.userName,jdbcType=VARCHAR},
       ip = #{record.ip,jdbcType=VARCHAR},
       message = #{record.message,jdbcType=VARCHAR},
       operateTime = #{record.operateTime,jdbcType=TIMESTAMP},
       clazz = #{record.clazz,jdbcType=VARCHAR},
-      [method] = #{record.method,jdbcType=VARCHAR}
+      [method] = #{record.method,jdbcType=VARCHAR},
+      params = #{record.params,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -220,9 +220,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.SysLog">
     update t_sms_log
     <set>
-      <if test="userId != null">
-        userId = #{userId,jdbcType=VARCHAR},
-      </if>
       <if test="userName != null">
         userName = #{userName,jdbcType=VARCHAR},
       </if>
@@ -241,18 +238,21 @@
       <if test="method != null">
         [method] = #{method,jdbcType=VARCHAR},
       </if>
+      <if test="params != null">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.SysLog">
     update t_sms_log
-    set userId = #{userId,jdbcType=VARCHAR},
-      userName = #{userName,jdbcType=VARCHAR},
+    set userName = #{userName,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR},
       message = #{message,jdbcType=VARCHAR},
       operateTime = #{operateTime,jdbcType=TIMESTAMP},
       clazz = #{clazz,jdbcType=VARCHAR},
-      [method] = #{method,jdbcType=VARCHAR}
+      [method] = #{method,jdbcType=VARCHAR},
+      params = #{params,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

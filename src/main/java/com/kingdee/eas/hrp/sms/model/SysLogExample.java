@@ -165,76 +165,6 @@ public class SysLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("userId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("userId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdEqualTo(String value) {
-            addCriterion("userId =", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdNotEqualTo(String value) {
-            addCriterion("userId <>", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdGreaterThan(String value) {
-            addCriterion("userId >", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
-            addCriterion("userId >=", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdLessThan(String value) {
-            addCriterion("userId <", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdLessThanOrEqualTo(String value) {
-            addCriterion("userId <=", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdLike(String value) {
-            addCriterion("userId like", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdNotLike(String value) {
-            addCriterion("userId not like", value, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdIn(List<String> values) {
-            addCriterion("userId in", values, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdNotIn(List<String> values) {
-            addCriterion("userId not in", values, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdBetween(String value1, String value2) {
-            addCriterion("userId between", value1, value2, "userId");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserIdNotBetween(String value1, String value2) {
-            addCriterion("userId not between", value1, value2, "userId");
-            return (Criteria) this;
-        }
-
         public Criteria andUserNameIsNull() {
             addCriterion("userName is null");
             return (Criteria) this;
@@ -642,6 +572,76 @@ public class SysLogExample {
 
         public Criteria andMethodNotBetween(String value1, String value2) {
             addCriterion("[method] not between", value1, value2, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsIsNull() {
+            addCriterion("params is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsIsNotNull() {
+            addCriterion("params is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsEqualTo(String value) {
+            addCriterion("params =", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsNotEqualTo(String value) {
+            addCriterion("params <>", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsGreaterThan(String value) {
+            addCriterion("params >", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsGreaterThanOrEqualTo(String value) {
+            addCriterion("params >=", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsLessThan(String value) {
+            addCriterion("params <", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsLessThanOrEqualTo(String value) {
+            addCriterion("params <=", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsLike(String value) {
+            addCriterion("params like", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsNotLike(String value) {
+            addCriterion("params not like", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsIn(List<String> values) {
+            addCriterion("params in", values, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsNotIn(List<String> values) {
+            addCriterion("params not in", values, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsBetween(String value1, String value2) {
+            addCriterion("params between", value1, value2, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsNotBetween(String value1, String value2) {
+            addCriterion("params not between", value1, value2, "params");
             return (Criteria) this;
         }
     }

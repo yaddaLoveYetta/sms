@@ -1,13 +1,14 @@
 package com.kingdee.eas.hrp.sms.log;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -18,14 +19,16 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
-import com.kingdee.eas.hrp.sms.authority.Permission;
+import com.kingdee.eas.hrp.sms.exception.LogErrorRuntimeException;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.sys.ILogService;
+import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
 
 import javassist.ClassClassPath;
@@ -50,6 +53,8 @@ import javassist.bytecode.MethodInfo;
 @Component
 @Order(2)
 public class LogAspect {
+
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
 
 	// 注入Service用于把日志保存数据库
 	@Resource
@@ -78,57 +83,46 @@ public class LogAspect {
 	@Before("controllerLogAspect()")
 	public void doBefore(JoinPoint joinPoint) {
 
+		String userName = ""; // 操作用户的用户名
+
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		HttpSession session = request.getSession();
 
 		String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
 
-		Method method = getSourceMethod(joinPoint);// 当前调用的方法
+		// Method method = getSourceMethod(joinPoint);// 当前调用的方法
+		// if (null == method) {
+		// // 没有该方法！
+		// return;
+		// }
 
-		if (null == method) {
-			// 没有该方法！
-			return;
-		}
-
-		ControllerLog log = method.getAnnotation(ControllerLog.class);
-
-		User user = null;
+		Map<String, String> paramsMap = ParameterUtils.getParameters(request); // 所有请求参数
 
 		if ("/user/login".equalsIgnoreCase(requestUrl)) {
-			user = new User();
-			user.setName(joinPoint.getArgs()[0].toString());
+			// 登录日志用户用登录用户
+			userName = paramsMap.get("user");
 		} else {
-			user = (User) session.getAttribute("user");
-			user = SessionUtil.getUser();
+			userName = SessionUtil.getUser().getName();
 		}
 		// 读取session中的用户
 
 		// 请求的IP
 
 		try {
-			// *========控制台输出=========*//
-			System.out.println("=====前置通知开始=====");
-			System.out.println("用户id:" + user.getUserId());
-			System.out.println("用户名:" + user.getName());
-			System.out.println("请求IP:" + request.getRemoteAddr());
-			System.out.println("方法描述:" + getControllerMethodDesc(joinPoint));
-			System.out.println("请求时间:" + new Date().toString());
-			System.out.println("请求路径:" + joinPoint.getTarget().getClass().getName());
-			System.out.println("请求方法:" + joinPoint.getSignature().getName());
 
-			String userId = user.getUserId();
-			String userName = user.getName();
 			String ip = request.getRemoteAddr();
 			String desc = getControllerMethodDesc(joinPoint);
-			Date optTime = new Date();
-			String clazz = joinPoint.getTarget().getClass().getName();
-			String meth = joinPoint.getSignature().getName();
+			Date optTime = sdf.parse(sdf.format(new Date()));
+			String clazz = joinPoint.getSignature().getDeclaringTypeName();
+			String method = joinPoint.getSignature().getName();
+			String params = paramsMap.toString();
+			params = params.length() > 1000 ? params.substring(0, 1000) : params;
 
 			// 操作日志记录到数据库中
-			logService.add(userId, userName, ip, desc, optTime, clazz, meth);
+			logService.add(userName, ip, desc, optTime, clazz, method, params);
 
 		} catch (Exception e) {
 			// 日志操作异常不处理-不影响业务流程
+			// throw new LogErrorRuntimeException();
 		}
 	}
 
@@ -262,33 +256,6 @@ public class LogAspect {
 		return desc;
 	}
 
-	private Map<String, Object> getFieldsName(Class cls, String clazzName, String methodName, Object[] args) throws NotFoundException {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		ClassPool pool = ClassPool.getDefault();
-		// ClassClassPath classPath = new ClassClassPath(this.getClass());
-		ClassClassPath classPath = new ClassClassPath(cls);
-		pool.insertClassPath(classPath);
-
-		CtClass cc = pool.get(clazzName);
-		CtMethod cm = cc.getDeclaredMethod(methodName);
-		MethodInfo methodInfo = cm.getMethodInfo();
-		CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
-		LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag);
-		if (attr == null) {
-			// exception
-		}
-		// String[] paramNames = new String[cm.getParameterTypes().length];
-		int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
-		for (int i = 0; i < cm.getParameterTypes().length; i++) {
-			map.put(attr.variableName(i + pos), args[i]);// paramNames即参数名
-		}
-
-		// Map<>
-		return map;
-	}
-
 	/**
 	 * 获取当前调用的方法
 	 * 
@@ -299,6 +266,7 @@ public class LogAspect {
 	 * @date 2017-04-15 21:20:51 星期六
 	 */
 	private Method getSourceMethod(JoinPoint joinPoint) {
+
 		Method proxyMethod = ((MethodSignature) joinPoint.getSignature()).getMethod();
 		try {
 			return joinPoint.getTarget().getClass().getMethod(proxyMethod.getName(), proxyMethod.getParameterTypes());

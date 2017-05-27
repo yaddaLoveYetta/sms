@@ -27,5 +27,5 @@ public @interface ServiceLog {
 	 * @date 2017年4月14日 下午2:24:48
 	 * 
 	 */
-	String desc() default "";
+	String desc();
 }

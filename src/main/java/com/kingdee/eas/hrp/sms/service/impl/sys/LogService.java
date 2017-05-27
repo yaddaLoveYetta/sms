@@ -15,21 +15,21 @@ public class LogService extends BaseService implements ILogService {
 
 	@Override
 	@Transactional
-	public void add(String userId, String userName, String ip, String desc, Date optTime, String clazz, String method) {
+	public void add(String userName, String ip, String desc, Date optTime, String clazz, String method, String params) {
 
 		SysLogMapper mapper = sqlSession.getMapper(SysLogMapper.class);
 
 		SysLog log = new SysLog();
 
-		log.setUserId(userId);
 		log.setUserName(userName);
 		log.setIp(ip);
 		log.setMessage(desc);
 		log.setOperateTime(optTime);
 		log.setClazz(clazz);
 		log.setMethod(method);
+		log.setParams(params);
 
-		mapper.insert(log);
+		mapper.insertSelective(log);
 
 	}
 

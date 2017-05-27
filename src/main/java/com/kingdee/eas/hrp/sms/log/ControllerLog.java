@@ -29,5 +29,5 @@ public @interface ControllerLog {
 	 * @throws @date
 	 *             2017年4月14日 下午2:18:56
 	 */
-	String desc() default "";
+	String desc();
 }

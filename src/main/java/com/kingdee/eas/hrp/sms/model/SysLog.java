@@ -5,8 +5,6 @@ import java.util.Date;
 public class SysLog {
     private Integer id;
 
-    private String userId;
-
     private String userName;
 
     private String ip;
@@ -19,20 +17,14 @@ public class SysLog {
 
     private String method;
 
+    private String params;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
     }
 
     public String getUserName() {
@@ -81,5 +73,13 @@ public class SysLog {
 
     public void setMethod(String method) {
         this.method = method == null ? null : method.trim();
+    }
+
+    public String getParams() {
+        return params;
+    }
+
+    public void setParams(String params) {
+        this.params = params == null ? null : params.trim();
     }
 }
