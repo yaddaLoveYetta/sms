@@ -8,22 +8,31 @@ define('DatetimePicker', function (require, module, exports) {
         SMS.use('DateTimePicker', function (DateTimePicker) {
 
             var beginTime = new DateTimePicker('#beginTime', {
-                format: 'yyyy-mm-dd hh:ii:ss',
+                format: 'yyyy-mm-dd',
                 autoclose: true,
                 todayBtn: true,
                 todayHighlight: true,
+                timepicker: false,
                 startView: 'month',
-                minView: 'hour'
+                minView: 2,
             });
-
             var endTime = new DateTimePicker('#endTime', {
-                format: 'yyyy-mm-dd hh:ii:ss',
+                format: 'yyyy-mm-dd',
                 autoclose: true,
                 todayBtn: true,
                 todayHighlight: true,
+                timepicker: false,
                 startView: 'month',
-                minView: 'hour'
+                minView: 2,
             });
+            /*            var endTime = new DateTimePicker('#endTime', {
+             format: 'yyyy-mm-dd hh:ii:ss',
+             autoclose: true,
+             todayBtn: true,
+             todayHighlight: true,
+             startView: 'month',
+             minView: 'hour'
+             });*/
 
         });
     }
