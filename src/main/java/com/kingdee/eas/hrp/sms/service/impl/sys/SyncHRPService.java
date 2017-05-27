@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.log.ServiceLog;
+import com.kingdee.eas.hrp.sms.model.Supplier;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
@@ -51,13 +52,12 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 				System.out.println(targetItem.toJSONString());
 				System.out.println(targetList.toString());
 			}
-
 		}
 
 		if (idTargetList.size() == 0) {
 			throw new RuntimeException("没有可同步项！");
 		}
-
+		
 		String sessionId = loginInEAS();
 		// if (null == sessionId) {
 		// throw new RuntimeException("网络异常！");
