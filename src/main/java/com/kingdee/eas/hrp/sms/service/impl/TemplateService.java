@@ -397,7 +397,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		List<Map<String, Object>> data = templateDaoMapper.getItems(statementParam);
 
-		List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 
 		// 将记录转换成返回接口的格式，将主表关联多行子表记录时，子表记录整合到返回结构"entry"中
 		for (Map<String, Object> item : data) {
@@ -449,20 +449,20 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			head.put("entry", entries);// 将子表已关键字"entry"作为key插入到formClass中
 
-			Map<String, Object> keyInList = isKeyInList(returnList, primaryKey, head.get(primaryKey));
+			Map<String, Object> keyInList = isKeyInList(ret, primaryKey, head.get(primaryKey));
 
 			if (keyInList != null) {
 				// 已存在该条记录，增加子表行
 				((List<Map<String, Object>>) ((Map<String, Object>) keyInList.get("entry")).get("1")).add(formEntryRow);
 			} else {
 				// 不存在该行记录，新增行
-				returnList.add(head);
+				ret.add(head);
 			}
 		}
 
-		if (!returnList.isEmpty()) {
+		if (!ret.isEmpty()) {
 			// 只可能是一条记录
-			return returnList.get(0);
+			return ret.get(0);
 		}
 
 		return null;
