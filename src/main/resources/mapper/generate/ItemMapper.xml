@@ -7,6 +7,7 @@
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="specification" jdbcType="VARCHAR" property="specification" />
     <result column="highConsumable" jdbcType="TINYINT" property="highConsumable" />
+    <result column="isLotNumber" jdbcType="TINYINT" property="isLotNumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, [name], [number], specification, highConsumable
+    id, [name], [number], specification, highConsumable, isLotNumber
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.ItemExample" resultMap="BaseResultMap">
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Item">
     insert into t_sms_item (id, [name], [number], 
-      specification, highConsumable)
+      specification, highConsumable, isLotNumber
+      )
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
-      #{specification,jdbcType=VARCHAR}, #{highConsumable,jdbcType=TINYINT})
+      #{specification,jdbcType=VARCHAR}, #{highConsumable,jdbcType=TINYINT}, #{isLotNumber,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Item">
     insert into t_sms_item
@@ -123,6 +126,9 @@
       <if test="highConsumable != null">
         highConsumable,
       </if>
+      <if test="isLotNumber != null">
+        isLotNumber,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,6 +145,9 @@
       </if>
       <if test="highConsumable != null">
         #{highConsumable,jdbcType=TINYINT},
+      </if>
+      <if test="isLotNumber != null">
+        #{isLotNumber,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.highConsumable != null">
         highConsumable = #{record.highConsumable,jdbcType=TINYINT},
       </if>
+      <if test="record.isLotNumber != null">
+        isLotNumber = #{record.isLotNumber,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       [name] = #{record.name,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR},
       specification = #{record.specification,jdbcType=VARCHAR},
-      highConsumable = #{record.highConsumable,jdbcType=TINYINT}
+      highConsumable = #{record.highConsumable,jdbcType=TINYINT},
+      isLotNumber = #{record.isLotNumber,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="highConsumable != null">
         highConsumable = #{highConsumable,jdbcType=TINYINT},
       </if>
+      <if test="isLotNumber != null">
+        isLotNumber = #{isLotNumber,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -205,7 +221,8 @@
     set [name] = #{name,jdbcType=VARCHAR},
       [number] = #{number,jdbcType=VARCHAR},
       specification = #{specification,jdbcType=VARCHAR},
-      highConsumable = #{highConsumable,jdbcType=TINYINT}
+      highConsumable = #{highConsumable,jdbcType=TINYINT},
+      isLotNumber = #{isLotNumber,jdbcType=TINYINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

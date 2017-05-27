@@ -443,6 +443,66 @@ public class ItemExample {
             addCriterion("highConsumable not between", value1, value2, "highConsumable");
             return (Criteria) this;
         }
+
+        public Criteria andIsLotNumberIsNull() {
+            addCriterion("isLotNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberIsNotNull() {
+            addCriterion("isLotNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberEqualTo(Byte value) {
+            addCriterion("isLotNumber =", value, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberNotEqualTo(Byte value) {
+            addCriterion("isLotNumber <>", value, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberGreaterThan(Byte value) {
+            addCriterion("isLotNumber >", value, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberGreaterThanOrEqualTo(Byte value) {
+            addCriterion("isLotNumber >=", value, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberLessThan(Byte value) {
+            addCriterion("isLotNumber <", value, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberLessThanOrEqualTo(Byte value) {
+            addCriterion("isLotNumber <=", value, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberIn(List<Byte> values) {
+            addCriterion("isLotNumber in", values, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberNotIn(List<Byte> values) {
+            addCriterion("isLotNumber not in", values, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberBetween(Byte value1, Byte value2) {
+            addCriterion("isLotNumber between", value1, value2, "isLotNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsLotNumberNotBetween(Byte value1, Byte value2) {
+            addCriterion("isLotNumber not between", value1, value2, "isLotNumber");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

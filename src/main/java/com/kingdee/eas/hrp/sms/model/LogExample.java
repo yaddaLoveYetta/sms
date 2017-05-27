@@ -505,73 +505,73 @@ public class LogExample {
             return (Criteria) this;
         }
 
-        public Criteria andClassIsNull() {
-            addCriterion("[class] is null");
+        public Criteria andClazzIsNull() {
+            addCriterion("clazz is null");
             return (Criteria) this;
         }
 
-        public Criteria andClassIsNotNull() {
-            addCriterion("[class] is not null");
+        public Criteria andClazzIsNotNull() {
+            addCriterion("clazz is not null");
             return (Criteria) this;
         }
 
-        public Criteria andClassEqualTo(String value) {
-            addCriterion("[class] =", value, "class");
+        public Criteria andClazzEqualTo(String value) {
+            addCriterion("clazz =", value, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassNotEqualTo(String value) {
-            addCriterion("[class] <>", value, "class");
+        public Criteria andClazzNotEqualTo(String value) {
+            addCriterion("clazz <>", value, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassGreaterThan(String value) {
-            addCriterion("[class] >", value, "class");
+        public Criteria andClazzGreaterThan(String value) {
+            addCriterion("clazz >", value, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassGreaterThanOrEqualTo(String value) {
-            addCriterion("[class] >=", value, "class");
+        public Criteria andClazzGreaterThanOrEqualTo(String value) {
+            addCriterion("clazz >=", value, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassLessThan(String value) {
-            addCriterion("[class] <", value, "class");
+        public Criteria andClazzLessThan(String value) {
+            addCriterion("clazz <", value, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassLessThanOrEqualTo(String value) {
-            addCriterion("[class] <=", value, "class");
+        public Criteria andClazzLessThanOrEqualTo(String value) {
+            addCriterion("clazz <=", value, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassLike(String value) {
-            addCriterion("[class] like", value, "class");
+        public Criteria andClazzLike(String value) {
+            addCriterion("clazz like", value, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassNotLike(String value) {
-            addCriterion("[class] not like", value, "class");
+        public Criteria andClazzNotLike(String value) {
+            addCriterion("clazz not like", value, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassIn(List<String> values) {
-            addCriterion("[class] in", values, "class");
+        public Criteria andClazzIn(List<String> values) {
+            addCriterion("clazz in", values, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassNotIn(List<String> values) {
-            addCriterion("[class] not in", values, "class");
+        public Criteria andClazzNotIn(List<String> values) {
+            addCriterion("clazz not in", values, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassBetween(String value1, String value2) {
-            addCriterion("[class] between", value1, value2, "class");
+        public Criteria andClazzBetween(String value1, String value2) {
+            addCriterion("clazz between", value1, value2, "clazz");
             return (Criteria) this;
         }
 
-        public Criteria andClassNotBetween(String value1, String value2) {
-            addCriterion("[class] not between", value1, value2, "class");
+        public Criteria andClazzNotBetween(String value1, String value2) {
+            addCriterion("clazz not between", value1, value2, "clazz");
             return (Criteria) this;
         }
 

@@ -11,6 +11,8 @@ public class Item {
 
     private Byte highConsumable;
 
+    private Byte isLotNumber;
+
     public String getId() {
         return id;
     }
@@ -49,5 +51,13 @@ public class Item {
 
     public void setHighConsumable(Byte highConsumable) {
         this.highConsumable = highConsumable;
+    }
+
+    public Byte getIsLotNumber() {
+        return isLotNumber;
+    }
+
+    public void setIsLotNumber(Byte isLotNumber) {
+        this.isLotNumber = isLotNumber;
     }
 }

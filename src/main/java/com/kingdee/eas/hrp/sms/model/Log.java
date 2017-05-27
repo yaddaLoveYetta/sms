@@ -71,7 +71,7 @@ public class Log {
         return clazz;
     }
 
-    public void setClass(String clazz) {
+    public void setClazz(String clazz) {
         this.clazz = clazz == null ? null : clazz.trim();
     }
 

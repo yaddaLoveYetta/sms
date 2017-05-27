@@ -37,12 +37,6 @@ public class Supplier {
 
     private String status;
 
-    private String currencyId;
-
-    private String settlementId;
-
-    private String payId;
-
     private String number;
 
     private Byte syncStatus;
@@ -183,30 +177,6 @@ public class Supplier {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
-    }
-
-    public String getCurrencyId() {
-        return currencyId;
-    }
-
-    public void setCurrencyId(String currencyId) {
-        this.currencyId = currencyId == null ? null : currencyId.trim();
-    }
-
-    public String getSettlementId() {
-        return settlementId;
-    }
-
-    public void setSettlementId(String settlementId) {
-        this.settlementId = settlementId == null ? null : settlementId.trim();
-    }
-
-    public String getPayId() {
-        return payId;
-    }
-
-    public void setPayId(String payId) {
-        this.payId = payId == null ? null : payId.trim();
     }
 
     public String getNumber() {
