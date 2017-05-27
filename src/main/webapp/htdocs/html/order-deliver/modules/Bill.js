@@ -46,7 +46,7 @@ define('Bill', function (require, module, exports) {
 
             Head.render(data, data.data.headData, itemId);
             // Entry.render(data.visibleTemplate, data.data.entryData);
-            Entry.render(data.template, data.data.entryData,itemId);
+            Entry.render(data.template, data.data.entryData, itemId);
         });
     }
 
@@ -64,6 +64,10 @@ define('Bill', function (require, module, exports) {
 
         if (entry.errorData && !$.Object.isEmpty(entry.errorData)) {
             Entry.showValidInfo(entry.errorData);
+            valid = false;
+        }
+        if (!entry || !entry.entryData || !entry.entryData['1'] || !(entry.entryData['1'].size == 0)) {
+            SMS.Tips.error('无有效分录数据');
             valid = false;
         }
 
