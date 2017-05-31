@@ -268,7 +268,7 @@
                 conditions['id'] = {
                     'andOr': 'AND',
                     'leftParenTheses': '(',
-                    'fieldKey': 'item',
+                    'fieldKey': 'material',
                     'logicOperator': '=',
                     'value': data.id,
                     'rightParenTheses': ')',
