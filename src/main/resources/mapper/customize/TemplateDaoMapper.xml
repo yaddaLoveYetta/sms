@@ -4,6 +4,10 @@
 
 	<!-- 根据模板查询数据 -->
 	<select id="getItems" parameterType="map" resultType="map">
+		${sql}
+	</select>
+
+	<select id="getItems_old" parameterType="map" resultType="map">
 		${select}
 		${from}
 		${where}

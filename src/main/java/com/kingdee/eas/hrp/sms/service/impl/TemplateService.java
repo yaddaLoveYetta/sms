@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.ibatis.plugin.PluginException;
 import org.springframework.stereotype.Service;
@@ -141,9 +142,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		Map<String, Object> ret = new HashMap<String, Object>();
 
-		String userType = SessionUtil.getUserType();
-		String userId = SessionUtil.getUserId();
-
 		String conditionString = condition; // 过滤条件
 		String orderByString = orderBy; // 排序字段
 
@@ -216,10 +214,14 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		String select = ""; // 查询字段
 		String from = "";// 查询表
-		String where = ""; // 查询条件
+
+		Map<String, Object> where = new HashMap<String, Object>(); // 查询条件
+		String whereStr = "";
+		Map<String, Object> whereParams = new HashMap<String, Object>();
+
 		String orderByStr = ""; // 结果排序
 
-		Map<String, Object> statement = getStatement(classId, userType);
+		Map<String, Object> statement = getStatement(classId);
 
 		if (conditionString != null && !conditionString.equals("")) {
 
@@ -239,21 +241,26 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		}
 
-		if (!ValidateUtil.isMatchParenTheses(where.toString())) {
-			throw new BusinessLogicRunTimeException("参数错误：请正确匹配condition中的左右括号（）！");
-		}
-
 		select = (String) statement.get("select");
 		from = (String) statement.get("from");
 
-		Map<String, Object> statementParam = new HashMap<String, Object>();
-		statementParam.put("select", select.toString());
-		statementParam.put("from", from.toString());
-		statementParam.put("where", where);
-		statementParam.put("orderby", orderByStr);
+		if (!where.isEmpty()) {
+			whereStr = where.get("whereStr").toString();
+			whereParams = (Map<String, Object>) where.get("whereParams");
+		}
+
+		Map<String, Object> sqlMap = new HashMap<String, Object>();
+		// 完整的sql(带格式化参数)
+		String sql = select.toString() + System.getProperty("line.separator") + from.toString() + System.getProperty("line.separator") + whereStr + System.getProperty("line.separator") + orderByStr;
+		sqlMap.put("sql", sql);
+
+		// --参数列表
+		for (Iterator<Entry<String, Object>> it = whereParams.entrySet().iterator(); it.hasNext();) {
+			Entry<String, Object> item = it.next();
+			sqlMap.put(item.getKey(), item.getValue());
+		}
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
-		// DruidDataSource ds = Environ.getBean(DruidDataSource.class);
 
 		if (pageNo == 1) {
 			PageHelper.startPage(pageNo, pageSize, true);
@@ -261,7 +268,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			PageHelper.startPage(pageNo, pageSize, false);
 		}
 
-		List<Map<String, Object>> data = templateDaoMapper.getItems(statementParam);
+		List<Map<String, Object>> data = templateDaoMapper.getItems(sqlMap);
 
 		List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 
@@ -336,14 +343,12 @@ public class TemplateService extends BaseService implements ITemplateService {
 		}
 
 		return ret;
-
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> getItemById(Integer classId, String id) {
 
-		String userType = SessionUtil.getUserType();
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
 
@@ -388,7 +393,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		String from = "";// 查询表
 		String where = ""; // 查询条件
 
-		Map<String, Object> statement = getStatement(classId, userType);
+		Map<String, Object> statement = getStatement(classId);
 
 		select = (String) statement.get("select");
 		from = (String) statement.get("from");
@@ -756,7 +761,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @date 2017-04-20 14:15:58 星期四
 	 */
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> getStatement(int classId, String userType) {
+	private Map<String, Object> getStatement(int classId) {
 
 		boolean isChildTableExist = false; // 指示是否存在子表，存在时主表需要关联第一个子表查询
 
@@ -822,6 +827,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		}
 
 		// 用户类别QpXq24FxxE6c3lvHMPyYCxACEAI= 系统用户，B3sMo22ZLkWApjO/oEeDOxACEAI=
+		String userType = SessionUtil.getUserType();
 		// 供应商用户
 		int displayTypeList = 0;
 		int displayTypeAdd = 0;
@@ -911,7 +917,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 						sbFrom.append(" as " + srcTableAlisAs);
 					}
 
-					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
+					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s ", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
 							.append(separator);
 
 					if (filter != null && !filter.trim().equals("")) {
@@ -951,7 +957,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 						sbFrom.append(" as " + srcTableAlis);
 
-						sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", srcTableEx, bDelimiter, srcFieldEx, eDelimiter, srcTableAlis, bDelimiter, srcFieldEx, eDelimiter)).append(separator);
+						sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s ", srcTableEx, bDelimiter, srcFieldEx, eDelimiter, srcTableAlis, bDelimiter, srcFieldEx, eDelimiter)).append(separator);
 					} else {
 						// 普通属性
 						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
@@ -983,7 +989,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 						sbFrom.append(" as " + srcTableAlisAs);
 					}
 
-					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
+					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s ", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
 							.append(separator);
 				} else if (lookUpType != null && lookUpType == 5) {
 
@@ -1068,7 +1074,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 * @date 2017-04-20 14:25:15 星期四
 	 */
 	@SuppressWarnings("unchecked")
-	private String getWhereStr(Integer classId, JSONArray conditoinArray) {
+	private String getWhereStr_old(Integer classId, JSONArray conditoinArray) {
 
 		StringBuilder sbWhere = new StringBuilder();
 		String separator = System.getProperty("line.separator");
@@ -1326,6 +1332,277 @@ public class TemplateService extends BaseService implements ITemplateService {
 		}
 
 		return whereStr;
+	}
+
+	/**
+	 * 构建防注入where条件
+	 * 
+	 * @Title getWhereStr2
+	 * @param classId
+	 * @param conditoinArray
+	 * @return
+	 * @return Map<String,Object>
+	 * @date 2017-05-31 10:01:41 星期三
+	 */
+	@SuppressWarnings("unchecked")
+	private Map<String, Object> getWhereStr(Integer classId, JSONArray conditoinArray) {
+
+		Map<String, Object> ret = new HashMap<String, Object>();
+
+		StringBuilder sbWhere = new StringBuilder();
+		Map<String, Object> sqlParams = new HashMap<String, Object>();// 保存sql参数
+
+		String separator = System.getProperty("line.separator");
+
+		// 基础资料模板
+		Map<String, Object> templateMap = getFormTemplate(classId, 1);// template
+		// 所有字段模板
+		Map<String, FormFields> itemClassTemplateMap = getFormFields(classId, -1);
+		// 主表资料描述信息
+		FormClass formClass = (FormClass) templateMap.get("formClass");// formClass
+		// 子表资料描述信息
+		Map<String, Object> formEntries = (Map<String, Object>) templateMap.get("formEntries");// formEntries
+
+		if (null == formClass) {
+			throw new BusinessLogicRunTimeException("没有模板数据");
+		}
+
+		Map<String, String> dbDelimiter = getDBDelimiter();
+
+		String bDelimiter = dbDelimiter.get("bDelimiter");// 数据库字段-关键字处理
+		String eDelimiter = dbDelimiter.get("eDelimiter");
+
+		String primaryTableName = formClass.getTableName();
+		String primaryKey = formClass.getPrimaryKey();
+		String childTableName = "";
+		String foreignKey = "";
+
+		if (!formEntries.isEmpty()) {
+
+			// 存在关联字表-只关联第一个子表查询
+			FormEntries formEntry = (FormEntries) formEntries.get("1");
+			childTableName = formEntry.getTableName();
+			foreignKey = formEntry.getForeignKey();
+
+			if ("".equals(childTableName) || "".equals(foreignKey)) {
+				// 存在子表但子表FormEntries中配置错误
+				throw new BusinessLogicRunTimeException("没有模板数据");
+			}
+
+		}
+
+		sbWhere.append("WHERE");
+
+		for (int i = 0; i < conditoinArray.size(); i++) {
+
+			JSONObject condition = conditoinArray.getJSONObject(i);
+
+			String andOr = "AND";// AND OR 条件链接符号-默认AND
+
+			if (condition.containsKey("andOr")) {
+				andOr = condition.getString("andOr");
+			}
+
+			String leftParenTheses = "("; // 左括号-可能有多个，如 "(("，甚至"((("等复杂查询,默认"("
+
+			if (condition.containsKey("leftParenTheses")) {
+				leftParenTheses = condition.getString("leftParenTheses");
+			}
+
+			String fieldKey = "";// 比较字段名
+
+			if (condition.containsKey("fieldKey")) {
+				fieldKey = condition.getString("fieldKey");
+			} else {
+				throw new BusinessLogicRunTimeException("参数错误：condition必须包括fieldKey");
+			}
+
+			String logicOperator = "="; // 比较符号
+
+			if (condition.containsKey("logicOperator")) {
+				logicOperator = condition.getString("logicOperator");
+			} else {
+				throw new BusinessLogicRunTimeException("参数错误：condition必须包括logicOperator");
+			}
+
+			String value = ""; // 比较值
+
+			if (condition.containsKey("value")) {
+				value = condition.getString("value");
+				// value = handleSqlInjection(value);
+			} else {
+				throw new BusinessLogicRunTimeException("参数错误：condition必须包括value");
+			}
+
+			String rightParenTheses = ")"; // 右括号
+
+			if (condition.containsKey("rightParenTheses")) {
+				rightParenTheses = condition.getString("rightParenTheses");
+			}
+
+			boolean needConvert = true;// 是否需要转换条件字段，用于传入引用他表字段时过滤，例如传入引用基础资料key是否需要转换为名称条件，用户输入时通常需要转换成名称查询，而代码中调用不需要转换，直接用ID匹配
+
+			if (condition.containsKey("needConvert")) {
+				needConvert = condition.getBoolean("needConvert");
+			}
+
+			if (!itemClassTemplateMap.containsKey(fieldKey)) {
+				// 没有定义模板-忽略
+				continue;
+			}
+
+			FormFields formfield = itemClassTemplateMap.get(fieldKey);
+
+			Integer page = (Integer) formfield.getPage();
+			String sqlColumnName = formfield.getSqlColumnName();
+			Integer lookUpType = formfield.getLookUpType();
+			Integer lookUpClassID = formfield.getLookUpClassID();
+			String srcTable = formfield.getSrcTable();
+			String srcTableAlisAs = formfield.getSrcTableAlisAs();
+			String disPlayField = formfield.getDisPlayField();
+			String srcField = formfield.getSrcField();
+			Integer dataType = formfield.getDataType();
+
+			String formFieldLinkedTable = ""; // 确定当前字段是属于哪个表
+
+			if (page == 0) {
+				formFieldLinkedTable = primaryTableName;
+			} else if (page == 1) {
+				formFieldLinkedTable = childTableName;
+			} else {
+				// 主表不支持关联多个子表查询
+				continue;
+			}
+
+			String tableName = formFieldLinkedTable;
+			String fieldName = sqlColumnName;
+
+			DataTypeeEnum dataTypeeEnum = DataTypeeEnum.getTypeEnum(dataType);
+
+			if (needConvert && lookUpType > 0) {
+				// 需要转换为名称查询的引用类型的查询条件，dataType可能不是文本类型，但条件值是文本，需要文本格式化，此处修正值格式化类型
+				dataTypeeEnum = DataTypeeEnum.TEXT;
+			}
+
+			switch (dataTypeeEnum) {
+
+			case NUMBER:
+				// 一般数字类型的不可能用like
+				break;
+			case TEXT:
+				if (logicOperator.equalsIgnoreCase("like")) {
+					value = "%" + value + "%";
+				}
+				break;
+			case TIME:
+				if (logicOperator.equalsIgnoreCase("<=")) {
+					if (!Common.isLongDate(value)) {
+						// 由于数据库中日期可能存储有时分秒，过滤天时过滤到当前23:59:59
+						value = value + " 23:59:59"; // 小于等于结束时间
+					}
+				}
+				break;
+			case BOOLEAN:
+				break;
+			default:
+				break;
+			}
+			if (lookUpType != null && (lookUpType == 1 || lookUpType == 2)) {
+				// 基础资料-辅助资料引用类型
+
+				// 引用字段查询-使用关联表显示字段作为条件
+				tableName = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
+
+				if (needConvert) {
+					fieldName = disPlayField;
+				} else {
+					fieldName = srcField;
+				}
+
+			} else if (lookUpType > 0 && lookUpType == 3) {
+
+				// 引用字段查询-使用关联表显示字段作为条件
+				tableName = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
+
+				// 携带基础资料属性的字段过滤
+				// FLookUpType == 3
+				// 即引用基础资料属性的模板中，FDisPlayField的配置统一认为是引用基础资料模板中的key，需要二次验证引用资料模板确认查询字段
+
+				FormFields formField = getFormField(lookUpClassID, disPlayField);
+
+				String name = (String) formField.getName();
+				Integer lookUpTypeEx = formField.getLookUpType();
+				String srcTableEx = formField.getSrcTable();
+				String srcFieldEx = formField.getSrcField();
+
+				if (lookUpTypeEx != null && lookUpTypeEx > 0) {
+					// 基础资料的附加属性又是引用类型的情况--取显示字段并关联表
+
+					if (needConvert) {
+						fieldName = name;
+					} else {
+						fieldName = srcFieldEx;
+					}
+				} else {
+					if (needConvert) {
+						fieldName = disPlayField;
+					} else {
+						fieldName = srcFieldEx;
+					}
+				}
+
+			} else if (lookUpType != null && lookUpType == 4) {
+
+				if (dataType != null && dataType == 2) {
+					// 文本类的关联字段，未防止关联表中无记录，此处取主表字段值-如订单查询FCarNo字段取数
+					tableName = formFieldLinkedTable;
+				} else {
+					// 引用字段查询-使用关联表显示字段作为条件
+					tableName = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
+				}
+
+				if (needConvert) {
+					fieldName = disPlayField;
+				} else {
+					fieldName = srcField;
+				}
+
+			} else if (lookUpType > 0 && lookUpType > 4) {
+
+				// 引用字段查询-使用关联表显示字段作为条件
+				tableName = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
+				if (needConvert) {
+					fieldName = disPlayField;
+				} else {
+					fieldName = srcField;
+				}
+
+			}
+
+			if (i == 0) {
+				// 第一个条件舍弃前面andOr条件链接符号
+				sbWhere.append(separator)
+						.append(String.format("%s %s.%s%s%s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, "#{" + fieldName + "}", rightParenTheses));
+
+				sqlParams.put(fieldName, value);
+
+			} else {
+				sbWhere.append(separator).append(
+						String.format("%s %s %s.%s%s%s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, "#{" + fieldName + "}", rightParenTheses));
+
+				sqlParams.put(fieldName, value);
+			}
+
+		}
+
+		String whereStr = sbWhere.toString();
+
+		if (!whereStr.equals("WHERE")) {
+			ret.put("whereStr", whereStr);
+			ret.put("whereParams", sqlParams);
+		}
+
+		return ret;
 	}
 
 	/**

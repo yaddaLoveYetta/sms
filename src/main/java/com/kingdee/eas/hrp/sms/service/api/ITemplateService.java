@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.api;
 
+import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
@@ -136,4 +137,5 @@ public interface ITemplateService {
 	 * @date 2017-05-23 16:48:45 星期二
 	 */
 	void unCheckItem(Integer classId, String items);
+
 }

@@ -68,4 +68,5 @@ public interface TemplateDaoMapper {
 	 * @date 2017-05-23 16:46:10 星期二
 	 */
 	void unCheck(Map<String, Object> statement);
+
 }
