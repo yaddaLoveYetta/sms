@@ -1,6 +1,9 @@
 package com.kingdee.eas.hrp.sms.service.impl.order;
 
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,11 +15,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Generated;
-import javax.swing.plaf.TextUI;
+import javax.xml.namespace.QName;
+import javax.xml.rpc.ServiceException;
 
-import org.apache.commons.lang.ObjectUtils.Null;
-import org.aspectj.apache.bcel.generic.RET;
+import org.apache.axis.client.Call;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -28,6 +30,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
@@ -38,7 +41,8 @@ import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.Environ;
-import com.kingdee.eas.hrp.sms.util.MsgUtil;
+import com.kingdee.eas.hrp.sms.util.WSContext;
+import com.kingdee.eas.hrp.sms.model.Item;
 
 @Service
 public class OrderService extends BaseService implements IOrderService {
@@ -114,12 +118,34 @@ public class OrderService extends BaseService implements IOrderService {
 
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 		Order order = orderMapper.selectByPrimaryKey(id);
-		if (order.getTickType().equals("0")) {
+		if (order.getTickType() != null && order.getTickType().equals("1")) {
 			throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
 		}
-
+		
 		// 調用hrp-web-service --发送接单数据至HRP
- 
+		String sessionId = "";
+		try {
+			org.apache.axis.client.Service sv = new org.apache.axis.client.Service();
+			Call call = (Call) sv.createCall();
+			call.setUseSOAPAction(true);
+			call.setTargetEndpointAddress(new URL("http://10.0.1.37:56898/ormrpc/services/EASLogin?wsdl")); // 设置要调用的接口地址以上一篇的为例子
+			call.setOperationName(new QName("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade", "login")); // 设置要调用的接口方法
+			call.addParameter("userName", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
+			call.addParameter("password", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
+
+			call.setTimeout(20000);// 超时时间为20s
+			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_ANYTYPE);//
+			// 返回参数类型
+			call.setReturnClass(WSContext.class);
+			WSContext wsContext = (WSContext) call
+					.invoke(new Object[] { "user", "kduser100", "eas", "gshrp", "L2", 1, "BaseDB" });
+			System.out.println(wsContext);// 打印字符串
+			sessionId = wsContext.getSessionId();
+
+		} catch (RemoteException | ServiceException | MalformedURLException e) {
+			e.printStackTrace();
+		}
+
 		// 发送成功后开启事务更新本地订单接单状态
 
 		PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
@@ -186,7 +212,7 @@ public class OrderService extends BaseService implements IOrderService {
 						orderEntry.setId(entryId);
 						orderEntry.setConfirmQty(BigDecimal.valueOf(confirmQty));
 						orderEntry.setConfirmDate(confirmDate);
-
+						orderEntry.setInvoiceQty(new BigDecimal(0));
 						orderMapper.updateByPrimaryKeySelective(order);
 						entryMapper.updateByPrimaryKeySelective(orderEntry);
 
@@ -477,6 +503,8 @@ public class OrderService extends BaseService implements IOrderService {
 
 		Map<String, Object> entry = new HashMap<String, Object>();
 		BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty"));
+		ItemMapper itemMapper = sqlSession.getMapper(ItemMapper.class);
+		Item item = itemMapper.selectByPrimaryKey(purOrderEntry.getString("material"));
 		entry.put("seq", 0);
 		entry.put("orderId", purOrderEntry.getString("parent"));
 		entry.put("orderNumber", purOrder.getString("number"));
@@ -485,15 +513,20 @@ public class OrderService extends BaseService implements IOrderService {
 		entry.put("material_DspName", purOrderEntry.getString("material_DspName"));
 		entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
 		entry.put("specification", purOrderEntry.getString("specification"));
-		if (purOrderEntry.getByte("isLotNumber") == 1 && !purOrderEntry.getByte("isLotNumber").equals(1)) {
-			entry.put("lot", Common.createNo("MM-dd", "-",3));
-		} else {
-			entry.put("lot", "");
+
+		if (item.getIsLotNumber() != null) {
+			if (item.getIsLotNumber() == 1 && !item.getIsLotNumber().equals(1)) {
+				entry.put("lot", Common.createNo("MM-dd", "-", 3));
+			} else {
+				entry.put("lot", "");
+			}
 		}
-		entry.put("isLotNumber", purOrderEntry.getByte("isLotNumber"));
+		entry.put("isLotNumber", item.getIsLotNumber());
 		entry.put("dyBatchNum", "");
-		if (purOrderEntry.getByte("highConsumable") == 1 && !purOrderEntry.getByte("highConsumable").equals(1)) {
-			entry.put("code", Common.createNo("yyMMdd", "", 5));
+		if (item.getHighConsumable() != null) {
+			if (item.getHighConsumable() == 1 && !item.getHighConsumable().equals(1)) {
+				entry.put("code", Common.createNo("yyMMdd", "", 5));
+			}
 		} else {
 			entry.put("code", "");
 		}
@@ -559,7 +592,8 @@ public class OrderService extends BaseService implements IOrderService {
 		for (int i = 0; i < qty; i++) {
 
 			Map<String, Object> entry = new HashMap<String, Object>();
-
+			ItemMapper itemMapper = sqlSession.getMapper(ItemMapper.class);
+			Item item = itemMapper.selectByPrimaryKey(purOrderEntry.getString("material"));
 			entry.put("seq", 0);
 			entry.put("orderId", purOrderEntry.getString("parent"));
 			entry.put("orderNumber", purOrder.getString("number"));
@@ -568,15 +602,19 @@ public class OrderService extends BaseService implements IOrderService {
 			entry.put("material_DspName", purOrderEntry.getString("material_DspName"));
 			entry.put("material_NmbName", purOrderEntry.getString("material_NmbName"));
 			entry.put("specification", purOrderEntry.getString("specification"));
-			if (purOrderEntry.getByte("isLotNumber") == 1 && !purOrderEntry.getByte("isLotNumber").equals(1)) {
-				entry.put("lot", Common.createNo("MM-dd", "-",3));
-			} else {
-				entry.put("lot", "");
+			if (item.getIsLotNumber() != null) {
+				if (item.getIsLotNumber() == 1 && !item.getIsLotNumber().equals(1)) {
+					entry.put("lot", Common.createNo("MM-dd", "-", 3));
+				} else {
+					entry.put("lot", "");
+				}
 			}
-			entry.put("isLotNumber", purOrderEntry.getByte("isLotNumber"));
+			entry.put("isLotNumber", item.getIsLotNumber());
 			entry.put("dyBatchNum", "");
-			if (purOrderEntry.getByte("highConsumable") == 1 && !purOrderEntry.getByte("highConsumable").equals(1)) {
-				entry.put("code", Common.createNo("yyMMdd", "", 5));
+			if (item.getHighConsumable() != null) {
+				if (item.getHighConsumable() == 1 && !item.getHighConsumable().equals(1)) {
+					entry.put("code", Common.createNo("yyMMdd", "", 5));
+				}
 			} else {
 				entry.put("code", "");
 			}
