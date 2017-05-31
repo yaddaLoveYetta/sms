@@ -16,6 +16,9 @@
 
 	<!-- 增加基础资料 -->
 	<insert id="add" parameterType="HashMap">
+		${sql}
+	</insert>
+	<insert id="add_old" parameterType="HashMap">
 		insert into ${tableName} (${
 		fieldStr}) values(${valueStr})
 	</insert>

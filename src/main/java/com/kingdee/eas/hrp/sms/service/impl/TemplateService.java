@@ -555,11 +555,28 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// 准备保存模板
 		Map<String, Object> statement = prepareAddMap(jsonData, formFields, formClass.getTableName(), formClass.getPrimaryKey(), id);
 
+		Map<String, Object> sqlMap = new HashMap<String, Object>();
+
+		String tableName = statement.get("tableName").toString();
+		String fieldStr = statement.get("fieldStr").toString();
+		String valueStr = statement.get("valueStr").toString();
+		Map<String, Object> sqlParams = (Map<String, Object>) statement.get("sqlParams");
+
+		String sql = "insert into " + tableName + " ( " + fieldStr + " ) values ( " + valueStr + " )";
+
+		sqlMap.put("sql", sql);// 完整带参数的sql
+
+		// --参数列表
+		for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
+			Entry<String, Object> item = it.next();
+			sqlMap.put(item.getKey(), item.getValue());
+		}
+
 		// 插入基础资料
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 
 		// int id = templateDaoMapper.add(statement); 不使用数据库自增逻辑生产主键
-		templateDaoMapper.add(statement);
+		templateDaoMapper.add(sqlMap);
 
 		// 处理分录数据
 		handleEntryData(classId, id, jsonData);
@@ -1759,6 +1776,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 */
 	private Map<String, Object> prepareAddMap(JSONObject data, Map<String, FormFields> formFields, String tableName, String primaryKey, String primaryValue) {
 
+		Map<String, Object> ret = new HashMap<String, Object>();
+		Map<String, Object> fieldValuesParams = new HashMap<String, Object>();
+
 		StringBuffer fieldNames = new StringBuffer("");
 		StringBuffer fieldValues = new StringBuffer("");
 
@@ -1781,13 +1801,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 				continue;
 
 			String value = data.getString(key);
-			value = handleSqlInjection(value);
 
 			if (value == null || value.equals("")) {
 				continue;
 			}
 			String fieldName = formField.getSqlColumnName();
-			// fieldNames.append(",").append(fieldName);
 			fieldNames.append(",").append(String.format("%s%s%s", bDelimiter, fieldName, eDelimiter));
 
 			int dataType = formField.getDataType();
@@ -1796,37 +1814,36 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			switch (typeEnum) {
 			case NUMBER:
-				fieldValues.append(",").append(value);
 				break;
 			case TEXT:
-				fieldValues.append(",'").append(value).append("'");
 				break;
 			case BOOLEAN:
 				boolean b = Boolean.valueOf(value);
-				fieldValues.append(",").append(b ? 1 : 0);
+				value = b ? "1" : "0";
 				break;
 			case TIME:
-				fieldValues.append(",'").append(value).append("'");
 				break;
 			default:
-				fieldValues.append(",'").append(value).append("'");
 				break;
 
 			}
+			
+			fieldValues.append(",").append("#{" + fieldName + "}");
+			fieldValuesParams.put(fieldName, value);
 		}
 
 		// 不使用数据库自增创建主键，加上自定义主键
 		fieldNames.append(",").append(formFields.get(primaryKey).getSqlColumnName());
-		fieldValues.append(",'").append(primaryValue).append("'");
+		fieldValues.append(",").append("#{" + primaryKey + "}");
+		fieldValuesParams.put(formFields.get(primaryKey).getSqlColumnName(), primaryValue);
 
 		String fieldStr = fieldNames.length() > 0 ? fieldNames.toString().substring(1) : "";
 		String valueStr = fieldValues.length() > 0 ? fieldValues.toString().substring(1) : "";
 
-		Map<String, Object> ret = new HashMap<String, Object>();
-
 		ret.put("tableName", tableName);
 		ret.put("fieldStr", fieldStr);
 		ret.put("valueStr", valueStr);
+		ret.put("sqlParams", fieldValuesParams);
 
 		return ret;
 	}
@@ -1888,9 +1905,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 	 *            用户类别
 	 */
 
+	@SuppressWarnings("unchecked")
 	private void saveEntry(JSONArray entryData, FormEntries formEntry, Map<String, FormFields> formFields, String id) {
 
-		String tableName = formEntry.getTableName();
+		String entryTableName = formEntry.getTableName();
 		String primaryKey = formEntry.getPrimaryKey();
 		String foreignKey = formEntry.getForeignKey();
 		String bosType = formEntry.getBosType();
@@ -1921,17 +1939,36 @@ public class TemplateService extends BaseService implements ITemplateService {
 				}
 
 				// 准备保存模板
-				Map<String, Object> statement = prepareAddMap(data, formFields, tableName, primaryKey, entryId);
-				// 外键：模板配置中不需要配置该外键，因为该外键的值在前端时无法获取，只有主表保存后才能在后台获取
+				Map<String, Object> statement = prepareAddMap(data, formFields, entryTableName, primaryKey, entryId);
+
+				Map<String, Object> sqlMap = new HashMap<String, Object>();
+
+				String tableName = statement.get("tableName").toString();
 				String fieldStr = statement.get("fieldStr").toString();
+				String valueStr = statement.get("valueStr").toString();
+				Map<String, Object> sqlParams = (Map<String, Object>) statement.get("sqlParams");
+
+				// --参数列表
+				for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
+					Entry<String, Object> item = it.next();
+					sqlMap.put(item.getKey(), item.getValue());
+				}
+
+				// 外键：模板配置中不需要配置该外键，因为该外键的值在前端时无法获取，只有主表保存后才能在后台获取
 				if (!fieldStr.equals("")) {
 
 					if (fieldStr.indexOf("," + foreignKey) < 0) {
 						fieldStr += "," + foreignKey;
-						String valueStr = statement.get("valueStr").toString() + ",'" + id + "'";
-						statement.put("fieldStr", fieldStr);
-						statement.put("valueStr", valueStr);
+						valueStr += ",{" + foreignKey + "}";
+						// statement.put("fieldStr", fieldStr);
+						// statement.put("valueStr", valueStr);
+						sqlMap.put(foreignKey, id);
 					}
+
+					String sql = "insert into " + tableName + " ( " + fieldStr + " ) values ( " + valueStr + " )";
+
+					sqlMap.put("sql", sql);// 完整带参数的sql
+
 					// 插入基础资料分录
 					templateDaoMapper.add(statement);
 
@@ -1943,7 +1980,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				// 模板参数
 				String FID = data.getString(primaryKey);
 				// 准备保存模板
-				Map<String, Object> statement = prepareEditMap(data, formFields, tableName, primaryKey, FID);
+				Map<String, Object> statement = prepareEditMap(data, formFields, entryTableName, primaryKey, FID);
 
 				// 修改基础资料分录
 				templateDaoMapper.edit(statement);
@@ -1958,7 +1995,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		if (!items.equals("")) { // --items不为空，则执行删除
 			Map<String, Object> statement = new HashMap<String, Object>();
-			statement.put("tableName", tableName);
+			statement.put("tableName", entryTableName);
 			statement.put("primaryKey", primaryKey);
 			statement.put("items", items.substring(1));
 			templateDaoMapper.del(statement);
