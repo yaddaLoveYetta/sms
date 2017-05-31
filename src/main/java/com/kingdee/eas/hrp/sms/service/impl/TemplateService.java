@@ -400,17 +400,16 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		StringBuilder sbWhere = new StringBuilder(); // 查询条件
 		sbWhere.append("WHERE").append(System.getProperty("line.separator")).append(String.format("%s.%s%s%s='%s'", primaryTableName, bDelimiter, primaryKey, eDelimiter, id));
-
 		where = sbWhere.toString();
 
-		Map<String, Object> statementParam = new HashMap<String, Object>();
-		statementParam.put("select", select.toString());
-		statementParam.put("from", from.toString());
-		statementParam.put("where", where);
+		Map<String, Object> sqlMap = new HashMap<String, Object>();
+		// 完整的sql(带格式化参数)
+		String sql = select.toString() + System.getProperty("line.separator") + from.toString() + System.getProperty("line.separator") + where + System.getProperty("line.separator");
+		sqlMap.put("sql", sql);
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 
-		List<Map<String, Object>> data = templateDaoMapper.getItems(statementParam);
+		List<Map<String, Object>> data = templateDaoMapper.getItems(sqlMap);
 
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 
