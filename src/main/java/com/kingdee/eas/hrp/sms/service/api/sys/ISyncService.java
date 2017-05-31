@@ -191,6 +191,6 @@ public interface ISyncService {
 	 * @return List<Map<String,Object>> 同步失败记录
 	 * @date 2017-05-18 09:53:06 星期四
 	 */
-	List<Map<String, Object>> sync(int classId, JSONArray list, String userType);
+	List<Map<String, Object>> sync(int classId, JSONArray list);
 
 }

@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.model.User;
@@ -51,14 +50,15 @@ public class LoginController {
 
 		if (null != user) {
 
-			// session保存用户信息
+			// session保存用户信息-触发监听器-ThreadLocal中保存下用户信息
 			request.getSession(true).setAttribute("user", user);
 
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, user);
 
+			return;
 		}
 
-		return;
+		throw new BusinessLogicRunTimeException("登录失败，请联系管理员!");
 
 	}
 
@@ -92,6 +92,9 @@ public class LoginController {
 		if (null == user) {
 			ResponseWriteUtil.output(response, StatusCode.ACCESS_TOKEN_INVALID, "获取token失败，请重试!");
 		} else {
+			// session保存用户信息
+			request.getSession(true).setAttribute("user", user);
+
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, user);
 		}
 

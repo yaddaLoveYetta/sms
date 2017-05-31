@@ -15,7 +15,6 @@ import com.kingdee.eas.hrp.sms.model.Plugins;
 import com.kingdee.eas.hrp.sms.model.PluginsExample;
 import com.kingdee.eas.hrp.sms.model.PluginsExample.Criteria;
 import com.kingdee.eas.hrp.sms.util.Environ;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 /**
  * 用于生产服务中所需的所有插件，并统一提供所有插件的方法调用
@@ -166,12 +165,12 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userType) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data) {
 
 		PlugInRet ret = new PlugInRet();
 		for (IPlugIn plugin : plugIns) {
 
-			ret = plugin.beforeSave(classId, formData, data, userType);
+			ret = plugin.beforeSave(classId, formData, data);
 			data = (JSONObject) ret.getData();
 		}
 		return ret;
@@ -192,13 +191,12 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data) {
 
 		PlugInRet ret = new PlugInRet();
 		for (IPlugIn plugin : plugIns) {
 
-			ret = plugin.beforeModify(classId, id, formData, data, userType);
+			ret = plugin.beforeModify(classId, id, formData, data);
 			data = (JSONObject) ret.getData();
 		}
 		return ret;
@@ -219,11 +217,11 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data, String userType) {
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeDelete(classId, formData, data, userType);
+			PlugInRet ret = plugin.beforeDelete(classId, formData, data);
 			if (ret.getCode() != 200) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;
@@ -247,11 +245,11 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
+	public PlugInRet beforeQuery(int classId, Map<String, Object> param) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.beforeQuery(classId, param, userType);
+			PlugInRet ret = plugin.beforeQuery(classId, param);
 			// if (ret.getCode() != 200) {
 			if (ret.getData() != null) {
 				// 插件返回了condition查询条件
@@ -276,13 +274,12 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType,
-			String userId) {
+	public String getConditions(int classId, Map<String, Object> formData, String conditon) {
 
 		String ret = conditon;
 		for (IPlugIn plugin : plugIns) {
 
-			ret = plugin.getConditions(classId, formData, ret, userType, userId);
+			ret = plugin.getConditions(classId, formData, ret);
 
 		}
 
@@ -290,12 +287,12 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json, String userType) {
+	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json) {
 
 		JSONObject ret = json;
 		for (IPlugIn plugin : plugIns) {
 
-			ret = plugin.getJson(classId, formData, ret, userType);
+			ret = plugin.getJson(classId, formData, ret);
 
 		}
 

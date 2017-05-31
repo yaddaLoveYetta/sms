@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.kingdee.eas.hrp.sms.authority.AccessMaskCode;
+import com.kingdee.eas.hrp.sms.authority.Permission;
+import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.model.AccessControl;
 import com.kingdee.eas.hrp.sms.service.api.user.IRoleService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
@@ -61,6 +64,8 @@ public class RoleController {
 	 *            void
 	 * @date 2017-04-25 16:23:08 星期二
 	 */
+	@ControllerLog(desc = "角色授权")
+	@Permission(objectType = 10, objectId = 1025, accessMask = AccessMaskCode.MASK_EDIT, desc = "角色授权")
 	@RequestMapping(value = "saveRolePerMissions")
 	public void saveRolePerMissions(HttpServletRequest request, HttpServletResponse response) {
 

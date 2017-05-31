@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kingdee.eas.hrp.sms.authority.AccessMaskCode;
 import com.kingdee.eas.hrp.sms.authority.Permission;
-
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
-import com.kingdee.eas.hrp.sms.util.SessionUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 /**
@@ -76,8 +74,6 @@ public class TemplateController {
 		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段json
 		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10);
 		int pageNo = ParameterUtils.getParameter(request, "pageNo", 1);
-		String userType = SessionUtil.getUserType(request);
-		String userId = SessionUtil.getUserId(request);
 
 		if (classId < 0) {
 			throw new BusinessLogicRunTimeException("参数错误：必须提交classId");
@@ -85,7 +81,7 @@ public class TemplateController {
 
 		// sqlserver ROW_BUMBER分页一定要设置 orderBy--此处指定默认
 
-		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize, userType, userId);
+		Map<String, Object> result = templateService.getItems(classId, condition, orderBy, pageNo, pageSize);
 
 		ResponseWriteUtil.output(response, result);
 
@@ -106,7 +102,7 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1); // 业务类别代码
 		String id = ParameterUtils.getParameter(request, "id", ""); // 内码
-		String userType = SessionUtil.getUserType(request);
+
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
 			return;
@@ -116,7 +112,7 @@ public class TemplateController {
 			return;
 		}
 
-		Map<String, Object> result = templateService.getItemById(classId, id, userType);
+		Map<String, Object> result = templateService.getItemById(classId, id);
 
 		if (result == null) {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "资料不存在！");
@@ -142,7 +138,6 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String data = ParameterUtils.getParameter(request, "data", "");
-		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -154,7 +149,7 @@ public class TemplateController {
 			return;
 		}
 
-		String id = templateService.addItem(classId, data, userType);
+		String id = templateService.addItem(classId, data);
 
 		Map<String, Object> ret = new HashMap<String, Object>();
 		ret.put("id", id);
@@ -180,7 +175,6 @@ public class TemplateController {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String id = ParameterUtils.getParameter(request, "itemId", "");
 		String data = ParameterUtils.getParameter(request, "data", "");
-		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -195,7 +189,7 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.editItem(classId, id, data, userType);
+		templateService.editItem(classId, id, data);
 
 		ResponseWriteUtil.output(response, "修改成功！");
 
@@ -217,7 +211,6 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
-		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classID");
@@ -229,7 +222,7 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.delItem(classId, items, userType);
+		templateService.delItem(classId, items);
 
 		ResponseWriteUtil.output(response, "删除成功！");
 
@@ -250,7 +243,6 @@ public class TemplateController {
 	public void checkItem(HttpServletRequest request, HttpServletResponse response) {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
-		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -262,7 +254,7 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.checkItem(classId, items, userType);
+		templateService.checkItem(classId, items);
 
 		ResponseWriteUtil.output(response, "审核成功！");
 	}
@@ -282,7 +274,6 @@ public class TemplateController {
 	public void unCheckItem(HttpServletRequest request, HttpServletResponse response) {
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
-		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -294,7 +285,7 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.unCheckItem(classId, items, userType);
+		templateService.unCheckItem(classId, items);
 
 		ResponseWriteUtil.output(response, "反审核成功！");
 	}
@@ -304,7 +295,6 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
-		String userType = SessionUtil.getUserType(request);
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classID");
@@ -316,7 +306,7 @@ public class TemplateController {
 			return;
 		}
 
-		templateService.delItem(classId, items, userType);
+		templateService.delItem(classId, items);
 		ResponseWriteUtil.output(response, "删除成功！");
 
 	}

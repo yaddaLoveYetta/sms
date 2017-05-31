@@ -69,8 +69,6 @@ public class SyncController {
 		int classId = ParameterUtils.getParameter(request, "classId", -1); // 提交同步的记录数
 		String listStr = ParameterUtils.getParameter(request, "list", ""); // 提交同步的数据
 
-		String userType ="QpXq24FxxE6c3lvHMPyYCxACEAI=";
-
 		JSONArray list = JSON.parseArray(listStr);
 
 		// 基本参数校验
@@ -81,7 +79,7 @@ public class SyncController {
 			throw new BusinessLogicRunTimeException("没有可同步的数据");
 		}
 
-		List<Map<String, Object>> ret = syncService.sync(classId, list, userType);
+		List<Map<String, Object>> ret = syncService.sync(classId, list);
 
 		// 如果返回的数据为空，设置成功code，返回代data为空，反之设置错误消息，返回相关错误data
 		if (ret.isEmpty()) {

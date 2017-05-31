@@ -54,6 +54,13 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 		String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
 
 		if (null != allowUrls && allowUrls.containsKey(requestUrl)) {
+			// 不拦截接口可能也会用到用户信息
+			User user = (User) request.getSession().getAttribute("user");
+
+			if (user != null) {
+				request.getSession(true).setAttribute("user", user);
+			}
+
 			// 不拦截的请求
 			return super.preHandle(request, response, handler);
 		}
@@ -72,7 +79,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 				return false;
 			}
 
-			SessionUtil.set("user", user);// 保存下用户信息
+			request.getSession(true).setAttribute("user", user);
 
 			return super.preHandle(request, response, handler);
 		}
@@ -83,8 +90,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			ResponseWriteUtil.output(response, StatusCode.SESSION_LOST, "会话结束请重新登陆!");
 			return false;
 		}
-
-		SessionUtil.set("user", user);// 将user放入ThreadLocal中，方便service层调用
+		// 重新设值session--触发监听器将user放入ThreadLocal
+		request.getSession(true).setAttribute("user", user);
 
 		return super.preHandle(request, response, handler);
 

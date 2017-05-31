@@ -17,7 +17,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	PlugInRet result = new PlugInRet();
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data) {
 		return result;
 	}
 
@@ -27,8 +27,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data) {
 		return result;
 	}
 
@@ -38,7 +37,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data, String userType) {
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
 		return result;
 	}
 
@@ -48,7 +47,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
+	public PlugInRet beforeQuery(int classId, Map<String, Object> param) {
 		return result;
 	}
 
@@ -58,13 +57,12 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType,
-			String userId) {
+	public String getConditions(int classId, Map<String, Object> formData, String conditon) {
 		return conditon;
 	}
 
 	@Override
-	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json, String userType) {
+	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json) {
 		return json;
 	}
 }

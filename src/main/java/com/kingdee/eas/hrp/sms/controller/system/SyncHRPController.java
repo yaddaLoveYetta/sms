@@ -42,7 +42,7 @@ public class SyncHRPController {
 			return;
 		}
 
-		String result = (String) syncHRPService.sendItem(classId, items, userType);
+		String result = (String) syncHRPService.sendItem(classId, items);
 		if ("".equals(result)) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功！");
 			return;
@@ -59,7 +59,6 @@ public class SyncHRPController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String data = ParameterUtils.getParameter(request, "data", "");
-		String userType = "QpXq24FxxE6c3lvHMPyYCxACEAI=";
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -71,7 +70,7 @@ public class SyncHRPController {
 			return;
 		}
 
-		String result = (String) syncHRPService.delItem(classId, data, userType);
+		String result = (String) syncHRPService.delItem(classId, data);
 		if ("" == result) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功！");
 			return;

@@ -39,6 +39,6 @@ public interface IOrderService {
 	 * @return Map<String,Object> 采购订单转换生成的发货单数据
 	 * @date 2017-05-19 23:58:15 星期五
 	 */
-	Map<String, Object> deliver(String items, String userType, String userId);
+	Map<String, Object> deliver(String items);
 
 }

@@ -3,39 +3,71 @@ package com.kingdee.eas.hrp.sms.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.kingdee.eas.hrp.sms.exception.SessionLostRuntimeException;
 import com.kingdee.eas.hrp.sms.model.User;
 
 public final class SessionUtil {
 
-	private static final ThreadLocal<Map<String, Object>> SESSION_MAP = new ThreadLocal<Map<String, Object>>();
+	private static ThreadLocal<Map<String, Object>> LOCAL = new ThreadLocal<Map<String, Object>>();
 
+	/**
+	 * 新增
+	 * 
+	 * @Title set
+	 * @param key
+	 * @param value
+	 * @return void
+	 * @date 2017-05-30 01:03:36 星期二
+	 */
 	public static void set(String key, Object value) {
 
-		Map<String, Object> map = SESSION_MAP.get();
+		Map<String, Object> map = LOCAL.get();
 
 		if (map == null) {
 			map = new HashMap<String, Object>();
-			SESSION_MAP.set(map);
+			LOCAL.set(map);
 		}
 
 		map.put(key, value);
 	}
 
-	public static Object get(String key) {
+	/**
+	 * 删除
+	 * 
+	 * @Title remove
+	 * @param key
+	 * @return void
+	 * @date 2017-05-30 01:03:05 星期二
+	 */
+	public static void remove(String key) {
 
-		Map<String, Object> map = (Map<String, Object>) SESSION_MAP.get();
+		Map<String, Object> map = LOCAL.get();
 
-		return map.get(key);
+		if (map == null) {
+			return;
+		}
 
+		map.remove(key);
 	}
 
-	public static User getUser() {
+	/**
+	 * 获取
+	 * 
+	 * @Title get
+	 * @param key
+	 * @return
+	 * @return Object
+	 * @date 2017-05-30 01:03:50 星期二
+	 */
+	public static Object get(String key) {
 
-		Map<String, Object> map = (Map<String, Object>) SESSION_MAP.get();
+		Map<String, Object> map = (Map<String, Object>) LOCAL.get();
 
-		return (User) map.get("user");
+		if (null == map) {
+			return null;
+		}
+
+		return map.get(key);
 
 	}
 
@@ -56,50 +88,64 @@ public final class SessionUtil {
 	}
 
 	/**
-	 * 获取当前会话用户信息
+	 * 获取当前线程用户-同session中保存的用户
 	 * 
-	 * @param request
+	 * @Title getUser
 	 * @return
+	 * @return User
+	 * @date 2017-05-30 01:04:05 星期二
 	 */
-	public static User getCurrentUser(HttpServletRequest request) {
+	public static User getUser() {
 
-		User user = (User) request.getSession().getAttribute("user");
-		return user;
+		Object object = get("user");
+
+		if (null == object) {
+			throw new SessionLostRuntimeException("用户未登录，请重新登录！");
+		}
+
+		return (User) object;
+
 	}
 
 	/**
-	 * 获取当前会话用户ID
+	 * 获取当前线程用户类别
 	 * 
-	 * @param request
+	 * @Title getUserType
 	 * @return
+	 * @return String
+	 * @date 2017-05-30 01:04:05 星期二
 	 */
-	public static String getUserId(HttpServletRequest request) {
-		User user = (User) request.getSession().getAttribute("user");
-		return user.getUserId();
+	public static String getUserType() {
+
+		return getUser().getType();
+
 	}
 
 	/**
-	 * 获取当前会话用户名
+	 * 获取当前线程用户名
 	 * 
-	 * @param request
+	 * @Title getUserName
 	 * @return
+	 * @return String
+	 * @date 2017-05-30 01:05:11 星期二
 	 */
-	public static String getUserName(HttpServletRequest request) {
+	public static String getUserName() {
 
-		User user = (User) request.getSession().getAttribute("user");
-		return user.getName();
+		return getUser().getName();
+
 	}
 
 	/**
-	 * 获取当前会话用户类别<br>
+	 * 获取当前线程用户id
 	 * 
-	 * @param request
+	 * @Title getUserId
 	 * @return
+	 * @return String
+	 * @date 2017-05-30 01:05:24 星期二
 	 */
-	public static String getUserType(HttpServletRequest request) {
+	public static String getUserId() {
 
-		User user = (User) request.getSession().getAttribute("user");
-		return user.getType();
+		return getUser().getUserId();
 
 	}
 

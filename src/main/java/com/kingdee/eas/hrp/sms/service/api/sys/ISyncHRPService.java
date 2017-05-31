@@ -21,7 +21,7 @@ public interface ISyncHRPService {
 	 * 2017年5月11日下午5:31:13
 	 * @return 
 	 */
-	String sendItem(int classId, String data, String userType);
+	String sendItem(int classId, String data);
 
 	/**
 	 * 删除item
@@ -36,6 +36,6 @@ public interface ISyncHRPService {
 	 * 2017年5月11日下午5:31:13
 	 * @return 
 	 */
-	String delItem(int classId, String data, String userType);
+	String delItem(int classId, String data);
 
 }

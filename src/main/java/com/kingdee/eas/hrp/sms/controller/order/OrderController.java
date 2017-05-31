@@ -74,14 +74,12 @@ public class OrderController {
 	public void deliver(HttpServletRequest request, HttpServletResponse response) {
 
 		String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
-		String userType = SessionUtil.getUserType(request);
-		String userId = SessionUtil.getUserId(request);
 
 		if ("".equals(items.trim())) {
 			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
 		}
 
-		Map<String, Object> shipOrder = orderservice.deliver(items, userType, userId);
+		Map<String, Object> shipOrder = orderservice.deliver(items);
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipOrder);
 
 	}

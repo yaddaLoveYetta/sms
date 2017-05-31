@@ -918,7 +918,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	}
 
-	public List<Map<String, Object>> sync_old(int classId, JSONArray list, String userType) {
+	public List<Map<String, Object>> sync_old(int classId, JSONArray list) {
 
 		// 同步失败的记录S
 		List<Map<String, Object>> errList = new ArrayList<Map<String, Object>>();
@@ -929,10 +929,10 @@ public class SyncService extends BaseService implements ISyncService {
 
 			try {
 				String id = ((JSONObject) item).getString("id");
-				if (templateService.getItemById(classId, id, userType) == null) {
-					templateService.addItem(classId, item.toString(), userType);
+				if (templateService.getItemById(classId, id) == null) {
+					templateService.addItem(classId, item.toString());
 				} else {
-					templateService.editItem(classId, id, item.toString(), userType);
+					templateService.editItem(classId, id, item.toString());
 				}
 			} catch (Exception e) {
 				errItem.put("desc", e.getMessage());
@@ -957,7 +957,7 @@ public class SyncService extends BaseService implements ISyncService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation = Propagation.NEVER)
-	public List<Map<String, Object>> sync(int classId, JSONArray list, String userType) {
+	public List<Map<String, Object>> sync(int classId, JSONArray list) {
 
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 
@@ -1010,10 +1010,10 @@ public class SyncService extends BaseService implements ISyncService {
 
 					try {
 
-						if (templateService.getItemById(classId, interId, userType) == null) {
-							templateService.addItem(classId, baseItem.toJSONString(), userType);
+						if (templateService.getItemById(classId, interId) == null) {
+							templateService.addItem(classId, baseItem.toJSONString());
 						} else {
-							templateService.editItem(classId, interId, baseItem.toJSONString(), userType);
+							templateService.editItem(classId, interId, baseItem.toJSONString());
 						}
 
 						return true; // 同步成功

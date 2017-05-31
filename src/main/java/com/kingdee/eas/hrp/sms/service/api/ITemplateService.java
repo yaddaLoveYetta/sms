@@ -54,7 +54,7 @@ public interface ITemplateService {
 	 * @return Map<String,Object>
 	 * @date 2017-04-20 13:49:24 星期四
 	 */
-	Map<String, Object> getItems(int classId, String condition, String orderBy, int pageNo, int pageSize, String userType, String userId);
+	Map<String, Object> getItems(int classId, String condition, String orderBy, int pageNo, int pageSize);
 
 	/**
 	 * 根据模板查询单个业务数据，如查询id=2的物料
@@ -69,7 +69,7 @@ public interface ITemplateService {
 	 * @return Map<String,Object>
 	 * @date 2017-04-26 14:42:58 星期三
 	 */
-	Map<String, Object> getItemById(Integer classId, String id, String userType);
+	Map<String, Object> getItemById(Integer classId, String id);
 
 	/**
 	 * 根基模板新增基础资料
@@ -80,7 +80,7 @@ public interface ITemplateService {
 	 * @return String 主键
 	 * @date 2017-04-27 14:19:33 星期四
 	 */
-	String addItem(Integer classId, String data, String userType);
+	String addItem(Integer classId, String data);
 
 	/**
 	 * 根基模板修改基础资料
@@ -93,7 +93,7 @@ public interface ITemplateService {
 	 * @param userType
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
-	void editItem(Integer classId, String id, String data, String userType);
+	void editItem(Integer classId, String id, String data);
 
 	/**
 	 * 根基模板删除基础资料
@@ -107,7 +107,7 @@ public interface ITemplateService {
 	 * @return
 	 * @date 2017-05-02 17:49:38 星期二
 	 */
-	void delItem(Integer classId, String items, String userType);
+	void delItem(Integer classId, String items);
 
 	/**
 	 * 审核基础资料
@@ -121,7 +121,7 @@ public interface ITemplateService {
 	 * @return void
 	 * @date 2017-05-23 16:11:01 星期二
 	 */
-	void checkItem(Integer classId, String items, String userType);
+	void checkItem(Integer classId, String items);
 
 	/**
 	 * 反审核
@@ -135,5 +135,5 @@ public interface ITemplateService {
 	 * @return void
 	 * @date 2017-05-23 16:48:45 星期二
 	 */
-	void unCheckItem(Integer classId, String items, String userType);
+	void unCheckItem(Integer classId, String items);
 }

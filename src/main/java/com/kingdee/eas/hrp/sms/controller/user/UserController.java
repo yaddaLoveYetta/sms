@@ -15,6 +15,7 @@ import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.user.IUserService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+import com.kingdee.eas.hrp.sms.util.SessionUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 @Controller
@@ -33,7 +34,8 @@ public class UserController {
 	@RequestMapping(value = "getSidebar")
 	public void getSidebar(HttpServletRequest request, HttpServletResponse response) {
 
-		User user = (User) request.getSession().getAttribute("user");
+		// User user = (User) request.getSession().getAttribute("user");
+		User user = SessionUtil.getUser();
 
 		if (user == null) {
 			throw new BusinessLogicRunTimeException("用户信息错误，请重新登陆！");
@@ -82,7 +84,7 @@ public class UserController {
 
 	}
 
-	public void getUserByToken(HttpServletRequest request, HttpServletResponse response){
-		
+	public void getUserByToken(HttpServletRequest request, HttpServletResponse response) {
+
 	}
 }

@@ -138,7 +138,7 @@ public class UserService extends BaseService implements IUserService {
 					items.put("subSysId", menu.get("subSysId"));
 					items.put("name", menu.get("name"));
 					items.put("url", menu.get("url"));
-					items.put("icon", menu.get("icon"));
+					items.put("icon", menu.get("subIcon"));
 
 					if (item.containsKey("items")) {
 						((List<Map<String, Object>>) item.get("items")).add(items);

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
-import com.kingdee.eas.hrp.sms.model.AccessControl;
 import com.kingdee.eas.hrp.sms.model.Role;
 
 public interface IRoleService {

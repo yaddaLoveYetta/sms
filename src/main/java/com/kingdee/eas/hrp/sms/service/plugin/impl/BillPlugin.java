@@ -43,7 +43,7 @@ public class BillPlugin extends PlugInAdpter {
 	public PlugInRet afterSave(int classId, String id, JSONObject data) {
 		ITemplateService temp = Environ.getBean(ITemplateService.class);
 		ArrayList<Map<String, Object>> list = new ArrayList();
-		Map<String, Object> item = temp.getItemById(classId, id, "QpXq24FxxE6c3lvHMPyYCxACEAI=");
+		Map<String, Object> item = temp.getItemById(classId, id);
 		Map<String, Object> entrys = (Map<String, Object>) item.get("entry");
 		ArrayList<Object> arrayList = (ArrayList<Object>) entrys.get("1");
 		for (int i = 0; i < arrayList.size(); i++) {
@@ -89,8 +89,7 @@ public class BillPlugin extends PlugInAdpter {
 			// 根据订单号和行号查询对应的记录
 			List<OrderEntry> o = orderEntryMapper.selectByExample(e);
 			if (o.size() > 0) {
-				orderEntry.setInvoiceQty(
-						new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
+				orderEntry.setInvoiceQty(new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
 				orderEntry.setId(o.get(0).getId());
 				// 根据订单ID 修改发货数量
 				orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
@@ -115,7 +114,7 @@ public class BillPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data, String userTyepe) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject data) {
 
 		if (classId == 2020) {
 			String logistics = data.getString("logistics");
@@ -175,7 +174,7 @@ public class BillPlugin extends PlugInAdpter {
 			}
 		}
 
-		return super.beforeSave(classId, formData, data, userTyepe);
+		return super.beforeSave(classId, formData, data);
 	}
 
 }

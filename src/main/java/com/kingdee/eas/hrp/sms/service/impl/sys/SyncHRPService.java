@@ -33,7 +33,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 
 	@ServiceLog(desc = "同步item到HRP")
 	@Override
-	public String sendItem(int classId, String data, String userType) {
+	public String sendItem(int classId, String data) {
 
 		StringBuilder result = new StringBuilder("");
 		String[] idString = data.split(",");
@@ -42,7 +42,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		JSONArray targetList = new JSONArray();
 
 		for (int i = 0; i < idList.size(); i++) {
-			Map<String, Object> item = templateService.getItemById(classId, idList.get(i), userType);
+			Map<String, Object> item = templateService.getItemById(classId, idList.get(i));
 			String id = (String) item.get("id");
 			if (0 == (short) item.get("syncStatus") || null == item.get("syncStatus")
 					|| "".equals(item.get("syncStatus"))) {
@@ -82,13 +82,13 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 				if ( failIdList.contains(id)) {
 					continue;
 				}
-				templateService.editItem(classId, id, "{}", userType);
+				templateService.editItem(classId, id, "{}");
 			} catch (Exception e) {
 				failIdList.add(id);
 			}
 		}
 		for (String id : failIdList) {
-			Map<String, Object> failData = templateService.getItemById(classId, id, userType);
+			Map<String, Object> failData = templateService.getItemById(classId, id);
 			result.append((String) failData.get("number")).append("\n");
 		}
 		return result.toString();
@@ -164,7 +164,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 	}
 
 	@Override
-	public String delItem(int classId, String data, String userType) {
+	public String delItem(int classId, String data) {
 
 		StringBuilder result = new StringBuilder("");
 		String[] idString = data.split(",");
@@ -180,13 +180,13 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 				if (failIdList.size() != 0)
 					if (failIdList.contains(id))
 						continue;
-				templateService.delItem(classId, id, userType);
+				templateService.delItem(classId, id);
 			} catch (Exception e) {
 				failIdList.add(id);
 			}
 		}
 		for (String id : failIdList) {
-			Map<String, Object> failData = templateService.getItemById(classId, id, userType);
+			Map<String, Object> failData = templateService.getItemById(classId, id);
 			result.append((String) failData.get("number")).append("\n");
 		}
 		return result.toString();

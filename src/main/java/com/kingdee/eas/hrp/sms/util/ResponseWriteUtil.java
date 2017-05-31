@@ -2,15 +2,20 @@ package com.kingdee.eas.hrp.sms.util;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ser.ScalarSerializerBase;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.ObjectSerializer;
+import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 import com.sun.jersey.api.json.JSONConfigurated;
 
 /**
@@ -26,6 +31,14 @@ public class ResponseWriteUtil {
 	private static final SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
 	private static final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
 	private static final SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm", Locale.CHINA);
+
+	private static final SerializeConfig SC = new SerializeConfig();
+
+	static {
+
+		SC.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd HH:mm:ss"));
+
+	}
 
 	// private static final JsonConfig config = new JsonConfig();
 
@@ -152,22 +165,22 @@ public class ResponseWriteUtil {
 	// }
 
 	public static void output(HttpServletResponse response, Result r) {
+
 		try {
-			//json日期格式化
-			JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
+			// json日期格式化
+			// JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
+
 			if (logger.isDebugEnabled()) {
-				logger.debug("回应数据" + JSONObject.toJSONString(r,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty,SerializerFeature.WriteDateUseDateFormat));
+				logger.debug("回应数据" + JSONObject.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat));
 			}
-			
+			JSON.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat);
 			response.setContentType("application/json;charset=UTF-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
 
-			// JSONObject json = JSONObject.fromObject(r, config);
-			
-			String str = JSONObject.toJSONString(r,SerializerFeature.WriteMapNullValue,SerializerFeature.WriteNullListAsEmpty,SerializerFeature.WriteDateUseDateFormat);  
-			
+			String str = JSONObject.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat);
+
 			response.getWriter().write(str);
-			
+
 			response.getWriter().close();
 
 		} catch (IOException e) {
@@ -190,7 +203,6 @@ public class ResponseWriteUtil {
 			response.setContentType("application/json;charset=UTF-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
 
-			// JSONObject json = JSONObject.fromObject(r, config);
 
 			JSONObject json = JSONObject.parseObject(JSON.toJSONString(r));
 

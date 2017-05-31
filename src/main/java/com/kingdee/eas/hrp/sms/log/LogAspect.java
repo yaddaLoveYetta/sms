@@ -122,6 +122,11 @@ public class LogAspect {
 				IPermissionService permissionService = Environ.getBean(IPermissionService.class);
 				// 读取classId,request中一定要有classId
 				classId = ParameterUtils.getParameter(request, "classId", -1);
+
+				if (classId == 14001) {
+					// 查看日志就不记日志了
+					return;
+				}
 				ObjectType obj = permissionService.getAccessType(classId);
 
 				if (null != obj) {

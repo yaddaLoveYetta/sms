@@ -22,6 +22,7 @@ import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Environ;
+import com.kingdee.eas.hrp.sms.util.SessionUtil;
 
 public class ItemPlugin extends PlugInAdpter {
 
@@ -29,13 +30,12 @@ public class ItemPlugin extends PlugInAdpter {
 	private ITemplateService templateService;
 
 	// 当业务用户查询时，相关item需做数据隔离
-	List<Integer> isolateClassIdList = new ArrayList<Integer>(
-			Arrays.asList(2019, 2020, 1001, 1005, 3010, 3020, 3030, 1023, 1007));
+	List<Integer> isolateClassIdList = new ArrayList<Integer>(Arrays.asList(2019, 2020, 1001, 1005, 3010, 3020, 3030, 1023, 1007));
 	// 需要同步和审核classId
 	List<Integer> reviewAndSyncClassIdList = new ArrayList<Integer>(Arrays.asList(1005, 3010, 3020, 3030, 1023, 1007));
 
 	@Override
-	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data, String userType) {
+	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
 
 		ITemplateService templateService = Environ.getBean(ITemplateService.class);
 		// 装配待删除ID
@@ -46,7 +46,7 @@ public class ItemPlugin extends PlugInAdpter {
 		if (reviewAndSyncClassIdList.contains(classId)) {
 			JSONObject deleteJson = JSONObject.parseObject("{'delete':'delete'}");
 			for (String id : idList) {
-				checkIfReview(classId, id, deleteJson, userType);
+				checkIfReview(classId, id, deleteJson);
 			}
 		}
 
@@ -87,17 +87,16 @@ public class ItemPlugin extends PlugInAdpter {
 				condition.put("needConvert", false);
 				conditionArry.add(condition);
 
-				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy,
-						1, 10, userType, "");
+				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy, 1, 10);
 
 				if ((long) result.get("count") > 0) {
-					Map<String, Object> errData = templateService.getItemById(classId, id, userType);
+					Map<String, Object> errData = templateService.getItemById(classId, id);
 					throw new PlugInRuntimeException("该记录(" + errData.get("number") + ")已被引用，无法删除");
 				}
 			}
 		}
 
-		return super.beforeDelete(classId, formData, data, userType);
+		return super.beforeDelete(classId, formData, data);
 	}
 
 	@Override
@@ -106,19 +105,18 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject json,
-			String userType) {
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject json) {
 
 		// 需要审核的数据检查审核状态
 		if (reviewAndSyncClassIdList.contains(classId))
-			checkIfReview(classId, id, json, userType);
+			checkIfReview(classId, id, json);
 
-		modifyCheckMustInput(classId, formData, json, userType);
+		modifyCheckMustInput(classId, formData, json);
 
 		// 如果json为空说明是同步到HRP修改同步字段，不用验证是否数据重复
 		if (classId / 100 == 10 && !json.isEmpty()) {
 
-			checkIfExistRecord(classId, id, formData, json, userType);
+			checkIfExistRecord(classId, id, formData, json);
 
 		}
 
@@ -140,11 +138,11 @@ public class ItemPlugin extends PlugInAdpter {
 
 	}
 
-	private void checkIfReview(int classId, String id, JSONObject json, String userType) {
+	private void checkIfReview(int classId, String id, JSONObject json) {
 
 		// 如果json是“{}”说明是同步到HRP数据修改同步状态，不需要验证，如果json有review字段说明是HRP同步过来，也不需要验证
-		if (!json.isEmpty()&&!json.containsKey("review")) {
-			Map<String, Object> result = templateService.getItemById(classId, id, userType);
+		if (!json.isEmpty() && !json.containsKey("review")) {
+			Map<String, Object> result = templateService.getItemById(classId, id);
 			short review;
 			if (result.containsKey("review")) {
 				if (null == result.get("review")) {
@@ -160,14 +158,14 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject json, String userTyepe) {
+	public PlugInRet beforeSave(int classId, Map<String, Object> formData, JSONObject json) {
 
-		saveCheckMustInput(classId, formData, json, userTyepe);
+		saveCheckMustInput(classId, formData, json);
 
 		if (classId / 100 == 10) {
 
 			String id = "-1";
-			checkIfExistRecord(classId, id, formData, json, userTyepe);
+			checkIfExistRecord(classId, id, formData, json);
 		}
 
 		// 如果字段含有同步到HRP的字段syncStatus，设置同步状态
@@ -186,8 +184,7 @@ public class ItemPlugin extends PlugInAdpter {
 		return ret;
 	}
 
-	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data,
-			String userType) {
+	private void checkIfExistRecord(int classId, String id, Map<String, Object> formData, JSONObject data) {
 
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) formData.get("formClass");
@@ -224,8 +221,7 @@ public class ItemPlugin extends PlugInAdpter {
 		condition.put("value", id);
 		conditionArry.add(condition);
 
-		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10,
-				userType, "");
+		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10);
 
 		if ((long) result.get("count") > 0) {
 			throw new PlugInRuntimeException("该记录已存在");
@@ -233,13 +229,13 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void saveCheckMustInput(int classId, Map<String, Object> formData, JSONObject json, String userTyepe) {
+	private void saveCheckMustInput(int classId, Map<String, Object> formData, JSONObject json) {
 
+		String userType = SessionUtil.getUserType();
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(json.getString("type"))) {
-				if (json.getString("supplier") != null && !"".equals(json.getString("supplier"))
-						&& !"0".equals(json.getString("supplier"))) {
+				if (json.getString("supplier") != null && !"".equals(json.getString("supplier")) && !"0".equals(json.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
 			}
@@ -248,15 +244,14 @@ public class ItemPlugin extends PlugInAdpter {
 		// 如果flag是true，表明这个字段需要验证是否非空，新增需要验证全部字段
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
 			flag = false;
 			FormFields ff = formFields.get(key);
 			int mustInput = ff.getMustInput();
-			if (("QpXq24FxxE6c3lvHMPyYCxACEAI=").equals(userTyepe)) {
+			if (("QpXq24FxxE6c3lvHMPyYCxACEAI=").equals(userType)) {
 				if ((mustInput & 1) == 1) {
 					flag = true;
 				}
@@ -278,13 +273,13 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void modifyCheckMustInput(int classId, Map<String, Object> formData, JSONObject json, String userTyepe) {
+	private void modifyCheckMustInput(int classId, Map<String, Object> formData, JSONObject json) {
 
+		String userTyepe = SessionUtil.getUserType();
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(json.getString("type"))) {
-				if (json.getString("supplier") != null && !"".equals(json.getString("supplier"))
-						&& !"0".equals(json.getString("supplier"))) {
+				if (json.getString("supplier") != null && !"".equals(json.getString("supplier")) && !"0".equals(json.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
 			}
@@ -293,8 +288,7 @@ public class ItemPlugin extends PlugInAdpter {
 		// 如果flag是true，表明这个字段需要验证是否非空,修改只验证修改的字段
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = json.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -326,20 +320,23 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet beforeQuery(int classId, Map<String, Object> param, String userType) {
+	public PlugInRet beforeQuery(int classId, Map<String, Object> param) {
 
-		return super.beforeQuery(classId, param, userType);
+		return super.beforeQuery(classId, param);
 	}
 
 	@Override
-	public String getConditions(int classId, Map<String, Object> formData, String conditon, String userType,
-			String userId) {
+	public String getConditions(int classId, Map<String, Object> formData, String conditon) {
+
+		String userType = SessionUtil.getUserType();
+		String userId = SessionUtil.getUserId();
+
 		if (userId == "")
 			return conditon;
 		// 当业务用户查询时，相关item需做数据隔离，增加condition条件
 		if (isolateClassIdList.contains(classId)) {
 			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
-				Map<String, Object> user = templateService.getItemById(1001, userId, userType);
+				Map<String, Object> user = templateService.getItemById(1001, userId);
 				String supplierId = (String) user.get("supplier");
 				JSONObject con = new JSONObject(true);
 				if (classId == 1005) {
@@ -363,7 +360,7 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json, String userType) {
+	public JSONObject getJson(int classId, Map<String, Object> formData, JSONObject json) {
 
 		JSONObject jsonData = json;
 		if (reviewAndSyncClassIdList.contains(classId)) {

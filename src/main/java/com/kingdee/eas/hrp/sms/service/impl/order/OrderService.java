@@ -209,7 +209,7 @@ public class OrderService extends BaseService implements IOrderService {
 	}
 
 	@Override
-	public Map<String, Object> deliver(String items, String userType, String userId) {
+	public Map<String, Object> deliver(String items) {
 
 		Map<String, Object> shipOrder = new HashMap<String, Object>();
 
@@ -221,7 +221,7 @@ public class OrderService extends BaseService implements IOrderService {
 
 		for (int i = 0; i < split.length; i++) {
 
-			Map<String, Object> purOrder = templateService.getItemById(2019, split[i], userType);
+			Map<String, Object> purOrder = templateService.getItemById(2019, split[i]);
 
 			if (null != purOrder) {
 				purOrders.add(purOrder);
@@ -693,7 +693,7 @@ public class OrderService extends BaseService implements IOrderService {
 
 		shipOrderHead.put("baseStatus", 0);
 
-		Map<String, Object> itemById = templateService.getItemById(1025, "0", "QpXq24FxxE6c3lvHMPyYCxACEAI=");
+		Map<String, Object> itemById = templateService.getItemById(1025, "0");
 		shipOrderHead.put("baseStatus_NmbName", itemById.get("number") == null ? "" : itemById.get("number"));// 补充状态代码/名称
 		shipOrderHead.put("baseStatus_DspName", itemById.get("name") == null ? "" : itemById.get("name"));
 

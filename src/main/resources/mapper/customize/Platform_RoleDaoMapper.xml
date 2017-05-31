@@ -34,8 +34,9 @@
 		t3.objectId =
 		t4.objectId
 		WHERE
-		(t2.visible = 1 OR t2.visible = 2)
-		AND t4.accessMask IS NOT NULL
+<!-- 		(t2.visible = 1 OR t2.visible = 2) -->
+<!-- 		AND  -->
+		t4.accessMask IS NOT NULL
 		<if test="_parameter !=null">
 			AND t2.ownerType &amp; #{type} = #{type}
 			AND t4.ownerType &amp; #{type} = #{type}
