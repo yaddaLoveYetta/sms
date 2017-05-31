@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.ibatis.plugin.PluginException;
+import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -609,14 +610,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// 模板参数
 
 		JSONObject json = JSONObject.parseObject(data);
-		// 如果字段含有同步到HRP的字段syncStatus，设置同步状态
-		// if (formFields.containsKey("syncStatus")) {
-		// if (json.isEmpty()) { // 构造的json为空即同步到HRP的记录需将同步状态标记为已同步
-		// json.put("syncStatus", "1");
-		// } else { // 构造的json不为空即为修改记录，需将同步状态标记为未同步
-		// json.put("syncStatus", "0");
-		// }
-		// }
 
 		// 修改前插件事件
 		PlugInFactory factory = new PlugInFactory(classId);
@@ -634,8 +627,28 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		// 修改基础资料
 		if (!statement.get("kvStr").equals("") && (statement.get("kvStr") != null)) {
+
+			String tableName = statement.get("tableName").toString();
+			String kvStr = statement.get("kvStr").toString();
+
+			Map<String, Object> sqlParams = (Map<String, Object>) statement.get("sqlParams");
+
+			// sqlParams.put(primaryKey, id);
+
+			Map<String, Object> sqlMap = new HashMap<String, Object>();
+
+			String sql = "update " + tableName + " set " + kvStr + " where " + primaryKey + "= #{" + primaryKey + "}";
+
+			sqlMap.put("sql", sql);// 完整带参数的sql
+
+			// --参数列表
+			for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
+				Entry<String, Object> item = it.next();
+				sqlMap.put(item.getKey(), item.getValue());
+			}
+
 			TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
-			templateDaoMapper.edit(statement);
+			templateDaoMapper.edit(sqlMap);
 		}
 
 		// 处理分录数据
@@ -1827,7 +1840,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				break;
 
 			}
-			
+
 			fieldValues.append(",").append("#{" + fieldName + "}");
 			fieldValuesParams.put(fieldName, value);
 		}
@@ -1978,12 +1991,30 @@ public class TemplateService extends BaseService implements ITemplateService {
 				// 检查字段
 				// checkFields(formFields, data, primaryKey, flag, userType);
 				// 模板参数
-				String FID = data.getString(primaryKey);
+				String entryId = data.getString(primaryKey);
 				// 准备保存模板
-				Map<String, Object> statement = prepareEditMap(data, formFields, entryTableName, primaryKey, FID);
+				Map<String, Object> statement = prepareEditMap(data, formFields, entryTableName, primaryKey, entryId);
+
+				String tableName = statement.get("tableName").toString();
+				String kvStr = statement.get("kvStr").toString();
+				// String primaryKey=statement.get("primaryKey").toString();
+				// String id=statement.get("id").toString();
+				Map<String, Object> sqlParams = (Map<String, Object>) statement.get("sqlParams");
+
+				Map<String, Object> sqlMap = new HashMap<String, Object>();
+
+				String sql = "update " + tableName + " set " + kvStr + " where " + primaryKey + "= #{primaryKey}";
+
+				sqlMap.put("sql", sql);// 完整带参数的sql
+
+				// --参数列表
+				for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
+					Entry<String, Object> item = it.next();
+					sqlMap.put(item.getKey(), item.getValue());
+				}
 
 				// 修改基础资料分录
-				templateDaoMapper.edit(statement);
+				templateDaoMapper.edit(sqlMap);
 
 			} else if (flag == 0) { // --删除，组装items
 
@@ -2003,6 +2034,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 	}
 
 	private Map<String, Object> prepareEditMap(JSONObject data, Map<String, FormFields> formFields, String primaryTableName, String primaryKey, String id) {
+
+		Map<String, Object> sqlParams = new HashMap<String, Object>();
 
 		StringBuffer kvBuffer = new StringBuffer("");
 
@@ -2025,44 +2058,52 @@ public class TemplateService extends BaseService implements ITemplateService {
 			value = handleSqlInjection(value);
 
 			String fieldName = formField.getSqlColumnName();
-			kvBuffer.append(",").append(fieldName).append("=");
+			kvBuffer.append(",").append(fieldName).append("=").append("#{" + fieldName + "}");
 
 			if (value == null || value.equals("")) {
-				kvBuffer.append("null");
+				// kvBuffer.append("null");
+				sqlParams.put(fieldName, "null");
 			} else {
 				int dataType = formField.getDataType();
 				DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);
 				switch (typeEnum) {
 				case NUMBER:
-					kvBuffer.append(value);
+					// kvBuffer.append(value);
 					break;
 				case TEXT:
-					kvBuffer.append("'").append(value).append("'");
+					// kvBuffer.append("'").append(value).append("'");
 					break;
 				case BOOLEAN:
 					boolean b = Boolean.valueOf(value);
-					kvBuffer.append(b ? 1 : 0);
+					// kvBuffer.append(b ? 1 : 0);
+					value = b ? "1" : "0";
 					break;
 				case TIME:
-					kvBuffer.append("'").append(value).append("'");
+					// kvBuffer.append("'").append(value).append("'");
 					break;
 				default:
-					kvBuffer.append("'").append(value).append("'");
+					// kvBuffer.append("'").append(value).append("'");
 					break;
 
 				}
+				sqlParams.put(fieldName, value);
 			}
 		}
 
 		String kvStr = kvBuffer.length() > 0 ? kvBuffer.toString().substring(1) : "";
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("tableName", primaryTableName);
-		map.put("kvStr", kvStr);
-		map.put("primaryKey", primaryKey);
-		map.put("id", String.format("'%s'", id));
+		Map<String, Object> ret = new HashMap<String, Object>();
 
-		return map;
+		ret.put("tableName", primaryTableName);
+		ret.put("kvStr", kvStr);
+		ret.put("primaryKey", primaryKey);
+
+		sqlParams.put(primaryKey, id);
+
+		ret.put("id", String.format("'%s'", id));
+		ret.put("sqlParams", sqlParams);
+
+		return ret;
 	}
 
 	private Map<String, Object> prepareStatement(String data, String primaryTableName, String primaryKey, int dataType) {
