@@ -66,7 +66,7 @@ define('Bill', function (require, module, exports) {
             Entry.showValidInfo(entry.errorData);
             valid = false;
         }
-        if (!entry || !entry.entryData || !entry.entryData['1'] || !(entry.entryData['1'].size == 0)) {
+        if (!entry || !entry.entryData || !entry.entryData['1'] || !(entry.entryData['1'].length == 0)) {
             SMS.Tips.error('无有效分录数据');
             valid = false;
         }
