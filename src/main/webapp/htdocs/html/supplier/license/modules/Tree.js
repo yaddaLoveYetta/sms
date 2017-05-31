@@ -96,9 +96,9 @@ define('Tree', function (require, module, exports) {
             // 中标库
             treeData = $.Array.keep(treeData, function (item, index) {
                 return {
-                    id: item.item,
+                    id: item.materialItem,
                     pid: 0,
-                    name: item.item_DspName || '',
+                    name: item.materialItem_DspName || '',
                 }
             });
 
