@@ -153,7 +153,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			// 返回参数类型
 			call.setReturnClass(WSContext.class);
 			WSContext wsContext = (WSContext) call
-					.invoke(new Object[] { "user", "kduser100", "eas", "gshrp", "L2", 1, "BaseDB" });
+					.invoke(new Object[] { "user", "kduser", "eas", "hhhrp", "L2", 0, "BaseDB" });
 			System.out.println(wsContext);// 打印字符串
 			sessionId = wsContext.getSessionId();
 

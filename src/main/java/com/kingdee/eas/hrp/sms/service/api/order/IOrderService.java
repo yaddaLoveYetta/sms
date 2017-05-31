@@ -40,5 +40,17 @@ public interface IOrderService {
 	 * @date 2017-05-19 23:58:15 星期五
 	 */
 	Map<String, Object> deliver(String items);
+	
+	/**
+	 * 采购订单接单HRP->SMS
+	 * 
+	 * @Title tick
+	 * @param id
+	 *            订单id
+	 * @param entry
+	 *            接单数据
+	 * @return String
+	 */
+	public void tickType(JSONObject jsonObject);
 
 }

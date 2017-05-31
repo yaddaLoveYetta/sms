@@ -7,7 +7,6 @@ import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,6 +18,7 @@ import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.client.Call;
+import org.apache.axis.message.SOAPHeaderElement;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -39,9 +39,9 @@ import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
+import com.kingdee.eas.hrp.sms.service.impl.sys.SyncHRPService;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.Environ;
-import com.kingdee.eas.hrp.sms.util.WSContext;
 import com.kingdee.eas.hrp.sms.model.Item;
 
 @Service
@@ -68,7 +68,7 @@ public class OrderService extends BaseService implements IOrderService {
 			order.setTotalAmount(ob.getBigDecimal("totalAmount"));
 			order.setTotalTax(ob.getBigDecimal("totalTax"));
 			order.setTotalTaxAmount(ob.getBigDecimal("totalTaxAmount"));
-			order.setBaseStatus(ob.getByte("baseStutas"));
+			order.setBaseStatus(ob.getByte("baseStatus"));
 			if (ob.getDate("bizDate") != null) {
 				order.setBizDate(ob.getDate("bizDate"));
 			}
@@ -123,28 +123,34 @@ public class OrderService extends BaseService implements IOrderService {
 		}
 		
 		// 調用hrp-web-service --发送接单数据至HRP
-		/*String sessionId = "";
+		String response = "";
 		try {
+			URL url = new URL("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade?wsdl");
+			String nameSpace = "http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade";
+			String headerNamespace = "http://login.webservice.bos.kingdee.com";
 			org.apache.axis.client.Service sv = new org.apache.axis.client.Service();
 			Call call = (Call) sv.createCall();
 			call.setUseSOAPAction(true);
-			call.setTargetEndpointAddress(new URL("http://10.0.1.37:56898/ormrpc/services/EASLogin?wsdl")); // 设置要调用的接口地址以上一篇的为例子
-			call.setOperationName(new QName("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade", "login")); // 设置要调用的接口方法
-			call.addParameter("userName", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
-			call.addParameter("password", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
-
-			call.setTimeout(20000);// 超时时间为20s
-			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_ANYTYPE);//
+			call.setTargetEndpointAddress(url);
+			call.setOperationName(new QName(nameSpace, "sms2hrpOrderTake")); // 设置要调用的接口方法
+			call.addParameter("entryStr", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
+			call.addParameter("id", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
+			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);//
 			// 返回参数类型
-			call.setReturnClass(WSContext.class);
-			WSContext wsContext = (WSContext) call
-					.invoke(new Object[] { "user", "kduser100", "eas", "gshrp", "L2", 1, "BaseDB" });
-			System.out.println(wsContext);// 打印字符串
-			sessionId = wsContext.getSessionId();
+			call.setReturnClass(String.class);
+
+			// // 由于需要认证，需要设置sessionId
+			SyncHRPService  syn = new SyncHRPService();
+			SOAPHeaderElement soapHeaderElement = new SOAPHeaderElement(headerNamespace, "SessionId");
+			soapHeaderElement.setValue(syn.loginInEAS());
+			call.addHeader(soapHeaderElement);
+
+			response = (String) call.invoke(new Object[]{entryStr,id});
+			System.out.println(response);// 打印字符串
 
 		} catch (RemoteException | ServiceException | MalformedURLException e) {
 			e.printStackTrace();
-		}*/
+		}
 
 		// 发送成功后开启事务更新本地订单接单状态
 
@@ -737,6 +743,16 @@ public class OrderService extends BaseService implements IOrderService {
 
 		return shipOrderHead;
 
+	}
+
+	@Override
+	public void tickType(JSONObject jsonObject) {
+		OrderEntry orderEntry = new OrderEntry();
+		orderEntry.setId(jsonObject.getString("entryId"));
+		orderEntry.setConfirmDate(jsonObject.getDate("confirmDate"));
+		orderEntry.setConfirmQty(jsonObject.getBigDecimal("confirmQty"));
+		orderEntry.setQty(jsonObject.getBigDecimal("confirmQty"));
+		orderEntry.setDeliveryDate(jsonObject.getDate("confirmDate"));
 	}
 
 }
