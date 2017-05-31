@@ -63,7 +63,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		// throw new RuntimeException("网络异常！");
 		// }
 		List<String> failIdList;
-		String ret = sendItemByWS(sessionId, targetList.toString(), "sms2hrpSupplier");
+		String ret = sendItemByWS(sessionId, targetList.toString(), "sms2hrpBaseData");
 		// if (null == ret || "".equals(ret)) {
 		// throw new RuntimeException("网络异常！");
 		// }
