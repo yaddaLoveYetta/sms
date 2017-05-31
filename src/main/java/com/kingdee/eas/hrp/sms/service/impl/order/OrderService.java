@@ -123,7 +123,7 @@ public class OrderService extends BaseService implements IOrderService {
 		}
 		
 		// 調用hrp-web-service --发送接单数据至HRP
-		String sessionId = "";
+		/*String sessionId = "";
 		try {
 			org.apache.axis.client.Service sv = new org.apache.axis.client.Service();
 			Call call = (Call) sv.createCall();
@@ -144,7 +144,7 @@ public class OrderService extends BaseService implements IOrderService {
 
 		} catch (RemoteException | ServiceException | MalformedURLException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		// 发送成功后开启事务更新本地订单接单状态
 
