@@ -248,6 +248,7 @@
                 child: 'items',
                 callback: 'fn',
                 route: 'name',
+                icon: 'icon',
             },
             autoClose: true,
         },

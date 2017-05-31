@@ -13,12 +13,15 @@ define('ButtonListOption', function (require, module, exports) {
                 'items': [{
                     text: '新增',
                     name: 'add',
+                    icon: '../../css/main/img/add.png'
                 }, {
                     text: '删除',
                     name: 'delete',
+                    icon: '../../css/main/img/delete.png'
                 }, {
                     text: '刷新',
                     name: 'refresh',
+                    icon: '../../css/main/img/refresh.png'
                 }
                 ]
             };
@@ -27,12 +30,15 @@ define('ButtonListOption', function (require, module, exports) {
                 'items': [{
                     text: '新增',
                     name: 'add',
+                    icon: '../../css/main/img/add.png'
                 }, {
                     text: '删除',
                     name: 'delete',
+                    icon: '../../css/main/img/delete.png'
                 }, {
                     text: '刷新',
                     name: 'refresh',
+                    icon: '../../css/main/img/refresh.png'
                 }]
             };
         } else if (classId == 1005) {
@@ -40,27 +46,34 @@ define('ButtonListOption', function (require, module, exports) {
                 'items': [{
                     text: '新增',
                     name: 'add',
+                    icon: '../../css/main/img/add.png'
                 }, {
                     text: '删除',
                     name: 'delete',
+                    icon: '../../css/main/img/delete.png'
                 }, {
                     text: '过滤',
                     name: 'filter',
+                    icon: '../../css/main/img/filter.png'
                 }, {
                     text: '刷新',
                     name: 'refresh',
+                    icon: '../../css/main/img/refresh.png'
                 }, {
                     text: '审核',
                     name: 'check',
+                    icon: '../../css/main/img/check.png',
                     items: [
                         {
                             text: '反审核',
                             name: 'unCheck',
+                            icon: '../../css/main/img/uncheck.png',
                         }
                     ],
                 }, {
                     text: '发送到医院',
-                    name: 'send'
+                    name: 'send',
+                    icon: '../../css/main/img/send.png',
                 }]
             };
         } else if (classId == 1007) {
@@ -68,12 +81,15 @@ define('ButtonListOption', function (require, module, exports) {
                 'items': [{
                     text: '新增',
                     name: 'add',
+                    icon: '../../css/main/img/add.png'
                 }, {
                     text: '删除',
                     name: 'delete',
+                    icon: '../../css/main/img/delete.png'
                 }, {
                     text: '刷新',
                     name: 'refresh',
+                    icon: '../../css/main/img/refresh.png'
                 }]
             };
         } else {

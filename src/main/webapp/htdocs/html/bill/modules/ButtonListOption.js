@@ -7,7 +7,8 @@ define('ButtonListOption', function (require, module, exports) {
     var config = {
         'items': [{
             text: '刷新',
-            name: 'optRefresh'
+            name: 'optRefresh',
+            icon: '../../css/main/img/refresh.png'
         }]
     };
 
@@ -27,9 +28,11 @@ define('ButtonListOption', function (require, module, exports) {
                         'items': [{
                             text: '保存',
                             name: 'optSave',
+                            icon: '../../css/main/img/save.png'
                         }, {
                             text: '刷新',
-                            name: 'optRefresh'
+                            name: 'optRefresh',
+                            icon: '../../css/main/img/refresh.png'
                         }]
                     };
                     break;
@@ -39,9 +42,11 @@ define('ButtonListOption', function (require, module, exports) {
                         'items': [{
                             text: '保存',
                             name: 'optSave',
+                            icon: '../../css/main/img/save.png'
                         }, {
                             text: '刷新',
-                            name: 'optRefresh'
+                            name: 'optRefresh',
+                            icon: '../../css/main/img/refresh.png'
                         }]
                     };
                     break;
@@ -59,9 +64,11 @@ define('ButtonListOption', function (require, module, exports) {
                         'items': [{
                             text: '保存',
                             name: 'optSave',
+                            icon: '../../css/main/img/save.png'
                         }, {
                             text: '刷新',
-                            name: 'optRefresh'
+                            name: 'optRefresh',
+                            icon: '../../css/main/img/refresh.png'
                         }]
                     };
                     break;
@@ -71,9 +78,11 @@ define('ButtonListOption', function (require, module, exports) {
                         'items': [{
                             text: '保存',
                             name: 'optSave',
+                            icon: '../../css/main/img/save.png'
                         }, {
                             text: '刷新',
-                            name: 'optRefresh'
+                            name: 'optRefresh',
+                            icon: '../../css/main/img/refresh.png'
                         }]
                     };
                     break;

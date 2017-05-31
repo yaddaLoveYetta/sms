@@ -26,16 +26,19 @@ define('ButtonList', function(require, module, exports) {
 		items : [ {
 			text : '新增',
 			name : 'optNew',
+			icon:'../../css/main/img/add.png',
 			click : function(item, index) {
 				emitter.fire('optNew');
 			}
 		}, {
 			text : '保存',
 			name : 'optSave',
+			icon:'../../css/main/img/save.png',
 
 		}, {
 			text : '刷新',
 			name : 'optRefresh',
+            icon:'../../css/main/img/refresh.png',
 
 		} ]
 	};
@@ -49,10 +52,12 @@ define('ButtonList', function(require, module, exports) {
 				items : [ {
 					text : '保存',
 					name : 'optSave',
+                    icon:'../../css/main/img/save.png',
 				}, {
 
 					text : '刷新',
 					name : 'optRefresh',
+                    icon:'../../css/main/img/refresh.png',
 				} ],
 			});
 		} else {
@@ -62,9 +67,11 @@ define('ButtonList', function(require, module, exports) {
 				items : [ {
 					text : '新增',
 					name : 'optNew',
+                    icon:'../../css/main/img/add.png',
 				}, {
 					text : '保存',
 					name : 'optSave',
+                    icon:'../../css/main/img/save.png',
 				} ],
 			});
 		}

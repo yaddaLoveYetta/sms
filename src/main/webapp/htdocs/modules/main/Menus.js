@@ -160,6 +160,7 @@ define('Menus', function (require, module, exports) {
             return {
                 index: index,
                 name: item.name,
+                icon:item.icon,
             };
         });
 

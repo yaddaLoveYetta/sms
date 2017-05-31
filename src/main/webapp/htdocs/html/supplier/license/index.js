@@ -52,30 +52,37 @@
             {
                 text: '新增',
                 name: 'add',
+                icon:'../../../css/main/img/add.png',
             },
             {
                 text: '删除',
                 name: 'del',
+                icon: '../../../css/main/img/delete.png',
             },
             {
                 text: '修改',
                 name: 'edit',
+                icon:'../../../css/main/img/edit.png',
             },
             {
                 text: '刷新',
                 name: 'refresh',
+                icon:'../../../css/main/img/refresh.png',
             },
             {
                 text: '审核',
                 name: 'check',
+                icon: '../../../css/main/img/check.png',
                 items: [{
                     text: '反审核',
                     name: 'unCheck',
+                    icon: '../../../css/main/img/uncheck.png',
                 }],
             },
             {
                 text: '发送到医院',
                 name: 'send',
+                icon: '../../../css/main/img/send.png',
             }]
     };
 

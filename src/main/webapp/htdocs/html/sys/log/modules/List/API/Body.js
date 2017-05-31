@@ -33,6 +33,7 @@ define('List/API/Body', function (require, module, exports) {
             'pageNo': pageNo,
             'pageSize': config.pageSize,
             'condition': conditions.length > 0 ? conditions : '',
+            'orderBy': config.orderBy || ''
         };
 
         api.post(params);

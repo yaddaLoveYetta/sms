@@ -15,8 +15,8 @@ define("List", function (require, exports, module) {
             classId: config.classId,
             pageNo: config.pageNo,
             pageSize: config.pageSize,
-            conditions: config.conditions
-
+            conditions: config.conditions,
+            orderBy:config.orderBy
         }, function (data) {
 
             SMS.Tips.success('数据加载成功', 1500);
@@ -53,7 +53,8 @@ define("List", function (require, exports, module) {
             classId: config.classId,
             pageNo: config.pageNo,
             pageSize: config.pageSize,
-            conditions: config.conditions
+            conditions: config.conditions,
+            orderBy:config.orderBy
 
         }, function (data, total) {
             var headItems = data.head.items;

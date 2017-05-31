@@ -11,7 +11,7 @@
         conditions: {}
     };
 
-    function search() {
+    function refresh() {
 
         var user = $("#user").val();
         var beginTime = $("#beginTime").val();
@@ -48,6 +48,11 @@
                 rightParenTheses: ')'
             };
         }
+
+        config.orderBy = [{
+            fieldKey: 'id',
+            orderDirection: 'DESC',
+        }];
         List.render(config, function (total, pageSize) {
             Pager.render({
                 size: pageSize,
@@ -61,17 +66,17 @@
     }
 
     $("#jsSearch").bind("click", function () {
-        search();
+        refresh();
     });
 
 
     $(document).bind('keypress', function (event) {
         if (event.keyCode == 13) {
-            search();
+            refresh();
         }
     });
 
 
     DatetimePicker.render();
-    search();
+    refresh();
 })();

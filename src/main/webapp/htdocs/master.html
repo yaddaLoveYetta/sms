@@ -18,7 +18,7 @@
 		<ul id="ul-sidebar" class="menus">
 			<!--
     <li data-index="{index}" draggable="true">
-        <i class="icons" style="background-image: url(css/main/img/{icon});"></i>
+        <i class="icons" style="background-image: url(css/main/img/{icon});background-size: 20px,20px;"></i>
         {name}
     </li>
     -->
@@ -26,7 +26,9 @@
 		<div class="menus-more" style="display: none;">
 			<ul id="ul-sidebar-menus">
 				<!--
-        <li data-index="{index}">{name}</li>
+        <li data-index="{index}">
+        <i class="icons" style="background-image: url(css/main/img/{icon});background-size: 20px,20px;"></i>
+        {name}</li>
         -->
 			</ul>
 		</div>
@@ -39,7 +41,7 @@
 				<div class="weather" id="weather">
 					<div class="ss"></div>
 					<iframe name="weather_inc"
-						src="http://i.tianqi.com/index.php?c=code&id=48" width="440"
+						src="http://i.tianqi.com/index.php?c=code&id=48" width="500"
 						height="45" frameborder="0" marginwidth="0" marginheight="0"
 						scrolling="no"></iframe>
 						
@@ -286,16 +288,22 @@
     <ul class=sms-btn-menu">
 
         #--item.begin--#
-        <li data-index="{index}" class=sms-btn-item>{text}</li>
+        <li data-index="{index}" class=sms-btn-item>
+        <i class="icons" style="background-image: url({icon});"></i>
+        {text}</li>
         #--item.end--#
 
         #--group.begin--#
         <li data-index="{index}" class=sms-btn-menu {css-class}">
-            <button class=sms-btn-item>{text}</button>
+            <button class=sms-btn-item>
+            <i class="icons" style="background-image: url({icon});"></i>
+            {text}</button>
             <ol id="{ol-id}{index}" class="btn-more" style="display:none;">
                 #--group.item.begin--#
                 <li data-index="{index}" data-no="{no}">
-                    <a href="javascript:">{text}</a>
+                    <a href="javascript:">
+                    <i class="icons" style="background-image: url({icon});"></i>
+                    {text}</a>
                 </li>
                 #--group.item.end--#
             </ol>
