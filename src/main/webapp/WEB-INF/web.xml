@@ -18,8 +18,12 @@
 		<display-name></display-name>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
+	<!-- HttpSessionAttributeListener -->
+	<listener>
+		<listener-class>com.kingdee.eas.hrp.sms.filter.SessionAttributeListener</listener-class>
+	</listener>
 	<!-- log4j初始化配置 end -->
-	
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/config/applicationContext.xml</param-value>
