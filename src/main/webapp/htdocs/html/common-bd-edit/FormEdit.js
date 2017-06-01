@@ -596,7 +596,7 @@
                         errorData[keyName] = msg;
                         validate = false;
                     } else {
-                        successData[keyName] = 0;
+                        successData[keyName] = '';
                     }
                 } else {
                     successData[keyName] = selectorID;
