@@ -8,7 +8,7 @@ define('BarCode', function (require, module, exports) {
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
 
-    var target = $('code');
+    var target = $('#code');
     var item = $("<div class='bcTarget'></div>");
 
     function render(code) {
