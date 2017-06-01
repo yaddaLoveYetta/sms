@@ -146,7 +146,8 @@ body {
 }
 
 .side-bar .menus-6 {
-    top: 335px;
+    /*top: 335px;*/
+    top: 200px;
 }
 
 .side-bar .menus-7 {
