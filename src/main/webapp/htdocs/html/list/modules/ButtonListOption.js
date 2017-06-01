@@ -17,22 +17,22 @@ define('ButtonListOption', function (require, module, exports) {
                         {
                             text: '接单',
                             name: 'tick',
-                            icon:'../../css/main/img/receive.png'
+                            icon: '../../css/main/img/receive.png'
                         },
                         {
                             text: '刷新',
                             name: 'refresh',
-                            icon:'../../css/main/img/refresh.png'
+                            icon: '../../css/main/img/refresh.png'
                         },
                         {
                             text: '详情',
                             name: 'detail',
-                            icon:'../../css/main/img/detail.png'
+                            icon: '../../css/main/img/detail.png'
                         },
                         {
                             text: '生成发货单',
                             name: 'deliver',
-                            icon:'../../css/main/img/deliver.png'
+                            icon: '../../css/main/img/deliver.png'
                         }
                     ]
                 };
@@ -44,12 +44,17 @@ define('ButtonListOption', function (require, module, exports) {
                         {
                             text: '刷新',
                             name: 'refresh',
-                            icon:'../../css/main/img/refresh.png'
+                            icon: '../../css/main/img/refresh.png'
                         },
                         {
                             text: '详情',
                             name: 'detail',
-                            icon:'../../css/main/img/detail.png'
+                            icon: '../../css/main/img/detail.png'
+                        },
+                        {
+                            text: '打印唯一码-test',
+                            name: 'print',
+                            icon: '../../css/main/img/detail.png'
                         },
                     ]
                 };
