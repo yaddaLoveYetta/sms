@@ -2062,7 +2062,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			if (value == null || value.equals("")) {
 				// kvBuffer.append("null");
-				sqlParams.put(fieldName, "null");
+				//sqlParams.put(fieldName, "null");
+				sqlParams.put(fieldName, "");
 			} else {
 				int dataType = formField.getDataType();
 				DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);

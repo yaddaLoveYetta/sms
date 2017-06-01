@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.log.ServiceLog;
-import com.kingdee.eas.hrp.sms.model.Supplier;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
@@ -57,19 +56,24 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		if (idTargetList.size() == 0) {
 			throw new RuntimeException("没有可同步项！");
 		}
-		
+
+		// 拼接classId和list
+		JSONObject jsonData = new JSONObject(true);
+		jsonData.put("classId", classId);
+		jsonData.put("list", targetList.toString());
+
 		String sessionId = loginInEAS();
-		// if (null == sessionId) {
-		// throw new RuntimeException("网络异常！");
-		// }
+		if (null == sessionId || "".equals(sessionId)) {
+			throw new RuntimeException("网络异常！");
+		}
 		List<String> failIdList;
-		String ret = sendItemByWS(sessionId, targetList.toString(), "sms2hrpBaseData");
-		// if (null == ret || "".equals(ret)) {
-		// throw new RuntimeException("网络异常！");
-		// }
+		String ret = sendItemByWS(sessionId, jsonData.toString(), "sms2hrpBaseData");
+		if (null == ret || "".equals(ret)) {
+			throw new RuntimeException("网络异常！");
+		}
 		ret = "{'data':''}";
-		JSONObject json = JSONObject.parseObject(ret);
-		String failId = json.getString("data");
+		JSONObject jsonRet = JSONObject.parseObject(ret);
+		String failId = jsonRet.getString("data");
 		String[] failIdStr = failId.split(",");
 		if (null == failId || "".equals(failId)) {
 			failIdList = new ArrayList<String>();
@@ -79,7 +83,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 
 		for (String id : idTargetList) {
 			try {
-				if ( failIdList.contains(id)) {
+				if (failIdList.contains(id)) {
 					continue;
 				}
 				templateService.editItem(classId, id, "{}");
@@ -108,7 +112,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			call.setUseSOAPAction(true);
 			call.setTargetEndpointAddress(url);
 			call.setOperationName(new QName(nameSpace, method)); // 设置要调用的接口方法
-			call.addParameter("supplier", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
+			call.addParameter("strJson", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
 
 			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);//
 			// 返回参数类型
