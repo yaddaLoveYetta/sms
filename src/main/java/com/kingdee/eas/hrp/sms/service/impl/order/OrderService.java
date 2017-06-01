@@ -133,7 +133,8 @@ public class OrderService extends BaseService implements IOrderService {
 			String headerNamespace = "http://login.webservice.bos.kingdee.com";
 			call.setUseSOAPAction(true);
 			call.addParameter("json", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
-			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);//
+			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);
+			call.setTimeout(60000);//设置超时时间
 			// 返回参数类型
 			call.setReturnClass(String.class);
 			// // 由于需要认证，需要设置sessionId
@@ -144,13 +145,14 @@ public class OrderService extends BaseService implements IOrderService {
 			JSONObject json = new  JSONObject();
 			json.put("entry", entryStr);
 			json.put("id", id);
-			response = (String) call.invoke(new Object[] { json});
+			response = (String) call.invoke(new Object[] { json.toString()});
 			System.out.println(response);// 打印字符串
 
 		} catch (RemoteException | ServiceException | MalformedURLException e) {
 			e.printStackTrace();
 		}
-
+		JSONObject rps = JSONObject.parseObject(response);
+		if(rps.get("code").equals("200")){
 		// 发送成功后开启事务更新本地订单接单状态
 
 		PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
@@ -236,7 +238,9 @@ public class OrderService extends BaseService implements IOrderService {
 				return "success";
 			}
 		});
-
+		}else{
+			throw new BusinessLogicRunTimeException("接单失败"+rps.get("msg"));
+		}
 	}
 
 	@Override
