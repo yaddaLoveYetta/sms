@@ -47,8 +47,8 @@ define('BarCode', function (require, module, exports) {
                 model: item.model || '',
                 batch: item.batch || '',
                 code: codeItem.clone().barcode(item.text, "ean13", {
-                    barWidth: 1,
-                    barHeight: 50,
+                    barWidth: 2,
+                    barHeight: 60,
                     moduleSize: 5,
                     showHRI: true,
                     bgColor: '#FFFFFF',
