@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kingdee.eas.hrp.sms.authority.AccessMaskCode;
 import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
-import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
@@ -30,7 +29,7 @@ public class SyncHRPController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
-		String userType = "QpXq24FxxE6c3lvHMPyYCxACEAI=";
+		//String userType = "QpXq24FxxE6c3lvHMPyYCxACEAI=";
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -52,31 +51,4 @@ public class SyncHRPController {
 		}
 	}
 	
-	@ControllerLog(desc = "删除item") // 做日志
-	@Permission(objectType = 130, objectId = 01, accessMask = 4, desc = "删除item") // 权限
-	@RequestMapping(value = "delItem")
-	public void delItem(HttpServletRequest request, HttpServletResponse response) {
-
-		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
-		String data = ParameterUtils.getParameter(request, "data", "");
-
-		if (classId < 0) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
-			return;
-		}
-
-		if (data.equals("")) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
-			return;
-		}
-
-		String result = (String) syncHRPService.delItem(classId, data);
-		if ("" == result) {
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功！");
-			return;
-		} else {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, result+"同步失败！");
-			return;
-		}
-	}
 }

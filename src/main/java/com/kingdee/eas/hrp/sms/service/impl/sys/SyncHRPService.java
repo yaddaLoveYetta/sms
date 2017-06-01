@@ -67,7 +67,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			throw new RuntimeException("网络异常！");
 		}
 		List<String> failIdList;
-		String ret = sendItemByWS(sessionId, jsonData.toString(), "sms2hrpBaseData");
+		String ret = syncItemByWS(sessionId, jsonData.toString(), "sms2hrpBaseData");
 		if (null == ret || "".equals(ret)) {
 			throw new RuntimeException("网络异常！");
 		}
@@ -98,7 +98,8 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		return result.toString();
 	}
 
-	private String sendItemByWS(String sessionId, String data, String method) {
+	@Override
+	public String syncItemByWS(String sessionId, String data, String method) {
 
 		String response = "";
 		try {
@@ -134,6 +135,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 
 	}
 
+	@Override
 	public String loginInEAS() {
 
 		String sessionId = "";
@@ -165,35 +167,6 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			e.printStackTrace();
 		}
 		return sessionId;
-	}
-
-	@Override
-	public String delItem(int classId, String data) {
-
-		StringBuilder result = new StringBuilder("");
-		String[] idString = data.split(",");
-		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
-
-		String sessionId = loginInEAS();
-		String failId = sendItemByWS(sessionId, data, "sms2hrpSupplier");
-		String[] failIdStr = failId.split(",");
-		List<String> failIdList = new ArrayList<String>(Arrays.asList(failIdStr));
-
-		for (String id : idList) {
-			try {
-				if (failIdList.size() != 0)
-					if (failIdList.contains(id))
-						continue;
-				templateService.delItem(classId, id);
-			} catch (Exception e) {
-				failIdList.add(id);
-			}
-		}
-		for (String id : failIdList) {
-			Map<String, Object> failData = templateService.getItemById(classId, id);
-			result.append((String) failData.get("number")).append("\n");
-		}
-		return result.toString();
 	}
 
 }

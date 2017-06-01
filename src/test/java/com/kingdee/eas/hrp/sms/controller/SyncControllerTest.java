@@ -3,8 +3,6 @@
  */
 package com.kingdee.eas.hrp.sms.controller;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -12,7 +10,6 @@ import org.junit.runners.MethodSorters;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.kingdee.eas.hrp.sms.model.Supplier_License_Type;
 import com.kingdee.eas.hrp.sms.util.http.HttpParam;
 import com.kingdee.eas.hrp.sms.util.http.HttpUtil;
 
