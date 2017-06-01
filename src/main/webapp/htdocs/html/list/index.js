@@ -144,6 +144,9 @@
         },
         'deliver': function (item, index) {
             deliver();
+        },
+        'print': function (item, index) {
+            print();
         }
     });
 
@@ -270,6 +273,47 @@
                 }),
                 data: {},
                 button: [],
+            });
+
+            //默认关闭行为为不提交
+            dialog.isSubmit = false;
+
+            dialog.showModal();
+
+            dialog.on({
+                remove: function () {
+                    refresh();
+                }
+            });
+
+        });
+
+    }
+
+    function print() {
+        SMS.use('Dialog', function (Dialog) {
+
+            var dialog = new Dialog({
+                title: '接单信息',
+                width: 700,
+                height: 300,
+                url: $.Url.setQueryString('html/code-print/index.html'),
+                data: {
+                    code: [11111, 22222, 33333],
+                },
+                button: [
+                    {
+                        value: '取消',
+                        className: 'sms-cancel-btn',
+                    },
+                    {
+                        value: '确定',
+                        className: 'sms-submit-btn',
+                        callback: function () {
+                            return true;
+                        }
+                    }
+                ],
             });
 
             //默认关闭行为为不提交
