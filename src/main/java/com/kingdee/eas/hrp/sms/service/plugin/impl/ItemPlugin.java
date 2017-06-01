@@ -98,17 +98,23 @@ public class ItemPlugin extends PlugInAdpter {
 					Map<String, Object> errData = templateService.getItemById(classId, id);
 					throw new PlugInRuntimeException("该记录(" + errData.get("number") + ")已被引用，无法删除");
 				}
-				// 同步删除
-				if (reviewAndSyncClassIdList.contains(classId)) {
-					String sessionId = syncHRPService.loginInEAS();
-					String syncRet = syncHRPService.syncItemByWS(sessionId, data, "");
-					JSONObject syncJson = JSONObject.parseObject(syncRet);
-					String syncData = syncJson.getString("data");
-					if (!(null == syncData || "".equals(syncData))) {
-						Map<String, Object> errData = templateService.getItemById(classId, id);
-						throw new PlugInRuntimeException("该记录(" + errData.get("number") + ")无法在医院数据中删除，故删除失败");
-					}
-				}
+			}
+		}
+
+		// 同步删除
+		if (reviewAndSyncClassIdList.contains(classId)) {
+			String sessionId = syncHRPService.loginInEAS();
+			JSONObject delJson = new JSONObject(true);
+			delJson.put("classId", classId);
+			delJson.put("data", data);
+			String syncRet = syncHRPService.syncItemByWS(sessionId, delJson.toString(), "delSms2hrpBaseData");
+			if (null == syncRet || "".equals(syncRet)) {
+				throw new RuntimeException("同步删除医院数据时网络异常！");
+			}
+			JSONObject syncJson = JSONObject.parseObject(syncRet);
+			String syncData = syncJson.getString("data");
+			if (!(null == syncData || "".equals(syncData))) {
+				throw new PlugInRuntimeException("记录无法在医院数据中删除，故删除失败");
 			}
 		}
 
