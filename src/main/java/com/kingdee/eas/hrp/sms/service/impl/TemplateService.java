@@ -2060,7 +2060,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			String fieldName = formField.getSqlColumnName();
 			kvBuffer.append(",").append(fieldName).append("=").append("#{" + fieldName + "}");
 
-			if (value == null || value.equals("")) {
+			if (value == null) {
 				// kvBuffer.append("null");
 				//sqlParams.put(fieldName, "null");
 				sqlParams.put(fieldName, "");
