@@ -19,6 +19,7 @@ define('ButtonList', function (require, module, exports) {
             child: 'items',
             callback: 'click',
             route: 'name',
+            icon: 'icon'
         },
 
         autoClose: true,
@@ -26,11 +27,7 @@ define('ButtonList', function (require, module, exports) {
         items: [{
             text: '保存',
             name: 'optSave',
-
-        }, {
-            text: '恢复',
-            name: 'optRefresh',
-
+            icon:'../css/main/img/save.png',
         }]
     };
 
