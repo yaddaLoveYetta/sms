@@ -625,7 +625,7 @@
                     validate = false;
                 } else {
                     if (fields[keyName]['dataType'] == 2 || fields[keyName]['ctrlType'] == 7) { //文本类型、级联选择器 给空字符串
-                        successData[keyName] = element.value;
+                        successData[keyName] = element.value || '';
                     }
                 }
             } else {
