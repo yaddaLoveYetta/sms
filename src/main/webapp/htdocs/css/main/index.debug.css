@@ -457,7 +457,8 @@ body {
 }
 
 .content .tab-panel .tabs .hover {
-    background: #5ec6d8;
+    /*background: #5ec6d8;*/
+    background: #3297c2;
     color: #fff;
 }
 
