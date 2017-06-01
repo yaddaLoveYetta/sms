@@ -64,8 +64,8 @@ define('BarCode', function (require, module, exports) {
         }).join('');
 
         $('.bc-target').barcode("1234567890128", "ean13", {
-            barWidth: 1,
-            barHeight: 50,
+            barWidth: 2,
+            barHeight: 60,
             moduleSize: 5,
             showHRI: true,
             bgColor: '#FFFFFF',
