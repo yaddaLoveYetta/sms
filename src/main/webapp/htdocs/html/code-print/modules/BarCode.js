@@ -9,7 +9,7 @@ define('BarCode', function (require, module, exports) {
     var SMS = require('SMS');
 
     var target = $('#code');
-    var item = $("<div class='bcTarget'></div>");
+    var item = $("<div class='bc-target'></div>");
 
     var _default = {
         barWidth: 1,
