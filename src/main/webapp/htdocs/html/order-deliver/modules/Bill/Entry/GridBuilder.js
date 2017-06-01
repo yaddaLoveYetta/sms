@@ -109,7 +109,7 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
      * @param config 默认配置
      * @param showKeys 需要展现的字段-null将按照单据模板确定
      * @param editKeys 可以编辑的字段-null将不可编辑
-     * @param operator 控制是否有新增，删除行功能-true：可以添加/删除 false：不出现添加/删除行功能
+     * @param operator 控制是否有新增，删除行功能-0：不可以添加/删除， 1：可以添加，2：可以删除,3:可以添加及删除
      * @returns {*}
      */
     function getConfig(fields, config, showKeys, editKeys, operator, type) {
@@ -164,7 +164,20 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 width: 40,
                 fixed: true,
                 formatter: function (val, opt, row) {
-                    var html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
+
+                    var html_con;
+
+                    if (operator === 1) {
+                        // add
+                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span></div>';
+                    } else if (operator === 2) {
+                        // del
+                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
+                    } else if (operator === 3) {
+                        // add & del
+                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
+                    }
+
                     return html_con;
                 },
                 align: "center",

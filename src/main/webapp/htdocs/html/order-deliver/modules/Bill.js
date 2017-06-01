@@ -45,7 +45,6 @@ define('Bill', function (require, module, exports) {
             itemId = data.data.headData[data.template.formClass.primaryKey] || 0; // 单据内码
 
             Head.render(data, data.data.headData, itemId);
-            // Entry.render(data.visibleTemplate, data.data.entryData);
             Entry.render(data.template, data.data.entryData, itemId);
         });
     }

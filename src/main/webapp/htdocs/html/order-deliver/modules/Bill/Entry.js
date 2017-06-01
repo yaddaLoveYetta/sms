@@ -42,7 +42,7 @@ define('Bill/Entry', function (require, module, exports) {
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
-                'operator': true,
+                'operator': 2, // 分录只能删除不能新增
                 'showType': 1,
             });
 
