@@ -542,7 +542,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 		}
 
 		jsonData = (JSONObject) result.getData();
-
 		// 获取主键
 		String id = "";
 		// 同步数据自带主键
@@ -1848,7 +1847,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		// 不使用数据库自增创建主键，加上自定义主键
 		fieldNames.append(",").append(formFields.get(primaryKey).getSqlColumnName());
 		fieldValues.append(",").append("#{" + primaryKey + "}");
-		fieldValuesParams.put(formFields.get(primaryKey).getSqlColumnName(), primaryValue);
+		fieldValuesParams.put(primaryKey, primaryValue);
 
 		String fieldStr = fieldNames.length() > 0 ? fieldNames.toString().substring(1) : "";
 		String valueStr = fieldValues.length() > 0 ? fieldValues.toString().substring(1) : "";
@@ -1960,30 +1959,33 @@ public class TemplateService extends BaseService implements ITemplateService {
 				String fieldStr = statement.get("fieldStr").toString();
 				String valueStr = statement.get("valueStr").toString();
 				Map<String, Object> sqlParams = (Map<String, Object>) statement.get("sqlParams");
+				
 
-				// --参数列表
-				for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
-					Entry<String, Object> item = it.next();
-					sqlMap.put(item.getKey(), item.getValue());
-				}
+				
 
 				// 外键：模板配置中不需要配置该外键，因为该外键的值在前端时无法获取，只有主表保存后才能在后台获取
 				if (!fieldStr.equals("")) {
 
 					if (fieldStr.indexOf("," + foreignKey) < 0) {
 						fieldStr += "," + foreignKey;
-						valueStr += ",{" + foreignKey + "}";
+						valueStr += ",#{" + foreignKey + "}";
 						// statement.put("fieldStr", fieldStr);
 						// statement.put("valueStr", valueStr);
 						sqlMap.put(foreignKey, id);
 					}
-
+					
 					String sql = "insert into " + tableName + " ( " + fieldStr + " ) values ( " + valueStr + " )";
 
 					sqlMap.put("sql", sql);// 完整带参数的sql
 
+					// --参数列表
+					for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
+						Entry<String, Object> item = it.next();
+						sqlMap.put(item.getKey(), item.getValue());
+					}
+
 					// 插入基础资料分录
-					templateDaoMapper.add(statement);
+					templateDaoMapper.add(sqlMap);
 
 				}
 			} else if (flag == 2) { // --修改
@@ -2063,7 +2065,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			if (value == null) {
 				// kvBuffer.append("null");
 				//sqlParams.put(fieldName, "null");
-				sqlParams.put(fieldName, "");
+				sqlParams.put(fieldName, "null");
 			} else {
 				int dataType = formField.getDataType();
 				DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);

@@ -51,6 +51,6 @@ public interface IOrderService {
 	 *            接单数据
 	 * @return String
 	 */
-	public void tickType(JSONObject jsonObject);
+	public String updateTickType(JSONObject jsonObject);
 
 }

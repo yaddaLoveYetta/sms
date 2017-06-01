@@ -83,4 +83,17 @@ public class OrderController {
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipOrder);
 
 	}
+	
+	@ControllerLog(desc = "HRP->SMS接单确认") // 做日志
+	@RequestMapping(value = "updateTickType")
+	public void updateTickType(HttpServletRequest request, HttpServletResponse response) {
+		String listStr = ParameterUtils.getParameter(request, "list", "");
+		JSONObject json = JSONObject.parseObject(listStr);
+		String ret = orderservice.updateTickType(json);
+		if (ret.equals("success")) {
+			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "修改订单接单状态成功");
+		}else{
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_IS_NOT_EXIST, "参数为空或参数不存在");
+		}
+	}
 }

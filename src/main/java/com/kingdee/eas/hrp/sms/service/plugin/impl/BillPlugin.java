@@ -17,9 +17,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.model.OrderEntryExample;
 import com.kingdee.eas.hrp.sms.model.OrderEntryExample.Criteria;
@@ -89,7 +91,8 @@ public class BillPlugin extends PlugInAdpter {
 			// 根据订单号和行号查询对应的记录
 			List<OrderEntry> o = orderEntryMapper.selectByExample(e);
 			if (o.size() > 0) {
-				orderEntry.setInvoiceQty(new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
+				orderEntry.setInvoiceQty(
+						new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
 				orderEntry.setId(o.get(0).getId());
 				// 根据订单ID 修改发货数量
 				orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
@@ -146,8 +149,10 @@ public class BillPlugin extends PlugInAdpter {
 				String lot = datas.getString("lot");// 批次
 				String dyBatchNum = datas.getString("dyBatchNum");// 批号
 				Date effectiveDate = datas.getDate("effectiveDate");// 有效期
-				Byte isLotNumber = datas.getByte("isLotNumber");
-				Byte highConsumable = datas.getByte("highConsumable");
+				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
+				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
+
 				String code = datas.getString("code");
 				if (actualQty.equals("") || actualQty == null) {
 					throw new BusinessLogicRunTimeException("实发数量不能为空");
@@ -155,17 +160,21 @@ public class BillPlugin extends PlugInAdpter {
 				if (actualQty.compareTo(qty) > 0) {
 					throw new BusinessLogicRunTimeException("发货数量不能大于应发数量");
 				}
-				if (isLotNumber.equals("1") || isLotNumber == 1) {
-					if (lot.equals("") || lot == null) {
-						throw new BusinessLogicRunTimeException("批次不能为空");
-					}
-					if (dyBatchNum.equals("") || dyBatchNum == null) {
-						throw new BusinessLogicRunTimeException("批号不能为空");
+				if (items.getIsLotNumber() != null) {
+					if (items.getIsLotNumber().equals("1") || items.getIsLotNumber() == 1) {
+						if (lot.equals("") || lot == null) {
+							throw new BusinessLogicRunTimeException("批次不能为空");
+						}
+						if (dyBatchNum.equals("") || dyBatchNum == null) {
+							throw new BusinessLogicRunTimeException("批号不能为空");
+						}
 					}
 				}
-				if (highConsumable.equals("1") || highConsumable == 1) {
-					if (code.equals("") || code == null) {
-						throw new BusinessLogicRunTimeException("高值物料个体码不能为空");
+				if (items.getHighConsumable() != null) {
+					if (items.getHighConsumable().equals("1") || items.getHighConsumable() == 1) {
+						if (code.equals("") || code == null) {
+							throw new BusinessLogicRunTimeException("高值物料个体码不能为空");
+						}
 					}
 				}
 				if (effectiveDate.equals("") || effectiveDate == null) {
@@ -173,8 +182,10 @@ public class BillPlugin extends PlugInAdpter {
 				}
 			}
 		}
-
-		return super.beforeSave(classId, formData, data);
+		PlugInRet ret = new PlugInRet();
+		ret.setCode(200);
+		ret.setData(data);
+		return ret;
 	}
 
 }

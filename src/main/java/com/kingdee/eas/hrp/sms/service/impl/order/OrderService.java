@@ -121,31 +121,30 @@ public class OrderService extends BaseService implements IOrderService {
 		if (order.getTickType() != null && order.getTickType().equals("1")) {
 			throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
 		}
-		
+
 		// 調用hrp-web-service --发送接单数据至HRP
 		String response = "";
 		try {
-			URL url = new URL("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade?wsdl");
-			String nameSpace = "http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade";
-			String headerNamespace = "http://login.webservice.bos.kingdee.com";
 			org.apache.axis.client.Service sv = new org.apache.axis.client.Service();
 			Call call = (Call) sv.createCall();
 			call.setUseSOAPAction(true);
-			call.setTargetEndpointAddress(url);
-			call.setOperationName(new QName(nameSpace, "sms2hrpOrderTake")); // 设置要调用的接口方法
-			call.addParameter("entryStr", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
-			call.addParameter("id", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
+			call.setTargetEndpointAddress(new URL("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade?wsdl"));
+			call.setOperationName(new QName("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade", "sms2hrpOrderTake"));
+			String headerNamespace = "http://login.webservice.bos.kingdee.com";
+			call.setUseSOAPAction(true);
+			call.addParameter("json", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
 			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);//
 			// 返回参数类型
 			call.setReturnClass(String.class);
-
 			// // 由于需要认证，需要设置sessionId
-			SyncHRPService  syn = new SyncHRPService();
+			SyncHRPService syn = new SyncHRPService();
 			SOAPHeaderElement soapHeaderElement = new SOAPHeaderElement(headerNamespace, "SessionId");
 			soapHeaderElement.setValue(syn.loginInEAS());
 			call.addHeader(soapHeaderElement);
-
-			response = (String) call.invoke(new Object[]{entryStr,id});
+			JSONObject json = new  JSONObject();
+			json.put("entry", entryStr);
+			json.put("id", id);
+			response = (String) call.invoke(new Object[] { json});
 			System.out.println(response);// 打印字符串
 
 		} catch (RemoteException | ServiceException | MalformedURLException e) {
@@ -745,14 +744,41 @@ public class OrderService extends BaseService implements IOrderService {
 
 	}
 
-	@Override
-	public void tickType(JSONObject jsonObject) {
+	/**
+	 * 
+	 * HRP->SMS接单确认接口
+	 * 
+	 */
+	public String updateTickType(JSONObject jsonObject) {
 		OrderEntry orderEntry = new OrderEntry();
-		orderEntry.setId(jsonObject.getString("entryId"));
-		orderEntry.setConfirmDate(jsonObject.getDate("confirmDate"));
-		orderEntry.setConfirmQty(jsonObject.getBigDecimal("confirmQty"));
-		orderEntry.setQty(jsonObject.getBigDecimal("confirmQty"));
-		orderEntry.setDeliveryDate(jsonObject.getDate("confirmDate"));
+		Order order = new  Order();
+		if (jsonObject.equals("")) {
+			return "error";
+		}
+		JSONObject entry = (JSONObject) jsonObject.get("entry");
+		JSONArray orderEntryArray = JSONArray.parseArray((String) entry.get("1"));
+		for (int i = 0; i < orderEntryArray.size(); i++) {
+			JSONObject orderEntryObject = orderEntryArray.getJSONObject(i);
+			orderEntry.setId(jsonObject.getString("entryId"));// 订单子表内码
+			if (orderEntryObject.getDate("confirmDate") != null && !orderEntryObject.getDate("confirmDate").equals("")) {
+				orderEntry.setConfirmDate(orderEntryObject.getDate("confirmDate"));// 修改供应商确认日期
+				orderEntry.setDeliveryDate(orderEntryObject.getDate("confirmDate"));// 修改原单发货日期
+			}
+			if (orderEntryObject.getBigDecimal("confirmQty") != null && !orderEntryObject.getBigDecimal("confirmQty").equals("")) {
+				orderEntry.setConfirmQty(orderEntryObject.getBigDecimal("confirmQty"));// 修改供应商确认数量
+				orderEntry.setQty(orderEntryObject.getBigDecimal("confirmQty"));// 修改原单数量
+			}
+			OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+			orderEntryMapper.updateByPrimaryKey(orderEntry);
+		}
+		if(jsonObject.getString("id")==null||jsonObject.getString("id").equals("")){
+			return "error";
+		}
+		order.setId(jsonObject.getString("id"));
+		order.setTickType((byte) 1);
+		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+		orderMapper.updateByPrimaryKey(order);
+		return "success";
 	}
 
 }
