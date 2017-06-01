@@ -27,7 +27,7 @@ define('ButtonList', function (require, module, exports) {
         items: [{
             text: '保存',
             name: 'optSave',
-            icon:'../css/main/img/save.png',
+            icon:'../../css/main/img/save.png',
         }]
     };
 
