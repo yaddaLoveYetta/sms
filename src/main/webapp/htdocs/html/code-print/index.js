@@ -39,5 +39,6 @@
         }
     });
 
+    ButtonList.render();
 
 })();
