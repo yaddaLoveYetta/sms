@@ -1,10 +1,10 @@
 ﻿
 
 /**
-* List/Samples 模块
+* Samples 模块
 * 
 */
-define('List/Samples', function (require, module, exports) {
+define('Samples', function (require, module, exports) {
 
     var $ = require('$');
 
