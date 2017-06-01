@@ -40,13 +40,8 @@ define('BarCode', function (require, module, exports) {
          });
          }*/
 
-        div.innerHTML = $.Array.keep(code, function (item, index) {
-
-            return $.String.format(samples["codes"], {
-                name: item.name || '',
-                model: item.model || '',
-                batch: item.batch || '',
-                code: codeItem.clone().barcode(item.text, "ean13", {
+        /**
+         code: codeItem.clone().barcode(item.text, "ean13", {
                     barWidth: 2,
                     barHeight: 60,
                     moduleSize: 5,
@@ -56,9 +51,28 @@ define('BarCode', function (require, module, exports) {
                     fontSize: 12,
                     output: 'css',
                 })
+         */
+
+        div.innerHTML = $.Array.keep(code, function (item, index) {
+
+            return $.String.format(samples["codes"], {
+                name: item.name || '',
+                model: item.model || '',
+                batch: item.batch || '',
             });
 
         }).join('');
+
+        $('.bc-target').barcode("1234567890128", "ean13", {
+            barWidth: 1,
+            barHeight: 50,
+            moduleSize: 5,
+            showHRI: true,
+            bgColor: '#FFFFFF',
+            color: '#000000',
+            fontSize: 12,
+            output: 'css',
+        });
 
     }
 
