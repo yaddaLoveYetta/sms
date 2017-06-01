@@ -299,7 +299,26 @@
                 height: 300,
                 url: $.Url.setQueryString('html/code-print/index.html'),
                 data: {
-                    code: [11111, 22222, 33333],
+                    code: [
+                        {
+                            text: '11111',
+                            name: 'xxxx',
+                            model: 'xxxxx',
+                            batch: 'xxxxxx',
+                        },
+                        {
+                            text: '22222',
+                            name: 'yyyy',
+                            model: 'yyy',
+                            batch: 'yyyyy',
+                        },
+                        {
+                            text: '33333',
+                            name: 'zzzz',
+                            model: 'zzzzzzz',
+                            batch: 'zzzz',
+                        }
+                    ],
                 },
                 button: [
                     {
