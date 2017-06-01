@@ -10,6 +10,8 @@
     var ButtonList = require('ButtonList');
     var Iframe = SMS.require('Iframe');
 
+    var BarCode=require('BarCode');
+
     var code = [];// 条形码字符内容
 
     //检查登录
@@ -35,10 +37,11 @@
             alert('optPrint');
         },
         'optRefresh': function () {
-            Edit.refresh(formClassId);
+            alert('optRefresh');
         }
     });
 
     ButtonList.render();
+    BarCode.render(code);
 
 })();
