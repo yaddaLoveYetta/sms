@@ -21,6 +21,8 @@ import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.model.Invoice;
+import com.kingdee.eas.hrp.sms.model.InvoiceExample;
 import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.model.OrderEntryExample;
@@ -144,7 +146,12 @@ public class BillPlugin extends PlugInAdpter {
 				if (datas == null || datas.equals("")) {
 					throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
 				}
-				BigDecimal actualQty = datas.getBigDecimal("actualQty");// 实发数量
+				String actualQty = datas.getString("actualQty");// 实发数量
+				if(actualQty.matches("^[0-9]*$")){
+					System.out.println(actualQty.matches("^[0-9]*$"));
+				}else{
+					throw new BusinessLogicRunTimeException("发货数量格式不正确");
+				}
 				BigDecimal qty = datas.getBigDecimal("qty");// 应发数量
 				String lot = datas.getString("lot");// 批次
 				String dyBatchNum = datas.getString("dyBatchNum");// 批号
@@ -157,7 +164,7 @@ public class BillPlugin extends PlugInAdpter {
 				if (actualQty.equals("") || actualQty == null) {
 					throw new BusinessLogicRunTimeException("实发数量不能为空");
 				}
-				if (actualQty.compareTo(qty) > 0) {
+				if (new BigDecimal(actualQty).compareTo(qty) > 0) {
 					throw new BusinessLogicRunTimeException("发货数量不能大于应发数量");
 				}
 				if (items.getIsLotNumber() != null) {
