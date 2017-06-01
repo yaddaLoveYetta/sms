@@ -55,7 +55,8 @@
     height: 0;
     overflow: hidden;
     position: absolute;
-    background: #54add3;
+    /*background: #54add3;*/
+    background: #009bd9;
     z-index: 20;
 }
 
