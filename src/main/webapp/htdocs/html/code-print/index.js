@@ -34,7 +34,7 @@
     // 支持二级事件，二级事件对应 item 中的 name
     ButtonList.on('click', {
         'optPrint': function () {
-            alert('optPrint');
+            $("#code").jqprint({});
         },
         'optRefresh': function () {
             alert('optRefresh');
