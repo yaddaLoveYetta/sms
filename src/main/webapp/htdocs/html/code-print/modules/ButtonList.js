@@ -26,11 +26,7 @@ define('ButtonList', function (require, module, exports) {
         items: [{
             text: '打印',
             name: 'optPrint',
-            icon: '../../css/main/img/add.png',
-        }, {
-            text: '刷新',
-            name: 'optRefresh',
-            icon: '../../css/main/img/refresh.png',
+            icon: '../../css/main/img/print.png',
         }]
     };
 
