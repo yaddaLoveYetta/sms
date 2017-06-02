@@ -223,7 +223,7 @@ define('Edit', function (require, module, exports) {
                 }
             }
 
-            if (classId === 3010 && key === 'type') {
+            if ((classId === 3010 || classId === 3020) && key === 'type') {
 
                 // 供应商证件维护，证件类型变化后带出证件类型‘是否控制’，‘是否必须’属性
                 var data = data[0].all; // 完整的控件选择数据
