@@ -137,6 +137,7 @@
                 'common-css':'jqgrid/common.css#',
                 'jqgrid-all-js':'jqGrid-5.1.0/jqGrid-master/js/jquery.jqGrid.js',
                 'jqgrid-all-css':'jqGrid-5.1.0/jqGrid-master/css/ui.jqgrid.css#',
+                'jquery-barcode':'jquery-barcode-2.0.3/jquery/jquery-barcode.{@}.js',
             }
         },
 
