@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.ibatis.plugin.PluginException;
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +39,6 @@ import com.kingdee.eas.hrp.sms.service.plugin.PlugInFactory;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
-import com.kingdee.eas.hrp.sms.util.ValidateUtil;
 
 @Service
 public class TemplateService extends BaseService implements ITemplateService {
