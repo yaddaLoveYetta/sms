@@ -1905,52 +1905,52 @@ public class FormFieldsExample {
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveEqualTo(Byte value) {
+        public Criteria andNeedSaveEqualTo(Integer value) {
             addCriterion("needSave =", value, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveNotEqualTo(Byte value) {
+        public Criteria andNeedSaveNotEqualTo(Integer value) {
             addCriterion("needSave <>", value, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveGreaterThan(Byte value) {
+        public Criteria andNeedSaveGreaterThan(Integer value) {
             addCriterion("needSave >", value, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveGreaterThanOrEqualTo(Byte value) {
+        public Criteria andNeedSaveGreaterThanOrEqualTo(Integer value) {
             addCriterion("needSave >=", value, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveLessThan(Byte value) {
+        public Criteria andNeedSaveLessThan(Integer value) {
             addCriterion("needSave <", value, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveLessThanOrEqualTo(Byte value) {
+        public Criteria andNeedSaveLessThanOrEqualTo(Integer value) {
             addCriterion("needSave <=", value, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveIn(List<Byte> values) {
+        public Criteria andNeedSaveIn(List<Integer> values) {
             addCriterion("needSave in", values, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveNotIn(List<Byte> values) {
+        public Criteria andNeedSaveNotIn(List<Integer> values) {
             addCriterion("needSave not in", values, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveBetween(Byte value1, Byte value2) {
+        public Criteria andNeedSaveBetween(Integer value1, Integer value2) {
             addCriterion("needSave between", value1, value2, "needSave");
             return (Criteria) this;
         }
 
-        public Criteria andNeedSaveNotBetween(Byte value1, Byte value2) {
+        public Criteria andNeedSaveNotBetween(Integer value1, Integer value2) {
             addCriterion("needSave not between", value1, value2, "needSave");
             return (Criteria) this;
         }

@@ -59,7 +59,7 @@ public class FormFields {
 
     private Integer isCount;
 
-    private Byte needSave;
+    private Integer needSave;
 
     public Integer getClassId() {
         return classId;
@@ -285,11 +285,11 @@ public class FormFields {
         this.isCount = isCount;
     }
 
-    public Byte getNeedSave() {
+    public Integer getNeedSave() {
         return needSave;
     }
 
-    public void setNeedSave(Byte needSave) {
+    public void setNeedSave(Integer needSave) {
         this.needSave = needSave;
     }
 }

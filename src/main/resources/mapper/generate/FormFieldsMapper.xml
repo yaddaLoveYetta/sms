@@ -30,7 +30,7 @@
     <result column="lock" jdbcType="INTEGER" property="lock" />
     <result column="isCondition" jdbcType="INTEGER" property="isCondition" />
     <result column="isCount" jdbcType="INTEGER" property="isCount" />
-    <result column="needSave" jdbcType="TINYINT" property="needSave" />
+    <result column="needSave" jdbcType="INTEGER" property="needSave" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -136,7 +136,7 @@
       #{joinType,jdbcType=VARCHAR}, #{filter,jdbcType=VARCHAR}, #{defaultValue,jdbcType=VARCHAR}, 
       #{maxValue,jdbcType=NUMERIC}, #{minValue,jdbcType=NUMERIC}, #{mustInput,jdbcType=INTEGER}, 
       #{length,jdbcType=INTEGER}, #{lock,jdbcType=INTEGER}, #{isCondition,jdbcType=INTEGER}, 
-      #{isCount,jdbcType=INTEGER}, #{needSave,jdbcType=TINYINT})
+      #{isCount,jdbcType=INTEGER}, #{needSave,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.FormFields">
     insert into t_sms_formFields
@@ -315,7 +315,7 @@
         #{isCount,jdbcType=INTEGER},
       </if>
       <if test="needSave != null">
-        #{needSave,jdbcType=TINYINT},
+        #{needSave,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -413,7 +413,7 @@
         isCount = #{record.isCount,jdbcType=INTEGER},
       </if>
       <if test="record.needSave != null">
-        needSave = #{record.needSave,jdbcType=TINYINT},
+        needSave = #{record.needSave,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -450,7 +450,7 @@
       [lock] = #{record.lock,jdbcType=INTEGER},
       isCondition = #{record.isCondition,jdbcType=INTEGER},
       isCount = #{record.isCount,jdbcType=INTEGER},
-      needSave = #{record.needSave,jdbcType=TINYINT}
+      needSave = #{record.needSave,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

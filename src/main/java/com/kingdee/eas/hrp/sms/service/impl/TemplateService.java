@@ -918,6 +918,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				String disPlayField = formField.getDisPlayField();
 				// String disPlayFieldAlisAs = formField.getdis
 				String disPlayNum = formField.getDisPlayNum();
+				Integer needSave = formField.getNeedSave();
+
 				String srcTableAlis = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
 
 				if (display > 0 && ((display & displayTypeList) != displayTypeList && (display & displayTypeAdd) != displayTypeAdd && (display & displayTypeEdit) != displayTypeEdit)) {
@@ -972,23 +974,32 @@ public class TemplateService extends BaseService implements ITemplateService {
 					String joinTypeEx = lookUpTypeformField.getJoinType();
 					String srcTableEx = lookUpTypeformField.getSrcTable();
 					String srcFieldEx = lookUpTypeformField.getSrcField();
+					if (needSave == 1) {
+						// needSave 不需要保存的引用字段关联查询，需要保存的属性值直接用
+						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
 
-					if (lookUpTypeEx != null && lookUpTypeEx > 0) {
-						// 基础资料的附加属性又是引用类型的情况--取显示字段并关联表
-
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, nameEx, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
-
-						// from 中同时增加关联表
-						sbFrom.append(joinTypeEx).append(srcTableEx);
-
-						// 关联表的别名
-
-						sbFrom.append(" as " + srcTableAlis);
-
-						sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s ", srcTableEx, bDelimiter, srcFieldEx, eDelimiter, srcTableAlis, bDelimiter, srcFieldEx, eDelimiter)).append(separator);
 					} else {
-						// 普通属性
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+
+						if (lookUpTypeEx != null && lookUpTypeEx > 0) {
+
+							// 基础资料的附加属性又是引用类型的情况--取显示字段并关联表
+
+							sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, nameEx, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+
+							// from 中同时增加关联表
+							sbFrom.append(joinTypeEx).append(srcTableEx);
+
+							// 关联表的别名
+
+							sbFrom.append(" as " + srcTableAlis);
+
+							sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s ", srcTableEx, bDelimiter, srcFieldEx, eDelimiter, srcTableAlis, bDelimiter, srcFieldEx, eDelimiter))
+									.append(separator);
+						} else {
+							// 普通属性
+							sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+						}
+
 					}
 
 				} else if (lookUpType != null && lookUpType == 4) {
@@ -1809,7 +1820,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 			if (formField == null)
 				continue;
 			Integer lookUpType = formField.getLookUpType();
-			if (lookUpType == 3 || lookUpType == 5)// 引用基础资料的附加属性/普通表关联显示字段，无需保存
+			Integer needSave = formField.getNeedSave();
+
+			if (needSave == 0 && (lookUpType == 3 || lookUpType == 5))// 引用基础资料的附加属性/普通表关联显示字段，无需保存
 				continue;
 
 			String value = data.getString(key);
@@ -1959,9 +1972,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 				String fieldStr = statement.get("fieldStr").toString();
 				String valueStr = statement.get("valueStr").toString();
 				Map<String, Object> sqlParams = (Map<String, Object>) statement.get("sqlParams");
-				
-
-				
 
 				// 外键：模板配置中不需要配置该外键，因为该外键的值在前端时无法获取，只有主表保存后才能在后台获取
 				if (!fieldStr.equals("")) {
@@ -1973,7 +1983,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 						// statement.put("valueStr", valueStr);
 						sqlMap.put(foreignKey, id);
 					}
-					
+
 					String sql = "insert into " + tableName + " ( " + fieldStr + " ) values ( " + valueStr + " )";
 
 					sqlMap.put("sql", sql);// 完整带参数的sql
@@ -2064,7 +2074,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			if (value == null) {
 				// kvBuffer.append("null");
-				//sqlParams.put(fieldName, "null");
+				// sqlParams.put(fieldName, "null");
 				sqlParams.put(fieldName, "");
 			} else {
 				int dataType = formField.getDataType();
