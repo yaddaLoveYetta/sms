@@ -994,6 +994,21 @@ public class TemplateService extends BaseService implements ITemplateService {
 				} else if (lookUpType != null && lookUpType == 4) {
 					// 普通引用-引用其他表数据
 
+					sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
+
+					// if (dataType != null && dataType == 2) {
+					// // 文本类的关联字段，未防止关联表中无记录，此处取主表字段值-如订单查询CarNo字段取数
+					// sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,",
+					// formFieldLinkedTable, bDelimiter,
+					// sqlColumnName, eDelimiter, bDelimiter, key,
+					// eDelimiter)).append(separator);
+					// } else {
+					// sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,",
+					// srcTableAlis, bDelimiter, disPlayField,
+					// eDelimiter, bDelimiter, key,
+					// eDelimiter)).append(separator);
+					// }
+
 					// from 中同时增加关联表
 					sbFrom.append(joinType).append(srcTable);
 
@@ -1004,60 +1019,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 					sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s ", formFieldLinkedTable, bDelimiter, sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
 							.append(separator);
-
-					// 判断引用字段是否还是引用其他表显示
-					FormFields lookUpTypeformField = getFormField(lookUpClassId, disPlayField);
-
-					String nameEx = lookUpTypeformField.getSqlColumnName();
-					Integer lookUpTypeEx = lookUpTypeformField.getLookUpType();
-					String joinTypeEx = lookUpTypeformField.getJoinType();
-					String srcTableEx = lookUpTypeformField.getSrcTable();
-					String srcFieldEx = lookUpTypeformField.getSrcField();
-					String disPlayFieldEx = lookUpTypeformField.getDisPlayField();
-					String disPlayNumEx = lookUpTypeformField.getDisPlayNum();
-
-					if (lookUpTypeEx != null && lookUpTypeEx > 0) {
-						// 普通引用字段又是引用类型的情况--取显示字段并关联表
-						String srcTableAlisEx = srcTableEx + "_" + key;
-
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlisEx, bDelimiter, srcFieldEx, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlisEx, bDelimiter, disPlayFieldEx, eDelimiter, bDelimiter, key + "_DspName", eDelimiter)).append(separator);
-
-						if (disPlayNumEx != null && !disPlayNumEx.trim().equals("")) {
-							// 代码显示字段
-							sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlisEx, bDelimiter, disPlayNumEx, eDelimiter, bDelimiter, key + "_NmbName", eDelimiter)).append(separator);
-						}
-
-						// from 中同时增加关联表
-						sbFrom.append(joinTypeEx).append(separator).append(srcTableEx).append(separator);
-
-						// 关联表的别名
-
-						sbFrom.append(" as " + srcTableAlisEx).append(separator);
-
-						sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s ", srcTableAlis, bDelimiter, nameEx, eDelimiter, srcTableAlisEx, bDelimiter, srcFieldEx, eDelimiter)).append(separator);
-					} else {
-						// 普通属性
-						sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField, eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
-					}
-
-					// -------------------------------------------
-
-					// sbSelect.append(String.format("%s.%s%s%s AS %s%s%s,", srcTableAlis, bDelimiter, disPlayField,
-					// eDelimiter, bDelimiter, key, eDelimiter)).append(separator);
-					//
-					// // from 中同时增加关联表
-					// sbFrom.append(joinType).append(srcTable);
-					//
-					// // 关联表的别名
-					// if (srcTableAlisAs != null && !srcTableAlisAs.equals("")) {
-					// sbFrom.append(" as " + srcTableAlisAs);
-					// }
-					//
-					// sbFrom.append(String.format(" ON %s.%s%s%s = %s.%s%s%s ", formFieldLinkedTable, bDelimiter,
-					// sqlColumnName, eDelimiter, srcTableAlis, bDelimiter, srcField, eDelimiter))
-					// .append(separator);
-
 				} else if (lookUpType != null && lookUpType == 5) {
 
 					// 普通引用其他表的其他字段-主要为了避免为4即引用他表数据时，需引用多个字段时关联表重复问题。依附于=4时存在,即模板中肯定存在lookUpType=4的字段模板
@@ -1998,6 +1959,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 				String fieldStr = statement.get("fieldStr").toString();
 				String valueStr = statement.get("valueStr").toString();
 				Map<String, Object> sqlParams = (Map<String, Object>) statement.get("sqlParams");
+				
+
+				
 
 				// 外键：模板配置中不需要配置该外键，因为该外键的值在前端时无法获取，只有主表保存后才能在后台获取
 				if (!fieldStr.equals("")) {
@@ -2009,7 +1973,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 						// statement.put("valueStr", valueStr);
 						sqlMap.put(foreignKey, id);
 					}
-
+					
 					String sql = "insert into " + tableName + " ( " + fieldStr + " ) values ( " + valueStr + " )";
 
 					sqlMap.put("sql", sql);// 完整带参数的sql
@@ -2100,7 +2064,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			if (value == null) {
 				// kvBuffer.append("null");
-				// sqlParams.put(fieldName, "null");
+				//sqlParams.put(fieldName, "null");
 				sqlParams.put(fieldName, "");
 			} else {
 				int dataType = formField.getDataType();
