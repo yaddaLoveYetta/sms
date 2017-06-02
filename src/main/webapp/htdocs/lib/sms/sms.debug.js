@@ -6191,7 +6191,7 @@
                 Seajs.use([
                     'jquery-barcode',
                 ], function () {
-                    fn && fn(data);
+                    fn && fn();
                 });
 
             },
