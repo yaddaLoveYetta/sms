@@ -91,7 +91,7 @@
                         // 关联F7控件条件
                         var value = dataSelectors[target].getData() && dataSelectors[target].getData()[0].ID || '';
 
-                        if ($.trim(target) !== "" && $.trim(filterKey) !== "") {
+                        if ($.trim(target) !== "" && $.trim(target) !== "" && $.trim(filterKey) !== "") {
                             // 值转换
                             value = valueRule[value] || '';
                         }
