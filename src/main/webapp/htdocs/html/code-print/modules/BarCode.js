@@ -42,23 +42,15 @@ define('BarCode', function (require, module, exports) {
 
         /**
          code: codeItem.clone().barcode(item.text, "ean13", {
-                    barWidth: 2,
-                    barHeight: 60,
-                    moduleSize: 5,
-                    showHRI: true,
-                    bgColor: '#FFFFFF',
-                    color: '#000000',
-                    fontSize: 12,
-                    output: 'css',
-                    addQuietZone: false,
-
                     addQuietZone: false,      //是否添加空白区（内边距）
                     bgColor: "#FFFFFF",  //条码背景颜色
                     color: "#000000",    //条码颜色
                     fontSize: 12,   //条码字体大小
                     marginHRI: 5,  //条码字体距条码中心的高度
                     barWidth: "1",  //单条条码宽度
-                    barHeight: "60"  //单体条码高度
+                    barHeight: "60",  //单体条码高度
+                    moduleSize: 5,   //条码大小
+                    output: 'css', //渲染方式 css/bmp/svg/canvas
                 })
          */
 
@@ -90,6 +82,7 @@ define('BarCode', function (require, module, exports) {
                     color: '#000000',
                     fontSize: 12,
                     output: 'css',
+                    addQuietZone: false,
                 });
             }
 

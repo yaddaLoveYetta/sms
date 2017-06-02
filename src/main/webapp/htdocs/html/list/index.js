@@ -296,7 +296,7 @@
             var dialog = new Dialog({
                 title: '接单信息',
                 width: 700,
-                height: 300,
+                height: 450,
                 url: $.Url.setQueryString('html/code-print/index.html'),
                 data: {
                     code: [
