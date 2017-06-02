@@ -371,15 +371,6 @@ public class ItemPlugin extends PlugInAdpter {
 		Map<String, Object> user = templateService.getItemById(1001, userId);
 		String supplierId = (String) user.get("supplier");
 		JSONArray conditionArray = JSONArray.parseArray(conditon);
-		if (null != conditionArray && !conditionArray.isEmpty()) {
-			for (int i = 0; i < conditionArray.size(); i++) {
-				JSONObject conFromQuery = conditionArray.getJSONObject(i);
-				if (conFromQuery.containsKey("supplier")) {
-					supplierId = conFromQuery.getString("supplier");
-					break;
-				}
-			}
-		}
 		if (isolateClassIdList.contains(classId)) {
 			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
 				JSONObject con = new JSONObject(true);
@@ -397,44 +388,53 @@ public class ItemPlugin extends PlugInAdpter {
 				conditionArray.add(con);
 			}
 		}
-//		if (classId == 1013 && (null != supplierId || !"".equals(supplierId))) {
-//			JSONObject con = new JSONObject(true);
-//
-//			StringBuilder approveSupplierId = new StringBuilder("(");
-//			JSONArray conArray = new JSONArray();
-//			con.put("andOr", "and");
-//			con.put("fieldKey", "supplier");
-//			con.put("logicOperator", "=");
-//			con.put("value", supplierId);
-//			con.put("needConvert", false);
-//			conArray.add(con);
-//			String conArrayStr = conArray.toString();
-//
-//			Map<String, Object> item = templateService.getItems(3030, conArrayStr, "", 1, 1);
-//			long count = (long) item.get("count");
-//			for (int i = 0; i < count / 1000; i++) {
-//				Map<String, Object> items = templateService.getItems(3030, conArrayStr, "", 1, 1000);
-//				List<Map<String, Object>> approveSupplierList = (List<Map<String, Object>>) items.get("list");
-//				for (Map<String, Object> approveSupplier : approveSupplierList) {
-//					approveSupplierId.append("'").append(approveSupplier.get("id")).append("'").append(",");
-//				}
-//			}
-//			if (approveSupplierId.length() > 1) {
-//				approveSupplierId.deleteCharAt(approveSupplierId.length()-1).append(")");
-//			} else {
-//				return conditon;
-//			}
-//			con = new JSONObject(true);
-//			con.put("andOr", "and");
-//			con.put("fieldKey", "id");
-//			con.put("logicOperator", "in");
-//			con.put("value", approveSupplierId.toString());
-//			con.put("needConvert", false);
-//			if (null == conditionArray) {
-//				conditionArray = new JSONArray();
-//			}
-//			conditionArray.add(con);
-//		}
+		if (classId == 1013 && (null != supplierId || !"".equals(supplierId))) {
+			if (null != conditionArray && !conditionArray.isEmpty()) {
+				for (int i = 0; i < conditionArray.size(); i++) {
+					JSONObject conFromQuery = conditionArray.getJSONObject(i);
+					if ("supplier".equals(conFromQuery.get("fieldKey"))) {
+						supplierId = conFromQuery.getString("value");
+						break;
+					}
+				}
+			}
+			JSONObject con = new JSONObject(true);
+
+			StringBuilder approveSupplierId = new StringBuilder("(");
+			JSONArray conArray = new JSONArray();
+			con.put("andOr", "and");
+			con.put("fieldKey", "supplier");
+			con.put("logicOperator", "=");
+			con.put("value", supplierId);
+			con.put("needConvert", false);
+			conArray.add(con);
+			String conArrayStr = conArray.toString();
+
+			Map<String, Object> item = templateService.getItems(3030, conArrayStr, "", 1, 1);
+			long count = (long) item.get("count");
+			for (int i = 0; i < count / 1000; i++) {
+				Map<String, Object> items = templateService.getItems(3030, conArrayStr, "", 1, 1000);
+				List<Map<String, Object>> approveSupplierList = (List<Map<String, Object>>) items.get("list");
+				for (Map<String, Object> approveSupplier : approveSupplierList) {
+					approveSupplierId.append("'").append(approveSupplier.get("id")).append("'").append(",");
+				}
+			}
+			if (approveSupplierId.length() > 1) {
+				approveSupplierId.deleteCharAt(approveSupplierId.length()-1).append(")");
+			} else {
+				return conditon;
+			}
+			con = new JSONObject(true);
+			con.put("andOr", "and");
+			con.put("fieldKey", "id");
+			con.put("logicOperator", "in");
+			con.put("value", approveSupplierId.toString());
+			con.put("needConvert", false);
+			if (null == conditionArray) {
+				conditionArray = new JSONArray();
+			}
+			conditionArray.add(con);
+		}
 		if (null == conditionArray || conditionArray.isEmpty())
 			return conditon;
 		return conditionArray.toString();
