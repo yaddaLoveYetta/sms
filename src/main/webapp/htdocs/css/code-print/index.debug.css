@@ -7,4 +7,9 @@
 }
 .item{
     margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #000000;
+    float: left;
+
 }
