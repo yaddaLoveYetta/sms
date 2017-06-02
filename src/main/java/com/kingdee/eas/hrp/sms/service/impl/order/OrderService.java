@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
 
@@ -38,6 +39,7 @@ import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
+import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.service.impl.sys.SyncHRPService;
 import com.kingdee.eas.hrp.sms.util.Common;
@@ -46,7 +48,10 @@ import com.kingdee.eas.hrp.sms.model.Item;
 
 @Service
 public class OrderService extends BaseService implements IOrderService {
-
+		
+	
+	@Resource
+	ISyncHRPService iSyncHRPService;
 	/**
 	 * 同步订单
 	 */
@@ -138,9 +143,8 @@ public class OrderService extends BaseService implements IOrderService {
 			// 返回参数类型
 			call.setReturnClass(String.class);
 			// // 由于需要认证，需要设置sessionId
-			SyncHRPService syn = new SyncHRPService();
 			SOAPHeaderElement soapHeaderElement = new SOAPHeaderElement(headerNamespace, "SessionId");
-			soapHeaderElement.setValue(syn.loginInEAS());
+			soapHeaderElement.setValue(iSyncHRPService.loginInEAS());
 			call.addHeader(soapHeaderElement);
 			JSONObject json = new  JSONObject();
 			json.put("entry", entryStr);
