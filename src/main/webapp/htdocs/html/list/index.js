@@ -304,18 +304,21 @@
                             text: '11111',
                             name: 'xxxx',
                             model: 'xxxxx',
+                            effective:'2017-05-06',
                             batch: 'xxxxxx',
                         },
                         {
                             text: '22222',
                             name: 'yyyy',
                             model: 'yyy',
+                            effective:'2017-05-06',
                             batch: 'yyyyy',
                         },
                         {
                             text: '33333',
                             name: 'zzzz',
                             model: 'zzzzzzz',
+                            effective:'2017-05-06',
                             batch: 'zzzz',
                         }
                     ],

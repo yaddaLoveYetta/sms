@@ -6175,6 +6175,33 @@
 
 
     /**
+     * BarCode一维码生成器。
+     *
+     * @author yadda
+     */
+    define('BarCode', function (require, exports, module) {
+
+        var $ = require('$');
+        var Seajs = require('Seajs');
+
+        return {
+
+            use: function (fn) {
+
+                Seajs.use([
+                    'jquery-barcode',
+                ], function () {
+                    fn && fn(data);
+                });
+
+            },
+
+        };
+
+    });
+
+
+    /**
      * 表体数据模块
      *
      * @author yadda

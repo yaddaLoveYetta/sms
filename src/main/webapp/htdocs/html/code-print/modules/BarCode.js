@@ -56,13 +56,37 @@ define('BarCode', function (require, module, exports) {
         div.innerHTML = $.Array.keep(code, function (item, index) {
 
             return $.String.format(samples["codes"], {
+                index: index,
                 name: item.name || '',
                 model: item.model || '',
+                effective: item.effective || '',
                 batch: item.batch || '',
             });
 
         }).join('');
 
+
+        SMS.use('BarCode', function (BarCode) {
+
+            for (var i = 0; i < code.length; i++) {
+
+                var item = code[i];
+
+                $('.bc-target').eq(i).barcode(item.text, "ean13", {
+                    barWidth: 2,
+                    barHeight: 60,
+                    moduleSize: 5,
+                    showHRI: true,
+                    bgColor: '#FFFFFF',
+                    color: '#000000',
+                    fontSize: 12,
+                    output: 'css',
+                });
+            }
+
+        });
+
+/*
         $('.bc-target').barcode("1234567890128", "ean13", {
             barWidth: 2,
             barHeight: 60,
@@ -72,7 +96,7 @@ define('BarCode', function (require, module, exports) {
             color: '#000000',
             fontSize: 12,
             output: 'css',
-        });
+        });*/
 
     }
 
