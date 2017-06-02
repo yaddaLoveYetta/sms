@@ -96,6 +96,8 @@
 		<mapper resource="mapper/generate/UnitMapper.xml" />
 		<mapper resource="mapper/generate/InvoiceMapper.xml" />
 		<mapper resource="mapper/generate/Supplier_License_TypeMapper.xml" />
+		<mapper resource="mapper/generate/PurInWarehsMapper.xml" />
+		<mapper resource="mapper/generate/PurReceivalMapper.xml" />
 
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
