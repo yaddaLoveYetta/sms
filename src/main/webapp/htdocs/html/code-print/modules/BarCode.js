@@ -81,7 +81,7 @@ define('BarCode', function (require, module, exports) {
 
                 var item = code[i];
 
-                $('.bc-target').eq(i).barcode(item.text, "ean39", {
+                $('.bc-target').eq(i).barcode(item.text, "code128", {
                     barWidth: 2,
                     barHeight: 60,
                     moduleSize: 5,
