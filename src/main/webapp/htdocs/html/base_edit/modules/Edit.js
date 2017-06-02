@@ -173,6 +173,16 @@ define('Edit', function (require, module, exports) {
                 }],   //级联查询条件 多个用逗号分割
             };
         }
+        if (classId == 3020 && key == 'material') {
+            // 物料证件-物料必须是供应商中标库中的物料
+            config = {
+                conditionF7Names: [{
+                    type: "selector",
+                    target: 'supplier',
+                    filterKey: "supplier",
+                }],   //级联查询条件 多个用逗号分割
+            };
+        }
         return config;
     }
 
