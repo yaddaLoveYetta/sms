@@ -122,6 +122,20 @@ public final class SessionUtil {
 	}
 
 	/**
+	 * 获取用户关联的供应商
+	 * 
+	 * @Title getUserLinkSupplier
+	 * @return
+	 * @return String
+	 * @date 2017-06-02 17:37:44 星期五
+	 */
+	public static String getUserLinkSupplier() {
+
+		return getUser().getSupplier();
+
+	}
+
+	/**
 	 * 获取当前线程用户名
 	 * 
 	 * @Title getUserName
