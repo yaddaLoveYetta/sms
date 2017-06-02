@@ -6906,6 +6906,7 @@
         'DateTimePicker': true,
         'ZTree': true,
         'Grid': true,
+        'BarCode':true,
     });
 
 
