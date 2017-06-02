@@ -85,6 +85,11 @@ define('List/API/Body', function (require, module, exports) {
                         key = key + '_DspName';
                         // 此时要显示的字段为 key + '_DspName'
                     }
+                    if (field.lookupType == 4 && item[key + '_DspName']) { // lookupType
+                        // lookupType=4有可能是普通表字段也是引用类型
+                        key = key + '_DspName';
+                        // 此时要显示的字段为 key + '_DspName'
+                    }
                     if (field.isEntry) { // 子表数据
                         var entryIndex = field.entryIndex;
                         var entryValues = item.entry[entryIndex];
