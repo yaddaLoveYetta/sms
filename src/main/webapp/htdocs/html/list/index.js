@@ -291,10 +291,11 @@
     }
 
     function print() {
+
         SMS.use('Dialog', function (Dialog) {
 
             var dialog = new Dialog({
-                title: '接单信息',
+                title: '个体码打印',
                 width: 700,
                 height: 450,
                 url: $.Url.setQueryString('html/code-print/index.html'),
