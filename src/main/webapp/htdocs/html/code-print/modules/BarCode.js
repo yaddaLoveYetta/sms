@@ -50,6 +50,15 @@ define('BarCode', function (require, module, exports) {
                     color: '#000000',
                     fontSize: 12,
                     output: 'css',
+                    addQuietZone: false,
+
+                    addQuietZone: false,      //是否添加空白区（内边距）
+                    bgColor: "#FFFFFF",  //条码背景颜色
+                    color: "#000000",    //条码颜色
+                    fontSize: 12,   //条码字体大小
+                    marginHRI: 5,  //条码字体距条码中心的高度
+                    barWidth: "1",  //单条条码宽度
+                    barHeight: "60"  //单体条码高度
                 })
          */
 
@@ -72,7 +81,7 @@ define('BarCode', function (require, module, exports) {
 
                 var item = code[i];
 
-                $('.bc-target').eq(i).barcode(item.text, "ean13", {
+                $('.bc-target').eq(i).barcode(item.text, "ean39", {
                     barWidth: 2,
                     barHeight: 60,
                     moduleSize: 5,
