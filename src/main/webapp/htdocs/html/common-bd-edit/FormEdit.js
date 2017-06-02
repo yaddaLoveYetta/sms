@@ -352,7 +352,7 @@
 
             var field = fields[item];
 
-            if (field.lookUpType === 1 || field.lookUpType === 2) {
+            if (field.lookUpType === 1 || field.lookUpType === 2 || (field.lookUpType === 4 && field.ctrlType === 6)) {
                 // 引用基础资料
                 var config = {
                     targetType: 1, //跳转方案
