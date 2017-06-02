@@ -3,11 +3,11 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.PurInWarehsMapper">
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.PurInWarehs">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="orderId" jdbcType="VARCHAR" property="orderId" />
-    <result column="material" jdbcType="VARCHAR" property="material" />
     <result column="number" jdbcType="VARCHAR" property="number" />
-    <result column="unit" jdbcType="VARCHAR" property="unit" />
-    <result column="qty" jdbcType="NUMERIC" property="qty" />
+    <result column="bizDate" jdbcType="TIMESTAMP" property="bizDate" />
+    <result column="baseStatus" jdbcType="TINYINT" property="baseStatus" />
+    <result column="sourceBillType" jdbcType="TINYINT" property="sourceBillType" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, orderId, material, [number], unit, qty
+    id, [number], bizDate, baseStatus, sourceBillType, supplier
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.PurInWarehsExample" resultMap="BaseResultMap">
     select
@@ -101,10 +101,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.PurInWarehs">
-    insert into t_sms_purinwarehs (id, orderId, material, 
-      [number], unit, qty)
-    values (#{id,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{material,jdbcType=VARCHAR}, 
-      #{number,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{qty,jdbcType=NUMERIC})
+    insert into t_sms_purinwarehs (id, [number], bizDate, 
+      baseStatus, sourceBillType, supplier
+      )
+    values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
+      #{baseStatus,jdbcType=TINYINT}, #{sourceBillType,jdbcType=TINYINT}, #{supplier,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.PurInWarehs">
     insert into t_sms_purinwarehs
@@ -112,40 +114,40 @@
       <if test="id != null">
         id,
       </if>
-      <if test="orderId != null">
-        orderId,
-      </if>
-      <if test="material != null">
-        material,
-      </if>
       <if test="number != null">
         [number],
       </if>
-      <if test="unit != null">
-        unit,
+      <if test="bizDate != null">
+        bizDate,
       </if>
-      <if test="qty != null">
-        qty,
+      <if test="baseStatus != null">
+        baseStatus,
+      </if>
+      <if test="sourceBillType != null">
+        sourceBillType,
+      </if>
+      <if test="supplier != null">
+        supplier,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="material != null">
-        #{material,jdbcType=VARCHAR},
-      </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
       </if>
-      <if test="unit != null">
-        #{unit,jdbcType=VARCHAR},
+      <if test="bizDate != null">
+        #{bizDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="qty != null">
-        #{qty,jdbcType=NUMERIC},
+      <if test="baseStatus != null">
+        #{baseStatus,jdbcType=TINYINT},
+      </if>
+      <if test="sourceBillType != null">
+        #{sourceBillType,jdbcType=TINYINT},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -161,20 +163,20 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.orderId != null">
-        orderId = #{record.orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.material != null">
-        material = #{record.material,jdbcType=VARCHAR},
-      </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
       </if>
-      <if test="record.unit != null">
-        unit = #{record.unit,jdbcType=VARCHAR},
+      <if test="record.bizDate != null">
+        bizDate = #{record.bizDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.qty != null">
-        qty = #{record.qty,jdbcType=NUMERIC},
+      <if test="record.baseStatus != null">
+        baseStatus = #{record.baseStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.sourceBillType != null">
+        sourceBillType = #{record.sourceBillType,jdbcType=TINYINT},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -184,11 +186,11 @@
   <update id="updateByExample" parameterType="map">
     update t_sms_purinwarehs
     set id = #{record.id,jdbcType=VARCHAR},
-      orderId = #{record.orderId,jdbcType=VARCHAR},
-      material = #{record.material,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR},
-      unit = #{record.unit,jdbcType=VARCHAR},
-      qty = #{record.qty,jdbcType=NUMERIC}
+      bizDate = #{record.bizDate,jdbcType=TIMESTAMP},
+      baseStatus = #{record.baseStatus,jdbcType=TINYINT},
+      sourceBillType = #{record.sourceBillType,jdbcType=TINYINT},
+      supplier = #{record.supplier,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -196,31 +198,31 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.PurInWarehs">
     update t_sms_purinwarehs
     <set>
-      <if test="orderId != null">
-        orderId = #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="material != null">
-        material = #{material,jdbcType=VARCHAR},
-      </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
       </if>
-      <if test="unit != null">
-        unit = #{unit,jdbcType=VARCHAR},
+      <if test="bizDate != null">
+        bizDate = #{bizDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="qty != null">
-        qty = #{qty,jdbcType=NUMERIC},
+      <if test="baseStatus != null">
+        baseStatus = #{baseStatus,jdbcType=TINYINT},
+      </if>
+      <if test="sourceBillType != null">
+        sourceBillType = #{sourceBillType,jdbcType=TINYINT},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.PurInWarehs">
     update t_sms_purinwarehs
-    set orderId = #{orderId,jdbcType=VARCHAR},
-      material = #{material,jdbcType=VARCHAR},
-      [number] = #{number,jdbcType=VARCHAR},
-      unit = #{unit,jdbcType=VARCHAR},
-      qty = #{qty,jdbcType=NUMERIC}
+    set [number] = #{number,jdbcType=VARCHAR},
+      bizDate = #{bizDate,jdbcType=TIMESTAMP},
+      baseStatus = #{baseStatus,jdbcType=TINYINT},
+      sourceBillType = #{sourceBillType,jdbcType=TINYINT},
+      supplier = #{supplier,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

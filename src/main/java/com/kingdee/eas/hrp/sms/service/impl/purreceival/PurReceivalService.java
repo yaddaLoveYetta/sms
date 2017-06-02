@@ -25,11 +25,6 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 		for (int i = 0; i < jsonarray.size(); i++) {
 			JSONObject jsonObject = jsonarray.getJSONObject(i);
 			purReceival.setId(jsonObject.getString("id"));
-			purReceival.setMaterial(jsonObject.getString("material"));
-			purReceival.setNumber(jsonObject.getString("number"));
-			purReceival.setOrderId(jsonObject.getString("orderId"));
-			purReceival.setQty(jsonObject.getBigDecimal("qty"));
-			purReceival.setUnit(jsonObject.getString("unit"));
 			PurReceivalMapper purReceivalMapper = sqlSession.getMapper(PurReceivalMapper.class);
 			purReceivalMapper.insert(purReceival);
 		}

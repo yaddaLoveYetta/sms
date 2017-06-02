@@ -1,19 +1,19 @@
 package com.kingdee.eas.hrp.sms.model;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
 public class PurInWarehs {
     private String id;
 
-    private String orderId;
-
-    private String material;
-
     private String number;
 
-    private String unit;
+    private Date bizDate;
 
-    private BigDecimal qty;
+    private Byte baseStatus;
+
+    private Byte sourceBillType;
+
+    private String supplier;
 
     public String getId() {
         return id;
@@ -21,22 +21,6 @@ public class PurInWarehs {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material == null ? null : material.trim();
     }
 
     public String getNumber() {
@@ -47,19 +31,35 @@ public class PurInWarehs {
         this.number = number == null ? null : number.trim();
     }
 
-    public String getUnit() {
-        return unit;
+    public Date getBizDate() {
+        return bizDate;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit == null ? null : unit.trim();
+    public void setBizDate(Date bizDate) {
+        this.bizDate = bizDate;
     }
 
-    public BigDecimal getQty() {
-        return qty;
+    public Byte getBaseStatus() {
+        return baseStatus;
     }
 
-    public void setQty(BigDecimal qty) {
-        this.qty = qty;
+    public void setBaseStatus(Byte baseStatus) {
+        this.baseStatus = baseStatus;
+    }
+
+    public Byte getSourceBillType() {
+        return sourceBillType;
+    }
+
+    public void setSourceBillType(Byte sourceBillType) {
+        this.sourceBillType = sourceBillType;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier == null ? null : supplier.trim();
     }
 }

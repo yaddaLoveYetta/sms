@@ -262,6 +262,16 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
+		<table tableName="t_sms_purinwarehs_entry" domainObjectName="PurInWarehsEntry">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		<table tableName="t_sms_purreceival_entry" domainObjectName="PurReceivalEntry">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
 
 	</context>
 </generatorConfiguration> 

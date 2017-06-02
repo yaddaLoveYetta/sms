@@ -98,6 +98,9 @@
 		<mapper resource="mapper/generate/Supplier_License_TypeMapper.xml" />
 		<mapper resource="mapper/generate/PurInWarehsMapper.xml" />
 		<mapper resource="mapper/generate/PurReceivalMapper.xml" />
+		<mapper resource="mapper/generate/PurInWarehsEntryMapper.xml" />
+		<mapper resource="mapper/generate/PurReceivalEntryMapper.xml" />
+		
 
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
