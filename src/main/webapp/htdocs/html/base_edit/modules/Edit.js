@@ -256,6 +256,12 @@ define('Edit', function (require, module, exports) {
                 }
             }
 
+            if (classId === 3020 && key === 'supplier') {
+
+                // 物料证件维护-供应商变化时-不能保证已选择物料属于该供应商需重新选择物料-清空物料选择框-
+                selectors['material'] && selectors['material'].clearData();
+            }
+
         },
         'afterInitSelectors': function (selectors) {
             f7Selectors = selectors;
