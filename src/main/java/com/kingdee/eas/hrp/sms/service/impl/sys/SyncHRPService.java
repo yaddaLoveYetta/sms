@@ -16,8 +16,11 @@ import org.apache.axis.client.Call;
 import org.apache.axis.message.SOAPHeaderElement;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializeConfig;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.kingdee.eas.hrp.sms.dao.generate.SysProfileMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ServiceLog;
@@ -52,10 +55,11 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			if (0 == (short) item.get("syncStatus") || null == item.get("syncStatus")
 					|| "".equals(item.get("syncStatus"))) {
 				idTargetList.add(id);
-				JSONObject targetItem = (JSONObject) JSONObject.toJSON(item);
-				targetList.add(targetItem);
-				System.out.println(targetItem.toJSONString());
-				System.out.println(targetList.toString());
+				String targetItem = JSON.toJSONString(item, SerializerFeature.WriteMapNullValue);
+				JSONObject targetJson = JSONObject.parseObject(targetItem);
+				System.out.println(targetItem);
+
+				targetList.add(targetJson);
 			}
 		}
 
@@ -81,7 +85,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		if (StatusCode.BUSINESS_LOGIC_ERROR == jsonRet.getIntValue("code")) {
 			throw new BusinessLogicRunTimeException(jsonRet.getString("msg"));
 		}
-		
+
 		List<String> failIdList = new ArrayList<String>();
 		for (String id : idTargetList) {
 			try {
@@ -90,11 +94,11 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 				failIdList.add(id);
 			}
 		}
-		
-		if(failIdList.isEmpty()){
+
+		if (failIdList.isEmpty()) {
 			return "";
 		}
-		
+
 		result.append("代码：");
 		for (String id : failIdList) {
 			Map<String, Object> failData = templateService.getItemById(classId, id);
