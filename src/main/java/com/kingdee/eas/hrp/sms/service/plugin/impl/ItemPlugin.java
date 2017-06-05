@@ -1,7 +1,11 @@
 package com.kingdee.eas.hrp.sms.service.plugin.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.dao.generate.FormFieldsMapper;
+import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
 import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
@@ -33,7 +38,8 @@ public class ItemPlugin extends PlugInAdpter {
 	private ISyncHRPService syncHRPService;
 
 	// 当业务用户查询时，相关item需做数据隔离
-	List<Integer> isolateClassIdList = new ArrayList<Integer>(Arrays.asList(2019, 2020, 1001, 1005, 3010, 3020, 3030, 1023, 1007));
+	List<Integer> isolateClassIdList = new ArrayList<Integer>(
+			Arrays.asList(2019, 2020, 1001, 1005, 3010, 3020, 3030, 1023, 1007));
 	// 需要同步和审核classId
 	List<Integer> reviewAndSyncClassIdList = new ArrayList<Integer>(Arrays.asList(1005, 3010, 3020, 3030, 1023, 1007));
 
@@ -90,7 +96,8 @@ public class ItemPlugin extends PlugInAdpter {
 				condition.put("needConvert", false);
 				conditionArry.add(condition);
 
-				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy, 1, 10);
+				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy,
+						1, 10);
 
 				if ((long) result.get("count") > 0) {
 					Map<String, Object> errData = templateService.getItemById(classId, id);
@@ -255,16 +262,53 @@ public class ItemPlugin extends PlugInAdpter {
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(json.getString("type"))) {
-				if (json.getString("supplier") != null && !"".equals(json.getString("supplier")) && !"0".equals(json.getString("supplier"))) {
+				if (json.getString("supplier") != null && !"".equals(json.getString("supplier"))
+						&& !"0".equals(json.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
+			}
+		}
+
+		// 证件特殊业务判断，起始日期必须小于结束日期
+		if (classId == 3010 || classId == 3020) {
+			String beginDate = json.getString("beginDate");
+			String endDate = json.getString("endDate");
+
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			try {
+				Date dt1 = df.parse(beginDate);
+				Date dt2 = df.parse(endDate);
+				if (dt1.getTime() > dt2.getTime()) {
+					throw new BusinessLogicRunTimeException("起始日期必须小于结束日期");
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// 中标库特殊业务判断，生效日期必须小于失效日期
+		if (classId == 3030) {
+			String beginDate = json.getString("effectualDate");
+			String endDate = json.getString("uneffectualDate");
+
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			try {
+				Date dt1 = df.parse(beginDate);
+				Date dt2 = df.parse(endDate);
+				if (dt1.getTime() > dt2.getTime()) {
+					throw new BusinessLogicRunTimeException("生效日期必须小于失效日期");
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 
 		// 如果flag是true，表明这个字段需要验证是否非空，新增需要验证全部字段
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
+				.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -299,16 +343,54 @@ public class ItemPlugin extends PlugInAdpter {
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(json.getString("type"))) {
-				if (json.getString("supplier") != null && !"".equals(json.getString("supplier")) && !"0".equals(json.getString("supplier"))) {
+				if (json.getString("supplier") != null && !"".equals(json.getString("supplier"))
+						&& !"0".equals(json.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
+			}
+		}
+
+		// 证件特殊业务判断，起始日期必须小于结束日期
+		if (classId == 3010 || classId == 3020) {
+			String beginDate = json.getString("beginDate");
+			String endDate = json.getString("endDate");
+
+			try {
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				Date dt1;
+				dt1 = df.parse(beginDate);
+				Date dt2 = df.parse(endDate);
+				if (dt1.getTime() >= dt2.getTime()) {
+					throw new BusinessLogicRunTimeException("起始日期必须小于结束日期");
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// 中标库特殊业务判断，生效日期必须小于失效日期
+		if (classId == 3030) {
+			String beginDate = json.getString("effectualDate");
+			String endDate = json.getString("uneffectualDate");
+
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			try {
+				Date dt1 = df.parse(beginDate);
+				Date dt2 = df.parse(endDate);
+				if (dt1.getTime() > dt2.getTime()) {
+					throw new BusinessLogicRunTimeException("生效日期必须小于失效日期");
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 
 		// 如果flag是true，表明这个字段需要验证是否非空,修改只验证修改的字段
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
+				.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = json.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -348,7 +430,9 @@ public class ItemPlugin extends PlugInAdpter {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter#getConditions(int, java.util.Map, java.lang.String)
+	 * @see
+	 * com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter#getConditions(int,
+	 * java.util.Map, java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -428,7 +512,7 @@ public class ItemPlugin extends PlugInAdpter {
 				return conditon;
 			}
 			con = new JSONObject(true);
-			//con.put("andOr", "and");
+			// con.put("andOr", "and");
 			con.put("fieldKey", "id");
 			con.put("logicOperator", "in");
 			con.put("value", approveSupplierId.toString());

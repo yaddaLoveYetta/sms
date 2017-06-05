@@ -27,6 +27,7 @@ import com.kingdee.eas.hrp.sms.model.SysProfileExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
+import com.kingdee.eas.hrp.sms.util.StatusCode;
 import com.kingdee.eas.hrp.sms.util.WSContext;
 
 @Service
@@ -71,34 +72,39 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		if (null == sessionId || "".equals(sessionId)) {
 			throw new RuntimeException("连接医院服务器异常！");
 		}
-		List<String> failIdList;
 		String ret = syncItemByWS(sessionId, jsonData.toString(), "sms2hrpBaseData");
 		if (null == ret || "".equals(ret)) {
 			throw new RuntimeException("连接医院服务器异常！");
 		}
 		JSONObject jsonRet = JSONObject.parseObject(ret);
-		String failId = jsonRet.getString("data");
-		String[] failIdStr = failId.split(",");
-		if (null == failId || "".equals(failId)) {
-			failIdList = new ArrayList<String>();
-		} else {
-			failIdList = new ArrayList<String>(Arrays.asList(failIdStr));
+		// HRP验证到一个错误就都不同步
+		if (StatusCode.BUSINESS_LOGIC_ERROR == jsonRet.getIntValue("code")) {
+			throw new BusinessLogicRunTimeException(jsonRet.getString("msg"));
 		}
-
+		List<String> failIdList = new ArrayList<String>();
+		// String failId = jsonRet.getString("data");
+		// String[] failIdStr = failId.split(",");
+		// if (null == failId || "".equals(failId)) {
+		// failIdList = new ArrayList<String>();
+		// } else {
+		// failIdList = new ArrayList<String>(Arrays.asList(failIdStr));
+		// }
 		for (String id : idTargetList) {
 			try {
-				if (failIdList.contains(id)) {
-					continue;
-				}
+				// if (failIdList.contains(id)) {
+				// continue;
+				// }
 				templateService.editItem(classId, id, "{}");
 			} catch (Exception e) {
 				failIdList.add(id);
 			}
 		}
+		result.append("代码：");
 		for (String id : failIdList) {
 			Map<String, Object> failData = templateService.getItemById(classId, id);
-			result.append((String) failData.get("number")).append("\n");
+			result.append((String) failData.get("number")).append("，");
 		}
+		result.append("设置同步状态失败");
 		return result.toString();
 	}
 
@@ -119,21 +125,21 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			String key = sysProfile.getKey();
 			switch (key) {
 			case "hrp-sync-url":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				urlStr = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-sync-namespace":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				nameSpace = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-sync-header-namespace":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				headerNamespace = sysProfile.getValue();
@@ -194,70 +200,70 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		String slnName = "";
 		String dcName = "";
 		String language = "";
-		int dbType=-1;
+		int dbType = -1;
 		String authPattern = "";
 		int i = 0;
 		for (SysProfile sysProfile : selectByExample) {
 			String key = sysProfile.getKey();
 			switch (key) {
 			case "hrp-login-url":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				urlStr = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-login-namespace":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				nameSpace = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-login-userName":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				userName = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-login-psw":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				password = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-login-slnName":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				slnName = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-login-dcName":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				dcName = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-login-language":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				language = sysProfile.getValue();
 				i++;
 				break;
 			case "hrp-login-dbType":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				dbType = Integer.parseInt(sysProfile.getValue());
 				i++;
 				break;
 			case "hrp-login-authPattern":
-				if(null==sysProfile.getValue()||"".equals(sysProfile.getValue())){
+				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				authPattern = sysProfile.getValue();
