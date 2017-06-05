@@ -29,7 +29,6 @@ public class SyncHRPController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
 		String items = ParameterUtils.getParameter(request, "items", "");
-		//String userType = "QpXq24FxxE6c3lvHMPyYCxACEAI=";
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
