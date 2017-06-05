@@ -191,8 +191,8 @@
         },
         'send': function (item, index) {
             // 发送到HRP
-            if (classId != 1005) {
-                //目前基础资料只有供应商可同步回HRP
+            if (classId != 1005 || classId != 1007 || classId != 1023) {
+                //目前基础资料只有供应商-供应商资质类别-物料证件类别可同步回HRP
                 return;
             }
             var list = List.getSelectedItems();
