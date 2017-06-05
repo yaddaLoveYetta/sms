@@ -2062,12 +2062,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 				continue;
 
 			Integer lookUpType = formField.getLookUpType();
+			Integer needSave = formField.getNeedSave();
 
-			if (lookUpType == 3 || lookUpType == 5)// 引用基础资料的附加属性OR关联普通表携带字段，无需保存
+			if (needSave == 0 && (lookUpType == 3 || lookUpType == 5))// 引用基础资料的附加属性OR关联普通表携带字段，无需保存
 				continue;
 
 			String value = data.getString(key);
-			value = handleSqlInjection(value);
+			//value = handleSqlInjection(value);
 
 			String fieldName = formField.getSqlColumnName();
 			kvBuffer.append(",").append(fieldName).append("=").append("#{" + fieldName + "}");
