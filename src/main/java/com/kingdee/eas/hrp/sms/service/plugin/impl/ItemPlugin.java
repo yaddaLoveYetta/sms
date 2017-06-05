@@ -369,7 +369,7 @@ public class ItemPlugin extends PlugInAdpter {
 		if (isolateClassIdList.contains(classId)) {
 
 			if ("B3sMo22ZLkWApjO/oEeDOxACEAI=".equals(userType)) {
-				
+
 				JSONObject con = new JSONObject(true);
 				if (classId == 1005) {
 					con.put("fieldKey", "id");
@@ -385,11 +385,11 @@ public class ItemPlugin extends PlugInAdpter {
 				conditionArray.add(con);
 			}
 		}
-		
+
 		if (classId == 1013 && (null != supplier || !"".equals(supplier))) {
-			
+
 			if (null != conditionArray && !conditionArray.isEmpty()) {
-				
+
 				for (int i = 0; i < conditionArray.size(); i++) {
 					JSONObject conFromQuery = conditionArray.getJSONObject(i);
 					if ("supplier".equals(conFromQuery.get("fieldKey"))) {
@@ -398,7 +398,7 @@ public class ItemPlugin extends PlugInAdpter {
 					}
 				}
 			}
-			
+
 			JSONObject con = new JSONObject(true);
 
 			StringBuilder approveSupplierId = new StringBuilder("(");
@@ -409,12 +409,13 @@ public class ItemPlugin extends PlugInAdpter {
 			con.put("value", supplier);
 			con.put("needConvert", false);
 			conArray.add(con);
-			
+
 			String conArrayStr = conArray.toString();
 
 			Map<String, Object> item = templateService.getItems(3030, conArrayStr, "", 1, 1);
 			long count = (long) item.get("count");
-			for (int i = 0; i < count / 1000; i++) {
+			int pages = (int) (count % 1000 == 0 ? count / 1000 : count / 1000 + 1);// 分页总数
+			for (int i = 0; i < pages; i++) {
 				Map<String, Object> items = templateService.getItems(3030, conArrayStr, "", 1, 1000);
 				List<Map<String, Object>> approveSupplierList = (List<Map<String, Object>>) items.get("list");
 				for (Map<String, Object> approveSupplier : approveSupplierList) {

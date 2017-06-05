@@ -261,6 +261,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 
+		// PageHelper.orderBy(orderByStr);
 		if (pageNo == 1) {
 			PageHelper.startPage(pageNo, pageSize, true);
 		} else {
@@ -1428,7 +1429,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		}
 
-		sbWhere.append("WHERE");
+		sbWhere.append("WHERE 1=1 ");
 
 		for (int i = 0; i < conditoinArray.size(); i++) {
 
@@ -1616,19 +1617,20 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			}
 
-			if (i == 0) {
-				// 第一个条件舍弃前面andOr条件链接符号
-				sbWhere.append(separator)
-						.append(String.format("%s %s.%s%s%s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, "#{" + fieldName + "}", rightParenTheses));
+			// if (i == 0) {
+			// // 第一个条件舍弃前面andOr条件链接符号
+			// sbWhere.append(separator)
+			// .append(String.format("%s %s.%s%s%s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName,
+			// eDelimiter, logicOperator, "#{" + fieldName + "}", rightParenTheses));
+			//
+			// sqlParams.put(fieldName, value);
+			//
+			// } else {
+			sbWhere.append(separator)
+					.append(String.format("%s %s %s.%s%s%s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, "#{" + fieldName + "}", rightParenTheses));
 
-				sqlParams.put(fieldName, value);
-
-			} else {
-				sbWhere.append(separator).append(
-						String.format("%s %s %s.%s%s%s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, "#{" + fieldName + "}", rightParenTheses));
-
-				sqlParams.put(fieldName, value);
-			}
+			sqlParams.put(fieldName, value);
+			// }
 
 		}
 
