@@ -81,24 +81,20 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		if (StatusCode.BUSINESS_LOGIC_ERROR == jsonRet.getIntValue("code")) {
 			throw new BusinessLogicRunTimeException(jsonRet.getString("msg"));
 		}
+		
 		List<String> failIdList = new ArrayList<String>();
-		// String failId = jsonRet.getString("data");
-		// String[] failIdStr = failId.split(",");
-		// if (null == failId || "".equals(failId)) {
-		// failIdList = new ArrayList<String>();
-		// } else {
-		// failIdList = new ArrayList<String>(Arrays.asList(failIdStr));
-		// }
 		for (String id : idTargetList) {
 			try {
-				// if (failIdList.contains(id)) {
-				// continue;
-				// }
 				templateService.editItem(classId, id, "{}");
 			} catch (Exception e) {
 				failIdList.add(id);
 			}
 		}
+		
+		if(failIdList.isEmpty()){
+			return "";
+		}
+		
 		result.append("代码：");
 		for (String id : failIdList) {
 			Map<String, Object> failData = templateService.getItemById(classId, id);
