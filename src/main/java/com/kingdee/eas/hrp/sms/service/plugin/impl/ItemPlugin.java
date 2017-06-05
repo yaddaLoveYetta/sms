@@ -339,6 +339,10 @@ public class ItemPlugin extends PlugInAdpter {
 	@SuppressWarnings("unchecked")
 	private void modifyCheckMustInput(int classId, Map<String, Object> formData, JSONObject json) {
 
+		// json为空说明同步修改同步状态，不用检查
+		if (json.isEmpty())
+			return;
+		
 		String userTyepe = SessionUtil.getUserType();
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
