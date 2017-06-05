@@ -428,7 +428,7 @@ public class ItemPlugin extends PlugInAdpter {
 				return conditon;
 			}
 			con = new JSONObject(true);
-			con.put("andOr", "and");
+			//con.put("andOr", "and");
 			con.put("fieldKey", "id");
 			con.put("logicOperator", "in");
 			con.put("value", approveSupplierId.toString());
