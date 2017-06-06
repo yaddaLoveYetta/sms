@@ -16,6 +16,10 @@
 
 }
 
+.btn-box {
+    float: left;
+}
+
 .code-style-box {
     float: right;
     height: 25px;
