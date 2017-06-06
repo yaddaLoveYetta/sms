@@ -292,86 +292,84 @@
 
     function print() {
 
-        SMS.use('Dialog', function (Dialog) {
+        var done = true;
+        var list = List.getSelectedItems();
 
-            var dialog = new Dialog({
-                title: '个体码打印',
-                width: 700,
-                height: 450,
-                url: $.Url.setQueryString('html/code-print/index.html'),
-                data: {
-                    code: [
+        if (list.length == 0) {
+            SMS.Tips.error('请选择要操作的项', 1500);
+            return;
+        }
+
+        var items = ''; // 发货订单主键集合，多个逗号分隔
+
+        for (var item in list) {
+            if (list[item]) {
+                items += (',' + list[item].primaryValue );
+            }
+        }
+
+        items = items.substr(1);
+
+        var api = new API('invoice/getCode');
+        api.post({
+            items: items,
+        });
+
+        api.on({
+            'success': function (data, json) {
+                showCode(data);
+            },
+
+            'fail': function (code, msg, json) {
+                SMS.Tips.error(msg);
+            },
+
+            'error': function () {
+                SMS.Tips.error('网络错误，请稍候再试');
+            }
+        });
+
+        function showCode(data) {
+            // 内部函数
+            SMS.use('Dialog', function (Dialog) {
+
+                var dialog = new Dialog({
+                    title: '个体码打印',
+                    width: 700,
+                    height: 450,
+                    url: $.Url.setQueryString('html/code-print/index.html'),
+                    data: {
+                        code: data,
+                    },
+                    button: [
                         {
-                            text: '1111111111111',
-                            name: 'xxxx',
-                            model: 'xxxxx',
-                            effective:'2017-05-06',
-                            batch: 'xxxxxx',
+                            value: '取消',
+                            className: 'sms-cancel-btn',
                         },
                         {
-                            text: '2222222222222',
-                            name: 'yyyy',
-                            model: 'yyy',
-                            effective:'2017-05-06',
-                            batch: 'yyyyy',
-                        },
-                        {
-                            text: '3333333333333',
-                            name: 'zzzz',
-                            model: 'zzzzzzz',
-                            effective:'2017-05-06',
-                            batch: 'zzzz',
-                        },
-                        {
-                            text: '1111111111111',
-                            name: 'xxxx',
-                            model: 'xxxxx',
-                            effective:'2017-05-06',
-                            batch: 'xxxxxx',
-                        },
-                        {
-                            text: '2222222222222',
-                            name: 'yyyy',
-                            model: 'yyy',
-                            effective:'2017-05-06',
-                            batch: 'yyyyy',
-                        },
-                        {
-                            text: '3333333333333',
-                            name: 'zzzz',
-                            model: 'zzzzzzz',
-                            effective:'2017-05-06',
-                            batch: 'zzzz',
+                            value: '确定',
+                            className: 'sms-submit-btn',
+                            callback: function () {
+                                return true;
+                            }
                         }
                     ],
-                },
-                button: [
-                    {
-                        value: '取消',
-                        className: 'sms-cancel-btn',
-                    },
-                    {
-                        value: '确定',
-                        className: 'sms-submit-btn',
-                        callback: function () {
-                            return true;
-                        }
+                });
+
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
+
+                dialog.showModal();
+
+                dialog.on({
+                    remove: function () {
+                        refresh();
                     }
-                ],
+                });
+
             });
+        }
 
-            //默认关闭行为为不提交
-            dialog.isSubmit = false;
-
-            dialog.showModal();
-
-            dialog.on({
-                remove: function () {
-                    refresh();
-                }
-            });
-
-        });
 
     }
 
