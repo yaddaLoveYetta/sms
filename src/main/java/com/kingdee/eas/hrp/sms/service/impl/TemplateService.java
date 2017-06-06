@@ -1433,6 +1433,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		for (int i = 0; i < conditoinArray.size(); i++) {
 
+			String preValue = ""; // 处理脚本参数格式化时参数值不符合TSQL规则BUG
+			String sufValue = ""; // eg：select 1 where id IN (#{value}) 不能写成select 1 where id IN #{value}
+
 			JSONObject condition = conditoinArray.getJSONObject(i);
 
 			String andOr = "AND";// AND OR 条件链接符号-默认AND
@@ -1531,6 +1534,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 				if (logicOperator.equalsIgnoreCase("like")) {
 					value = "%" + value + "%";
 				}
+				if (logicOperator.equalsIgnoreCase("IN")) {
+					preValue = "(";
+					sufValue = ")";
+				}
 				break;
 			case TIME:
 				if (logicOperator.equalsIgnoreCase("<=")) {
@@ -1626,8 +1633,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 			// sqlParams.put(fieldName, value);
 			//
 			// } else {
-			sbWhere.append(separator)
-					.append(String.format("%s %s %s.%s%s%s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, "#{" + fieldName + "}", rightParenTheses));
+			sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
+					"#{" + fieldName + "}", sufValue, rightParenTheses));
 
 			sqlParams.put(fieldName, value);
 			// }
@@ -2068,7 +2075,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				continue;
 
 			String value = data.getString(key);
-			//value = handleSqlInjection(value);
+			// value = handleSqlInjection(value);
 
 			String fieldName = formField.getSqlColumnName();
 			kvBuffer.append(",").append(fieldName).append("=").append("#{" + fieldName + "}");
