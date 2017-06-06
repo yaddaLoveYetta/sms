@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.kingdee.eas.hrp.sms.dao.customize.InvoiceDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.InvoiceMapper;
+import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Invoice;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.invoice.IInvoiceService;
@@ -34,6 +35,9 @@ public class InvoiceService extends BaseService implements IInvoiceService{
 		}
 		
 			List<Map<String, Object>> map = invoiceDaoMapper.selectInvoiceById(list);
+			if(map==null || map.size()==0){
+				throw new BusinessLogicRunTimeException("发货单无个体码数据");
+			}
 			return map;
 		
 		
