@@ -1649,9 +1649,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 			} else {
 				// 动态脚本
 				sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
-						"#{" + fieldName + "}", sufValue, rightParenTheses));
+						"#{" + fieldKey + "}", sufValue, rightParenTheses));
 
-				sqlParams.put(fieldName, value);
+				sqlParams.put(fieldKey, value);
 			}
 
 		}
