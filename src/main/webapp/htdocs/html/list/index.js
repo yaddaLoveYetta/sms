@@ -330,6 +330,11 @@
         });
 
         function showCode(data) {
+
+            if (data.length === 0) {
+                SMS.Tips.error('发货单无个体码数据!');
+                return;
+            }
             // 内部函数
             SMS.use('Dialog', function (Dialog) {
 
