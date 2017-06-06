@@ -9,8 +9,8 @@
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
     var Iframe = SMS.require('Iframe');
-    var $API = SMS.require("API");
-    var API = require("API");
+    var $API = require('API');
+    var API = SMS.require('API');
     var MessageBox = SMS.require('MessageBox');
     var ButtonListOption = require('ButtonListOption');
 
@@ -169,7 +169,7 @@
         if (itemId) {
             action = 'template/editItem';
         }
-        var api = new $API(action);
+        var api = new API(action);
 
         api.post({
             classId: classId,
@@ -201,7 +201,7 @@
     function refresh() {
 
         SMS.Tips.loading("数据加载中...");
-        API.get({
+        $API.get({
             classId: classId,
             id: id,
         }, function (data) {
