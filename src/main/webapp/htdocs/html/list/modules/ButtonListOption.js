@@ -52,9 +52,9 @@ define('ButtonListOption', function (require, module, exports) {
                             icon: '../../css/main/img/detail.png'
                         },
                         {
-                            text: '打印唯一码-test',
+                            text: '个体码打印',
                             name: 'print',
-                            icon: '../../css/main/img/detail.png'
+                            icon: '../../css/main/img/print.png'
                         },
                     ]
                 };
