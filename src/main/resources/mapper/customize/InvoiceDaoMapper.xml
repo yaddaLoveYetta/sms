@@ -16,11 +16,16 @@
 		INNER JOIN 
 			t_sms_item t 
 		ON 	i.material = t.id
+		INNER JOIN 
+			t_sms_invoice v 
+		ON 	i.parent = v.id
 		WHERE
-		 i.id in
+		 v.id in
 		 <foreach collection="id" index="index" item="item" open="("
    			 separator="," close=")">
    			#{item} 
   			</foreach>
+  		AND
+  			i.code !=''
 	</select>
 </mapper>
