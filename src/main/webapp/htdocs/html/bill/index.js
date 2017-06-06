@@ -54,9 +54,78 @@
             Bill.save(function (data) {
 
             });
+        },
+        'optPrint': function () {
+            codePrint();
         }
 
     });
+// 个体码打印
+    function codePrint() {
+
+
+        var api = new API('invoice/getCode');
+        api.post({
+            items: id,
+        });
+
+        api.on({
+            'success': function (data, json) {
+                showCode(data);
+            },
+
+            'fail': function (code, msg, json) {
+                SMS.Tips.error(msg);
+            },
+
+            'error': function () {
+                SMS.Tips.error('网络错误，请稍候再试');
+            }
+        });
+
+        function showCode(data) {
+            // 内部函数
+            SMS.use('Dialog', function (Dialog) {
+
+                var dialog = new Dialog({
+                    title: '个体码打印',
+                    width: 700,
+                    height: 450,
+                    url: $.Url.setQueryString('html/code-print/index.html'),
+                    data: {
+                        code: data,
+                    },
+                    button: [
+                        {
+                            value: '取消',
+                            className: 'sms-cancel-btn',
+                        },
+                        {
+                            value: '确定',
+                            className: 'sms-submit-btn',
+                            callback: function () {
+                                return true;
+                            }
+                        }
+                    ],
+                });
+
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
+
+                dialog.showModal();
+
+                dialog.on({
+                    remove: function () {
+                        refresh();
+                    }
+                });
+
+            });
+        }
+
+
+    }
 
     //保存
     function save(fn) {

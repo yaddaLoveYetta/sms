@@ -14,12 +14,28 @@ define('ButtonListOption', function (require, module, exports) {
 
     function get(classId, type) {
 
-        if (!type) {
-            // 查看-不需要工具栏
-            return config;
-        }
-
-        if (type === 1) {
+        if (type === 0) {
+            // 查看
+            switch (classId) {
+                case 2019:
+                    //采购订单
+                    break;
+                case 2020:
+                    //发货单
+                    config = {
+                        'items': [{
+                            text: '个体码打印',
+                            name: 'optPrint',
+                            icon: '../../css/main/img/print.png'
+                        }, {
+                            text: '刷新',
+                            name: 'optRefresh',
+                            icon: '../../css/main/img/refresh.png'
+                        }]
+                    };
+                    break;
+            }
+        } else if (type === 1) {
             // 新增
             switch (classId) {
                 case 2019:
@@ -52,9 +68,7 @@ define('ButtonListOption', function (require, module, exports) {
                     break;
             }
 
-        }
-
-        if (type === 2) {
+        } else if (type === 2) {
             // 编辑
 
             switch (classId) {
@@ -87,7 +101,6 @@ define('ButtonListOption', function (require, module, exports) {
                     };
                     break;
             }
-
         }
 
 
