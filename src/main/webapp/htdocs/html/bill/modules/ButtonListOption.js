@@ -14,7 +14,10 @@ define('ButtonListOption', function (require, module, exports) {
 
     function get(classId, type) {
 
-        if (type == 0) {
+        type = parseInt(type);
+        classId = parseInt(classId);
+
+        if (type === 0) {
             // 查看
             switch (classId) {
                 case 2019:
@@ -35,7 +38,7 @@ define('ButtonListOption', function (require, module, exports) {
                     };
                     break;
             }
-        } else if (type == 1) {
+        } else if (type === 1) {
             // 新增
             switch (classId) {
                 case 2019:
@@ -68,7 +71,7 @@ define('ButtonListOption', function (require, module, exports) {
                     break;
             }
 
-        } else if (type == 2) {
+        } else if (type === 2) {
             // 编辑
 
             switch (classId) {
