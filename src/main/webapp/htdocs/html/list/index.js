@@ -321,18 +321,18 @@
             },
 
             'fail': function (code, msg, json) {
-                SMS.Tips.error(msg);
+                SMS.Tips.error(msg,1500);
             },
 
             'error': function () {
-                SMS.Tips.error('网络错误，请稍候再试');
+                SMS.Tips.error('网络错误，请稍候再试',1500);
             }
         });
 
         function showCode(data) {
 
             if (data.length === 0) {
-                SMS.Tips.error('发货单无个体码数据!');
+                SMS.Tips.error('发货单无个体码数据!',1500);
                 return;
             }
             // 内部函数
