@@ -16,7 +16,7 @@ define('BarCode', function (require, module, exports) {
 
     var codeType = document.getElementById('codeType');
 
-    var codeTypes = ['code11', 'code39', 'code93', 'code128', 'ean8', 'ean13', 'std25', 'int25', 'msi', 'datamatrix'];
+    var codeTypes = [code11, code39, code93, code128, ean8, ean13, std25, int25, msi, datamatrix];
 
     var _default = {
         barWidth: 1,
