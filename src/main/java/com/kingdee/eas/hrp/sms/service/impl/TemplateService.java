@@ -1555,6 +1555,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			default:
 				break;
 			}
+			
 			if (lookUpType != null && (lookUpType == 1 || lookUpType == 2)) {
 				// 基础资料-辅助资料引用类型
 
@@ -1626,21 +1627,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 				}
 
 			}
-
-			// if (i == 0) {
-			// // 第一个条件舍弃前面andOr条件链接符号
-			// sbWhere.append(separator)
-			// .append(String.format("%s %s.%s%s%s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName,
-			// eDelimiter, logicOperator, "#{" + fieldName + "}", rightParenTheses));
-			//
-			// sqlParams.put(fieldName, value);
-			//
-			// } else {
-			// sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses,
-			// tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
-			// "#{" + fieldName + "}", sufValue, rightParenTheses));
-			//
-			// }
 
 			if (skip) {
 				// 手工脚本
