@@ -21,7 +21,7 @@ import com.kingdee.eas.hrp.sms.util.Environ;
 public class InvoiceService extends BaseService implements IInvoiceService{
 
 	@Override
-	public Map<String, Object> print(String items) {
+	public Map<String, Object> getCode(String items) {
 		
 		
 		ITemplateService templateService = Environ.getBean(ITemplateService.class);

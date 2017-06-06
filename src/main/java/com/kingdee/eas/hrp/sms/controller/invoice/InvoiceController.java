@@ -25,9 +25,9 @@ public class InvoiceController {
 	@Resource
 	IInvoiceService invoiceService;
 	
-	@ControllerLog(desc = "打印个体码")
-	@RequestMapping(value = "print")
-	public void print(HttpServletRequest request, HttpServletResponse response) {
+	@ControllerLog(desc = "获取个体码")
+	@RequestMapping(value = "getCode")
+	public void getCode(HttpServletRequest request, HttpServletResponse response) {
 
 		String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
 
@@ -35,7 +35,7 @@ public class InvoiceController {
 			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
 		}
 
-		Map<String, Object> shipInvoice = invoiceService.print(items);
+		Map<String, Object> shipInvoice = invoiceService.getCode(items);
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipInvoice);
 
 	}

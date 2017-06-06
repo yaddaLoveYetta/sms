@@ -5,6 +5,6 @@ import java.util.Map;
 public interface IInvoiceService {
 	
 	
-	Map<String, Object> print(String items);
+	Map<String, Object> getCode(String items);
 
 }
