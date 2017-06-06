@@ -1436,6 +1436,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 			String preValue = ""; // 处理脚本参数格式化时参数值不符合TSQL规则BUG
 			String sufValue = ""; // eg：select 1 where id IN (#{value}) 不能写成select 1 where id IN #{value}
 
+			boolean skip = false; // 是否跳过格式化参数，eg IN比较符号时，不使用此系统动态查询方式
+
 			JSONObject condition = conditoinArray.getJSONObject(i);
 
 			String andOr = "AND";// AND OR 条件链接符号-默认AND
@@ -1537,6 +1539,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				if (logicOperator.equalsIgnoreCase("IN")) {
 					preValue = "(";
 					sufValue = ")";
+					skip = true;// 不适用此系统动态查询方式，对于IN，手工拼接脚本
 				}
 				break;
 			case TIME:
@@ -1633,11 +1636,23 @@ public class TemplateService extends BaseService implements ITemplateService {
 			// sqlParams.put(fieldName, value);
 			//
 			// } else {
-			sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
-					"#{" + fieldName + "}", sufValue, rightParenTheses));
-
-			sqlParams.put(fieldName, value);
+			// sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses,
+			// tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
+			// "#{" + fieldName + "}", sufValue, rightParenTheses));
+			//
 			// }
+
+			if (skip) {
+				// 手工脚本
+				sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue, value,
+						sufValue, rightParenTheses));
+			} else {
+				// 动态脚本
+				sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
+						"#{" + fieldName + "}", sufValue, rightParenTheses));
+
+				sqlParams.put(fieldName, value);
+			}
 
 		}
 
