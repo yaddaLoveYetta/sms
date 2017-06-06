@@ -19,6 +19,12 @@
 .options {
     background: #f1f2f4;
 }
+.options:before{
+    clear: both;
+    content: "";
+    display: block;
+    zoom: 1;
+}
 
 .btn-box {
     float: left;
