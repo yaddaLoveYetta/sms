@@ -27,7 +27,7 @@ public class InvoiceController {
 	
 	@ControllerLog(desc = "打印个体码")
 	@RequestMapping(value = "print")
-	public void deliver(HttpServletRequest request, HttpServletResponse response) {
+	public void print(HttpServletRequest request, HttpServletResponse response) {
 
 		String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
 
