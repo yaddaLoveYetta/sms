@@ -82,7 +82,7 @@ define('BarCode', function (require, module, exports) {
     }
 
     function bindEvents() {
-        $(codeType).delegate('onchange', function () {
+        $(codeType).on('onchange', function () {
             generateCode();
         });
     }
