@@ -45,14 +45,20 @@ define('BarCode', function (require, module, exports) {
             return $.String.format(samples["codes"], {
                 index: index,
                 name: item.name || '',
-                model: item.model || '',
-                effective: item.effective || '',
-                batch: item.batch || '',
+                model: item.specification || '',
+                effective: item.effectiveDate || '',
+                batch: item.dyBatchNum || '',
             });
 
         }).join('');
 
-        var type = $('code');
+        generateCode();
+
+        bindEvents();
+
+    }
+
+    function generateCode() {
 
         SMS.use('BarCode', function (BarCode) {
 
@@ -60,7 +66,7 @@ define('BarCode', function (require, module, exports) {
 
                 var item = code[i];
 
-                $('.bc-target').eq(i).barcode(item.text, $('#codeType').find('option:selected').text(), {
+                $('.bc-target').eq(i).barcode(item.code, $('#codeType').find('option:selected').text(), {
                     barWidth: 2,
                     barHeight: 60,
                     moduleSize: 5,
@@ -72,21 +78,13 @@ define('BarCode', function (require, module, exports) {
                     addQuietZone: false,
                 });
             }
-
         });
+    }
 
-        /*
-         $('.bc-target').barcode("1234567890128", "ean13", {
-         barWidth: 2,
-         barHeight: 60,
-         moduleSize: 5,
-         showHRI: true,
-         bgColor: '#FFFFFF',
-         color: '#000000',
-         fontSize: 12,
-         output: 'css',
-         });*/
-
+    function bindEvents() {
+        $(codeType).delegate('onchange', function () {
+            generateCode();
+        });
     }
 
     return {
