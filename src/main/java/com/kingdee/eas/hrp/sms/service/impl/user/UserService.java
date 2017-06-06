@@ -55,7 +55,7 @@ public class UserService extends BaseService implements IUserService {
 		// Assert.assertEquals(1, pageInfo.getPageNum());
 		// Assert.assertEquals(2, pageInfo.getPageSize());
 		// Assert.assertEquals(3, pageInfo.getTotal());
-		System.out.println(pageInfo.getOrderBy());
+		//System.out.println(pageInfo.getOrderBy());
 		System.out.println(JSON.toJSONString(list));
 
 		// //用PageInfo对结果进行包装
