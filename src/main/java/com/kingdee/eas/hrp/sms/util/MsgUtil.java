@@ -46,12 +46,12 @@ public class MsgUtil {
 	}
 	
 	public static void main(String[] args) {
-		String[] mobiles = new String[] { "18802088452"};
+		String[] mobiles = new String[] { "18825166236"};
 		String smsContent = "好好上班！";
 		String times = "20170519155100";
 
 		MsgUtil.sendSMS(mobiles, smsContent);
-		MsgUtil.sendtimesMS(mobiles, smsContent, times);
+		//MsgUtil.sendtimesMS(mobiles, smsContent, times);
 		//System.out.println(client.getBalance());		
 	}
 	

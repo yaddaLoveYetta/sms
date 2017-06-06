@@ -30,6 +30,7 @@ import com.kingdee.eas.hrp.sms.model.SysProfileExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
+import com.kingdee.eas.hrp.sms.util.MsgUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 import com.kingdee.eas.hrp.sms.util.WSContext;
 
@@ -95,6 +96,10 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			}
 		}
 
+		String[] mobie ;
+		targetList.toString();
+		MsgUtil.sendSMS(new String[]{"18825166236"}, "haohaoshangban");
+		
 		if (failIdList.isEmpty()) {
 			return "";
 		}

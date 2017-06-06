@@ -272,6 +272,12 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
+		
+		<table tableName="t_sms_approved_supplier" domainObjectName="ApprovedSupplier">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
 
 	</context>
 </generatorConfiguration> 
