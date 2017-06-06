@@ -1,6 +1,7 @@
 package com.kingdee.eas.hrp.sms.controller.invoice;
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -35,7 +36,7 @@ public class InvoiceController {
 			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
 		}
 
-		Map<String, Object> shipInvoice = invoiceService.getCode(items);
+		List<Map<String, Object>> shipInvoice = invoiceService.getCode(items);
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipInvoice);
 
 	}

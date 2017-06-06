@@ -112,6 +112,7 @@
 		<mapper resource="mapper/customize/Platform_SysDaoMapper.xml" />
 		<mapper resource="mapper/customize/Platform_RoleDaoMapper.xml" />
 		<mapper resource="mapper/customize/TemplateDaoMapper.xml" />
+		<mapper resource="mapper/customize/InvoiceDaoMapper.xml" />
 		<!-- =============================== 复杂Mapper =====================end==== -->
 
 	</mappers>
