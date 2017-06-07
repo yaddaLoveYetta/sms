@@ -208,8 +208,11 @@ public class BillPlugin extends PlugInAdpter {
 			ITemplateService temp = Environ.getBean(ITemplateService.class);
 			ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 			Map<String, Object> item = temp.getItemById(classId, id);
-			if (item.get("type").equals("1")) {
-				throw new BusinessLogicRunTimeException("发货单已发送到医院，不能修改");
+			//判断发货单是否已发送到医院
+			if (item.get("type") != null) {
+				if (item.get("type").equals("1") || Integer.parseInt(item.get("type").toString()) == 1) {
+					throw new BusinessLogicRunTimeException("已发送到医院的发货单不能删除");
+				}
 			}
 			Map<String, Object> entrys = (Map<String, Object>) item.get("entry");
 			ArrayList<Object> arrayList = (ArrayList<Object>) entrys.get("1");
@@ -294,7 +297,7 @@ public class BillPlugin extends PlugInAdpter {
 				Map<String, Object> item = temp.getItemById(classId, split[i]);
 				if (item.get("type") != null) {
 					if (item.get("type").equals("1") || Integer.parseInt(item.get("type").toString()) == 1) {
-						 throw new BusinessLogicRunTimeException("已发送到医院的发货单不能删除");
+						throw new BusinessLogicRunTimeException("已发送到医院的发货单不能删除");
 					}
 				}
 			}
