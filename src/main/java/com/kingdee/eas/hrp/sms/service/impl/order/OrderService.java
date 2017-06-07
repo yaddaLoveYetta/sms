@@ -764,7 +764,7 @@ public class OrderService extends BaseService implements IOrderService {
 			return "error";
 		}
 		JSONObject entry = (JSONObject) jsonObject.get("entry");
-		JSONArray orderEntryArray = JSONArray.parseArray((String) entry.get("1"));
+		JSONArray orderEntryArray = (JSONArray) entry.get("1");
 		for (int i = 0; i < orderEntryArray.size(); i++) {
 			JSONObject orderEntryObject = orderEntryArray.getJSONObject(i);
 			orderEntry.setId(jsonObject.getString("entryId"));// 订单子表内码
@@ -777,7 +777,7 @@ public class OrderService extends BaseService implements IOrderService {
 				orderEntry.setQty(orderEntryObject.getBigDecimal("confirmQty"));// 修改原单数量
 			}
 			OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
-			orderEntryMapper.updateByPrimaryKey(orderEntry);
+			orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
 		}
 		if(jsonObject.getString("id")==null||jsonObject.getString("id").equals("")){
 			return "error";
@@ -785,7 +785,7 @@ public class OrderService extends BaseService implements IOrderService {
 		order.setId(jsonObject.getString("id"));
 		order.setTickType((byte) 1);
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-		orderMapper.updateByPrimaryKey(order);
+		orderMapper.updateByPrimaryKeySelective(order);
 		return "success";
 	}
 
