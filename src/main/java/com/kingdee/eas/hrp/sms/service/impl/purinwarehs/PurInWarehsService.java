@@ -59,8 +59,6 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 				if (purEntryObject.getDate("effectiveDate") != null) {
 					purInWarehsEntry.setEffectiveDate(purEntryObject.getDate("effectiveDate"));
 				}
-				purInWarehsEntry.setQualifiedQty(purEntryObject.getLong("qualifiedQty"));
-				purInWarehsEntry.setUnqualifiedQty(purEntryObject.getLong("unqualifiedQty"));
 				PurInWarehsEntryMapper purInWarehsEntryMapper = sqlSession.getMapper(PurInWarehsEntryMapper.class);
 				purInWarehsEntryMapper.insertSelective(purInWarehsEntry);
 				

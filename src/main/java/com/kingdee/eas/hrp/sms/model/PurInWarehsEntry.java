@@ -38,10 +38,6 @@ public class PurInWarehsEntry {
 
     private Date effectiveDate;
 
-    private Long qualifiedQty;
-
-    private Long unqualifiedQty;
-
     public String getId() {
         return id;
     }
@@ -176,21 +172,5 @@ public class PurInWarehsEntry {
 
     public void setEffectiveDate(Date effectiveDate) {
         this.effectiveDate = effectiveDate;
-    }
-
-    public Long getQualifiedQty() {
-        return qualifiedQty;
-    }
-
-    public void setQualifiedQty(Long qualifiedQty) {
-        this.qualifiedQty = qualifiedQty;
-    }
-
-    public Long getUnqualifiedQty() {
-        return unqualifiedQty;
-    }
-
-    public void setUnqualifiedQty(Long unqualifiedQty) {
-        this.unqualifiedQty = unqualifiedQty;
     }
 }
