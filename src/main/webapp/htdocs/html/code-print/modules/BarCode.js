@@ -48,6 +48,8 @@ define('BarCode', function (require, module, exports) {
             }
         ).join('');
 
+        $(codeType).val('code128');// 默认code128编码
+
         codeWidth.innerHTML = $.Array.keep(codeWidths, function (item, index) {
                 return $.String.format('<option value={value}>{text}</option>', {
                     value: item,
@@ -56,6 +58,8 @@ define('BarCode', function (require, module, exports) {
             }
         ).join('');
 
+        $(codeWidth).val(2);
+
         codeHeight.innerHTML = $.Array.keep(codeHeights, function (item, index) {
                 return $.String.format('<option value={value}>{text}</option>', {
                     value: item,
@@ -63,6 +67,8 @@ define('BarCode', function (require, module, exports) {
                 });
             }
         ).join('');
+
+        $(codeHeight).val(70);
 
         div.innerHTML = $.Array.keep(code, function (item, index) {
 
