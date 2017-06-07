@@ -6817,6 +6817,12 @@
 
                 emitter.on.apply(emitter, args);
             },
+            setGridWidth: function (size) {
+
+                var meta = mapper.get(this);
+                var bdGrid = meta.grid;
+                bdGrid.jqGrid('setGridWidth', size);
+            },
         };
 
         // 静态方法
@@ -6906,7 +6912,7 @@
         'DateTimePicker': true,
         'ZTree': true,
         'Grid': true,
-        'BarCode':true,
+        'BarCode': true,
     });
 
 

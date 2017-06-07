@@ -12,6 +12,7 @@ define('Entry', function (require, module, exports) {
     var showType = 0; // 0:1:2-查看/新增/编辑
 
     var billTemplate = {};
+    var hasBind = false;
 
     var cleanGrid = function () {
         billGrid.clear();
@@ -51,6 +52,7 @@ define('Entry', function (require, module, exports) {
             });
 
         });
+
     }
 
     function getData() {
@@ -117,6 +119,30 @@ define('Entry', function (require, module, exports) {
     function render(template, data, type) {
         showType = type;
         gridRender(template, data);
+
+        bindEvents();
+    }
+
+    function bindEvents() {
+
+        if (hasBind) {
+            return;
+        }
+        var tid=null;
+
+        //浏览器窗口大小变化时，需要重新获取可视区域的大小并重新调整。
+        $(window).on('resize', function () {
+
+            clearTimeout(tid);
+
+            tid = setTimeout(function () { //窗口大小变化停止一定时间后才重新启动定时器
+                billGrid.setGridWidth($(window).width()*0.99);
+            }, 500);
+
+        });
+
+        hasBind = true;
+
     }
 
 
