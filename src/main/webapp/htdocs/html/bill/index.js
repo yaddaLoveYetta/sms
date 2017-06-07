@@ -176,7 +176,7 @@
 
         api.post({
             classId: classId,
-            id: itemId,
+            itemId: itemId,
             data: data,
         });
 
