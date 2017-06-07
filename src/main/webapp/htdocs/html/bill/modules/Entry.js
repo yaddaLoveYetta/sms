@@ -128,7 +128,7 @@ define('Entry', function (require, module, exports) {
         if (hasBind) {
             return;
         }
-        var tid=null;
+        var tid = null;
 
         //浏览器窗口大小变化时，需要重新获取可视区域的大小并重新调整。
         $(window).on('resize', function () {
@@ -136,7 +136,7 @@ define('Entry', function (require, module, exports) {
             clearTimeout(tid);
 
             tid = setTimeout(function () { //窗口大小变化停止一定时间后才重新启动定时器
-                billGrid.setGridWidth($(window).width()*0.99);
+                billGrid.setGridWidth($(window).width());
             }, 500);
 
         });
