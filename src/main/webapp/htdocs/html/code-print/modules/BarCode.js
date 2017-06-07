@@ -17,6 +17,8 @@ define('BarCode', function (require, module, exports) {
     var codeType = document.getElementById('codeType');
 
     var codeTypes = ['code11', 'code39', 'code93', 'code128', 'ean8', 'ean13', 'std25', 'int25', 'msi', 'datamatrix'];
+    var codeData = [];
+    var hasBind = false;
 
     var _default = {
         barWidth: 1,
@@ -31,6 +33,7 @@ define('BarCode', function (require, module, exports) {
 
     function render(code) {
 
+        codeData = code;
 
         codeType.innerHTML = $.Array.keep(codeTypes, function (item, index) {
                 return $.String.format('<option value={value}>{text}</option>', {
@@ -52,19 +55,19 @@ define('BarCode', function (require, module, exports) {
 
         }).join('');
 
-        generateCode(code);
+        generateCode();
 
         bindEvents();
 
     }
 
-    function generateCode(code) {
+    function generateCode() {
 
         SMS.use('BarCode', function (BarCode) {
 
-            for (var i = 0; i < code.length; i++) {
+            for (var i = 0; i < codeData.length; i++) {
 
-                var item = code[i];
+                var item = codeData[i];
 
                 $('.bc-target').eq(i).barcode(item.code, $('#codeType').find('option:selected').text(), {
                     barWidth: 2,
@@ -82,9 +85,14 @@ define('BarCode', function (require, module, exports) {
     }
 
     function bindEvents() {
-        $(codeType).on('onchange', function () {
+
+        if (hasBind) {
+            return;
+        }
+        $(codeType).on('change', function () {
             generateCode();
         });
+        hasBind = true;
     }
 
     return {
