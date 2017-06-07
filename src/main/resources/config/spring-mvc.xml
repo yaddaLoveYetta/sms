@@ -53,6 +53,7 @@
 						<entry value-type="java.lang.String" key="/template/delItemByHRP" value="/template/delItemByHRP" />
 						<entry value-type="java.lang.String" key="/sync/sync" value="/sync/sync" />
 						<entry value-type="java.lang.String" key="/order/acquisitionOrder" value="/order/acquisitionOrder" />
+						<entry value-type="java.lang.String" key="/order/updateTickType" value="/order/updateTickType" />
 						<entry value-type="java.lang.String" key="/purreceival/purReceival" value="/purreceival/purReceival" />
 						<entry value-type="java.lang.String" key="/pruinwarehs/pruInWarehs" value="/pruinwarehs/pruInWarehs" />
 					</map>
