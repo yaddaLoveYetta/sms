@@ -15,8 +15,13 @@ define('BarCode', function (require, module, exports) {
     var samples = require("Samples")(div);
 
     var codeType = document.getElementById('codeType');
+    var codeWidth = document.getElementById('codeWidth');
+    var codeHeight = document.getElementById('codeHeight');
 
     var codeTypes = ['code39', 'code93', 'code128'];
+    var codeWidths = [1, 2, 3];
+    var codeHeights = [50, 60, 70];
+
     var codeData = [];
     var hasBind = false;
 
@@ -36,6 +41,22 @@ define('BarCode', function (require, module, exports) {
         codeData = code;
 
         codeType.innerHTML = $.Array.keep(codeTypes, function (item, index) {
+                return $.String.format('<option value={value}>{text}</option>', {
+                    value: item,
+                    text: item,
+                });
+            }
+        ).join('');
+
+        codeWidth.innerHTML = $.Array.keep(codeTypes, function (item, index) {
+                return $.String.format('<option value={value}>{text}</option>', {
+                    value: item,
+                    text: item,
+                });
+            }
+        ).join('');
+
+        codeHeight.innerHTML = $.Array.keep(codeTypes, function (item, index) {
                 return $.String.format('<option value={value}>{text}</option>', {
                     value: item,
                     text: item,
