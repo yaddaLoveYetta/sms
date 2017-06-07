@@ -100,6 +100,23 @@ define('Entry/GridBuilder', function (require, module, exports) {
                 }
             }
         }
+
+        if (field.dataType == 1) {
+            // 数字
+            //model.edittype = 'text';
+            model.editrules = {required: true};
+            model.editrules = {
+                required: false,
+                number: true
+            };
+            model.formatter = 'number';
+            model.formatoptions = {
+                decimalSeparator: ".",
+                thousandsSeparator: " ",
+                decimalPlaces: 2,
+                defaulValue: 0
+            };
+        }
         return model;
     }
 

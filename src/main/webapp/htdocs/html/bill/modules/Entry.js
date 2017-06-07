@@ -136,7 +136,7 @@ define('Entry', function (require, module, exports) {
             clearTimeout(tid);
 
             tid = setTimeout(function () { //窗口大小变化停止一定时间后才重新启动定时器
-                billGrid.setGridWidth($(window).width());
+                billGrid.setGridWidth($(window).width() - 2);
             }, 500);
 
         });
