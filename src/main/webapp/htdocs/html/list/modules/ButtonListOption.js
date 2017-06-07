@@ -50,6 +50,10 @@ define('ButtonListOption', function (require, module, exports) {
                             text: '详情',
                             name: 'detail',
                             icon: '../../css/main/img/detail.png'
+                        }, {
+                            text: '修改',
+                            name: 'edit',
+                            icon: '../../css/main/img/edit.png'
                         },
                         {
                             text: '发送到医院',
