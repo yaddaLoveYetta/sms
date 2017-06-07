@@ -90,17 +90,19 @@ define('BarCode', function (require, module, exports) {
 
                 var item = codeData[i];
 
-                $('.bc-target').eq(i).barcode(item.code, $('#codeType').find('option:selected').text(), {
-                    barWidth: 2,
-                    barHeight: 60,
-                    moduleSize: 5,
-                    showHRI: true,
-                    bgColor: '#FFFFFF',
-                    color: '#000000',
-                    fontSize: 12,
-                    output: 'css',
-                    addQuietZone: false,
-                });
+                $('.bc-target').eq(i).barcode(item.code,
+                    $('#codeType').find('option:selected').text(), {
+                        barWidth : 2,// 单条条码宽度
+                        barHeight : 60,// 单体条码高度
+                        moduleSize : 5,
+                        showHRI : true,//显示条码内容
+                        marginHRI : 5, // 条码字体距条码中心的高度
+                        bgColor : '#FFFFFF',// 条码背景颜色
+                        color : '#000000',// 条码颜色
+                        fontSize : 12,// 条码字体大小
+                        output : 'css',// 渲染方式 css/bmp/svg/canvas
+                        addQuietZone : false,// 是否添加空白区（内边距）
+                    });
             }
         });
     }
