@@ -17,6 +17,8 @@ public class Invoice {
 
     private Byte saleProxy;
 
+    private Byte type;
+
     public String getId() {
         return id;
     }
@@ -71,5 +73,13 @@ public class Invoice {
 
     public void setSaleProxy(Byte saleProxy) {
         this.saleProxy = saleProxy;
+    }
+
+    public Byte getType() {
+        return type;
+    }
+
+    public void setType(Byte type) {
+        this.type = type;
     }
 }
