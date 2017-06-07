@@ -145,6 +145,9 @@
         'deliver': function (item, index) {
             deliver();
         },
+        'edit': function (item, index) {
+            edit();
+        },
         'print': function (item, index) {
             print();
         }
@@ -181,6 +184,42 @@
                 'classId': classId,
                 'id': list[0].data[List.getPrimaryKey()],
                 'type': 0,
+            }
+        });
+    }
+
+    function edit() {
+
+        // 编辑
+        var list = List.getSelectedItems();
+
+        if (list.length == 0) {
+            SMS.Tips.error('请选择要操作的项');
+            return;
+        }
+
+        if (list.length > 1) {
+            SMS.Tips.error('只能对一条记录进行操作');
+            return;
+        }
+
+        var name = '';
+        switch (parseInt(classId)) {
+            case 2019:
+                name = '采购订单';
+                return; // 采购订单不支持编辑
+            case 2020:
+                name = '发货单';
+        }
+
+        Iframe.open({
+            id: classId + '-detail-' + list[0].data[List.getPrimaryKey()],
+            name: '详情-' + name,
+            url: 'html/bill/index.html',
+            query: {
+                'classId': classId,
+                'id': list[0].data[List.getPrimaryKey()],
+                'type': 2,
             }
         });
     }
@@ -321,18 +360,18 @@
             },
 
             'fail': function (code, msg, json) {
-                SMS.Tips.error(msg,1500);
+                SMS.Tips.error(msg, 1500);
             },
 
             'error': function () {
-                SMS.Tips.error('网络错误，请稍候再试',1500);
+                SMS.Tips.error('网络错误，请稍候再试', 1500);
             }
         });
 
         function showCode(data) {
 
             if (data.length === 0) {
-                SMS.Tips.error('发货单无个体码数据!',1500);
+                SMS.Tips.error('发货单无个体码数据!', 1500);
                 return;
             }
             // 内部函数
