@@ -63,8 +63,11 @@ define('Entry', function (require, module, exports) {
 
         var entryTemplate = billTemplate.formFields["1"]
 
-        var errorData = gridData["error"] || {};
+        var errorData = gridData["error"] || []
 
+        if ((gridData["add"] || []).length == 0 && (gridData["update"] || []).length == 0) {
+            errorData['1'] = ['无有效分录，请在列表界面选择单据操作!'];
+        }
         //新增数据
         $.Array.each(gridData["add"] || [], function (item, index) {
 
