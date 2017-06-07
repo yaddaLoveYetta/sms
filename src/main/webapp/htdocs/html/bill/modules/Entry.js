@@ -77,6 +77,30 @@ define('Entry', function (require, module, exports) {
             entry.push(addData);
         });
 
+        //修改数据
+        $.Array.each(gridData["update"] || [], function (item, index) {
+
+            var addData = {
+                data: $.Object.grep(item, function (key, value) {
+                    return !(value === null);
+                }),
+                flag: '2'
+            };
+            entry.push(addData);
+        });
+
+        //删除数据
+        $.Array.each(gridData["delete"] || [], function (item, index) {
+
+            var addData = {
+                data: $.Object.grep(item, function (key, value) {
+                    return !(value === null);
+                }),
+                flag: '0'
+            };
+            entry.push(addData);
+        });
+
         var entryData = {
             1: entry
         };

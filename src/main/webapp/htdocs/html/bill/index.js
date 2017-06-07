@@ -20,7 +20,7 @@
     var Entry = require('Entry');
 
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
-    var id = MiniQuery.Url.getQueryString(window.location.href, 'id');
+    var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
     var type = MiniQuery.Url.getQueryString(window.location.href, 'type');
 
     type = parseInt(type || 0);// 0:1:2-查看/新增/编辑-查看时所有字段锁定，新增/编辑时根据模板控制-默认查看
@@ -51,9 +51,7 @@
             refresh();
         },
         'optSave': function () {
-            Bill.save(function (data) {
-
-            });
+            save();
         },
         'optPrint': function () {
             codePrint();
@@ -66,7 +64,7 @@
 
         var api = new API('invoice/getCode');
         api.post({
-            items: id,
+            items: itemId,
         });
 
         api.on({
@@ -131,7 +129,7 @@
     function save(fn) {
 
         var valid = true;
-        billData = Head.getData();
+        var billData = Head.getData();
         var entry = Entry.getData();
 
         if (billData.errorData && !$.Object.isEmpty(billData.errorData)) {
@@ -153,11 +151,16 @@
         }
 
         submit(itemId, billData.successData, function (data) {
-            itemId = data.id;// 新增成功后记录id，界面变修改逻辑
+
+
             if (itemId) {
-                SMS.Tips.success("修改发货单成功", 1500);
+                SMS.Tips.success("修改成功", 1500);
             }
-            SMS.Tips.success("新增发货单成功", 1500);
+            SMS.Tips.success("新增成功", 1500);
+
+            if (!itemId) {
+                itemId = data.id;// 新增成功后记录id，界面变修改逻辑
+            }
 
             fn && fn(data);
         });
@@ -186,12 +189,12 @@
         api.on('fail', function (code, msg, json) {
 
             var s = $.String.format('{0} (错误码: {1})', msg, code);
-            SMS.Tips.error(s);
+            SMS.Tips.error(s, 1500);
 
         });
 
         api.on('error', function () {
-            SMS.Tips.error('网络繁忙，请稍候再试');
+            SMS.Tips.error('网络繁忙，请稍候再试', 1500);
 
         });
 
@@ -203,7 +206,7 @@
         SMS.Tips.loading("数据加载中...");
         $API.get({
             classId: classId,
-            id: id,
+            id: itemId,
         }, function (data) {
             // 填充数据
             console.log(data);
