@@ -567,10 +567,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		sqlMap.putAll(sqlParams);// --格式化参数
 		// --参数列表
-//		for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
-//			Entry<String, Object> item = it.next();
-//			sqlMap.put(item.getKey(), item.getValue());
-//		}
+		// for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
+		// Entry<String, Object> item = it.next();
+		// sqlMap.put(item.getKey(), item.getValue());
+		// }
 
 		// 插入基础资料
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
@@ -642,11 +642,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 			sqlMap.put("sql", sql);// 完整带参数的sql
 
 			sqlMap.putAll(sqlParams);// --格式化参数
-//			// --参数列表
-//			for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
-//				Entry<String, Object> item = it.next();
-//				sqlMap.put(item.getKey(), item.getValue());
-//			}
+			// // --参数列表
+			// for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
+			// Entry<String, Object> item = it.next();
+			// sqlMap.put(item.getKey(), item.getValue());
+			// }
 
 			TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 			templateDaoMapper.edit(sqlMap);
@@ -2006,11 +2006,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 					sqlMap.put("sql", sql);// 完整带参数的sql
 
 					sqlMap.putAll(sqlParams);// --格式化参数
-					// --参数列表
-//					for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
-//						Entry<String, Object> item = it.next();
-//						sqlMap.put(item.getKey(), item.getValue());
-//					}
 
 					// 插入基础资料分录
 					templateDaoMapper.add(sqlMap);
@@ -2040,19 +2035,14 @@ public class TemplateService extends BaseService implements ITemplateService {
 				sqlMap.put("sql", sql);// 完整带参数的sql
 
 				sqlMap.putAll(sqlParams);// --格式化参数
-				
-//				for (Iterator<Entry<String, Object>> it = sqlParams.entrySet().iterator(); it.hasNext();) {
-//					Entry<String, Object> item = it.next();
-//					sqlMap.put(item.getKey(), item.getValue());
-//				}
 
 				// 修改基础资料分录
 				templateDaoMapper.edit(sqlMap);
 
 			} else if (flag == 0) { // --删除，组装items
 
-				int FID = data.getInteger(primaryKey);
-				items += "," + FID;
+				String delId = data.getString(primaryKey);
+				items += String.format(",'%s'", delId);
 
 			}
 		}
