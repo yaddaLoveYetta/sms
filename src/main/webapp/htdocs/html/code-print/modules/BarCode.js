@@ -48,7 +48,7 @@ define('BarCode', function (require, module, exports) {
             }
         ).join('');
 
-        codeWidth.innerHTML = $.Array.keep(codeTypes, function (item, index) {
+        codeWidth.innerHTML = $.Array.keep(codeWidths, function (item, index) {
                 return $.String.format('<option value={value}>{text}</option>', {
                     value: item,
                     text: item,
@@ -56,7 +56,7 @@ define('BarCode', function (require, module, exports) {
             }
         ).join('');
 
-        codeHeight.innerHTML = $.Array.keep(codeTypes, function (item, index) {
+        codeHeight.innerHTML = $.Array.keep(codeHeights, function (item, index) {
                 return $.String.format('<option value={value}>{text}</option>', {
                     value: item,
                     text: item,
@@ -92,16 +92,16 @@ define('BarCode', function (require, module, exports) {
 
                 $('.bc-target').eq(i).barcode(item.code,
                     $('#codeType').find('option:selected').text(), {
-                        barWidth : 2,// 单条条码宽度
-                        barHeight : 60,// 单体条码高度
-                        moduleSize : 5,
-                        showHRI : true,//显示条码内容
-                        marginHRI : 5, // 条码字体距条码中心的高度
-                        bgColor : '#FFFFFF',// 条码背景颜色
-                        color : '#000000',// 条码颜色
-                        fontSize : 12,// 条码字体大小
-                        output : 'css',// 渲染方式 css/bmp/svg/canvas
-                        addQuietZone : false,// 是否添加空白区（内边距）
+                        barWidth: 2,// 单条条码宽度
+                        barHeight: 60,// 单体条码高度
+                        moduleSize: 5,
+                        showHRI: true,//显示条码内容
+                        marginHRI: 5, // 条码字体距条码中心的高度
+                        bgColor: '#FFFFFF',// 条码背景颜色
+                        color: '#000000',// 条码颜色
+                        fontSize: 12,// 条码字体大小
+                        output: 'css',// 渲染方式 css/bmp/svg/canvas
+                        addQuietZone: false,// 是否添加空白区（内边距）
                     });
             }
         });
@@ -113,6 +113,12 @@ define('BarCode', function (require, module, exports) {
             return;
         }
         $(codeType).on('change', function () {
+            generateCode();
+        });
+        $(codeWidth).on('change', function () {
+            generateCode();
+        });
+        $(codeHeight).on('change', function () {
             generateCode();
         });
 
