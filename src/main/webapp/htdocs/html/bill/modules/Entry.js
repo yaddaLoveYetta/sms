@@ -39,7 +39,7 @@ define('Entry', function (require, module, exports) {
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
-                'operator': false,
+                'operator': showType == 1 ? 3 : showType == 2 ? 2 : 0, // 新增时有添加删除按钮，编辑时有删除按钮,查看时无按钮
                 'showType': showType,
             });
 

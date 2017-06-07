@@ -163,7 +163,19 @@ define('Entry/GridBuilder', function (require, module, exports) {
                 width: 40,
                 fixed: true,
                 formatter: function (val, opt, row) {
-                    var html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
+                    var html_con;
+
+                    if (operator === 1) {
+                        // add
+                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span></div>';
+                    } else if (operator === 2) {
+                        // del
+                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
+                    } else if (operator === 3) {
+                        // add & del
+                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
+                    }
+
                     return html_con;
                 },
                 align: "center",

@@ -1,5 +1,5 @@
 /**
- * 采购订单生成发货单
+ * 单据详情/编辑页面
  * Created by yadda on 2017/5/12.
  */
 
@@ -23,7 +23,7 @@
     var id = MiniQuery.Url.getQueryString(window.location.href, 'id');
     var type = MiniQuery.Url.getQueryString(window.location.href, 'type');
 
-    type = type || 0;// 0:1:2-查看/新增/编辑-查看时所有字段锁定，新增/编辑时根据模板控制-默认查看
+    type = parseInt(type || 0);// 0:1:2-查看/新增/编辑-查看时所有字段锁定，新增/编辑时根据模板控制-默认查看
 
     //检查登录
     if (!SMS.Login.check(true)) {
