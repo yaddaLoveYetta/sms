@@ -148,6 +148,26 @@
         'edit': function (item, index) {
             edit();
         },
+        'delete': function (item, index) {
+
+            if (parseInt(classId) !== 2020) {
+                return;// 只有发货单有删除功能
+            }
+
+            var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择要删除的项');
+                return;
+            }
+            MessageBox.confirm('确定删除选择的项?', function (result) {
+                if (result) {
+                    List.del(classId, list, function () {
+                        refresh();
+                    });
+                }
+            });
+        },
         'print': function (item, index) {
             print();
         }

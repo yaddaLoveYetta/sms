@@ -54,6 +54,10 @@ define('ButtonListOption', function (require, module, exports) {
                             text: '修改',
                             name: 'edit',
                             icon: '../../css/main/img/edit.png'
+                        }, {
+                            text: '删除',
+                            name: 'delete',
+                            icon: '../../css/main/img/delete.png'
                         },
                         {
                             text: '发送到医院',
