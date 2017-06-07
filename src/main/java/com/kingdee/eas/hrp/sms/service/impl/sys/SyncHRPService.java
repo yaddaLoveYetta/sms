@@ -96,9 +96,18 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			}
 		}
 
-		String[] mobie ;
-		targetList.toString();
-		MsgUtil.sendSMS(new String[]{"18825166236"}, "haohaoshangban");
+		System.out.println(targetList.toString());
+		//获取同步发送电话
+		SysProfileMapper mapper = sqlSession.getMapper(SysProfileMapper.class);
+		SysProfileExample example = new SysProfileExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andKeyEqualTo("hrp-sync-mobie");
+		List<SysProfile> selectByExample = mapper.selectByExample(example);
+		if(selectByExample.size()>0&&selectByExample.size()==1){
+			SysProfile sysProfile = selectByExample.get(0);
+			String mobie=sysProfile.getValue() ;			
+			MsgUtil.sendSMS(new String[]{mobie}, "haohaoshangban");
+		}
 		
 		if (failIdList.isEmpty()) {
 			return "";
