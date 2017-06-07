@@ -60,7 +60,7 @@ select option {
 .code-style .code-style-box {
     display: inline-block;
     /*float: right;*/
-    width: 100px;
+    width: 70px;
     height: 25px;
     line-height: 25px;
     text-align: center;
