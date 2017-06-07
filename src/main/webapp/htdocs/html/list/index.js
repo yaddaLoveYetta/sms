@@ -214,7 +214,7 @@
 
         Iframe.open({
             id: classId + '-detail-' + list[0].data[List.getPrimaryKey()],
-            name: '详情-' + name,
+            name: '编辑-' + name,
             url: 'html/bill/index.html',
             query: {
                 'classId': classId,
