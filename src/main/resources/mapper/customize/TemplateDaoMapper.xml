@@ -32,8 +32,7 @@
 	</update>
 	<!--删除基础资料 -->
 	<delete id="del" parameterType="HashMap">
-		delete from ${tableName} where ${primaryKey} in ( ${items}
-		)
+		delete from ${tableName} where ${primaryKey} in (${items})
 	</delete>
 	<!--审核基础资料 -->
 	<delete id="check" parameterType="HashMap">

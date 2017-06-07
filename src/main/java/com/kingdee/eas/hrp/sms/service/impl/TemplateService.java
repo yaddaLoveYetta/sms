@@ -619,6 +619,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		String primaryTableName = formClass.getTableName();
 		String primaryKey = formClass.getPrimaryKey();
+		String primaryColumnName = formFields.get(primaryKey).getSqlColumnName();
 
 		// 准备保存模板
 		Map<String, Object> statement = prepareEditMap(json, formFields, primaryTableName, primaryKey, id);
@@ -635,7 +636,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			Map<String, Object> sqlMap = new HashMap<String, Object>();
 
-			String sql = "update " + tableName + " set " + kvStr + " where " + primaryKey + "= #{" + primaryKey + "}";
+			String sql = "update " + tableName + " set " + kvStr + " where " + primaryColumnName + "= #{" + primaryKey + "}";
 
 			sqlMap.put("sql", sql);// 完整带参数的sql
 
@@ -1555,7 +1556,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			default:
 				break;
 			}
-			
+
 			if (lookUpType != null && (lookUpType == 1 || lookUpType == 2)) {
 				// 基础资料-辅助资料引用类型
 
@@ -2012,6 +2013,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				// checkFields(formFields, data, primaryKey, flag, userType);
 				// 模板参数
 				String entryId = data.getString(primaryKey);
+
+				String primaryColumnName = formFields.get(primaryKey).getSqlColumnName();
 				// 准备保存模板
 				Map<String, Object> statement = prepareEditMap(data, formFields, entryTableName, primaryKey, entryId);
 
@@ -2023,7 +2026,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 				Map<String, Object> sqlMap = new HashMap<String, Object>();
 
-				String sql = "update " + tableName + " set " + kvStr + " where " + primaryKey + "= #{primaryKey}";
+				String sql = "update " + tableName + " set " + kvStr + " where " + primaryColumnName + "= #{" + primaryKey + "}";
 
 				sqlMap.put("sql", sql);// 完整带参数的sql
 
@@ -2079,12 +2082,16 @@ public class TemplateService extends BaseService implements ITemplateService {
 			// value = handleSqlInjection(value);
 
 			String fieldName = formField.getSqlColumnName();
-			kvBuffer.append(",").append(fieldName).append("=").append("#{" + fieldName + "}");
+
+			if (null == fieldName || fieldName.isEmpty()) {
+				continue; // 理论上不应该出现，执行到此可能是模板配置错误
+			}
+			kvBuffer.append(",").append(fieldName).append("=").append("#{" + key + "}");
 
 			if (value == null) {
 				// kvBuffer.append("null");
 				// sqlParams.put(fieldName, "null");
-				sqlParams.put(fieldName, "");
+				sqlParams.put(key, "");
 			} else {
 				int dataType = formField.getDataType();
 				DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);
@@ -2108,7 +2115,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 					break;
 
 				}
-				sqlParams.put(fieldName, value);
+				sqlParams.put(key, value);
 			}
 		}
 
@@ -2187,11 +2194,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 			String tableName = formEntry.getTableName();
 			String foreignKey = formEntry.getForeignKey();
 
-			Map<String, Object> statement = new HashMap<String, Object>();
+			// Map<String, Object> statement = new HashMap<String, Object>();
 
-			statement.put("tableName", tableName);
-			statement.put("primaryKey", foreignKey);
-			statement.put("items", items);
+			Map<String, Object> statement = prepareStatement(items, tableName, foreignKey, 2);
+
+			// statement.put("tableName", tableName);
+			// statement.put("primaryKey", foreignKey);
+			// statement.put("items", items);
 			templateDaoMapper.del(statement);
 		}
 	}
