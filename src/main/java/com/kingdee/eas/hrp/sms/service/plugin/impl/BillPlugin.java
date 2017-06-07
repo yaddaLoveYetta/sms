@@ -4,31 +4,23 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
-import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
-import com.kingdee.eas.hrp.sms.model.Invoice;
-import com.kingdee.eas.hrp.sms.model.InvoiceExample;
 import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.model.OrderEntryExample;
 import com.kingdee.eas.hrp.sms.model.OrderEntryExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
-import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Environ;
@@ -42,16 +34,16 @@ import com.kingdee.eas.hrp.sms.util.Environ;
  */
 public class BillPlugin extends PlugInAdpter {
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings("unchecked")
 	@Override
 	public PlugInRet afterSave(int classId, String id, JSONObject data) {
 		ITemplateService temp = Environ.getBean(ITemplateService.class);
-		ArrayList<Map<String, Object>> list = new ArrayList();
+		ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> item = temp.getItemById(classId, id);
 		Map<String, Object> entrys = (Map<String, Object>) item.get("entry");
 		ArrayList<Object> arrayList = (ArrayList<Object>) entrys.get("1");
 		for (int i = 0; i < arrayList.size(); i++) {
-			Map<String, Object> entry = new HashMap();
+			Map<String, Object> entry = new HashMap<String, Object>();
 			HashMap<String, Object> invoiceEntry = (HashMap<String, Object>) arrayList.get(i);
 			if (i == 0) {
 				entry.put("seq", invoiceEntry.get("orderSeq"));
@@ -72,7 +64,7 @@ public class BillPlugin extends PlugInAdpter {
 					entry.put("invoiceQty", qty.add((BigDecimal) entry.get("invoiceQty")));
 				}
 				if (entry == null) {
-					Map<String, Object> entry1 = new HashMap();
+					Map<String, Object> entry1 = new HashMap<String, Object>();
 					entry1.put("seq", invoiceEntry.get("orderSeq"));
 					entry1.put("parent", invoiceEntry.get("orderId"));
 					entry1.put("invoiceQty", invoiceEntry.get("actualQty"));
@@ -193,6 +185,95 @@ public class BillPlugin extends PlugInAdpter {
 		ret.setCode(200);
 		ret.setData(data);
 		return ret;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data) {
+		JSONObject entry = data.getJSONObject("entry");
+		JSONArray array = entry.getJSONArray("1");
+		boolean fl=false; // 表示有没有可用分录
+		for (int i = 0; i < array.size(); i++) {
+			JSONObject entrys = array.getJSONObject(i);
+			if(entrys.get("flag").equals("1")||entrys.get("flag").equals("2")){
+				fl=true;
+				break; 
+			}
+		}
+		if(!fl){
+			throw new BusinessLogicRunTimeException("没有可用分录");
+		}
+		ITemplateService temp = Environ.getBean(ITemplateService.class);
+		ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> item = temp.getItemById(classId, id);
+		Map<String, Object> entrys = (Map<String, Object>) item.get("entry");
+		ArrayList<Object> arrayList = (ArrayList<Object>) entrys.get("1");
+		//遍历发货单子表数据，取出采购订单号，采购订单行号和应发数量
+		for (int i = 0; i < arrayList.size(); i++) {
+		HashMap<String, Object> invoiceEntry = (HashMap<String, Object>) arrayList.get(i);
+		Map<String, Object> entry1 = new HashMap<String, Object>();
+		entry1.put("orderId", invoiceEntry.get("orderId"));
+		entry1.put("orderSeq", invoiceEntry.get("orderSeq"));
+		entry1.put("actualQty", invoiceEntry.get("actualQty"));
+		list.add(entry1);
+		}
+		OrderEntry orderEntry  = new OrderEntry();
+		SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+		OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+		//根据采购订单号和采购订单行号修改发货数量
+		for (int i = 0; i < list.size(); i++) {
+			Map<String, Object> lists = list.get(i);
+			int seq = Integer.parseInt(lists.get("orderSeq").toString());
+			String parent = lists.get("orderId").toString();
+			BigDecimal actualQty = new BigDecimal(lists.get("actualQty").toString());
+			OrderEntryExample e = new OrderEntryExample();
+			Criteria c = e.createCriteria();
+			c.andSeqEqualTo(seq);
+			c.andParentEqualTo(parent);
+			// 根据订单号和行号查询对应的记录
+			List<OrderEntry> o = orderEntryMapper.selectByExample(e);
+			if (o.size() > 0) {
+				orderEntry.setInvoiceQty(o.get(0).getInvoiceQty().subtract(actualQty));
+				orderEntry.setId(o.get(0).getId());
+				// 根据订单ID 修改发货数量
+				orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+			}
+		}
+		PlugInRet ret = new PlugInRet();
+		ret.setCode(200);
+		ret.setData(data);
+		return ret;
+	}
+
+	@Override
+	public PlugInRet afterModify(int classId, JSONObject data) {
+		JSONObject entry = (JSONObject) data.get("entry");
+		JSONArray array = JSONArray.parseArray(entry.getString("1"));
+		OrderEntry orderEntry  = new OrderEntry();
+		SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+		OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+		for (int i = 0; i < array.size(); i++) {
+			JSONObject entry1 = array.getJSONObject(i);
+			JSONObject datas = entry1.getJSONObject("data");
+			int seq = Integer.parseInt(datas.get("orderSeq").toString());
+			String parent = datas.get("orderId").toString();
+			BigDecimal actualQty = new BigDecimal(datas.get("actualQty").toString());
+			OrderEntryExample e = new OrderEntryExample();
+			Criteria c = e.createCriteria();
+			c.andSeqEqualTo(seq);
+			c.andParentEqualTo(parent);
+			// 根据订单号和行号查询对应的记录
+			List<OrderEntry> o = orderEntryMapper.selectByExample(e);
+			if (o.size() > 0) {
+				if(o.get(0).getInvoiceQty().add(actualQty).compareTo(o.get(0).getConfirmQty())==1){
+					throw new BusinessLogicRunTimeException("发货总数不能大于接单数量");
+				}
+				orderEntry.setInvoiceQty(o.get(0).getInvoiceQty().add(actualQty));
+				orderEntry.setId(o.get(0).getId());
+				// 根据订单ID 修改发货数量
+				orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+			}
+		}
+		return super.afterModify(classId,data);
 	}
 
 }
