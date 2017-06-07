@@ -91,9 +91,9 @@ define('BarCode', function (require, module, exports) {
                 var item = codeData[i];
 
                 $('.bc-target').eq(i).barcode(item.code,
-                    $('#codeType').find('option:selected').text(), {
-                        barWidth: 2,// 单条条码宽度
-                        barHeight: 60,// 单体条码高度
+                    $(codeType).find('option:selected').text(), {
+                        barWidth: $(codeWidth).find('option:selected').text(),// 单条条码宽度
+                        barHeight: $(codeHeight).find('option:selected').text(),// 单体条码高度
                         moduleSize: 5,
                         showHRI: true,//显示条码内容
                         marginHRI: 5, // 条码字体距条码中心的高度
