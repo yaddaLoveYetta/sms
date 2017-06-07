@@ -52,6 +52,11 @@ define('ButtonListOption', function (require, module, exports) {
                             icon: '../../css/main/img/detail.png'
                         },
                         {
+                            text: '发送到医院',
+                            name: 'send',
+                            icon: '../../css/main/img/send.png',
+                        },
+                        {
                             text: '个体码打印',
                             name: 'print',
                             icon: '../../css/main/img/print.png'
