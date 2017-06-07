@@ -155,8 +155,9 @@
 
             if (itemId) {
                 SMS.Tips.success("修改成功", 1500);
+            }else {
+                SMS.Tips.success("新增成功", 1500);
             }
-            SMS.Tips.success("新增成功", 1500);
 
             if (!itemId) {
                 itemId = data.id;// 新增成功后记录id，界面变修改逻辑
