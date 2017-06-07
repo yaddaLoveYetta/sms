@@ -52,13 +52,13 @@ define('BarCode', function (require, module, exports) {
 
         }).join('');
 
-        generateCode();
+        generateCode(code);
 
         bindEvents();
 
     }
 
-    function generateCode() {
+    function generateCode(code) {
 
         SMS.use('BarCode', function (BarCode) {
 
