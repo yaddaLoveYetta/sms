@@ -115,7 +115,7 @@ public class ItemPlugin extends PlugInAdpter {
 			String sessionId = syncHRPService.loginInEAS();
 			JSONObject delJson = new JSONObject(true);
 			delJson.put("classId", classId);
-			delJson.put("data", data);
+			delJson.put("items", data);
 			String syncRet = syncHRPService.syncItemByWS(sessionId, delJson.toString(), "delSms2hrpBaseData");
 			if (null == syncRet || "".equals(syncRet)) {
 				throw new RuntimeException("同步删除医院数据时网络异常！");
