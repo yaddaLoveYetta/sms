@@ -6,18 +6,19 @@
     <!--grunt.css.begin-->
     <link href="../../../css/base.css" rel="stylesheet"/>
     <link href="../../../css/global.debug.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/supplier/upload/index.debug.css">
     <!--grunt.css.end-->
     <link rel="stylesheet" href="../../../lib/uploadify/uploadify.css"/>
 </head>
 <body>
 
 <div class="container">
-    <input class="btn" type="button" id="sel">
     <input class="sms-btn-item" type="button" value="上传" id="upload">
+    <input class="btn" type="button" id="sel">
 </div>
 
 <!--用来作为文件队列区域-->
-<div id="fileQueue"></div>
+<div id="fileQueue" class="fileQueue"></div>
 
 <script src="../../../lib/jquery/jquery-1.11.1.debug.js"></script>
 <script src="../../../lib/miniquery/miniquery.debug.js"></script>

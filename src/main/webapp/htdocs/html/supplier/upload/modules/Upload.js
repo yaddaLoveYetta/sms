@@ -33,6 +33,7 @@ define('Upload', function (require, module, exports) {
             multi: false,
             uploadLimit: 2,
             auto: false,
+            width:auto,
             fileSizeLimit: "5MB",
             fileTypeDesc: '图片文件',
             fileTypeExts: '*.gif; *.jpg; *.png',

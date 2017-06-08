@@ -7,6 +7,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 .uploadify {
 	position: relative;
 	margin-bottom: 1em;
+	display: inline-block;
 }
 .uploadify-button {
 	/*background-color: #505050;
@@ -114,4 +115,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 	background-color: #0099FF;
 	height: 3px;
 	width: 1px;
+}
+.swfupload{
+	padding: 0 20px;
 }
