@@ -72,11 +72,6 @@
                 icon: '../../../css/main/img/refresh.png',
             },
             {
-                text: '上传附件',
-                name: 'upload',
-                icon: '../../../css/main/img/upload.png',
-            },
-            {
                 text: '审核',
                 name: 'check',
                 icon: '../../../css/main/img/check.png',
@@ -85,6 +80,11 @@
                     name: 'unCheck',
                     icon: '../../../css/main/img/uncheck.png',
                 }],
+            },
+            {
+                text: '上传附件',
+                name: 'upload',
+                icon: '../../../css/main/img/upload.png',
             },
             {
                 text: '发送到医院',
