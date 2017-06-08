@@ -70,6 +70,7 @@ public class ItemPlugin extends PlugInAdpter {
 		com.kingdee.eas.hrp.sms.model.FormFieldsExample.Criteria criteria = example.createCriteria();
 
 		criteria.andLookUpClassIDEqualTo(classId);
+		criteria.andLookUpTypeEqualTo(1);
 
 		List<FormFields> list = mapper.selectByExample(example);
 
