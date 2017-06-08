@@ -240,8 +240,8 @@
 
                 var dialog = new Dialog({
                     title: '上传附件-' + sysName,
-                    width: 700,
-                    height: 550,
+                    width: 500,
+                    height: 300,
                     url: $.Url.setQueryString('html/supplier/upload/index.html'),
                     data: {
                         'classId': classId,
