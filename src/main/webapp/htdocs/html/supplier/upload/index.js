@@ -26,6 +26,9 @@
     }
 
 
-    Upload.render();
+    Upload.render({
+        classId: classId,
+        itemId: itemId
+    });
 
 })();
