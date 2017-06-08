@@ -63,6 +63,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "loginout")
+	@ControllerLog(desc = "用户注销")
 	public void loginout(HttpServletRequest request, HttpServletResponse response) {
 
 		request.getSession().removeAttribute("user");

@@ -3,6 +3,7 @@ package com.kingdee.eas.hrp.sms.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ApprovedSupplierExample {
@@ -104,6 +105,32 @@ public class ApprovedSupplierExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -577,52 +604,52 @@ public class ApprovedSupplierExample {
         }
 
         public Criteria andEffectualDateEqualTo(Date value) {
-            addCriterion("effectualDate =", value, "effectualDate");
+            addCriterionForJDBCDate("effectualDate =", value, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateNotEqualTo(Date value) {
-            addCriterion("effectualDate <>", value, "effectualDate");
+            addCriterionForJDBCDate("effectualDate <>", value, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateGreaterThan(Date value) {
-            addCriterion("effectualDate >", value, "effectualDate");
+            addCriterionForJDBCDate("effectualDate >", value, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("effectualDate >=", value, "effectualDate");
+            addCriterionForJDBCDate("effectualDate >=", value, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateLessThan(Date value) {
-            addCriterion("effectualDate <", value, "effectualDate");
+            addCriterionForJDBCDate("effectualDate <", value, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateLessThanOrEqualTo(Date value) {
-            addCriterion("effectualDate <=", value, "effectualDate");
+            addCriterionForJDBCDate("effectualDate <=", value, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateIn(List<Date> values) {
-            addCriterion("effectualDate in", values, "effectualDate");
+            addCriterionForJDBCDate("effectualDate in", values, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateNotIn(List<Date> values) {
-            addCriterion("effectualDate not in", values, "effectualDate");
+            addCriterionForJDBCDate("effectualDate not in", values, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateBetween(Date value1, Date value2) {
-            addCriterion("effectualDate between", value1, value2, "effectualDate");
+            addCriterionForJDBCDate("effectualDate between", value1, value2, "effectualDate");
             return (Criteria) this;
         }
 
         public Criteria andEffectualDateNotBetween(Date value1, Date value2) {
-            addCriterion("effectualDate not between", value1, value2, "effectualDate");
+            addCriterionForJDBCDate("effectualDate not between", value1, value2, "effectualDate");
             return (Criteria) this;
         }
 
@@ -637,52 +664,52 @@ public class ApprovedSupplierExample {
         }
 
         public Criteria andUneffectualDateEqualTo(Date value) {
-            addCriterion("uneffectualDate =", value, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate =", value, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateNotEqualTo(Date value) {
-            addCriterion("uneffectualDate <>", value, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate <>", value, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateGreaterThan(Date value) {
-            addCriterion("uneffectualDate >", value, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate >", value, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("uneffectualDate >=", value, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate >=", value, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateLessThan(Date value) {
-            addCriterion("uneffectualDate <", value, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate <", value, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateLessThanOrEqualTo(Date value) {
-            addCriterion("uneffectualDate <=", value, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate <=", value, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateIn(List<Date> values) {
-            addCriterion("uneffectualDate in", values, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate in", values, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateNotIn(List<Date> values) {
-            addCriterion("uneffectualDate not in", values, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate not in", values, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateBetween(Date value1, Date value2) {
-            addCriterion("uneffectualDate between", value1, value2, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate between", value1, value2, "uneffectualDate");
             return (Criteria) this;
         }
 
         public Criteria andUneffectualDateNotBetween(Date value1, Date value2) {
-            addCriterion("uneffectualDate not between", value1, value2, "uneffectualDate");
+            addCriterionForJDBCDate("uneffectualDate not between", value1, value2, "uneffectualDate");
             return (Criteria) this;
         }
 

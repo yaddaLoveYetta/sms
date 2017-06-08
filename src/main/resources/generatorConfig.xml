@@ -278,6 +278,18 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
+		
+		<table tableName="t_sms_supplier_license_attachment" domainObjectName="SupplierLicenseAttachment">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_sms_supplier_item_license_attachment" domainObjectName="SupplierItemLicenseAttachment">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
 
 	</context>
 </generatorConfiguration> 

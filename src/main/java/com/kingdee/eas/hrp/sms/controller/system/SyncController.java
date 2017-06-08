@@ -59,7 +59,7 @@ public class SyncController {
 //		}
 //	}
 
-	@ControllerLog(desc = "同步item") // 做日志
+	@ControllerLog(desc = "HRP同步资料") // 做日志
 	@RequestMapping(value = "sync")
 	public void sync(HttpServletRequest request, HttpServletResponse response) {
 

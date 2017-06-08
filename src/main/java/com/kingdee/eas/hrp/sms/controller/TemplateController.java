@@ -65,7 +65,7 @@ public class TemplateController {
 	 * @date 2017-04-20 13:41:06 星期四
 	 */
 	@RequestMapping(value = "getItems")
-	@ControllerLog(desc = "查看", classId = 0)
+	//@ControllerLog(desc = "查看", classId = 0)
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_VIEW, desc = "查看")
 	public void getItems(HttpServletRequest request, HttpServletResponse response) {
 
@@ -133,6 +133,7 @@ public class TemplateController {
 	 * @date 2017-04-27 14:09:59 星期四
 	 */
 	@RequestMapping(value = "addItem")
+	@ControllerLog(desc = "新增", classId = 0)
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_ADD, desc = "新增")
 	public void addItem(HttpServletRequest request, HttpServletResponse response) {
 
@@ -168,7 +169,7 @@ public class TemplateController {
 	 * @date 2017-04-27 14:09:59 星期四
 	 */
 	@RequestMapping(value = "editItem")
-	@ControllerLog(desc = "新增")
+	@ControllerLog(desc = "修改")
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_EDIT, desc = "修改")
 	public void editItem(HttpServletRequest request, HttpServletResponse response) {
 
@@ -291,6 +292,7 @@ public class TemplateController {
 	}
 
 	@RequestMapping(value = "delItemByHRP")
+	@ControllerLog(desc = "HRP同步删除", classId = 0)
 	public void delItemByHRP(HttpServletRequest request, HttpServletResponse response) {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1);

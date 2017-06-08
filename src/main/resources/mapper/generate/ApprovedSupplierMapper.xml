@@ -9,8 +9,8 @@
     <result column="measureUnit" jdbcType="VARCHAR" property="measureUnit" />
     <result column="supplierRate" jdbcType="DECIMAL" property="supplierRate" />
     <result column="taxPrice" jdbcType="DECIMAL" property="taxPrice" />
-    <result column="effectualDate" jdbcType="TIMESTAMP" property="effectualDate" />
-    <result column="uneffectualDate" jdbcType="TIMESTAMP" property="uneffectualDate" />
+    <result column="effectualDate" jdbcType="DATE" property="effectualDate" />
+    <result column="uneffectualDate" jdbcType="DATE" property="uneffectualDate" />
     <result column="syncStatus" jdbcType="TINYINT" property="syncStatus" />
     <result column="review" jdbcType="TINYINT" property="review" />
     <result column="purMeasureUnit" jdbcType="VARCHAR" property="purMeasureUnit" />
@@ -115,7 +115,7 @@
       )
     values (#{id,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{materialItem,jdbcType=VARCHAR}, 
       #{isStopped,jdbcType=TINYINT}, #{measureUnit,jdbcType=VARCHAR}, #{supplierRate,jdbcType=DECIMAL}, 
-      #{taxPrice,jdbcType=DECIMAL}, #{effectualDate,jdbcType=TIMESTAMP}, #{uneffectualDate,jdbcType=TIMESTAMP}, 
+      #{taxPrice,jdbcType=DECIMAL}, #{effectualDate,jdbcType=DATE}, #{uneffectualDate,jdbcType=DATE}, 
       #{syncStatus,jdbcType=TINYINT}, #{review,jdbcType=TINYINT}, #{purMeasureUnit,jdbcType=VARCHAR}
       )
   </insert>
@@ -182,10 +182,10 @@
         #{taxPrice,jdbcType=DECIMAL},
       </if>
       <if test="effectualDate != null">
-        #{effectualDate,jdbcType=TIMESTAMP},
+        #{effectualDate,jdbcType=DATE},
       </if>
       <if test="uneffectualDate != null">
-        #{uneffectualDate,jdbcType=TIMESTAMP},
+        #{uneffectualDate,jdbcType=DATE},
       </if>
       <if test="syncStatus != null">
         #{syncStatus,jdbcType=TINYINT},
@@ -229,10 +229,10 @@
         taxPrice = #{record.taxPrice,jdbcType=DECIMAL},
       </if>
       <if test="record.effectualDate != null">
-        effectualDate = #{record.effectualDate,jdbcType=TIMESTAMP},
+        effectualDate = #{record.effectualDate,jdbcType=DATE},
       </if>
       <if test="record.uneffectualDate != null">
-        uneffectualDate = #{record.uneffectualDate,jdbcType=TIMESTAMP},
+        uneffectualDate = #{record.uneffectualDate,jdbcType=DATE},
       </if>
       <if test="record.syncStatus != null">
         syncStatus = #{record.syncStatus,jdbcType=TINYINT},
@@ -257,8 +257,8 @@
       measureUnit = #{record.measureUnit,jdbcType=VARCHAR},
       supplierRate = #{record.supplierRate,jdbcType=DECIMAL},
       taxPrice = #{record.taxPrice,jdbcType=DECIMAL},
-      effectualDate = #{record.effectualDate,jdbcType=TIMESTAMP},
-      uneffectualDate = #{record.uneffectualDate,jdbcType=TIMESTAMP},
+      effectualDate = #{record.effectualDate,jdbcType=DATE},
+      uneffectualDate = #{record.uneffectualDate,jdbcType=DATE},
       syncStatus = #{record.syncStatus,jdbcType=TINYINT},
       review = #{record.review,jdbcType=TINYINT},
       purMeasureUnit = #{record.purMeasureUnit,jdbcType=VARCHAR}
@@ -288,10 +288,10 @@
         taxPrice = #{taxPrice,jdbcType=DECIMAL},
       </if>
       <if test="effectualDate != null">
-        effectualDate = #{effectualDate,jdbcType=TIMESTAMP},
+        effectualDate = #{effectualDate,jdbcType=DATE},
       </if>
       <if test="uneffectualDate != null">
-        uneffectualDate = #{uneffectualDate,jdbcType=TIMESTAMP},
+        uneffectualDate = #{uneffectualDate,jdbcType=DATE},
       </if>
       <if test="syncStatus != null">
         syncStatus = #{syncStatus,jdbcType=TINYINT},
@@ -313,8 +313,8 @@
       measureUnit = #{measureUnit,jdbcType=VARCHAR},
       supplierRate = #{supplierRate,jdbcType=DECIMAL},
       taxPrice = #{taxPrice,jdbcType=DECIMAL},
-      effectualDate = #{effectualDate,jdbcType=TIMESTAMP},
-      uneffectualDate = #{uneffectualDate,jdbcType=TIMESTAMP},
+      effectualDate = #{effectualDate,jdbcType=DATE},
+      uneffectualDate = #{uneffectualDate,jdbcType=DATE},
       syncStatus = #{syncStatus,jdbcType=TINYINT},
       review = #{review,jdbcType=TINYINT},
       purMeasureUnit = #{purMeasureUnit,jdbcType=VARCHAR}
