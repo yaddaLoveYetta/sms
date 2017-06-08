@@ -342,6 +342,15 @@
             refresh(data);
         }
     });
+    $("upload-test").on('click',function () {
+        $("upload-test").uploadify({
+            height        : 30,
+            swf           : '../../../lib/uploadify/uploadify.swf',
+            uploader      : '../../../lib/uploadify/uploadify.php',
+            width         : 120
+        });
+    });
+
 
     Tree.render(treeClassId);
 
