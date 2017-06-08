@@ -1992,6 +1992,12 @@
             return host$url[host] || host$url['default'];
         }
 
+        /**
+         * 获取上传文件存储在站点的根地址。
+         */
+        function uploadFileUrlRoot() {
+            return host$url[host] || host$url['uploadFileUrlRoot'];
+        }
 
         function config(data) {
 
@@ -2040,10 +2046,10 @@
         return $.Object.extend({}, $.Url.Current, {
 
             root: root,
+            uploadFileUrlRoot:uploadFileUrlRoot,
             config: config,
             check: check,
-            format: format
-
+            format: format,
         });
 
     });

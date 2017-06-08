@@ -8,9 +8,8 @@ define('List/Upload', function (require, module, exports) {
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
     var Url = SMS.require('Url');
-    var url = Url.fileUrlRoot();
+    var url = Url.uploadFileUrlRoot();
 
-    var SMS = require('YWTC');
     var API = SMS.require("API");
 
     var btn = $('.sms-btn-menu li[index="5"]');

@@ -11,6 +11,7 @@
         // Web 站点的根地址
         Url: {
             'default': $('script[src*="config.js"]').get(0).src.split('config.js')[0],
+            'uploadFileUrlRoot':'http://127.0.0.1:8080/sms/uploadFile', //上传文件存储地址
         },
 
         //后台接口
