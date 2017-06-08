@@ -12,7 +12,8 @@ define('List/Upload', function (require, module, exports) {
 
     var API = SMS.require("API");
 
-    var btn = $('.sms-btn-menu li[index="5"]');
+    // var btn = $('.sms-btn-menu li[index="5"]');
+    var btn = $('li[data-index="5"]');
 
     function refrshUploadify() {
         btn.uploadify('destroy');
