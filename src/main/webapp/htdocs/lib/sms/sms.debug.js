@@ -404,6 +404,7 @@
                 'status': '',
                 'args': [],
                 'emitter': emitter,
+                'url': defaults.url + name
             };
 
             mapper.set(this, meta);
@@ -610,6 +611,10 @@
 
                 return this;
             },
+            /**
+             * 最终请求的路径
+             * @return {*}
+             */
             getUrl:function(){
                 var meta = mapper.get(this);
                 return meta.url;
