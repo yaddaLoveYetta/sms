@@ -18,6 +18,8 @@
 
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
 
+    var sysName = classId == 3010 ? '供应商资质' : '物料证件'
+
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
 
@@ -52,7 +54,7 @@
             {
                 text: '新增',
                 name: 'add',
-                icon:'../../../css/main/img/add.png',
+                icon: '../../../css/main/img/add.png',
             },
             {
                 text: '删除',
@@ -62,12 +64,17 @@
             {
                 text: '修改',
                 name: 'edit',
-                icon:'../../../css/main/img/edit.png',
+                icon: '../../../css/main/img/edit.png',
             },
             {
                 text: '刷新',
                 name: 'refresh',
-                icon:'../../../css/main/img/refresh.png',
+                icon: '../../../css/main/img/refresh.png',
+            },
+            {
+                text: '上传附件',
+                name: 'upload',
+                icon: '../../../css/main/img/upload.png',
             },
             {
                 text: '审核',
@@ -95,11 +102,11 @@
     ButtonList.on('click', {
 
         'add': function (item, index) {
-            // 增加供应商证书
+            // 增加
             SMS.use('Dialog', function (Dialog) {
 
                 var dialog = new Dialog({
-                    title: '新增-供应商资质',
+                    title: '新增-' + sysName,
                     width: 700,
                     height: 550,
                     url: $.Url.setQueryString('html/base_edit/index.html', 'classId', classId),
@@ -153,7 +160,7 @@
             SMS.use('Dialog', function (Dialog) {
 
                 var dialog = new Dialog({
-                    title: '编辑-供应商资质',
+                    title: '编辑-' + sysName,
                     width: 700,
                     height: 550,
                     url: $.Url.setQueryString('html/base_edit/index.html', {
