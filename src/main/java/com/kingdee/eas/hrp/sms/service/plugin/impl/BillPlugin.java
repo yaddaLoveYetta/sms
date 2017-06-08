@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
+import com.kingdee.eas.hrp.sms.dao.customize.InvoiceDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
@@ -208,7 +209,7 @@ public class BillPlugin extends PlugInAdpter {
 			ITemplateService temp = Environ.getBean(ITemplateService.class);
 			ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 			Map<String, Object> item = temp.getItemById(classId, id);
-			//判断发货单是否已发送到医院
+			// 判断发货单是否已发送到医院
 			if (item.get("type") != null) {
 				if (item.get("type").equals("1") || Integer.parseInt(item.get("type").toString()) == 1) {
 					throw new BusinessLogicRunTimeException("已发送到医院的发货单不能删除");
@@ -308,11 +309,31 @@ public class BillPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet afterDelete(int classId, String items) {
+	public PlugInRet afterDelete(int classId, List<Map<String, Object>> data, String items) {
 		if (classId == 2020) {
-
+			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+			OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+			OrderEntry orderEntry = new OrderEntry();
+			for (int i = 0; i < data.size(); i++) {
+				List<Map<String, Object>> entry = (List<Map<String, Object>>) data.get(i);
+				String parent = entry.get(0).get("orderId").toString();
+				int seq = Integer.parseInt(entry.get(0).get("orderSeq").toString());
+				BigDecimal actualQty = new BigDecimal(entry.get(0).get("actualQty").toString());
+				OrderEntryExample e = new OrderEntryExample();
+				Criteria c = e.createCriteria();
+				c.andSeqEqualTo(seq);
+				c.andParentEqualTo(parent);
+				List<OrderEntry> o = orderEntryMapper.selectByExample(e);
+				for (int j = 0; j < o.size(); j++) {
+					orderEntry.setParent(parent);
+					orderEntry.setSeq(seq);
+					orderEntry.setInvoiceQty(o.get(0).getInvoiceQty().subtract(actualQty));
+					orderEntry.setId(o.get(0).getId());
+					orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+				}
+			}
 		}
-		return super.afterDelete(classId, items);
+		return super.afterDelete(classId, data, items);
 	}
 
 }

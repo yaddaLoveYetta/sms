@@ -87,7 +87,7 @@ public interface IPlugIn {
 	 *            删除的内码集合
 	 * @return
 	 */
-	public PlugInRet afterDelete(int classId, String items);
+	public PlugInRet afterDelete(int classId,List<Map<String, Object>> data, String items);
 
 	/**
 	 * 基础资料查询前操作

@@ -3,7 +3,7 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.customize.InvoiceDaoMapper">
 
 
-	<!--删除基础资料 -->
+	<!--根据Id查询个体码-->
 	<select id="selectInvoiceById" parameterType="map" resultType="map">
 		SELECT
 			i.code,
@@ -27,5 +27,19 @@
   			</foreach>
   		AND
   			i.code !=''
+	</select>
+	
+	<select id="selectInvoiceEntryByParent" parameterType="String" resultType="map">
+		SELECT
+			t.orderId,
+			t.orderSeq,
+			SUM (t.actualQty) AS actualQty
+		FROM
+			t_sms_invoice_entry t
+		WHERE
+			t.parent = #{parent}
+  		GROUP BY
+			t.orderId,
+			t.orderSeq
 	</select>
 </mapper>

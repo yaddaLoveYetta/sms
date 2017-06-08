@@ -131,8 +131,8 @@ public class ItemPlugin extends PlugInAdpter {
 	}
 
 	@Override
-	public PlugInRet afterDelete(int classId, String items) {
-		return super.afterDelete(classId, items);
+	public PlugInRet afterDelete(int classId, List<Map<String, Object>> data, String items) {
+		return super.afterDelete(classId, data, items);
 	}
 
 	@Override

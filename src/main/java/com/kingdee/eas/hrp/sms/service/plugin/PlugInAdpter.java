@@ -42,7 +42,7 @@ public abstract class PlugInAdpter implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet afterDelete(int classId, String items) {
+	public PlugInRet afterDelete(int classId,List<Map<String, Object>> data, String items) {
 		return result;
 	}
 

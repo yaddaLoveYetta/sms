@@ -14,5 +14,7 @@ public interface InvoiceDaoMapper {
 	 * 
 	 */
 	 List<Map<String, Object>> selectInvoiceById(@Param("id")List id);
+	 
+	 List<Map<String,Object>> selectInvoiceEntryByParent(String parent);
 
 }

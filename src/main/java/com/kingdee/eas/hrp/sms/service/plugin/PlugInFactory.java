@@ -231,11 +231,11 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet afterDelete(int classId, String items) {
+	public PlugInRet afterDelete(int classId,List<Map<String, Object>> data, String items) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.afterDelete(classId, items);
+			PlugInRet ret = plugin.afterDelete(classId,data, items);
 			if (ret.getCode() != 200) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;
