@@ -237,8 +237,6 @@ define("List", function (require, module, exports) {
             }
             check(chk, checked);
         });
-
-        Upload.render();
     }
 
     function check(chk, checked) {
@@ -290,10 +288,10 @@ define("List", function (require, module, exports) {
         Operation.send(classId, list, fn);
     }
 
-    function upload(classId, list, fn) {
+/*    function upload(classId, list, fn) {
 
         Upload.upload(classId, list, fn);
-    }
+    }*/
 
     return {
         load: load,
@@ -307,6 +305,6 @@ define("List", function (require, module, exports) {
         review: review,
         unReview: unReview,
         send: send,
-        upload: upload,
+/*        upload: upload,*/
     };
 });

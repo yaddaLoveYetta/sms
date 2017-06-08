@@ -2,7 +2,7 @@
  * 上传图片控件模块
  *
  */
-define('List/Upload', function (require, module, exports) {
+define('Upload', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -12,34 +12,33 @@ define('List/Upload', function (require, module, exports) {
 
     var API = SMS.require("API");
 
-    // var btn = $('.sms-btn-menu li[index="5"]');
-    var btn;
+    var btn = $('#sel');
 
+    //销毁Uploadify实例并将文件上传按钮恢复到原始状态
     function refrshUploadify() {
         btn.uploadify('destroy');
         render();
     }
 
     function render() {
-        btn = $('li[data-index="5"]');
+
         var api = new API("car/importCarGroup");
 
         btn.uploadify({
+
             swf: '../../../lib/uploadify/uploadify.swf',
             uploader: api.getUrl(),
             buttonText: '选择附件',
             multi: false,
-            uploadLimit: 1,
+            uploadLimit: 2,
             auto: false,
             fileSizeLimit: "5MB",
-            'fileTypeDesc': 'Excel文件',
-            'fileTypeExts': '*.xlsx;*.xlsm;*.xltx;*.xltm;*.xlsa;*.xlsb;*.xlsk;*.xls;*.csv',
+            fileTypeDesc: '图片文件',
+            fileTypeExts: '*.gif; *.jpg; *.png',
             method: 'Post',
             removeTimeout: 1,
-            queueID: "file_queue",
-            //itemTemplate: '<div id="${fileID}" style="display:inline" ><span class="uploadify-queue-item-progress"></span>正在上传...</div>',
+            queueID: "fileQueue",
             overrideEvents: ['onSelectError', 'onDialogClose'],
-
             onSelectError: function (file, errorCode, errorMsg) {
                 switch (errorCode) {
                     case -100:
@@ -57,10 +56,8 @@ define('List/Upload', function (require, module, exports) {
                 }
                 return false;
             },
-            onUploadStart: function (fileObj) {
-                //return false;
-            },
             onUploadSuccess: function (fileObj, responseData, response) {
+
                 var data = $.Object.parseJson(responseData)
 
                 if (data) {
@@ -73,6 +70,7 @@ define('List/Upload', function (require, module, exports) {
                 refrshUploadify();
             },
             onUploadError: function () {
+
                 if (arguments[3] != "Cancelled") {
                     SMS.Tips.error("系统繁忙,请稍候再试!", 2000);
                 }

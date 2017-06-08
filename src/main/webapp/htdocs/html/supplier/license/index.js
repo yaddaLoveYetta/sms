@@ -236,18 +236,31 @@
                 return;
             }
 
+            SMS.use('Dialog', function (Dialog) {
 
-/*            $().uploadify({
-                height: 30,
-                swf: '../../../uploadify/uploadify.swf',
-                uploader: '../../../uploadify/uploadify.php',
-                width: 120
-            });*/
+                var dialog = new Dialog({
+                    title: '上传附件-' + sysName,
+                    width: 700,
+                    height: 550,
+                    url: $.Url.setQueryString('html/supplier/upload/index.html'),
+                    data: {
+                        'classId': classId,
+                        id: list[0].data.id,
+                    },
+                    button: [],
+                });
 
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
 
-            List.upload(classId, list, function () {
-                SMS.Tips.success("上传成功", 1500);
-                refresh();
+                dialog.showModal();
+
+                dialog.on({
+                    remove: function () {
+                        refresh();
+                    }
+                });
+
             });
 
         },
@@ -342,15 +355,6 @@
             refresh(data);
         }
     });
-    $("upload-test").on('click',function () {
-        $("upload-test").uploadify({
-            height        : 30,
-            swf           : '../../../lib/uploadify/uploadify.swf',
-            uploader      : '../../../lib/uploadify/uploadify.php',
-            width         : 120
-        });
-    });
-
 
     Tree.render(treeClassId);
 
