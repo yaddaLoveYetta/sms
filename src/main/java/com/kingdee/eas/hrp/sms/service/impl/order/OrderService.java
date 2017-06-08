@@ -768,6 +768,8 @@ public class OrderService extends BaseService implements IOrderService {
 		for (int i = 0; i < orderEntryArray.size(); i++) {
 			JSONObject orderEntryObject = orderEntryArray.getJSONObject(i);
 			orderEntry.setId(orderEntryObject.getString("entryId"));// 订单子表内码
+			orderEntry.setLocalAmount(orderEntryObject.getBigDecimal("localAmount"));//修改本位币金额
+			orderEntry.setAmount(orderEntryObject.getBigDecimal("amount"));//修改金额
 			if (orderEntryObject.getDate("confirmDate") != null && !orderEntryObject.getDate("confirmDate").equals("")) {
 				orderEntry.setConfirmDate(orderEntryObject.getDate("confirmDate"));// 修改供应商确认日期
 				orderEntry.setDeliveryDate(orderEntryObject.getDate("confirmDate"));// 修改原单发货日期
@@ -785,6 +787,8 @@ public class OrderService extends BaseService implements IOrderService {
 		order.setId(jsonObject.getString("id"));
 		order.setTickType((byte) 1);
 		order.setTickDate(new Date());
+		order.setTotalAmount(jsonObject.getBigDecimal("totalAmount"));
+		order.setTotalTaxAmount(jsonObject.getBigDecimal("totalTaxAmount"));
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 		orderMapper.updateByPrimaryKeySelective(order);
 		return "success";
