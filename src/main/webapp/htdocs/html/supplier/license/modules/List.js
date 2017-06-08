@@ -12,6 +12,8 @@ define("List", function (require, module, exports) {
 
     var Iframe = SMS.require('Iframe');
 
+    var Upload = require('/Upload');
+
     var dialog = Iframe.getDialog();
     // 完整名称为 List/Operation
     var div = document.getElementById("div-list");
@@ -235,6 +237,8 @@ define("List", function (require, module, exports) {
             }
             check(chk, checked);
         });
+
+        Upload.render();
     }
 
     function check(chk, checked) {
@@ -286,6 +290,11 @@ define("List", function (require, module, exports) {
         Operation.send(classId, list, fn);
     }
 
+    function upload(classId, list, fn) {
+
+        Upload.upload(classId, list, fn);
+    }
+
     return {
         load: load,
         render: render,
@@ -298,5 +307,6 @@ define("List", function (require, module, exports) {
         review: review,
         unReview: unReview,
         send: send,
+        upload: upload,
     };
 });

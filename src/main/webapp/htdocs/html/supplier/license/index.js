@@ -237,18 +237,18 @@
             }
 
 
-            $().uploadify({
+/*            $().uploadify({
                 height: 30,
                 swf: '../../../uploadify/uploadify.swf',
                 uploader: '../../../uploadify/uploadify.php',
                 width: 120
+            });*/
+
+
+            List.upload(classId, list, function () {
+                SMS.Tips.success("上传成功", 1500);
+                refresh();
             });
-
-
-            /*            List.upload(classId, list, function () {
-             SMS.Tips.success("反审核成功", 1500);
-             refresh();
-             });*/
 
         },
         'send': function (item, index) {
