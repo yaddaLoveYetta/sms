@@ -1,4 +1,4 @@
-package com.kingdee.eas.hrp.sms.controller.system;
+package com.kingdee.eas.hrp.sms.controller.supplier;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,10 +17,10 @@ import com.kingdee.eas.hrp.sms.authority.AccessMaskCode;
 import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.service.api.supplier.IFileUploadService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
-import com.kingdee.eas.hrp.sms.service.api.system.IFileUploadService;
 import com.kingdee.eas.hrp.sms.service.impl.TemplateService;
-import com.kingdee.eas.hrp.sms.service.impl.sys.FileUploadService;
+import com.kingdee.eas.hrp.sms.service.impl.supplier.FileUploadService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;

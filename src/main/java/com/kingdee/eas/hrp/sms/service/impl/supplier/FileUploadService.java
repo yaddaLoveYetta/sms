@@ -1,4 +1,4 @@
-package com.kingdee.eas.hrp.sms.service.impl.sys;
+package com.kingdee.eas.hrp.sms.service.impl.supplier;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
 
-import com.kingdee.eas.hrp.sms.service.api.system.IFileUploadService;
+import com.kingdee.eas.hrp.sms.service.api.supplier.IFileUploadService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
 @SuppressWarnings("deprecation")

@@ -1,4 +1,4 @@
-package com.kingdee.eas.hrp.sms.service.api.system;
+package com.kingdee.eas.hrp.sms.service.api.supplier;
 
 import java.io.IOException;
 import java.util.List;
