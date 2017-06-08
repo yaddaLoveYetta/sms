@@ -610,6 +610,10 @@
 
                 return this;
             },
+            getUrl:function(){
+                var meta = mapper.get(this);
+                return meta.url;
+            }
         };
 
 
