@@ -20,7 +20,7 @@ define('Upload', function (require, module, exports) {
     //销毁Uploadify实例并将文件上传按钮恢复到原始状态
     function refrshUploadify() {
         btn.uploadify('destroy');
-        render();
+        //render();
     }
 
     function render(opts) {
