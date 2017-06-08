@@ -66,6 +66,11 @@ public class FileUploadController {
 			condition.put("logicOperator", "=");
 			condition.put("value", path);
 			conditionArry.add(condition);
+			condition = new JSONObject(true);
+			condition.put("fieldKey", "license");
+			condition.put("logicOperator", "=");
+			condition.put("value", license);
+			conditionArry.add(condition);
 			
 			Map<String, Object> items = templateService.getItems(classId, conditionArry.toString(), "", 1, 1000);
 			if ((long) items.get("count") > 0)
