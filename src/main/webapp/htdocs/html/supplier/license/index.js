@@ -228,27 +228,27 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项',1500);
+                SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
             if (list.length > 1) {
-                SMS.Tips.error('一次只能对一条记录进行操作',1500);
+                SMS.Tips.error('一次只能对一条记录进行操作', 1500);
                 return;
             }
 
-            $(function() {
-                $().uploadify({
-                    height        : 30,
-                    swf           : '../../../uploadify/uploadify.swf',
-                    uploader      : '../../../uploadify/uploadify.php',
-                    width         : 120
-                });
+
+            $().uploadify({
+                height: 30,
+                swf: '../../../uploadify/uploadify.swf',
+                uploader: '../../../uploadify/uploadify.php',
+                width: 120
             });
 
-/*            List.upload(classId, list, function () {
-                SMS.Tips.success("反审核成功", 1500);
-                refresh();
-            });*/
+
+            /*            List.upload(classId, list, function () {
+             SMS.Tips.success("反审核成功", 1500);
+             refresh();
+             });*/
 
         },
         'send': function (item, index) {
