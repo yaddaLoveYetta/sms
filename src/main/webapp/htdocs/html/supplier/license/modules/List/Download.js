@@ -1,4 +1,4 @@
-﻿define('List/Dwonload', function(require, module, exports) {
+﻿define('List/Download', function(require, module, exports) {
 	var $ = require('$');
 	var MiniQuery = require('MiniQuery');
 	var SMS = require('YWTC');
