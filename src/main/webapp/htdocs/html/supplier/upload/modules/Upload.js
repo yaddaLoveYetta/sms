@@ -28,6 +28,7 @@ define('Upload', function (require, module, exports) {
 
             swf: '../../../lib/uploadify/uploadify.swf',
             uploader: api.getUrl(),
+            buttonClass:'sms-btn-item',
             buttonText: '选择附件',
             multi: false,
             uploadLimit: 2,
