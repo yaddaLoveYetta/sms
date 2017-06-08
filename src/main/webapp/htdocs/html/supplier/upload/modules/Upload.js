@@ -29,7 +29,7 @@ define('Upload', function (require, module, exports) {
             classId = opts.classId;
             itemId = opts.id;
         }
-        var api = new API("template/checkItem");
+        var api = new API("file/upload");
 
         btn.uploadify({
 
