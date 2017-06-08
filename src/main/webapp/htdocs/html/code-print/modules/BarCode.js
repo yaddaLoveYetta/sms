@@ -58,7 +58,7 @@ define('BarCode', function (require, module, exports) {
             }
         ).join('');
 
-        $(codeWidth).val(2);
+        $(codeWidth).val(2); // 默认宽度2px
 
         codeHeight.innerHTML = $.Array.keep(codeHeights, function (item, index) {
                 return $.String.format('<option value={value}>{text}</option>', {
@@ -68,7 +68,7 @@ define('BarCode', function (require, module, exports) {
             }
         ).join('');
 
-        $(codeHeight).val(70);
+        $(codeHeight).val(70);//默认高度70px
 
         div.innerHTML = $.Array.keep(code, function (item, index) {
 
