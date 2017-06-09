@@ -27,7 +27,7 @@ define('Upload', function (require, module, exports) {
 
         if (opts) {
             classId = opts.classId;
-            itemId = opts.id;
+            itemId = opts.itemId;
         }
         var api = new API("file/upload3");
 
