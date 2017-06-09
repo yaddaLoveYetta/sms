@@ -111,7 +111,7 @@ define('Tree', function (require, module, exports) {
         // 加入一个根节点
         treeData.push({
             id: 0,
-            pid: -1,
+            pid: 100,
             name: '所有',
         });
 

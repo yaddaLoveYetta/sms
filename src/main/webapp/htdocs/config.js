@@ -210,7 +210,7 @@
                 }
             },
             check: {
-                enable: false,
+                enable: true,
                 chkStyle: "checkbox",
                 chkboxType: {"Y": "p", "N": "s"},
             },
