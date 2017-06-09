@@ -176,7 +176,8 @@ body {
 .login-box .content .login-panel .login-bt {
   margin: 20px 20px 0;
   line-height: 42px;
-  background: #5ac3c8;
+  /*  background: #5ac3c8;*/
+  background: #009bd9;
   color: white;
   text-align: center;
   cursor: pointer;
