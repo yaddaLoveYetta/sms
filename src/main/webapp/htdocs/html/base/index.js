@@ -287,16 +287,16 @@
 
     function refresh() {
 
-        var keyworld = $(txtSimpleSearch).val()
+        var keyWorld = $(txtSimpleSearch).val()
         conditions['name'] = "";
         conditions['number'] = "";
-        if ($.trim(keyworld) !== "") {
+        if ($.trim(keyWorld) !== "") {
             conditions['name'] = {
                 'andOr': 'AND',
                 'leftParenTheses': '((',
                 'fieldKey': 'name',
                 'logicOperator': 'like',
-                'value': keyworld,
+                'value': keyWorld,
                 'rightParenTheses': ')'
             };
             conditions['number'] = {
@@ -304,7 +304,7 @@
                 'leftParenTheses': '(',
                 'fieldKey': 'number',
                 'logicOperator': 'like',
-                'value': keyworld,
+                'value': keyWorld,
                 'rightParenTheses': '))'
             };
         }
