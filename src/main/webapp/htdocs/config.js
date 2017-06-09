@@ -197,7 +197,7 @@
             treeObj: null,
             callback: {},
             view: {
-                showIcon: false,
+                showIcon: true,
                 showLine: false,
                 dblClickExpand: true,//双击展开
                 selectedMulti: false,//是否允许多选
