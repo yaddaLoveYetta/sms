@@ -352,6 +352,11 @@
     Tree.on({
 
         onClick: function (data) {
+
+            if (data.id === 0) {
+                // 根节点data.id==0,不过滤
+                data = null;
+            }
             refresh(data);
         }
     });

@@ -112,7 +112,7 @@ define('Tree', function (require, module, exports) {
         treeData.push({
             id: 0,
             pId: 0,
-            name: '所有',
+            name: '全部',
         });
 
         SMS.use('ZTree', function (zTree) {
