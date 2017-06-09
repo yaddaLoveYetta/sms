@@ -206,7 +206,8 @@
                 simpleData: {
                     enable: true,
                     idKey: "id",
-                    pIdKey: "pId"
+                    pIdKey: "pId",
+                    rootPId: 0,
                 }
             },
             check: {
