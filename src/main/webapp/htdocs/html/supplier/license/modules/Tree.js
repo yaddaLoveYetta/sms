@@ -88,7 +88,7 @@ define('Tree', function (require, module, exports) {
             treeData = $.Array.keep(treeData, function (item, index) {
                 return {
                     id: item.id,
-                    pid: 0,
+                    pId: 0,
                     name: item.name || '',
                 }
             });
@@ -97,7 +97,7 @@ define('Tree', function (require, module, exports) {
             treeData = $.Array.keep(treeData, function (item, index) {
                 return {
                     id: item.materialItem,
-                    pid: 0,
+                    pId: 0,
                     name: item.materialItem_DspName || '',
                 }
             });
@@ -111,7 +111,7 @@ define('Tree', function (require, module, exports) {
         // 加入一个根节点
         treeData.push({
             id: 0,
-            pid: 0,
+            pId: 0,
             name: '所有',
         });
 
