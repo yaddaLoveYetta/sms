@@ -3,6 +3,8 @@
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
+    var Iframe = KERP.require('Iframe');
+    var MessageBox = SMS.require('MessageBox');
     var bl = require('ButtonList');
     var Edit = require('Edit');
     var DatetimePicker = require('DatetimePicker');
@@ -15,6 +17,15 @@
     if (!SMS.Login.check(true)) {
         return;
     }
+
+    Iframe.on('before-close', function (infos) {
+
+        MessageBox.confirm('正在编辑，确认关闭?', function (result) {
+            if (!result) {
+                return false;
+            }
+        });
+    });
 
     // 基础资料类别ID
     // 支持二级事件，二级事件对应 item 中的 name
