@@ -1,20 +1,22 @@
 package com.kingdee.eas.hrp.sms.service.api.supplier;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 public interface IFileUploadService {
 
 	/**
+	 * 保存图片映射到数 据库
 	 * 
-	 * @param request
-	 * @return List<String>
-	 * @throws IOException
-	 *
-	 * 2017年6月8日下午5:02:02
+	 * @Title saveUrlToDb
+	 * @param classId
+	 *            事务类型
+	 * @param itemId
+	 *            内码
+	 * @param url
+	 *            映射集合
+	 * @return void
+	 * @date 2017-06-09 11:49:54 星期五
 	 */
-	List<String> upload(HttpServletRequest request, Integer classId) throws IOException;
+	void saveUrlToDb(int classId, String itemId, List<String> url);
 
 }

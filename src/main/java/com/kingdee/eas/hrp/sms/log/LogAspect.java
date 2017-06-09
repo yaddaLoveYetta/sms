@@ -19,14 +19,11 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
-import com.kingdee.eas.hrp.sms.authority.Permission;
-import com.kingdee.eas.hrp.sms.exception.LogErrorRuntimeException;
 import com.kingdee.eas.hrp.sms.model.ObjectType;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.sys.ILogService;
@@ -35,15 +32,7 @@ import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
 
-import javassist.ClassClassPath;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
-import javassist.Modifier;
 import javassist.NotFoundException;
-import javassist.bytecode.CodeAttribute;
-import javassist.bytecode.LocalVariableAttribute;
-import javassist.bytecode.MethodInfo;
 
 /**
  * 系统日志统一处理
