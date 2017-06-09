@@ -108,6 +108,13 @@ define('Tree', function (require, module, exports) {
             });
         }
 
+        // 加入一个根节点
+        treeData.push({
+            id: 0,
+            pid: -1,
+            name: '所有',
+        });
+
         SMS.use('ZTree', function (zTree) {
 
             tree = new zTree({
