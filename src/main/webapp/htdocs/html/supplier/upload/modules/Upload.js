@@ -94,7 +94,7 @@ define('Upload', function (require, module, exports) {
             },
             onFallback: function () {
                 // 检测flash失败
-                SMS.Tips.error("您未安装FLASH控件，无法上传，请安装FLASH控件后重试!", 2000);
+                SMS.Tips.error("您未安装FLASH控件，无法上传，请安装FLASH控件后重试!");
             }
         });
 
