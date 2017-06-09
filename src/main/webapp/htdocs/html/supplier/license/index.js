@@ -298,6 +298,8 @@
 
     function refresh(data) {
 
+        conditions={};
+
         if (data) {
 
             if (treeClassId === 1005) {
