@@ -198,7 +198,7 @@
             callback: {},
             view: {
                 showIcon: true,
-                showLine: false,
+                showLine: true,
                 dblClickExpand: true,//双击展开
                 selectedMulti: false,//是否允许多选
             },
@@ -210,7 +210,7 @@
                 }
             },
             check: {
-                enable: true,
+                enable: false,
                 chkStyle: "checkbox",
                 chkboxType: {"Y": "p", "N": "s"},
             },

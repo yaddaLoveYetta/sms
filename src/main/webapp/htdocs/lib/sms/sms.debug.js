@@ -6104,7 +6104,7 @@
          */
         function ZTree(selector, config, data) {
 
-            if ($.Object.isPlain(selector)) { // 重载 DateTimePicker( config )
+            if ($.Object.isPlain(selector)) { // 重载 ( config )
                 config = selector;
                 selector = config.selector;
                 data = config.data;
