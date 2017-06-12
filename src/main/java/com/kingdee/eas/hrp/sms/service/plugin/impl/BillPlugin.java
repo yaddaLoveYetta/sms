@@ -12,7 +12,6 @@ import org.apache.ibatis.session.SqlSession;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
-import com.kingdee.eas.hrp.sms.dao.customize.InvoiceDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
@@ -219,11 +218,11 @@ public class BillPlugin extends PlugInAdpter {
 			ArrayList<Object> arrayList = (ArrayList<Object>) entrys.get("1");
 			// 遍历发货单子表数据，取出采购订单号，采购订单行号和应发数量
 			for (int i = 0; i < arrayList.size(); i++) {
-				HashMap<String, Object> invoiceEntry = (HashMap<String, Object>) arrayList.get(i);
+				HashMap<String, Object> sendcargoEntry = (HashMap<String, Object>) arrayList.get(i);
 				Map<String, Object> entry1 = new HashMap<String, Object>();
-				entry1.put("orderId", invoiceEntry.get("orderId"));
-				entry1.put("orderSeq", invoiceEntry.get("orderSeq"));
-				entry1.put("actualQty", invoiceEntry.get("actualQty"));
+				entry1.put("orderId", sendcargoEntry.get("orderId"));
+				entry1.put("orderSeq", sendcargoEntry.get("orderSeq"));
+				entry1.put("actualQty", sendcargoEntry.get("actualQty"));
 				list.add(entry1);
 			}
 			OrderEntry orderEntry = new OrderEntry();

@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kingdee.eas.hrp.sms.dao.customize.InvoiceDaoMapper;
+import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.customize.TemplateDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.FormClassMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.FormEntriesMapper;
@@ -677,10 +677,10 @@ public class TemplateService extends BaseService implements ITemplateService {
 		if (classId == 2020) {
 			// 根据发货单号查询数据
 			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
-			InvoiceDaoMapper invoiceDaoMapper = sqlSession.getMapper(InvoiceDaoMapper.class);
+			SendcargoDaoMapper sendcargoDaoMapper = sqlSession.getMapper(SendcargoDaoMapper.class);
 			String[] split = items.split("\\,");
 			for (int i = 0; i < split.length; i++) {
-				List<Map<String, Object>> entry = invoiceDaoMapper.selectInvoiceEntryByParent(split[i]);
+				List<Map<String, Object>> entry = sendcargoDaoMapper.selectInvoiceEntryByParent(split[i]);
 				list.add(entry);
 			}
 		}

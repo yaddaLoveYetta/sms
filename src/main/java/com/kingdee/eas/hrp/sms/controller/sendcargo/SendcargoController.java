@@ -1,4 +1,4 @@
-package com.kingdee.eas.hrp.sms.controller.invoice;
+package com.kingdee.eas.hrp.sms.controller.sendcargo;
 
 
 import java.util.List;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.invoice.IInvoiceService;
-import com.kingdee.eas.hrp.sms.service.impl.invoice.InvoiceService;
+import com.kingdee.eas.hrp.sms.service.impl.sendcargo.SendcargoService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 @Controller
-@RequestMapping(value = "/invoice/")
-public class InvoiceController {
+@RequestMapping(value = "/sendcargo/")
+public class SendcargoController {
 	
 	@Resource
 	IInvoiceService invoiceService;

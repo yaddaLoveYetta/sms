@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 
-public interface InvoiceDaoMapper {
+public interface SendcargoDaoMapper {
 
 	/**
 	 * 
