@@ -264,7 +264,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 
-		// PageHelper.orderBy(orderByStr);
 		if (pageNo == 1) {
 			PageHelper.startPage(pageNo, pageSize, true);
 		} else {
