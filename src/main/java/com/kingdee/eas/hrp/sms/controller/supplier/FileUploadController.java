@@ -33,7 +33,7 @@ public class FileUploadController {
 	IFileUploadService fileUploadService;
 
 	@RequestMapping(value = "upload")
-	public void uploadFile3(HttpServletRequest request, HttpServletResponse response) {
+	public void upload(HttpServletRequest request, HttpServletResponse response) {
 
 		int classId = 0;
 		String itemId = "";
