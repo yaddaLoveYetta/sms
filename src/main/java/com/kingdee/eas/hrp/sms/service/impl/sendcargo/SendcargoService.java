@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
-import com.kingdee.eas.hrp.sms.service.api.invoice.ISendcargoService;
+import com.kingdee.eas.hrp.sms.service.api.sendcargo.ISendcargoService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
 @Service
