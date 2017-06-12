@@ -18,14 +18,14 @@
         return;
     }
 
-    Iframe.on('before-close', function (infos) {
+/*    Iframe.on('before-close', function (infos) {
 
         MessageBox.confirm('正在编辑，确认关闭?', function (result) {
             if (!result) {
                 return false;
             }
         });
-    });
+    });*/
 
     // 基础资料类别ID
     // 支持二级事件，二级事件对应 item 中的 name
