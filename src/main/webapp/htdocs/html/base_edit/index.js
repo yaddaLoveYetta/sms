@@ -3,7 +3,7 @@
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
-    var Iframe = KERP.require('Iframe');
+    var Iframe = SMS.require('Iframe');
     var MessageBox = SMS.require('MessageBox');
     var bl = require('ButtonList');
     var Edit = require('Edit');
