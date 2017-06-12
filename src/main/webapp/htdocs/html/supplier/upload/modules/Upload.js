@@ -37,7 +37,7 @@ define('Upload', function (require, module, exports) {
             uploader: api.getUrl(),
             buttonClass: 'sms-btn-item',
             buttonText: '选择附件',
-            multi: false,
+            multi: true,
             uploadLimit: 2,
             auto: false,
             width: 80,
