@@ -78,7 +78,8 @@ define('Edit', function (require, module, exports) {
 
         itemId = itemID;
         classId = formClassId;
-        FormEdit.render(formClassId, itemId, initGrid, initSelectors);
+       // FormEdit.render(formClassId, itemId, initGrid, initSelectors);
+        FormEdit.render(formClassId, itemId, null, initSelectors);
     }
 
     function clear() {
