@@ -3,14 +3,14 @@ package com.kingdee.eas.hrp.sms.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierLicenseAttachmentExample {
+public class SupplierLicenseEntryExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public SupplierLicenseAttachmentExample() {
+    public SupplierLicenseEntryExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -174,143 +174,143 @@ public class SupplierLicenseAttachmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andLicenseIsNull() {
-            addCriterion("license is null");
+        public Criteria andParentIsNull() {
+            addCriterion("parent is null");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseIsNotNull() {
-            addCriterion("license is not null");
+        public Criteria andParentIsNotNull() {
+            addCriterion("parent is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseEqualTo(String value) {
-            addCriterion("license =", value, "license");
+        public Criteria andParentEqualTo(String value) {
+            addCriterion("parent =", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseNotEqualTo(String value) {
-            addCriterion("license <>", value, "license");
+        public Criteria andParentNotEqualTo(String value) {
+            addCriterion("parent <>", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseGreaterThan(String value) {
-            addCriterion("license >", value, "license");
+        public Criteria andParentGreaterThan(String value) {
+            addCriterion("parent >", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseGreaterThanOrEqualTo(String value) {
-            addCriterion("license >=", value, "license");
+        public Criteria andParentGreaterThanOrEqualTo(String value) {
+            addCriterion("parent >=", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseLessThan(String value) {
-            addCriterion("license <", value, "license");
+        public Criteria andParentLessThan(String value) {
+            addCriterion("parent <", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseLessThanOrEqualTo(String value) {
-            addCriterion("license <=", value, "license");
+        public Criteria andParentLessThanOrEqualTo(String value) {
+            addCriterion("parent <=", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseLike(String value) {
-            addCriterion("license like", value, "license");
+        public Criteria andParentLike(String value) {
+            addCriterion("parent like", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseNotLike(String value) {
-            addCriterion("license not like", value, "license");
+        public Criteria andParentNotLike(String value) {
+            addCriterion("parent not like", value, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseIn(List<String> values) {
-            addCriterion("license in", values, "license");
+        public Criteria andParentIn(List<String> values) {
+            addCriterion("parent in", values, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseNotIn(List<String> values) {
-            addCriterion("license not in", values, "license");
+        public Criteria andParentNotIn(List<String> values) {
+            addCriterion("parent not in", values, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseBetween(String value1, String value2) {
-            addCriterion("license between", value1, value2, "license");
+        public Criteria andParentBetween(String value1, String value2) {
+            addCriterion("parent between", value1, value2, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andLicenseNotBetween(String value1, String value2) {
-            addCriterion("license not between", value1, value2, "license");
+        public Criteria andParentNotBetween(String value1, String value2) {
+            addCriterion("parent not between", value1, value2, "parent");
             return (Criteria) this;
         }
 
-        public Criteria andPathIsNull() {
-            addCriterion("[path] is null");
+        public Criteria andUrlIsNull() {
+            addCriterion("url is null");
             return (Criteria) this;
         }
 
-        public Criteria andPathIsNotNull() {
-            addCriterion("[path] is not null");
+        public Criteria andUrlIsNotNull() {
+            addCriterion("url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPathEqualTo(String value) {
-            addCriterion("[path] =", value, "path");
+        public Criteria andUrlEqualTo(String value) {
+            addCriterion("url =", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathNotEqualTo(String value) {
-            addCriterion("[path] <>", value, "path");
+        public Criteria andUrlNotEqualTo(String value) {
+            addCriterion("url <>", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathGreaterThan(String value) {
-            addCriterion("[path] >", value, "path");
+        public Criteria andUrlGreaterThan(String value) {
+            addCriterion("url >", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathGreaterThanOrEqualTo(String value) {
-            addCriterion("[path] >=", value, "path");
+        public Criteria andUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("url >=", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathLessThan(String value) {
-            addCriterion("[path] <", value, "path");
+        public Criteria andUrlLessThan(String value) {
+            addCriterion("url <", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathLessThanOrEqualTo(String value) {
-            addCriterion("[path] <=", value, "path");
+        public Criteria andUrlLessThanOrEqualTo(String value) {
+            addCriterion("url <=", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathLike(String value) {
-            addCriterion("[path] like", value, "path");
+        public Criteria andUrlLike(String value) {
+            addCriterion("url like", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathNotLike(String value) {
-            addCriterion("[path] not like", value, "path");
+        public Criteria andUrlNotLike(String value) {
+            addCriterion("url not like", value, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathIn(List<String> values) {
-            addCriterion("[path] in", values, "path");
+        public Criteria andUrlIn(List<String> values) {
+            addCriterion("url in", values, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathNotIn(List<String> values) {
-            addCriterion("[path] not in", values, "path");
+        public Criteria andUrlNotIn(List<String> values) {
+            addCriterion("url not in", values, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathBetween(String value1, String value2) {
-            addCriterion("[path] between", value1, value2, "path");
+        public Criteria andUrlBetween(String value1, String value2) {
+            addCriterion("url between", value1, value2, "url");
             return (Criteria) this;
         }
 
-        public Criteria andPathNotBetween(String value1, String value2) {
-            addCriterion("[path] not between", value1, value2, "path");
+        public Criteria andUrlNotBetween(String value1, String value2) {
+            addCriterion("url not between", value1, value2, "url");
             return (Criteria) this;
         }
     }

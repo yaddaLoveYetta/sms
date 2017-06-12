@@ -279,13 +279,13 @@
 
 		</table>
 		
-		<table tableName="t_sms_supplier_license_attachment" domainObjectName="SupplierLicenseAttachment">
+		<table tableName="t_sms_supplier_license_entry" domainObjectName="SupplierLicenseEntry">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
 		
-		<table tableName="t_sms_supplier_item_license_attachment" domainObjectName="SupplierItemLicenseAttachment">
+		<table tableName="t_sms_supplier_item_license_entry" domainObjectName="SupplierItemLicenseEntry">
 
 			<property name="useActualColumnNames" value="true" />
 

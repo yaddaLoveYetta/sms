@@ -2,6 +2,8 @@ package com.kingdee.eas.hrp.sms.service.api.supplier;
 
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
+
 public interface IFileUploadService {
 
 	/**
@@ -17,6 +19,8 @@ public interface IFileUploadService {
 	 * @return void
 	 * @date 2017-06-09 11:49:54 星期五
 	 */
-	void saveUrlToDb(int classId, String itemId, List<String> url);
+	void saveUrlToDb(int classId, String itemId, List<String> urls);
+
+	JSONObject delete(Integer classId, String data);
 
 }
