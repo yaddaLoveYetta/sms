@@ -64,6 +64,23 @@ define('List/Samples', function (require, module, exports) {
                 //fn: trim,
             },
             {
+                name:'item.table',
+                begin:'!--item.table.begin--!',
+                end:'!--item.table.end--!',
+                outer: 'item_table',
+            },
+            {
+                name:'item.table.tr',
+                begin:'!--item.table.tr.begin--!',
+                end:'!--item.table.tr.end--!',
+                outer: 'item_table_tr',
+            },{
+                name:'item.table.tr.td',
+                begin:' !--item.table.tr.td.begin--!',
+                end:'!--item.table.tr.td.end--!',
+                outer: 'item_table_tr_td',
+            },
+            {
                 name: 'trtotal',
                 begin: '#--tr.total.begin--#',
                 end: '#--tr.total.end--#',

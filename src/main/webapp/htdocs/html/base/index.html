@@ -73,6 +73,20 @@
                 <a href="javascript:" title="{text}">{text}</a>
                 !--item.a.end--!
 
+                !--item.table.begin--!
+                <table>
+                    !--item.table.tr.begin--!
+                    <tr data-index="{index}" class="{disabled-class}">
+                        !--item.table.tr.td.begin--!
+                        <td data-index="{index}" key="{key}" class="{number-class}">
+                            {td}
+                        </td>
+                        !--item.table.tr.td.end--!
+                    </tr>
+                    !--item.table.tr.end--!
+                </table>
+                !--item.table.end--!
+
             </td>
             #--td.end--#
         </tr>

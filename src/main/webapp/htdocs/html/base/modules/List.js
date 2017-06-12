@@ -41,6 +41,26 @@ define("List", function (require, module, exports) {
         });
     }
 
+    function getTableHtml(type, data) {
+
+
+        var html = $.String.format(samples["item.table"], {
+            // 行
+            'item_table_tr': $.Array.keep(data, function (item, no) {
+                return $.String.format(samples["item.table"], {
+                    index: no,
+                    'disabled-class': item.disabled ? "disabled" : "",
+                    'item_table_tr_td': item,
+                });
+            }),
+        });
+
+
+        return html;
+
+    }
+
+
     function getHtml(type, data) {
         /*
          * if ( typeof data == 'boolean') { data = data ? '是' : '否'; }
@@ -98,6 +118,7 @@ define("List", function (require, module, exports) {
                     });
                 }).join(""),
                 trs: $.Array.keep(bodyItems, function (item, no) {
+
                     // 行
                     return $.String.format(samples["tr"], {
                         index: no,
@@ -112,8 +133,8 @@ define("List", function (require, module, exports) {
                             return $.String.format(samples["td"], {
                                 index: index,
                                 key: field.key,
-                                td: field.isEntry ? getHtml("entry", item.value) : getHtml(field.type, item.value),
-                                "number-class": field.key == "number" ? "number" : ""
+                                "number-class": field.key == "number" ? "number" : "",
+                                td: field.page == 1 ? getTableHtml("entry", item.value) : getHtml(field.type, item.value),
                             });
                         }).join("")
                     });
