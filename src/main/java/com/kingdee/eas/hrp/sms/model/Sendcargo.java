@@ -2,7 +2,7 @@ package com.kingdee.eas.hrp.sms.model;
 
 import java.util.Date;
 
-public class Invoice {
+public class Sendcargo {
     private String id;
 
     private String number;

@@ -503,6 +503,76 @@ public class FormEntriesExample {
             addCriterion("bosType not between", value1, value2, "bosType");
             return (Criteria) this;
         }
+
+        public Criteria andJoinTypeIsNull() {
+            addCriterion("joinType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeIsNotNull() {
+            addCriterion("joinType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeEqualTo(String value) {
+            addCriterion("joinType =", value, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeNotEqualTo(String value) {
+            addCriterion("joinType <>", value, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeGreaterThan(String value) {
+            addCriterion("joinType >", value, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("joinType >=", value, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeLessThan(String value) {
+            addCriterion("joinType <", value, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeLessThanOrEqualTo(String value) {
+            addCriterion("joinType <=", value, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeLike(String value) {
+            addCriterion("joinType like", value, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeNotLike(String value) {
+            addCriterion("joinType not like", value, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeIn(List<String> values) {
+            addCriterion("joinType in", values, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeNotIn(List<String> values) {
+            addCriterion("joinType not in", values, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeBetween(String value1, String value2) {
+            addCriterion("joinType between", value1, value2, "joinType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinTypeNotBetween(String value1, String value2) {
+            addCriterion("joinType not between", value1, value2, "joinType");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

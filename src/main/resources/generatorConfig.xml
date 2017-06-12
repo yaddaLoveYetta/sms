@@ -241,7 +241,7 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		<table tableName="t_sms_invoice" domainObjectName="Invoice">
+		<table tableName="t_sms_sendcargo" domainObjectName="Sendcargo">
 
 			<property name="useActualColumnNames" value="true" />
 

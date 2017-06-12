@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.InvoiceMapper">
-  <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Invoice">
+<mapper namespace="com.kingdee.eas.hrp.sms.dao.generate.SendcargoMapper">
+  <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Sendcargo">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="Date" jdbcType="TIMESTAMP" property="date" />
@@ -72,13 +72,13 @@
   <sql id="Base_Column_List">
     id, [number], [Date], supplier, logistics, logisticsNo, saleProxy, [type]
   </sql>
-  <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.InvoiceExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SendcargoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_sms_invoice
+    from t_sms_sendcargo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,29 +89,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_sms_invoice
+    from t_sms_sendcargo
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_sms_invoice
+    delete from t_sms_sendcargo
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.InvoiceExample">
-    delete from t_sms_invoice
+  <delete id="deleteByExample" parameterType="com.kingdee.eas.hrp.sms.model.SendcargoExample">
+    delete from t_sms_sendcargo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
-    insert into t_sms_invoice (id, [number], [Date], 
+  <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Sendcargo">
+    insert into t_sms_sendcargo (id, [number], [Date], 
       supplier, logistics, logisticsNo, 
       saleProxy, [type])
     values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
       #{supplier,jdbcType=VARCHAR}, #{logistics,jdbcType=VARCHAR}, #{logisticsNo,jdbcType=VARCHAR}, 
       #{saleProxy,jdbcType=TINYINT}, #{type,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
-    insert into t_sms_invoice
+  <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Sendcargo">
+    insert into t_sms_sendcargo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -165,14 +165,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.kingdee.eas.hrp.sms.model.InvoiceExample" resultType="java.lang.Long">
-    select count(*) from t_sms_invoice
+  <select id="countByExample" parameterType="com.kingdee.eas.hrp.sms.model.SendcargoExample" resultType="java.lang.Long">
+    select count(*) from t_sms_sendcargo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update t_sms_invoice
+    update t_sms_sendcargo
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update t_sms_invoice
+    update t_sms_sendcargo
     set id = #{record.id,jdbcType=VARCHAR},
       [number] = #{record.number,jdbcType=VARCHAR},
       [Date] = #{record.date,jdbcType=TIMESTAMP},
@@ -217,8 +217,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
-    update t_sms_invoice
+  <update id="updateByPrimaryKeySelective" parameterType="com.kingdee.eas.hrp.sms.model.Sendcargo">
+    update t_sms_sendcargo
     <set>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
@@ -244,8 +244,8 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Invoice">
-    update t_sms_invoice
+  <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Sendcargo">
+    update t_sms_sendcargo
     set [number] = #{number,jdbcType=VARCHAR},
       [Date] = #{date,jdbcType=TIMESTAMP},
       supplier = #{supplier,jdbcType=VARCHAR},

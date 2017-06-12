@@ -8,6 +8,7 @@
     <result column="foreignKey" jdbcType="VARCHAR" property="foreignKey" />
     <result column="primaryKey" jdbcType="VARCHAR" property="primaryKey" />
     <result column="bosType" jdbcType="VARCHAR" property="bosType" />
+    <result column="joinType" jdbcType="VARCHAR" property="joinType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    classId, entryIndex, tableName, foreignKey, primaryKey, bosType
+    classId, entryIndex, tableName, foreignKey, primaryKey, bosType, joinType
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.FormEntriesExample" resultMap="BaseResultMap">
     select
@@ -104,11 +105,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.FormEntries">
     insert into t_sms_formEntries (classId, entryIndex, tableName, 
-      foreignKey, primaryKey, bosType
-      )
+      foreignKey, primaryKey, bosType, 
+      joinType)
     values (#{classId,jdbcType=INTEGER}, #{entryIndex,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, 
-      #{foreignKey,jdbcType=VARCHAR}, #{primaryKey,jdbcType=VARCHAR}, #{bosType,jdbcType=VARCHAR}
-      )
+      #{foreignKey,jdbcType=VARCHAR}, #{primaryKey,jdbcType=VARCHAR}, #{bosType,jdbcType=VARCHAR}, 
+      #{joinType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.FormEntries">
     insert into t_sms_formEntries
@@ -131,6 +132,9 @@
       <if test="bosType != null">
         bosType,
       </if>
+      <if test="joinType != null">
+        joinType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="classId != null">
@@ -150,6 +154,9 @@
       </if>
       <if test="bosType != null">
         #{bosType,jdbcType=VARCHAR},
+      </if>
+      <if test="joinType != null">
+        #{joinType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -180,6 +187,9 @@
       <if test="record.bosType != null">
         bosType = #{record.bosType,jdbcType=VARCHAR},
       </if>
+      <if test="record.joinType != null">
+        joinType = #{record.joinType,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -192,7 +202,8 @@
       tableName = #{record.tableName,jdbcType=VARCHAR},
       foreignKey = #{record.foreignKey,jdbcType=VARCHAR},
       primaryKey = #{record.primaryKey,jdbcType=VARCHAR},
-      bosType = #{record.bosType,jdbcType=VARCHAR}
+      bosType = #{record.bosType,jdbcType=VARCHAR},
+      joinType = #{record.joinType,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -212,6 +223,9 @@
       <if test="bosType != null">
         bosType = #{bosType,jdbcType=VARCHAR},
       </if>
+      <if test="joinType != null">
+        joinType = #{joinType,jdbcType=VARCHAR},
+      </if>
     </set>
     where classId = #{classId,jdbcType=INTEGER}
       and entryIndex = #{entryIndex,jdbcType=INTEGER}
@@ -221,7 +235,8 @@
     set tableName = #{tableName,jdbcType=VARCHAR},
       foreignKey = #{foreignKey,jdbcType=VARCHAR},
       primaryKey = #{primaryKey,jdbcType=VARCHAR},
-      bosType = #{bosType,jdbcType=VARCHAR}
+      bosType = #{bosType,jdbcType=VARCHAR},
+      joinType = #{joinType,jdbcType=VARCHAR}
     where classId = #{classId,jdbcType=INTEGER}
       and entryIndex = #{entryIndex,jdbcType=INTEGER}
   </update>

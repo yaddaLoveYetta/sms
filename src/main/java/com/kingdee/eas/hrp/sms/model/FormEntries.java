@@ -9,6 +9,8 @@ public class FormEntries extends FormEntriesKey {
 
     private String bosType;
 
+    private String joinType;
+
     public String getTableName() {
         return tableName;
     }
@@ -39,5 +41,13 @@ public class FormEntries extends FormEntriesKey {
 
     public void setBosType(String bosType) {
         this.bosType = bosType == null ? null : bosType.trim();
+    }
+
+    public String getJoinType() {
+        return joinType;
+    }
+
+    public void setJoinType(String joinType) {
+        this.joinType = joinType == null ? null : joinType.trim();
     }
 }
