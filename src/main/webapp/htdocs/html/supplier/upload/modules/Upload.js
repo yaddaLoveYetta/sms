@@ -39,6 +39,7 @@ define('Upload', function (require, module, exports) {
             buttonText: '选择附件',
             multi: true,
             uploadLimit: 2,
+            simUploadLimit:3,
             auto: false,
             width: 80,
             height: 25,
@@ -48,6 +49,7 @@ define('Upload', function (require, module, exports) {
             method: 'Post',
             removeTimeout: 1,
             queueID: "fileQueue",
+            queueSizeLimit: 2,
             overrideEvents: ['onSelectError', 'onDialogClose'],
             onUploadStart: function (file) {
                 btn.uploadify("settings", "formData", {
