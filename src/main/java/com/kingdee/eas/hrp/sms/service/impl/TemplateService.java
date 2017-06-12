@@ -682,7 +682,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void delItem(Integer classId, String items) {
 		List list = new ArrayList();
+		//判断是否为发货单数据
 		if (classId == 2020) {
+			//根据发货单号查询数据
 			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 			InvoiceDaoMapper invoiceDaoMapper = sqlSession.getMapper(InvoiceDaoMapper.class);
 			String[] split = items.split("\\,");
