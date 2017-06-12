@@ -114,9 +114,9 @@ define('List/API/Head', function (require, module, exports) {
 
         });
         // 表体需要在表头显示的字段
-        var fields1 = $.Array.grep(fields["1"], function (item, index) {
+/*        var fields1 = $.Array.grep(fields["1"], function (item, index) {
             return (item.display & 64);
-        })
+        })*/
 
         return headItems;
 
