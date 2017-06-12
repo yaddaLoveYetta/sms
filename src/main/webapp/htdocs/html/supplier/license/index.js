@@ -22,7 +22,7 @@
 
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
-
+    var treeFilter;
 
     //检查登录
     if (!SMS.Login.check(true)) {
@@ -296,7 +296,7 @@
 
     });
 
-    function refresh(data) {
+    function refresh() {
 
         conditions = {};
 
@@ -321,7 +321,7 @@
             };
         }
 
-        if (data) {
+        if (treeFilter) {
 
             if (treeClassId === 1005) {
                 // 供应商
@@ -330,7 +330,7 @@
                     'leftParenTheses': '(',
                     'fieldKey': 'supplier',
                     'logicOperator': '=',
-                    'value': data.id,
+                    'value': treeFilter.id,
                     'rightParenTheses': ')',
                     'needConvert': false,
                 };
@@ -341,7 +341,7 @@
                     'leftParenTheses': '(',
                     'fieldKey': 'material',
                     'logicOperator': '=',
-                    'value': data.id,
+                    'value': treeFilter.id,
                     'rightParenTheses': ')',
                     'needConvert': false,
                 };
@@ -380,7 +380,8 @@
                 // 根节点data.id==0,不过滤
                 data = null;
             }
-            refresh(data);
+            treeFilter = data;
+            refresh();
         }
     });
 
