@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
-import com.kingdee.eas.hrp.sms.service.api.invoice.IInvoiceService;
+import com.kingdee.eas.hrp.sms.service.api.invoice.ISendcargoService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
 @Service
-public class SendcargoService extends BaseService implements IInvoiceService{
+public class SendcargoService extends BaseService implements ISendcargoService{
 
 	@Override
 	public List<Map<String, Object>> getCode(String items) {

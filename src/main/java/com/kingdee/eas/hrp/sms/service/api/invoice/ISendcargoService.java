@@ -3,9 +3,11 @@ package com.kingdee.eas.hrp.sms.service.api.invoice;
 import java.util.List;
 import java.util.Map;
 
-public interface IInvoiceService {
+public interface ISendcargoService {
 	
 	
 	List<Map<String, Object>> getCode(String items);
+	
+	 
 
 }
