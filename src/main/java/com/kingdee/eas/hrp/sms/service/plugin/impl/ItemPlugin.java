@@ -357,8 +357,8 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 		}
 
-		// 证件特殊业务判断，起始日期必须小于结束日期
-		if (classId == 3010 || classId == 3020) {
+		// 证件特殊业务判断，起始日期必须小于结束日期(只是更新entry数据时不用检查)
+		if ((classId == 3010 || classId == 3020)&&!json.containsKey("entry")&&json.size()==1) {
 			String beginDate = json.getString("beginDate");
 			String endDate = json.getString("endDate");
 

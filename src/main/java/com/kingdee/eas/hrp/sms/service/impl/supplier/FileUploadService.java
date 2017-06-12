@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.aspectj.weaver.JoinPointSignature;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -19,13 +20,16 @@ public class FileUploadService extends BaseService implements IFileUploadService
 
 	@Resource
 	ITemplateService templateService;
-	
+
 	@Override
 	public void saveUrlToDb(int classId, String itemId, List<String> urls) {
 
 		for (String url : urls) {
-			//判断是否有该附件路径已存在，是则不添加新的附记录
-			JSONArray conditionArry = new JSONArray();
+			// 判断是否有该附件路径已存在，是则不添加新的附记录
+			JSONArray jsonArray3 = new JSONArray();
+			JSONArray jsonArray2 = jsonArray3;
+			JSONArray jsonArray = jsonArray2;
+			JSONArray conditionArry = jsonArray;
 			JSONObject condition = new JSONObject(true);
 			condition.put("fieldKey", "url");
 			condition.put("logicOperator", "=");
@@ -36,20 +40,29 @@ public class FileUploadService extends BaseService implements IFileUploadService
 			condition.put("logicOperator", "=");
 			condition.put("value", itemId);
 			conditionArry.add(condition);
-			
+
 			Map<String, Object> items = templateService.getItems(classId, conditionArry.toString(), "", 1, 1000);
 			if ((long) items.get("count") > 0)
 				continue;
-			JSONObject json = new JSONObject(true);
-			JSONObject entry = new JSONObject(true);
-			entry.put("parent", itemId);
-			entry.put("url", url);
-			json.put("entry", entry.toJSONString());
-			templateService.checkItem(classId, json.toString());
+			
+			JSONObject json = new JSONObject();
+			JSONObject entry = new JSONObject();
+			JSONObject data = new JSONObject();
+			JSONObject entryData = new JSONObject();
+			JSONArray array = new JSONArray();
+			data.put("url", url);
+			entryData.put("flag", "1");
+			entryData.put("data", data);
+			array.add(entryData);
+			entry.put("1", array);
+			json.put("entry", entry);
+			json.put("id", itemId);
+			
+			templateService.editItem(classId, itemId, json.toString());
 		}
 
 	}
-	
+
 	@Override
 	public JSONObject delete(Integer classId, String data) {
 
