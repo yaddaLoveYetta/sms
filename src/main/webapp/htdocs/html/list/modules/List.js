@@ -273,6 +273,9 @@ define("List", function (require, module, exports) {
     function del(classId, list, fn) {
         Operation.del(classId, list, fn);
     }
+    function send(classId, list, fn) {
+        Operation.send(classId, list, fn);
+    }
     return {
         load: load,
         render: render,
@@ -281,6 +284,7 @@ define("List", function (require, module, exports) {
         getPrimaryKey: getPrimaryKey,
         del: del,
         getFilterItems: getFilterItems,
-        forbid: forbid
+        forbid: forbid,
+        send: send,
     };
 });
