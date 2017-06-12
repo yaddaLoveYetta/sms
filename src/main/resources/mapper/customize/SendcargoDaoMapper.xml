@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kingdee.eas.hrp.sms.dao.customize.InvoiceDaoMapper">
+
+
+	<!--根据Id查询个体码-->
+	<select id="selectInvoiceById" parameterType="map" resultType="map">
+		SELECT
+			i.code,
+			i.effectiveDate,
+			i.dyBatchNum,
+			t.name,
+			t.specification
+		FROM
+			t_sms_sendcargo_entry i
+		INNER JOIN 
+			t_sms_item t 
+		ON 	i.material = t.id
+		INNER JOIN 
+			t_sms_sendcargo v 
+		ON 	i.parent = v.id
+		WHERE
+		 v.id in
+		 <foreach collection="id" index="index" item="item" open="("
+   			 separator="," close=")">
+   			#{item} 
+  			</foreach>
+  		AND
+  			i.code !=''
+	</select>
+	
+	<select id="selectInvoiceEntryByParent" parameterType="String" resultType="map">
+		SELECT
+			t.orderId,
+			t.orderSeq,
+			SUM (t.actualQty) AS actualQty
+		FROM
+			t_sms_sendcargo_entry t
+		WHERE
+			t.parent = #{parent}
+  		GROUP BY
+			t.orderId,
+			t.orderSeq
+	</select>
+</mapper>
