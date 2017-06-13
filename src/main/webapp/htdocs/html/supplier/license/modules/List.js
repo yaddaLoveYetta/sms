@@ -39,6 +39,31 @@ define("List", function (require, module, exports) {
         });
     }
 
+    function getTableHtml(field, data) {
+
+        if (!data || data.length == 0 || data[0] == null) {
+            return "";
+        }
+        var html = $.String.format(samples["item.table"], {
+            // 行
+            'item_table_tr': $.Array.keep(data, function (item, no) {
+                return $.String.format(samples["item.table.tr"], {
+                    index: no,
+                    child: 1,
+                    'item_table_tr_td': $.String.format(samples["item.table.tr.td"], {
+                        index: no,
+                        child: 1,
+                        key: field.key,
+                        td: item,
+                    })
+                });
+            }).join(""),
+        });
+
+
+        return html;
+
+    }
     function getHtml(type, data) {
         /*
          * if ( typeof data == 'boolean') { data = data ? '是' : '否'; }
@@ -110,8 +135,8 @@ define("List", function (require, module, exports) {
                             return $.String.format(samples["td"], {
                                 index: index,
                                 key: field.key,
-                                td: field.isEntry ? getHtml("entry", item.value) : getHtml(field.type, item.value),
-                                "number-class": field.key == "number" ? "number" : ""
+                                "number-class": field.key == "number" ? "number" : "",
+                                td: field.isEntry ? getTableHtml(field, item.value) : getHtml(field.type, item.value),
                             });
                         }).join("")
                     });
@@ -193,6 +218,13 @@ define("List", function (require, module, exports) {
         }
         $(div).delegate("td[data-index]", "click", function (event) {
             var td = this;
+
+            if (td.getAttribute("child")) {
+                // 子表列单击
+                //td = td.parentNode.parentNode.parentNode.parentNode; // 转换成主表列
+                return; // 不触发,猫婆触发上级td事件
+            }
+
             var tr = td.parentNode;
             var index = +td.getAttribute("data-index");
             // 列号
@@ -215,6 +247,13 @@ define("List", function (require, module, exports) {
         });
         $(div).delegate("tr[data-index]", "click", function (event) {
             var tr = this;
+
+            if (tr.getAttribute("child")) {
+                // 子表列单击
+                // tr = tr.parentNode.parentNode.parentNode.parentNode; // 转换成主表行
+                return; // 不触发,猫婆触发上级tr事件
+            }
+
             var no = +tr.getAttribute("data-index");
             // 行号
             var bodyItems = list.body.items;
@@ -224,7 +263,7 @@ define("List", function (require, module, exports) {
             }, event];
             emitter.fire("click:" + no, args);
             emitter.fire("row.click", args);
-            var chk = $(this).find("[data-check=item]")[0];
+            var chk = $(tr).find("[data-check=item]")[0];
             var checked = !chk.checked;
             chk.checked = checked;
             if (!multiSelect) {

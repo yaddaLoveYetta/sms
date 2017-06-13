@@ -40,11 +40,10 @@ define('List/API', function (require, module, exports) {
             console.dir(list);
 
             // var headItems = Head.getItems(bodyData['fieldShow'], headData.formFields[0]);  //old
-            headItems = Head.getItems(headData.formFields[0]);
-            //var entry= Head.getItems(headData.formFields[1]);
+            headItems = Head.getItems(headData.formFields);
+
             var filterItems = Head.getFilterItem(headData.formFields);
 
-            //var bodyItems = Body.getItems(bodyData.items, headItems, headData.formClass.primaryKey);//old
             var bodyItems = Body.getItems(bodyData.list, headItems, headData.formClass.primaryKey);
 
             fn && fn({
