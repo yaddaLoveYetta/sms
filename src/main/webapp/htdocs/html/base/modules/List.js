@@ -56,7 +56,7 @@ define("List", function (require, module, exports) {
                         td: item,
                     })
                 });
-            }),
+            }).join(""),
         });
 
 
