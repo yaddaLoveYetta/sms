@@ -228,7 +228,8 @@ define("List", function (require, module, exports) {
 
             if (td.getAttribute("child")) {
                 // 子表列单击
-                td = td.parentNode.parentNode.parentNode.parentNode; // 转换成主表列
+                //td = td.parentNode.parentNode.parentNode.parentNode; // 转换成主表列
+                return; // 不触发,猫婆触发上级td事件
             }
             var tr = td.parentNode;
             var index = +td.getAttribute("data-index");
@@ -256,7 +257,8 @@ define("List", function (require, module, exports) {
 
             if (tr.getAttribute("child")) {
                 // 子表列单击
-                tr = tr.parentNode.parentNode.parentNode.parentNode; // 转换成主表行
+                // tr = tr.parentNode.parentNode.parentNode.parentNode; // 转换成主表行
+                return; // 不触发,猫婆触发上级tr事件
             }
 
             var no = +tr.getAttribute("data-index");
