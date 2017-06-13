@@ -290,6 +290,18 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
+		
+		<table tableName="t_sms_purreturns" domainObjectName="PurReturns">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_sms_purreturns_entry" domainObjectName="PurReturnsEntry">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
 
 	</context>
 </generatorConfiguration> 

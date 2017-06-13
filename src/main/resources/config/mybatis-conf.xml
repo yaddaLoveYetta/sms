@@ -107,6 +107,8 @@
 		<mapper resource="mapper/generate/ApprovedSupplierMapper.xml" />
 		<mapper resource="mapper/generate/SupplierLicenseEntryMapper.xml" />
 		<mapper resource="mapper/generate/SupplierItemLicenseEntryMapper.xml" />
+		<mapper resource="mapper/generate/PurReturnsEntryMapper.xml" />
+		<mapper resource="mapper/generate/PurReturnsMapper.xml" />
 
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
