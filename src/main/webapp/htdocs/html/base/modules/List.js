@@ -43,14 +43,18 @@ define("List", function (require, module, exports) {
 
     function getTableHtml(type, data) {
 
-
+        if (!data || data.length == 0 || data[0] == null) {
+            return "";
+        }
         var html = $.String.format(samples["item.table"], {
             // 行
             'item_table_tr': $.Array.keep(data, function (item, no) {
-                return $.String.format(samples["item.table"], {
+                return $.String.format(samples["item.table.tr"], {
                     index: no,
-                    'disabled-class': item.disabled ? "disabled" : "",
-                    'item_table_tr_td': item,
+                    'item_table_tr_td': $.String.format(samples["item.table.tr.td"], {
+                        index: no,
+                        td: item,
+                    })
                 });
             }),
         });
