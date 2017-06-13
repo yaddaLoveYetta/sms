@@ -55,7 +55,7 @@ define("List", function (require, module, exports) {
                         child: 1,
                         key: field.key,
                         td: item,
-                        'file-name': item.substr(item.lastIndexOf('\\') + 1),
+                        'file-name': item.substr(item.lastIndexOf('/') + 1),
                     })
                 });
             }).join(""),
