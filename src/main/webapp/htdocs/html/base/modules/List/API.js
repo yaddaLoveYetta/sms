@@ -40,6 +40,7 @@ define('List/API', function (require, module, exports) {
             var bodyData = list[1];
             var headItems;
 
+            // headItems = Head.getItems(headData.formFields[0]);
             headItems = Head.getItems(headData.formFields[0]);
 
             var filterItems = Head.getFilterItem(headData.formFields);

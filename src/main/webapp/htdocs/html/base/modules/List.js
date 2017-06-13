@@ -134,7 +134,7 @@ define("List", function (require, module, exports) {
                                 index: index,
                                 key: field.key,
                                 "number-class": field.key == "number" ? "number" : "",
-                                td: field.page == 1 ? getTableHtml("entry", item.value) : getHtml(field.type, item.value),
+                                td: field.isEntry ? getTableHtml("entry", item.value) : getHtml(field.type, item.value),
                             });
                         }).join("")
                     });

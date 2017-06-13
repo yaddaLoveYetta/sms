@@ -88,6 +88,8 @@ define('List/API/Head', function (require, module, exports) {
          });
          */
 
+        fields = $.extend({}, fields["0"], fields["1"]); // 将主表及第一个子表模板取出
+
         if (headItems.length > 0) {
             return headItems;
         }
@@ -108,15 +110,12 @@ define('List/API/Head', function (require, module, exports) {
                 'visible': !!(mask & display), //转成 boolean--字段按用户类别显示
                 'lookupType': item.lookUpType,
                 'isCount': item.isCount,
+                'isEntry': item.page === 1,
             };
 
             headItems.push(headItem);
 
         });
-        // 表体需要在表头显示的字段
-/*        var fields1 = $.Array.grep(fields["1"], function (item, index) {
-            return (item.display & 64);
-        })*/
 
         return headItems;
 
