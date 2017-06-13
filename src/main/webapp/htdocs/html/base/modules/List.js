@@ -274,7 +274,7 @@ define("List", function (require, module, exports) {
             if (!multiSelect) {
                 $(tr).siblings().removeClass("selected");
                 $(tr).siblings().each(function () {
-                    var sibCk = $(tr).find("[data-check=item]")[0];
+                    var sibCk = $(this).find("[data-check=item]")[0];
                     sibCk.checked = false;
                 });
                 index$selected = {};
