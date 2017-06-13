@@ -41,7 +41,7 @@ define("List", function (require, module, exports) {
         });
     }
 
-    function getTableHtml(type, data) {
+    function getTableHtml(field, data) {
 
         if (!data || data.length == 0 || data[0] == null) {
             return "";
@@ -53,6 +53,7 @@ define("List", function (require, module, exports) {
                     index: no,
                     'item_table_tr_td': $.String.format(samples["item.table.tr.td"], {
                         index: no,
+                        key:field.key,
                         td: item,
                     })
                 });
@@ -138,7 +139,7 @@ define("List", function (require, module, exports) {
                                 index: index,
                                 key: field.key,
                                 "number-class": field.key == "number" ? "number" : "",
-                                td: field.isEntry ? getTableHtml("entry", item.value) : getHtml(field.type, item.value),
+                                td: field.isEntry ? getTableHtml(field, item.value) : getHtml(field.type, item.value),
                             });
                         }).join("")
                     });
@@ -218,6 +219,7 @@ define("List", function (require, module, exports) {
                 event.stopPropagation();
             });
         }
+        // 主表列单击事件
         $(div).delegate("td[data-index]", "click", function (event) {
             var td = this;
             var tr = td.parentNode;
@@ -240,6 +242,7 @@ define("List", function (require, module, exports) {
             emitter.fire("click:" + field.key, args);
             emitter.fire("cell.click", args);
         });
+        //主表行单击事件
         $(div).delegate("tr[data-index]", "click", function (event) {
             var tr = this;
             var no = +tr.getAttribute("data-index");
@@ -265,6 +268,30 @@ define("List", function (require, module, exports) {
             check(chk, checked);
         });
     }
+
+    // 子表列单击事件
+    $(div).delegate("td[child-data-index]", "click", function (event) {
+        var td = this;
+        var tr = td.parentNode;
+        var index = +td.getAttribute("data-index");
+        // 列号
+        var no = +tr.getAttribute("data-index");
+        // 行号
+        var headItems = list.head.items;
+        var bodyItems = list.body.items;
+        var field = headItems[index];
+        var item = bodyItems[no];
+        var args = [{
+            row: no,
+            cell: index,
+            head: field,
+            body: item,
+            item: item.items[index]
+        }, event];
+        emitter.fire("click:" + no + "-" + index, args);
+        emitter.fire("click:" + field.key, args);
+        emitter.fire("cell.click", args);
+    });
 
     function check(chk, checked) {
         checked = chk.checked = typeof checked == "boolean" ? checked : chk.checked;
