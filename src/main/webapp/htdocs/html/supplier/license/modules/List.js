@@ -191,6 +191,7 @@ define("List", function (require, module, exports) {
     }
 
     function bindEvents(multiSelect) {
+
         if (multiSelect) {
             $(div).delegate('[data-check="all"]', "click", function (event) {
                 var chk = this;
@@ -218,6 +219,7 @@ define("List", function (require, module, exports) {
                 event.stopPropagation();
             });
         }
+
         $(div).delegate("td[data-index]", "click", function (event) {
             var td = this;
 
@@ -278,6 +280,12 @@ define("List", function (require, module, exports) {
             }
             check(chk, checked);
         });
+
+        $('.data-table tbody tr td a').hover(function () {
+            alert(111);
+        }, function () {
+            alert(111);
+        })
     }
 
     function check(chk, checked) {
@@ -329,10 +337,22 @@ define("List", function (require, module, exports) {
         Operation.send(classId, list, fn);
     }
 
-    /*    function upload(classId, list, fn) {
+    function show() {
 
-     Upload.upload(classId, list, fn);
-     }*/
+        if ($(panel).hasClass('hover')) { //避免上次的隐藏动画还没结束又开始显示动画
+            return;
+        }
+
+        $(panel).addClass('hover');
+        $('#div-user-list').fadeIn();
+    }
+
+    function hide() {
+
+        $('#div-user-list').fadeOut(function () {
+            $(panel).removeClass('hover');
+        });
+    }
 
     return {
         load: load,
