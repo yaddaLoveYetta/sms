@@ -55,6 +55,7 @@ define("List", function (require, module, exports) {
                         child: 1,
                         key: field.key,
                         td: item,
+                        'file-name': item.substr(item.lastIndexOf('\\') + 1),
                     })
                 });
             }).join(""),
@@ -64,6 +65,7 @@ define("List", function (require, module, exports) {
         return html;
 
     }
+
     function getHtml(type, data) {
         /*
          * if ( typeof data == 'boolean') { data = data ? '是' : '否'; }
@@ -327,10 +329,10 @@ define("List", function (require, module, exports) {
         Operation.send(classId, list, fn);
     }
 
-/*    function upload(classId, list, fn) {
+    /*    function upload(classId, list, fn) {
 
-        Upload.upload(classId, list, fn);
-    }*/
+     Upload.upload(classId, list, fn);
+     }*/
 
     return {
         load: load,
@@ -344,6 +346,6 @@ define("List", function (require, module, exports) {
         review: review,
         unReview: unReview,
         send: send,
-/*        upload: upload,*/
+        /*        upload: upload,*/
     };
 });
