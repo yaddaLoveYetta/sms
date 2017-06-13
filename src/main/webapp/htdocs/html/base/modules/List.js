@@ -51,8 +51,10 @@ define("List", function (require, module, exports) {
             'item_table_tr': $.Array.keep(data, function (item, no) {
                 return $.String.format(samples["item.table.tr"], {
                     index: no,
+                    child: 1,
                     'item_table_tr_td': $.String.format(samples["item.table.tr.td"], {
                         index: no,
+                        child: 1,
                         key: field.key,
                         td: item,
                     })
