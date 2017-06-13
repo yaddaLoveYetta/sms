@@ -42,4 +42,36 @@
 			t.orderId,
 			t.orderSeq
 	</select>
+	
+	<select id="selectSendCargoANDEntry" parameterType="String" resultType="map">
+		SELECT
+			t.id,
+			t.supplier,
+			t.number,
+			e.id AS entryId,
+			e.seq,
+			e.orderId,
+			e.orderSeq,
+			e.material,
+			e.lot,
+			e.dyBatchNum,
+			e.code,
+			e.price,
+			e.unit,
+			e.qty,
+			e.dyProDate,
+			e.dyManufacturer,
+			e.registrationNo,
+			e.effectiveDate,
+			e.amount,
+			o.id AS orderEntryId
+		FROM
+			t_sms_sendcargo t
+		INNER JOIN 
+			t_sms_sendcargo_entry e ON t.id = e.parent
+		INNER JOIN 
+			t_sms_purchase_order_entry o ON e.orderId = o.parent AND e.orderSeq = o.seq
+		WHERE
+			t.id = #{id}
+	</select>
 </mapper>

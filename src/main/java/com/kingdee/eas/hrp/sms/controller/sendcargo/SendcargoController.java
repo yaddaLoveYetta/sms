@@ -51,7 +51,10 @@ public class SendcargoController {
 			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
 		}
 
-		List<Map<String, Object>> shipSendcargo = sendcargoService.getCode(items);
+		String shipSendcargo = sendcargoService.sendCargoHrp(items);
+		if(shipSendcargo.equals("success")){
+			throw new BusinessLogicRunTimeException("发送到医院成功");
+		}
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipSendcargo);
 
 	}
