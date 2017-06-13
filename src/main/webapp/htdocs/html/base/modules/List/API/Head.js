@@ -110,6 +110,7 @@ define('List/API/Head', function (require, module, exports) {
                 'visible': !!(mask & display), //转成 boolean--字段按用户类别显示
                 'lookupType': item.lookUpType,
                 'isCount': item.isCount,
+                'entryIndex':item.page,
                 'isEntry': item.page === 1,
             };
 
