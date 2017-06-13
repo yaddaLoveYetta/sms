@@ -268,13 +268,13 @@ define("List", function (require, module, exports) {
             }, event];
             emitter.fire("click:" + no, args);
             emitter.fire("row.click", args);
-            var chk = $(this).find("[data-check=item]")[0];
+            var chk = $(tr).find("[data-check=item]")[0];
             var checked = !chk.checked;
             chk.checked = checked;
             if (!multiSelect) {
                 $(tr).siblings().removeClass("selected");
                 $(tr).siblings().each(function () {
-                    var sibCk = $(this).find("[data-check=item]")[0];
+                    var sibCk = $(tr).find("[data-check=item]")[0];
                     sibCk.checked = false;
                 });
                 index$selected = {};
@@ -282,31 +282,6 @@ define("List", function (require, module, exports) {
             check(chk, checked);
         });
 
-
-        // 子表列单击事件
-        $(div).delegate("td[child-data-index]", "click", function (event) {
-            var td = this;
-            td = td.parentNode.parentNode.parentNode.parentNode; // 转换成主表列
-            var tr = td.parentNode;
-            var index = +td.getAttribute("data-index");
-            // 列号
-            var no = +tr.getAttribute("data-index");
-            // 行号
-            var headItems = list.head.items;
-            var bodyItems = list.body.items;
-            var field = headItems[index];
-            var item = bodyItems[no];
-            var args = [{
-                row: no,
-                cell: index,
-                head: field,
-                body: item,
-                item: item.items[index]
-            }, event];
-            emitter.fire("click:" + no + "-" + index, args);
-            emitter.fire("click:" + field.key, args);
-            emitter.fire("cell.click", args);
-        });
     }
 
 
