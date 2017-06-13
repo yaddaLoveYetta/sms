@@ -41,7 +41,7 @@ define('List/API', function (require, module, exports) {
             var headItems;
 
             // headItems = Head.getItems(headData.formFields[0]);
-            headItems = Head.getItems(headData.formFields[0]);
+            headItems = Head.getItems(headData.formFields);
 
             var filterItems = Head.getFilterItem(headData.formFields);
 
