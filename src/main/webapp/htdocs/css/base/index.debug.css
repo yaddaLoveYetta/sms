@@ -89,7 +89,7 @@
 .data-table tbody tr:hover {
   background: #f1f2f4;
 }
-.data-table tbody tr:nth-child(even) {
+.table-panel .data-table tbody tr:nth-child(even) {
   background-color: #f8f8f9;
 }
 .data-table th,

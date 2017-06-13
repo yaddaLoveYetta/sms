@@ -129,6 +129,39 @@
             }
 
         },
+        'edit': function (item, index) {
+
+            var list = List.getSelectedItems();
+
+            if (list.length == 0) {
+                SMS.Tips.error('请选择要操作的项');
+                return;
+            }
+
+            if (list.length > 1) {
+                SMS.Tips.error('一次只能对一条记录进行操作');
+                return;
+            }
+
+            var url = ClassMapping.getPage(classId);
+            var name = ClassMapping.getTabName(classId) || '';
+
+            if (!url) {
+                // 没有配置编辑页面或不需要编辑功能
+                return;
+            }
+
+            Iframe.open({
+                id: classId + '-edit-' + list.primaryValue,
+                name: '修改-' + name,
+                url: url,
+                query: {
+                    'id': list.primaryValue,
+                    'classId': classId,
+                }
+            });
+
+        },
         'delete': function (item, index) {
 
             var list = List.getSelectedItems();
@@ -201,10 +234,10 @@
                 SMS.Tips.error('请选择要操作的项');
                 return;
             }
-/*            if (list.length > 1) {
-                SMS.Tips.error('一次只能对一条记录进行操作');
-                return;
-            }*/
+            /*            if (list.length > 1) {
+             SMS.Tips.error('一次只能对一条记录进行操作');
+             return;
+             }*/
             if (list[0].data.review === 0) {
                 SMS.Tips.error('该记录未审核，不可发送');
                 return;
@@ -274,7 +307,7 @@
 
             Iframe.open({
                 id: classId + '-edit-' + body.primaryValue,
-                name: '编辑-' + name,
+                name: '修改-' + name,
                 url: url,
                 query: {
                     'id': body.primaryValue,
