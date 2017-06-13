@@ -1,4 +1,4 @@
-package com.kingdee.eas.hrp.sms.controller.purinwarehs;
+package com.kingdee.eas.hrp.sms.controller.purreturns;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONArray;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
-import com.kingdee.eas.hrp.sms.service.api.purinwarehs.IPurInWarehsService;
+import com.kingdee.eas.hrp.sms.service.api.purreturns.IPurReturnsService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 @Controller
-@RequestMapping(value = "/purinwarehs/")
-public class PurInWarehsController {
-	
+@RequestMapping(value = "/purreturns/")
+public class PurReturnsController {
+		
 	@Resource
-	IPurInWarehsService iPurInWarehsService;
+	IPurReturnsService iPurReturnsService;
 	
-	@ControllerLog(desc = "同步入库单") // 做日志
-	@RequestMapping(value = "purInWarehs")
-	public void purInWarehs(HttpServletRequest request, HttpServletResponse response) {
+	@ControllerLog(desc = "同步退货单") // 做日志
+	@RequestMapping(value = "purreturns")
+	public void purreturns(HttpServletRequest request, HttpServletResponse response) {
 		String listStr = ParameterUtils.getParameter(request, "list", "");
 		JSONArray json = JSONArray.parseArray(listStr);
-		String ret = iPurInWarehsService.purInWarehs(json);
+		String ret = iPurReturnsService.purreturns(json);
 		if (ret.equals("success")) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "同步成功");
 		}

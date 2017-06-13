@@ -20,7 +20,7 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 	 * 
 	 */
 	@Override
-	public String purInWarehsService(JSONArray jsonarray) {
+	public String purInWarehs(JSONArray jsonarray) {
 		PurInWarehs purInWarehs = new PurInWarehs();
 		PurInWarehsEntry purInWarehsEntry = new PurInWarehsEntry();
 		for (int i = 0; i < jsonarray.size(); i++) {
