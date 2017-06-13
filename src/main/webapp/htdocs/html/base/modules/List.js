@@ -308,69 +308,67 @@ define("List", function (require, module, exports) {
     }
 
 
-}
+    function check(chk, checked) {
+        checked = chk.checked = typeof checked == "boolean" ? checked : chk.checked;
+        var tr = chk.parentNode.parentNode;
+        $(tr).toggleClass("selected", checked);
+        var index = +chk.getAttribute("data-index");
+        // 行号
+        index$selected[index] = checked;
+    }
 
-function check(chk, checked) {
-    checked = chk.checked = typeof checked == "boolean" ? checked : chk.checked;
-    var tr = chk.parentNode.parentNode;
-    $(tr).toggleClass("selected", checked);
-    var index = +chk.getAttribute("data-index");
-    // 行号
-    index$selected[index] = checked;
-}
+    function getSelectedItems() {
+        var a = [];
+        $.Object.each(index$selected, function (index, selected) {
+            if (!selected) {
+                return;
+            }
+            var item = list.body.items[index];
+            a.push(item);
+        });
+        return a;
+    }
 
-function getSelectedItems() {
-    var a = [];
-    $.Object.each(index$selected, function (index, selected) {
-        if (!selected) {
-            return;
-        }
-        var item = list.body.items[index];
-        a.push(item);
-    });
-    return a;
-}
+    function getFilterItems() {
+        return list.filterItems;
+    }
 
-function getFilterItems() {
-    return list.filterItems;
-}
+    function getPrimaryKey() {
+        return list.primaryKey;
+    }
 
-function getPrimaryKey() {
-    return list.primaryKey;
-}
+    function forbid(classId, list, operateType, fn) {
+        Operation.forbid(classId, list, operateType, fn);
+    }
 
-function forbid(classId, list, operateType, fn) {
-    Operation.forbid(classId, list, operateType, fn);
-}
+    function del(classId, list, fn) {
+        Operation.del(classId, list, fn);
+    }
 
-function del(classId, list, fn) {
-    Operation.del(classId, list, fn);
-}
+    function review(classId, list, fn) {
+        Operation.review(classId, list, fn);
+    }
 
-function review(classId, list, fn) {
-    Operation.review(classId, list, fn);
-}
+    function unReview(classId, list, fn) {
+        Operation.unReview(classId, list, fn);
+    }
 
-function unReview(classId, list, fn) {
-    Operation.unReview(classId, list, fn);
-}
+    function send(classId, list, fn) {
+        Operation.send(classId, list, fn);
+    }
 
-function send(classId, list, fn) {
-    Operation.send(classId, list, fn);
-}
-
-return {
-    load: load,
-    render: render,
-    on: emitter.on.bind(emitter),
-    getSelectedItems: getSelectedItems,
-    getPrimaryKey: getPrimaryKey,
-    del: del,
-    getFilterItems: getFilterItems,
-    forbid: forbid,
-    review: review,
-    unReview: unReview,
-    send: send,
-};
+    return {
+        load: load,
+        render: render,
+        on: emitter.on.bind(emitter),
+        getSelectedItems: getSelectedItems,
+        getPrimaryKey: getPrimaryKey,
+        del: del,
+        getFilterItems: getFilterItems,
+        forbid: forbid,
+        review: review,
+        unReview: unReview,
+        send: send,
+    };
 })
 ;
