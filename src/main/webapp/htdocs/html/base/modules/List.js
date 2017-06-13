@@ -53,7 +53,7 @@ define("List", function (require, module, exports) {
                     index: no,
                     'item_table_tr_td': $.String.format(samples["item.table.tr.td"], {
                         index: no,
-                        key:field.key,
+                        key: field.key,
                         td: item,
                     })
                 });
@@ -219,9 +219,15 @@ define("List", function (require, module, exports) {
                 event.stopPropagation();
             });
         }
+
         // 主表列单击事件
         $(div).delegate("td[data-index]", "click", function (event) {
             var td = this;
+
+            if (td.getAttribute("child")) {
+                // 子表列单击
+                td = td.parentNode.parentNode.parentNode.parentNode; // 转换成主表列
+            }
             var tr = td.parentNode;
             var index = +td.getAttribute("data-index");
             // 列号
@@ -245,6 +251,12 @@ define("List", function (require, module, exports) {
         //主表行单击事件
         $(div).delegate("tr[data-index]", "click", function (event) {
             var tr = this;
+
+            if (tr.getAttribute("child")) {
+                // 子表列单击
+                tr = tr.parentNode.parentNode.parentNode.parentNode; // 转换成主表行
+            }
+
             var no = +tr.getAttribute("data-index");
             // 行号
             var bodyItems = list.body.items;
@@ -267,92 +279,98 @@ define("List", function (require, module, exports) {
             }
             check(chk, checked);
         });
-    }
 
-    // 子表列单击事件
-    $(div).delegate("td[child-data-index]", "click", function (event) {
-        var td = this;
-        var tr = td.parentNode;
-        var index = +td.getAttribute("data-index");
-        // 列号
-        var no = +tr.getAttribute("data-index");
-        // 行号
-        var headItems = list.head.items;
-        var bodyItems = list.body.items;
-        var field = headItems[index];
-        var item = bodyItems[no];
-        var args = [{
-            row: no,
-            cell: index,
-            head: field,
-            body: item,
-            item: item.items[index]
-        }, event];
-        emitter.fire("click:" + no + "-" + index, args);
-        emitter.fire("click:" + field.key, args);
-        emitter.fire("cell.click", args);
-    });
 
-    function check(chk, checked) {
-        checked = chk.checked = typeof checked == "boolean" ? checked : chk.checked;
-        var tr = chk.parentNode.parentNode;
-        $(tr).toggleClass("selected", checked);
-        var index = +chk.getAttribute("data-index");
-        // 行号
-        index$selected[index] = checked;
-    }
-
-    function getSelectedItems() {
-        var a = [];
-        $.Object.each(index$selected, function (index, selected) {
-            if (!selected) {
-                return;
-            }
-            var item = list.body.items[index];
-            a.push(item);
+        // 子表列单击事件
+        $(div).delegate("td[child-data-index]", "click", function (event) {
+            var td = this;
+            td = td.parentNode.parentNode.parentNode.parentNode; // 转换成主表列
+            var tr = td.parentNode;
+            var index = +td.getAttribute("data-index");
+            // 列号
+            var no = +tr.getAttribute("data-index");
+            // 行号
+            var headItems = list.head.items;
+            var bodyItems = list.body.items;
+            var field = headItems[index];
+            var item = bodyItems[no];
+            var args = [{
+                row: no,
+                cell: index,
+                head: field,
+                body: item,
+                item: item.items[index]
+            }, event];
+            emitter.fire("click:" + no + "-" + index, args);
+            emitter.fire("click:" + field.key, args);
+            emitter.fire("cell.click", args);
         });
-        return a;
     }
 
-    function getFilterItems() {
-        return list.filterItems;
-    }
 
-    function getPrimaryKey() {
-        return list.primaryKey;
-    }
+}
 
-    function forbid(classId, list, operateType, fn) {
-        Operation.forbid(classId, list, operateType, fn);
-    }
+function check(chk, checked) {
+    checked = chk.checked = typeof checked == "boolean" ? checked : chk.checked;
+    var tr = chk.parentNode.parentNode;
+    $(tr).toggleClass("selected", checked);
+    var index = +chk.getAttribute("data-index");
+    // 行号
+    index$selected[index] = checked;
+}
 
-    function del(classId, list, fn) {
-        Operation.del(classId, list, fn);
-    }
+function getSelectedItems() {
+    var a = [];
+    $.Object.each(index$selected, function (index, selected) {
+        if (!selected) {
+            return;
+        }
+        var item = list.body.items[index];
+        a.push(item);
+    });
+    return a;
+}
 
-    function review(classId, list, fn) {
-        Operation.review(classId, list, fn);
-    }
+function getFilterItems() {
+    return list.filterItems;
+}
 
-    function unReview(classId, list, fn) {
-        Operation.unReview(classId, list, fn);
-    }
+function getPrimaryKey() {
+    return list.primaryKey;
+}
 
-    function send(classId, list, fn) {
-        Operation.send(classId, list, fn);
-    }
+function forbid(classId, list, operateType, fn) {
+    Operation.forbid(classId, list, operateType, fn);
+}
 
-    return {
-        load: load,
-        render: render,
-        on: emitter.on.bind(emitter),
-        getSelectedItems: getSelectedItems,
-        getPrimaryKey: getPrimaryKey,
-        del: del,
-        getFilterItems: getFilterItems,
-        forbid: forbid,
-        review: review,
-        unReview: unReview,
-        send: send,
-    };
-});
+function del(classId, list, fn) {
+    Operation.del(classId, list, fn);
+}
+
+function review(classId, list, fn) {
+    Operation.review(classId, list, fn);
+}
+
+function unReview(classId, list, fn) {
+    Operation.unReview(classId, list, fn);
+}
+
+function send(classId, list, fn) {
+    Operation.send(classId, list, fn);
+}
+
+return {
+    load: load,
+    render: render,
+    on: emitter.on.bind(emitter),
+    getSelectedItems: getSelectedItems,
+    getPrimaryKey: getPrimaryKey,
+    del: del,
+    getFilterItems: getFilterItems,
+    forbid: forbid,
+    review: review,
+    unReview: unReview,
+    send: send,
+};
+})
+;
