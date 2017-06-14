@@ -157,6 +157,7 @@ define("List", function (require, module, exports) {
                 }).join("")
             });
             sumTdTotal(data);
+            bindHover();
             if (!hasBind) {
                 bindEvents(config.multiSelect);
                 hasBind = true;
@@ -284,7 +285,14 @@ define("List", function (require, module, exports) {
             check(chk, checked);
         });
 
-        //$('.data-table table tbody tr td a').hover(function () {
+        // 下载-删除功能按钮
+        $('.item-pop-menu').on('click', function () {
+            var btn = this;
+            alert (111);
+        });
+    }
+
+    function bindHover () {
         $('.data-table table tbody tr[child]').hover(function () {
             /*  if ($(this).siblings().length > 0) {
              return;
@@ -299,12 +307,6 @@ define("List", function (require, module, exports) {
             }, 3000);
 
         })
-
-        // 下载-删除功能按钮
-        $('.item-pop-menu').on('click', function () {
-            var btn = this;
-
-        });
     }
 
     function check(chk, checked) {
