@@ -372,6 +372,12 @@
         });
     }
 
+    List.on({
+        'row.item.click': function (data, event) {
+            // 删除子表行
+
+        },
+    });
     Tree.on({
 
         onClick: function (data) {

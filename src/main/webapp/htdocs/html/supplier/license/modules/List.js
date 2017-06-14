@@ -42,7 +42,7 @@ define("List", function (require, module, exports) {
         });
     }
 
-    function getTableHtml(field, data) {
+    function getTableHtml(field, index, data) {
 
         if (!data || data.length == 0 || data[0] == null || data[0].primaryValue == null) {
             return "";
@@ -51,8 +51,8 @@ define("List", function (require, module, exports) {
             // 行
             'item_table_tr': $.Array.keep(data, function (item, no) {
                 return $.String.format(samples["item.table.tr"], {
-                    index: no,
-                    child: 1,
+                    index: index,
+                    child: no,
                     'item_table_tr_td': $.String.format(samples["item.table.tr.td"], {
                         index: no,
                         child: 1,
@@ -141,7 +141,7 @@ define("List", function (require, module, exports) {
                                 index: index,
                                 key: field.key,
                                 "number-class": field.key == "number" ? "number" : "",
-                                td: field.isEntry ? getTableHtml(field, item.value) : getHtml(field.type, item.value),
+                                td: field.isEntry ? getTableHtml(field, index, item.value) : getHtml(field.type, item.value),
                             });
                         }).join("")
                     });
@@ -227,7 +227,7 @@ define("List", function (require, module, exports) {
         $(div).delegate("td[data-index]", "click", function (event) {
             var td = this;
 
-            if (td.getAttribute("child")) {
+            if (td.getAttribute("child-index")) {
                 // 子表列单击
                 //td = td.parentNode.parentNode.parentNode.parentNode; // 转换成主表列
                 return; // 不触发,猫婆触发上级td事件
@@ -256,7 +256,7 @@ define("List", function (require, module, exports) {
         $(div).delegate("tr[data-index]", "click", function (event) {
             var tr = this;
 
-            if (tr.getAttribute("child")) {
+            if (tr.getAttribute("child-index")) {
                 // 子表列单击
                 // tr = tr.parentNode.parentNode.parentNode.parentNode; // 转换成主表行
                 return; // 不触发,猫婆触发上级tr事件
@@ -289,13 +289,31 @@ define("List", function (require, module, exports) {
         $(document).on("click", ".item-pop-menu", function () {
             var btn = this;
             var index = btn.getAttribute("index");
+
+            var tr = btn.parentNode.parentNode.parentNode;
+            var no = tr.getAttribute("data-index");
+            var childNo = tr.getAttribute("child-index");
+
+            var bodyItems = list.body.items;
+            var operate;
+
             if (index == 1) {
                 // 下载
-                alert($(btn).val());
+                operate = 1;
             } else if (index == 2) {
                 // 删除
-                alert($(btn).val());
+                operate = 2;
             }
+
+
+            var args = [{
+                row: no,
+                entryRow: childNo,
+                body: bodyItems[no],
+                operate: operate
+            }, event];
+
+            emitter.fire("row.item.click", args);
 
         });
     }
