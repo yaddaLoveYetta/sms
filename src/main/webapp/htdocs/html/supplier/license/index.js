@@ -379,6 +379,10 @@
 
             var type = data.operate;
             if (type == 1) {
+                // 下载子表行附件
+
+            } else if (type == 2) {
+
                 //删除子表行
                 var primaryKey = data.body.items[data.col].value[data.entryRow].primaryKey;
 
@@ -403,9 +407,6 @@
                 list.edit(para, function () {
                     refresh();
                 });
-
-            } else if (type == 2) {
-                // 下载子表行附件
             }
 
         },
