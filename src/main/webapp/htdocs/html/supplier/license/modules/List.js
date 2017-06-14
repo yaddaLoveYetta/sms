@@ -307,6 +307,8 @@ define("List", function (require, module, exports) {
 
             if (index == 1) {
                 // 下载
+                // $("#pluginurl").attr("href",url);
+                $(btn).parent().prev().attr("href", "file/download?classId=3010&fileName=aaa");
                 operate = 1;
             } else if (index == 2) {
                 // 删除
@@ -384,6 +386,7 @@ define("List", function (require, module, exports) {
     function edit(params, fn) {
         Operation.edit(params, fn);
     }
+
     function download(params, fn) {
         Operation.download(params, fn);
     }
@@ -425,7 +428,7 @@ define("List", function (require, module, exports) {
         getPrimaryKey: getPrimaryKey,
         del: del,
         edit: edit,
-        download:download,
+        download: download,
         getFilterItems: getFilterItems,
         forbid: forbid,
         review: review,
