@@ -1,6 +1,14 @@
 package com.kingdee.eas.hrp.sms.controller.supplier;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +35,7 @@ import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
 
 @Controller
 @RequestMapping(value = "/file/")
-public class FileUploadController {
+public class AttachmentController {
 
 	@Resource
 	IFileUploadService fileUploadService;
@@ -135,7 +143,79 @@ public class FileUploadController {
 		fileUploadService.saveUrlToDb(classId, itemId, fileUrls);
 
 	}
-	
+
+	@RequestMapping(value = "download")
+	public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		int classId = ParameterUtils.getParameter(request, "classId", -1);
+		String itemId = ParameterUtils.getParameter(request, "itemId", "");
+
+		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+
+		if ("".equals(itemId) || "".equals(fileName)) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交itemId及fileName");
+			return;
+		}
+
+		// 设置文件MIME类型
+		response.setContentType("application/force-download");
+		// response.setContentType(request.getSession().getServletContext().getMimeType(fileName));
+		// 设置Content-Disposition
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+		// 读取目标文件，通过response将目标文件写到客户端
+		// 获取目标文件的绝对路径
+		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH"); // 文件存放目录
+		String classDirector = fileDirector.endsWith("\\") ? classId + "\\\\" : "\\\\" + classId + "\\\\";
+		fileDirector = fileDirector + classDirector;// 真实存放路径
+
+		File f = new File(fileDirector);
+
+		if (!f.exists()) {
+			// 路径不存在
+			throw new BusinessLogicRunTimeException("文件不存在");
+		}
+
+		String filePath = fileDirector + "\\\\" + fileName;
+
+		f = new File(filePath);
+
+		if (!f.exists()) {
+			// 路径不存在
+			throw new BusinessLogicRunTimeException("文件不存在");
+		}
+
+		BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
+		BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+
+		try {
+			// 读取文件
+			// 写文件
+			byte[] b = new byte[1024];
+			int len = 0;
+
+			while ((len = in.read(b)) != -1) {
+				out.write(b, 0, len);
+			}
+
+			in.close();
+			out.close();
+
+		} catch (IOException e) {
+
+			if (in != null) {
+				in.close();
+			}
+			if (out != null) {
+				out.close();
+			}
+		}
+	}
+
 	@ControllerLog(desc = "删除附件") // 做日志
 	// @Permission(objectType = 0, objectId = 0, accessMask =
 	// AccessMaskCode.MASK_SYNC, desc = "同步item") // 权限

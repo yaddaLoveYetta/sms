@@ -2073,7 +2073,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		if (!items.equals("")) { // --items不为空，则执行删除
 			Map<String, Object> statement = new HashMap<String, Object>();
 			statement.put("tableName", entryTableName);
-			statement.put("primaryKey", primaryKey);
+			statement.put("primaryKey", formFields.get(primaryKey).getSqlColumnName());
 			statement.put("items", items.substring(1));
 			templateDaoMapper.del(statement);
 		}
