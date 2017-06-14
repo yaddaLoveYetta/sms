@@ -44,7 +44,7 @@ define("List", function (require, module, exports) {
 
     function getTableHtml(field, data) {
 
-        if (!data || data.length == 0 || data[0] == null) {
+        if (!data || data.length == 0 || data[0] == null || data[0].primaryValue == null) {
             return "";
         }
         var html = $.String.format(samples["item.table"], {
