@@ -1640,7 +1640,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 				} else {
 					// 引用字段查询-使用关联表显示字段作为条件
 					tableName = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
-					
+
 					if (needConvert) {
 						fieldName = disPlayField;
 					} else {
@@ -1667,9 +1667,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 			} else {
 				// 动态脚本
 				sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
-						"#{" + fieldKey + "}", sufValue, rightParenTheses));
+						"#{" + fieldKey + i + "}", sufValue, rightParenTheses));
 
-				sqlParams.put(fieldKey, value);
+				sqlParams.put(fieldKey + i, value);
 			}
 
 		}
