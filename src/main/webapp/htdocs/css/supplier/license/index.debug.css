@@ -228,3 +228,7 @@
     overflow-x: auto;
     overflow-y: hidden;
 }
+.item-pop-menu{
+    padding: 2px;
+    display: table-cell;
+}
