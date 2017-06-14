@@ -25,6 +25,9 @@ define("List", function (require, module, exports) {
     var emitter = MiniQuery.Event.create();
     var index$selected = {};
     // 记录选中的索引
+
+    var tid = null;
+
     function load(config, fn) {
         SMS.Tips.loading("数据加载中...");
         API.get({
@@ -282,18 +285,17 @@ define("List", function (require, module, exports) {
         });
 
         $('.data-table table tbody tr td a').hover(function () {
-
             if ($(this).siblings().length > 0) {
                 return;
             }
             $(this).after(samples["item.pop.menu"])
 
         }, function () {
-
+            clearTimeout(tid);
             var a = this;
-            setTimeout(function () {
+            tid = setTimeout(function () {
                 $(a).siblings().remove();
-            }, 2000);
+            }, 3000);
 
         })
     }
