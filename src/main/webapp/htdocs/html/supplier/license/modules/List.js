@@ -294,9 +294,9 @@ define("List", function (require, module, exports) {
 
     function bindHover () {
         $('.data-table table tbody tr[child]').hover(function () {
-            /*  if ($(this).siblings().length > 0) {
-             return;
-             }*/
+            if ($(this).siblings().length > 0) {
+                return;
+            }
             $(this).after(samples["item.pop.menu"])
 
         }, function () {
