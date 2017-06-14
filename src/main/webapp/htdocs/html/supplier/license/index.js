@@ -380,6 +380,18 @@
             var type = data.operate;
             if (type == 1) {
                 // 下载子表行附件
+                var value = data.body.items[data.col].value[data.entryRow].value;
+                var fileName = value.substr(value.lastIndexOf('/') + 1);
+                var para = {
+
+                    classId: classId,
+                    itemId: data.body.primaryValue,
+                    fileName: fileName,
+                }
+
+                List.download(para, function () {
+                    //refresh();
+                });
 
             } else if (type == 2) {
 

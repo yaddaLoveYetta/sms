@@ -62,6 +62,10 @@ define('List/Operation', function (require, module, exports) {
         post('template/editItem', params, fn);
     }
 
+    function download(params, fn) {
+        post('file/download', params, fn);
+    }
+
     function forbid(classId, list, operateType, fn) {
         var items = '';
         for (var item in list) {
@@ -137,6 +141,7 @@ define('List/Operation', function (require, module, exports) {
     return {
         del: del,
         edit: edit,
+        download: download,
         forbid: forbid,
         review: review,
         unReview: unReview,

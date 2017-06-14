@@ -64,7 +64,7 @@ define("List", function (require, module, exports) {
                     child: no,
                     'item_table_tr_td': $.String.format(samples["item.table.tr.td"], {
                         key: field.key,
-                        td: item.value,
+                        td: item.value.substr(item.value.lastIndexOf('/') + 1),
                         'file-name': item.value.substr(item.value.lastIndexOf('/') + 1),
                     })
                 });
@@ -384,6 +384,9 @@ define("List", function (require, module, exports) {
     function edit(params, fn) {
         Operation.edit(params, fn);
     }
+    function download(params, fn) {
+        Operation.download(params, fn);
+    }
 
     function review(classId, list, fn) {
         Operation.review(classId, list, fn);
@@ -422,6 +425,7 @@ define("List", function (require, module, exports) {
         getPrimaryKey: getPrimaryKey,
         del: del,
         edit: edit,
+        download:download,
         getFilterItems: getFilterItems,
         forbid: forbid,
         review: review,
