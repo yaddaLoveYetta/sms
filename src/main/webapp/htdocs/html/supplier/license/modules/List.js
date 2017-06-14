@@ -282,9 +282,9 @@ define("List", function (require, module, exports) {
         });
 
         $('.data-table tbody tr td a').hover(function () {
-            alert(111);
+            //alert(111);
         }, function () {
-            alert(222);
+            //alert(222);
         })
     }
 
