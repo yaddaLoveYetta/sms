@@ -12,7 +12,6 @@
     <result column="innercode" jdbcType="VARCHAR" property="innercode" />
     <result column="unit" jdbcType="VARCHAR" property="unit" />
     <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="qty" jdbcType="NUMERIC" property="qty" />
     <result column="actualQty" jdbcType="NUMERIC" property="actualQty" />
     <result column="dyProDate" jdbcType="TIMESTAMP" property="dyProDate" />
     <result column="dyManufacturer" jdbcType="VARCHAR" property="dyManufacturer" />
@@ -79,7 +78,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, parent, seq, orderId, orderSeq, material, lot, innercode, unit, price, qty, actualQty, 
+    id, parent, seq, orderId, orderSeq, material, lot, innercode, unit, price, actualQty, 
     dyProDate, dyManufacturer, registrationNo, amount, effectiveDate
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.PurInWarehsEntryExample" resultMap="BaseResultMap">
@@ -116,15 +115,15 @@
     insert into t_sms_purinwarehs_entry (id, parent, seq, 
       orderId, orderSeq, material, 
       lot, innercode, unit, 
-      price, qty, actualQty, 
-      dyProDate, dyManufacturer, registrationNo, 
-      amount, effectiveDate)
+      price, actualQty, dyProDate, 
+      dyManufacturer, registrationNo, amount, 
+      effectiveDate)
     values (#{id,jdbcType=VARCHAR}, #{parent,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
       #{orderId,jdbcType=VARCHAR}, #{orderSeq,jdbcType=VARCHAR}, #{material,jdbcType=VARCHAR}, 
       #{lot,jdbcType=VARCHAR}, #{innercode,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{qty,jdbcType=NUMERIC}, #{actualQty,jdbcType=NUMERIC}, 
-      #{dyProDate,jdbcType=TIMESTAMP}, #{dyManufacturer,jdbcType=VARCHAR}, #{registrationNo,jdbcType=VARCHAR}, 
-      #{amount,jdbcType=DECIMAL}, #{effectiveDate,jdbcType=TIMESTAMP})
+      #{price,jdbcType=DECIMAL}, #{actualQty,jdbcType=NUMERIC}, #{dyProDate,jdbcType=TIMESTAMP}, 
+      #{dyManufacturer,jdbcType=VARCHAR}, #{registrationNo,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{effectiveDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.PurInWarehsEntry">
     insert into t_sms_purinwarehs_entry
@@ -158,9 +157,6 @@
       </if>
       <if test="price != null">
         price,
-      </if>
-      <if test="qty != null">
-        qty,
       </if>
       <if test="actualQty != null">
         actualQty,
@@ -211,9 +207,6 @@
       </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="qty != null">
-        #{qty,jdbcType=NUMERIC},
       </if>
       <if test="actualQty != null">
         #{actualQty,jdbcType=NUMERIC},
@@ -274,9 +267,6 @@
       <if test="record.price != null">
         price = #{record.price,jdbcType=DECIMAL},
       </if>
-      <if test="record.qty != null">
-        qty = #{record.qty,jdbcType=NUMERIC},
-      </if>
       <if test="record.actualQty != null">
         actualQty = #{record.actualQty,jdbcType=NUMERIC},
       </if>
@@ -312,7 +302,6 @@
       innercode = #{record.innercode,jdbcType=VARCHAR},
       unit = #{record.unit,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DECIMAL},
-      qty = #{record.qty,jdbcType=NUMERIC},
       actualQty = #{record.actualQty,jdbcType=NUMERIC},
       dyProDate = #{record.dyProDate,jdbcType=TIMESTAMP},
       dyManufacturer = #{record.dyManufacturer,jdbcType=VARCHAR},
@@ -353,9 +342,6 @@
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
       </if>
-      <if test="qty != null">
-        qty = #{qty,jdbcType=NUMERIC},
-      </if>
       <if test="actualQty != null">
         actualQty = #{actualQty,jdbcType=NUMERIC},
       </if>
@@ -388,7 +374,6 @@
       innercode = #{innercode,jdbcType=VARCHAR},
       unit = #{unit,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
-      qty = #{qty,jdbcType=NUMERIC},
       actualQty = #{actualQty,jdbcType=NUMERIC},
       dyProDate = #{dyProDate,jdbcType=TIMESTAMP},
       dyManufacturer = #{dyManufacturer,jdbcType=VARCHAR},

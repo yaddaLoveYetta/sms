@@ -786,66 +786,6 @@ public class PurInWarehsEntryExample {
             return (Criteria) this;
         }
 
-        public Criteria andQtyIsNull() {
-            addCriterion("qty is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyIsNotNull() {
-            addCriterion("qty is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyEqualTo(Long value) {
-            addCriterion("qty =", value, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyNotEqualTo(Long value) {
-            addCriterion("qty <>", value, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyGreaterThan(Long value) {
-            addCriterion("qty >", value, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyGreaterThanOrEqualTo(Long value) {
-            addCriterion("qty >=", value, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyLessThan(Long value) {
-            addCriterion("qty <", value, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyLessThanOrEqualTo(Long value) {
-            addCriterion("qty <=", value, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyIn(List<Long> values) {
-            addCriterion("qty in", values, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyNotIn(List<Long> values) {
-            addCriterion("qty not in", values, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyBetween(Long value1, Long value2) {
-            addCriterion("qty between", value1, value2, "qty");
-            return (Criteria) this;
-        }
-
-        public Criteria andQtyNotBetween(Long value1, Long value2) {
-            addCriterion("qty not between", value1, value2, "qty");
-            return (Criteria) this;
-        }
-
         public Criteria andActualQtyIsNull() {
             addCriterion("actualQty is null");
             return (Criteria) this;

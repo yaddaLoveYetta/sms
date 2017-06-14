@@ -24,8 +24,6 @@ public class PurInWarehsEntry {
 
     private BigDecimal price;
 
-    private Long qty;
-
     private Long actualQty;
 
     private Date dyProDate;
@@ -116,14 +114,6 @@ public class PurInWarehsEntry {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public Long getQty() {
-        return qty;
-    }
-
-    public void setQty(Long qty) {
-        this.qty = qty;
     }
 
     public Long getActualQty() {
