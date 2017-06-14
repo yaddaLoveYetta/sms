@@ -42,7 +42,15 @@ define("List", function (require, module, exports) {
         });
     }
 
-    function getTableHtml(field, index, data) {
+    /**
+     *
+     * @param field 子表模板
+     * @param row 主表行
+     * @param col 主表列
+     * @param data子表数据
+     * @return {string}
+     */
+    function getTableHtml(field, row, col, data) {
 
         if (!data || data.length == 0 || data[0] == null || data[0].primaryValue == null) {
             return "";
@@ -51,11 +59,10 @@ define("List", function (require, module, exports) {
             // 行
             'item_table_tr': $.Array.keep(data, function (item, no) {
                 return $.String.format(samples["item.table.tr"], {
-                    index: index,
+                    row: row,
+                    col: col,
                     child: no,
                     'item_table_tr_td': $.String.format(samples["item.table.tr.td"], {
-                        index: no,
-                        child: 1,
                         key: field.key,
                         td: item.value,
                         'file-name': item.value.substr(item.value.lastIndexOf('/') + 1),
@@ -141,7 +148,7 @@ define("List", function (require, module, exports) {
                                 index: index,
                                 key: field.key,
                                 "number-class": field.key == "number" ? "number" : "",
-                                td: field.isEntry ? getTableHtml(field, index, item.value) : getHtml(field.type, item.value),
+                                td: field.isEntry ? getTableHtml(field, no, index, item.value) : getHtml(field.type, item.value),
                             });
                         }).join("")
                     });
@@ -291,7 +298,8 @@ define("List", function (require, module, exports) {
             var index = btn.getAttribute("index");
 
             var tr = btn.parentNode.parentNode.parentNode;
-            var no = tr.getAttribute("data-index");
+            var row = tr.getAttribute("data-row"); // 主表行
+            var col = tr.getAttribute("data-col"); // 主表列
             var childNo = tr.getAttribute("child-index");
 
             var bodyItems = list.body.items;
@@ -307,9 +315,10 @@ define("List", function (require, module, exports) {
 
 
             var args = [{
-                row: no,
+                row: row,
+                col: col,
                 entryRow: childNo,
-                body: bodyItems[no],
+                body: bodyItems[row],
                 operate: operate
             }, event];
 
