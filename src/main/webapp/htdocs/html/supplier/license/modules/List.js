@@ -301,7 +301,7 @@ define("List", function (require, module, exports) {
     }
 
     function bindHover() {
-        $('.data-table table tbody tr[child]').hover(function () {
+        $('.data-table table tbody tr td a').hover(function () {
             if ($(this).siblings().length > 0) {
                 return;
             }
