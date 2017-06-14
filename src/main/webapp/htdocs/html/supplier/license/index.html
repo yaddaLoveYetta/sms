@@ -87,6 +87,17 @@
                             <a href="javascript:" title="{text}">{text}</a>
                             !--item.a.end--!
 
+                            !--item.pop.menu.begin--!
+                            <div class="setting-more" style="display: none;">
+                                  <ul>
+                                       <li id='item-download'>下载</li>
+                                  </ul>
+                                  <ul>
+                                        <li id='item-delete'>删除</li>
+                                   </ul>
+						    </div>
+                            !--item.pop.menu.end--!
+
                             !--item.table.begin--!
                             <table>
                                 !--item.table.tr.begin--!
@@ -94,14 +105,6 @@
                                     !--item.table.tr.td.begin--!
                                     <td data-index="{index}" child ="{child}" key="{key}" >
                                         <a href="#" target="_blank" download="{file-name}">{td}</a>
-                                        <div id="div-user-list" class="setting-more" style="display: none;">
-                                                <ul>
-                                                    <li id='btn-change-password'>修改密码</li>
-                                                </ul>
-                                                <ul>
-                                                    <li id='btn-logout'>注销</li>
-                                                </ul>
-						                </div>
                                     </td>
                                     !--item.table.tr.td.end--!
                                 </tr>

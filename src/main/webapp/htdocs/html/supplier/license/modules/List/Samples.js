@@ -68,6 +68,12 @@ define('List/Samples', function (require, module, exports) {
                 //fn: trim,
             },
             {
+                name: 'item.pop.menu',
+                begin: '!--item.pop.menu.begin--!',
+                end: '!--item.pop.menu.end--!',
+                outer: '',
+            },
+            {
                 name: 'item.table',
                 begin: '!--item.table.begin--!',
                 end: '!--item.table.end--!',
