@@ -1,5 +1,7 @@
 package com.kingdee.eas.hrp.sms.service.impl.purreceival;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -12,6 +14,7 @@ import com.kingdee.eas.hrp.sms.model.PurInWarehs;
 import com.kingdee.eas.hrp.sms.model.PurInWarehsEntry;
 import com.kingdee.eas.hrp.sms.model.PurReceival;
 import com.kingdee.eas.hrp.sms.model.PurReceivalEntry;
+import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.purreceival.IPurReceivalService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
@@ -19,6 +22,8 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 @Service
 public class PurReceivalService extends BaseService implements IPurReceivalService{
 	
+	@Resource
+	ITemplateService iTemplateService;
 	
 	/**
 	 * 
@@ -37,6 +42,9 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 				purReceival.setBizDate(jsonObject.getDate("bizDate"));
 			}
 			purReceival.setBaseStatus(jsonObject.getByte("baseStatus"));
+			if(jsonObject.getByte("baseStatus")!=4){
+				iTemplateService.delItem(2021, jsonObject.getString("id"));
+			}
 			purReceival.setSourceBillType(jsonObject.getByte("sourceBillType"));
 			purReceival.setSupplier(jsonObject.getString("supplier"));
 			PurReceivalMapper purReceivalMapper = sqlSession.getMapper(PurReceivalMapper.class);

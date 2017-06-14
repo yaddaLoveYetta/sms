@@ -1,5 +1,7 @@
 package com.kingdee.eas.hrp.sms.service.impl.purreturns;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -8,11 +10,15 @@ import com.kingdee.eas.hrp.sms.dao.generate.PurReturnsEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.PurReturnsMapper;
 import com.kingdee.eas.hrp.sms.model.PurReturns;
 import com.kingdee.eas.hrp.sms.model.PurReturnsEntry;
+import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.purreturns.IPurReturnsService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
 @Service
 public class PurReturnsService extends BaseService implements IPurReturnsService {
+	
+	@Resource
+	ITemplateService iTemplateService;
 
 	@Override
 	public String purreturns(JSONArray jsonarray) {
@@ -26,6 +32,9 @@ public class PurReturnsService extends BaseService implements IPurReturnsService
 				purreturns.setBizDate(jsonObject.getDate("bizDate"));
 			}
 			purreturns.setBaseStatus(jsonObject.getByte("baseStatus"));
+			if(jsonObject.getByte("baseStatus")!=4){
+				iTemplateService.delItem(2023, jsonObject.getString("id"));
+			}
 			purreturns.setSourceBillType(jsonObject.getByte("sourceBillType"));
 			purreturns.setSupplier(jsonObject.getString("supplier"));
 			PurReturnsMapper purReturnsMapper = sqlSession.getMapper(PurReturnsMapper.class);

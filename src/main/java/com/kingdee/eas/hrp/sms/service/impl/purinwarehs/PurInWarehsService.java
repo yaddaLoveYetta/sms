@@ -1,5 +1,7 @@
 package com.kingdee.eas.hrp.sms.service.impl.purinwarehs;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -8,12 +10,16 @@ import com.kingdee.eas.hrp.sms.dao.generate.PurInWarehsEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.PurInWarehsMapper;
 import com.kingdee.eas.hrp.sms.model.PurInWarehs;
 import com.kingdee.eas.hrp.sms.model.PurInWarehsEntry;
+import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.purinwarehs.IPurInWarehsService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
 @Service
 public class PurInWarehsService extends BaseService implements IPurInWarehsService {
-
+	
+	
+	@Resource
+	ITemplateService iTemplateService;
 	/**
 	 * 
 	 * 入库单同步接口
@@ -31,6 +37,9 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 				purInWarehs.setBizDate(jsonObject.getDate("bizDate"));
 			}
 			purInWarehs.setBaseStatus(jsonObject.getByte("baseStatus"));
+			if(jsonObject.getByte("baseStatus")!=4){
+				iTemplateService.delItem(2022, jsonObject.getString("id"));
+			}
 			purInWarehs.setSourceBillType(jsonObject.getByte("sourceBillType"));
 			purInWarehs.setSupplier(jsonObject.getString("supplier"));
 			PurInWarehsMapper purInWarehsMapper = sqlSession.getMapper(PurInWarehsMapper.class);
