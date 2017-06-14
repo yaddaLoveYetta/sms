@@ -63,7 +63,9 @@ define('List/API/Body', function (require, module, exports) {
 
     }
 
-    function getItems(list, fields, primaryKey) {
+    function getItems(list, fields, headData) {
+
+        var primaryKey = headData.formClass.primaryKey;
 
         if (!list) {
             return;
@@ -89,8 +91,13 @@ define('List/API/Body', function (require, module, exports) {
                     if (field.isEntry) { // 子表数据
                         var entryIndex = field.entryIndex;
                         var entryValues = item.entry[entryIndex];
+                        var entryPrimaryKey = headData.formEntries[entryIndex]['primaryKey'];
                         value = $.Array.keep(entryValues, function (field, no) {
-                            return field[key];
+                            //return field[key];
+                            return {
+                                primaryValue: field[entryPrimaryKey],
+                                value: field[key],
+                            };
                         })
                     } else {
                         value = item[key];

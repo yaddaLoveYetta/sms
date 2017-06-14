@@ -44,7 +44,8 @@ define('List/API', function (require, module, exports) {
 
             var filterItems = Head.getFilterItem(headData.formFields);
 
-            var bodyItems = Body.getItems(bodyData.list, headItems, headData.formClass.primaryKey);
+            //var bodyItems = Body.getItems(bodyData.list, headItems, headData.formClass.primaryKey);
+            var bodyItems = Body.getItems(bodyData.list, headItems, headData);
 
             fn && fn({
                 checkbox: true,

@@ -57,8 +57,8 @@ define("List", function (require, module, exports) {
                         index: no,
                         child: 1,
                         key: field.key,
-                        td: item,
-                        'file-name': item.substr(item.lastIndexOf('/') + 1),
+                        td: item.value,
+                        'file-name': item.value.substr(item.lastIndexOf('/') + 1),
                     })
                 });
             }).join(""),
@@ -298,6 +298,11 @@ define("List", function (require, module, exports) {
             }, 3000);
 
         })
+        // 下载-删除功能按钮
+        $('.item-pop-menu').on('click', function () {
+            var btn = this;
+
+        });
     }
 
     function check(chk, checked) {
