@@ -389,9 +389,9 @@
                     fileName: fileName,
                 }
 
-                List.download(para, function () {
+/*                List.download(para, function () {
                     //refresh();
-                });
+                });*/
 
             } else if (type == 2) {
 
