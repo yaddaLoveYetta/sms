@@ -282,11 +282,19 @@ define("List", function (require, module, exports) {
         });
 
         $('.data-table table tbody tr td a').hover(function () {
+
+            if ($(this).siblings().length > 0) {
+                return;
+            }
             $(this).after(samples["item.pop.menu"])
-            //alert(111);
+
         }, function () {
-            $(this).remove(this.nextSbiling);
-            //alert(222);
+
+            var a = this;
+            setTimeout(function () {
+                $(a).siblings().remove();
+            }, 2000);
+
         })
     }
 
