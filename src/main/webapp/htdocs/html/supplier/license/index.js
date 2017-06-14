@@ -375,7 +375,8 @@
     List.on({
         'row.item.click': function (data, event) {
             // 子表行操作
-            console(data);
+            console.log(data);
+
             var type = data.operate;
             if (type == 1) {
                 //删除子表行
@@ -402,7 +403,7 @@
                 list.edit(para, function () {
                     refresh();
                 });
-                
+
             } else if (type == 2) {
                 // 下载子表行附件
             }
