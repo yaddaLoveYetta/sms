@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_CN">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -88,14 +88,10 @@
                             !--item.a.end--!
 
                             !--item.pop.menu.begin--!
-                            <div class="setting-more" style="display: none;">
-                                  <ul>
-                                       <li id='item-download'>下载</li>
-                                  </ul>
-                                  <ul>
-                                        <li id='item-delete'>删除</li>
-                                   </ul>
-						    </div>
+                              <div>
+                                        <input type="button" value="下载">
+                                        <input type="button" value="删除" >
+                                </div>
                             !--item.pop.menu.end--!
 
                             !--item.table.begin--!
@@ -105,6 +101,7 @@
                                     !--item.table.tr.td.begin--!
                                     <td data-index="{index}" child ="{child}" key="{key}" >
                                         <a href="#">{td}</a>
+
                                     </td>
                                     !--item.table.tr.td.end--!
                                 </tr>
