@@ -95,6 +95,7 @@ define('List/API/Body', function (require, module, exports) {
                         value = $.Array.keep(entryValues, function (field, no) {
                             //return field[key];
                             return {
+                                primaryKey: entryPrimaryKey,
                                 primaryValue: field[entryPrimaryKey],
                                 value: field[key],
                             };

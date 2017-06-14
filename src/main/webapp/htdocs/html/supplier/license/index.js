@@ -374,7 +374,38 @@
 
     List.on({
         'row.item.click': function (data, event) {
-            // 删除子表行
+            // 子表行操作
+            console(data);
+            var type = data.operate;
+            if (type == 1) {
+                //删除子表行
+                var primaryKey = data.body.items[data.col].value[data.entryRow].primaryKey;
+
+                var obj = {};
+                obj[primaryKey] = data.body.items[data.col].value[data.entryRow].primaryValue;
+
+                var para = {
+                    classId: classId,
+                    itemId: data.body.primaryValue,
+                    data: {
+                        entry: {
+                            "1": [
+                                {
+                                    flag: 0,// 删除改行
+                                    data: obj
+                                }
+                            ],
+                        }
+                    }
+                };
+
+                list.edit(para, function () {
+                    refresh();
+                });
+                
+            } else if (type == 2) {
+                // 下载子表行附件
+            }
 
         },
     });

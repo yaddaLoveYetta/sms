@@ -381,6 +381,10 @@ define("List", function (require, module, exports) {
         Operation.del(classId, list, fn);
     }
 
+    function edit(params, fn) {
+        Operation.edit(params, fn);
+    }
+
     function review(classId, list, fn) {
         Operation.review(classId, list, fn);
     }
@@ -417,6 +421,7 @@ define("List", function (require, module, exports) {
         getSelectedItems: getSelectedItems,
         getPrimaryKey: getPrimaryKey,
         del: del,
+        edit: edit,
         getFilterItems: getFilterItems,
         forbid: forbid,
         review: review,
