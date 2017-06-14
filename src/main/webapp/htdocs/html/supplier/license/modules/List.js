@@ -281,10 +281,10 @@ define("List", function (require, module, exports) {
             check(chk, checked);
         });
 
-        $('.data-table tbody tr td a').hover(function () {
-            //alert(111);
+        $('.data-table table tbody tr td a').hover(function () {
+            alert(111);
         }, function () {
-            //alert(222);
+            alert(222);
         })
     }
 
