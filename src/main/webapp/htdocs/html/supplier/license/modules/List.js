@@ -286,13 +286,21 @@ define("List", function (require, module, exports) {
         });
 
         // 下载-删除功能按钮
-        $(document).on("click",".item-pop-menu",function(){
+        $(document).on("click", ".item-pop-menu", function () {
             var btn = this;
-            alert ($(btn).val());
+            var index = btn.getAttribute("index");
+            if (index == 1) {
+                // 下载
+                alert($(btn).val());
+            } else if (index == 2) {
+                // 删除
+                alert($(btn).val());
+            }
+
         });
     }
 
-    function bindHover () {
+    function bindHover() {
         $('.data-table table tbody tr[child]').hover(function () {
             if ($(this).siblings().length > 0) {
                 return;
