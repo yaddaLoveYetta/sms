@@ -22,6 +22,7 @@ import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SendcargoMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Sendcargo;
+import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.api.sendcargo.ISendcargoService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
@@ -30,7 +31,7 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 public class SendcargoService extends BaseService implements ISendcargoService {
 
 	@Resource
-	ISyncHRPService iSyncHRPService;
+	IWebService IWebService;
 
 	@Override
 	public List<Map<String, Object>> getCode(String items) {
@@ -104,32 +105,8 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 				lists.add(json);
 			}
 		}
-		String response = "";
-		try {
-			org.apache.axis.client.Service sv = new org.apache.axis.client.Service();
-			Call call = (Call) sv.createCall();
-			call.setUseSOAPAction(true);
-			call.setTargetEndpointAddress(new URL("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade?wsdl"));
-			call.setOperationName(
-					new QName("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade", "sms2hrpSendCargo"));
-			String headerNamespace = "http://login.webservice.bos.kingdee.com";
-			call.setUseSOAPAction(true);
-			call.addParameter("json", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
-			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);
-			call.setTimeout(60000);// 设置超时时间
-			// 返回参数类型
-			call.setReturnClass(String.class);
-			// // 由于需要认证，需要设置sessionId
-			SOAPHeaderElement soapHeaderElement = new SOAPHeaderElement(headerNamespace, "SessionId");
-			soapHeaderElement.setValue(iSyncHRPService.loginInEAS());
-			call.addHeader(soapHeaderElement);
-			JSONObject json = new JSONObject();
-			response = (String) call.invoke(new Object[] { lists.toString() });
-			System.out.println(response);// 打印字符串
-
-		} catch (RemoteException | ServiceException | MalformedURLException e) {
-			e.printStackTrace();
-		}
+		
+		String response = IWebService.webService(lists.toString(), "sms2hrpSendCargo");
 		JSONObject rps = JSONObject.parseObject(response);
 		if(rps.get("code").equals("200")){
 			SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
@@ -140,7 +117,6 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 				sendcargoMapper.updateByPrimaryKeySelective(sendcargo);
 			}
 		}
-
 		return "success";
 	}
 }

@@ -38,10 +38,9 @@ import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
-import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
-import com.kingdee.eas.hrp.sms.service.impl.sys.SyncHRPService;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.model.Item;
@@ -51,7 +50,7 @@ public class OrderService extends BaseService implements IOrderService {
 		
 	
 	@Resource
-	ISyncHRPService iSyncHRPService;
+	IWebService IWebService;
 	/**
 	 * 同步订单
 	 */
@@ -128,33 +127,10 @@ public class OrderService extends BaseService implements IOrderService {
 		}
 
 		// 調用hrp-web-service --发送接单数据至HRP
-		String response = "";
-		try {
-			org.apache.axis.client.Service sv = new org.apache.axis.client.Service();
-			Call call = (Call) sv.createCall();
-			call.setUseSOAPAction(true);
-			call.setTargetEndpointAddress(new URL("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade?wsdl"));
-			call.setOperationName(new QName("http://10.0.1.37:56898/ormrpc/services/WSDataSynWSFacade", "sms2hrpOrderTake"));
-			String headerNamespace = "http://login.webservice.bos.kingdee.com";
-			call.setUseSOAPAction(true);
-			call.addParameter("json", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 设置参数名,第二个参数表示String类型,第三个参数表示入参
-			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);
-			call.setTimeout(60000);//设置超时时间
-			// 返回参数类型
-			call.setReturnClass(String.class);
-			// // 由于需要认证，需要设置sessionId
-			SOAPHeaderElement soapHeaderElement = new SOAPHeaderElement(headerNamespace, "SessionId");
-			soapHeaderElement.setValue(iSyncHRPService.loginInEAS());
-			call.addHeader(soapHeaderElement);
-			JSONObject json = new  JSONObject();
-			json.put("entry", entryStr);
-			json.put("id", id);
-			response = (String) call.invoke(new Object[] { json.toString()});
-			System.out.println(response);// 打印字符串
-
-		} catch (RemoteException | ServiceException | MalformedURLException e) {
-			e.printStackTrace();
-		}
+		JSONObject json = new  JSONObject();
+		json.put("entry", entryStr);
+		json.put("id", id);
+		String response = IWebService.webService(json.toString(), "sms2hrpOrderTake");
 		JSONObject rps = JSONObject.parseObject(response);
 		if(rps.get("code").equals("200")){
 		// 发送成功后开启事务更新本地订单接单状态
@@ -793,5 +769,4 @@ public class OrderService extends BaseService implements IOrderService {
 		orderMapper.updateByPrimaryKeySelective(order);
 		return "success";
 	}
-
 }
