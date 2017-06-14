@@ -286,9 +286,9 @@ define("List", function (require, module, exports) {
         });
 
         // 下载-删除功能按钮
-        $('.item-pop-menu').on('click', function () {
+        $(document).on("click",".item-pop-menu",function(){
             var btn = this;
-            alert (111);
+            alert ($(btn).val());
         });
     }
 
