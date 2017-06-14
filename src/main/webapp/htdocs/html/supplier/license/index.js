@@ -404,7 +404,7 @@
                     }
                 };
 
-                list.edit(para, function () {
+                List.edit(para, function () {
                     refresh();
                 });
             }
