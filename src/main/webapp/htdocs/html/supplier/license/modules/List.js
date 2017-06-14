@@ -286,9 +286,9 @@ define("List", function (require, module, exports) {
 
         //$('.data-table table tbody tr td a').hover(function () {
         $('.data-table table tbody tr[child]').hover(function () {
-          /*  if ($(this).siblings().length > 0) {
-                return;
-            }*/
+            /*  if ($(this).siblings().length > 0) {
+             return;
+             }*/
             $(this).after(samples["item.pop.menu"])
 
         }, function () {
@@ -299,94 +299,93 @@ define("List", function (require, module, exports) {
             }, 3000);
 
         })
+
+        // 下载-删除功能按钮
+        $('.item-pop-menu').on('click', function () {
+            var btn = this;
+
+        });
     }
 
-    // 下载-删除功能按钮
-    $('.item-pop-menu').on('click', function () {
-        var btn = this;
+    function check(chk, checked) {
+        checked = chk.checked = typeof checked == "boolean" ? checked : chk.checked;
+        var tr = chk.parentNode.parentNode;
+        $(tr).toggleClass("selected", checked);
+        var index = +chk.getAttribute("data-index");
+        // 行号
+        index$selected[index] = checked;
+    }
 
-    });
-}
+    function getSelectedItems() {
+        var a = [];
+        $.Object.each(index$selected, function (index, selected) {
+            if (!selected) {
+                return;
+            }
+            var item = list.body.items[index];
+            a.push(item);
+        });
+        return a;
+    }
 
-function check(chk, checked) {
-    checked = chk.checked = typeof checked == "boolean" ? checked : chk.checked;
-    var tr = chk.parentNode.parentNode;
-    $(tr).toggleClass("selected", checked);
-    var index = +chk.getAttribute("data-index");
-    // 行号
-    index$selected[index] = checked;
-}
+    function getFilterItems() {
+        return list.filterItems;
+    }
 
-function getSelectedItems() {
-    var a = [];
-    $.Object.each(index$selected, function (index, selected) {
-        if (!selected) {
+    function getPrimaryKey() {
+        return primaryKey;
+    }
+
+    function forbid(classId, list, operateType, fn) {
+        Operation.forbid(classId, list, operateType, fn);
+    }
+
+    function del(classId, list, fn) {
+        Operation.del(classId, list, fn);
+    }
+
+    function review(classId, list, fn) {
+        Operation.review(classId, list, fn);
+    }
+
+    function unReview(classId, list, fn) {
+        Operation.unReview(classId, list, fn);
+    }
+
+    function send(classId, list, fn) {
+        Operation.send(classId, list, fn);
+    }
+
+    function show() {
+
+        if ($(panel).hasClass('hover')) { //避免上次的隐藏动画还没结束又开始显示动画
             return;
         }
-        var item = list.body.items[index];
-        a.push(item);
-    });
-    return a;
-}
 
-function getFilterItems() {
-    return list.filterItems;
-}
-
-function getPrimaryKey() {
-    return primaryKey;
-}
-
-function forbid(classId, list, operateType, fn) {
-    Operation.forbid(classId, list, operateType, fn);
-}
-
-function del(classId, list, fn) {
-    Operation.del(classId, list, fn);
-}
-
-function review(classId, list, fn) {
-    Operation.review(classId, list, fn);
-}
-
-function unReview(classId, list, fn) {
-    Operation.unReview(classId, list, fn);
-}
-
-function send(classId, list, fn) {
-    Operation.send(classId, list, fn);
-}
-
-function show() {
-
-    if ($(panel).hasClass('hover')) { //避免上次的隐藏动画还没结束又开始显示动画
-        return;
+        $(panel).addClass('hover');
+        $('#div-user-list').fadeIn();
     }
 
-    $(panel).addClass('hover');
-    $('#div-user-list').fadeIn();
-}
+    function hide() {
 
-function hide() {
+        $('#div-user-list').fadeOut(function () {
+            $(panel).removeClass('hover');
+        });
+    }
 
-    $('#div-user-list').fadeOut(function () {
-        $(panel).removeClass('hover');
-    });
-}
-
-return {
-    load: load,
-    render: render,
-    on: emitter.on.bind(emitter),
-    getSelectedItems: getSelectedItems,
-    getPrimaryKey: getPrimaryKey,
-    del: del,
-    getFilterItems: getFilterItems,
-    forbid: forbid,
-    review: review,
-    unReview: unReview,
-    send: send,
-    /*        upload: upload,*/
-};
+    return {
+        load: load,
+        render: render,
+        on: emitter.on.bind(emitter),
+        getSelectedItems: getSelectedItems,
+        getPrimaryKey: getPrimaryKey,
+        del: del,
+        getFilterItems: getFilterItems,
+        forbid: forbid,
+        review: review,
+        unReview: unReview,
+        send: send,
+        /*        upload: upload,*/
+    };
 })
 ;
