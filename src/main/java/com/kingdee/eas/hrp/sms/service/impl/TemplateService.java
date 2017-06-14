@@ -1640,12 +1640,12 @@ public class TemplateService extends BaseService implements ITemplateService {
 				} else {
 					// 引用字段查询-使用关联表显示字段作为条件
 					tableName = srcTableAlisAs == null || srcTableAlisAs.equals("") ? srcTable : srcTableAlisAs;
-				}
-
-				if (needConvert) {
-					fieldName = disPlayField;
-				} else {
-					fieldName = srcField;
+					
+					if (needConvert) {
+						fieldName = disPlayField;
+					} else {
+						fieldName = srcField;
+					}
 				}
 
 			} else if (lookUpType > 0 && lookUpType > 4) {
