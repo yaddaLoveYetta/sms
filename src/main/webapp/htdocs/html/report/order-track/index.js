@@ -4,7 +4,7 @@
 
 ;(function () {
 
-    //var List = require("List");
+    var List = require("List");
     var Pager = require("Pager");
 
     var DatetimePicker = require("DatetimePicker");
@@ -27,8 +27,8 @@
 
     function search(defaultCondition) {
 
-        // 物料
-        var material = SelectorList["material"].getData()[0].ID;
+        // 订单内码
+        var order = SelectorList["order"].getData()[0].ID;
         // 供应商
         var supplier = SelectorList["supplier"].getData()[0].ID;
         // 开始日期
@@ -38,12 +38,14 @@
 
         config.pageNo = 1;
 
+        config.type = 1;// 1：发货单2；收获信息3：入库信息4：退货信息5：付款信息 查询时默认查发货信息
+
 
         if ($.trim(supplier) != "") {
             config.supplier = supplier;
         }
-        if ($.trim(material) != "") {
-            config.material = material;
+        if ($.trim(order) != "") {
+            config.order = order;
         }
         if ($.trim(beginDate) != "") {
             config.beginDate = beginDate;
@@ -65,7 +67,8 @@
     }
 
     DatetimePicker.render();
-    //search();
+
+    search();
 
     $(document).ready(function () {
         $('#tab-container').easytabs();

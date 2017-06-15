@@ -4,6 +4,11 @@ define("List", function (require, exports, module) {
     var SMS = require('SMS');
     var API = SMS.require('API');
     var div = document.getElementById("div-list");
+    var type = 1;// 默认发货单
+    var heads = {
+        order: ['订单行号', '发货单号', '发货日期', '物料编号', '物料名称', '单位', '发货数量', '订单数量', '未发货数量', '物流公司', '物流单号'],
+        stock: [],
+    };
 
     var getRecordData = function (config, fn) {
 
@@ -33,6 +38,11 @@ define("List", function (require, exports, module) {
         begin: "<!--",
         end: "-->"
     }, {
+        name: 'th',
+        begin: ' #--th.begin--#',
+        end: ' #--th.end--#',
+        outer: '{ths}'
+    }, {
         name: 'tr',
         begin: '#--tr.begin--#',
         end: '#--tr.end--#',
@@ -50,22 +60,24 @@ define("List", function (require, exports, module) {
 
             div.innerHTML = $.String.format(samples.table, {
 
+                'ths': $.Array.keep(heads.order, function (item, no) {
+                    return $.String.format(samples.th, {
+                        th: item,
+                    });
+                }).join(''),
+
                 'trs': $.Array.keep(list, function (item, no) {
 
                     return $.String.format(samples.tr, {
 
                         'index': no,
-                        'tds': $.String.format(samples.td, {
-                            'index': no,
-                            'materialNumber': item.materialNumber || "",
-                            'materialName': item.materialName || "",
-                            'model': item.model || "",
-                            'unit': item.unit || "",
-                            'orderQty': item.orderQty || "",
-                            'outStockQty': item.outStockQty || "",
-                            'ReturnQty': item.ReturnQty || "",
-                            'stockQty': item.stockQty || "",
-                        })
+                        'tds': $.Array.keep(item, function (item, no) {
+
+                            return $.String.format(samples.td, {
+                                td: 'xxxx',
+                            });
+
+                        }).join(''),
                     });
                 }).join('')
             });
