@@ -4,7 +4,7 @@
 
 ;(function () {
 
-    var List = require("List");
+    //var List = require("List");
     var Pager = require("Pager");
 
     var DatetimePicker = require("DatetimePicker");
