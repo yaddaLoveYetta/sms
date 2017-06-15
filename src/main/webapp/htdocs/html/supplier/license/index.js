@@ -378,20 +378,22 @@
             console.log(data);
 
             var type = data.operate;
+
             if (type == 1) {
                 // 下载子表行附件
-                var value = data.body.items[data.col].value[data.entryRow].value;
-                var fileName = value.substr(value.lastIndexOf('/') + 1);
-                var para = {
 
+                var api = new API("file/download");
+                var url = api.getUrl();
+                url = $.Url.addQueryString(url, {
                     classId: classId,
-                    itemId: data.body.primaryValue,
-                    fileName: fileName,
-                }
+                    itemId: data.itemId,
+                    fileName: data.fileName,
+                })
 
-/*                List.download(para, function () {
-                    //refresh();
-                });*/
+                data.control.href = url;
+                data.control.click();
+                data.control.href = "#";
+
 
             } else if (type == 2) {
 

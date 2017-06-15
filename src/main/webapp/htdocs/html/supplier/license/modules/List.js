@@ -319,27 +319,33 @@ define("List", function (require, module, exports) {
                     fileName: fileName,
                 })
                 var $a = $(btn).parent().prev();
-                $a[0].href = url;
+/*                $a[0].href = url;
                 $a[0].click();
                 $a[0].href = "#";
-                return;
+                return;*/
                 operate = 1;
+
+                var args = [{
+                    itemId: bodyItems[row].primaryValue,
+                    fileName: fileName,
+                    control: $a[0],
+                    operate: operate
+                }, event];
+
+
             } else if (index == 2) {
                 // 删除
                 operate = 2;
+                var args = [{
+                    row: row,
+                    col: col,
+                    entryRow: childNo,
+                    body: bodyItems[row],
+                    operate: operate
+                }, event];
+
+                emitter.fire("row.item.click", args);
             }
-
-
-            var args = [{
-                row: row,
-                col: col,
-                entryRow: childNo,
-                body: bodyItems[row],
-                operate: operate
-            }, event];
-
-            emitter.fire("row.item.click", args);
-
         });
     }
 
