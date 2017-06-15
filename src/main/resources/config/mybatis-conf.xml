@@ -117,6 +117,7 @@
 		<mapper resource="mapper/customize/Platform_RoleDaoMapper.xml" />
 		<mapper resource="mapper/customize/TemplateDaoMapper.xml" />
 		<mapper resource="mapper/customize/SendcargoDaoMapper.xml" />
+		<mapper resource="mapper/customize/OrderDaoMapper.xml" />
 		<!-- =============================== 复杂Mapper =====================end==== -->
 
 	</mappers>

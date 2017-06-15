@@ -31,6 +31,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.dao.customize.OrderDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
@@ -47,10 +48,10 @@ import com.kingdee.eas.hrp.sms.model.Item;
 
 @Service
 public class OrderService extends BaseService implements IOrderService {
-		
-	
+
 	@Resource
 	IWebService IWebService;
+
 	/**
 	 * 同步订单
 	 */
@@ -127,99 +128,99 @@ public class OrderService extends BaseService implements IOrderService {
 		}
 
 		// 調用hrp-web-service --发送接单数据至HRP
-		JSONObject json = new  JSONObject();
+		JSONObject json = new JSONObject();
 		json.put("entry", entryStr);
 		json.put("id", id);
 		String response = IWebService.webService(json.toString(), "sms2hrpOrderTake");
 		JSONObject rps = JSONObject.parseObject(response);
-		if(rps.get("code").equals("200")){
-		// 发送成功后开启事务更新本地订单接单状态
+		if (rps.get("code").equals("200")) {
+			// 发送成功后开启事务更新本地订单接单状态
 
-		PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
+			PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
 
-		TransactionTemplate template = new TransactionTemplate(txManager);
+			TransactionTemplate template = new TransactionTemplate(txManager);
 
-		template.execute(new TransactionCallback<Object>() {
+			template.execute(new TransactionCallback<Object>() {
 
-			@Override
-			public Object doInTransaction(TransactionStatus status) {
+				@Override
+				public Object doInTransaction(TransactionStatus status) {
 
-				try {
+					try {
 
-					JSONObject entrys = JSONObject.parseObject(entryStr);
+						JSONObject entrys = JSONObject.parseObject(entryStr);
 
-					if (entrys.size() == 0) {
-						// 没有单据分录数据
-						throw new BusinessLogicRunTimeException("数据错误");
+						if (entrys.size() == 0) {
+							// 没有单据分录数据
+							throw new BusinessLogicRunTimeException("数据错误");
+						}
+
+						JSONArray entry1 = entrys.getJSONArray("1"); // 只处理第一个子表
+
+						for (Iterator<Object> it = entry1.iterator(); it.hasNext();) {
+							Object obj = it.next();
+							JSONObject entryItem = (JSONObject) JSON.toJSON(obj);
+
+							String entryId = entryItem.getString("entryId"); // 分录id
+							float confirmQty = entryItem.getFloatValue("confirmQty"); // 接单数量
+
+							String dataStr = entryItem.getString("confirmDate");
+
+							if (dataStr == null || dataStr.isEmpty()) {
+								throw new BusinessLogicRunTimeException("数据错误,缺少接单日期");
+							}
+
+							Date confirmDate = sdf.parse(dataStr); // 接单日期
+
+							if ("".equals(entryId)) {
+								throw new BusinessLogicRunTimeException("数据错误,缺少分录内码");
+							}
+							if (confirmQty <= 0) {
+								throw new BusinessLogicRunTimeException("数据错误,缺少接单数量");
+							}
+							if (null == confirmDate) {
+								throw new BusinessLogicRunTimeException("数据错误,缺少接单日期或格式不正确");
+							}
+							if (confirmDate.before(sdf.parse(sdf.format(new Date())))) {
+								throw new BusinessLogicRunTimeException("数据错误,接单日期不能早于当前日期");
+							}
+
+							// 更新采购订单接单数据
+
+							OrderEntryMapper entryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+
+							OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+
+							Order order = new Order();
+							order.setConfirmTick(Byte.parseByte("1"));
+							order.setConfirmTickDate(new Date());
+							order.setId(id);
+
+							OrderEntry orderEntry = new OrderEntry();
+
+							orderEntry.setId(entryId);
+							orderEntry.setConfirmQty(BigDecimal.valueOf(confirmQty));
+							orderEntry.setConfirmDate(confirmDate);
+							orderEntry.setInvoiceQty(new BigDecimal(0));
+							orderMapper.updateByPrimaryKeySelective(order);
+							entryMapper.updateByPrimaryKeySelective(orderEntry);
+
+							// 调用短信接口发送短信
+							// MsgUtil.sendSMS("a", "a");
+						}
+
+					} catch (ParseException e) {
+						status.setRollbackOnly();
+						throw new BusinessLogicRunTimeException("日期格式不正确");
+					} catch (Exception e) {
+						status.setRollbackOnly();
+						throw new BusinessLogicRunTimeException(e);
 					}
 
-					JSONArray entry1 = entrys.getJSONArray("1"); // 只处理第一个子表
-
-					for (Iterator<Object> it = entry1.iterator(); it.hasNext();) {
-						Object obj = it.next();
-						JSONObject entryItem = (JSONObject) JSON.toJSON(obj);
-
-						String entryId = entryItem.getString("entryId"); // 分录id
-						float confirmQty = entryItem.getFloatValue("confirmQty"); // 接单数量
-
-						String dataStr = entryItem.getString("confirmDate");
-
-						if (dataStr == null || dataStr.isEmpty()) {
-							throw new BusinessLogicRunTimeException("数据错误,缺少接单日期");
-						}
-
-						Date confirmDate = sdf.parse(dataStr); // 接单日期
-
-						if ("".equals(entryId)) {
-							throw new BusinessLogicRunTimeException("数据错误,缺少分录内码");
-						}
-						if (confirmQty <= 0) {
-							throw new BusinessLogicRunTimeException("数据错误,缺少接单数量");
-						}
-						if (null == confirmDate) {
-							throw new BusinessLogicRunTimeException("数据错误,缺少接单日期或格式不正确");
-						}
-						if (confirmDate.before(sdf.parse(sdf.format(new Date())))) {
-							throw new BusinessLogicRunTimeException("数据错误,接单日期不能早于当前日期");
-						}
-
-						// 更新采购订单接单数据
-
-						OrderEntryMapper entryMapper = sqlSession.getMapper(OrderEntryMapper.class);
-
-						OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-
-						Order order = new Order();
-						order.setConfirmTick(Byte.parseByte("1"));
-						order.setConfirmTickDate(new Date());
-						order.setId(id);
-
-						OrderEntry orderEntry = new OrderEntry();
-
-						orderEntry.setId(entryId);
-						orderEntry.setConfirmQty(BigDecimal.valueOf(confirmQty));
-						orderEntry.setConfirmDate(confirmDate);
-						orderEntry.setInvoiceQty(new BigDecimal(0));
-						orderMapper.updateByPrimaryKeySelective(order);
-						entryMapper.updateByPrimaryKeySelective(orderEntry);
-
-						// 调用短信接口发送短信
-						// MsgUtil.sendSMS("a", "a");
-					}
-
-				} catch (ParseException e) {
-					status.setRollbackOnly();
-					throw new BusinessLogicRunTimeException("日期格式不正确");
-				} catch (Exception e) {
-					status.setRollbackOnly();
-					throw new BusinessLogicRunTimeException(e);
+					return "success";
 				}
-
-				return "success";
-			}
-		});
-		}else{
-			throw new BusinessLogicRunTimeException("接单失败"+rps.get("msg"));
+			});
+		} else {
+			throw new BusinessLogicRunTimeException("接单失败" + rps.get("msg"));
 		}
 	}
 
@@ -735,7 +736,7 @@ public class OrderService extends BaseService implements IOrderService {
 	 */
 	public String updateTickType(JSONObject jsonObject) {
 		OrderEntry orderEntry = new OrderEntry();
-		Order order = new  Order();
+		Order order = new Order();
 		if (jsonObject.equals("")) {
 			return "error";
 		}
@@ -744,20 +745,22 @@ public class OrderService extends BaseService implements IOrderService {
 		for (int i = 0; i < orderEntryArray.size(); i++) {
 			JSONObject orderEntryObject = orderEntryArray.getJSONObject(i);
 			orderEntry.setId(orderEntryObject.getString("entryId"));// 订单子表内码
-			orderEntry.setLocalAmount(orderEntryObject.getBigDecimal("localAmount"));//修改本位币金额
-			orderEntry.setAmount(orderEntryObject.getBigDecimal("amount"));//修改金额
-			if (orderEntryObject.getDate("confirmDate") != null && !orderEntryObject.getDate("confirmDate").equals("")) {
+			orderEntry.setLocalAmount(orderEntryObject.getBigDecimal("localAmount"));// 修改本位币金额
+			orderEntry.setAmount(orderEntryObject.getBigDecimal("amount"));// 修改金额
+			if (orderEntryObject.getDate("confirmDate") != null
+					&& !orderEntryObject.getDate("confirmDate").equals("")) {
 				orderEntry.setConfirmDate(orderEntryObject.getDate("confirmDate"));// 修改供应商确认日期
 				orderEntry.setDeliveryDate(orderEntryObject.getDate("confirmDate"));// 修改原单发货日期
 			}
-			if (orderEntryObject.getBigDecimal("confirmQty") != null && !orderEntryObject.getBigDecimal("confirmQty").equals("")) {
+			if (orderEntryObject.getBigDecimal("confirmQty") != null
+					&& !orderEntryObject.getBigDecimal("confirmQty").equals("")) {
 				orderEntry.setConfirmQty(orderEntryObject.getBigDecimal("confirmQty"));// 修改供应商确认数量
 				orderEntry.setQty(orderEntryObject.getBigDecimal("confirmQty"));// 修改原单数量
 			}
 			OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
 			orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
 		}
-		if(jsonObject.getString("id")==null||jsonObject.getString("id").equals("")){
+		if (jsonObject.getString("id") == null || jsonObject.getString("id").equals("")) {
 			return "error";
 		}
 		order.setId(jsonObject.getString("id"));
@@ -768,5 +771,43 @@ public class OrderService extends BaseService implements IOrderService {
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 		orderMapper.updateByPrimaryKeySelective(order);
 		return "success";
+	}
+
+	/**
+	 * 
+	 * 订单追踪查询
+	 * 
+	 */
+	public List<Map<String, Object>> traceQuery(JSONObject json) {
+		OrderDaoMapper orderDaoMapper = sqlSession.getMapper(OrderDaoMapper.class);
+		String orderId = null;
+		String number = null;
+		String name = null;
+		Date startTime = null;
+		Date endTime = null;
+		List<Map<String, Object>> data = null ;
+		if (null != json) {
+			if (null != json.get("orderId")) {
+				orderId = json.getString("orderId");
+			}
+			if (null != json.get("number")) {
+				number = json.getString("number");
+			}
+			if (null != json.get("name")) {
+				name = "%"+json.getString("name")+"%";
+			}
+			if (null != json.get("startTime")) {
+				startTime = json.getDate("startTime");
+			}
+			if (null != json.get("endTime")) {
+				endTime = json.getDate("endTime");
+			}
+		}
+		System.out.println(json.get("type").equals("1"));
+			if (json.get("type").equals("1")) {
+				data=orderDaoMapper.selectSendcargo(orderId, number, name, startTime, endTime);
+			}
+		return data;
+
 	}
 }

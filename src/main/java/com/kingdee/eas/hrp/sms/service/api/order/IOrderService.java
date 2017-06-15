@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.api.order;
 
+import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
@@ -52,5 +53,11 @@ public interface IOrderService {
 	 * @return String
 	 */
 	public String updateTickType(JSONObject jsonObject);
-
+	
+	
+	/**
+	 * 订单追踪查询
+	 */
+	
+	List<Map<String, Object>> traceQuery(JSONObject json);
 }
