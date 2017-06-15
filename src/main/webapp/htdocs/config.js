@@ -44,19 +44,7 @@
             ],
 
             //'user/getSidebar':'api/master/sidebar.js',
-
-            'bos/baseitem': 'api/warehouse/baseitem.js',
-            'bos/forminfo': 'api/warehouse/warehouse.js',
-            'warehouse/list': 'api/warehouse/list.js',
-
-            'home/todo': 'api/home/todo.js',
-            'home/flow': 'api/home/flow.js',
-            'home/query': 'api/home/query.js',
-            'home/message': 'api/home/message.js',
-            'bd/assistitem': 'api/bd/assistitem.js',
-
-
-            'eshop/order': 'api/eshop/order.js'
+            'report/orderCount':'api/report/orderCount.js',
         },
 
         //简易分页器

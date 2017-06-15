@@ -5,9 +5,10 @@
     <title>订单统计</title>
 
     <!--grunt.css.begin-->
-    <link href="../../../css/global.debug.css" rel="stylesheet" />
-    <link href="../../../css/base/index.debug.css" rel="stylesheet" />
-    <link href="../../../css/base.css" rel="stylesheet" />
+    <link href="../../../css/global.debug.css" rel="stylesheet"/>
+    <link href="../../../css/base/index.debug.css" rel="stylesheet"/>
+    <link href="../../../css/base.css" rel="stylesheet"/>
+
 
     <!--grunt.css.end-->
 
@@ -24,12 +25,12 @@
             <div class="col-value fl mr5" data-filter="supplier">
                 <div class="F7-box" id="bd-supplier" style="width: 212px;"></div>
             </div>
-            <input type="text" id="beginTime" data-filter="date"
-                   class="edit-input list-txt_input  time-input" placeholder="开始时间" />
-            <input type="text" id="endTime" data-filter="date"
-                   class="edit-input list-txt_input time-input" placeholder="结束时间" />
-            <input type="button" id="jsSearch" class="ywtc-btn-item searchBtn"
-                   value="搜 索">
+            <input type="text" id="beginDate" data-filter="date"
+                   class="edit-input list-txt_input  time-input" placeholder="开始日期"/>
+            <input type="text" id="endDate" data-filter="date"
+                   class="edit-input list-txt_input time-input" placeholder="结束日期"/>
+            <input type="button" id="search" class="sms-btn-item searchBtn"
+                   value="查 询">
         </div>
 
     </div>
@@ -44,7 +45,7 @@
     <table class="data-table">
         <thead>
         <tr>
-            <th style="width: 220px;">行号</th>
+            <th style="width: 10%;">行号</th>
             <th style="width: 10%;">物料编码</th>
             <th style="width: 10%;">物料名称</th>
             <th style="width: 10%;">规格型号</th>
@@ -59,15 +60,15 @@
         #--tr.begin--#
         <tr data-index="{index}" class="">
             #--td.begin--#
-            <td data-index="{index}">{FOrderNo}</td>
-            <td data-index="{index}">{FCarNo}</td>
-            <td data-index="{index}" key='FTotalAmount'>{FTotalAmount}</td>
-            <td data-index="{index}">{FCompany}</td>
-            <td data-index="{index}">{FPark}</td>
-            <td data-index="{index}">{FEnterTime}</td>
-            <td data-index="{index}">{FOutTime}</td>
-            <td data-index="{index}">{FCustomer}</td>
-            <td data-index="{index}">{FCarPayType_DspName}</td>
+            <td >{index}</td>
+            <td>{materialNumber}</td>
+            <td>{materialName}</td>
+            <td>{model}</td>
+            <td>{unit}</td>
+            <td>{orderQty}</td>
+            <td>{outStockQty}</td>
+            <td>{ReturnQty}</td>
+            <td>{stockQty}</td>
             #--td.end--#
         </tr>
         #--tr.end--#
@@ -84,7 +85,10 @@
 
 <!--grunt.js.begin-->
 <script src="../../selector/module/DataSelector.js"></script>
-
+<script src="modules/DatetimePicker.js"></script>
+<script src="modules/List.js"></script>
+<script src="modules/Pager.js"></script>
+<script src="modules/SelectorList.js"></script>
 <script src="index.js"></script>
 <!--grunt.js.end-->
 
