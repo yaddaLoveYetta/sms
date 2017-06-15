@@ -4,27 +4,27 @@
 
         SMS.use('DateTimePicker', function (DateTimePicker) {
 
-            var beginTime = new DateTimePicker('#beginDate', {
-                format: 'yyyy-mm-dd hh:ii:ss',
+            var beginDate = new DateTimePicker('#beginDate', {
+                format: 'yyyy-mm-dd',
                 autoclose: true,
                 todayBtn: true,
                 todayHighlight: true,
                 startView: 'month',
-                minView: 'hour'
+                minView: 2,
             });
 
-            var endTime = new DateTimePicker('#endDate', {
-                format: 'yyyy-mm-dd hh:ii:ss',
+            var endDate = new DateTimePicker('#endDate', {
+                format: 'yyyy-mm-dd',
                 autoclose: true,
                 todayBtn: true,
                 todayHighlight: true,
                 startView: 'month',
-                minView: 'hour'
+                minView: 2,
             });
 
         });
 
-        $('#beginDate').val($.Date.format(new Date(), 'yyyy-MM-dd 00:00:00'));
+        $('#beginDate').val($.Date.format(new Date(), 'yyyy-MM-dd'));
 
     }
 
