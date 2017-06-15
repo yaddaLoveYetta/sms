@@ -4,6 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>订单追踪</title>
 
+    <!--grunt.css.begin-->
+    <link href="../../../css/global.debug.css" rel="stylesheet"/>
+    <link href="../../../css/base/index.debug.css" rel="stylesheet"/>
+    <link href="../../../css/base.css" rel="stylesheet"/>
+    <!--grunt.css.end-->
+
     <style>
 
         .etabs {
@@ -61,7 +67,29 @@
 
 
 </head>
-<body>
+
+<body class="iframe">
+
+<div class="nav-panel">
+
+    <div class="personSearch pr clearfix">
+        <div class="clearfix m5">
+            <div class="col-value fl mr5" data-filter="order">
+                <div class="F7-box" id="bd-order"></div>
+            </div>
+            <div class="col-value fl mr5" data-filter="supplier">
+                <div class="F7-box" id="bd-supplier"></div>
+            </div>
+            <input type="text" id="beginDate" data-filter="date"
+                   class="edit-input list-txt_input  time-input" placeholder="开始日期"/>
+            <input type="text" id="endDate" data-filter="date"
+                   class="edit-input list-txt_input time-input" placeholder="结束日期"/>
+            <input type="button" id="search" class="sms-btn-item searchBtn"
+                   value="查 询">
+        </div>
+
+    </div>
+</div>
 
 <div id="tab-container" class='tab-container'>
     <ul class='etabs'>
