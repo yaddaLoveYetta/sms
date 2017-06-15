@@ -102,12 +102,11 @@ public class OrderController {
 	@RequestMapping(value = "traceQuery")
 	public void traceQuery(HttpServletRequest request, HttpServletResponse response) {
 
-		String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
-
-		if ("".equals(items.trim())) {
-			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
-		}
+		String items = ParameterUtils.getParameter(request, "items", ""); // 
 		JSONObject json = JSONObject.parseObject(items);
+		if(SessionUtil.getUserType().equals("2")){
+			json.put("supplier", SessionUtil.getUserLinkSupplier());
+		}
 		List<Map<String, Object>> shipSendcargo = orderservice.traceQuery(json);
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipSendcargo);
 	}

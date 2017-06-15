@@ -803,9 +803,17 @@ public class OrderService extends BaseService implements IOrderService {
 				endTime = json.getDate("endTime");
 			}
 		}
-		System.out.println(json.get("type").equals("1"));
+		/**
+		 * type=1 发货单
+		 * type=2 收货单
+		 * type=3 入库单
+		 * type=4 退货单
+		 */
 			if (json.get("type").equals("1")) {
 				data=orderDaoMapper.selectSendcargo(orderId, number, name, startTime, endTime);
+			}
+			if(json.get("type").equals("2")){
+				data=orderDaoMapper.selectPurReceival(orderId, number, name, startTime, endTime);
 			}
 		return data;
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.customize.OrderDaoMapper">
 
-
+	<!-- 发货单追踪查询 -->
 	<select id="selectSendcargo" parameterType="String" resultType="map">
 		SELECT
 		t_sms_sendcargo.[id] AS [id],
@@ -67,9 +67,60 @@
 			AND t_sms_supplier.[number] = #{number}
 		</if>
 		<if test="name!=null">
-			AND t_sms_supplier.[name] LIKE #{name} 
+			AND t_sms_supplier.[name] LIKE #{name}
 		</if>
 	</select>
-
+	
+	<!-- 收货单追踪查询 -->
+	<select id="selectPurReceival" parameterType="String" resultType="map">
+		SELECT
+		t_sms_purreceival.[id] AS [id],
+		t_sms_purreceival.[number] AS
+		[number],
+		t_sms_purreceival.[bizDate] AS [bizDate],
+		t_sms_item.[name] AS
+		[material_DspName],
+		t_sms_item.[number] AS [material_NmbName],
+		t_sms_item.[specification] AS [specification],
+		t_sms_unit.[name] AS
+		[unit_DspName],
+		t_sms_unit.[number] AS [unit_NmbName],
+		t_sms_purreceival_entry.[actualQty] AS [actualQty]
+		FROM
+		t_sms_purreceival
+		INNER JOIN t_sms_purreceival_entry ON
+		t_sms_purreceival_entry.[parent] =
+		t_sms_purreceival.[id]
+		INNER JOIN
+		t_sms_supplier ON t_sms_purreceival.[supplier] =
+		t_sms_supplier.[id]
+		LEFT JOIN t_sms_base_status ON t_sms_purreceival.[baseStatus] =
+		t_sms_base_status.[id]
+		LEFT JOIN t_sms_purchase_order ON
+		t_sms_purreceival_entry.[orderId] =
+		t_sms_purchase_order.[id]
+		INNER JOIN
+		t_sms_item ON t_sms_purreceival_entry.[material] =
+		t_sms_item.[id]
+		INNER JOIN t_sms_unit ON t_sms_purreceival_entry.[unit] =
+		t_sms_unit.[id]
+		WHERE
+		1 = 1
+		<if test="orderId!=null">
+			AND orderId = #{orderId}
+		</if>
+		<if test="startTime!=null">
+			AND t_sms_purchase_order.[bizDate]&gt;#{startTime}
+		</if>
+		<if test="endTime!=null">
+			AND t_sms_purchase_order.[bizDate]&lt;#{endTime}
+		</if>
+		<if test="number!=null">
+			AND t_sms_supplier.[number] = #{number}
+		</if>
+		<if test="name!=null">
+			AND t_sms_supplier.[name] LIKE #{name}
+		</if>
+	</select>
 
 </mapper>
