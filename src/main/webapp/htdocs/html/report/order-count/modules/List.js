@@ -16,7 +16,7 @@ define("List", function (require, exports, module) {
         api.on({
             'success': function (data, json) {
                 SMS.Tips.success('数据加载成功', 1500);
-                fn && fn(data.list, data.count);
+                fn && fn(data.list, data.total);
             },
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (数据加载异常: {1})', msg, code);
