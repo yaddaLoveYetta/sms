@@ -22,7 +22,7 @@ SMS.Proxy.response(function (data, config) {
             'materialName': 'A' + index,
             'model': 'aa.bb.cc.dd.ee.xx.yy.zz'.slice(0, $.Math.randomInt(3, 23)),
             'unit': '只',
-            'orderQty': 100,
+            'orderQty': $.Math.randomInt(30, 200),
             'outStockQty': $.Math.randomInt(10, 100),
             'ReturnQty': $.Math.randomInt(10, 100),
             'stockQty': $.Math.randomInt(10, 100),
