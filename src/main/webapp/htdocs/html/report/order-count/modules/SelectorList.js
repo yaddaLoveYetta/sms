@@ -29,7 +29,7 @@ define('SelectorList', function (require, module, exports) {
     var supplierContainer = document.getElementById('bd-supplier');
     var config = {
         targetType: 1, //跳转方案
-        classID: 13002,
+        classID: 1005,
         hasBreadcrumbs: true,
         container: supplierContainer,
         title: '供应商',
