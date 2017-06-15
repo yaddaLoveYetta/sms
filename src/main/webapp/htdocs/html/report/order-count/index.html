@@ -18,26 +18,20 @@
 <div class="nav-panel">
     <div class="personSearch pr clearfix">
         <div class="clearfix m5">
-            <div class="col-value fl mr5" data-filter="FCompany">
-                <div class="F7-box" id="bd-FCompany" style="width: 212px;"></div>
+            <div class="col-value fl mr5" data-filter="material">
+                <div class="F7-box" id="bd-material" style="width: 212px;"></div>
             </div>
-            <div class="col-value fl mr5" data-filter="FPark">
-                <div class="F7-box" id="bd-FPark" style="width: 212px;"></div>
+            <div class="col-value fl mr5" data-filter="supplier">
+                <div class="F7-box" id="bd-supplier" style="width: 212px;"></div>
             </div>
-            <input type="text" id="beginTime" data-filter="FDate"
-                   class="edit-input list-txt_input  time-input" placeholder="出场开始时间" />
-            <input type="text" id="endTime" data-filter="FDate"
-                   class="edit-input list-txt_input time-input" placeholder="出场结束时间" />
-        </div>
-        <div class="clearfix m5">
-            <input type="text" id="orderNo" class="edit-input txt_input" placeholder="请输入订单号" />
-            <input type="text" id="carNo" class="edit-input txt_input" placeholder="车牌号" />
-            <select class="list-txt_select edit-input fl" id="outType">
-                <!--<option value="{value}" number="{number}">{text}</option>-->
-            </select>
+            <input type="text" id="beginTime" data-filter="date"
+                   class="edit-input list-txt_input  time-input" placeholder="开始时间" />
+            <input type="text" id="endTime" data-filter="date"
+                   class="edit-input list-txt_input time-input" placeholder="结束时间" />
             <input type="button" id="jsSearch" class="ywtc-btn-item searchBtn"
                    value="搜 索">
         </div>
+
     </div>
 </div>
 
