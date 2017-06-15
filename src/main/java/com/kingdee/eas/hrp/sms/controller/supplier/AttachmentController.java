@@ -166,7 +166,8 @@ public class AttachmentController {
 		response.setContentType("application/force-download");
 		// response.setContentType(request.getSession().getServletContext().getMimeType(fileName));
 		// 设置Content-Disposition
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+		// response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+		response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
 		// 读取目标文件，通过response将目标文件写到客户端
 		// 获取目标文件的绝对路径
 		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH"); // 文件存放目录
