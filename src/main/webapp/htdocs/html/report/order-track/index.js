@@ -3,10 +3,6 @@
  */
 
 ;(function () {
-    $(document).ready(function () {
-        $('#tab-container').easytabs();
-    });
-
 
     var List = require("List");
     var Pager = require("Pager");
@@ -70,4 +66,8 @@
 
     DatetimePicker.render();
     //search();
+
+    $(document).ready(function () {
+        $('#tab-container').easytabs();
+    });
 })();
