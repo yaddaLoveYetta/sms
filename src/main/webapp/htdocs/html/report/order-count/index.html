@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>订单统计</title>
+
+    <!--grunt.css.begin-->
+    <link href="../../../css/global.debug.css" rel="stylesheet" />
+    <link href="../../../css/base/index.debug.css" rel="stylesheet" />
+    <link href="../../../css/base.css" rel="stylesheet" />
+
+    <!--grunt.css.end-->
+
+</head>
+
+<body class="iframe">
+
+<div class="nav-panel">
+    <div class="personSearch pr clearfix">
+        <div class="clearfix m5">
+            <div class="col-value fl mr5" data-filter="FCompany">
+                <div class="F7-box" id="bd-FCompany" style="width: 212px;"></div>
+            </div>
+            <div class="col-value fl mr5" data-filter="FPark">
+                <div class="F7-box" id="bd-FPark" style="width: 212px;"></div>
+            </div>
+            <input type="text" id="beginTime" data-filter="FDate"
+                   class="edit-input list-txt_input  time-input" placeholder="出场开始时间" />
+            <input type="text" id="endTime" data-filter="FDate"
+                   class="edit-input list-txt_input time-input" placeholder="出场结束时间" />
+        </div>
+        <div class="clearfix m5">
+            <input type="text" id="orderNo" class="edit-input txt_input" placeholder="请输入订单号" />
+            <input type="text" id="carNo" class="edit-input txt_input" placeholder="车牌号" />
+            <select class="list-txt_select edit-input fl" id="outType">
+                <!--<option value="{value}" number="{number}">{text}</option>-->
+            </select>
+            <input type="button" id="jsSearch" class="ywtc-btn-item searchBtn"
+                   value="搜 索">
+        </div>
+    </div>
+</div>
+
+<div class="options-panel">
+    <div id="div-pager-simple" class="pager-box"></div>
+</div>
+
+<div id="div-list" class="table-panel">
+    <!--
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th style="width: 220px;">行号</th>
+            <th style="width: 10%;">物料编码</th>
+            <th style="width: 10%;">物料名称</th>
+            <th style="width: 10%;">规格型号</th>
+            <th style="width: 10%;">单位</th>
+            <th style="width: 10%;">订单数量</th>
+            <th style="width: 10%;">发货数量</th>
+            <th style="width: 10%;">退货数量</th>
+            <th style="width: 10%;">入库数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        #--tr.begin--#
+        <tr data-index="{index}" class="">
+            #--td.begin--#
+            <td data-index="{index}">{FOrderNo}</td>
+            <td data-index="{index}">{FCarNo}</td>
+            <td data-index="{index}" key='FTotalAmount'>{FTotalAmount}</td>
+            <td data-index="{index}">{FCompany}</td>
+            <td data-index="{index}">{FPark}</td>
+            <td data-index="{index}">{FEnterTime}</td>
+            <td data-index="{index}">{FOutTime}</td>
+            <td data-index="{index}">{FCustomer}</td>
+            <td data-index="{index}">{FCarPayType_DspName}</td>
+            #--td.end--#
+        </tr>
+        #--tr.end--#
+        </tbody>
+    </table>
+    -->
+</div>
+<div id="div-pager-normal" class="page-panel"></div>
+
+<script src="../../../lib/jquery/jquery-1.11.1.debug.js"></script>
+<script src="../../../lib/miniquery/miniquery.debug.js"></script>
+<script src="../../../lib/sms/sms.debug.js"></script>
+<script src="../../../config.js"></script>
+
+<!--grunt.js.begin-->
+<script src="../../selector/module/DataSelector.js"></script>
+
+<script src="index.js"></script>
+<!--grunt.js.end-->
+
+
+</body>
+</html>
