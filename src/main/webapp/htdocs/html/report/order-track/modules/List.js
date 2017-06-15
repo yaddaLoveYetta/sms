@@ -74,7 +74,7 @@ define("List", function (require, exports, module) {
                         'tds': $.Array.keep(item, function (item, no) {
 
                             return $.String.format(samples.td, {
-                                td: 'xxxx',
+                                'td': 'xxxx',
                             });
 
                         }).join(''),
