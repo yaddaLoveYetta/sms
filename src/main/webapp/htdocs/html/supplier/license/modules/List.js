@@ -318,8 +318,10 @@ define("List", function (require, module, exports) {
                     itemId: bodyItems[row].primaryValue,
                     fileName: fileName,
                 })
-                // $("#pluginurl").attr("href",url);
-                $(btn).parent().prev().attr("href", url);
+                var $a = $(btn).parent().prev();
+                $a[0].href = url;
+                $a[0].click();
+                $a[0].href = "#";
                 return;
                 operate = 1;
             } else if (index == 2) {
