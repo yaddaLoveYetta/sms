@@ -319,10 +319,10 @@ define("List", function (require, module, exports) {
                     fileName: fileName,
                 })
                 var $a = $(btn).parent().prev();
-/*                $a[0].href = url;
-                $a[0].click();
-                $a[0].href = "#";
-                return;*/
+                /*                $a[0].href = url;
+                 $a[0].click();
+                 $a[0].href = "#";
+                 return;*/
                 operate = 1;
 
                 var args = [{
@@ -343,9 +343,8 @@ define("List", function (require, module, exports) {
                     body: bodyItems[row],
                     operate: operate
                 }, event];
-
-                emitter.fire("row.item.click", args);
             }
+            emitter.fire("row.item.click", args);
         });
     }
 
