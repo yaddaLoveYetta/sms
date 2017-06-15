@@ -3,10 +3,15 @@
     display: inline-block;
     background: #ddd;
     cursor: pointer;
-    position: absolute;
+    /*position: absolute;*/
     top: 1px;
     right: 1px;
     background: url(../../img/ui_kit_updt.png);
+    background-size: 23px 23px;
     height: 23px;
     width: 23px;
+}
+
+.sms-F7selector input {
+    width: 150px;
 }
