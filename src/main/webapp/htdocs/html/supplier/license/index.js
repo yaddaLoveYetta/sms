@@ -132,7 +132,7 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项');
+                SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
             MessageBox.confirm('确定删除选择的项?', function (result) {
@@ -149,11 +149,11 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要删除的项');
+                SMS.Tips.error('请选择要删除的项', 1500);
                 return;
             }
             if (list.length > 1) {
-                SMS.Tips.error('只能对一条记录进行操作');
+                SMS.Tips.error('只能对一条记录进行操作', 1500);
                 return;
             }
 
@@ -191,11 +191,11 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项');
+                SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
             if (list.length > 1) {
-                SMS.Tips.error('一次只能对一条记录进行操作');
+                SMS.Tips.error('一次只能对一条记录进行操作', 1500);
                 return;
             }
             List.review(classId, list, function () {
@@ -210,11 +210,11 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项');
+                SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
             if (list.length > 1) {
-                SMS.Tips.error('一次只能对一条记录进行操作');
+                SMS.Tips.error('一次只能对一条记录进行操作', 1500);
                 return;
             }
 
@@ -270,15 +270,15 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项');
+                SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
             if (list.length > 1) {
-                SMS.Tips.error('一次只能对一条记录进行操作');
+                SMS.Tips.error('一次只能对一条记录进行操作', 1500);
                 return;
             }
             if (list[0].data.review === 0) {
-                SMS.Tips.error('该记录未审核，不可发送');
+                SMS.Tips.error('该记录未审核，不可发送', 1500);
                 return;
             }
             MessageBox.confirm('确定要将该记录发送给医院?', function (result) {
