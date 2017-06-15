@@ -71,10 +71,10 @@ define("List", function (require, exports, module) {
                     return $.String.format(samples.tr, {
 
                         'index': no,
-                        'tds': $.Object.keep(item, function (key, value) {
+                        'tds': $.Array.keep($.Object.toArray(item), function (item, no) {
 
                             return $.String.format(samples.td, {
-                                'td': value,
+                                'td': item,
                             });
 
                         }).join(''),
