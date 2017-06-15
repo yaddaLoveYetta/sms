@@ -1,4 +1,4 @@
-package com.kingdee.eas.hrp.sms.controller.statistics;
+package com.kingdee.eas.hrp.sms.controller.report;
 
 import java.util.Map;
 
@@ -18,15 +18,15 @@ import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
 
 @Controller
-@RequestMapping(value = "/statistics/")
-public class StatisticsController {
+@RequestMapping(value = "/report/")
+public class ReportController {
 
 	@Resource
 	IStatisticsService statisticsService;
 
 	@ControllerLog(desc = "订单统计", classId = 0)
-	@RequestMapping(value = "order")
-	public void orderStatistics(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "orderCount")
+	public void orderCount(HttpServletRequest request, HttpServletResponse response) {
 
 		String data = ParameterUtils.getParameter(request, "data", "");
 		JSONObject json = JSONObject.parseObject(data);

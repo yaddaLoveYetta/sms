@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.aspectj.weaver.JoinPointSignature;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -22,6 +23,7 @@ public class FileUploadService extends BaseService implements IFileUploadService
 	ITemplateService templateService;
 
 	@Override
+	@Transactional
 	public void saveUrlToDb(int classId, String itemId, List<String> urls) {
 
 		for (String url : urls) {
