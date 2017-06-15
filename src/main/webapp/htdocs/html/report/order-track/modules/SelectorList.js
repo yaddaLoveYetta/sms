@@ -12,7 +12,7 @@ define('SelectorList', function (require, module, exports) {
 
     var selectors = {};
 
-    var materialContainer = document.getElementById('bd-order');
+    var orderContainer = document.getElementById('bd-order');
     var config = {
         targetType: 1, //跳转方案
         classID: 2019,
