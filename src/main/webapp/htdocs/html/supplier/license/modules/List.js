@@ -307,8 +307,20 @@ define("List", function (require, module, exports) {
 
             if (index == 1) {
                 // 下载
+                var fileDirector = bodyItems[row].items[col].value[childNo].value;
+                var fileName = fileDirector.substr(fileDirector.lastIndexOf('/') + 1);
+
+                var $API = SMS.require('API');
+                var api = new $API("file/download");
+                var url = api.getUrl();
+                url = $.Url.addQueryString(url, {
+                    classId: 3010,
+                    itemId: bodyItems[row].primaryValue,
+                    fileName: fileName,
+                })
                 // $("#pluginurl").attr("href",url);
-                $(btn).parent().prev().attr("href", "file/download?classId=3010&fileName=aaa");
+                $(btn).parent().prev().attr("href", url);
+                return;
                 operate = 1;
             } else if (index == 2) {
                 // 删除
