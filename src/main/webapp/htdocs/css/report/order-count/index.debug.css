@@ -1,0 +1,12 @@
+.sms-F7selector span[data-role="btn"] {
+    vertical-align: top;
+    display: inline-block;
+    background: #ddd;
+    cursor: pointer;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    background: url(../../img/ui_kit_updt.png);
+    height: 23px;
+    width: 23px;
+}
