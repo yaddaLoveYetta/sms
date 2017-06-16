@@ -56,7 +56,7 @@ define("List", function (require, exports, module) {
 
                         'index': no,
                         'tds': $.String.format(samples.td, {
-                            'index': no,
+                            'index': no + 1,
                             'materialNumber': item.materialNumber || "",
                             'materialName': item.materialName || "",
                             'model': item.model || "",
