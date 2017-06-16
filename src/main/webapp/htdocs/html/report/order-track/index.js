@@ -41,6 +41,10 @@
 
         config.classId = 2020;// 2020：发货单2021；收获信息2022：入库信息2023：退货信息5：付款信息 查询时默认查发货信息
 
+        delete config.supplier;
+        delete config.order;
+        delete config.beginDate;
+        delete config.endDate;
 
         if ($.trim(supplier) != "") {
             config.supplier = supplier;
