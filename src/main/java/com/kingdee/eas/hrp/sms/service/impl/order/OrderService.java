@@ -778,48 +778,45 @@ public class OrderService extends BaseService implements IOrderService {
 	 * 订单追踪查询
 	 * 
 	 */
-	public List<Map<String, Object>> traceQuery(JSONObject json) {
+	public List<Map<String, Object>> traceQuery(String supplierIds, String pageNo, String pageSize, String classId,
+			String supplier, String order, String beginDate, String endDate) {
 		OrderDaoMapper orderDaoMapper = sqlSession.getMapper(OrderDaoMapper.class);
 		String orderId = null;
 		String number = null;
 		String name = null;
-		Date startTime = null;
-		Date endTime = null;
+		String startTime = null;
+		String endTime = null;
 		String supplierId = null;
 		List<Map<String, Object>> data = null;
-		if (null != json) {
-			if (null != json.get("orderId")) {
-				orderId = json.getString("orderId");
-			}
-			if (null != json.get("number")) {
-				number = json.getString("number");
-			}
-			if (null != json.get("name")) {
-				name = "%" + json.getString("name") + "%";
-			}
-			if (null != json.get("startTime")) {
-				startTime = json.getDate("startTime");
-			}
-			if (null != json.get("endTime")) {
-				endTime = json.getDate("endTime");
-			}
-			if (null != json.get("supplierId")) {
-				supplierId = json.getString("supplierId");
-			}
+		if (null != order && !"".equals(order)) {
+			orderId = order;
+		}
+		if (null != supplier && !"".equals(supplier)) {
+			supplierId = supplier;
+		}
+		if (null != beginDate && !"".equals(beginDate)) {
+			startTime = beginDate;
+		}
+		if (null != endDate && !"".equals(endDate)) {
+
+			endTime = endDate;
+		}
+		if (null != supplierId && !"".equals(supplierId)) {
+			supplierId = supplierIds;
 		}
 		/**
 		 * classId=2020 发货单 classId=2021 收货单 classId=2022 入库单 classId=2023 退货单
 		 */
-		if (json.get("classId").equals("2020")) {
+		if (classId.equals("2020")) {
 			data = orderDaoMapper.selectSendcargo(orderId, number, name, startTime, endTime, supplierId);
 		}
-		if (json.get("classId").equals("2021")) {
+		if (classId.equals("2021")) {
 			data = orderDaoMapper.selectPurReceival(orderId, number, name, startTime, endTime, supplierId);
 		}
-		if (json.get("classId").equals("2022")) {
+		if (classId.equals("2022")) {
 			data = orderDaoMapper.selectPurInwarehs(orderId, number, name, startTime, endTime, supplierId);
 		}
-		if (json.get("classId").equals("2023")) {
+		if (classId.equals("2023")) {
 			data = orderDaoMapper.selectPurReturns(orderId, number, name, startTime, endTime, supplierId);
 		}
 		return data;

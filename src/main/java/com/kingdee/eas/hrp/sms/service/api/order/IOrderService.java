@@ -59,5 +59,5 @@ public interface IOrderService {
 	 * 订单追踪查询
 	 */
 	
-	List<Map<String, Object>> traceQuery(JSONObject json);
+	List<Map<String, Object>> traceQuery(String supplierIds,String pageNo,String pageSize,String classId,String supplier,String order,String beginDate,String endDate);
 }

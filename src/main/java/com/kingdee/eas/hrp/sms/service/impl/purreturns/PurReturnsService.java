@@ -39,7 +39,8 @@ public class PurReturnsService extends BaseService implements IPurReturnsService
 			purreturns.setSupplier(jsonObject.getString("supplier"));
 			PurReturnsMapper purReturnsMapper = sqlSession.getMapper(PurReturnsMapper.class);
 			purReturnsMapper.insertSelective(purreturns);
-			JSONArray purEntryArray = JSONArray.parseArray(jsonObject.getString("entries"));
+			JSONObject entry = (JSONObject) jsonObject.get("entry");
+			JSONArray purEntryArray = JSONArray.parseArray(entry.getString("1"));
 			for (int j = 0; j < purEntryArray.size(); j++) {
 				JSONObject purEntryObject = purEntryArray.getJSONObject(j);
 				purReturnsEntry.setId(purEntryObject.getString("id"));

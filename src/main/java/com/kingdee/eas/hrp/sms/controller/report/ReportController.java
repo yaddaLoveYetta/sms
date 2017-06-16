@@ -54,17 +54,22 @@ public class ReportController {
 	@ControllerLog(desc = "订单追踪查询")
 	@RequestMapping(value = "traceQuery")
 	public void traceQuery(HttpServletRequest request, HttpServletResponse response) {
-
-		String items = ParameterUtils.getParameter(request, "items", ""); //
-		JSONObject json = JSONObject.parseObject(items);
+		String supplierIds = "";
+		String pageNo = ParameterUtils.getParameter(request, "pageNo", ""); 
+		String pageSize = ParameterUtils.getParameter(request, "pageSize", ""); 
+		String classId = ParameterUtils.getParameter(request, "classId", ""); 
+		String supplier = ParameterUtils.getParameter(request, "supplier", ""); 
+		String order = ParameterUtils.getParameter(request, "order", ""); 
+		String beginDate = ParameterUtils.getParameter(request, "beginDate", ""); 
+		String endDate = ParameterUtils.getParameter(request, "endDate", ""); 
 		if (SessionUtil.getUserType().equals("B3sMo22ZLkWApjO/oEeDOxACEAI=")) {
 			if (!(null == SessionUtil.getUserLinkSupplier() || "".equals(SessionUtil.getUserLinkSupplier()))) {
-				json.put("supplierId", SessionUtil.getUserLinkSupplier());
+				 supplierIds = SessionUtil.getUserLinkSupplier();
 			}
 		}
 		IOrderService orderService = Environ.getBean(IOrderService.class);
 
-		List<Map<String, Object>> shipSendcargo = orderService.traceQuery(json);
+		List<Map<String, Object>> shipSendcargo = orderService.traceQuery(supplierIds, pageNo, pageSize, classId, supplier, order, beginDate, endDate);
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipSendcargo);
 	}
 
