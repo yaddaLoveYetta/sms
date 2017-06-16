@@ -14,6 +14,7 @@ public interface OrderDaoMapper {
 	List<Map<String, Object>> selectPurReceival(@Param("orderId")String orderId,@Param("number")String number,@Param("name")String name,@Param("startTime")Date startTime,@Param("endTime")Date endTime,@Param("supplierId")String supplierId);
 	//入库单追踪查询
 	List<Map<String, Object>> selectPurInwarehs(@Param("orderId")String orderId,@Param("number")String number,@Param("name")String name,@Param("startTime")Date startTime,@Param("endTime")Date endTime,@Param("supplierId")String supplierId);
-	
+	//退货单追踪查询
+	List<Map<String, Object>> selectPurReturns(@Param("orderId")String orderId,@Param("number")String number,@Param("name")String name,@Param("startTime")Date startTime,@Param("endTime")Date endTime,@Param("supplierId")String supplierId);
 
 }

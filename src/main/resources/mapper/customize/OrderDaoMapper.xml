@@ -20,7 +20,6 @@
 		t_sms_unit.[name] AS [unit_DspName],
 		t_sms_unit.[number] AS
 		[unit_NmbName],
-		t_sms_sendcargo_entry.[qty] AS [qty],
 		t_sms_sendcargo_entry.[orderSeq] AS [orderSeq],
 		t_sms_item.[specification] AS [specification],
 		t_sms_sendcargo.[supplier] AS [supplier],
@@ -31,7 +30,8 @@
 		t_sms_purchase_order.[number] AS [orderNumber],
 		t_sms_purchase_order.[id] AS [orderId],
 		t_sms_purchase_order.[bizDate]
-		AS bizDate
+		AS bizDate,
+		t_sms_purchase_order_entry.[qty] AS [qty]
 		FROM
 		t_sms_sendcargo
 		INNER JOIN t_sms_sendcargo_entry ON
@@ -51,6 +51,9 @@
 		LEFT JOIN
 		t_sms_purchase_order ON t_sms_sendcargo_entry.[orderId] =
 		t_sms_purchase_order.[id]
+		LEFT JOIN t_sms_purchase_order_entry ON
+		t_sms_sendcargo_entry.[orderId] =
+		t_sms_purchase_order_entry.[parent]
 
 		WHERE
 		1=1
@@ -161,6 +164,61 @@
 		LEFT
 		JOIN t_sms_purchase_order ON t_sms_purinwarehs_entry.[orderId] =
 		t_sms_purchase_order.[id]
+		WHERE
+		1 = 1
+		<if test="orderId!=null">
+			AND orderId = #{orderId}
+		</if>
+		<if test="startTime!=null">
+			AND t_sms_purchase_order.[bizDate]&gt;#{startTime}
+		</if>
+		<if test="endTime!=null">
+			AND t_sms_purchase_order.[bizDate]&lt;#{endTime}
+		</if>
+		<if test="number!=null">
+			AND t_sms_supplier.[number] = #{number}
+		</if>
+		<if test="name!=null">
+			AND t_sms_supplier.[name] LIKE #{name}
+		</if>
+		<if test="supplierId!=null">
+			AND t_sms_supplier.[id] = #{supplierId}
+		</if>
+	</select>
+
+	<select id="selectPurReturns" parameterType="String" resultType="map">
+		SELECT
+		t_sms_purreturns_entry.[orderSeq] AS [orderSeq],
+		t_sms_purreturns.[number] AS [number],
+		t_sms_purreturns.[bizDate] AS[bizDate],
+		t_sms_item.[name] AS [material_DspName],
+		t_sms_item.[number]AS [material_NmbName],
+		t_sms_item.[specification] AS [specification],
+		t_sms_unit.[name] AS [unit_DspName],
+		t_sms_purreturns_entry.[returnQty] AS [returnQty],
+		t_sms_purchase_order_entry.[qty] AS [qty]
+		FROM
+		t_sms_purreturns
+		INNER
+		JOIN t_sms_purreturns_entry ON t_sms_purreturns_entry.[parent] =
+		t_sms_purreturns.[id]
+		INNER JOIN t_sms_supplier ON
+		t_sms_purreturns.[supplier] =
+		t_sms_supplier.[id]
+		LEFT JOIN
+		t_sms_base_status ON t_sms_purreturns.[baseStatus] =
+		t_sms_base_status.[id]
+		LEFT JOIN t_sms_purchase_order ON
+		t_sms_purreturns_entry.[orderId] =
+		t_sms_purchase_order.[id]
+		INNER JOIN
+		t_sms_item ON t_sms_purreturns_entry.[material] =
+		t_sms_item.[id]
+		INNER
+		JOIN t_sms_unit ON t_sms_purreturns_entry.[unit] = t_sms_unit.[id]
+		LEFT JOIN t_sms_purchase_order_entry ON
+		t_sms_purreturns_entry.[orderId] = t_sms_purchase_order_entry.[parent]
+
 		WHERE
 		1 = 1
 		<if test="orderId!=null">
