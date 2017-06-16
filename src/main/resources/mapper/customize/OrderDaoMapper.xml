@@ -10,7 +10,7 @@
 		[number],
 		t_sms_sendcargo.[logistics] AS [logistics],
 		t_sms_sendcargo.[logisticsNo] AS [logisticsNo],
-		t_sms_sendcargo.[Date]
+		CONVERT(nvarchar(10),t_sms_sendcargo.[Date],102)
 		AS [date],
 		t_sms_sendcargo_entry.[id] AS [entryId],
 		t_sms_sendcargo_entry.[parent] AS [parent],
@@ -84,7 +84,7 @@
 		t_sms_purreceival.[id] AS [id],
 		t_sms_purreceival.[number] AS
 		[number],
-		t_sms_purreceival.[bizDate] AS [bizDate],
+		CONVERT(nvarchar(10),t_sms_purreceival.[bizDate],102) AS [bizDate],
 		t_sms_item.[name] AS
 		[material_DspName],
 		t_sms_item.[number] AS [material_NmbName],
@@ -138,7 +138,7 @@
 		SELECT
 		t_sms_purinwarehs_entry.[orderSeq] AS [orderSeq],
 		t_sms_purinwarehs.[number] AS [number],
-		t_sms_purinwarehs.[bizDate] AS
+		CONVERT(nvarchar(10),t_sms_purinwarehs.[bizDate],102) AS
 		[bizDate],
 		t_sms_item.[name] AS [material_DspName],
 		t_sms_item.[number]
@@ -190,7 +190,7 @@
 		SELECT
 		t_sms_purreturns_entry.[orderSeq] AS [orderSeq],
 		t_sms_purreturns.[number] AS [number],
-		t_sms_purreturns.[bizDate] AS[bizDate],
+		CONVERT(nvarchar(10),t_sms_purreturns.[bizDate],102) AS[bizDate],
 		t_sms_item.[name] AS [material_DspName],
 		t_sms_item.[number]AS [material_NmbName],
 		t_sms_item.[specification] AS [specification],
