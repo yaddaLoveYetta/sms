@@ -23,7 +23,7 @@ public class PurReceivalController {
 	IPurReceivalService iPurReceivalService;
 	
 	@ControllerLog(desc = "同步收货单") // 做日志
-	@RequestMapping(value = "purreceival")
+	@RequestMapping(value = "purReceival")
 	public void purReceival(HttpServletRequest request, HttpServletResponse response) {
 		String listStr = ParameterUtils.getParameter(request, "list", "");
 		JSONArray json = JSONArray.parseArray(listStr);
