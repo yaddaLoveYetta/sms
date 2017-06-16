@@ -18,13 +18,12 @@ import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.purreceival.IPurReceivalService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
-
 @Service
-public class PurReceivalService extends BaseService implements IPurReceivalService{
-	
+public class PurReceivalService extends BaseService implements IPurReceivalService {
+
 	@Resource
 	ITemplateService iTemplateService;
-	
+
 	/**
 	 * 
 	 * 收货单同步接口
@@ -42,13 +41,15 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 				purReceival.setBizDate(jsonObject.getDate("bizDate"));
 			}
 			purReceival.setBaseStatus(jsonObject.getByte("baseStatus"));
-			if(jsonObject.getByte("baseStatus")!=4){
+			if (jsonObject.getByte("baseStatus") != 4) {
 				iTemplateService.delItem(2021, jsonObject.getString("id"));
 			}
-			purReceival.setSourceBillType(jsonObject.getByte("sourceBillType"));
+			// purReceival.setSourceBillType(jsonObject.getByte("sourceBillType"));
 			purReceival.setSupplier(jsonObject.getString("supplier"));
 			PurReceivalMapper purReceivalMapper = sqlSession.getMapper(PurReceivalMapper.class);
-			purReceivalMapper.insertSelective(purReceival);
+			if (jsonObject.getByte("baseStatus") == 4) {
+				purReceivalMapper.insertSelective(purReceival);
+			}
 			JSONObject entry = (JSONObject) jsonObject.get("entry");
 			JSONArray purEntryArray = (JSONArray) entry.get("1");
 			for (int j = 0; j < purEntryArray.size(); j++) {
@@ -77,8 +78,10 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 				purReceivalEntry.setQualifiedQty(purEntryObject.getLong("qualifiedQty"));
 				purReceivalEntry.setUnqualifiedQty(purEntryObject.getLong("unqualifiedQty"));
 				PurReceivalEntryMapper purReceivalEntryMapper = sqlSession.getMapper(PurReceivalEntryMapper.class);
-				purReceivalEntryMapper.insertSelective(purReceivalEntry);
-				
+				if (jsonObject.getByte("baseStatus") == 4) {
+					purReceivalEntryMapper.insertSelective(purReceivalEntry);
+				}
+
 			}
 		}
 		return "success";

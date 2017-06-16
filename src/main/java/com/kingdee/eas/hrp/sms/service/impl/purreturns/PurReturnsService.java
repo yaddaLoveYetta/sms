@@ -16,7 +16,7 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
 @Service
 public class PurReturnsService extends BaseService implements IPurReturnsService {
-	
+
 	@Resource
 	ITemplateService iTemplateService;
 
@@ -32,13 +32,15 @@ public class PurReturnsService extends BaseService implements IPurReturnsService
 				purreturns.setBizDate(jsonObject.getDate("bizDate"));
 			}
 			purreturns.setBaseStatus(jsonObject.getByte("baseStatus"));
-			if(jsonObject.getByte("baseStatus")!=4){
+			if (jsonObject.getByte("baseStatus") != 4) {
 				iTemplateService.delItem(2023, jsonObject.getString("id"));
 			}
-			purreturns.setSourceBillType(jsonObject.getByte("sourceBillType"));
+			// purreturns.setSourceBillType(jsonObject.getByte("sourceBillType"));
 			purreturns.setSupplier(jsonObject.getString("supplier"));
 			PurReturnsMapper purReturnsMapper = sqlSession.getMapper(PurReturnsMapper.class);
-			purReturnsMapper.insertSelective(purreturns);
+			if (jsonObject.getByte("baseStatus") == 4) {
+				purReturnsMapper.insertSelective(purreturns);
+			}
 			JSONObject entry = (JSONObject) jsonObject.get("entry");
 			JSONArray purEntryArray = (JSONArray) entry.get("1");
 			for (int j = 0; j < purEntryArray.size(); j++) {
@@ -51,7 +53,9 @@ public class PurReturnsService extends BaseService implements IPurReturnsService
 				purReturnsEntry.setUnit(purEntryObject.getString("unit"));
 				purReturnsEntry.setReturnQty(purEntryObject.getLong("returnQty"));
 				PurReturnsEntryMapper purReturnsEntryMapper = sqlSession.getMapper(PurReturnsEntryMapper.class);
-				purReturnsEntryMapper.insertSelective(purReturnsEntry);
+				if (jsonObject.getByte("baseStatus") == 4) {
+					purReturnsEntryMapper.insertSelective(purReturnsEntry);
+				}
 			}
 		}
 		return "success";

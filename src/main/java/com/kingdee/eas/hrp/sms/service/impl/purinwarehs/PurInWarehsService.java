@@ -16,10 +16,10 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
 @Service
 public class PurInWarehsService extends BaseService implements IPurInWarehsService {
-	
-	
+
 	@Resource
 	ITemplateService iTemplateService;
+
 	/**
 	 * 
 	 * 入库单同步接口
@@ -37,13 +37,15 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 				purInWarehs.setBizDate(jsonObject.getDate("bizDate"));
 			}
 			purInWarehs.setBaseStatus(jsonObject.getByte("baseStatus"));
-			if(jsonObject.getByte("baseStatus")!=4){
+			if (jsonObject.getByte("baseStatus") != 4) {
 				iTemplateService.delItem(2022, jsonObject.getString("id"));
 			}
-			purInWarehs.setSourceBillType(jsonObject.getByte("sourceBillType"));
+			// purInWarehs.setSourceBillType(jsonObject.getByte("sourceBillType"));
 			purInWarehs.setSupplier(jsonObject.getString("supplier"));
 			PurInWarehsMapper purInWarehsMapper = sqlSession.getMapper(PurInWarehsMapper.class);
-			purInWarehsMapper.insertSelective(purInWarehs);
+			if (jsonObject.getByte("baseStatus") == 4) {
+				purInWarehsMapper.insertSelective(purInWarehs);
+			}
 			JSONObject entry = (JSONObject) jsonObject.get("entry");
 			JSONArray purEntryArray = (JSONArray) entry.get("1");
 			for (int j = 0; j < purEntryArray.size(); j++) {
@@ -69,8 +71,10 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 					purInWarehsEntry.setEffectiveDate(purEntryObject.getDate("effectiveDate"));
 				}
 				PurInWarehsEntryMapper purInWarehsEntryMapper = sqlSession.getMapper(PurInWarehsEntryMapper.class);
-				purInWarehsEntryMapper.insertSelective(purInWarehsEntry);
-				
+				if (jsonObject.getByte("baseStatus") == 4) {
+					purInWarehsEntryMapper.insertSelective(purInWarehsEntry);
+				}
+
 			}
 		}
 		return "success";
