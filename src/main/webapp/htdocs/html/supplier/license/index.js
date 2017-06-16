@@ -51,7 +51,7 @@
 
     $(txtSupplierSearch).bind('keypress', function (event) {
         if (event.keyCode == 13) {
-            Tree.render(treeClassId, $(txtSimpleSearch).val());
+            Tree.render(treeClassId, $(txtSupplierSearch).val());
         }
     });
 
