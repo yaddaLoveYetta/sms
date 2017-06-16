@@ -1,4 +1,5 @@
 ﻿define('DataSelector', function (require, module, exports) {
+
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
     var SMS = require('SMS');
@@ -29,17 +30,16 @@
 
         this[guidKey] = 'DataSelector-' + $.String.random();
         var meta = {
-            container: config.container,
-            hasData: false,
-            fieldKey: config.fieldKey,
+            container: config.container, // 容器
+            hasData: false, // 是否有数据
+            fieldKey: config.fieldKey, // 控件绑定的字段模板key
             typeId: config.typeId,
-            hasBreadcrumbs: config.hasBreadcrumbs,
-            targetType: config.targetType,
-            supperConditions: config.supperConditions,
-            title: config.title,
-            conditions: config.conditions || {},
-            classID: config.classID || '',
-            destClassId: config.destClassId || '',
+            hasBreadcrumbs: config.hasBreadcrumbs, // 导航显示
+            targetType: config.targetType, // 列表页面类别
+            title: config.title,            // dialog表体
+            conditions: config.conditions || {}, // 发送到页面的条件
+            classID: config.classID || '', // targetType连接附加classId条件
+            destClassId: config.destClassId || '', // 目标单据classId
             checkbox: config.checkbox,
             conditionF7Names: config.conditionF7Names || [], //新增查询条件集合 [{SelectorName:"FCompany",FillterKey: "FCompany", ValueRule: { 50801: 50701, 50802: 50702 } }]
             data: [{
@@ -128,7 +128,6 @@
                             pageSize: meta.defaults.pageSize,
                             hasBreadcrumbs: meta.hasBreadcrumbs,
                             conditions: meta.conditions,
-                            supperConditions: meta.supperConditions,
                             checkbox: meta.checkbox
                         },
                         button: [
@@ -211,18 +210,20 @@
                 }
             });
 
-            //新增文本清空设置空数据
+
             var f7DefaultData = [{
                 ID: "",
                 number: "",
                 name: ""
             }];
+            //文本清空设置空数据
             $(meta.container).on('change input propertychange', function () {
                 if ($(this).find('input[data-role="label"]').val() == "") {
                     meta.data = f7DefaultData;
                     emitter.fire(meta.container.getAttribute("id") + '.DialogEmpty', [f7DefaultData]);
                 }
             });
+
             $(meta.container).find('input[data-role="label"]').prop("placeholder", "请选择" + meta.title);
         };
 
@@ -283,8 +284,6 @@
         unlock: function () {
 
             var meta = mapper.get(this);
-
-            //$(meta.container).delegate('[data-role="btn"]', 'click');
 
             $(meta.container).find('input').each(function () {
                 $(this).removeAttr("disabled");

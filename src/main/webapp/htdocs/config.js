@@ -130,7 +130,7 @@
                 'jquery-barcode':'jquery-barcode-2.0.3/jquery/jquery-barcode.{@}.js',
                 'jquery.jqprint':'jquery.jqprint/jquery.jqprint-0.3.js',
                 'jquery-migrate':'jquery.jqprint/jquery-migrate-1.2.1.min.js',
-                'easy-tabs':'jspkg-archive/lib/jquery.easytabs.min.js',
+                'easy-tabs':'jspkg-archive/lib/jquery.easytabs.{@}.js',
             }
         },
 
