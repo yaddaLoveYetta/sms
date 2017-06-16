@@ -63,7 +63,7 @@ define("List", function (require, exports, module) {
                             'unit': item.unit || "",
                             'orderQty': item.orderQty || "",
                             'outStockQty': item.outStockQty || "",
-                            'ReturnQty': item.ReturnQty || "",
+                            'returnQty': item.returnQty || "",
                             'stockQty': item.stockQty || "",
                         })
                     });

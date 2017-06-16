@@ -24,7 +24,7 @@ SMS.Proxy.response(function (data, config) {
             'unit': '只',
             'orderQty': $.Math.randomInt(30, 200),
             'outStockQty': $.Math.randomInt(10, 100),
-            'ReturnQty': $.Math.randomInt(10, 100),
+            'returnQty': $.Math.randomInt(10, 100),
             'stockQty': $.Math.randomInt(10, 100),
         };
 
