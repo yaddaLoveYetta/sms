@@ -4,7 +4,6 @@ define("List", function (require, exports, module) {
     var SMS = require('SMS');
     var API = SMS.require('API');
     var div = document.getElementById("div-list");
-    var type = 2020;// 默认发货单
     var heads = {
         "2020": [
             {key: 'orderSeq', value: '订单行号'},
@@ -23,7 +22,7 @@ define("List", function (require, exports, module) {
 
     var getRecordData = function (config, fn) {
 
-        var api = new API("report/orderCount");
+        var api = new API("report/traceQuery");
 
         SMS.Tips.loading('数据加载中...');
 
