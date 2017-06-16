@@ -101,7 +101,7 @@ define("List", function (require, exports, module) {
     }]);
 
     function render(config, fn) {
-
+        div.innerHTML = '';
         getRecordData(config, function (list, total) {
 
             div.innerHTML = $.String.format(samples.table, {
