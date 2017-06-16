@@ -71,21 +71,21 @@ define("List", function (require, exports, module) {
 
             div.innerHTML = $.String.format(samples.table, {
 
-                'ths': $.Array.keep(heads["2020"], function (item, no) {
+                'ths': $.Array.keep(heads[config.classId], function (item, no) {
                     return $.String.format(samples.th, {
                         th: item.value,
                     });
                 }).join(''),
 
-                'trs': $.Array.keep(list, function (item, no) {
+                'trs': $.Array.keep(list, function (rowData, no) {
 
                     return $.String.format(samples.tr, {
 
                         'index': no,
-                        'tds': $.Array.keep($.Object.toArray(item), function (item, no) {
+                        'tds': $.Array.keep(heads[config.classId], function (item, no) {
 
                             return $.String.format(samples.td, {
-                                'td': item,
+                                'td': rowData[item.key],
                             });
 
                         }).join(''),
