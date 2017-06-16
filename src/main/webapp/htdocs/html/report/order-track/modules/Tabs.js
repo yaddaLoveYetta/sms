@@ -4,6 +4,9 @@
 
 define('Tabs', function (require, module, exports) {
 
+    var MiniQuery = require("MiniQuery");
+    var emitter = MiniQuery.Event.create();
+
     var hasbind = false;
 
     function bindEvents() {
@@ -12,17 +15,17 @@ define('Tabs', function (require, module, exports) {
         }
 
         $('#tab-container')
-            .bind('easytabs:before', function () {
+            .bind('easytabs:before', function (event, $clicked, $targetPanel, settings) {
 
-                alert('easytabs:before fired');
+                alert('easytabs:before fired' + $clicked.eq(0).parent().attr('id'));
             })
-            .bind('easytabs:midTransition', function () {
+            .bind('easytabs:midTransition', function (event, $clicked, $targetPanel, settings) {
 
-                alert('easytabs:midTransition fired');
+                alert('easytabs:midTransition fired' + $clicked.eq(0).parent().attr('id'));
 
             })
-            .bind('easytabs:after', function () {
-                alert('easytabs:after fired');
+            .bind('easytabs:after', function (event, $clicked, $targetPanel, settings) {
+                alert('easytabs:after fired' + $clicked.eq(0).parent().attr('id'));
             });
     }
 
