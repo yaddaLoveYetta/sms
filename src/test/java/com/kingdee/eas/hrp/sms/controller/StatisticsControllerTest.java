@@ -27,9 +27,11 @@ public class StatisticsControllerTest extends BaseControllerTest {
 		param.setCookieParams(cookie);
 		
 		//String str = "{'item':'8a97N4VHRSK7aHJYI9yGtEQJ5/A=','orderStartDate':'2017-06-10','orderEndDate':'2017-06-11','supplier':'C58lu7xvQHqq/KxNTurocTfGffw='}";
-		String str = "{'item':'','orderStartDate':'2017-06-09','orderEndDate':'','supplier':''}";
-		param.addCommon("data", str);
-
+		//String str = "{'item':'','orderStartDate':'2017-06-09','orderEndDate':'','supplier':''}";
+		//param.addCommon("orderStartDate", "2017-06-09");
+		//param.addCommon("item", "8a97N4VHRSK7aHJYI9yGtEQJ5/A=");
+		param.addCommon("supplier", "C58lu7xvQHqq/KxNTurocTfGffw=");
+		
 		String ret = HttpUtil.sendGet(BASE_URL + "statistics/order", param);
 		System.out.println(ret);
 	}

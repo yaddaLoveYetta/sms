@@ -65,32 +65,4 @@ public class FileUploadService extends BaseService implements IFileUploadService
 
 	}
 
-	@Override
-	public JSONObject delete(Integer classId, String data) {
-
-		String[] ids = data.split(",");
-		StringBuilder targetId = new StringBuilder("");
-		JSONObject err = new JSONObject(true);
-		for (String id : ids) {
-			Map<String, Object> item = templateService.getItemById(classId, id);
-			String fileName = (String) item.get("path");
-			File file = new File(fileName);
-			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
-			if (file.exists() && file.isFile()) {
-				if (file.delete()) {
-					targetId.append(id).append(",");
-				} else {
-					err.put(fileName, "删除失败");
-					continue;
-				}
-			} else {
-				err.put(fileName, "文件不存在");
-				continue;
-			}
-		}
-		targetId.deleteCharAt(targetId.length() - 1);
-		templateService.delItem(classId, targetId.toString());
-		return err;
-	}
-
 }

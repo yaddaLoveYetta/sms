@@ -21,6 +21,4 @@ public interface IFileUploadService {
 	 */
 	void saveUrlToDb(int classId, String itemId, List<String> urls);
 
-	JSONObject delete(Integer classId, String data);
-
 }

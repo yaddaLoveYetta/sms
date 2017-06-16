@@ -218,32 +218,4 @@ public class AttachmentController {
 		}
 	}
 
-	@ControllerLog(desc = "删除附件") // 做日志
-	// @Permission(objectType = 0, objectId = 0, accessMask =
-	// AccessMaskCode.MASK_SYNC, desc = "同步item") // 权限
-	@RequestMapping(value = "delete")
-	public void delete(HttpServletRequest request, HttpServletResponse response) {
-
-		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
-		String data = ParameterUtils.getParameter(request, "data", "");
-
-		if (classId < 0) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
-			return;
-		}
-
-		if (null == data || "".equals(data)) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
-			return;
-		}
-
-		JSONObject deleteRet = fileUploadService.delete(classId, data);
-		if (deleteRet.isEmpty()) {
-			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "附件删除成功！");
-		} else {
-			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, deleteRet.toString());
-		}
-
-	}
-
 }

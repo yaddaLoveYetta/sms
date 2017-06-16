@@ -44,7 +44,7 @@
             ],
 
             //'user/getSidebar':'api/master/sidebar.js',
-            'report/orderCount':'api/report/orderCount.js',
+            //'report/orderCount':'api/report/orderCount.js',
             'report/traceQuery':'api/report/traceQuery.js',
         },
 

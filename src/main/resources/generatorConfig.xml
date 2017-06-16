@@ -302,6 +302,6 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-
+		
 	</context>
 </generatorConfiguration> 

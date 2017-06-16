@@ -32,26 +32,22 @@ public class ReportController {
 	@RequestMapping(value = "orderCount")
 	public void orderCount(HttpServletRequest request, HttpServletResponse response) {
 
-		String data = ParameterUtils.getParameter(request, "data", "");
-		JSONObject json = JSONObject.parseObject(data);
-		String itemId = json.getString("item");
-		String orderStartDate = json.getString("orderStartDate");
-		String orderEndDate = json.getString("orderEndDate");
-		String supplier = json.getString("supplier");
+		String itemId = ParameterUtils.getParameter(request, "material", "");
+		String orderStartDate = ParameterUtils.getParameter(request, "beginDate", "");
+		String orderEndDate = ParameterUtils.getParameter(request, "endDate", "");
+		String supplier = ParameterUtils.getParameter(request, "supplier", "");
+		int pageNo = ParameterUtils.getParameter(request, "pageNo", 1);
+		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10);
+
 		if (!(null == SessionUtil.getUserLinkSupplier() || "".equals(SessionUtil.getUserLinkSupplier())))
 			supplier = SessionUtil.getUserLinkSupplier();
-
-		// 基本参数校验
-		if (data.equals("")) {
-			throw new BusinessLogicRunTimeException("必须提交参数");
-		}
 
 		if (itemId.equals("") && supplier.equals("") && orderStartDate.equals("") && orderEndDate.equals("")) {
 			throw new BusinessLogicRunTimeException("必须提交参数");
 		}
 
-		Map<String, Object> result = statisticsService.getRecord(itemId, supplier, orderStartDate, orderEndDate);
-
+		JSONObject result = statisticsService.getRecord(itemId, supplier, orderStartDate, orderEndDate, pageNo,
+				pageSize);
 		ResponseWriteUtil.output(response, result);
 	}
 

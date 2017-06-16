@@ -1,6 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.api.statistics;
 
-import java.util.Map;
+import com.alibaba.fastjson.JSONObject;
 
 public interface IStatisticsService {
 
@@ -10,10 +10,11 @@ public interface IStatisticsService {
 	 * @param supplier
 	 * @param orderStartDate
 	 * @param orderEndDate
-	 * @return Map<String, Object>
+	 * @return JSONObject
 	 *
 	 * 2017年6月14日上午11:58:16
 	 */
-	Map<String, Object> getRecord(String itemId, String supplier, String orderStartDate, String orderEndDate);
+	JSONObject getRecord(String itemId, String supplier, String orderStartDate, String orderEndDate,
+			int pageNo, int pageSize);
 
 }

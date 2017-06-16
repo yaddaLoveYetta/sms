@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.kingdee.eas.hrp.sms.dao.customize.PurchaseOrderEntryDaoMapper;
 import com.kingdee.eas.hrp.sms.log.ServiceLog;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.statistics.IStatisticsService;
@@ -24,174 +26,132 @@ public class StatisticsService extends BaseService implements IStatisticsService
 	@Resource
 	ITemplateService templateService;
 
-	@SuppressWarnings("unchecked")
 	@ServiceLog(desc = "获取订单统计记录")
 	@Override
-	public Map<String, Object> getRecord(String itemId, String supplier, String orderStartDate, String orderEndDate) {
+	public JSONObject getRecord(String itemId, String supplier, String orderStartDate, String orderEndDate, int pageNo,
+			int pageSize) {
 
-		Map<String, Object> result = new HashMap<String, Object>();
+		JSONObject ret = new JSONObject(true);
+		JSONArray list = new JSONArray();
 
-		// 筛选供应商和对应物料的订单数据
-		JSONArray conditionArry = new JSONArray();
-		JSONObject condition = new JSONObject(true);
-		if (!(null == supplier || "".equals(supplier))) {
-			condition.put("fieldKey", "supplier");
-			condition.put("logicOperator", "=");
-			condition.put("value", supplier);
-			condition.put("needConvert", false);
-			conditionArry.add(condition);
+		Map<String, Object> sqlMap = new HashMap<String, Object>();
+		sqlMap.put("orderEndDate", orderEndDate);
+		sqlMap.put("orderStartDate", orderStartDate);
+		sqlMap.put("supplier", supplier);
+		sqlMap.put("material", itemId);
+		if (pageNo == 1) {
+			PageHelper.startPage(pageNo, pageSize, true);
+		} else {
+			PageHelper.startPage(pageNo, pageSize, false);
 		}
-		if (!(null == itemId || "".equals(itemId))) {
-			condition = new JSONObject(true);
-			condition.put("fieldKey", "material");
-			condition.put("logicOperator", "=");
-			condition.put("value", itemId);
-			condition.put("needConvert", false);
-			conditionArry.add(condition);
-		}
-		if (!(null == orderStartDate || "".equals(orderStartDate))) {
-			condition = new JSONObject(true);
-			condition.put("fieldKey", "tickDate");
-			condition.put("logicOperator", ">=");
-			condition.put("value", orderStartDate);
-			condition.put("needConvert", false);
-			conditionArry.add(condition);
-		}
-		if (!(null == orderEndDate || "".equals(orderEndDate))) {
-			condition = new JSONObject(true);
-			condition.put("fieldKey", "tickDate");
-			condition.put("logicOperator", "<=");
-			condition.put("value", orderEndDate);
-			condition.put("needConvert", false);
-			conditionArry.add(condition);
-		}
-		Map<String, Object> orderData = templateService.getItems(2019, conditionArry.toString(), "", 1, 10000);
+		PurchaseOrderEntryDaoMapper mapper = sqlSession.getMapper(PurchaseOrderEntryDaoMapper.class);
+		List<Map<String, Object>> selectOrderGroupById = mapper.selectOrderGroupById(sqlMap);
 		// 如果订单数量为0，则不再往下统计
-		if (((long) orderData.get("count")) > 0) {
-			List<Map<String, Object>> orderList = (List<Map<String, Object>>) orderData.get("list");
+		if (selectOrderGroupById == null) {
+			return null;
+		} else {
+			ret.put("count", selectOrderGroupById.size());
+
+			List<Map<String, Object>> selectOrderStatistics = mapper.selectOrderStatistics(sqlMap);
 			// 存放每个物料的统计订单数量
 			Map<String, Object> orderCount = new HashMap<String, Object>();
+			// 存放物料对应的订单id
+			List<String> materialOrder = new ArrayList<String>();
+			// 存放物料对应的子表id
+			List<String> materialEntry = new ArrayList<String>();
 			// 存放每个物料的统计发货数量
 			Map<String, Object> orderInvoiceQty = new HashMap<String, Object>();
 			// 存放每个物料的基本计量单位
 			Map<String, Object> orderMaterialUnit = new HashMap<String, Object>();
-			// 存放订单
-			StringBuilder materialId = new StringBuilder("");
-			StringBuilder orderId = new StringBuilder("");
-			List<String> orderIdList = new ArrayList<String>();
-			for (Map<String, Object> order : orderList) {
-				orderIdList.add((String) order.get("id"));
-				orderId.append("'").append((String) order.get("id")).append("',");
-				Map<String, Object> entryData = (Map<String, Object>) order.get("entry");
-				List<Map<String, Object>> entryData1 = (List<Map<String, Object>>) entryData.get("1");
-				for (int i = 0; i < entryData1.size(); i++) {
-					Map<String, Object> entry = (Map<String, Object>) entryData1.get(i);
-					String material = (String) entry.get("material");
-					materialId.append("'").append(material).append("',");
-					if (orderCount.containsKey(material)) {
+			// 存放入库
+			Map<String, Object> purinwarehsActualQty = new HashMap<String, Object>();
+			// 存放退货
+			Map<String, Object> purreturnsReturnQty = new HashMap<String, Object>();
+
+			for (Map<String, Object> order : selectOrderStatistics) {
+				String orderId = (String) order.get("parent");
+				String entryId = (String) order.get("id");
+				String material = (String) order.get("material");
+				String materialOrderStr = material + orderId;
+				String materialEntryStr = material + entryId;
+
+				if (orderCount.containsKey(material)) {
+
+					if (!materialOrder.contains(materialOrderStr)) {
+						// 累加物料的订单数量
 						int countOrder = (int) orderCount.get(material) + 1;
 						orderCount.replace(material, countOrder);
+						materialOrder.add(materialOrderStr);
+					}
+
+					// 订单子表未统计,统计发货量
+					if (!materialEntry.contains(materialEntryStr)) {
 						double invoiceQty = (double) orderInvoiceQty.get(material)
-								+ Double.parseDouble(entry.get("invoiceQty").toString());
+								+ Double.parseDouble(order.get("invoiceQty").toString());
 						orderInvoiceQty.replace(material, invoiceQty);
-					} else {
-						orderCount.put(material, 1);
-						orderInvoiceQty.put(material, Double.parseDouble(entry.get("invoiceQty").toString()));
-						orderMaterialUnit.put(material, entry.get("unit"));
+						materialEntry.add(materialEntryStr);
 					}
-				}
-			}
-			orderId.deleteCharAt(orderId.length()-1);
-			materialId.deleteCharAt(materialId.length()-1);
 
-			// 筛选订单中的退货单和入库单
-			condition = new JSONObject(true);
-			condition.put("fieldKey", "orderId");
-			condition.put("logicOperator", "in");
-			condition.put("value", orderId);
-			condition.put("needConvert", false);
-			conditionArry.add(condition);
-			// 如果前端没有传入物料筛选条件，就根据筛选出的订单中的物料进行退货单和入库单的筛选
-			if (null == itemId || "".equals(itemId)) {
-				condition = new JSONObject(true);
-				condition.put("fieldKey", "material");
-				condition.put("logicOperator", "in");
-				condition.put("value", materialId);
-				condition.put("needConvert", false);
-				conditionArry.add(condition);
-			}
-
-			Map<String, Object> purreturnsData = templateService.getItems(2023, conditionArry.toString(), "", 1, 10000);
-			Map<String, Object> purreturnsReturnQty = new HashMap<String, Object>();
-			// 如果退货单数量为0，则不再往下统计
-			if (((long) purreturnsData.get("count")) > 0) {
-				List<Map<String, Object>> purreturnsList = (List<Map<String, Object>>) purreturnsData.get("list");
-				// 存放每个物料的统计退货数量
-				for (Map<String, Object> purreturns : purreturnsList) {
-					Map<String, Object> entryData = (Map<String, Object>) purreturns.get("entry");
-					List<Map<String, Object>> entryData1 = (List<Map<String, Object>>) entryData.get("1");
-					for (int i = 0; i < entryData1.size(); i++) {
-						Map<String, Object> entry = (Map<String, Object>) entryData1.get(i);
-						String material = (String) entry.get("material");
-						if (orderCount.containsKey(material)) {
-							double returnQty = (double) purreturnsReturnQty.get(material)
-									+ Double.parseDouble(entry.get("returnQty").toString());
-							purreturnsReturnQty.replace(material, returnQty);
-						} else {
-							purreturnsReturnQty.put(material, Double.parseDouble(entry.get("returnQty").toString()));
-						}
+					if (!(null == order.get("actualQty") || "".equals(order.get("actualQty")))) {
+						double returnQty = (double) purreturnsReturnQty.get(material)
+								+ Double.parseDouble(order.get("returnQty").toString());
+						purreturnsReturnQty.replace(material, returnQty);
 					}
-				}
-			}
-
-			Map<String, Object> purinwarehsData = templateService.getItems(2022, conditionArry.toString(), "", 1,
-					10000);
-			Map<String, Object> purinwarehsActualQty = new HashMap<String, Object>();
-			// 如果入库单数量为0，则不再往下统计
-			if (((long) purinwarehsData.get("count")) > 0) {
-				List<Map<String, Object>> purinwarehsList = (List<Map<String, Object>>) purinwarehsData.get("list");
-				// 存放每个物料的统计入库数量
-				for (Map<String, Object> purinwarehs : purinwarehsList) {
-					Map<String, Object> entryData = (Map<String, Object>) purinwarehs.get("entry");
-					List<Map<String, Object>> entryData1 = (List<Map<String, Object>>) entryData.get("1");
-					for (int i = 0; i < entryData1.size(); i++) {
-						Map<String, Object> entry = (Map<String, Object>) entryData1.get(i);
-						String material = (String) entry.get("material");
-						if (orderCount.containsKey(material)) {
-							double actualQty = (double) purinwarehsActualQty.get(material)
-									+ Double.parseDouble(entry.get("actualQty").toString());
-							purinwarehsActualQty.replace(material, actualQty);
-						} else {
-							purinwarehsActualQty.put(material, Double.parseDouble(entry.get("returnQty").toString()));
-						}
+					if (!(null == order.get("returnQty") || "".equals(order.get("returnQty")))) {
+						double actualQty = (double) purinwarehsActualQty.get(material)
+								+ Double.parseDouble(order.get("actualQty").toString());
+						purinwarehsActualQty.replace(material, actualQty);
 					}
+
+				} else {
+
+					orderCount.put(material, 1);
+					materialOrder.add(materialOrderStr);
+
+					orderInvoiceQty.put(material, Double.parseDouble(order.get("invoiceQty").toString()));
+					materialEntry.add(materialEntryStr);
+
+					if (!(null == order.get("actualQty") || "".equals(order.get("actualQty")))) {
+						purreturnsReturnQty.put(material, Double.parseDouble(order.get("returnQty").toString()));
+					}
+					if (!(null == order.get("returnQty") || "".equals(order.get("returnQty")))) {
+						purinwarehsActualQty.put(material, Double.parseDouble(order.get("returnQty").toString()));
+					}
+					orderMaterialUnit.put(material, order.get("unit"));
 				}
 			}
 
 			Iterator<Map.Entry<String, Object>> entries = orderCount.entrySet().iterator();
 			while (entries.hasNext()) {
-				Map<String, Object> record = new HashMap<String, Object>();
+				JSONObject json = new JSONObject(true);
 				Entry<String, Object> entry = entries.next();
 				String material = entry.getKey();
 				Map<String, Object> itemById = templateService.getItemById(1013, material);
-				record.put("itemId", material);
-				record.put("itemNumber", itemById.get("number"));
-				record.put("itemName", itemById.get("name"));
-				record.put("specification", itemById.get("specification"));
-				record.put("unit", orderMaterialUnit.get(material));
-				record.put("orderAmount", orderCount.get(material));
+				json.put("materialId", material);
+				json.put("materialNumber", itemById.get("number"));
+				json.put("materialName", itemById.get("name"));
+				json.put("model", itemById.get("specification"));
+				json.put("unit", orderMaterialUnit.get(material));
+				json.put("orderQty", orderCount.get(material));
 				// 发货数量
-				record.put("invoiceQty", orderInvoiceQty.get(material));
+				json.put("outStockQty", orderInvoiceQty.get(material));
 				// 退货数量
-				record.put("returnQty", purreturnsReturnQty.get(material));
+				if (null != purreturnsReturnQty.get(material)) {
+					json.put("returnQty", purreturnsReturnQty.get(material));
+				} else {
+					json.put("returnQty", 0);
+				}
 				// 入库数量
-				record.put("actualQty", purinwarehsActualQty.get(material));
-				result.put(material, record);
+				if (null != purinwarehsActualQty.get(material)) {
+					json.put("stockQty", purinwarehsActualQty.get(material));
+				} else {
+					json.put("stockQty", 0);
+				}
+				list.add(json);
 			}
+			ret.put("list", list);
 
-			return result;
-		} else {
-			return null;
+			return ret;
 		}
 	}
 }
