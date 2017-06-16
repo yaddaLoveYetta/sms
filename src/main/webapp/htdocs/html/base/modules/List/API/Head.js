@@ -88,8 +88,8 @@ define('List/API/Head', function (require, module, exports) {
          });
          */
 
-        fields = $.extend({}, fields["0"], fields["1"]); // 将主表及第一个子表模板取出
-
+        //fields = $.extend({}, fields["0"], fields["1"]); // 将主表及第一个子表模板取出
+        fields = fields["0"];
         if (headItems.length > 0) {
             return headItems;
         }
@@ -110,7 +110,7 @@ define('List/API/Head', function (require, module, exports) {
                 'visible': !!(mask & display), //转成 boolean--字段按用户类别显示
                 'lookupType': item.lookUpType,
                 'isCount': item.isCount,
-                'entryIndex':item.page,
+                'entryIndex': item.page,
                 'isEntry': item.page === 1,
             };
 
