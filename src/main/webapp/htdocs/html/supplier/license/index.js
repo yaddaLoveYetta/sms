@@ -21,7 +21,7 @@
     var sysName = classId == 3010 ? '供应商资质' : '物料证件'
 
     var txtSimpleSearch = document.getElementById('txt-simple-search');
-    var txtSupplierSearch = document.getElementById('txt-supplier-search');
+    var txtItemSearch = document.getElementById('txt-item-search');
 
     var conditions = {};
     var treeFilter;
@@ -49,9 +49,9 @@
         }
     });
 
-    $(txtSupplierSearch).bind('keypress', function (event) {
+    $(txtItemSearch).bind('keypress', function (event) {
         if (event.keyCode == 13) {
-            Tree.render(treeClassId, $(txtSupplierSearch).val());
+            Tree.render(treeClassId, $(txtItemSearch).val());
         }
     });
 
