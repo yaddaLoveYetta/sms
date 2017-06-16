@@ -21,9 +21,11 @@
 }
 
 .left-panel .title, .right-panel .title {
-    height: 20px;
+    height: 25px;
     margin: 0 20px;
     overflow: hidden;
+    display: inline-block;
+    line-height: 25px;
 }
 
 /*========================================*/
