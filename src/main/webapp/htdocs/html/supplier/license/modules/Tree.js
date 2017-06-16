@@ -50,16 +50,37 @@ define('Tree', function (require, module, exports) {
         });
     };
 
-    function render(classId) {
+    function render(classId, keyWord) {
 
         formClassId = classId;
+        var conditions = [];
+        if (keyWord && $.trim(keyWord) !== '') {
+
+            conditions['name'] = {
+                'andOr': 'AND',
+                'leftParenTheses': '((',
+                'fieldKey': 'name',
+                'logicOperator': 'like',
+                'value': keyWord,
+                'rightParenTheses': ')'
+            };
+
+            conditions['number'] = {
+                'andOr': 'OR',
+                'leftParenTheses': '(',
+                'fieldKey': 'number',
+                'logicOperator': 'like',
+                'value': keyWord,
+                'rightParenTheses': '))'
+            };
+        }
 
         SMS.Tips.loading("数据加载中...");
         load({
             classId: classId,
             pageNo: 1,
             pageSize: defaults.pageSize,
-            conditions: [],
+            conditions: conditions,
         }, function (data, pageSize) {
             SMS.Tips.success("数据加载成功", 1500);
             buildTree(data.list || []);

@@ -21,6 +21,8 @@
     var sysName = classId == 3010 ? '供应商资质' : '物料证件'
 
     var txtSimpleSearch = document.getElementById('txt-simple-search');
+    var txtSupplierSearch = document.getElementById('txt-supplier-search');
+
     var conditions = {};
     var treeFilter;
 
@@ -43,8 +45,13 @@
 
     $(txtSimpleSearch).bind('keypress', function (event) {
         if (event.keyCode == 13) {
-            /*conditions['name'] = $(txtSimpleSearch).val();*/
             refresh();
+        }
+    });
+
+    $(txtSupplierSearch).bind('keypress', function (event) {
+        if (event.keyCode == 13) {
+            Tree.render(treeClassId, $(txtSimpleSearch).val());
         }
     });
 
