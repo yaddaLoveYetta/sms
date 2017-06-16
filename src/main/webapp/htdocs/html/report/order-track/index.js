@@ -67,6 +67,12 @@
         });
     }
 
+    Tabs.on({
+        'tab-click': function (data) {
+            alert(data.classId);
+        }
+    });
+
     DatetimePicker.render();
     Tabs.render();
 
