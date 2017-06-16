@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.customize.PurchaseOrderEntryDaoMapper;
 import com.kingdee.eas.hrp.sms.log.ServiceLog;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
@@ -46,12 +47,16 @@ public class StatisticsService extends BaseService implements IStatisticsService
 		}
 		PurchaseOrderEntryDaoMapper mapper = sqlSession.getMapper(PurchaseOrderEntryDaoMapper.class);
 		List<Map<String, Object>> selectOrderGroupById = mapper.selectOrderGroupById(sqlMap);
+		if (pageNo == 1) {
+
+			PageInfo<Map<String, Object>> pageInfo = new PageInfo<Map<String, Object>>(selectOrderGroupById);
+
+			ret.put("count", pageInfo.getTotal());
+		}
 		// 如果订单数量为0，则不再往下统计
 		if (selectOrderGroupById == null) {
 			return null;
 		} else {
-			ret.put("count", selectOrderGroupById.size());
-
 			List<Map<String, Object>> selectOrderStatistics = mapper.selectOrderStatistics(sqlMap);
 			// 存放每个物料的统计订单数量
 			Map<String, Object> orderCount = new HashMap<String, Object>();
@@ -126,12 +131,14 @@ public class StatisticsService extends BaseService implements IStatisticsService
 				JSONObject json = new JSONObject(true);
 				Entry<String, Object> entry = entries.next();
 				String material = entry.getKey();
+				String unit = (String) orderMaterialUnit.get(material);
+				Map<String, Object> unitById = templateService.getItemById(1018, unit);
 				Map<String, Object> itemById = templateService.getItemById(1013, material);
 				json.put("materialId", material);
 				json.put("materialNumber", itemById.get("number"));
 				json.put("materialName", itemById.get("name"));
 				json.put("model", itemById.get("specification"));
-				json.put("unit", orderMaterialUnit.get(material));
+				json.put("unit", unitById.get("name"));
 				json.put("orderQty", orderCount.get(material));
 				// 发货数量
 				json.put("outStockQty", orderInvoiceQty.get(material));

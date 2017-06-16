@@ -38,7 +38,8 @@
 		t.material,
 		t.invoiceQty,
 		w.actualQty,
-		r.returnQty
+		r.returnQty,
+		t.unit
 		FROM
 		t_sms_purchase_order i
 		INNER JOIN

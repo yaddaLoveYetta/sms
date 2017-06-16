@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
 
@@ -13,15 +12,11 @@ import org.apache.axis.message.SOAPHeaderElement;
 import org.springframework.stereotype.Service;
 
 import com.kingdee.eas.hrp.sms.service.api.IWebService;
-import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
 import com.kingdee.eas.hrp.sms.util.WSContext;
 
 @Service
 public class WebService extends BaseService implements IWebService {
-
-	@Resource
-	ISyncHRPService iSyncHRPService;
 
 	public String webService(String json, String name) {
 		String response = "";
