@@ -68,8 +68,19 @@
     }
 
     Tabs.on({
-        'tab-click': function (data) {
-            alert(data.classId);
+        'tab-click': function (targetClassId) {
+            alert(targetClassId);
+            config.classId = targetClassId;
+            List.render(config, function (total, pageSize) {
+                Pager.render({
+                    size: pageSize,
+                    total: total,
+                    change: function (no) {
+                        config.pageNo = no;
+                        List.render(config);
+                    }
+                });
+            });
         }
     });
 

@@ -19,7 +19,7 @@ define('Pager', function (require, module, exports) {
         }, config, {
 
             container: {
-                simple: '#div-pager-simple', //简易分页控件的容器
+                // simple: '#div-pager-simple', //简易分页控件的容器
                 normal: '#div-pager-normal' //标准分页控件的容器
             }
         });
