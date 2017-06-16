@@ -82,7 +82,7 @@ define("List", function (require, exports, module) {
                 }).join('')
             });
 
-            $('#tab-container').easytabs('select', '#2021');
+            $('#tab-container').easytabs('select', '#tab-2021');
 
            // $('#tab-container').easytabs();
 
