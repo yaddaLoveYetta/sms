@@ -77,7 +77,7 @@ define('Tree', function (require, module, exports) {
             } else if (classId == 3030) {
                 conditions.push({
                     'andOr': 'AND',
-                    'leftParenTheses': '((',
+                    'leftParenTheses': '(',
                     'fieldKey': 'materialItem',
                     'logicOperator': 'like',
                     'value': keyWord,
