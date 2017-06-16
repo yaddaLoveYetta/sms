@@ -817,7 +817,7 @@ public class OrderService extends BaseService implements IOrderService {
 			data = orderDaoMapper.selectPurReceival(orderId, number, name, startTime, endTime, supplierId);
 		}
 		if (json.get("classId").equals("2022")) {
-
+			data = orderDaoMapper.selectPurInwarehs(orderId, number, name, startTime, endTime, supplierId);
 		}
 		if (json.get("classId").equals("2023")) {
 

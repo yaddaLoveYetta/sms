@@ -75,7 +75,6 @@ public class OrderController {
 	public void deliver(HttpServletRequest request, HttpServletResponse response) {
 
 		String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
-
 		if ("".equals(items.trim())) {
 			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
 		}
@@ -97,7 +96,5 @@ public class OrderController {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_IS_NOT_EXIST, "参数为空或参数不存在");
 		}
 	}
-	
-
 	
 }
