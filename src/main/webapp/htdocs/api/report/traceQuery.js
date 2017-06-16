@@ -9,7 +9,7 @@ SMS.Proxy.response(function (data, config) {
     var pageSize = data.pageSize;
     var pageNo = data.pageNo;
 
-    var total = 101;
+    var total = 10000;
 
     if (pageNo * pageSize > total) {
         pageSize = total - pageNo * pageSize;
