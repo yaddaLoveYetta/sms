@@ -6,6 +6,7 @@
 
     var List = require("List");
     var Pager = require("Pager");
+    var Tabs = require("Tabs");
 
     var DatetimePicker = require("DatetimePicker");
 
@@ -67,6 +68,7 @@
     }
 
     DatetimePicker.render();
+    Tabs.render();
 
     search();
 

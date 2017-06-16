@@ -84,7 +84,7 @@ define("List", function (require, exports, module) {
 
             if (config.classId == 2020) {
                 $('#tab-container').easytabs({
-                    defaultTab: 'li:last-child'
+                    defaultTab: 'li:first-child'
                 });
             }
 
