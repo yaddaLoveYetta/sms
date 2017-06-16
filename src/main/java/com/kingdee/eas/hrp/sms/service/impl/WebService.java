@@ -77,8 +77,9 @@ public class WebService extends BaseService implements IWebService {
 					SystemParamUtil.getString("sys", "hrp-login-slnName"),
 					SystemParamUtil.getString("sys", "hrp-login-dcName"),
 					SystemParamUtil.getString("sys", "hrp-login-language"),
-					SystemParamUtil.getString("sys", "hrp-login-authPattern"),
-					SystemParamUtil.getDouble("sys", "hrp-login-dbType") });
+					SystemParamUtil.getInt("sys", "hrp-login-dbType"),
+					SystemParamUtil.getString("sys", "hrp-login-authPattern")});
+					 
 			System.out.println(wsContext);// 打印字符串
 			sessionId = wsContext.getSessionId();
 
