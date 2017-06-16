@@ -60,7 +60,7 @@ define("List", function (require, exports, module) {
 
             div.innerHTML = $.String.format(samples.table, {
 
-                'ths': $.Array.keep(heads.order, function (item, no) {
+                'ths': $.Array.keep(heads["2020"], function (item, no) {
                     return $.String.format(samples.th, {
                         th: item,
                     });
