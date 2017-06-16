@@ -29,7 +29,7 @@ define('Tree', function (require, module, exports) {
             'classId': config.classId,
             'pageNo': config.pageNo,
             'pageSize': config.pageSize,
-            'condition': config.conditions.length > 0 ? conditions : '',
+            'condition': config.conditions.length > 0 ? config.conditions : '',
         };
 
         api.post(params);
