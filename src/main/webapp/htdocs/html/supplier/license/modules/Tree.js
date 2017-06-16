@@ -56,23 +56,35 @@ define('Tree', function (require, module, exports) {
         var conditions = [];
         if (keyWord && $.trim(keyWord) !== '') {
 
-            conditions.push({
-                'andOr': 'AND',
-                'leftParenTheses': '((',
-                'fieldKey': 'name',
-                'logicOperator': 'like',
-                'value': keyWord,
-                'rightParenTheses': ')'
-            });
+            if (classId == 1005) {
+                conditions.push({
+                    'andOr': 'AND',
+                    'leftParenTheses': '((',
+                    'fieldKey': 'name',
+                    'logicOperator': 'like',
+                    'value': keyWord,
+                    'rightParenTheses': ')'
+                });
 
-            conditions.push({
-                'andOr': 'OR',
-                'leftParenTheses': '(',
-                'fieldKey': 'number',
-                'logicOperator': 'like',
-                'value': keyWord,
-                'rightParenTheses': '))'
-            });
+                conditions.push({
+                    'andOr': 'OR',
+                    'leftParenTheses': '(',
+                    'fieldKey': 'number',
+                    'logicOperator': 'like',
+                    'value': keyWord,
+                    'rightParenTheses': '))'
+                });
+            } else if (classId == 3030) {
+                conditions.push({
+                    'andOr': 'AND',
+                    'leftParenTheses': '((',
+                    'fieldKey': 'materialItem',
+                    'logicOperator': 'like',
+                    'value': keyWord,
+                    'rightParenTheses': ')'
+                });
+            }
+
         }
 
         SMS.Tips.loading("数据加载中...");
