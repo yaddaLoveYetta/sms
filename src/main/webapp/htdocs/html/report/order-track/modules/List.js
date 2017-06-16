@@ -7,16 +7,16 @@ define("List", function (require, exports, module) {
     var heads = {
         "2020": [
             {key: 'orderSeq', value: '订单行号'},
-            {key: 'oustockNo', value: '发货单号'},
+            {key: 'number', value: '发货单号'},
             {key: 'date', value: '发货日期'},
-            {key: 'metarial', value: '物料编号'},
-            {key: 'metarialName', value: '物料名称'},
-            {key: 'unit', value: '单位'},
-            {key: 'qty', value: '发货数量'},
-            {key: 'orderQty', value: '订单数量'},
-            {key: 'noneOutStockQty', value: '未发货数量'},
-            {key: 'logistic', value: '物流公司'},
-            {key: 'logisticNo', value: '物流单号'}],
+            {key: 'material_NmbName', value: '物料编号'},
+            {key: 'material_DspName', value: '物料名称'},
+            {key: 'unit_DspName', value: '单位'},
+            {key: 'actualQty', value: '发货数量'},
+            {key: 'qty', value: '订单数量'},
+           /* {key: 'noneOutStockQty', value: '未发货数量'},*/
+            {key: 'logistics', value: '物流公司'},
+            {key: 'logisticsNo', value: '物流单号'}],
         "2021": [
             {key: 'orderSeq', value: '订单行号'},
             {key: 'oustockNo', value: '发货单号'},

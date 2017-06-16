@@ -45,7 +45,7 @@
 
             //'user/getSidebar':'api/master/sidebar.js',
             //'report/orderCount':'api/report/orderCount.js',
-            'report/traceQuery':'api/report/traceQuery.js',
+           // 'report/traceQuery':'api/report/traceQuery.js',
         },
 
         //简易分页器
