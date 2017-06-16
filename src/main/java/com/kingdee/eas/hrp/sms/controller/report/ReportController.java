@@ -61,7 +61,7 @@ public class ReportController {
 
 		String items = ParameterUtils.getParameter(request, "items", ""); //
 		JSONObject json = JSONObject.parseObject(items);
-		if (SessionUtil.getUserType().equals("2")) {
+		if(SessionUtil.getUserType().equals("B3sMo22ZLkWApjO/oEeDOxACEAI=")){
 			json.put("supplier", SessionUtil.getUserLinkSupplier());
 		}
 		IOrderService orderService = Environ.getBean(IOrderService.class);
