@@ -160,7 +160,7 @@
             SMS.use('Dialog', function (Dialog) {
 
                 var dialog = new Dialog({
-                    title: '编辑-' + sysName,
+                    title: '修改-' + sysName,
                     width: 700,
                     height: 550,
                     url: $.Url.setQueryString('html/base_edit/index.html', {
