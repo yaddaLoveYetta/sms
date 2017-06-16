@@ -22,7 +22,7 @@ SMS.Proxy.response(function (data, config) {
             'oustockNo':'ouStockNo-'+$.Math.randomInt(1, 5),
             'date':$.Date.format(new Date(), 'yyyy-MM-dd'),
             'metarial':$.Math.randomInt(1, 500)+'-'+$.Math.randomInt(1, 500),
-            'materialName': 'A' + index,
+            'metarialName': 'A' + index,
             'model': 'aa.bb.cc.dd.ee.xx.yy.zz'.slice(0, $.Math.randomInt(3, 23)),
             'unit': '只',
             'qty':$.Math.randomInt(30, 200),
