@@ -31,6 +31,8 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.kingdee.eas.hrp.sms.dao.customize.OrderDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
@@ -778,9 +780,10 @@ public class OrderService extends BaseService implements IOrderService {
 	 * 订单追踪查询
 	 * 
 	 */
-	public List<Map<String, Object>> traceQuery(String supplierIds, String pageNo, String pageSize, String classId,
+	public JSONObject traceQuery(String supplierIds, String pageNo, String pageSize, String classId,
 			String supplier, String order, String beginDate, String endDate) {
 		OrderDaoMapper orderDaoMapper = sqlSession.getMapper(OrderDaoMapper.class);
+		JSONObject ret = new JSONObject();
 		String orderId = null;
 		String number = null;
 		String name = null;
@@ -804,6 +807,12 @@ public class OrderService extends BaseService implements IOrderService {
 		if (null != supplierId && !"".equals(supplierId)) {
 			supplierId = supplierIds;
 		}
+		
+		if (Integer.parseInt(pageNo) == 1) {
+			PageHelper.startPage(Integer.parseInt(pageNo), Integer.parseInt(pageSize), true);
+		} else {
+			PageHelper.startPage(Integer.parseInt(pageNo), Integer.parseInt(pageSize), false);
+		}
 		/**
 		 * classId=2020 发货单 classId=2021 收货单 classId=2022 入库单 classId=2023 退货单
 		 */
@@ -819,7 +828,12 @@ public class OrderService extends BaseService implements IOrderService {
 		if (classId.equals("2023")) {
 			data = orderDaoMapper.selectPurReturns(orderId, number, name, startTime, endTime, supplierId);
 		}
-		return data;
+		ret.put("list", data);
+		if (Integer.parseInt(pageNo) == 1) {
+			PageInfo<Map<String, Object>> pageInfo = new PageInfo<Map<String, Object>>(data);
+			ret.put("count", pageInfo.getTotal());
+		}
+		return ret;
 
 	}
 }

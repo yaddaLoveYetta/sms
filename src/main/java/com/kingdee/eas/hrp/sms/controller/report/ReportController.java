@@ -69,7 +69,7 @@ public class ReportController {
 		}
 		IOrderService orderService = Environ.getBean(IOrderService.class);
 
-		List<Map<String, Object>> shipSendcargo = orderService.traceQuery(supplierIds, pageNo, pageSize, classId, supplier, order, beginDate, endDate);
+		JSONObject shipSendcargo = orderService.traceQuery(supplierIds, pageNo, pageSize, classId, supplier, order, beginDate, endDate);
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipSendcargo);
 	}
 
