@@ -82,9 +82,14 @@ define("List", function (require, exports, module) {
                 }).join('')
             });
 
-            $('#tab-container').easytabs('select', '#tab-2021');
+            if (config.classId == 2020) {
+                $('#tab-container').easytabs({
+                    defaultTab: 'li:last-child'
+                });
+            }
 
-           // $('#tab-container').easytabs();
+
+            // $('#tab-container').easytabs();
 
             /*            $(document).ready(function () {
              $('#tab-container').easytabs();
