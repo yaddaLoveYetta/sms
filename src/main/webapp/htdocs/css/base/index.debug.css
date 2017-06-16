@@ -104,6 +104,7 @@
 .data-table td {
   height: 30px;
   vertical-align: middle;
+  overflow: hidden;
 }
 .data-table img {
   width: 72px;
