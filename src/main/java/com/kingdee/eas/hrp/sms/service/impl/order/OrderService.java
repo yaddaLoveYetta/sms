@@ -785,7 +785,8 @@ public class OrderService extends BaseService implements IOrderService {
 		String name = null;
 		Date startTime = null;
 		Date endTime = null;
-		List<Map<String, Object>> data = null ;
+		String supplierId = null;
+		List<Map<String, Object>> data = null;
 		if (null != json) {
 			if (null != json.get("orderId")) {
 				orderId = json.getString("orderId");
@@ -794,7 +795,7 @@ public class OrderService extends BaseService implements IOrderService {
 				number = json.getString("number");
 			}
 			if (null != json.get("name")) {
-				name = "%"+json.getString("name")+"%";
+				name = "%" + json.getString("name") + "%";
 			}
 			if (null != json.get("startTime")) {
 				startTime = json.getDate("startTime");
@@ -802,19 +803,25 @@ public class OrderService extends BaseService implements IOrderService {
 			if (null != json.get("endTime")) {
 				endTime = json.getDate("endTime");
 			}
+			if (null != json.get("supplierId")) {
+				supplierId = json.getString("supplierId");
+			}
 		}
 		/**
-		 * type=1 发货单
-		 * type=2 收货单
-		 * type=3 入库单
-		 * type=4 退货单
+		 * classId=2020 发货单 classId=2021 收货单 classId=2022 入库单 classId=2023 退货单
 		 */
-			if (json.get("type").equals("1")) {
-				data=orderDaoMapper.selectSendcargo(orderId, number, name, startTime, endTime);
-			}
-			if(json.get("type").equals("2")){
-				data=orderDaoMapper.selectPurReceival(orderId, number, name, startTime, endTime);
-			}
+		if (json.get("classId").equals("2020")) {
+			data = orderDaoMapper.selectSendcargo(orderId, number, name, startTime, endTime, supplierId);
+		}
+		if (json.get("classId").equals("2021")) {
+			data = orderDaoMapper.selectPurReceival(orderId, number, name, startTime, endTime, supplierId);
+		}
+		if (json.get("classId").equals("2022")) {
+
+		}
+		if (json.get("classId").equals("2023")) {
+
+		}
 		return data;
 
 	}
