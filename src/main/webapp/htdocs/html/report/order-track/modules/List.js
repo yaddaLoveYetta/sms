@@ -4,9 +4,9 @@ define("List", function (require, exports, module) {
     var SMS = require('SMS');
     var API = SMS.require('API');
     var div = document.getElementById("div-list");
-    var type = 1;// 默认发货单
+    var type = 2020;// 默认发货单
     var heads = {
-        order: ['订单行号', '发货单号', '发货日期', '物料编号', '物料名称', '单位', '发货数量', '订单数量', '未发货数量', '物流公司', '物流单号'],
+        "2020": ['订单行号', '发货单号', '发货日期', '物料编号', '物料名称', '单位', '发货数量', '订单数量', '未发货数量', '物流公司', '物流单号'],
         stock: [],
     };
 
@@ -81,6 +81,15 @@ define("List", function (require, exports, module) {
                     });
                 }).join('')
             });
+
+            $('#tab-container').easytabs('select', '#2021');
+
+           // $('#tab-container').easytabs();
+
+            /*            $(document).ready(function () {
+             $('#tab-container').easytabs();
+             });*/
+
             //sumTdTotal();
             fn && fn(total, config.pageSize);
         });

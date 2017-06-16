@@ -38,7 +38,7 @@
 
         config.pageNo = 1;
 
-        config.type = 1;// 1：发货单2；收获信息3：入库信息4：退货信息5：付款信息 查询时默认查发货信息
+        config.type = 2020;// 2020：发货单2021；收获信息2022：入库信息2023：退货信息5：付款信息 查询时默认查发货信息
 
 
         if ($.trim(supplier) != "") {
@@ -70,7 +70,4 @@
 
     search();
 
-    $(document).ready(function () {
-        $('#tab-container').easytabs();
-    });
 })();
