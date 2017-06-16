@@ -16,7 +16,7 @@ define("List", function (require, exports, module) {
         api.on({
             'success': function (data, json) {
                 SMS.Tips.success('数据加载成功', 1500);
-                fn && fn(data.list, data.total);
+                fn && fn(data.list, data.count);
             },
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (数据加载异常: {1})', msg, code);
@@ -46,7 +46,7 @@ define("List", function (require, exports, module) {
 
     function render(config, fn) {
 
-        getRecordData(config, function (list, total) {
+        getRecordData(config, function (list, count) {
 
             div.innerHTML = $.String.format(samples.table, {
 
@@ -70,7 +70,7 @@ define("List", function (require, exports, module) {
                 }).join('')
             });
             //sumTdTotal();
-            fn && fn(total, config.pageSize);
+            fn && fn(count, config.pageSize);
         });
     }
 
