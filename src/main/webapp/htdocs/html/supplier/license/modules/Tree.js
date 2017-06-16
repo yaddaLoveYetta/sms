@@ -56,23 +56,23 @@ define('Tree', function (require, module, exports) {
         var conditions = [];
         if (keyWord && $.trim(keyWord) !== '') {
 
-            conditions['name'] = {
+            conditions.push({
                 'andOr': 'AND',
                 'leftParenTheses': '((',
                 'fieldKey': 'name',
                 'logicOperator': 'like',
                 'value': keyWord,
                 'rightParenTheses': ')'
-            };
+            });
 
-            conditions['number'] = {
+            conditions.push({
                 'andOr': 'OR',
                 'leftParenTheses': '(',
                 'fieldKey': 'number',
                 'logicOperator': 'like',
                 'value': keyWord,
                 'rightParenTheses': '))'
-            };
+            });
         }
 
         SMS.Tips.loading("数据加载中...");
