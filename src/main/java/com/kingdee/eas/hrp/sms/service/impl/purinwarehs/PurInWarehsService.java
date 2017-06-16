@@ -45,7 +45,7 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 			PurInWarehsMapper purInWarehsMapper = sqlSession.getMapper(PurInWarehsMapper.class);
 			purInWarehsMapper.insertSelective(purInWarehs);
 			JSONObject entry = (JSONObject) jsonObject.get("entry");
-			JSONArray purEntryArray = JSONArray.parseArray(entry.getString("1"));
+			JSONArray purEntryArray = (JSONArray) entry.get("1");
 			for (int j = 0; j < purEntryArray.size(); j++) {
 				JSONObject purEntryObject = purEntryArray.getJSONObject(j);
 				purInWarehsEntry.setId(purEntryObject.getString("id"));

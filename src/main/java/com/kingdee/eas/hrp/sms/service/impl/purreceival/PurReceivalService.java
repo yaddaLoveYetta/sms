@@ -50,7 +50,7 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 			PurReceivalMapper purReceivalMapper = sqlSession.getMapper(PurReceivalMapper.class);
 			purReceivalMapper.insertSelective(purReceival);
 			JSONObject entry = (JSONObject) jsonObject.get("entry");
-			JSONArray purEntryArray = JSONArray.parseArray(entry.getString("1"));
+			JSONArray purEntryArray = (JSONArray) entry.get("1");
 			for (int j = 0; j < purEntryArray.size(); j++) {
 				JSONObject purEntryObject = purEntryArray.getJSONObject(j);
 				purReceivalEntry.setId(purEntryObject.getString("id"));
