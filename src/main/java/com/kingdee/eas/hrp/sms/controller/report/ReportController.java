@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.controller.report;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
+import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.api.statistics.IStatisticsService;
+import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
+import com.kingdee.eas.hrp.sms.util.StatusCode;
 
 @Controller
 @RequestMapping(value = "/report/")
@@ -49,6 +53,21 @@ public class ReportController {
 		Map<String, Object> result = statisticsService.getRecord(itemId, supplier, orderStartDate, orderEndDate);
 
 		ResponseWriteUtil.output(response, result);
+	}
+
+	@ControllerLog(desc = "订单追踪查询")
+	@RequestMapping(value = "traceQuery")
+	public void traceQuery(HttpServletRequest request, HttpServletResponse response) {
+
+		String items = ParameterUtils.getParameter(request, "items", ""); //
+		JSONObject json = JSONObject.parseObject(items);
+		if (SessionUtil.getUserType().equals("2")) {
+			json.put("supplier", SessionUtil.getUserLinkSupplier());
+		}
+		IOrderService orderService = Environ.getBean(IOrderService.class);
+
+		List<Map<String, Object>> shipSendcargo = orderService.traceQuery(json);
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipSendcargo);
 	}
 
 }

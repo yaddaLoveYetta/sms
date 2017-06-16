@@ -98,17 +98,6 @@ public class OrderController {
 		}
 	}
 	
-	@ControllerLog(desc = "订单追踪查询")
-	@RequestMapping(value = "traceQuery")
-	public void traceQuery(HttpServletRequest request, HttpServletResponse response) {
 
-		String items = ParameterUtils.getParameter(request, "items", ""); // 
-		JSONObject json = JSONObject.parseObject(items);
-		if(SessionUtil.getUserType().equals("2")){
-			json.put("supplier", SessionUtil.getUserLinkSupplier());
-		}
-		List<Map<String, Object>> shipSendcargo = orderservice.traceQuery(json);
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipSendcargo);
-	}
 	
 }

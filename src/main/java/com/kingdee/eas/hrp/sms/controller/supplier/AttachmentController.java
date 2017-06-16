@@ -30,6 +30,7 @@ import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.supplier.IFileUploadService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+import com.kingdee.eas.hrp.sms.util.SessionUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
 
