@@ -11,7 +11,7 @@
 		t_sms_sendcargo.[logistics] AS [logistics],
 		t_sms_sendcargo.[logisticsNo] AS [logisticsNo],
 		t_sms_sendcargo.[Date]
-		AS [Date],
+		AS [date],
 		t_sms_sendcargo_entry.[id] AS [entryId],
 		t_sms_sendcargo_entry.[parent] AS [parent],
 		t_sms_item.[name] AS
