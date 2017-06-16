@@ -37,6 +37,10 @@
 
         config.pageNo = 1;
 
+        delete config.supplier;
+        delete config.material;
+        delete config.beginDate;
+        delete config.endDate;
 
         if ($.trim(supplier) != "") {
             config.supplier = supplier;
