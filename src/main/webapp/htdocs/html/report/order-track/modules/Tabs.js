@@ -16,15 +16,16 @@ define('Tabs', function (require, module, exports) {
 
         $('#tab-container')
             .bind('easytabs:before', function (event, $clicked, $targetPanel, settings) {
-
-                //alert('easytabs:before fired' + $clicked.eq(0).parent().attr('id'));
+                var classId = $clicked.eq(0).parent().attr('id');
+                emitter.fire('easytabs:before', [classId]);
             })
             .bind('easytabs:midTransition', function (event, $clicked, $targetPanel, settings) {
                 var classId = $clicked.eq(0).parent().attr('id');
-                emitter.fire('tab-click', [classId]);
+                emitter.fire('easytabs:midTransition', [classId]);
             })
             .bind('easytabs:after', function (event, $clicked, $targetPanel, settings) {
-                // alert('easytabs:after fired' + $clicked.eq(0).parent().attr('id'));
+                var classId = $clicked.eq(0).parent().attr('id');
+                emitter.fire('easytabs:after', [classId]);
             });
     }
 

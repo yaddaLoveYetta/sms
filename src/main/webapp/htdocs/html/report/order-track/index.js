@@ -68,8 +68,8 @@
     }
 
     Tabs.on({
-        'tab-click': function (targetClassId) {
-            alert(targetClassId);
+        'easytabs:midTransition': function (targetClassId) {
+            //alert(targetClassId);
             config.classId = targetClassId;
             List.render(config, function (total, pageSize) {
                 Pager.render({
