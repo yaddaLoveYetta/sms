@@ -6,7 +6,18 @@ define("List", function (require, exports, module) {
     var div = document.getElementById("div-list");
     var type = 2020;// 默认发货单
     var heads = {
-        "2020": ['订单行号', '发货单号', '发货日期', '物料编号', '物料名称', '单位', '发货数量', '订单数量', '未发货数量', '物流公司', '物流单号'],
+        "2020": [
+            {key: 'orderSeq', value: '订单行号'},
+            {key: 'oustockNo', value: '发货单号'},
+            {key: 'date', value: '发货日期'},
+            {key: 'metarial', value: '物料编号'},
+            {key: 'metarialName', value: '物料名称'},
+            {key: 'unit', value: '单位'},
+            {key: 'qty', value: '发货数量'},
+            {key: 'orderQty', value: '订单数量'},
+            {key: 'noneOutStockQty', value: '未发货数量'},
+            {key: 'logistic', value: '物流公司'},
+            {key: 'logisticNo', value: '物流单号'}],
         stock: [],
     };
 
@@ -62,7 +73,7 @@ define("List", function (require, exports, module) {
 
                 'ths': $.Array.keep(heads["2020"], function (item, no) {
                     return $.String.format(samples.th, {
-                        th: item,
+                        th: item.value,
                     });
                 }).join(''),
 
