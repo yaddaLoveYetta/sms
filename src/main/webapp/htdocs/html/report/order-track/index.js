@@ -70,6 +70,7 @@
     Tabs.on({
         'easytabs:midTransition': function (targetClassId) {
             //alert(targetClassId);
+            config.pageNo = 1;
             config.classId = targetClassId;
             List.render(config, function (total, pageSize) {
                 Pager.render({
