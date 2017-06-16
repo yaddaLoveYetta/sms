@@ -2,7 +2,7 @@
  * Created by yadda on 2017/6/16.
  */
 
-define('Tabs', function (require, exports, module) {
+define('Tabs', function (require, module, exports) {
 
     var hasbind = false;
 
