@@ -11,6 +11,11 @@
 
     var Upload = require('Upload');
 
+    //检查登录
+    if (!SMS.Login.check(true)) {
+        return;
+    }
+
     var classId;
     var itemId;
 

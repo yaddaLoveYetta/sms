@@ -4,6 +4,10 @@
     var SysParameter = require("SysParameter");
     var NumberField = require("NumberField");
 
+    //检查登录
+    if (!SMS.Login.check(true)) {
+        return;
+    }
     /**
      * input标签blur保存
      */

@@ -10,6 +10,11 @@
 
     var SelectorList = require("SelectorList");
 
+    //检查登录
+    if (!SMS.Login.check(true)) {
+        return;
+    }
+
     var config = {
         pageNo: 1,
         pageSize: 10,
