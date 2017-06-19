@@ -5,6 +5,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.MsgUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
+import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
 import com.kingdee.eas.hrp.sms.util.WSContext;
 
 @Service
@@ -48,6 +50,8 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
 		List<String> idTargetList = new ArrayList<String>();
 		JSONArray targetList = new JSONArray();
+		StringBuilder msgToSupplier = new StringBuilder("");
+		Map<String, Object> successSupplier = new HashMap<String, Object>();
 
 		for (int i = 0; i < idList.size(); i++) {
 			Map<String, Object> item = templateService.getItemById(classId, idList.get(i));
@@ -55,6 +59,9 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			if (0 == (short) item.get("syncStatus") || null == item.get("syncStatus")
 					|| "".equals(item.get("syncStatus"))) {
 				idTargetList.add(id);
+				String supplierId = (String) item.get("supplier");
+				Map<String, Object> supplier = templateService.getItemById(1005, supplierId);
+				successSupplier.put(id, supplier.get("name"));
 				String targetItem = JSON.toJSONString(item, SerializerFeature.WriteMapNullValue);
 				JSONObject targetJson = JSONObject.parseObject(targetItem);
 				System.out.println(targetItem);
@@ -92,22 +99,22 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 				templateService.editItem(classId, id, "{}");
 			} catch (Exception e) {
 				failIdList.add(id);
+				successSupplier.remove(id);
 			}
 		}
 
 		System.out.println(targetList.toString());
-		//获取同步发送电话
-		SysProfileMapper mapper = sqlSession.getMapper(SysProfileMapper.class);
-		SysProfileExample example = new SysProfileExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andKeyEqualTo("hrp-sync-mobie");
-		List<SysProfile> selectByExample = mapper.selectByExample(example);
-		if(selectByExample.size()>0&&selectByExample.size()==1){
-			SysProfile sysProfile = selectByExample.get(0);
-			String mobie=sysProfile.getValue() ;			
-			MsgUtil.sendSMS(new String[]{mobie}, "haohaoshangban");
+		// 获取同步发送电话
+		String mobie = SystemParamUtil.getString("sys", "hrp-sync-mobie", "");
+		if (!mobie.equals("")) {
+			for (Object key : successSupplier.keySet()) {
+				msgToSupplier.append(successSupplier.get(key)).append(",");
+			}
+			msgToSupplier.deleteCharAt(msgToSupplier.length() - 1);
+			msgToSupplier.append("的资料已同步，请及时查看！");
+			MsgUtil.sendSMS(new String[] { mobie }, msgToSupplier.toString());
 		}
-		
+
 		if (failIdList.isEmpty()) {
 			return "";
 		}
