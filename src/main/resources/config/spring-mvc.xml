@@ -56,7 +56,7 @@
 						<entry value-type="java.lang.String" key="/order/updateTickType" value="/order/updateTickType" />
 						<entry value-type="java.lang.String" key="/purreceival/purReceival" value="/purreceival/purReceival" />
 						<entry value-type="java.lang.String" key="/purinwarehs/purInWarehs" value="/purinwarehs/purInWarehs" />
-						<entry value-type="java.lang.String" key="/purreturns/purReturns" value="/purreturns/purreturns" />
+						<entry value-type="java.lang.String" key="/purreturns/purReturns" value="/purreturns/purReturns" />
 					</map>
 				</property>
 			</bean>

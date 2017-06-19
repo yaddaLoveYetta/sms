@@ -22,7 +22,7 @@ public class PurReturnsController {
 	IPurReturnsService iPurReturnsService;
 	
 	@ControllerLog(desc = "同步退货单") // 做日志
-	@RequestMapping(value = "purreturns")
+	@RequestMapping(value = "purReturns")
 	public void purreturns(HttpServletRequest request, HttpServletResponse response) {
 		String listStr = ParameterUtils.getParameter(request, "list", "");
 		JSONArray json = JSONArray.parseArray(listStr);
