@@ -36,7 +36,8 @@ public class ResponseWriteUtil {
 
 	static {
 
-		SC.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd HH:mm:ss"));
+		//SC.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd HH:mm:ss"));
+		SC.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd"));
 
 	}
 
@@ -49,11 +50,10 @@ public class ResponseWriteUtil {
 			if (logger.isDebugEnabled()) {
 				logger.debug("回应数据" + JSONObject.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat));
 			}
-			JSON.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat);
 			response.setContentType("application/json;charset=UTF-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
 
-			String str = JSONObject.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat);
+			String str = JSON.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat);
 
 			response.getWriter().write(str);
 
