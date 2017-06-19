@@ -39,7 +39,8 @@
 		t.invoiceQty,
 		w.actualQty,
 		r.returnQty,
-		t.unit
+		t.unit,
+		i.tickDate
 		FROM
 		t_sms_purchase_order i
 		INNER JOIN

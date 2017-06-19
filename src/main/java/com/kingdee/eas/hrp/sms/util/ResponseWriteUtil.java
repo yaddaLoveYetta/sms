@@ -45,7 +45,7 @@ public class ResponseWriteUtil {
 
 		try {
 			// json日期格式化
-			// JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
+			JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
 			
 			if (logger.isDebugEnabled()) {
 				logger.debug("回应数据" + JSONObject.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat));
@@ -54,7 +54,8 @@ public class ResponseWriteUtil {
 			response.addHeader("Access-Control-Allow-Origin", "*");
 
 			String str = JSON.toJSONString(r, SC, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat);
-
+			System.out.println(str);
+			
 			response.getWriter().write(str);
 
 			response.getWriter().close();
