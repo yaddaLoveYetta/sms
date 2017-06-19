@@ -97,12 +97,12 @@ public class StatisticsService extends BaseService implements IStatisticsService
 						materialEntry.add(materialEntryStr);
 					}
 
-					if (!(null == order.get("actualQty") || "".equals(order.get("actualQty")))) {
+					if (!(null == order.get("returnQty") || "".equals(order.get("returnQty")))) {
 						double returnQty = (double) purreturnsReturnQty.get(material)
 								+ Double.parseDouble(order.get("returnQty").toString());
 						purreturnsReturnQty.replace(material, returnQty);
 					}
-					if (!(null == order.get("returnQty") || "".equals(order.get("returnQty")))) {
+					if (!(null == order.get("actualQty") || "".equals(order.get("actualQty")))) {
 						double actualQty = (double) purinwarehsActualQty.get(material)
 								+ Double.parseDouble(order.get("actualQty").toString());
 						purinwarehsActualQty.replace(material, actualQty);
@@ -116,11 +116,11 @@ public class StatisticsService extends BaseService implements IStatisticsService
 					orderInvoiceQty.put(material, Double.parseDouble(order.get("invoiceQty").toString()));
 					materialEntry.add(materialEntryStr);
 
-					if (!(null == order.get("actualQty") || "".equals(order.get("actualQty")))) {
+					if (!(null == order.get("returnQty") || "".equals(order.get("returnQty")))) {
 						purreturnsReturnQty.put(material, Double.parseDouble(order.get("returnQty").toString()));
 					}
-					if (!(null == order.get("returnQty") || "".equals(order.get("returnQty")))) {
-						purinwarehsActualQty.put(material, Double.parseDouble(order.get("returnQty").toString()));
+					if (!(null == order.get("actualQty") || "".equals(order.get("actualQty")))) {
+						purinwarehsActualQty.put(material, Double.parseDouble(order.get("actualQty").toString()));
 					}
 					orderMaterialUnit.put(material, order.get("unit"));
 				}
