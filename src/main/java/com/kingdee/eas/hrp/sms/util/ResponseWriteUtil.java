@@ -1,22 +1,17 @@
 package com.kingdee.eas.hrp.sms.util;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ser.ScalarSerializerBase;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.ObjectSerializer;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
-import com.sun.jersey.api.json.JSONConfigurated;
 
 /**
  * response工具类，向浏览器直接写入数据.数据个格式为{code:200,msg:'success',data:object}
@@ -28,17 +23,14 @@ public class ResponseWriteUtil {
 
 	private static Logger logger = Logger.getLogger(ResponseWriteUtil.class);
 
-	private static final SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-	private static final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-	private static final SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm", Locale.CHINA);
-
-	private static final SerializeConfig SC = new SerializeConfig();
+	private static final SerializeConfig SC = new SerializeConfig(4);
 
 	static {
 
-		//SC.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd HH:mm:ss"));
 		SC.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd"));
-
+		SC.put(java.sql.Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd"));
+		SC.put(java.sql.Timestamp.class, new SimpleDateFormatSerializer("yyyy-MM-dd HH:mm:ss"));
+		SC.put(java.sql.Time.class, new SimpleDateFormatSerializer("HH:mm:ss"));
 	}
 
 	public static void output(HttpServletResponse response, Result r) {
