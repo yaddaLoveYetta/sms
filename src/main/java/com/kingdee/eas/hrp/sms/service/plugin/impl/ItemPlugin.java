@@ -379,19 +379,22 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 		// 中标库特殊业务判断，生效日期必须小于失效日期
 		if (classId == 3030) {
-			String beginDate = json.getString("effectualDate");
-			String endDate = json.getString("uneffectualDate");
-
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			try {
-				Date dt1 = df.parse(beginDate);
-				Date dt2 = df.parse(endDate);
+//			String beginDate = json.getString("effectualDate");
+//			String endDate = json.getString("uneffectualDate");
+//
+//			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//			try {
+//				Date dt1 = df.parse(beginDate);
+//				Date dt2 = df.parse(endDate);
+			
+				Date dt1 = json.getDate("beginDate");
+				Date dt2 = json.getDate("endDate");
 				if (dt1.getTime() >= dt2.getTime()) {
 					throw new BusinessLogicRunTimeException("生效日期必须小于失效日期");
 				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
 		}
 
 		// 如果flag是true，表明这个字段需要验证是否非空,修改只验证修改的字段
