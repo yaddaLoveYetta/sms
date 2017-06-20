@@ -54,10 +54,10 @@ public class ItemPlugin extends PlugInAdpter {
 		// 判断是否HRP的同步删除
 		boolean flag = true;
 		if (data.length() > 2) {
-			String temp = data.substring(data.length() - 2, data.length() - 1);
+			String temp = data.substring(data.length() - 2);
 			if (temp.equals(",,")) {
 				flag = false;
-				data = data.substring(0, data.length() - 3);
+				data = data.substring(0, data.length() - 2);
 			}
 		}
 
@@ -122,7 +122,7 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 
 		// 同步删除
-		if (reviewAndSyncClassIdList.contains(classId)) {
+		if (reviewAndSyncClassIdList.contains(classId) && flag) {
 			String sessionId = syncHRPService.loginInEAS();
 			JSONObject delJson = new JSONObject(true);
 			delJson.put("classId", classId);
