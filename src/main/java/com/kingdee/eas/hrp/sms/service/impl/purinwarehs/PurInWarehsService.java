@@ -73,7 +73,6 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 				}
 				PurInWarehsEntryMapper purInWarehsEntryMapper = sqlSession.getMapper(PurInWarehsEntryMapper.class);
 				if (jsonObject.getByte("baseStatus") == 4) {
-					iTemplateService.delItem(2022, jsonObject.getString("id"));
 					purInWarehsEntryMapper.insertSelective(purInWarehsEntry);
 				}
 

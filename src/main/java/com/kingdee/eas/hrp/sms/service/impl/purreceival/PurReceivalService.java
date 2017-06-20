@@ -80,7 +80,6 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 				purReceivalEntry.setUnqualifiedQty(purEntryObject.getLong("unqualifiedQty"));
 				PurReceivalEntryMapper purReceivalEntryMapper = sqlSession.getMapper(PurReceivalEntryMapper.class);
 				if (jsonObject.getByte("baseStatus") == 4) {
-					iTemplateService.delItem(2021, jsonObject.getString("id"));
 					purReceivalEntryMapper.insertSelective(purReceivalEntry);
 				}
 

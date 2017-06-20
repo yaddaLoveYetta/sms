@@ -55,7 +55,6 @@ public class PurReturnsService extends BaseService implements IPurReturnsService
 				purReturnsEntry.setReturnQty(purEntryObject.getLong("returnQty"));
 				PurReturnsEntryMapper purReturnsEntryMapper = sqlSession.getMapper(PurReturnsEntryMapper.class);
 				if (jsonObject.getByte("baseStatus") == 4) {
-					iTemplateService.delItem(2023, jsonObject.getString("id"));
 					purReturnsEntryMapper.insertSelective(purReturnsEntry);
 				}
 			}
