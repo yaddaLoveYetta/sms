@@ -61,8 +61,9 @@ define('Bill', function (require, module, exports) {
             valid = false;
         }
 
+        Entry.showValidInfo(entry.errorData);
         if (entry.errorData && !$.Object.isEmpty(entry.errorData)) {
-            Entry.showValidInfo(entry.errorData);
+            // Entry.showValidInfo(entry.errorData);
             valid = false;
         }
         if (!entry || !entry.entryData || !entry.entryData['1'] || entry.entryData['1'].length == 0) {

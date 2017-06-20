@@ -87,6 +87,17 @@ define('Tree', function (require, module, exports) {
 
         }
 
+        if (classId == 1005) {
+            // 供应商过滤出审核状态的
+            conditions.push({
+                'andOr': 'AND',
+                'leftParenTheses': '(',
+                'fieldKey': 'status',
+                'logicOperator': '=',
+                'value': 1,
+                'rightParenTheses': ')'
+            });
+        }
         SMS.Tips.loading("数据加载中...");
         load({
             classId: classId,
