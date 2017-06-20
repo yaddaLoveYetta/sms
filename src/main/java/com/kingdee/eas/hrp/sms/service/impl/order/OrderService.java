@@ -574,12 +574,13 @@ public class OrderService extends BaseService implements IOrderService {
 		float price = purOrderEntry.getFloatValue("price");
 
 		int qty = bQty.intValue();
-
+		
+		BigDecimal x1 = new BigDecimal(Float.toString(price));
+		BigDecimal x2 = new BigDecimal(Integer.toString(qty));
 		// 数量尾差，尾差放到最后一行
 		float lastLineQty = bQty.floatValue() > qty ? bQty.floatValue() - qty + 1 : 1;
 		// 金额尾差，尾差放到最后一行
-		BigDecimal lastLineAmount = amount.compareTo(new BigDecimal(price * qty)) > 0
-				? amount.subtract(new BigDecimal(price * qty)) : new BigDecimal(price);
+		BigDecimal lastLineAmount = amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).compareTo(x1.multiply(x2)) > 0 ? x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).subtract(x1.multiply(x2))):x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).subtract(x1.multiply(x2)));
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 		for (int i = 0; i < qty; i++) {
 
