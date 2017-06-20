@@ -211,7 +211,7 @@ public class BillPlugin extends PlugInAdpter {
 			// 判断发货单是否已发送到医院
 			if (item.get("type") != null) {
 				if (item.get("type").equals("1") || Integer.parseInt(item.get("type").toString()) == 1) {
-					throw new BusinessLogicRunTimeException("已发送到医院的发货单不能删除");
+					throw new BusinessLogicRunTimeException("已发送到医院的发货单不能修改");
 				}
 			}
 			Map<String, Object> entrys = (Map<String, Object>) item.get("entry");
