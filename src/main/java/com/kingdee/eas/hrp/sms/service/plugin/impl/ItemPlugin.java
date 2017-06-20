@@ -283,6 +283,7 @@ public class ItemPlugin extends PlugInAdpter {
 //			try {
 //				Date dt1 = df.parse(beginDate);
 //				Date dt2 = df.parse(endDate);
+			
 				Date dt1 = json.getDate("beginDate");
 				Date dt2 = json.getDate("endDate");
 				if (dt1.getTime() >= dt2.getTime()) {
