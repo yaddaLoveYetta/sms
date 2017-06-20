@@ -11,7 +11,7 @@ public class PurReceival {
 
     private Byte baseStatus;
 
-    private Byte sourceBillType;
+    private String sourceBillType;
 
     private String supplier;
 
@@ -47,12 +47,12 @@ public class PurReceival {
         this.baseStatus = baseStatus;
     }
 
-    public Byte getSourceBillType() {
+    public String getSourceBillType() {
         return sourceBillType;
     }
 
-    public void setSourceBillType(Byte sourceBillType) {
-        this.sourceBillType = sourceBillType;
+    public void setSourceBillType(String sourceBillType) {
+        this.sourceBillType = sourceBillType == null ? null : sourceBillType.trim();
     }
 
     public String getSupplier() {

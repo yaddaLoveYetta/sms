@@ -6,7 +6,7 @@
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="bizDate" jdbcType="TIMESTAMP" property="bizDate" />
     <result column="baseStatus" jdbcType="TINYINT" property="baseStatus" />
-    <result column="sourceBillType" jdbcType="TINYINT" property="sourceBillType" />
+    <result column="sourceBillType" jdbcType="VARCHAR" property="sourceBillType" />
     <result column="supplier" jdbcType="VARCHAR" property="supplier" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -105,7 +105,7 @@
       baseStatus, sourceBillType, supplier
       )
     values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
-      #{baseStatus,jdbcType=TINYINT}, #{sourceBillType,jdbcType=TINYINT}, #{supplier,jdbcType=VARCHAR}
+      #{baseStatus,jdbcType=TINYINT}, #{sourceBillType,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.PurInWarehs">
@@ -144,7 +144,7 @@
         #{baseStatus,jdbcType=TINYINT},
       </if>
       <if test="sourceBillType != null">
-        #{sourceBillType,jdbcType=TINYINT},
+        #{sourceBillType,jdbcType=VARCHAR},
       </if>
       <if test="supplier != null">
         #{supplier,jdbcType=VARCHAR},
@@ -173,7 +173,7 @@
         baseStatus = #{record.baseStatus,jdbcType=TINYINT},
       </if>
       <if test="record.sourceBillType != null">
-        sourceBillType = #{record.sourceBillType,jdbcType=TINYINT},
+        sourceBillType = #{record.sourceBillType,jdbcType=VARCHAR},
       </if>
       <if test="record.supplier != null">
         supplier = #{record.supplier,jdbcType=VARCHAR},
@@ -189,7 +189,7 @@
       [number] = #{record.number,jdbcType=VARCHAR},
       bizDate = #{record.bizDate,jdbcType=TIMESTAMP},
       baseStatus = #{record.baseStatus,jdbcType=TINYINT},
-      sourceBillType = #{record.sourceBillType,jdbcType=TINYINT},
+      sourceBillType = #{record.sourceBillType,jdbcType=VARCHAR},
       supplier = #{record.supplier,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -208,7 +208,7 @@
         baseStatus = #{baseStatus,jdbcType=TINYINT},
       </if>
       <if test="sourceBillType != null">
-        sourceBillType = #{sourceBillType,jdbcType=TINYINT},
+        sourceBillType = #{sourceBillType,jdbcType=VARCHAR},
       </if>
       <if test="supplier != null">
         supplier = #{supplier,jdbcType=VARCHAR},
@@ -221,7 +221,7 @@
     set [number] = #{number,jdbcType=VARCHAR},
       bizDate = #{bizDate,jdbcType=TIMESTAMP},
       baseStatus = #{baseStatus,jdbcType=TINYINT},
-      sourceBillType = #{sourceBillType,jdbcType=TINYINT},
+      sourceBillType = #{sourceBillType,jdbcType=VARCHAR},
       supplier = #{supplier,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>

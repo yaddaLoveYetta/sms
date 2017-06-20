@@ -375,52 +375,62 @@ public class PurReceivalExample {
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeEqualTo(Byte value) {
+        public Criteria andSourceBillTypeEqualTo(String value) {
             addCriterion("sourceBillType =", value, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeNotEqualTo(Byte value) {
+        public Criteria andSourceBillTypeNotEqualTo(String value) {
             addCriterion("sourceBillType <>", value, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeGreaterThan(Byte value) {
+        public Criteria andSourceBillTypeGreaterThan(String value) {
             addCriterion("sourceBillType >", value, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeGreaterThanOrEqualTo(Byte value) {
+        public Criteria andSourceBillTypeGreaterThanOrEqualTo(String value) {
             addCriterion("sourceBillType >=", value, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeLessThan(Byte value) {
+        public Criteria andSourceBillTypeLessThan(String value) {
             addCriterion("sourceBillType <", value, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeLessThanOrEqualTo(Byte value) {
+        public Criteria andSourceBillTypeLessThanOrEqualTo(String value) {
             addCriterion("sourceBillType <=", value, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeIn(List<Byte> values) {
+        public Criteria andSourceBillTypeLike(String value) {
+            addCriterion("sourceBillType like", value, "sourceBillType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceBillTypeNotLike(String value) {
+            addCriterion("sourceBillType not like", value, "sourceBillType");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceBillTypeIn(List<String> values) {
             addCriterion("sourceBillType in", values, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeNotIn(List<Byte> values) {
+        public Criteria andSourceBillTypeNotIn(List<String> values) {
             addCriterion("sourceBillType not in", values, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeBetween(Byte value1, Byte value2) {
+        public Criteria andSourceBillTypeBetween(String value1, String value2) {
             addCriterion("sourceBillType between", value1, value2, "sourceBillType");
             return (Criteria) this;
         }
 
-        public Criteria andSourceBillTypeNotBetween(Byte value1, Byte value2) {
+        public Criteria andSourceBillTypeNotBetween(String value1, String value2) {
             addCriterion("sourceBillType not between", value1, value2, "sourceBillType");
             return (Criteria) this;
         }

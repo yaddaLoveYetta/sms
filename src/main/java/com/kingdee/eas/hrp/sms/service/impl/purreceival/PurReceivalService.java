@@ -44,7 +44,7 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 			if (jsonObject.getByte("baseStatus") != 4) {
 				iTemplateService.delItem(2021, jsonObject.getString("id"));
 			}
-			// purReceival.setSourceBillType(jsonObject.getByte("sourceBillType"));
+			purReceival.setSourceBillType(jsonObject.getString("sourceBillType"));
 			purReceival.setSupplier(jsonObject.getString("supplier"));
 			PurReceivalMapper purReceivalMapper = sqlSession.getMapper(PurReceivalMapper.class);
 			if (jsonObject.getByte("baseStatus") == 4) {

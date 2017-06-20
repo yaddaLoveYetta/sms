@@ -40,7 +40,7 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 			if (jsonObject.getByte("baseStatus") != 4) {
 				iTemplateService.delItem(2022, jsonObject.getString("id"));
 			}
-			// purInWarehs.setSourceBillType(jsonObject.getByte("sourceBillType"));
+			purInWarehs.setSourceBillType(jsonObject.getString("sourceBillType"));
 			purInWarehs.setSupplier(jsonObject.getString("supplier"));
 			PurInWarehsMapper purInWarehsMapper = sqlSession.getMapper(PurInWarehsMapper.class);
 			if (jsonObject.getByte("baseStatus") == 4) {

@@ -35,7 +35,7 @@ public class PurReturnsService extends BaseService implements IPurReturnsService
 			if (jsonObject.getByte("baseStatus") != 4) {
 				iTemplateService.delItem(2023, jsonObject.getString("id"));
 			}
-			// purreturns.setSourceBillType(jsonObject.getByte("sourceBillType"));
+			purreturns.setSourceBillType(jsonObject.getString("sourceBillType"));
 			purreturns.setSupplier(jsonObject.getString("supplier"));
 			PurReturnsMapper purReturnsMapper = sqlSession.getMapper(PurReturnsMapper.class);
 			if (jsonObject.getByte("baseStatus") == 4) {
