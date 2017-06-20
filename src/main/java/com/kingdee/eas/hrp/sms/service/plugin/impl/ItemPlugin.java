@@ -276,19 +276,21 @@ public class ItemPlugin extends PlugInAdpter {
 
 		// 证件特殊业务判断，起始日期必须小于结束日期
 		if (classId == 3010 || classId == 3020) {
-			String beginDate = json.getString("beginDate");
-			String endDate = json.getString("endDate");
-
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			try {
-				Date dt1 = df.parse(beginDate);
-				Date dt2 = df.parse(endDate);
+//			String beginDate = json.getString("beginDate");
+//			String endDate = json.getString("endDate");
+//
+//			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//			try {
+//				Date dt1 = df.parse(beginDate);
+//				Date dt2 = df.parse(endDate);
+				Date dt1 = json.getDate("beginDate");
+				Date dt2 = json.getDate("endDate");
 				if (dt1.getTime() >= dt2.getTime()) {
 					throw new BusinessLogicRunTimeException("起始日期必须小于结束日期");
 				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			// } catch (ParseException e) {
+			// e.printStackTrace();
+			// }
 		}
 		// 中标库特殊业务判断，生效日期必须小于失效日期
 		if (classId == 3030) {
