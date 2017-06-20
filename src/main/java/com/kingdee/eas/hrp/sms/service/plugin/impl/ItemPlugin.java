@@ -51,12 +51,22 @@ public class ItemPlugin extends PlugInAdpter {
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
 
 		ITemplateService templateService = Environ.getBean(ITemplateService.class);
+		// 判断是否HRP的同步删除
+		boolean flag = true;
+		if (data.length() > 2) {
+			String temp = data.substring(data.length() - 2, data.length() - 1);
+			if (temp.equals(",,")) {
+				flag = false;
+				data = data.substring(0, data.length() - 3);
+			}
+		}
+
 		// 装配待删除ID
 		String[] idString = data.split(",");
 		List<String> idList = new ArrayList<String>(Arrays.asList(idString));
 
 		// 需要审核的数据检查是否为未审核状态
-		if (reviewAndSyncClassIdList.contains(classId)) {
+		if (reviewAndSyncClassIdList.contains(classId) && flag) {
 			JSONObject deleteJson = JSONObject.parseObject("{'delete':'delete'}");
 			for (String id : idList) {
 				checkIfReview(classId, id, deleteJson);
@@ -286,9 +296,9 @@ public class ItemPlugin extends PlugInAdpter {
 				if (dt1.getTime() >= dt2.getTime()) {
 					throw new BusinessLogicRunTimeException("起始日期必须小于结束日期");
 				}
-			 } catch (ParseException e) {
-			 e.printStackTrace();
-			 }
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 		// 中标库特殊业务判断，生效日期必须小于失效日期
 		if (classId == 3030) {
@@ -358,7 +368,7 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 
 		// 证件特殊业务判断，起始日期必须小于结束日期(只是更新entry数据时不用检查)
-		if ((classId == 3010 || classId == 3020)&&!json.containsKey("entry")&&json.size()==1) {
+		if ((classId == 3010 || classId == 3020) && !json.containsKey("entry") && json.size() == 1) {
 			String beginDate = json.getString("beginDate");
 			String endDate = json.getString("endDate");
 
