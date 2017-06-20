@@ -44,6 +44,7 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 			purInWarehs.setSupplier(jsonObject.getString("supplier"));
 			PurInWarehsMapper purInWarehsMapper = sqlSession.getMapper(PurInWarehsMapper.class);
 			if (jsonObject.getByte("baseStatus") == 4) {
+				iTemplateService.delItem(2022, jsonObject.getString("id"));
 				purInWarehsMapper.insertSelective(purInWarehs);
 			}
 			JSONObject entry = (JSONObject) jsonObject.get("entry");
@@ -72,6 +73,7 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 				}
 				PurInWarehsEntryMapper purInWarehsEntryMapper = sqlSession.getMapper(PurInWarehsEntryMapper.class);
 				if (jsonObject.getByte("baseStatus") == 4) {
+					iTemplateService.delItem(2022, jsonObject.getString("id"));
 					purInWarehsEntryMapper.insertSelective(purInWarehsEntry);
 				}
 

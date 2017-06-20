@@ -48,6 +48,7 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 			purReceival.setSupplier(jsonObject.getString("supplier"));
 			PurReceivalMapper purReceivalMapper = sqlSession.getMapper(PurReceivalMapper.class);
 			if (jsonObject.getByte("baseStatus") == 4) {
+				iTemplateService.delItem(2021, jsonObject.getString("id"));
 				purReceivalMapper.insertSelective(purReceival);
 			}
 			JSONObject entry = (JSONObject) jsonObject.get("entry");
@@ -79,6 +80,7 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 				purReceivalEntry.setUnqualifiedQty(purEntryObject.getLong("unqualifiedQty"));
 				PurReceivalEntryMapper purReceivalEntryMapper = sqlSession.getMapper(PurReceivalEntryMapper.class);
 				if (jsonObject.getByte("baseStatus") == 4) {
+					iTemplateService.delItem(2021, jsonObject.getString("id"));
 					purReceivalEntryMapper.insertSelective(purReceivalEntry);
 				}
 
