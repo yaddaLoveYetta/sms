@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
@@ -29,7 +30,7 @@ import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
 @RequestMapping(value = "/codefile/")
 public class CodeAttachmentController {
 
-	@RequestMapping(value = "upload")
+	@RequestMapping(value = "upload", method = RequestMethod.POST)
 	public void upload(HttpServletRequest request, HttpServletResponse response) {
 
 		if (!ServletFileUpload.isMultipartContent(request)) {
@@ -101,7 +102,7 @@ public class CodeAttachmentController {
 		}
 	}
 
-	@RequestMapping(value = "download")
+	@RequestMapping(value = "download", method = RequestMethod.POST)
 	public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
