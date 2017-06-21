@@ -63,8 +63,8 @@ public class TemplateControllerTest extends BaseControllerTest {
 	@Test
 	public void delItemsByHRP(){
 		Map<String, String> commonParams = new HashMap<String, String>();
-		commonParams.put("classId", "1019");
-		commonParams.put("items", "456");
+		commonParams.put("classId", "1005");
+		commonParams.put("items", "wqNYbozcQG6XOSIOzGV3ozfGffw=,,");
 
 		HttpParam param = HttpParam.init();
 		param.setCommonParams(commonParams);

@@ -25,9 +25,21 @@ public class SyncHRPControllerTest extends BaseControllerTest {
 		HttpParam param = HttpParam.init();
 		param.setCookieParams(cookie);
 		param.addCommon("classId", "1005");
-		param.addCommon("data", "/47b3B98QeSerElWwBWYMzfGffw=,/617w2cLQty4yVfNR8fj4TfGffw=");
+		param.addCommon("items", "wqNYbozcQG6XOSIOzGV3ozfGffw=,,");
 
 		String ret = HttpUtil.sendGet(BASE_URL + "sync/hrp/sendItem", param);
+		System.out.println(ret);
+	}
+	
+	@Test
+	public void delItem() {
+
+		HttpParam param = HttpParam.init();
+		param.setCookieParams(cookie);
+		param.addCommon("classId", "1005");
+		param.addCommon("items", "wqNYbozcQG6XOSIOzGV3ozfGffw=,,");
+
+		String ret = HttpUtil.sendGet(BASE_URL + "sync/hrp/delItem", param);
 		System.out.println(ret);
 	}
 }

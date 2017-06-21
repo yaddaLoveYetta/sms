@@ -26,7 +26,7 @@ public class StatisticsService extends BaseService implements IStatisticsService
 
 	@Resource
 	ITemplateService templateService;
-	
+
 	@ServiceLog(desc = "获取订单统计记录")
 	@Override
 	public JSONObject getRecord(String itemId, String supplier, String orderStartDate, String orderEndDate, int pageNo,
@@ -144,7 +144,7 @@ public class StatisticsService extends BaseService implements IStatisticsService
 				json.put("outStockQty", orderInvoiceQty.get(material));
 				// 退货数量
 				if (null != purreturnsReturnQty.get(material)) {
-					json.put("returnQty", purreturnsReturnQty.get(material));
+					json.put("returnQty", -1 * (double) purreturnsReturnQty.get(material));
 				} else {
 					json.put("returnQty", 0);
 				}

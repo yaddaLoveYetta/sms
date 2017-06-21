@@ -1,11 +1,8 @@
 package com.kingdee.eas.hrp.sms.service.api;
 
-import java.util.List;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.model.FormFields;
-import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 
 public interface ITemplateService {
 

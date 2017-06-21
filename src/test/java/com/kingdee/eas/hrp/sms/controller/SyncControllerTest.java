@@ -27,9 +27,10 @@ public class SyncControllerTest extends BaseControllerTest {
 		param.setCookieParams(cookie);
 		// String str =
 		// "[{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'},{'id':'ZYs36ftiQtm47pC4RgHyujfGffw=','number':'GDS0019','name':'佛山市顺德区龙江镇品派家具厂'}]";
-		String str = "[{'id':'eMCJ/ZVzQKW4opEHYz5FjjBpAwU=','unit':'111111112'}]";
-		//String str = "{'number':'2512','taxRate':0E-8,'address':'','cORP':'','taxId':'','review':'true','name':'宁波博硕倍医疗器械有限公司','id':'y02FNd8USnCS9mka7GxOsDfGffw=','bRNO':'','categoryId':'jWIqxazUQOOEIgj9YNKkJXolaaI=','syncStatus':'true','status':'1'}";
-		param.addCommon("classId", "3030");
+		String str = "[{'taxId':'','brno':'','taxRate':0.0000,'address':'','status':'1','categoryId':'Nm9D6gsfRp2PETcxDH+HlHolaaI=','name':'北京领锋创业科技有限公司','corp':'','id':'zzMRgeElQKmATi2yOsxW/jfGffw=','number':'L05007'}]";
+		// String str =
+		// "{'number':'2512','taxRate':0E-8,'address':'','cORP':'','taxId':'','review':'true','name':'宁波博硕倍医疗器械有限公司','id':'y02FNd8USnCS9mka7GxOsDfGffw=','bRNO':'','categoryId':'jWIqxazUQOOEIgj9YNKkJXolaaI=','syncStatus':'true','status':'1'}";
+		param.addCommon("classId", "1005");
 		param.addCommon("list", str);
 
 		String ret = HttpUtil.sendGet(BASE_URL + "sync/sync", param);
@@ -51,6 +52,6 @@ public class SyncControllerTest extends BaseControllerTest {
 		JSONObject object = (JSONObject) JSON.parse(ret);
 
 		Assert.assertEquals(object.getIntValue("code"), 200);
-	
+
 	}
 }

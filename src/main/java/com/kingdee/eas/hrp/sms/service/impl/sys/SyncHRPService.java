@@ -59,9 +59,17 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			if (0 == (short) item.get("syncStatus") || null == item.get("syncStatus")
 					|| "".equals(item.get("syncStatus"))) {
 				idTargetList.add(id);
-				String supplierId = (String) item.get("supplier");
-				Map<String, Object> supplier = templateService.getItemById(1005, supplierId);
-				successSupplier.put(id, supplier.get("name"));
+				String supplierId = "";
+				if (classId == 1005) {
+					supplierId = (String) item.get("id");
+				} else {
+
+					supplierId = (String) item.get("supplier");
+				}
+				if (!supplierId.equals("")) {
+					Map<String, Object> supplier = templateService.getItemById(1005, supplierId);
+					successSupplier.put(id, supplier.get("name"));
+				}
 				String targetItem = JSON.toJSONString(item, SerializerFeature.WriteMapNullValue);
 				JSONObject targetJson = JSONObject.parseObject(targetItem);
 				System.out.println(targetItem);
