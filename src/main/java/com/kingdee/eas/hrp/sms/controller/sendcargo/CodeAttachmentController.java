@@ -107,6 +107,9 @@ public class CodeAttachmentController {
 
 		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
 
+		if ("".equals(fileName)) {
+			throw new BusinessLogicRunTimeException("参数错误：必须提交下载文件名fileName");
+		}
 		// 设置文件MIME类型
 		response.setContentType("application/force-download");
 		// 设置Content-Disposition
