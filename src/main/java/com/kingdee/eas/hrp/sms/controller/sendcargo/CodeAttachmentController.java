@@ -73,8 +73,8 @@ public class CodeAttachmentController {
 		}
 
 		// 构建附件存放路径
-		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH_ORDER"); // 文件存放目录
-
+		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH"); // 文件存放目录
+		fileDirector = fileDirector + "sendcargo";
 		File f = new File(fileDirector);
 
 		if (!f.exists()) {
@@ -112,6 +112,7 @@ public class CodeAttachmentController {
 		// 设置Content-Disposition
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
 		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH_ORDER"); // 文件存放目录
+		fileDirector = fileDirector + "sendcargo";
 		File f = new File(fileDirector);
 		if (!f.exists()) {
 			// 路径不存在
