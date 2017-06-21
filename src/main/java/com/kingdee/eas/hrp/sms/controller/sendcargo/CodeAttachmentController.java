@@ -111,7 +111,7 @@ public class CodeAttachmentController {
 		response.setContentType("application/force-download");
 		// 设置Content-Disposition
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH_ORDER"); // 文件存放目录
+		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH"); // 文件存放目录
 		fileDirector = fileDirector + "sendcargo";
 		File f = new File(fileDirector);
 		if (!f.exists()) {
