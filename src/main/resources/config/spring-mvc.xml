@@ -44,7 +44,9 @@
 						<!-- 如果请求中包含以下路径，则不进行拦截 -->
 						<entry value-type="java.lang.String" key="/user/login" value="/user/login" />
 						<entry value-type="java.lang.String" key="/user/createToken" value="/user/createToken" />
-						<entry value-type="java.lang.String" key="/file/upload" value="/file/upload" />
+						
+						<entry value-type="java.lang.String" key="/codefile/upload" value="/codefile/upload"/>
+						<entry value-type="java.lang.String" key="/codefile/download" value="/codefile/download"/>
 					</map>
 				</property>
 				<property name="clientUrls">

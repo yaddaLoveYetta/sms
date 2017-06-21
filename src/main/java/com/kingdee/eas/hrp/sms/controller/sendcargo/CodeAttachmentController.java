@@ -102,7 +102,7 @@ public class CodeAttachmentController {
 		}
 	}
 
-	@RequestMapping(value = "download", method = RequestMethod.POST)
+	@RequestMapping(value = "download")
 	public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
