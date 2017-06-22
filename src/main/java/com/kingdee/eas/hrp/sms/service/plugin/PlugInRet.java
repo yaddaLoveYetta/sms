@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * 插件返回类型
  * 
- * @ClassName BasePlugInResult
+ * @ClassName PlugInRet
  * @author yadda
  * @date 2017-04-27 17:31:53 星期四
  */
