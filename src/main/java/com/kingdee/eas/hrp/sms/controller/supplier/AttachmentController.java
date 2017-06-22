@@ -4,11 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,13 +20,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
-import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.supplier.IFileUploadService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
-import com.kingdee.eas.hrp.sms.util.SessionUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
 
@@ -101,12 +94,10 @@ public class AttachmentController {
 
 		// 构建附件存放路径
 		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH"); // 文件存放目录
-		String fileUrl = SystemParamUtil.getString("SYS", "FILE_URL"); // 文件映射地址(存储到数据库中)
 
 		String classDirector = fileDirector.endsWith("\\") ? classId + "\\\\" : "\\\\" + classId + "\\\\";
-		String fileUrlDirector = fileUrl.endsWith("/") ? classId + "/" : "/" + classId + "/";
+
 		fileDirector = fileDirector + classDirector;// 真实存放路径
-		fileUrl = fileUrl + fileUrlDirector;// 映射路径
 
 		File f = new File(fileDirector);
 
@@ -115,8 +106,8 @@ public class AttachmentController {
 			f.mkdirs();
 		}
 
-		// 保存文件到物理目录--生成映射路径
-		List<String> fileUrls = new ArrayList<String>();
+		// 保存文件名--保存到数据库中
+		List<String> fileNames = new ArrayList<String>();
 
 		for (FileItem fileItem : file) {
 
@@ -127,10 +118,11 @@ public class AttachmentController {
 			}
 
 			String filePath = fileDirector + "\\\\" + fileName;
-			fileUrls.add(fileUrl + fileName); // 对应的文件映射地址
+			fileNames.add(fileName); // 文件名
 
 			File realFile = new File(filePath);
 			realFile.setReadable(true);
+
 			try {
 				fileItem.write(realFile);
 			} catch (Exception e) {
@@ -141,7 +133,7 @@ public class AttachmentController {
 
 		// 保存映射路径到数据库
 
-		fileUploadService.saveUrlToDb(classId, itemId, fileUrls);
+		fileUploadService.saveUrlToDb(classId, itemId, fileNames);
 
 	}
 
