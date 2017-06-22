@@ -4,7 +4,9 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,11 +32,20 @@ import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
 @RequestMapping(value = "/codefile/")
 public class CodeAttachmentController {
 
+	/**
+	 * MultipartContent方式上传
+	 * 
+	 * @Title upload
+	 * @param request
+	 * @param response
+	 * @return void
+	 * @date 2017-06-22 11:57:37 星期四
+	 */
 	@RequestMapping(value = "upload", method = RequestMethod.POST)
 	public void upload(HttpServletRequest request, HttpServletResponse response) {
 
 		if (!ServletFileUpload.isMultipartContent(request)) {
-			ResponseWriteUtil.output(response, StatusCode.PIC_UPLOAD_FAIL, "请选择附件！");
+			ResponseWriteUtil.output(response, StatusCode.PIC_UPLOAD_FAIL, "请选择附件且已Multipart方式上传！");
 			return;
 		}
 
@@ -100,6 +111,71 @@ public class CodeAttachmentController {
 				throw new BusinessLogicRunTimeException(e);
 			}
 		}
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, "上传成功");
+	}
+
+	/**
+	 * 流形式上传
+	 * 
+	 * @Title upload2
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @return void
+	 * @date 2017-06-22 11:57:16 星期四
+	 */
+	@RequestMapping(value = "upload2", method = RequestMethod.POST)
+	public void upload2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		if (request.getContentLength() > 0) {
+
+			InputStream in = null;
+			FileOutputStream out = null;
+
+			try {
+				in = request.getInputStream();
+
+				// 构建附件存放路径
+				String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH"); // 文件存放目录
+				fileDirector = fileDirector + "sendcargo";
+				File f = new File(fileDirector);
+
+				if (!f.exists()) {
+					// 路径不存在-创建
+					f.mkdirs();
+				}
+
+				String filePath = fileDirector + "\\\\" + "codeConfig.xml";
+
+				File file = new File(filePath);
+				file.createNewFile();
+
+				out = new FileOutputStream(file);
+
+				byte temp[] = new byte[1024];
+				int size = -1;
+				while ((size = in.read(temp)) != -1) {
+					out.write(temp, 0, size);
+				}
+
+				ResponseWriteUtil.output(response, StatusCode.SUCCESS, "上传成功");
+
+			} catch (IOException e) {
+
+			} finally {
+
+				if (out != null) {
+					out.close();
+				}
+				if (in != null) {
+					in.close();
+				}
+			}
+		} else {
+			throw new BusinessLogicRunTimeException("请选择文件上传!");
+		}
+
 	}
 
 	@RequestMapping(value = "download")

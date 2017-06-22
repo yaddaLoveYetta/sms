@@ -47,6 +47,7 @@
 						
 						<entry value-type="java.lang.String" key="/codefile/upload" value="/codefile/upload"/>
 						<entry value-type="java.lang.String" key="/codefile/download" value="/codefile/download"/>
+						<entry value-type="java.lang.String" key="/file/download" value="/file/download"/>
 					</map>
 				</property>
 				<property name="clientUrls">
