@@ -141,23 +141,23 @@ public class AttachmentController {
 	public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		int classId = ParameterUtils.getParameter(request, "classId", -1);
-		String itemId = ParameterUtils.getParameter(request, "itemId", "");
 
 		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
 
 		if (classId < 0) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, "参数错误：必须提交classId");
 			return;
 		}
 
-		if ("".equals(itemId) || "".equals(fileName)) {
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交itemId及fileName");
+		if ("".equals(fileName)) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, "参数错误：必须提交fileName");
+			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交itemId及fileName");
 			return;
 		}
 
 		// 设置文件MIME类型
 		response.setContentType("application/force-download");
-		// response.setContentType(request.getSession().getServletContext().getMimeType(fileName));
 		// 设置Content-Disposition
 		// response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
@@ -171,7 +171,9 @@ public class AttachmentController {
 
 		if (!f.exists()) {
 			// 路径不存在
-			throw new BusinessLogicRunTimeException("文件不存在");
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, "文件不存在");
+			return;
+			// throw new BusinessLogicRunTimeException("文件不存在");
 		}
 
 		String filePath = fileDirector + "\\\\" + fileName;
@@ -180,7 +182,9 @@ public class AttachmentController {
 
 		if (!f.exists()) {
 			// 路径不存在
-			throw new BusinessLogicRunTimeException("文件不存在");
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, "文件不存在");
+			return;
+			// throw new BusinessLogicRunTimeException("文件不存在");
 		}
 
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
@@ -200,6 +204,8 @@ public class AttachmentController {
 			out.close();
 
 		} catch (IOException e) {
+
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 
 			if (in != null) {
 				in.close();
