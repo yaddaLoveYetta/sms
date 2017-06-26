@@ -17,7 +17,7 @@ define('Upload', function (require, module, exports) {
     var classId;
     var itemId;
 
-    //销毁Uploadify实例并将文件上传按钮恢复到原始状态
+    // 销毁Uploadify实例并将文件上传按钮恢复到原始状态
     function refrshUploadify() {
         btn.uploadify('destroy');
         render();
@@ -37,19 +37,21 @@ define('Upload', function (require, module, exports) {
             uploader: api.getUrl(),
             buttonClass: 'sms-btn-item',
             buttonText: '选择附件',
-            multi: true,
-            uploadLimit: 2,
-            simUploadLimit:3,
+            uploadLimit: 3,
+            simUploadLimit: 3,
             auto: false,
-            width: 80,
+            width: 60,
             height: 25,
             fileSizeLimit: "5MB",
             fileTypeDesc: '文件',
             fileTypeExts: '*.*',
-            method: 'Post',
+            multi: true,
+            method: 'post',
+            removeCompleted: false,// 上传完成后自动删除队列
             removeTimeout: 1,
             queueID: "fileQueue",
-            queueSizeLimit: 2,
+            queueSizeLimit: 3,
+            fileObjName: 'upload',
             overrideEvents: ['onSelectError', 'onDialogClose'],
             onUploadStart: function (file) {
                 btn.uploadify("settings", "formData", {
@@ -60,10 +62,14 @@ define('Upload', function (require, module, exports) {
             onSelectError: function (file, errorCode, errorMsg) {
                 switch (errorCode) {
                     case -100:
-                        SMS.Tips.error('上传文件数量已超过系统限制的' + btn.uploadify('settings,', 'uploadLimit') + '个文件', 1500);
+                        SMS.Tips.error(
+                            '该次上传文件数量已超过系统限制的'
+                            + btn.uploadify('settings', 'uploadLimit')
+                            + '个文件', 1500);
                         break;
                     case -110:
-                        SMS.Tips.error("附件 [" + file.name + "] 大小超出系统限制的5M大小！", 1500);
+                        SMS.Tips.error("附件 [" + file.name + "] 大小超出系统限制的5M大小！",
+                            1500);
                         break;
                     case -120:
                         SMS.Tips.error("附件 [" + file.name + "] 大小异常！", 1500);
@@ -74,18 +80,19 @@ define('Upload', function (require, module, exports) {
                 }
                 return false;
             },
-            onUploadSuccess: function (fileObj, responseData, response) {
+            onUploadSuccess: function (file, responseData, response) {
 
-                var data = $.Object.parseJson(responseData)
-
-                if (data) {
-                    if (data.code == 200) {
-                        SMS.Tips.success(data.msg, 2000);
-                    } else {
-                        SMS.Tips.error(data.msg, 2000);
-                    }
-                }
-                refrshUploadify();
+                console.log(file.name + " 上传成功！");
+                // var data = $.Object.parseJson(responseData)
+                //
+                // if (data) {
+                // if (data.code == 200) {
+                // SMS.Tips.success(data.msg, 2000);
+                // } else {
+                // SMS.Tips.error(data.msg, 2000);
+                // }
+                // }
+                // refrshUploadify();
             },
             onUploadError: function () {
 
@@ -97,6 +104,11 @@ define('Upload', function (require, module, exports) {
             onFallback: function () {
                 // 检测flash失败
                 SMS.Tips.error("您未安装FLASH控件，无法上传，请安装FLASH控件后重试!");
+            },
+            onQueueComplete: function () {
+                // 所有文件上传完成
+                SMS.Tips.success('文件上传完成', 2000);
+                refrshUploadify();
             }
         });
 
