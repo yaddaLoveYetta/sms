@@ -90,7 +90,7 @@
 		<mapper resource="mapper/generate/OrderEntryMapper.xml" />
 
 		<mapper resource="mapper/generate/PluginsMapper.xml" />
-
+        <mapper resource="mapper/generate/MsgLogMapper.xml" />
 
 
 		<mapper resource="mapper/generate/CountryMapper.xml" />

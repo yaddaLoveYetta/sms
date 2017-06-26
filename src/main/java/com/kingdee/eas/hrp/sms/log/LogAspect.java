@@ -32,8 +32,6 @@ import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
 
-import javassist.NotFoundException;
-
 /**
  * 系统日志统一处理
  * 

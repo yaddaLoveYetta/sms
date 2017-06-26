@@ -3,7 +3,10 @@ package com.kingdee.eas.hrp.sms.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -11,6 +14,10 @@ import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kingdee.eas.hrp.sms.dao.generate.MsgLogMapper;
+import com.kingdee.eas.hrp.sms.service.api.IMsgLogService;
+import com.kingdee.eas.hrp.sms.service.api.user.ILoginService;
+import com.kingdee.eas.hrp.sms.service.impl.MsgLogService;
 import com.kingdee.eas.hrp.sms.util.http.HttpUtil;
 
 /**
@@ -26,6 +33,7 @@ public class MsgHttpClient {
 	private String password;
 	private String code;
 	private static volatile MsgHttpClient instance = null;
+	
 
 	private MsgHttpClient() {
 		init();
@@ -77,28 +85,36 @@ public class MsgHttpClient {
 	public String sendSMS(String[] mobiles, String smsContent) {
 		String url = baseUrl + "sendsms.action";
 		String phone = StringUtils.join(mobiles, ",");
+		String seqId = String.valueOf(System.currentTimeMillis());
 		String param = "cdkey=" + softwareSerialNo + "&password=" + key + "&phone=" + phone + "&message=" + smsContent
-				+ "&addserial=" + code + "&seqid=" + 0;
+				+ "&addserial=" + code + "&seqid=" + seqId;
+		String reStr = "-250";
 		Map resultMap = sendHttp(url, param);
 		if (!resultMap.isEmpty()) {
-			return resultMap.get("error").toString();
+			reStr = resultMap.get("error").toString();
 		}
-		return "-250";
+		IMsgLogService msgLogService = Environ.getBean(IMsgLogService.class);
+		msgLogService.saveLog(seqId, phone, smsContent, reStr);
+		return reStr;
 	}
-	
+
 	/**
 	 * 调用该方法进行定时短信发送.
 	 */
-	public String sendtimesMS(String[] mobiles, String smsContent,String times) {
+	public String sendtimesMS(String[] mobiles, String smsContent, String times) {
 		String url = baseUrl + "sendtimesms.action";
 		String phone = StringUtils.join(mobiles, ",");
+		String seqId = String.valueOf(System.currentTimeMillis());
 		String param = "cdkey=" + softwareSerialNo + "&password=" + key + "&phone=" + phone + "&message=" + smsContent
-				+ "&addserial=" + code +"&sendtime="+times+ "&seqid=" + 0;
+				+ "&addserial=" + code + "&sendtime=" + times + "&seqid=" + seqId;
+		String reStr = "-250";
 		Map resultMap = sendHttp(url, param);
 		if (!resultMap.isEmpty()) {
-			return resultMap.get("error").toString();
+			reStr = resultMap.get("error").toString();
 		}
-		return "-250";
+		IMsgLogService msgLogService = Environ.getBean(IMsgLogService.class);
+		msgLogService.saveLog(seqId, mobiles.toString(), smsContent, reStr);
+		return reStr;
 	}
 
 	/**
@@ -115,5 +131,6 @@ public class MsgHttpClient {
 		}
 		return "获取余额失败";
 	}
+
 
 }
