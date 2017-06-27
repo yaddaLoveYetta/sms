@@ -272,36 +272,41 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_approved_supplier" domainObjectName="ApprovedSupplier">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_supplier_license_entry" domainObjectName="SupplierLicenseEntry">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_supplier_item_license_entry" domainObjectName="SupplierItemLicenseEntry">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_purreturns" domainObjectName="PurReturns">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_purreturns_entry" domainObjectName="PurReturnsEntry">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+		<table tableName="t_sms_msglog" domainObjectName="MsgLog">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
 	</context>
 </generatorConfiguration> 
