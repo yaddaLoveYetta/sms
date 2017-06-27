@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.httpclient.Cookie;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.http.HttpEntity;
@@ -462,8 +463,10 @@ public final class HttpUtil {
 	 * @param hp
 	 *            参数
 	 * @return
+	 * @throws IOException
+	 * @throws HttpException
 	 */
-	public static Map<String, String> sendPostForCookie(String url, HttpParam hp) {
+	public static Map<String, String> sendPostForCookie(String url, HttpParam hp) throws HttpException, IOException {
 
 		Map<String, String> ret = new HashMap<>();
 
@@ -511,16 +514,15 @@ public final class HttpUtil {
 				ret.put(cookie.getName(), cookie.getValue());
 			}
 
-		} catch (Exception e) {
+		} finally {
 			postMethod.releaseConnection();
-			System.out.println(e.getMessage());
 		}
 		return ret;
 
 		// =================================================================================
 
 	}
-	
+
 	/**
 	 * 封装sendGet方法
 	 * 

@@ -1,9 +1,11 @@
 package com.kingdee.eas.hrp.sms.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.httpclient.HttpException;
 import org.junit.Before;
 
 import com.alibaba.fastjson.JSON;
@@ -22,7 +24,7 @@ public abstract class BaseControllerTest {
 	protected Map<String, String> cookie = new HashMap<>();
 
 	@Before
-	public void getCookies() {
+	public void getCookies() throws HttpException, IOException {
 
 		HttpParam hp = HttpParam.init();
 

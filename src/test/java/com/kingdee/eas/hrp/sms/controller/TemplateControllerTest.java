@@ -1,8 +1,10 @@
 package com.kingdee.eas.hrp.sms.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.httpclient.HttpException;
 import org.junit.Test;
 
 import com.kingdee.eas.hrp.sms.util.http.HttpParam;
@@ -29,7 +31,7 @@ public class TemplateControllerTest extends BaseControllerTest {
 	}
 	
 	@Test
-	public void getItems() {
+	public void getItems() throws HttpException, IOException {
 
 		Map<String, String> commonParams = new HashMap<String, String>();
 		commonParams.put("classId", "1022");
