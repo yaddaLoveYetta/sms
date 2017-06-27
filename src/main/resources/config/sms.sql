@@ -1,4 +1,4 @@
-﻿-- ----------------------------
+-- ----------------------------
 -- 
 --
 --
@@ -25,7 +25,7 @@ CREATE DATABASE [hrp-sms]
 ON
 (
     NAME = hrpsms,
-    FILENAME = 'D:\hrpsms_data.mdf',
+    FILENAME = 'D:\hrp-sms_data.mdf',
     SIZE = 5MB,
     MAXSIZE = 20,
     FILEGROWTH = 20
@@ -33,11 +33,13 @@ ON
 LOG ON 
 (
     NAME = hrpsms_data,
-    FILENAME = 'D:\hrpsms_log.ldf',
+    FILENAME = 'D:\hrp-sms_log.ldf',
     SIZE = 2MB,
     MAXSIZE = 10MB,
     FILEGROWTH = 1MB
 );
+
+
 -- ----------------------------
 -- 
 --
@@ -1465,9 +1467,9 @@ if object_id(N't_sms_industry',N'U') is not null
 DROP TABLE [t_sms_industry]
 GO
 CREATE TABLE [t_sms_industry] (
-[id] varchar(50) NOT NULL ,
-[name] varchar(255) NULL ,
-[number] varchar(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
