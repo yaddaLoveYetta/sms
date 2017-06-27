@@ -38,7 +38,6 @@ LOG ON
     MAXSIZE = 10MB,
     FILEGROWTH = 1MB
 );
-
 -- ----------------------------
 -- 
 --
@@ -48,404 +47,283 @@ LOG ON
 --
 --
 -- ----------------------------
-
-USE [hrp-sms];
-
-
-GO
+USE hrp-sms
 
 -- ----------------------------
 -- Table structure for t_sms_accessControl
 -- ----------------------------
 if object_id(N't_sms_accessControl',N'U') is not null
 DROP TABLE [t_sms_accessControl]
-
- GO 
-
+GO
 CREATE TABLE [t_sms_accessControl] (
-	[objectType] INT NOT NULL,
-	[objectId] INT NOT NULL,
-	[roleId] VARCHAR (50) NOT NULL,
-	[accessMask] INT NOT NULL
+[objectType] int NOT NULL ,
+[objectId] int NOT NULL ,
+[roleId] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[accessMask] int NOT NULL 
 )
 
+
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_accessControl', 
 'COLUMN', N'objectType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限类别(用于区分模块)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限类别(用于区分模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_accessControl'
 , @level2type = 'COLUMN', @level2name = N'objectType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限类别(用于区分模块)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限类别(用于区分模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_accessControl'
 , @level2type = 'COLUMN', @level2name = N'objectType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_accessControl', 
 'COLUMN', N'objectId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限ID(用于区分子模块)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限ID(用于区分子模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_accessControl'
 , @level2type = 'COLUMN', @level2name = N'objectId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限ID(用于区分子模块)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限ID(用于区分子模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_accessControl'
 , @level2type = 'COLUMN', @level2name = N'objectId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_accessControl', 
 'COLUMN', N'roleId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'角色ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'角色ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_accessControl'
 , @level2type = 'COLUMN', @level2name = N'roleId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'角色ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'角色ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_accessControl'
 , @level2type = 'COLUMN', @level2name = N'roleId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_accessControl', 
 'COLUMN', N'accessMask')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限掩码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限掩码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_accessControl'
 , @level2type = 'COLUMN', @level2name = N'accessMask'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限掩码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限掩码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_accessControl'
 , @level2type = 'COLUMN', @level2name = N'accessMask'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_approved_supplier
 -- ----------------------------
 if object_id(N't_sms_approved_supplier',N'U') is not null
 DROP TABLE [t_sms_approved_supplier]
-
 GO
-
 CREATE TABLE [t_sms_approved_supplier] (
-[id] VARCHAR(50) NOT NULL ,
-[supplier] VARCHAR(50) NULL ,
-[materialItem] VARCHAR(50) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[supplier] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[materialItem] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
 [isStopped] tinyint NULL ,
-[measureUnit] VARCHAR(44) NULL ,
-[supplierRate] DECIMAL(20,10) NULL ,
-[taxPrice] DECIMAL(20,10) NULL ,
-[effectualDate] DATE NULL ,
-[uneffectualDate] DATE NULL ,
+[measureUnit] varchar(44) COLLATE Chinese_PRC_CS_AS NULL ,
+[supplierRate] decimal(20,10) NULL ,
+[taxPrice] decimal(20,10) NULL ,
+[effectualDate] date NULL ,
+[uneffectualDate] date NULL ,
 [syncStatus] tinyint NULL DEFAULT ((0)) ,
 [review] tinyint NULL DEFAULT ((0)) ,
-[purMeasureUnit] VARCHAR(44) NULL 
+[purMeasureUnit] varchar(44) COLLATE Chinese_PRC_CS_AS NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'证书'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'证书'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'证书'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'证书'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'证书ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'证书ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'证书ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'证书ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'证书名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'证书名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'证书名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'证书名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'materialItem')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'关联物料'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'关联物料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'materialItem'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'关联物料'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'关联物料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'materialItem'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'isStopped')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否停用'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否停用'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'isStopped'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否停用'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否停用'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'isStopped'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'measureUnit')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'基本计量单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'基本计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'measureUnit'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'基本计量单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'基本计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'measureUnit'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'supplierRate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供货比例'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供货比例'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'supplierRate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供货比例'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供货比例'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'supplierRate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'taxPrice')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'含税价格'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'含税价格'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'taxPrice'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'含税价格'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'含税价格'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'taxPrice'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'effectualDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'生效日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'生效日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'effectualDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'生效日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'生效日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'effectualDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'uneffectualDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'失效日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'失效日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'uneffectualDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'失效日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'失效日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'uneffectualDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'syncStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（1.未编辑，2.新增，3.已编辑）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'同步状态（1.未编辑，2.新增，3.已编辑）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（1.未编辑，2.新增，3.已编辑）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'同步状态（1.未编辑，2.新增，3.已编辑）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'review')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'review'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'review'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_approved_supplier', 
 'COLUMN', N'purMeasureUnit')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购计量单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'purMeasureUnit'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购计量单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_approved_supplier'
 , @level2type = 'COLUMN', @level2name = N'purMeasureUnit'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_base_status
@@ -453,12 +331,12 @@ GO
 if object_id(N't_sms_base_status',N'U') is not null
 DROP TABLE [t_sms_base_status]
 GO
-
 CREATE TABLE [t_sms_base_status] (
-[id] INT NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] int NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
+
 
 GO
 
@@ -468,144 +346,109 @@ GO
 if object_id(N't_sms_category',N'U') is not null
 DROP TABLE [t_sms_category]
 GO
-
 CREATE TABLE [t_sms_category] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL 
 )
 
 
 GO
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_category', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'分类'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'分类'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_category'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'分类'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'分类'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_category'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_category', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'分类ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'分类ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_category'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'分类ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'分类ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_category'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_category', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'分类名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'分类名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_category'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'分类名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'分类名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_category'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
 
 -- ----------------------------
 -- Table structure for t_sms_certificate
 -- ----------------------------
-
 if object_id(N't_sms_certificate',N'U') is not null
 DROP TABLE [t_sms_certificate]
 GO
-
 CREATE TABLE [t_sms_certificate] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
-GO
 
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+GO
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_certificate', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'证书'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'证书'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_certificate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'证书'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'证书'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_certificate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_certificate', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'证书ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'证书ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_certificate'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'证书ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'证书ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_certificate'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_certificate', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'证书名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'证书名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_certificate'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'证书名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'证书名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_certificate'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_city
@@ -613,26 +456,14 @@ GO
 if object_id(N't_sms_city',N'U') is not null
 DROP TABLE [t_sms_city]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_city] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_country
@@ -640,26 +471,14 @@ GO
 if object_id(N't_sms_country',N'U') is not null
 DROP TABLE [t_sms_country]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_country] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_county
@@ -667,26 +486,14 @@ GO
 if object_id(N't_sms_county',N'U') is not null
 DROP TABLE [t_sms_county]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_county] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL 
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_currency
@@ -694,84 +501,54 @@ GO
 if object_id(N't_sms_currency',N'U') is not null
 DROP TABLE [t_sms_currency]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_currency] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_currency', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'币别'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'币别'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_currency'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'币别'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'币别'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_currency'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_currency', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'币种ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'币种ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_currency'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'币种ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'币种ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_currency'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_currency', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'币种名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'币种名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_currency'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'币种名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'币种名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_currency'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_dataFlowSubClass
@@ -779,116 +556,80 @@ GO
 if object_id(N't_sms_dataFlowSubClass',N'U') is not null
 DROP TABLE [t_sms_dataFlowSubClass]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_dataFlowSubClass] (
-[topClassId] INT NOT NULL ,
-[subSysId] INT NOT NULL ,
-[name] VARCHAR(255) NOT NULL ,
-[index] INT NOT NULL ,
-[visible] BIT NOT NULL ,
-[url] VARCHAR(500) NULL ,
-[icon] VARCHAR(100) NULL ,
-[ownerType] INT NULL DEFAULT ((0)) 
+[topClassId] int NOT NULL ,
+[subSysId] int NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[index] int NOT NULL ,
+[visible] bit NOT NULL ,
+[url] varchar(500) COLLATE Chinese_PRC_CS_AS NULL ,
+[icon] varchar(100) COLLATE Chinese_PRC_CS_AS NULL ,
+[ownerType] int NULL DEFAULT ((0))
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowSubClass', 
 'COLUMN', N'topClassId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'上级模块ID(关联t_DataFlowTopClass中topClassId)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'上级模块ID(关联t_DataFlowTopClass中topClassId)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'topClassId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'上级模块ID(关联t_DataFlowTopClass中topClassId)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'上级模块ID(关联t_DataFlowTopClass中topClassId)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'topClassId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowSubClass', 
 'COLUMN', N'subSysId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'子模块ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'子模块ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'subSysId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'子模块ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'子模块ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'subSysId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowSubClass', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'子模块名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'子模块名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'子模块名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'子模块名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowSubClass', 
 'COLUMN', N'index')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'子模块排序号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'子模块排序号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'index'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'子模块排序号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'子模块排序号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'index'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowSubClass', 
 'COLUMN', N'visible')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否可见(
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否可见(
 设置为1：主控台可见，权限列表可见（有菜单对应）
 设置为0：主控台不可见，权限列表不可见
 设置为2：主控台不可见，权限列表可见
@@ -897,7 +638,7 @@ EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否可�
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'visible'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否可见(
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否可见(
 设置为1：主控台可见，权限列表可见（有菜单对应）
 设置为0：主控台不可见，权限列表不可见
 设置为2：主控台不可见，权限列表可见
@@ -906,72 +647,48 @@ EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否可见(
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'visible'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowSubClass', 
 'COLUMN', N'url')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'子系统网页链接地址'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'子系统网页链接地址'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'url'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'子系统网页链接地址'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'子系统网页链接地址'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'url'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowSubClass', 
 'COLUMN', N'icon')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'title图标地址'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'title图标地址'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'icon'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'title图标地址'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'title图标地址'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'icon'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowSubClass', 
 'COLUMN', N'ownerType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'用户类别，使用该功能的用户(平台用户，供应链用户，两者都可用)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'用户类别，使用该功能的用户(平台用户，供应链用户，两者都可用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'ownerType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'用户类别，使用该功能的用户(平台用户，供应链用户，两者都可用)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'用户类别，使用该功能的用户(平台用户，供应链用户，两者都可用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowSubClass'
 , @level2type = 'COLUMN', @level2name = N'ownerType'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_dataFlowTopClass
@@ -979,128 +696,86 @@ GO
 if object_id(N't_sms_dataFlowTopClass',N'U') is not null
 DROP TABLE [t_sms_dataFlowTopClass]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_dataFlowTopClass] (
-[topClassId] INT NOT NULL ,
-[topClassName] VARCHAR(50) NOT NULL ,
-[index] INT NOT NULL ,
-[visible] BIT NOT NULL ,
-[icon] VARCHAR(100) NULL 
+[topClassId] int NOT NULL ,
+[topClassName] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[index] int NOT NULL ,
+[visible] bit NOT NULL ,
+[icon] varchar(100) COLLATE Chinese_PRC_CS_AS NULL  
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowTopClass', 
 'COLUMN', N'topClassId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'模块ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'模块ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'topClassId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'模块ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'模块ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'topClassId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowTopClass', 
 'COLUMN', N'topClassName')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'模块名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'模块名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'topClassName'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'模块名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'模块名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'topClassName'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowTopClass', 
 'COLUMN', N'index')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'排序号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'排序号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'index'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'排序号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'排序号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'index'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowTopClass', 
 'COLUMN', N'visible')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否可见'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否可见'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'visible'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否可见'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否可见'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'visible'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_dataFlowTopClass', 
 'COLUMN', N'icon')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'菜单图标'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'菜单图标'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'icon'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'菜单图标'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'菜单图标'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_dataFlowTopClass'
 , @level2type = 'COLUMN', @level2name = N'icon'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_employee
@@ -1108,26 +783,29 @@ GO
 if object_id(N't_sms_employee',N'U') is not null
 DROP TABLE [t_sms_employee]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_employee] (
-[id] VARCHAR(255) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(30) NULL 
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(30) COLLATE Chinese_PRC_CS_AS NULL ,
+[mobile] varchar(20) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
+'SCHEMA', N'dbo', 
+'TABLE', N't_sms_employee', 
+'COLUMN', N'mobile')) > 0) 
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'职员手机号码'
+, @level0type = 'SCHEMA', @level0name = N'dbo'
+, @level1type = 'TABLE', @level1name = N't_sms_employee'
+, @level2type = 'COLUMN', @level2name = N'mobile'
+ELSE
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'职员手机号码'
+, @level0type = 'SCHEMA', @level0name = N'dbo'
+, @level1type = 'TABLE', @level1name = N't_sms_employee'
+, @level2type = 'COLUMN', @level2name = N'mobile'
+GO
 
 -- ----------------------------
 -- Table structure for t_sms_formClass
@@ -1135,128 +813,86 @@ GO
 if object_id(N't_sms_formClass',N'U') is not null
 DROP TABLE [t_sms_formClass]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_formClass] (
-[classId] INT NOT NULL ,
-[name] VARCHAR(50) NOT NULL ,
-[tableName] VARCHAR(50) NOT NULL ,
-[primaryKey] VARCHAR(20) NOT NULL ,
-[bosType] VARCHAR(8) NOT NULL DEFAULT '' 
+[classId] int NOT NULL ,
+[name] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[tableName] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[primaryKey] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[bosType] varchar(8) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT ''
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formClass', 
 'COLUMN', N'classId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'业务类别-唯一'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'业务类别-唯一'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'classId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'业务类别-唯一'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'业务类别-唯一'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'classId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formClass', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'业务类别名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'业务类别名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'业务类别名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'业务类别名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formClass', 
 'COLUMN', N'tableName')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物理存储表'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物理存储表'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'tableName'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物理存储表'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物理存储表'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'tableName'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formClass', 
 'COLUMN', N'primaryKey')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'表主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'表主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'primaryKey'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'表主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'表主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'primaryKey'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formClass', 
 'COLUMN', N'bosType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'唯一标识单据类别(参考EAS设计)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'唯一标识单据类别(参考EAS设计)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'bosType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'唯一标识单据类别(参考EAS设计)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'唯一标识单据类别(参考EAS设计)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formClass'
 , @level2type = 'COLUMN', @level2name = N'bosType'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_formEntries
@@ -1264,170 +900,116 @@ GO
 if object_id(N't_sms_formEntries',N'U') is not null
 DROP TABLE [t_sms_formEntries]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_formEntries] (
-[classId] INT NOT NULL ,
-[entryIndex] INT NOT NULL ,
-[tableName] VARCHAR(50) NOT NULL ,
-[foreignKey] VARCHAR(20) NOT NULL ,
-[primaryKey] VARCHAR(20) NOT NULL ,
-[bosType] VARCHAR(8) NOT NULL DEFAULT '' ,
-[joinType] VARCHAR(20) NOT NULL DEFAULT '' 
+[classId] int NOT NULL ,
+[entryIndex] int NOT NULL ,
+[tableName] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[foreignKey] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[primaryKey] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[bosType] varchar(8) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' ,
+[joinType] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formEntries', 
 'COLUMN', N'classId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'与formClass主表classId一致'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'与formClass主表classId一致'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'classId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'与formClass主表classId一致'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'与formClass主表classId一致'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'classId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formEntries', 
 'COLUMN', N'entryIndex')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'子表序号(从1开始)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'子表序号(从1开始)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'entryIndex'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'子表序号(从1开始)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'子表序号(从1开始)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'entryIndex'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formEntries', 
 'COLUMN', N'tableName')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'表名'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'表名'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'tableName'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'表名'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'表名'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'tableName'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formEntries', 
 'COLUMN', N'foreignKey')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'关联主表字段'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'关联主表字段'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'foreignKey'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'关联主表字段'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'关联主表字段'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'foreignKey'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formEntries', 
 'COLUMN', N'primaryKey')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'primaryKey'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'primaryKey'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formEntries', 
 'COLUMN', N'bosType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'唯一标识单据类别(参考EAS设计)设置成与主表bosType一致'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'唯一标识单据类别(参考EAS设计)设置成与主表bosType一致'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'bosType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'唯一标识单据类别(参考EAS设计)设置成与主表bosType一致'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'唯一标识单据类别(参考EAS设计)设置成与主表bosType一致'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'bosType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formEntries', 
 'COLUMN', N'joinType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'与主表的连接关系(默认 INNER JOIN)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'与主表的连接关系(默认 INNER JOIN)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'joinType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'与主表的连接关系(默认 INNER JOIN)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'与主表的连接关系(默认 INNER JOIN)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formEntries'
 , @level2type = 'COLUMN', @level2name = N'joinType'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_formFields
@@ -1435,632 +1017,446 @@ GO
 if object_id(N't_sms_formFields',N'U') is not null
 DROP TABLE [t_sms_formFields]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_formFields] (
-[classId] INT NOT NULL ,
-[page] INT NOT NULL DEFAULT ((0)) ,
-[name] VARCHAR(50) NOT NULL ,
-[sqlColumnName] VARCHAR(30) NULL ,
-[key] VARCHAR(30) NOT NULL DEFAULT '' ,
-[dataType] INT NULL DEFAULT NULL ,
-[ctrlType] INT NULL DEFAULT NULL ,
-[ctlIndex] INT NULL DEFAULT NULL ,
-[index] INT NULL DEFAULT ((0)) ,
-[display] INT NULL DEFAULT ((1)) ,
-[showWidth] INT NULL DEFAULT ((80)) ,
-[lookUpType] INT NULL DEFAULT ((0)) ,
-[lookUpClassID] INT NULL DEFAULT ((0)) ,
-[srcTable] VARCHAR(50) NULL DEFAULT '' ,
-[srcTableAlisAs] VARCHAR(30) NULL DEFAULT NULL ,
-[srcField] VARCHAR(30) NULL DEFAULT '' ,
-[disPlayField] VARCHAR(30) NULL DEFAULT NULL ,
-[disPlayNum] VARCHAR(30) NULL DEFAULT NULL ,
-[joinType] VARCHAR(20) NULL DEFAULT '' ,
-[filter] VARCHAR(500) NULL DEFAULT '' ,
-[defaultValue] VARCHAR(255) NULL DEFAULT NULL ,
-[maxValue] NUMERIC(10,2) NULL ,
-[minValue] NUMERIC(10,2) NULL ,
-[mustInput] INT NULL DEFAULT ((0)) ,
-[length] INT NULL DEFAULT NULL ,
-[lock] INT NULL DEFAULT ((0)) ,
-[isCondition] INT NULL DEFAULT ((0)) ,
-[isCount] INT NULL DEFAULT ((0)) ,
-[needSave] INT NULL DEFAULT ((1)) 
+[classId] int NOT NULL ,
+[page] int NOT NULL DEFAULT ((0)) ,
+[name] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[sqlColumnName] varchar(30) COLLATE Chinese_PRC_CS_AS NULL ,
+[key] varchar(30) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' ,
+[dataType] int NULL DEFAULT NULL ,
+[ctrlType] int NULL DEFAULT NULL ,
+[ctlIndex] int NULL DEFAULT NULL ,
+[index] int NULL DEFAULT ((0)) ,
+[display] int NULL DEFAULT ((1)) ,
+[showWidth] int NULL DEFAULT ((80)) ,
+[lookUpType] int NULL DEFAULT ((0)) ,
+[lookUpClassID] int NULL DEFAULT ((0)) ,
+[srcTable] varchar(50) COLLATE Chinese_PRC_CS_AS NULL DEFAULT '' ,
+[srcTableAlisAs] varchar(30) COLLATE Chinese_PRC_CS_AS NULL DEFAULT NULL ,
+[srcField] varchar(30) COLLATE Chinese_PRC_CS_AS NULL DEFAULT '' ,
+[disPlayField] varchar(30) COLLATE Chinese_PRC_CS_AS NULL DEFAULT NULL ,
+[disPlayNum] varchar(30) COLLATE Chinese_PRC_CS_AS NULL DEFAULT NULL ,
+[joinType] varchar(20) COLLATE Chinese_PRC_CS_AS NULL DEFAULT '' ,
+[filter] varchar(500) COLLATE Chinese_PRC_CS_AS NULL DEFAULT '' ,
+[defaultValue] varchar(255) COLLATE Chinese_PRC_CS_AS NULL DEFAULT NULL ,
+[maxValue] numeric(10,2) NULL ,
+[minValue] numeric(10,2) NULL ,
+[mustInput] int NULL DEFAULT ((0)) ,
+[length] int NULL DEFAULT NULL ,
+[lock] int NULL DEFAULT ((0)) ,
+[isCondition] int NULL DEFAULT ((0)) ,
+[isCount] int NULL DEFAULT ((0)) ,
+[needSave] int NULL DEFAULT ((1))
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'classId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'业务类别'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'业务类别'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'classId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'业务类别'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'业务类别'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'classId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'page')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'标示模板字段所在的页面（0是表头，1是第一个子表，2是第二个子表，以此类推...）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'标示模板字段所在的页面（0是表头，1是第一个子表，2是第二个子表，以此类推...）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'page'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'标示模板字段所在的页面（0是表头，1是第一个子表，2是第二个子表，以此类推...）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'标示模板字段所在的页面（0是表头，1是第一个子表，2是第二个子表，以此类推...）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'page'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段名(显示的字段名)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段名(显示的字段名)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段名(显示的字段名)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段名(显示的字段名)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'sqlColumnName')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物理表中的字段名'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物理表中的字段名'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'sqlColumnName'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物理表中的字段名'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物理表中的字段名'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'sqlColumnName'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'key')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段唯一标示(用于关联表显示字段名与本表字段名同名的情况，在一个formClass中FKey是唯一的)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段唯一标示(用于关联表显示字段名与本表字段名同名的情况，在一个formClass中FKey是唯一的)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'key'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段唯一标示(用于关联表显示字段名与本表字段名同名的情况，在一个formClass中FKey是唯一的)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段唯一标示(用于关联表显示字段名与本表字段名同名的情况，在一个formClass中FKey是唯一的)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'key'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'dataType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段类型(数字，文本等)1:数字2:文本3:日期4:布尔'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段类型(数字，文本等)1:数字2:文本3:日期4:布尔'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'dataType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段类型(数字，文本等)1:数字2:文本3:日期4:布尔'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段类型(数字，文本等)1:数字2:文本3:日期4:布尔'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'dataType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'ctrlType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'控件类型，指示前端展示时的特殊类型，比如多选框，基础资料选择框等,3:多选按钮6:基础资料选择框'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'控件类型，指示前端展示时的特殊类型，比如多选框，基础资料选择框等,3:多选按钮6:基础资料选择框'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'ctrlType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'控件类型，指示前端展示时的特殊类型，比如多选框，基础资料选择框等,3:多选按钮6:基础资料选择框'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'控件类型，指示前端展示时的特殊类型，比如多选框，基础资料选择框等,3:多选按钮6:基础资料选择框'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'ctrlType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'ctlIndex')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段的后台查询顺序，FIndex是用于前端界面展示时的tab顺序\r\nFCtlIndex用于后端查询构建查询脚本时模板的遍历顺序，处理因为可能涉及关联其他表查询，连接表时的顺序不可随意改变时产生的错误'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段的后台查询顺序，FIndex是用于前端界面展示时的tab顺序\r\nFCtlIndex用于后端查询构建查询脚本时模板的遍历顺序，处理因为可能涉及关联其他表查询，连接表时的顺序不可随意改变时产生的错误'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'ctlIndex'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段的后台查询顺序，FIndex是用于前端界面展示时的tab顺序\r\nFCtlIndex用于后端查询构建查询脚本时模板的遍历顺序，处理因为可能涉及关联其他表查询，连接表时的顺序不可随意改变时产生的错误'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段的后台查询顺序，FIndex是用于前端界面展示时的tab顺序\r\nFCtlIndex用于后端查询构建查询脚本时模板的遍历顺序，处理因为可能涉及关联其他表查询，连接表时的顺序不可随意改变时产生的错误'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'ctlIndex'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'index')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段的显示顺序'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段的显示顺序'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'index'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段的显示顺序'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段的显示顺序'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'index'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'display')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段显示性:用于根据用户类别控制字段取值。\r\n采用二进制方式配置\r\n如3表示平台用户物业用户都显示\r\n参考t_SubSysEnum,typeID=3'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段显示性:用于根据用户类别控制字段取值。\r\n采用二进制方式配置\r\n如3表示平台用户物业用户都显示\r\n参考t_SubSysEnum,typeID=3'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'display'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段显示性:用于根据用户类别控制字段取值。\r\n采用二进制方式配置\r\n如3表示平台用户物业用户都显示\r\n参考t_SubSysEnum,typeID=3'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段显示性:用于根据用户类别控制字段取值。\r\n采用二进制方式配置\r\n如3表示平台用户物业用户都显示\r\n参考t_SubSysEnum,typeID=3'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'display'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'showWidth')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段在前端页面显示的宽度(单位px)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段在前端页面显示的宽度(单位px)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'showWidth'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段在前端页面显示的宽度(单位px)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段在前端页面显示的宽度(单位px)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'showWidth'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'lookUpType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'标示是否是引用基础资料'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'标示是否是引用基础资料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'lookUpType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'标示是否是引用基础资料'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'标示是否是引用基础资料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'lookUpType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'lookUpClassID')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'引用基础资料的类别ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'引用基础资料的类别ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'lookUpClassID'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'引用基础资料的类别ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'引用基础资料的类别ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'lookUpClassID'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'srcTable')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'引用的表名(表示此字段是要关联表查询)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'引用的表名(表示此字段是要关联表查询)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'srcTable'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'引用的表名(表示此字段是要关联表查询)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'引用的表名(表示此字段是要关联表查询)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'srcTable'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'srcTableAlisAs')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'关联表别名(用于关联多次同一张表时)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'关联表别名(用于关联多次同一张表时)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'srcTableAlisAs'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'关联表别名(用于关联多次同一张表时)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'关联表别名(用于关联多次同一张表时)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'srcTableAlisAs'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'srcField')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'关联表的字段名,当FSrcTable有值时，此字段为必填'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'关联表的字段名,当FSrcTable有值时，此字段为必填'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'srcField'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'关联表的字段名,当FSrcTable有值时，此字段为必填'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'关联表的字段名,当FSrcTable有值时，此字段为必填'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'srcField'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'disPlayField')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'关联表显示的字段名,当FSrcTable有值时，此字段为必填,即显示FSrcTable表的FDisPlayField字段'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'关联表显示的字段名,当FSrcTable有值时，此字段为必填,即显示FSrcTable表的FDisPlayField字段'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'disPlayField'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'关联表显示的字段名,当FSrcTable有值时，此字段为必填,即显示FSrcTable表的FDisPlayField字段'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'关联表显示的字段名,当FSrcTable有值时，此字段为必填,即显示FSrcTable表的FDisPlayField字段'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'disPlayField'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'disPlayNum')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'关联表显示的代码字段,当FSrcTable有值时，此字段为必填,，一般显示关联标的FNumber'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'关联表显示的代码字段,当FSrcTable有值时，此字段为必填,，一般显示关联标的FNumber'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'disPlayNum'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'关联表显示的代码字段,当FSrcTable有值时，此字段为必填,，一般显示关联标的FNumber'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'关联表显示的代码字段,当FSrcTable有值时，此字段为必填,，一般显示关联标的FNumber'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'disPlayNum'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'joinType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'表链接类型(默认 INNER JOIN)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'表链接类型(默认 INNER JOIN)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'joinType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'表链接类型(默认 INNER JOIN)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'表链接类型(默认 INNER JOIN)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'joinType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'filter')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'过滤条件'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'过滤条件'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'filter'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'过滤条件'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'过滤条件'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'filter'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'defaultValue')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'默认值(控件初始化时候的默认值)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'默认值(控件初始化时候的默认值)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'defaultValue'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'默认值(控件初始化时候的默认值)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'默认值(控件初始化时候的默认值)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'defaultValue'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'maxValue')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'最大值(数值类型字段使用)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'最大值(数值类型字段使用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'maxValue'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'最大值(数值类型字段使用)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'最大值(数值类型字段使用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'maxValue'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'minValue')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'最小值(数值类型字段使用)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'最小值(数值类型字段使用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'minValue'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'最小值(数值类型字段使用)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'最小值(数值类型字段使用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'minValue'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'mustInput')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否必录： 采用二进制方式配置, 参考t_SubSysEnum,typeID=4'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否必录： 采用二进制方式配置, 参考t_SubSysEnum,typeID=4'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'mustInput'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否必录： 采用二进制方式配置, 参考t_SubSysEnum,typeID=4'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否必录： 采用二进制方式配置, 参考t_SubSysEnum,typeID=4'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'mustInput'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'length')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段长度'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段长度'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'length'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段长度'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段长度'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'length'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'lock')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'字段锁定性:表示字段页面展现的控制可编辑形式。\r\n采用二进制方式配置\r\n如3表示新增修改时都锁定\r\n参考t_SubSysEnum,typeID=2'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'字段锁定性:表示字段页面展现的控制可编辑形式。\r\n采用二进制方式配置\r\n如3表示新增修改时都锁定\r\n参考t_SubSysEnum,typeID=2'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'lock'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'字段锁定性:表示字段页面展现的控制可编辑形式。\r\n采用二进制方式配置\r\n如3表示新增修改时都锁定\r\n参考t_SubSysEnum,typeID=2'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'字段锁定性:表示字段页面展现的控制可编辑形式。\r\n采用二进制方式配置\r\n如3表示新增修改时都锁定\r\n参考t_SubSysEnum,typeID=2'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'lock'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'isCondition')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否可作为过滤条件，0：否，1：是'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否可作为过滤条件，0：否，1：是'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'isCondition'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否可作为过滤条件，0：否，1：是'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否可作为过滤条件，0：否，1：是'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'isCondition'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'isCount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否统计项，0：否，1：是'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否统计项，0：否，1：是'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'isCount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否统计项，0：否，1：是'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否统计项，0：否，1：是'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'isCount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_formFields', 
 'COLUMN', N'needSave')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否需要保存到数据库(即物理表是否有字段与之对应)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否需要保存到数据库(即物理表是否有字段与之对应)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'needSave'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否需要保存到数据库(即物理表是否有字段与之对应)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否需要保存到数据库(即物理表是否有字段与之对应)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_formFields'
 , @level2type = 'COLUMN', @level2name = N'needSave'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_industry
@@ -2068,84 +1464,54 @@ GO
 if object_id(N't_sms_industry',N'U') is not null
 DROP TABLE [t_sms_industry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_industry] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) NOT NULL ,
+[name] varchar(255) NULL ,
+[number] varchar(255) NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_industry', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'行业'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'行业'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_industry'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'行业'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'行业'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_industry'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_industry', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'行业ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'行业ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_industry'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'行业ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'行业ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_industry'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_industry', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'行业名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'行业名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_industry'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'行业名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'行业名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_industry'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_item
@@ -2153,147 +1519,99 @@ GO
 if object_id(N't_sms_item',N'U') is not null
 DROP TABLE [t_sms_item]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_item] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL ,
-[specification] VARCHAR(255) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[specification] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [highConsumable] tinyint NULL ,
 [isLotNumber] tinyint NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item', 
 'COLUMN', N'specification')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'规格型号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'规格型号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'specification'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'规格型号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'规格型号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'specification'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item', 
 'COLUMN', N'highConsumable')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否高值'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否高值'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'highConsumable'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否高值'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否高值'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'highConsumable'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item', 
 'COLUMN', N'isLotNumber')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否批次'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否批次'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'isLotNumber'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否批次'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否批次'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item'
 , @level2type = 'COLUMN', @level2name = N'isLotNumber'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_item_license_type
@@ -2301,188 +1619,128 @@ GO
 if object_id(N't_sms_item_license_type',N'U') is not null
 DROP TABLE [t_sms_item_license_type]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_item_license_type] (
-[id] VARCHAR(50) NOT NULL ,
-[number] VARCHAR(50) NULL ,
-[name] VARCHAR(50) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[name] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
 [syncStatus] tinyint NULL DEFAULT ((0)) ,
 [isMust] tinyint NULL ,
 [isControl] tinyint NULL ,
-[review] tinyint NULL DEFAULT ((0)) 
+[review] tinyint NULL DEFAULT ((0))
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item_license_type', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料证件类型'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料证件类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料证件类型'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料证件类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item_license_type', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item_license_type', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'代码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'代码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item_license_type', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item_license_type', 
 'COLUMN', N'syncStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（1.未编辑，2.新增，3.已编辑）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'同步状态（1.未编辑，2.新增，3.已编辑）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（1.未编辑，2.新增，3.已编辑）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'同步状态（1.未编辑，2.新增，3.已编辑）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item_license_type', 
 'COLUMN', N'isMust')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否必须'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否必须'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'isMust'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否必须'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否必须'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'isMust'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item_license_type', 
 'COLUMN', N'isControl')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否控制'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否控制'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'isControl'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否控制'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否控制'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'isControl'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_item_license_type', 
 'COLUMN', N'review')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'review'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_item_license_type'
 , @level2type = 'COLUMN', @level2name = N'review'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_log
@@ -2490,199 +1748,133 @@ GO
 if object_id(N't_sms_log',N'U') is not null
 DROP TABLE [t_sms_log]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_log] (
-[userName] VARCHAR(50) NULL ,
-[ip] VARCHAR(20) NULL ,
-[message] VARCHAR(255) NULL ,
+[userName] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[ip] varchar(20) COLLATE Chinese_PRC_CS_AS NULL ,
+[message] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [operateTime] datetime NULL ,
-[clazz] VARCHAR(500) NULL ,
-[method] VARCHAR(50) NULL ,
-[id] INT NOT NULL IDENTITY(1,1) ,
-[params] VARCHAR(1000) NULL 
+[clazz] varchar(500) COLLATE Chinese_PRC_CS_AS NULL ,
+[method] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[id] int NOT NULL IDENTITY(1,1) ,
+[params] varchar(1000) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-DBCC CHECKIDENT(N'[t_sms_log]', RESEED, 5365)
+DBCC CHECKIDENT(N'[t_sms_log]', RESEED, 9986)
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_log', 
 'COLUMN', N'userName')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'操作用户名'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'操作用户名'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'userName'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'操作用户名'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'操作用户名'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'userName'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_log', 
 'COLUMN', N'ip')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'操作用户ip'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'操作用户ip'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'ip'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'操作用户ip'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'操作用户ip'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'ip'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_log', 
 'COLUMN', N'message')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'描述'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'描述'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'message'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'描述'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'描述'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'message'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_log', 
 'COLUMN', N'operateTime')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'操作时间'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'操作时间'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'operateTime'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'操作时间'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'操作时间'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'operateTime'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_log', 
 'COLUMN', N'clazz')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'操作类路径'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'操作类路径'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'clazz'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'操作类路径'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'操作类路径'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'clazz'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_log', 
 'COLUMN', N'method')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'方法名'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'方法名'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'method'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'方法名'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'方法名'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'method'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_log', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_log', 
 'COLUMN', N'params')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'方法参数'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'方法参数'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'params'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'方法参数'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'方法参数'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_log'
 , @level2type = 'COLUMN', @level2name = N'params'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_msglog
@@ -2690,28 +1882,16 @@ GO
 if object_id(N't_sms_msglog',N'U') is not null
 DROP TABLE [t_sms_msglog]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_msglog] (
-[seqid] VARCHAR(50) NOT NULL ,
-[mobiles] VARCHAR(1000) NULL ,
-[smsContent] VARCHAR(1000) NULL ,
-[restr] VARCHAR(100) NULL ,
-[sendtime] datetime NULL 
+[seqid] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[mobiles] varchar(1000) COLLATE Chinese_PRC_CS_AS NULL ,
+[smsContent] varchar(1000) COLLATE Chinese_PRC_CS_AS NULL ,
+[restr] varchar(100) COLLATE Chinese_PRC_CS_AS NULL ,
+[sendtime] datetime NULL
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_objectAccessType
@@ -2719,191 +1899,131 @@ GO
 if object_id(N't_sms_objectAccessType',N'U') is not null
 DROP TABLE [t_sms_objectAccessType]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_objectAccessType] (
-[objectType] INT NOT NULL ,
-[objectId] INT NOT NULL ,
-[index] INT NOT NULL ,
-[name] VARCHAR(50) NULL ,
-[accessMask] INT NULL ,
-[accessUse] INT NULL ,
-[ownerType] INT NULL ,
-[description] VARCHAR(100) NULL 
+[objectType] int NOT NULL ,
+[objectId] int NOT NULL ,
+[index] int NOT NULL ,
+[name] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[accessMask] int NULL ,
+[accessUse] int NULL ,
+[ownerType] int NULL ,
+[description] varchar(100) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectAccessType', 
 'COLUMN', N'objectType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限类别(用于区分模块)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限类别(用于区分模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'objectType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限类别(用于区分模块)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限类别(用于区分模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'objectType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectAccessType', 
 'COLUMN', N'objectId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限ID(用于区分子模块)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限ID(用于区分子模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'objectId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限ID(用于区分子模块)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限ID(用于区分子模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'objectId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectAccessType', 
 'COLUMN', N'index')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'显示顺序'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'显示顺序'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'index'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'显示顺序'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'显示顺序'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'index'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectAccessType', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectAccessType', 
 'COLUMN', N'accessMask')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限掩码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限掩码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'accessMask'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限掩码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限掩码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'accessMask'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectAccessType', 
 'COLUMN', N'accessUse')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'关联权限项'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'关联权限项'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'accessUse'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'关联权限项'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'关联权限项'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'accessUse'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectAccessType', 
 'COLUMN', N'ownerType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限用户者类别，使用该权限的用户(1平台用户，2供应商用户，3两者都可用)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限用户者类别，使用该权限的用户(1平台用户，2供应商用户，3两者都可用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'ownerType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限用户者类别，使用该权限的用户(1平台用户，2供应商用户，3两者都可用)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限用户者类别，使用该权限的用户(1平台用户，2供应商用户，3两者都可用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'ownerType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectAccessType', 
 'COLUMN', N'description')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'描述'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'描述'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'description'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'描述'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'描述'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectAccessType'
 , @level2type = 'COLUMN', @level2name = N'description'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_objectType
@@ -2911,110 +2031,74 @@ GO
 if object_id(N't_sms_objectType',N'U') is not null
 DROP TABLE [t_sms_objectType]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_objectType] (
-[topClassId] INT NULL ,
-[subSysId] INT NULL ,
-[objectType] INT NULL ,
-[objectId] INT NULL ,
-[name] VARCHAR(50) NULL ,
-[description] VARCHAR(100) NULL ,
-[classId] INT NULL 
+[topClassId] int NOT NULL ,
+[subSysId] int NOT NULL ,
+[objectType] int NOT NULL ,
+[objectId] int NOT NULL ,
+[name] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[description] varchar(100) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[classId] int NULL ,
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectType', 
 'COLUMN', N'objectType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限类别(用于区分模块)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限类别(用于区分模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectType'
 , @level2type = 'COLUMN', @level2name = N'objectType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限类别(用于区分模块)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限类别(用于区分模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectType'
 , @level2type = 'COLUMN', @level2name = N'objectType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectType', 
 'COLUMN', N'objectId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限ID(用于区分子模块)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限ID(用于区分子模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectType'
 , @level2type = 'COLUMN', @level2name = N'objectId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限ID(用于区分子模块)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限ID(用于区分子模块)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectType'
 , @level2type = 'COLUMN', @level2name = N'objectId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectType', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'权限名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'权限名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectType'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'权限名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'权限名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectType'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_objectType', 
 'COLUMN', N'description')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'描述'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'描述'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectType'
 , @level2type = 'COLUMN', @level2name = N'description'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'描述'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'描述'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_objectType'
 , @level2type = 'COLUMN', @level2name = N'description'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_pay
@@ -3022,84 +2106,54 @@ GO
 if object_id(N't_sms_pay',N'U') is not null
 DROP TABLE [t_sms_pay]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_pay] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_pay', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'付款方式'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'付款方式'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_pay'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'付款方式'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'付款方式'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_pay'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_pay', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'付款方式ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'付款方式ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_pay'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'付款方式ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'付款方式ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_pay'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_pay', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'付款方式名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'付款方式名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_pay'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'付款方式名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'付款方式名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_pay'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_paymentType
@@ -3107,25 +2161,13 @@ GO
 if object_id(N't_sms_paymentType',N'U') is not null
 DROP TABLE [t_sms_paymentType]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_paymentType] (
-[id] VARCHAR(255) NOT NULL ,
-[name] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_plugins
@@ -3133,28 +2175,16 @@ GO
 if object_id(N't_sms_plugins',N'U') is not null
 DROP TABLE [t_sms_plugins]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_plugins] (
-[id] INT NOT NULL ,
-[classId] INT NOT NULL ,
-[plugName] VARCHAR(255) NOT NULL ,
-[index] INT NOT NULL DEFAULT ((0)) ,
-[desc] VARCHAR(255) NOT NULL DEFAULT '' 
+[id] int NOT NULL ,
+[classId] int NOT NULL ,
+[plugName] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[index] int NOT NULL DEFAULT ((0)) ,
+[desc] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT ''
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_province
@@ -3162,26 +2192,14 @@ GO
 if object_id(N't_sms_province',N'U') is not null
 DROP TABLE [t_sms_province]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_province] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_purchase_order
@@ -3189,26 +2207,20 @@ GO
 if object_id(N't_sms_purchase_order',N'U') is not null
 DROP TABLE [t_sms_purchase_order]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_purchase_order] (
-[id] VARCHAR(50) NOT NULL ,
-[supplier] VARCHAR(255) NULL ,
-[bizDate] DATE NULL ,
-[purchasePerson] VARCHAR(255) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[supplier] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[bizDate] date NULL ,
+[purchasePerson] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [saleProxy] tinyint NULL ,
 [isInTax] tinyint NULL ,
 [tickDate] datetime NULL ,
 [confirmTickDate] datetime NULL ,
 [tickType] tinyint NULL ,
 [confirmTick] tinyint NULL ,
-[number] VARCHAR(255) NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [isQuicken] tinyint NULL ,
-[currency] VARCHAR(255) NULL ,
+[currency] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [totalAmount] money NULL ,
 [totalTax] money NULL ,
 [totalTaxAmount] money NULL ,
@@ -3218,372 +2230,258 @@ CREATE TABLE [t_sms_purchase_order] (
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'订单ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'订单ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'订单ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'订单ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'bizDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'订单日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'订单日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'bizDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'订单日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'订单日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'bizDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'purchasePerson')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购员'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购员'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'purchasePerson'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购员'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购员'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'purchasePerson'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'saleProxy')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购模式'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购模式'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'saleProxy'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购模式'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购模式'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'saleProxy'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'isInTax')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否含税'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否含税'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'isInTax'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否含税'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否含税'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'isInTax'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'tickDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'HRP确认接单时间'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'HRP确认接单时间'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'tickDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'HRP确认接单时间'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'HRP确认接单时间'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'tickDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'confirmTickDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商接单时间'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商接单时间'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'confirmTickDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商接单时间'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商接单时间'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'confirmTickDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'tickType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'HRP确认是否接单'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'HRP确认是否接单'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'tickType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'HRP确认是否接单'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'HRP确认是否接单'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'tickType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'confirmTick')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商是否接单'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商是否接单'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'confirmTick'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商是否接单'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商是否接单'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'confirmTick'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单据编号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单据编号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单据编号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单据编号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'isQuicken')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否加急'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否加急'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'isQuicken'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否加急'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否加急'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'isQuicken'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'currency')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'币别'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'币别'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'currency'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'币别'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'币别'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'currency'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'totalAmount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'totalAmount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'totalAmount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'totalTax')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'totalTax'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'totalTax'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'totalTaxAmount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'价税合计'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'价税合计'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'totalTaxAmount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'价税合计'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'价税合计'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'totalTaxAmount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'createTime')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'制单日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'制单日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'createTime'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'制单日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'制单日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'createTime'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order', 
 'COLUMN', N'baseStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'baseStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order'
 , @level2type = 'COLUMN', @level2name = N'baseStatus'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_purchase_order_entry
@@ -3591,402 +2489,282 @@ GO
 if object_id(N't_sms_purchase_order_entry',N'U') is not null
 DROP TABLE [t_sms_purchase_order_entry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_purchase_order_entry] (
-[material] VARCHAR(255) NULL ,
-[parent] VARCHAR(255) NULL ,
+[material] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[parent] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [price] money NULL ,
-[qty] NUMERIC(10,2) NULL ,
+[qty] numeric(10,2) NULL ,
 [deliveryDate] datetime NULL ,
-[discountRate] FLOAT(53) NULL ,
-[taxRate] FLOAT(53) NULL ,
+[discountRate] float(53) NULL ,
+[taxRate] float(53) NULL ,
 [taxPrice] money NULL ,
 [actualTaxPrice] money NULL ,
 [discountAmount] money NULL ,
 [tax] money NULL ,
 [localAmount] money NULL ,
-[seq] INT NULL ,
+[seq] int NULL ,
 [confirmDate] datetime NULL ,
-[confirmQty] NUMERIC(10,2) NULL ,
-[unit] VARCHAR(255) NULL ,
-[id] VARCHAR(255) NOT NULL ,
+[confirmQty] numeric(10,2) NULL ,
+[unit] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
 [amount] money NULL ,
-[invoiceQty] NUMERIC(10,2) NULL 
+[invoiceQty] numeric(10,2) NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'material')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'parent')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'订单ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'订单ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'订单ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'订单ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'price')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单价'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'price'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单价'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'price'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'qty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'qty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'qty'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'deliveryDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'交货日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'交货日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'deliveryDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'交货日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'交货日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'deliveryDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'discountRate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'折扣率'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'折扣率'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'discountRate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'折扣率'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'折扣率'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'discountRate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'taxRate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税率'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税率'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'taxRate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税率'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税率'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'taxRate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'taxPrice')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'含税单价'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'含税单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'taxPrice'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'含税单价'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'含税单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'taxPrice'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'actualTaxPrice')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'实际含税单价'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'实际含税单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'actualTaxPrice'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'实际含税单价'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'实际含税单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'actualTaxPrice'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'discountAmount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'折扣额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'折扣额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'discountAmount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'折扣额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'折扣额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'discountAmount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'tax')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'tax'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'tax'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'localAmount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'本位币金额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'本位币金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'localAmount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'本位币金额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'本位币金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'localAmount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'seq')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'行号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'seq'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'行号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'seq'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'confirmDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'确认时间'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'确认时间'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'confirmDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'确认时间'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'确认时间'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'confirmDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'confirmQty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'确认数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'确认数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'confirmQty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'确认数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'确认数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'confirmQty'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'unit')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'基本计量单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'基本计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'基本计量单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'基本计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'amount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'amount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'amount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purchase_order_entry', 
 'COLUMN', N'invoiceQty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'发货数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'发货数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'invoiceQty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'发货数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'发货数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purchase_order_entry'
 , @level2type = 'COLUMN', @level2name = N'invoiceQty'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_purinwarehs
@@ -3994,149 +2772,101 @@ GO
 if object_id(N't_sms_purinwarehs',N'U') is not null
 DROP TABLE [t_sms_purinwarehs]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_purinwarehs] (
-[id] VARCHAR(255) NOT NULL ,
-[number] VARCHAR(255) NULL ,
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [bizDate] datetime NULL ,
 [baseStatus] tinyint NULL ,
-[sourceBillType] VARCHAR(255) NULL ,
-[supplier] VARCHAR(255) NULL 
+[sourceBillType] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[supplier] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'入库单内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'入库单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'入库单内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'入库单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'入库单号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'入库单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'入库单号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'入库单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs', 
 'COLUMN', N'bizDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'入库日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'入库日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'bizDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'入库日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'入库日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'bizDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs', 
 'COLUMN', N'baseStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'baseStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'baseStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs', 
 'COLUMN', N'sourceBillType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'源单据类型'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'源单据类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'sourceBillType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'源单据类型'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'源单据类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'sourceBillType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_purinwarehs_entry
@@ -4144,359 +2874,251 @@ GO
 if object_id(N't_sms_purinwarehs_entry',N'U') is not null
 DROP TABLE [t_sms_purinwarehs_entry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_purinwarehs_entry] (
-[id] VARCHAR(255) NOT NULL ,
-[parent] VARCHAR(255) NULL ,
-[seq] INT NULL ,
-[orderId] VARCHAR(255) NULL ,
-[orderSeq] VARCHAR(255) NULL ,
-[material] VARCHAR(255) NULL ,
-[lot] VARCHAR(255) NULL ,
-[innercode] VARCHAR(255) NULL ,
-[unit] VARCHAR(255) NULL ,
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[parent] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[seq] int NULL ,
+[orderId] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[orderSeq] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[material] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[lot] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[innercode] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[unit] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [price] money NULL ,
-[actualQty] NUMERIC(18) NULL ,
+[actualQty] numeric(18) NULL ,
 [dyProDate] datetime NULL ,
-[dyManufacturer] VARCHAR(255) NULL ,
-[registrationNo] VARCHAR(255) NULL ,
+[dyManufacturer] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[registrationNo] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [amount] money NULL ,
 [effectiveDate] datetime NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'入库单子表内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'入库单子表内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'入库单子表内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'入库单子表内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'parent')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'入库单内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'入库单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'入库单内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'入库单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'seq')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'行号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'seq'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'行号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'seq'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'orderId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购订单号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购订单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'orderId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购订单号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购订单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'orderId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'orderSeq')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购订单行号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购订单行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'orderSeq'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购订单行号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购订单行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'orderSeq'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'material')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'lot')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'批次'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'批次'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'lot'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'批次'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'批次'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'lot'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'innercode')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'个体码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'个体码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'innercode'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'个体码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'个体码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'innercode'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'unit')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'计量单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'计量单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'price')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单价'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'price'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单价'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'price'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'actualQty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'实收数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'实收数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'actualQty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'实收数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'实收数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'actualQty'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'dyProDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'生产日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'生产日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'dyProDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'生产日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'生产日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'dyProDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'dyManufacturer')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'生产厂家'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'生产厂家'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'dyManufacturer'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'生产厂家'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'生产厂家'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'dyManufacturer'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'registrationNo')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'产品注册号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'产品注册号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'registrationNo'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'产品注册号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'产品注册号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'registrationNo'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'amount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'amount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'amount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purinwarehs_entry', 
 'COLUMN', N'effectiveDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'有效期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'有效期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'effectiveDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'有效期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'有效期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purinwarehs_entry'
 , @level2type = 'COLUMN', @level2name = N'effectiveDate'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_purreceival
@@ -4504,149 +3126,101 @@ GO
 if object_id(N't_sms_purreceival',N'U') is not null
 DROP TABLE [t_sms_purreceival]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_purreceival] (
-[id] VARCHAR(255) NOT NULL ,
-[number] VARCHAR(255) NULL ,
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [bizDate] datetime NULL ,
 [baseStatus] tinyint NULL ,
-[sourceBillType] VARCHAR(255) NULL ,
-[supplier] VARCHAR(255) NULL 
+[sourceBillType] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[supplier] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'收货单内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'收货单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'收货单内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'收货单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'收货单号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'收货单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'收货单号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'收货单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival', 
 'COLUMN', N'bizDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'收货日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'收货日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'bizDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'收货日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'收货日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'bizDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival', 
 'COLUMN', N'baseStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'baseStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'baseStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival', 
 'COLUMN', N'sourceBillType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'源单据类型'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'源单据类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'sourceBillType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'源单据类型'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'源单据类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'sourceBillType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_purreceival_entry
@@ -4654,422 +3228,296 @@ GO
 if object_id(N't_sms_purreceival_entry',N'U') is not null
 DROP TABLE [t_sms_purreceival_entry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_purreceival_entry] (
-[id] VARCHAR(255) NOT NULL ,
-[parent] VARCHAR(255) NULL ,
-[seq] INT NULL ,
-[orderId] VARCHAR(255) NULL ,
-[orderSeq] VARCHAR(255) NULL ,
-[material] VARCHAR(255) NULL ,
-[lot] VARCHAR(255) NULL ,
-[innercode] VARCHAR(255) NULL ,
-[unit] VARCHAR(255) NULL ,
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[parent] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[seq] int NULL ,
+[orderId] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[orderSeq] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[material] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[lot] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[innercode] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[unit] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [price] money NULL ,
-[qty] NUMERIC(18) NULL ,
-[actualQty] NUMERIC(18) NULL ,
+[qty] numeric(18) NULL ,
+[actualQty] numeric(18) NULL ,
 [dyProDate] datetime NULL ,
-[dyManufacturer] VARCHAR(255) NULL ,
-[registrationNo] VARCHAR(255) NULL ,
+[dyManufacturer] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[registrationNo] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [amount] money NULL ,
 [effectiveDate] datetime NULL ,
-[qualifiedQty] NUMERIC(18) NULL ,
-[unqualifiedQty] NUMERIC(18) NULL 
+[qualifiedQty] numeric(18) NULL ,
+[unqualifiedQty] numeric(18) NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'收货单子表内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'收货单子表内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'收货单子表内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'收货单子表内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'parent')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'收货单内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'收货单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'收货单内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'收货单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'seq')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'行号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'seq'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'行号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'seq'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'orderId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购订单内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购订单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'orderId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购订单内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购订单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'orderId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'orderSeq')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购订单行号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购订单行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'orderSeq'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购订单行号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购订单行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'orderSeq'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'material')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'lot')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'批次'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'批次'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'lot'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'批次'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'批次'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'lot'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'innercode')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'个体码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'个体码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'innercode'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'个体码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'个体码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'innercode'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'unit')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'计量单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'计量单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'price')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单价'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'price'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单价'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'price'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'qty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'应收数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'应收数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'qty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'应收数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'应收数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'qty'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'actualQty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'实收数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'实收数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'actualQty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'实收数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'实收数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'actualQty'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'dyProDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'生产日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'生产日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'dyProDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'生产日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'生产日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'dyProDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'dyManufacturer')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'生产厂家'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'生产厂家'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'dyManufacturer'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'生产厂家'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'生产厂家'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'dyManufacturer'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'registrationNo')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'产品注册号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'产品注册号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'registrationNo'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'产品注册号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'产品注册号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'registrationNo'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'amount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'amount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'amount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'effectiveDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'有效期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'有效期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'effectiveDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'有效期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'有效期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'effectiveDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'qualifiedQty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'合格数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'合格数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'qualifiedQty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'合格数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'合格数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'qualifiedQty'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreceival_entry', 
 'COLUMN', N'unqualifiedQty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'不合格数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'不合格数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'unqualifiedQty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'不合格数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'不合格数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreceival_entry'
 , @level2type = 'COLUMN', @level2name = N'unqualifiedQty'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_purreturns
@@ -5077,129 +3525,87 @@ GO
 if object_id(N't_sms_purreturns',N'U') is not null
 DROP TABLE [t_sms_purreturns]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_purreturns] (
-[id] VARCHAR(255) NOT NULL ,
-[number] VARCHAR(255) NULL ,
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [bizDate] datetime NULL ,
 [baseStatus] tinyint NULL ,
-[sourceBillType] VARCHAR(255) NULL ,
-[supplier] VARCHAR(255) NULL 
+[sourceBillType] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[supplier] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'退货单号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'退货单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'退货单号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'退货单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns', 
 'COLUMN', N'bizDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'退货日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'退货日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'bizDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'退货日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'退货日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'bizDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns', 
 'COLUMN', N'baseStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'baseStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'baseStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns', 
 'COLUMN', N'sourceBillType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'源单据类型'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'源单据类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'sourceBillType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'源单据类型'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'源单据类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'sourceBillType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_purreturns_entry
@@ -5207,170 +3613,116 @@ GO
 if object_id(N't_sms_purreturns_entry',N'U') is not null
 DROP TABLE [t_sms_purreturns_entry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_purreturns_entry] (
-[id] VARCHAR(255) NOT NULL ,
-[parent] VARCHAR(255) NULL ,
-[orderId] VARCHAR(255) NULL ,
-[orderSeq] VARCHAR(255) NULL ,
-[material] VARCHAR(255) NULL ,
-[unit] VARCHAR(255) NULL ,
-[returnQty] NUMERIC(18) NULL 
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[parent] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[orderId] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[orderSeq] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[material] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[unit] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[returnQty] numeric(18) NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns_entry', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'退货单子表内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'退货单子表内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'退货单子表内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'退货单子表内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns_entry', 
 'COLUMN', N'parent')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'退货单内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'退货单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'退货单内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'退货单内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns_entry', 
 'COLUMN', N'orderId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购订单号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购订单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'orderId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购订单号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购订单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'orderId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns_entry', 
 'COLUMN', N'orderSeq')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购订单行号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购订单行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'orderSeq'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购订单行号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购订单行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'orderSeq'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns_entry', 
 'COLUMN', N'material')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns_entry', 
 'COLUMN', N'unit')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'计量单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'计量单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_purreturns_entry', 
 'COLUMN', N'returnQty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'实收数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'实收数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'returnQty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'实收数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'实收数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_purreturns_entry'
 , @level2type = 'COLUMN', @level2name = N'returnQty'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_role
@@ -5378,108 +3730,72 @@ GO
 if object_id(N't_sms_role',N'U') is not null
 DROP TABLE [t_sms_role]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_role] (
-[roleId] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(20) NOT NULL ,
-[number] VARCHAR(20) NOT NULL ,
-[type] VARCHAR(50) NOT NULL ,
+[roleId] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[type] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
 [status] tinyint NOT NULL DEFAULT ((0)) 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_role', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'角色名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'角色名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_role'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'角色名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'角色名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_role'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_role', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'角色代码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'角色代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_role'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'角色代码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'角色代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_role'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_role', 
 'COLUMN', N'type')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'角色类别(1:平台角色2:供应商角色)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'角色类别(1:平台角色2:供应商角色)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_role'
 , @level2type = 'COLUMN', @level2name = N'type'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'角色类别(1:平台角色2:供应商角色)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'角色类别(1:平台角色2:供应商角色)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_role'
 , @level2type = 'COLUMN', @level2name = N'type'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_role', 
 'COLUMN', N'status')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否可用'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否可用'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_role'
 , @level2type = 'COLUMN', @level2name = N'status'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否可用'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否可用'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_role'
 , @level2type = 'COLUMN', @level2name = N'status'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_roleType
@@ -5487,86 +3803,56 @@ GO
 if object_id(N't_sms_roleType',N'U') is not null
 DROP TABLE [t_sms_roleType]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_roleType] (
-[typeId] nvarchar(50) NOT NULL ,
-[number] VARCHAR(20) NOT NULL ,
-[name] VARCHAR(20) NOT NULL 
+[typeId] nvarchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_roleType', 
 'COLUMN', N'typeId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_roleType'
 , @level2type = 'COLUMN', @level2name = N'typeId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_roleType'
 , @level2type = 'COLUMN', @level2name = N'typeId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_roleType', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'代码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_roleType'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'代码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_roleType'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_roleType', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_roleType'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_roleType'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_sale_proxy
@@ -5574,46 +3860,28 @@ GO
 if object_id(N't_sms_sale_proxy',N'U') is not null
 DROP TABLE [t_sms_sale_proxy]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_sale_proxy] (
-[id] INT NOT NULL ,
-[name] VARCHAR(50) NULL ,
-[number] VARCHAR(50) NULL 
+[id] int NOT NULL ,
+[name] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(50) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sale_proxy', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购模式'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购模式'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sale_proxy'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购模式'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购模式'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sale_proxy'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_sendcargo
@@ -5621,171 +3889,117 @@ GO
 if object_id(N't_sms_sendcargo',N'U') is not null
 DROP TABLE [t_sms_sendcargo]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_sendcargo] (
-[id] VARCHAR(50) NOT NULL ,
-[number] VARCHAR(255) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [Date] datetime NULL ,
-[supplier] VARCHAR(255) NULL ,
-[logistics] VARCHAR(255) NULL ,
-[logisticsNo] VARCHAR(255) NULL ,
+[supplier] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[logistics] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[logisticsNo] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [saleProxy] tinyint NULL ,
 [type] tinyint NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'发货单号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'发货单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'发货单号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'发货单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo', 
 'COLUMN', N'Date')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'发货日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'发货日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'Date'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'发货日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'发货日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'Date'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo', 
 'COLUMN', N'logistics')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物流公司'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物流公司'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'logistics'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物流公司'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物流公司'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'logistics'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo', 
 'COLUMN', N'logisticsNo')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物流单号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物流单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'logisticsNo'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物流单号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物流单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'logisticsNo'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo', 
 'COLUMN', N'saleProxy')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'saleProxy'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单据状态'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单据状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'saleProxy'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo', 
 'COLUMN', N'type')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'发货状态'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'发货状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'type'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'发货状态'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'发货状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo'
 , @level2type = 'COLUMN', @level2name = N'type'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_sendcargo_entry
@@ -5793,381 +4007,267 @@ GO
 if object_id(N't_sms_sendcargo_entry',N'U') is not null
 DROP TABLE [t_sms_sendcargo_entry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_sendcargo_entry] (
-[id] VARCHAR(255) NOT NULL ,
-[parent] VARCHAR(255) NULL ,
-[orderId] VARCHAR(255) NULL ,
-[seq] INT NULL ,
-[material] VARCHAR(255) NULL ,
-[lot] VARCHAR(255) NULL ,
-[dyBatchNum] VARCHAR(255) NULL ,
-[code] VARCHAR(255) NULL ,
-[unit] VARCHAR(255) NULL ,
+[id] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[parent] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[orderId] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[seq] int NULL ,
+[material] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[lot] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[dyBatchNum] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[code] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[unit] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [price] money NULL ,
-[qty] NUMERIC(18) NULL ,
-[dyProDate] DATE NULL ,
-[dyManufacturer] VARCHAR(255) NULL ,
-[registrationNo] VARCHAR(255) NULL ,
+[qty] numeric(18) NULL ,
+[dyProDate] date NULL ,
+[dyManufacturer] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[registrationNo] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [amount] money NULL ,
 [effectiveDate] datetime NULL ,
-[orderSeq] VARCHAR(255) NULL ,
-[actualQty] NUMERIC(18) NULL 
+[orderSeq] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[actualQty] numeric(18) NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'parent')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'发货单ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'发货单ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'发货单ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'发货单ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'orderId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'采购订单号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'采购订单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'orderId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'采购订单号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'采购订单号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'orderId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'seq')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'行号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'seq'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'行号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'seq'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'material')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'material'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'lot')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'批次'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'批次'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'lot'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'批次'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'批次'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'lot'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'dyBatchNum')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'批号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'批号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'dyBatchNum'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'批号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'批号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'dyBatchNum'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'code')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'个体码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'个体码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'code'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'个体码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'个体码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'code'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'unit')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'计量单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'计量单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'计量单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'unit'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'price')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单价'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'price'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单价'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单价'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'price'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'qty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'应发数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'应发数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'qty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'应发数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'应发数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'qty'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'dyProDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'生产日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'生产日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'dyProDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'生产日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'生产日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'dyProDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'dyManufacturer')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'生产厂家'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'生产厂家'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'dyManufacturer'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'生产厂家'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'生产厂家'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'dyManufacturer'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'registrationNo')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'产品注册号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'产品注册号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'registrationNo'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'产品注册号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'产品注册号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'registrationNo'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'amount')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'amount'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'金额'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'金额'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'amount'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'effectiveDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'有效期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'有效期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'effectiveDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'有效期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'有效期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'effectiveDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'orderSeq')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'订单行号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'订单行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'orderSeq'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'订单行号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'订单行号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'orderSeq'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sendcargo_entry', 
 'COLUMN', N'actualQty')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'实发数量'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'实发数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'actualQty'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'实发数量'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'实发数量'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sendcargo_entry'
 , @level2type = 'COLUMN', @level2name = N'actualQty'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_settlement
@@ -6175,84 +4275,54 @@ GO
 if object_id(N't_sms_settlement',N'U') is not null
 DROP TABLE [t_sms_settlement]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_settlement] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_settlement', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'结算方式'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'结算方式'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_settlement'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'结算方式'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'结算方式'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_settlement'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_settlement', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'结算方式ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'结算方式ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_settlement'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'结算方式ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'结算方式ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_settlement'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_settlement', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'结算方式名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'结算方式名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_settlement'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'结算方式名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'结算方式名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_settlement'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_sourceBillType
@@ -6260,64 +4330,40 @@ GO
 if object_id(N't_sms_sourceBillType',N'U') is not null
 DROP TABLE [t_sms_sourceBillType]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_sourceBillType] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sourceBillType', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'原单据类型'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'原单据类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sourceBillType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'原单据类型'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'原单据类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sourceBillType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sourceBillType', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'原单据类型ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'原单据类型ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sourceBillType'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'原单据类型ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'原单据类型ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sourceBillType'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_subMessage
@@ -6325,169 +4371,115 @@ GO
 if object_id(N't_sms_subMessage',N'U') is not null
 DROP TABLE [t_sms_subMessage]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_subMessage] (
-[detailId] INT NOT NULL ,
-[typeId] INT NOT NULL ,
-[number] VARCHAR(20) NOT NULL DEFAULT '' ,
-[name] VARCHAR(200) NULL ,
+[detailId] int NOT NULL ,
+[typeId] int NOT NULL ,
+[number] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' ,
+[name] varchar(200) COLLATE Chinese_PRC_CS_AS NULL ,
 [enable] tinyint NOT NULL DEFAULT ((1)) ,
-[index] INT NOT NULL DEFAULT ((0)) 
+[index] int NOT NULL DEFAULT ((0))
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMessage', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性表
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'辅助属性表
 存储系统中枚举变量值，如币别有：人民币，美元，欧元等类似的可以只用代码名称两个属性描述的资料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性表
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'辅助属性表
 存储系统中枚举变量值，如币别有：人民币，美元，欧元等类似的可以只用代码名称两个属性描述的资料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMessage', 
 'COLUMN', N'detailId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'明细属性内码（1--1000保留做系统属性，1001以上用作用户属性）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'明细属性内码（1--1000保留做系统属性，1001以上用作用户属性）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'detailId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'明细属性内码（1--1000保留做系统属性，1001以上用作用户属性）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'明细属性内码（1--1000保留做系统属性，1001以上用作用户属性）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'detailId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMessage', 
 'COLUMN', N'typeId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性类别ID(内码)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'辅助属性类别ID(内码)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'typeId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性类别ID(内码)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'辅助属性类别ID(内码)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'typeId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMessage', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性代码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'辅助属性代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性代码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'辅助属性代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMessage', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性明细名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'辅助属性明细名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性明细名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'辅助属性明细名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMessage', 
 'COLUMN', N'enable')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否有效(0无效1:有效，默认有效)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否有效(0无效1:有效，默认有效)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'enable'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否有效(0无效1:有效，默认有效)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否有效(0无效1:有效，默认有效)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'enable'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMessage', 
 'COLUMN', N'index')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'显示顺序'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'显示顺序'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'index'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'显示顺序'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'显示顺序'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMessage'
 , @level2type = 'COLUMN', @level2name = N'index'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_subMesType
@@ -6495,127 +4487,85 @@ GO
 if object_id(N't_sms_subMesType',N'U') is not null
 DROP TABLE [t_sms_subMesType]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_subMesType] (
-[typeId] INT NOT NULL ,
-[name] VARCHAR(20) NOT NULL ,
-[desc] VARCHAR(100) NOT NULL ,
-[systemType] tinyint NOT NULL 
+[typeId] int NOT NULL ,
+[name] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[desc] varchar(100) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[systemType] tinyint NOT NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMesType', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性类别表
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'辅助属性类别表
 存储系统中枚举类型名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性类别表
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'辅助属性类别表
 存储系统中枚举类型名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMesType', 
 'COLUMN', N'typeId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性ID(内码)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'辅助属性ID(内码)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 , @level2type = 'COLUMN', @level2name = N'typeId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'辅助属性ID(内码)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'辅助属性ID(内码)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 , @level2type = 'COLUMN', @level2name = N'typeId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMesType', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMesType', 
 'COLUMN', N'desc')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N' 描述信息'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N' 描述信息'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 , @level2type = 'COLUMN', @level2name = N'desc'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N' 描述信息'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N' 描述信息'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 , @level2type = 'COLUMN', @level2name = N'desc'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_subMesType', 
 'COLUMN', N'systemType')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'标示系统类型或用户类型(0系统类型1:用户类型)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'标示系统类型或用户类型(0系统类型1:用户类型)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 , @level2type = 'COLUMN', @level2name = N'systemType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'标示系统类型或用户类型(0系统类型1:用户类型)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'标示系统类型或用户类型(0系统类型1:用户类型)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_subMesType'
 , @level2type = 'COLUMN', @level2name = N'systemType'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_supplier
@@ -6623,399 +4573,294 @@ GO
 if object_id(N't_sms_supplier',N'U') is not null
 DROP TABLE [t_sms_supplier]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_supplier] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[taxId] VARCHAR(100) NULL ,
-[corp] VARCHAR(255) NULL ,
-[brno] VARCHAR(255) NULL ,
-[taxCategoryId] VARCHAR(50) NULL ,
-[taxRate] DECIMAL(28,10) NULL ,
-[country] VARCHAR(50) NULL ,
-[city] VARCHAR(50) NULL ,
-[province] VARCHAR(50) NULL ,
-[county] VARCHAR(50) NULL ,
-[address] VARCHAR(255) NULL ,
-[industryId] VARCHAR(50) NULL ,
-[categoryId] VARCHAR(50) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[taxId] varchar(100) COLLATE Chinese_PRC_CS_AS NULL ,
+[corp] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[brno] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[taxCategoryId] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[taxRate] decimal(28,10) NULL ,
+[country] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[city] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[province] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[county] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[address] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[industryId] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[categoryId] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
 [status] tinyint NULL ,
-[number] VARCHAR(50) NULL ,
+[number] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
 [syncStatus] tinyint NULL DEFAULT ((0)) ,
-[review] tinyint NULL DEFAULT ((0)) 
+[review] tinyint NULL DEFAULT ((0)) ,
+[mobile] varchar(20) COLLATE Chinese_PRC_CS_AS NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商资料'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商资料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商资料'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商资料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'简称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'简称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'简称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'简称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'taxId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税务登记号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税务登记号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'taxId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税务登记号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税务登记号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'taxId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'corp')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'法人代表'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'法人代表'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'corp'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'法人代表'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'法人代表'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'corp'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'brno')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'工商注册号'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'工商注册号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'brno'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'工商注册号'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'工商注册号'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'brno'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'taxCategoryId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税种ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税种ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'taxCategoryId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税种ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税种ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'taxCategoryId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'taxRate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税率'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税率'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'taxRate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税率'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税率'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'taxRate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'country')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'国家'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'国家'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'country'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'国家'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'国家'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'country'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'city')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'城市'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'城市'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'city'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'城市'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'城市'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'city'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'province')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'省份'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'省份'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'province'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'省份'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'省份'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'province'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'county')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'区县'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'区县'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'county'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'区县'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'区县'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'county'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'address')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'地址'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'地址'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'address'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'地址'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'地址'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'address'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'industryId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'行业ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'行业ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'industryId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'行业ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'行业ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'industryId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'categoryId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'分类ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'分类ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'categoryId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'分类ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'分类ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'categoryId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'status')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商状态'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'status'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商状态'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商状态'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'status'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'syncStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（0.未同步，1.已同步）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'同步状态（0.未同步，1.已同步）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（0.未同步，1.已同步）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'同步状态（0.未同步，1.已同步）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier', 
 'COLUMN', N'review')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'review'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier'
 , @level2type = 'COLUMN', @level2name = N'review'
 GO
-
-
-
-
-
-
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
+'SCHEMA', N'dbo', 
+'TABLE', N't_sms_supplier', 
+'COLUMN', N'mobile')) > 0) 
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商手机号码'
+, @level0type = 'SCHEMA', @level0name = N'dbo'
+, @level1type = 'TABLE', @level1name = N't_sms_supplier'
+, @level2type = 'COLUMN', @level2name = N'mobile'
+ELSE
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商手机号码'
+, @level0type = 'SCHEMA', @level0name = N'dbo'
+, @level1type = 'TABLE', @level1name = N't_sms_supplier'
+, @level2type = 'COLUMN', @level2name = N'mobile'
+GO
 
 -- ----------------------------
 -- Table structure for t_sms_supplier_item_license
@@ -7023,278 +4868,194 @@ GO
 if object_id(N't_sms_supplier_item_license',N'U') is not null
 DROP TABLE [t_sms_supplier_item_license]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_supplier_item_license] (
-[id] VARCHAR(50) NOT NULL ,
-[type] VARCHAR(50) NULL ,
-[supplier] VARCHAR(50) NULL ,
-[authOrg] VARCHAR(100) NULL ,
-[description] VARCHAR(255) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[type] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[supplier] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[authOrg] varchar(100) COLLATE Chinese_PRC_CS_AS NULL ,
+[description] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [beginDate] datetime NULL ,
 [endDate] datetime NULL ,
 [syncStatus] tinyint NULL DEFAULT ((0)) ,
 [review] tinyint NULL DEFAULT ((0)) ,
-[material] VARCHAR(50) NULL ,
+[material] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
 [isMust] tinyint NULL ,
 [isControl] tinyint NULL ,
 [prohibited] tinyint NULL ,
-[name] VARCHAR(80) NULL ,
-[number] nvarchar(80) NULL 
+[name] varchar(80) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] nvarchar(80) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'type')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料证件类型(关联t_sms_material_license_type表主键id)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料证件类型(关联t_sms_material_license_type表主键id)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'type'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料证件类型(关联t_sms_material_license_type表主键id)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料证件类型(关联t_sms_material_license_type表主键id)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'type'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商(关联t_sms_supplier表主键id)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商(关联t_sms_supplier表主键id)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商(关联t_sms_supplier表主键id)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商(关联t_sms_supplier表主键id)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'authOrg')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'发证机关'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'发证机关'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'authOrg'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'发证机关'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'发证机关'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'authOrg'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'description')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'备注'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'备注'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'description'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'备注'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'备注'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'description'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'beginDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'起始日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'起始日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'beginDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'起始日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'起始日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'beginDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'endDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'结束日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'结束日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'endDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'结束日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'结束日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'endDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'syncStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（0.未同步，1.已同步）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'同步状态（0.未同步，1.已同步）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（0.未同步，1.已同步）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'同步状态（0.未同步，1.已同步）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'review')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'review'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'review'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'material')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'物料（关联表t_sms_item主键id）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'物料（关联表t_sms_item主键id）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'material'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'物料（关联表t_sms_item主键id）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'物料（关联表t_sms_item主键id）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'material'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'isMust')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否必须'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否必须'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'isMust'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否必须'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否必须'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'isMust'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license', 
 'COLUMN', N'isControl')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否控制'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否控制'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'isControl'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否控制'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否控制'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license'
 , @level2type = 'COLUMN', @level2name = N'isControl'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_supplier_item_license_entry
@@ -7302,86 +5063,56 @@ GO
 if object_id(N't_sms_supplier_item_license_entry',N'U') is not null
 DROP TABLE [t_sms_supplier_item_license_entry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_supplier_item_license_entry] (
-[id] VARCHAR(50) NOT NULL ,
-[parent] VARCHAR(50) NULL ,
-[url] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[parent] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[url] varchar(255) COLLATE Chinese_PRC_CS_AS NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license_entry', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license_entry', 
 'COLUMN', N'parent')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'外键，关联主表主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'外键，关联主表主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'外键，关联主表主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'外键，关联主表主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_item_license_entry', 
 'COLUMN', N'url')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'附件存放路径'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'附件存放路径'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license_entry'
 , @level2type = 'COLUMN', @level2name = N'url'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'附件存放路径'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'附件存放路径'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_item_license_entry'
 , @level2type = 'COLUMN', @level2name = N'url'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_supplier_license
@@ -7389,18 +5120,12 @@ GO
 if object_id(N't_sms_supplier_license',N'U') is not null
 DROP TABLE [t_sms_supplier_license]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_supplier_license] (
-[id] VARCHAR(50) NOT NULL ,
-[type] VARCHAR(50) NULL ,
-[supplier] VARCHAR(50) NULL ,
-[authOrg] VARCHAR(100) NULL ,
-[description] VARCHAR(255) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[type] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[supplier] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[authOrg] varchar(100) COLLATE Chinese_PRC_CS_AS NULL ,
+[description] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
 [beginDate] datetime NULL ,
 [endDate] datetime NULL ,
 [syncStatus] tinyint NULL DEFAULT ((0)) ,
@@ -7408,258 +5133,180 @@ CREATE TABLE [t_sms_supplier_license] (
 [isMust] tinyint NULL ,
 [isControl] tinyint NULL ,
 [prohibited] tinyint NULL ,
-[name] VARCHAR(80) NULL ,
-[number] nvarchar(80) NULL 
+[name] varchar(80) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] nvarchar(80) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'type')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'证件类型(关联t_sms_supplier_license_type表主键id)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'证件类型(关联t_sms_supplier_license_type表主键id)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'type'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'证件类型(关联t_sms_supplier_license_type表主键id)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'证件类型(关联t_sms_supplier_license_type表主键id)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'type'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商(关联t_sms_supplier表主键id)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商(关联t_sms_supplier表主键id)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商(关联t_sms_supplier表主键id)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商(关联t_sms_supplier表主键id)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'authOrg')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'发证机关'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'发证机关'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'authOrg'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'发证机关'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'发证机关'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'authOrg'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'description')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'备注'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'备注'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'description'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'备注'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'备注'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'description'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'beginDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'起始日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'起始日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'beginDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'起始日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'起始日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'beginDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'endDate')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'结束日期'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'结束日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'endDate'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'结束日期'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'结束日期'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'endDate'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'syncStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（0.未同步，1.已同步）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'同步状态（0.未同步，1.已同步）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（0.未同步，1.已同步）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'同步状态（0.未同步，1.已同步）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'review')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'review'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'review'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'isMust')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否必须'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否必须'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'isMust'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否必须'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否必须'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'isMust'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'isControl')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否控制'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否控制'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'isControl'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否控制'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否控制'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'isControl'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license', 
 'COLUMN', N'prohibited')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否停用'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否停用'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'prohibited'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否停用'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否停用'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license'
 , @level2type = 'COLUMN', @level2name = N'prohibited'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_supplier_license_entry
@@ -7667,86 +5314,56 @@ GO
 if object_id(N't_sms_supplier_license_entry',N'U') is not null
 DROP TABLE [t_sms_supplier_license_entry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_supplier_license_entry] (
-[id] VARCHAR(50) NOT NULL ,
-[parent] VARCHAR(50) NULL ,
-[url] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[parent] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[url] varchar(255) COLLATE Chinese_PRC_CS_AS NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_entry', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_entry'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_entry', 
 'COLUMN', N'parent')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'外键，关联主表主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'外键，关联主表主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'外键，关联主表主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'外键，关联主表主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_entry'
 , @level2type = 'COLUMN', @level2name = N'parent'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_entry', 
 'COLUMN', N'url')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'附件存放路径'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'附件存放路径'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_entry'
 , @level2type = 'COLUMN', @level2name = N'url'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'附件存放路径'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'附件存放路径'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_entry'
 , @level2type = 'COLUMN', @level2name = N'url'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_supplier_license_type
@@ -7754,16 +5371,10 @@ GO
 if object_id(N't_sms_supplier_license_type',N'U') is not null
 DROP TABLE [t_sms_supplier_license_type]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_supplier_license_type] (
-[id] VARCHAR(50) NOT NULL ,
-[number] VARCHAR(20) NULL ,
-[name] VARCHAR(50) NULL ,
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(20) COLLATE Chinese_PRC_CS_AS NULL ,
+[name] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
 [isMust] tinyint NULL ,
 [isControl] tinyint NULL ,
 [syncStatus] tinyint NULL DEFAULT ((0)) ,
@@ -7772,170 +5383,116 @@ CREATE TABLE [t_sms_supplier_license_type] (
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_type', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'供应商证件类型'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'供应商证件类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'供应商证件类型'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'供应商证件类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_type', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'证件内码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'证件内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'证件内码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'证件内码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_type', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'代码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'代码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_type', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_type', 
 'COLUMN', N'isMust')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否必须'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否必须'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'isMust'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否必须'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否必须'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'isMust'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_type', 
 'COLUMN', N'isControl')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否控制'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否控制'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'isControl'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否控制'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否控制'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'isControl'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_type', 
 'COLUMN', N'syncStatus')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（0.未同步，1.已同步）'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'同步状态（0.未同步，1.已同步）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'同步状态（0.未同步，1.已同步）'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'同步状态（0.未同步，1.已同步）'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'syncStatus'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_supplier_license_type', 
 'COLUMN', N'review')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'review'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'审核状态：0.未审核，1.已审核'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'审核状态：0.未审核，1.已审核'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_supplier_license_type'
 , @level2type = 'COLUMN', @level2name = N'review'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_sys_profile
@@ -7943,156 +5500,108 @@ GO
 if object_id(N't_sms_sys_profile',N'U') is not null
 DROP TABLE [t_sms_sys_profile]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_sys_profile] (
-[category] VARCHAR(255) NOT NULL DEFAULT '' ,
-[key] VARCHAR(255) NOT NULL DEFAULT '' ,
-[name] VARCHAR(255) NOT NULL DEFAULT '' ,
-[desc] VARCHAR(255) NULL DEFAULT '' ,
-[value] VARCHAR(255) NOT NULL ,
-[index] INT NOT NULL DEFAULT ((0)) ,
-[explanation] VARCHAR(255) NOT NULL DEFAULT '' ,
-[readOnly] tinyint NOT NULL DEFAULT ((0)) 
+[category] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' ,
+[key] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' ,
+[desc] varchar(255) COLLATE Chinese_PRC_CS_AS NULL DEFAULT '' ,
+[value] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[index] int NOT NULL DEFAULT ((0)) ,
+[explanation] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' ,
+[readOnly] tinyint NOT NULL DEFAULT ((0))
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sys_profile', 
 'COLUMN', N'category')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'参数类别(通常按模块来分参数，记录模块标示)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'参数类别(通常按模块来分参数，记录模块标示)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'category'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'参数类别(通常按模块来分参数，记录模块标示)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'参数类别(通常按模块来分参数，记录模块标示)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'category'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sys_profile', 
 'COLUMN', N'key')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'参数键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'参数键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'key'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'参数键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'参数键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'key'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sys_profile', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'参数名称(尽量简短，不要太长)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'参数名称(尽量简短，不要太长)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'参数名称(尽量简短，不要太长)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'参数名称(尽量简短，不要太长)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sys_profile', 
 'COLUMN', N'desc')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'参数描述'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'参数描述'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'desc'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'参数描述'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'参数描述'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'desc'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sys_profile', 
 'COLUMN', N'value')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'值'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'值'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'value'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'值'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'值'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'value'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sys_profile', 
 'COLUMN', N'index')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'参数排序'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'参数排序'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'index'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'参数排序'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'参数排序'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'index'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sys_profile', 
 'COLUMN', N'explanation')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'参数选项,配置参数的类型及类型明细
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'参数选项,配置参数的类型及类型明细
 {ctlType:checkBox,}
 {ctlType:selector,list:[{0:不启用},{1:启用}]}
 {ctlType:text,}
@@ -8101,7 +5610,7 @@ EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'参数选�
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'explanation'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'参数选项,配置参数的类型及类型明细
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'参数选项,配置参数的类型及类型明细
 {ctlType:checkBox,}
 {ctlType:selector,list:[{0:不启用},{1:启用}]}
 {ctlType:text,}
@@ -8110,32 +5619,20 @@ EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'参数选项,�
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'explanation'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_sys_profile', 
 'COLUMN', N'readOnly')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否只读参数(只读参数不可修改)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否只读参数(只读参数不可修改)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'readOnly'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否只读参数(只读参数不可修改)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否只读参数(只读参数不可修改)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_sys_profile'
 , @level2type = 'COLUMN', @level2name = N'readOnly'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_taxCategory
@@ -8143,84 +5640,54 @@ GO
 if object_id(N't_sms_taxCategory',N'U') is not null
 DROP TABLE [t_sms_taxCategory]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_taxCategory] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(20) NOT NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_taxCategory', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税种'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税种'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_taxCategory'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税种'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税种'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_taxCategory'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_taxCategory', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税种ID'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税种ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_taxCategory'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税种ID'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税种ID'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_taxCategory'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_taxCategory', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'税种名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'税种名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_taxCategory'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'税种名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'税种名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_taxCategory'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_unit
@@ -8228,104 +5695,68 @@ GO
 if object_id(N't_sms_unit',N'U') is not null
 DROP TABLE [t_sms_unit]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_unit] (
-[id] VARCHAR(50) NOT NULL ,
-[name] VARCHAR(255) NULL ,
-[number] VARCHAR(20) NOT NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(255) COLLATE Chinese_PRC_CS_AS NULL ,
+[number] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_unit', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_unit'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_unit'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_unit', 
 'COLUMN', N'id')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'单位'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_unit'
 , @level2type = 'COLUMN', @level2name = N'id'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'单位'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'单位'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_unit'
 , @level2type = 'COLUMN', @level2name = N'id'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_unit', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_unit'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_unit'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_unit', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'编码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'编码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_unit'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'编码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'编码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_unit'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_user
@@ -8333,231 +5764,159 @@ GO
 if object_id(N't_sms_user',N'U') is not null
 DROP TABLE [t_sms_user]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_user] (
-[userId] VARCHAR(50) NOT NULL ,
-[number] VARCHAR(20) NOT NULL ,
-[name] VARCHAR(20) NOT NULL ,
-[password] VARCHAR(50) NOT NULL ,
-[type] VARCHAR(50) NOT NULL ,
+[userId] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[password] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[type] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
 [status] tinyint NOT NULL DEFAULT ((0)) ,
-[role] VARCHAR(50) NOT NULL ,
-[supplier] VARCHAR(50) NULL DEFAULT '' ,
-[token] VARCHAR(255) NOT NULL DEFAULT '' ,
-[phone] VARCHAR(20) NOT NULL DEFAULT '' 
+[role] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[supplier] varchar(50) COLLATE Chinese_PRC_CS_AS NULL DEFAULT '' ,
+[token] varchar(255) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT '' ,
+[phone] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL DEFAULT ''
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'用户'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'用户'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'用户'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'用户'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'userId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'userId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'userId'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'number')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'用户代码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'用户代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'number'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'用户代码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'用户代码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'number'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'name')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'用户名称'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'用户名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'name'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'用户名称'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'用户名称'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'name'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'password')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'密码'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'密码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'password'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'密码'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'密码'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'password'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'type')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'用户类别(基础资料1002)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'用户类别(基础资料1002)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'type'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'用户类别(基础资料1002)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'用户类别(基础资料1002)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'type'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'status')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'是否禁用(0可用1禁用，默认0可用)'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'是否禁用(0可用1禁用，默认0可用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'status'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'是否禁用(0可用1禁用，默认0可用)'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'是否禁用(0可用1禁用，默认0可用)'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'status'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'role')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'引用角色基础资料'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'引用角色基础资料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'role'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'引用角色基础资料'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'引用角色基础资料'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'role'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'supplier')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'引用供应商基础资料，当type为供应商用户时必须有'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'引用供应商基础资料，当type为供应商用户时必须有'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'引用供应商基础资料，当type为供应商用户时必须有'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'引用供应商基础资料，当type为供应商用户时必须有'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'supplier'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_user', 
 'COLUMN', N'token')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'hrp端与sms''交互数据通过token校验'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'hrp端与sms''交互数据通过token校验'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'token'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'hrp端与sms''交互数据通过token校验'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'hrp端与sms''交互数据通过token校验'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_user'
 , @level2type = 'COLUMN', @level2name = N'token'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_user_entry
@@ -8565,27 +5924,15 @@ GO
 if object_id(N't_sms_user_entry',N'U') is not null
 DROP TABLE [t_sms_user_entry]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_user_entry] (
-[id] VARCHAR(50) NOT NULL ,
-[parent] VARCHAR(50) NULL ,
-[mobile] VARCHAR(11) NULL ,
-[pic] VARCHAR(255) NULL 
+[id] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[parent] varchar(50) COLLATE Chinese_PRC_CS_AS NULL ,
+[mobile] varchar(11) COLLATE Chinese_PRC_CS_AS NULL ,
+[pic] varchar(255) COLLATE Chinese_PRC_CS_AS NULL
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_userType
@@ -8593,64 +5940,40 @@ GO
 if object_id(N't_sms_userType',N'U') is not null
 DROP TABLE [t_sms_userType]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_userType] (
-[typeId] VARCHAR(50) NOT NULL ,
-[number] VARCHAR(20) NOT NULL ,
-[name] VARCHAR(20) NOT NULL 
+[typeId] varchar(50) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[number] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL ,
+[name] varchar(20) COLLATE Chinese_PRC_CS_AS NOT NULL 
 )
 
 
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_userType', 
 NULL, NULL)) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'用户类型'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'用户类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_userType'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'用户类型'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'用户类型'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_userType'
 GO
-
-
-
-
-
-
-IF ((SELECT COUNT(*) FROM fn_listextendedproperty('MS_Description', 
+IF ((SELECT COUNT(*) from fn_listextendedproperty('MS_Description', 
 'SCHEMA', N'dbo', 
 'TABLE', N't_sms_userType', 
 'COLUMN', N'typeId')) > 0) 
-EXEC sp_updateextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_updateextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_userType'
 , @level2type = 'COLUMN', @level2name = N'typeId'
 ELSE
-EXEC sp_addextendedproperty @name = N'MS_Description', @VALUE = N'主键'
+EXEC sp_addextendedproperty @name = N'MS_Description', @value = N'主键'
 , @level0type = 'SCHEMA', @level0name = N'dbo'
 , @level1type = 'TABLE', @level1name = N't_sms_userType'
 , @level2type = 'COLUMN', @level2name = N'typeId'
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Table structure for t_sms_validation
@@ -8658,24 +5981,12 @@ GO
 if object_id(N't_sms_validation',N'U') is not null
 DROP TABLE [t_sms_validation]
 GO
-
-
-
-
-
-
 CREATE TABLE [t_sms_validation] (
-[a] CHAR(1) NULL 
+[a] char(1) COLLATE Chinese_PRC_CS_AS NULL  
 )
 
 
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- View structure for vw_newid
@@ -8683,25 +5994,16 @@ GO
 IF  EXISTS(SELECT 1 FROM sys.views WHERE name='vw_newid')
 DROP VIEW [vw_newid]
 GO
-
 CREATE VIEW [vw_newid] AS 
 SELECT NEWID() [FNEWID]
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Function structure for base64encode
 -- ----------------------------
-IF object_id (N'base64encode') IS NOT NULL
+if object_id(N'base64encode',N'U') is not null
 DROP FUNCTION [base64encode]
 GO
-
-
 
 CREATE FUNCTION [base64encode]
 (@source VARBINARY(6000))
@@ -8710,7 +6012,7 @@ AS
 BEGIN
 DECLARE @g_base64 AS VARCHAR(64)
 DECLARE @l_result AS VARCHAR(8000)
-DECLARE @l_length AS INT
+DECLARE @l_length as int
 DECLARE @l BINARY(3)
 DECLARE @r1 BINARY(1)
 DECLARE @r2 BINARY(1)
@@ -8763,24 +6065,12 @@ END
 
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Function structure for newbosid
 -- ----------------------------
-IF object_id (N'newbosid') IS NOT NULL
+if object_id(N'newbosid',N'U') is not null
 DROP FUNCTION [newbosid]
 GO
-
-
-
-
-
-
 
 CREATE FUNCTION [newbosid]
 (@typeString VARCHAR(8))
@@ -8842,8 +6132,9 @@ RETURN @l_result
 END
 
 
-GO
 
+
+GO
 
 
 
@@ -8858,8 +6149,6 @@ GO
 --
 -- ----------------------------
 
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_accessControl
 -- ----------------------------
@@ -8869,12 +6158,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_accessControl] ADD PRIMARY KEY ([objectType], [objectId], [roleId])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_approved_supplier
@@ -8886,12 +6169,6 @@ GO
 ALTER TABLE [t_sms_approved_supplier] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_base_status
 -- ----------------------------
@@ -8901,12 +6178,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_base_status] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_category
@@ -8918,12 +6189,6 @@ GO
 ALTER TABLE [t_sms_category] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_certificate
 -- ----------------------------
@@ -8933,12 +6198,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_certificate] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_city
@@ -8950,12 +6209,6 @@ GO
 ALTER TABLE [t_sms_city] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_country
 -- ----------------------------
@@ -8965,12 +6218,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_country] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_county
@@ -8982,12 +6229,6 @@ GO
 ALTER TABLE [t_sms_county] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_currency
 -- ----------------------------
@@ -8997,12 +6238,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_currency] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_dataFlowSubClass
@@ -9014,12 +6249,6 @@ GO
 ALTER TABLE [t_sms_dataFlowSubClass] ADD PRIMARY KEY ([subSysId])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_dataFlowTopClass
 -- ----------------------------
@@ -9029,12 +6258,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_dataFlowTopClass] ADD PRIMARY KEY ([topClassId])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_employee
@@ -9046,12 +6269,6 @@ GO
 ALTER TABLE [t_sms_employee] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_formClass
 -- ----------------------------
@@ -9061,12 +6278,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_formClass] ADD PRIMARY KEY ([classId])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_formEntries
@@ -9078,12 +6289,6 @@ GO
 ALTER TABLE [t_sms_formEntries] ADD PRIMARY KEY ([classId], [entryIndex])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_industry
 -- ----------------------------
@@ -9093,12 +6298,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_industry] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_item
@@ -9110,12 +6309,6 @@ GO
 ALTER TABLE [t_sms_item] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_item_license_type
 -- ----------------------------
@@ -9125,12 +6318,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_item_license_type] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_log
@@ -9142,12 +6329,6 @@ GO
 ALTER TABLE [t_sms_log] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_msglog
 -- ----------------------------
@@ -9157,12 +6338,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_msglog] ADD PRIMARY KEY ([seqid])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_objectAccessType
@@ -9174,11 +6349,15 @@ GO
 ALTER TABLE [t_sms_objectAccessType] ADD PRIMARY KEY ([objectType], [objectId], [index])
 GO
 
+-- ----------------------------
+-- Indexes structure for table t_sms_objectType
+-- ----------------------------
 
-
-
-
-
+-- ----------------------------
+-- Primary Key structure for table t_sms_objectType
+-- ----------------------------
+ALTER TABLE [t_sms_objectType] ADD PRIMARY KEY ([topClassId], [subSysId], [objectType], [objectId])
+GO
 
 -- ----------------------------
 -- Indexes structure for table t_sms_pay
@@ -9190,12 +6369,6 @@ GO
 ALTER TABLE [t_sms_pay] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_paymentType
 -- ----------------------------
@@ -9205,12 +6378,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_paymentType] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_plugins
@@ -9222,12 +6389,6 @@ GO
 ALTER TABLE [t_sms_plugins] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_province
 -- ----------------------------
@@ -9237,12 +6398,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_province] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_purchase_order
@@ -9254,12 +6409,6 @@ GO
 ALTER TABLE [t_sms_purchase_order] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_purchase_order_entry
 -- ----------------------------
@@ -9269,12 +6418,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_purchase_order_entry] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_purinwarehs
@@ -9286,12 +6429,6 @@ GO
 ALTER TABLE [t_sms_purinwarehs] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_purinwarehs_entry
 -- ----------------------------
@@ -9301,12 +6438,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_purinwarehs_entry] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_purreceival
@@ -9318,12 +6449,6 @@ GO
 ALTER TABLE [t_sms_purreceival] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_purreceival_entry
 -- ----------------------------
@@ -9333,12 +6458,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_purreceival_entry] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_purreturns
@@ -9350,12 +6469,6 @@ GO
 ALTER TABLE [t_sms_purreturns] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_purreturns_entry
 -- ----------------------------
@@ -9365,12 +6478,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_purreturns_entry] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_role
@@ -9382,12 +6489,6 @@ GO
 ALTER TABLE [t_sms_role] ADD PRIMARY KEY ([roleId])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_roleType
 -- ----------------------------
@@ -9397,12 +6498,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_roleType] ADD PRIMARY KEY ([typeId])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_sale_proxy
@@ -9414,12 +6509,6 @@ GO
 ALTER TABLE [t_sms_sale_proxy] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_sendcargo
 -- ----------------------------
@@ -9429,12 +6518,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_sendcargo] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_sendcargo_entry
@@ -9446,12 +6529,6 @@ GO
 ALTER TABLE [t_sms_sendcargo_entry] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_settlement
 -- ----------------------------
@@ -9461,12 +6538,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_settlement] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_sourceBillType
@@ -9478,12 +6549,6 @@ GO
 ALTER TABLE [t_sms_sourceBillType] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_subMessage
 -- ----------------------------
@@ -9493,12 +6558,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_subMessage] ADD PRIMARY KEY ([detailId], [typeId])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_subMesType
@@ -9510,12 +6569,6 @@ GO
 ALTER TABLE [t_sms_subMesType] ADD PRIMARY KEY ([typeId])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_supplier
 -- ----------------------------
@@ -9525,12 +6578,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_supplier] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_supplier_item_license
@@ -9542,12 +6589,6 @@ GO
 ALTER TABLE [t_sms_supplier_item_license] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_supplier_item_license_entry
 -- ----------------------------
@@ -9557,12 +6598,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_supplier_item_license_entry] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_supplier_license
@@ -9574,12 +6609,6 @@ GO
 ALTER TABLE [t_sms_supplier_license] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_supplier_license_entry
 -- ----------------------------
@@ -9589,12 +6618,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_supplier_license_entry] ADD PRIMARY KEY ([id])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_supplier_license_type
@@ -9606,12 +6629,6 @@ GO
 ALTER TABLE [t_sms_supplier_license_type] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_sys_profile
 -- ----------------------------
@@ -9621,12 +6638,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_sys_profile] ADD PRIMARY KEY ([category], [key])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_taxCategory
@@ -9638,12 +6649,6 @@ GO
 ALTER TABLE [t_sms_taxCategory] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_unit
 -- ----------------------------
@@ -9654,12 +6659,6 @@ GO
 ALTER TABLE [t_sms_unit] ADD PRIMARY KEY ([id])
 GO
 
-
-
-
-
-
-
 -- ----------------------------
 -- Indexes structure for table t_sms_user
 -- ----------------------------
@@ -9669,12 +6668,6 @@ GO
 -- ----------------------------
 ALTER TABLE [t_sms_user] ADD PRIMARY KEY ([userId])
 GO
-
-
-
-
-
-
 
 -- ----------------------------
 -- Indexes structure for table t_sms_user_entry
@@ -9687,10 +6680,15 @@ ALTER TABLE [t_sms_user_entry] ADD PRIMARY KEY ([id])
 GO
 
 -- ----------------------------
+-- Indexes structure for table t_sms_userType
+-- ----------------------------
+
+-- ----------------------------
 -- Primary Key structure for table t_sms_userType
 -- ----------------------------
 ALTER TABLE [t_sms_userType] ADD PRIMARY KEY ([typeId])
 GO
+
 
 -- ----------------------------
 -- 
