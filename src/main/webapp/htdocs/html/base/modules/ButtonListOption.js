@@ -39,7 +39,7 @@ define('ButtonListOption', function (require, module, exports) {
                     text: '修改',
                     name: 'edit',
                     icon: '../../css/main/img/edit.png'
-                },{
+                }, {
                     text: '删除',
                     name: 'delete',
                     icon: '../../css/main/img/delete.png'
@@ -55,7 +55,7 @@ define('ButtonListOption', function (require, module, exports) {
                     text: '新增',
                     name: 'add',
                     icon: '../../css/main/img/add.png'
-                },{
+                }, {
                     text: '修改',
                     name: 'edit',
                     icon: '../../css/main/img/edit.png'
@@ -95,7 +95,7 @@ define('ButtonListOption', function (require, module, exports) {
                     text: '新增',
                     name: 'add',
                     icon: '../../css/main/img/add.png'
-                },{
+                }, {
                     text: '修改',
                     name: 'edit',
                     icon: '../../css/main/img/edit.png'
@@ -131,7 +131,7 @@ define('ButtonListOption', function (require, module, exports) {
                     text: '新增',
                     name: 'add',
                     icon: '../../css/main/img/add.png'
-                },{
+                }, {
                     text: '修改',
                     name: 'edit',
                     icon: '../../css/main/img/edit.png'
@@ -159,6 +159,17 @@ define('ButtonListOption', function (require, module, exports) {
                     name: 'send',
                     icon: '../../css/main/img/send.png',
                 }]
+            };
+        } else if (classId == 3030) {
+            // 中标库
+            config = {
+                'items': [
+                    {
+                        text: '过滤',
+                        name: 'filter',
+                        icon: '../../css/main/img/filter.png'
+                    }
+                ]
             };
         } else {
 
