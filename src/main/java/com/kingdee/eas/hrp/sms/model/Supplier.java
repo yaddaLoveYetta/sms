@@ -31,13 +31,15 @@ public class Supplier {
 
     private String categoryId;
 
-    private String status;
+    private Byte status;
 
     private String number;
 
     private Byte syncStatus;
 
     private Byte review;
+
+    private String mobile;
 
     public String getId() {
         return id;
@@ -151,12 +153,12 @@ public class Supplier {
         this.categoryId = categoryId == null ? null : categoryId.trim();
     }
 
-    public String getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     public String getNumber() {
@@ -181,5 +183,13 @@ public class Supplier {
 
     public void setReview(Byte review) {
         this.review = review;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
     }
 }

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.kingdee.eas.hrp.sms.model.Order">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="supplier" jdbcType="VARCHAR" property="supplier" />
-    <result column="bizDate" jdbcType="TIMESTAMP" property="bizDate" />
+    <result column="bizDate" jdbcType="DATE" property="bizDate" />
     <result column="purchasePerson" jdbcType="VARCHAR" property="purchasePerson" />
     <result column="saleProxy" jdbcType="TINYINT" property="saleProxy" />
     <result column="isInTax" jdbcType="TINYINT" property="isInTax" />
@@ -122,7 +122,7 @@
       currency, totalAmount, totalTax, 
       totalTaxAmount, createTime, baseStatus
       )
-    values (#{id,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{bizDate,jdbcType=DATE}, 
       #{purchasePerson,jdbcType=VARCHAR}, #{saleProxy,jdbcType=TINYINT}, #{isInTax,jdbcType=TINYINT}, 
       #{tickDate,jdbcType=TIMESTAMP}, #{confirmTickDate,jdbcType=TIMESTAMP}, #{tickType,jdbcType=TINYINT}, 
       #{confirmTick,jdbcType=TINYINT}, #{number,jdbcType=VARCHAR}, #{isQuicken,jdbcType=TINYINT}, 
@@ -196,7 +196,7 @@
         #{supplier,jdbcType=VARCHAR},
       </if>
       <if test="bizDate != null">
-        #{bizDate,jdbcType=TIMESTAMP},
+        #{bizDate,jdbcType=DATE},
       </if>
       <if test="purchasePerson != null">
         #{purchasePerson,jdbcType=VARCHAR},
@@ -261,7 +261,7 @@
         supplier = #{record.supplier,jdbcType=VARCHAR},
       </if>
       <if test="record.bizDate != null">
-        bizDate = #{record.bizDate,jdbcType=TIMESTAMP},
+        bizDate = #{record.bizDate,jdbcType=DATE},
       </if>
       <if test="record.purchasePerson != null">
         purchasePerson = #{record.purchasePerson,jdbcType=VARCHAR},
@@ -317,7 +317,7 @@
     update t_sms_purchase_order
     set id = #{record.id,jdbcType=VARCHAR},
       supplier = #{record.supplier,jdbcType=VARCHAR},
-      bizDate = #{record.bizDate,jdbcType=TIMESTAMP},
+      bizDate = #{record.bizDate,jdbcType=DATE},
       purchasePerson = #{record.purchasePerson,jdbcType=VARCHAR},
       saleProxy = #{record.saleProxy,jdbcType=TINYINT},
       isInTax = #{record.isInTax,jdbcType=TINYINT},
@@ -344,7 +344,7 @@
         supplier = #{supplier,jdbcType=VARCHAR},
       </if>
       <if test="bizDate != null">
-        bizDate = #{bizDate,jdbcType=TIMESTAMP},
+        bizDate = #{bizDate,jdbcType=DATE},
       </if>
       <if test="purchasePerson != null">
         purchasePerson = #{purchasePerson,jdbcType=VARCHAR},
@@ -397,7 +397,7 @@
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.Order">
     update t_sms_purchase_order
     set supplier = #{supplier,jdbcType=VARCHAR},
-      bizDate = #{bizDate,jdbcType=TIMESTAMP},
+      bizDate = #{bizDate,jdbcType=DATE},
       purchasePerson = #{purchasePerson,jdbcType=VARCHAR},
       saleProxy = #{saleProxy,jdbcType=TINYINT},
       isInTax = #{isInTax,jdbcType=TINYINT},

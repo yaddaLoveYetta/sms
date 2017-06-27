@@ -16,10 +16,11 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="industryId" jdbcType="VARCHAR" property="industryId" />
     <result column="categoryId" jdbcType="VARCHAR" property="categoryId" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="syncStatus" jdbcType="TINYINT" property="syncStatus" />
     <result column="review" jdbcType="TINYINT" property="review" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -81,7 +82,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, [name], taxId, corp, brno, taxCategoryId, taxRate, country, city, province, county, 
-    address, industryId, categoryId, [status], [number], syncStatus, review
+    address, industryId, categoryId, [status], [number], syncStatus, review, mobile
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -119,15 +120,15 @@
       taxRate, country, city, 
       province, county, address, 
       industryId, categoryId, [status], 
-      [number], syncStatus, review
-      )
+      [number], syncStatus, review, 
+      mobile)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=VARCHAR}, 
       #{corp,jdbcType=VARCHAR}, #{brno,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=VARCHAR}, 
       #{taxRate,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{number,jdbcType=VARCHAR}, #{syncStatus,jdbcType=TINYINT}, #{review,jdbcType=TINYINT}
-      )
+      #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{number,jdbcType=VARCHAR}, #{syncStatus,jdbcType=TINYINT}, #{review,jdbcType=TINYINT}, 
+      #{mobile,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -186,6 +187,9 @@
       <if test="review != null">
         review,
       </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -231,7 +235,7 @@
         #{categoryId,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        #{status,jdbcType=VARCHAR},
+        #{status,jdbcType=TINYINT},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -241,6 +245,9 @@
       </if>
       <if test="review != null">
         #{review,jdbcType=TINYINT},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -296,7 +303,7 @@
         categoryId = #{record.categoryId,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
-        [status] = #{record.status,jdbcType=VARCHAR},
+        [status] = #{record.status,jdbcType=TINYINT},
       </if>
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=VARCHAR},
@@ -306,6 +313,9 @@
       </if>
       <if test="record.review != null">
         review = #{record.review,jdbcType=TINYINT},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -328,10 +338,11 @@
       address = #{record.address,jdbcType=VARCHAR},
       industryId = #{record.industryId,jdbcType=VARCHAR},
       categoryId = #{record.categoryId,jdbcType=VARCHAR},
-      [status] = #{record.status,jdbcType=VARCHAR},
+      [status] = #{record.status,jdbcType=TINYINT},
       [number] = #{record.number,jdbcType=VARCHAR},
       syncStatus = #{record.syncStatus,jdbcType=TINYINT},
-      review = #{record.review,jdbcType=TINYINT}
+      review = #{record.review,jdbcType=TINYINT},
+      mobile = #{record.mobile,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -379,7 +390,7 @@
         categoryId = #{categoryId,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        [status] = #{status,jdbcType=VARCHAR},
+        [status] = #{status,jdbcType=TINYINT},
       </if>
       <if test="number != null">
         [number] = #{number,jdbcType=VARCHAR},
@@ -389,6 +400,9 @@
       </if>
       <if test="review != null">
         review = #{review,jdbcType=TINYINT},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -408,10 +422,11 @@
       address = #{address,jdbcType=VARCHAR},
       industryId = #{industryId,jdbcType=VARCHAR},
       categoryId = #{categoryId,jdbcType=VARCHAR},
-      [status] = #{status,jdbcType=VARCHAR},
+      [status] = #{status,jdbcType=TINYINT},
       [number] = #{number,jdbcType=VARCHAR},
       syncStatus = #{syncStatus,jdbcType=TINYINT},
-      review = #{review,jdbcType=TINYINT}
+      review = #{review,jdbcType=TINYINT},
+      mobile = #{mobile,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
