@@ -85,7 +85,7 @@ public class OrderService extends BaseService implements IOrderService {
 				order.setCreateTime(ob.getDate("createTime"));
 			}
 			OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-			if (type.size() <= 0) {
+			if (type == null) {
 				orderMapper.insertSelective(order);
 			} else {
 				orderMapper.updateByPrimaryKeySelective(order);
@@ -114,7 +114,7 @@ public class OrderService extends BaseService implements IOrderService {
 					orderEntry.setDeliveryDate(orderEntryObject.getDate("deliveryDate"));
 				}
 				OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
-				if (type.size() <= 0) {
+				if (type == null) {
 					orderEntryMapper.insertSelective(orderEntry);
 				} else {
 					orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
