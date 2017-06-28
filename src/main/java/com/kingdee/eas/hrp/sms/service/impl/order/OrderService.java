@@ -61,9 +61,11 @@ public class OrderService extends BaseService implements IOrderService {
 	public String order(JSONArray orderjson) {
 		Order order = new Order();
 		OrderEntry orderEntry = new OrderEntry();
+		ITemplateService templateService = Environ.getBean(ITemplateService.class);
 		for (int i = 0; i < orderjson.size(); i++) {
 			// 录入订单抬头
 			JSONObject ob = orderjson.getJSONObject(i);
+			Map<String, Object> type = templateService.getItemById(2019, ob.get("id").toString());
 			order.setId(ob.getString("id"));
 			order.setSupplier(ob.getString("supplier"));
 			order.setPurchasePerson(ob.getString("purchasePerson"));
@@ -83,7 +85,11 @@ public class OrderService extends BaseService implements IOrderService {
 				order.setCreateTime(ob.getDate("createTime"));
 			}
 			OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-			orderMapper.insertSelective(order);
+			if (type.size() <= 0) {
+				orderMapper.insertSelective(order);
+			} else {
+				orderMapper.updateByPrimaryKeySelective(order);
+			}
 
 			JSONArray orderEntryArray = JSONArray.parseArray(ob.getString("entries"));
 			for (int j = 0; j < orderEntryArray.size(); j++) {
@@ -108,7 +114,11 @@ public class OrderService extends BaseService implements IOrderService {
 					orderEntry.setDeliveryDate(orderEntryObject.getDate("deliveryDate"));
 				}
 				OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
-				orderEntryMapper.insertSelective(orderEntry);
+				if (type.size() <= 0) {
+					orderEntryMapper.insertSelective(orderEntry);
+				} else {
+					orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+				}
 			}
 		}
 		return "success";
@@ -574,13 +584,18 @@ public class OrderService extends BaseService implements IOrderService {
 		float price = purOrderEntry.getFloatValue("price");
 
 		int qty = bQty.intValue();
-		
+
 		BigDecimal x1 = new BigDecimal(Float.toString(price));
 		BigDecimal x2 = new BigDecimal(Integer.toString(qty));
 		// 数量尾差，尾差放到最后一行
 		float lastLineQty = bQty.floatValue() > qty ? bQty.floatValue() - qty + 1 : 1;
 		// 金额尾差，尾差放到最后一行
-		BigDecimal lastLineAmount = amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).compareTo(x1.multiply(x2)) > 0 ? x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).subtract(x1.multiply(x2))):x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).subtract(x1.multiply(x2)));
+		BigDecimal lastLineAmount = amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty")))
+				.compareTo(x1.multiply(x2)) > 0
+						? x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty")))
+								.subtract(x1.multiply(x2)))
+						: x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty")))
+								.subtract(x1.multiply(x2)));
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 		for (int i = 0; i < qty; i++) {
 
@@ -781,8 +796,8 @@ public class OrderService extends BaseService implements IOrderService {
 	 * 订单追踪查询
 	 * 
 	 */
-	public JSONObject traceQuery(String supplierIds, String pageNo, String pageSize, String classId,
-			String supplier, String order, String beginDate, String endDate) {
+	public JSONObject traceQuery(String supplierIds, String pageNo, String pageSize, String classId, String supplier,
+			String order, String beginDate, String endDate) {
 		OrderDaoMapper orderDaoMapper = sqlSession.getMapper(OrderDaoMapper.class);
 		JSONObject ret = new JSONObject();
 		String orderId = null;
@@ -808,7 +823,7 @@ public class OrderService extends BaseService implements IOrderService {
 		if (null != supplierId && !"".equals(supplierId)) {
 			supplierId = supplierIds;
 		}
-		
+
 		if (Integer.parseInt(pageNo) == 1) {
 			PageHelper.startPage(Integer.parseInt(pageNo), Integer.parseInt(pageSize), true);
 		} else {
