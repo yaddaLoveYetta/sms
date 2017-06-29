@@ -66,7 +66,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 
 					supplierId = (String) item.get("supplier");
 				}
-				if (!supplierId.equals("")) {
+				if (!(null == supplierId || "".equals(supplierId))) {
 					Map<String, Object> supplier = templateService.getItemById(1005, supplierId);
 					successSupplier.put(id, supplier.get("name"));
 				}
@@ -114,7 +114,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		System.out.println(targetList.toString());
 		// 获取同步发送电话
 		String mobie = SystemParamUtil.getString("sys", "hrp-sync-mobie", "");
-		if (!mobie.equals("")) {
+		if (!(mobie.equals("")) && !(successSupplier.isEmpty())) {
 			for (Object key : successSupplier.keySet()) {
 				msgToSupplier.append(successSupplier.get(key)).append(",");
 			}

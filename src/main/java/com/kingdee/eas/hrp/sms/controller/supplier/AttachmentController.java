@@ -93,7 +93,7 @@ public class AttachmentController {
 		}
 
 		// 构建附件存放路径
-		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH"); // 文件存放目录
+		String fileDirector = SystemParamUtil.getString("sys", "FILE_PATH"); // 文件存放目录
 
 		String classDirector = fileDirector.endsWith("\\") ? classId + "\\\\" : "\\\\" + classId + "\\\\";
 
@@ -163,7 +163,7 @@ public class AttachmentController {
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
 		// 读取目标文件，通过response将目标文件写到客户端
 		// 获取目标文件的绝对路径
-		String fileDirector = SystemParamUtil.getString("SYS", "FILE_PATH"); // 文件存放目录
+		String fileDirector = SystemParamUtil.getString("sys", "FILE_PATH"); // 文件存放目录
 		String classDirector = fileDirector.endsWith("\\") ? classId + "\\\\" : "\\\\" + classId + "\\\\";
 		fileDirector = fileDirector + classDirector;// 真实存放路径
 
