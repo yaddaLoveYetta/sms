@@ -79,7 +79,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		}
 
 		if (idTargetList.size() == 0) {
-			throw new RuntimeException("没有可同步项！");
+			throw new RuntimeException("记录已同步！");
 		}
 
 		// 拼接classId和list
