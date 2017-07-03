@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
+import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.supplier.IFileUploadService;
+import com.kingdee.eas.hrp.sms.service.impl.TemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
@@ -33,6 +37,8 @@ public class AttachmentController {
 
 	@Resource
 	IFileUploadService fileUploadService;
+	@Resource
+	ITemplateService templateService;
 
 	@RequestMapping(value = "upload")
 	public void upload(HttpServletRequest request, HttpServletResponse response) {
@@ -92,6 +98,14 @@ public class AttachmentController {
 			throw new BusinessLogicRunTimeException("请选择附件!");
 		}
 
+		// 是否已审核
+		Map<String, Object> itemById = templateService.getItemById(classId, itemId);
+		String number = (String) itemById.get("number");
+		short review = (short) itemById.get("review");
+		if (1 == review) {
+			throw new PlugInRuntimeException("记录已审核，无法进行操作！");
+		}
+
 		// 构建附件存放路径
 		String fileDirector = SystemParamUtil.getString("sys", "FILE_PATH"); // 文件存放目录
 
@@ -111,7 +125,7 @@ public class AttachmentController {
 
 		for (FileItem fileItem : file) {
 
-			String fileName = fileItem.getName();
+			String fileName = number + "-" + fileItem.getName();
 
 			if (fileName == null || fileName.trim().equals("")) {
 				continue;
@@ -145,21 +159,24 @@ public class AttachmentController {
 		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
 
 		if (classId < 0) {
-			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR,
+			// "参数错误：必须提交classId");
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "参数错误：必须提交classId");
 			return;
 		}
 
 		if ("".equals(fileName)) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "参数错误：必须提交fileName");
-			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交itemId及fileName");
+			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR,
+			// "参数错误：必须提交itemId及fileName");
 			return;
 		}
 
 		// 设置文件MIME类型
 		response.setContentType("application/force-download");
 		// 设置Content-Disposition
-		// response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+		// response.setHeader("Content-Disposition", "attachment;filename=" +
+		// URLEncoder.encode(fileName, "UTF-8"));
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
 		// 读取目标文件，通过response将目标文件写到客户端
 		// 获取目标文件的绝对路径
