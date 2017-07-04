@@ -39,7 +39,7 @@ LOG ON
     FILEGROWTH = 1MB
 );
 
-
+GO
 -- ----------------------------
 -- 
 --
@@ -49,7 +49,7 @@ LOG ON
 --
 --
 -- ----------------------------
-USE hrp-sms
+USE [hrp-sms]
 
 -- ----------------------------
 -- Table structure for t_sms_accessControl
