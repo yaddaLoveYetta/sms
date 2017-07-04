@@ -413,6 +413,9 @@ public class ItemPlugin extends PlugInAdpter {
 			if (key.equals("entry"))
 				continue;
 			FormFields ff = formFields.get(key);
+			if (null == ff) {
+				throw new PlugInRuntimeException("字段：" + key + "没有配置到模板上");
+			}
 			int mustInput = ff.getMustInput();
 			if (("QpXq24FxxE6c3lvHMPyYCxACEAI=").equals(userTyepe)) {
 				if ((mustInput & 2) == 2) {
