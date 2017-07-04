@@ -85,7 +85,7 @@ public class LogAspect {
 		if ("/user/login".equalsIgnoreCase(requestUrl)) {
 			// 登录日志用户用登录用户
 			userName = paramsMap.get("user");
-			paramsMap = new HashMap<>();
+			paramsMap = new HashMap<String, String>();
 		} else {
 			userName = SessionUtil.getUser().getName();
 		}

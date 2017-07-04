@@ -101,7 +101,7 @@ public class AttachmentController {
 		// 是否已审核
 		Map<String, Object> itemById = templateService.getItemById(classId, itemId);
 		String number = (String) itemById.get("number");
-		short review = (short) itemById.get("review");
+		int review = (Integer) itemById.get("review");
 		if (1 == review) {
 			throw new PlugInRuntimeException("记录已审核，无法进行操作！");
 		}

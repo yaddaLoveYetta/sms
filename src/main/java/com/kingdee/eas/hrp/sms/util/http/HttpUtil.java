@@ -468,7 +468,7 @@ public final class HttpUtil {
 	 */
 	public static Map<String, String> sendPostForCookie(String url, HttpParam hp) throws HttpException, IOException {
 
-		Map<String, String> ret = new HashMap<>();
+		Map<String, String> ret = new HashMap<String, String>();
 
 		// ==================================================================
 		org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
