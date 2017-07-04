@@ -142,6 +142,14 @@
                 SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
+            if (list.length > 1) {
+                SMS.Tips.error('只能对一条记录进行操作', 1500);
+                return;
+            }
+            if (list[0].data.review === 1) {
+                SMS.Tips.error('该记录已审核，请反审核后再操作', 1500);
+                return;
+            }
             MessageBox.confirm('确定删除选择的项?', function (result) {
                 if (result) {
                     List.del(classId, list, function () {
@@ -163,7 +171,10 @@
                 SMS.Tips.error('只能对一条记录进行操作', 1500);
                 return;
             }
-
+            if (list[0].data.review === 1) {
+                SMS.Tips.error('该记录已审核，请反审核后再操作', 1500);
+                return;
+            }
             SMS.use('Dialog', function (Dialog) {
 
                 var dialog = new Dialog({
@@ -240,6 +251,10 @@
             }
             if (list.length > 1) {
                 SMS.Tips.error('一次只能对一条记录进行操作', 1500);
+                return;
+            }
+            if (list[0].data.review === 1) {
+                SMS.Tips.error('该记录已审核，请反审核后再操作', 1500);
                 return;
             }
 
