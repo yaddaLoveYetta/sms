@@ -19,14 +19,17 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.dao.generate.ApprovedSupplierMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.FormFieldsMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
 import com.kingdee.eas.hrp.sms.model.ApprovedSupplier;
 import com.kingdee.eas.hrp.sms.model.ApprovedSupplierExample;
-import com.kingdee.eas.hrp.sms.model.ApprovedSupplierExample.Criteria;
 import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
+import com.kingdee.eas.hrp.sms.model.User;
+import com.kingdee.eas.hrp.sms.model.UserExample;
+import com.kingdee.eas.hrp.sms.model.UserExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
@@ -173,6 +176,19 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 		}
 
+		if (classId == 1001) {
+			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+			UserMapper userMapper = (UserMapper) sqlSession.getMapper(UserMapper.class);
+			UserExample e = new UserExample();
+			Criteria c = e.createCriteria();
+			c.andNameEqualTo(json.getString("name"));
+			// 根据订单号和行号查询对应的记录
+			List<User> o = userMapper.selectByExample(e);
+			if (o.size() > 0) {
+				throw new PlugInRuntimeException("账号已存在,请重新输入！");
+			}
+		}
+
 		PlugInRet ret = new PlugInRet();
 		ret.setCode(200);
 		ret.setData(json);
@@ -217,6 +233,19 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 			if (!json.containsKey("review")) {
 				json.put("review", "false");
+			}
+		}
+
+		if (classId == 1001) {
+			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+			UserMapper userMapper = (UserMapper) sqlSession.getMapper(UserMapper.class);
+			UserExample e = new UserExample();
+			Criteria c = e.createCriteria();
+			c.andNameEqualTo(json.getString("name"));
+			// 根据订单号和行号查询对应的记录
+			List<User> o = userMapper.selectByExample(e);
+			if (o.size() > 0) {
+				throw new PlugInRuntimeException("账号已存在,请重新输入！");
 			}
 		}
 
@@ -507,7 +536,7 @@ public class ItemPlugin extends PlugInAdpter {
 			SqlSession sqlSession = Environ.getBean(SqlSession.class);
 			ApprovedSupplierMapper mapper = sqlSession.getMapper(ApprovedSupplierMapper.class);
 			ApprovedSupplierExample example = new ApprovedSupplierExample();
-			Criteria criteria = example.createCriteria();
+			com.kingdee.eas.hrp.sms.model.ApprovedSupplierExample.Criteria criteria = example.createCriteria();
 			criteria.andSupplierEqualTo(supplier);
 			List<ApprovedSupplier> selectByExample = mapper.selectByExample(example);
 			for (ApprovedSupplier approveSupplier : selectByExample) {
