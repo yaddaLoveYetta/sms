@@ -95,7 +95,8 @@ define('Tree', function (require, module, exports) {
                 'fieldKey': 'status',
                 'logicOperator': '=',
                 'value': 1,
-                'rightParenTheses': ')'
+                'rightParenTheses': ')',
+                'needConvert':false
             });
         }
         SMS.Tips.loading("数据加载中...");
