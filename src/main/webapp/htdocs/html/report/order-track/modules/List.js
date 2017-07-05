@@ -97,7 +97,7 @@ define("List", function (require, exports, module) {
                 'ths': $.Array.keep(heads[config.classId], function (item, no) {
                     return $.String.format(samples.th, {
                         th: item.value,
-                        width: item.width || 80 + 'px',
+                        width: (item.width || 80) + 'px',
                     });
                 }).join(''),
 
