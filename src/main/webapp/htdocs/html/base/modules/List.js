@@ -129,7 +129,8 @@ define("List", function (require, module, exports) {
                     // 行
                     return $.String.format(samples["tr"], {
                         index: no,
-                        "disabled-class": item.disabled ? "disabled" : "",
+                        //"disabled-class": item.disabled ? "disabled" : "",
+                        "disabled-class": "",
                         checkbox: data.checkbox ? $.String.format(samples["td.checkbox"], {
                             index: no
                         }) : "",
