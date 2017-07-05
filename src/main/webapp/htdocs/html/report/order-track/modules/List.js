@@ -10,7 +10,7 @@ define("List", function (require, exports, module) {
             {key: 'number', value: '发货单号', width: 150},
             {key: 'date', value: '发货日期', width: 80},
             {key: 'material_NmbName', value: '物料编号', width: 80},
-            {key: 'material_DspName', value: '物料名称', width: 80},
+            {key: 'material_DspName', value: '物料名称', width: 120},
             {key: 'unit_DspName', value: '单位', width: 80},
             {key: 'actualQty', value: '发货数量', width: 80},
             {key: 'qty', value: '订单数量', width: 80},
