@@ -109,7 +109,7 @@ define("List", function (require, exports, module) {
                         'tds': $.Array.keep(heads[config.classId], function (item, no) {
 
                             return $.String.format(samples.td, {
-                                'td': rowData[item.key],
+                                'td': rowData[item.key] || '',
                             });
 
                         }).join(''),
