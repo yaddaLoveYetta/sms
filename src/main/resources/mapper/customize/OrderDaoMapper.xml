@@ -5,6 +5,7 @@
 	<!-- 发货单追踪查询 -->
 	<select id="selectSendcargo" parameterType="String" resultType="map">
 		SELECT
+		distinct
 		t_sms_sendcargo.[id] AS [id],
 		t_sms_sendcargo.[number] AS
 		[number],
@@ -81,6 +82,7 @@
 	<select id="selectPurReceival" parameterType="String"
 		resultType="map">
 		SELECT
+		distinct
 		t_sms_purreceival.[id] AS [id],
 		t_sms_purreceival.[number] AS
 		[number],
@@ -136,6 +138,7 @@
 	<select id="selectPurInwarehs" parameterType="String"
 		resultType="map">
 		SELECT
+		distinct
 		t_sms_purinwarehs_entry.[orderSeq] AS [orderSeq],
 		t_sms_purinwarehs.[number] AS [number],
 		CONVERT(nvarchar(10),t_sms_purinwarehs.[bizDate],102) AS
@@ -188,6 +191,7 @@
 
 	<select id="selectPurReturns" parameterType="String" resultType="map">
 		SELECT
+		distinct
 		t_sms_purreturns_entry.[orderSeq] AS [orderSeq],
 		t_sms_purreturns.[number] AS [number],
 		CONVERT(nvarchar(10),t_sms_purreturns.[bizDate],102) AS[bizDate],
