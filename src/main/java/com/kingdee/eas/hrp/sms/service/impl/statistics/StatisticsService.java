@@ -118,9 +118,13 @@ public class StatisticsService extends BaseService implements IStatisticsService
 
 					if (!(null == order.get("returnQty") || "".equals(order.get("returnQty")))) {
 						purreturnsReturnQty.put(material, Double.parseDouble(order.get("returnQty").toString()));
+					}else{
+						purreturnsReturnQty.put(material, Double.parseDouble("0"));
 					}
 					if (!(null == order.get("actualQty") || "".equals(order.get("actualQty")))) {
 						purinwarehsActualQty.put(material, Double.parseDouble(order.get("actualQty").toString()));
+					}else{
+						purinwarehsActualQty.put(material, Double.parseDouble("0"));
 					}
 					orderMaterialUnit.put(material, order.get("unit"));
 				}
