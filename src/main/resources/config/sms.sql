@@ -26,17 +26,17 @@ ON
 (
     NAME = hrpsms,
     FILENAME = 'D:\hrp-sms_data.mdf',
-    SIZE = 5MB,
-    MAXSIZE = 20,
-    FILEGROWTH = 20
+	SIZE = 20MB,
+	MAXSIZE = UNLIMITED,
+	FILEGROWTH = 10%
 )
 LOG ON 
 (
     NAME = hrpsms_data,
     FILENAME = 'D:\hrp-sms_log.ldf',
-    SIZE = 2MB,
-    MAXSIZE = 10MB,
-    FILEGROWTH = 1MB
+	SIZE = 20MB,
+	MAXSIZE = UNLIMITED,
+	FILEGROWTH = 10%
 );
 
 GO
