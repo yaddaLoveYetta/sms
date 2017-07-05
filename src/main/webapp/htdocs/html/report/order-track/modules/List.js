@@ -6,42 +6,42 @@ define("List", function (require, exports, module) {
     var div = document.getElementById("div-list");
     var heads = {
         "2020": [
-            {key: 'orderSeq', value: '订单行号'},
-            {key: 'number', value: '发货单号'},
-            {key: 'date', value: '发货日期'},
-            {key: 'material_NmbName', value: '物料编号'},
-            {key: 'material_DspName', value: '物料名称'},
-            {key: 'unit_DspName', value: '单位'},
-            {key: 'actualQty', value: '发货数量'},
-            {key: 'qty', value: '订单数量'},
-            /* {key: 'noneOutStockQty', value: '未发货数量'},*/
-            {key: 'logistics', value: '物流公司'},
-            {key: 'logisticsNo', value: '物流单号'}],
+            {key: 'orderSeq', value: '订单行号',width:50},
+            {key: 'number', value: '发货单号',width:150},
+            {key: 'date', value: '发货日期',width:80},
+            {key: 'material_NmbName', value: '物料编号',width:80},
+            {key: 'material_DspName', value: '物料名称',width:80},
+            {key: 'unit_DspName', value: '单位',width:80},
+            {key: 'actualQty', value: '发货数量',width:80},
+            {key: 'qty', value: '订单数量',width:80},
+            /* {key: 'noneOutStockQty', value: '未发货数量',width:80},*/
+            {key: 'logistics', value: '物流公司',width:80},
+            {key: 'logisticsNo', value: '物流单号',width:80}],
         "2021": [
-            {key: 'number', value: '收货单号'},
-            {key: 'orderSeq', value: '订单行号'},
-            {key: 'bizDate', value: '收货日期'},
-            {key: 'material_NmbName', value: '物料编码'},
-            {key: 'material_DspName', value: '物料名称'},
-            {key: 'unit_DspName', value: '单位'},
-            {key: 'actualQty', value: '收货数量'},],
+            {key: 'number', value: '收货单号',width:80},
+            {key: 'orderSeq', value: '订单行号',width:80},
+            {key: 'bizDate', value: '收货日期',width:80},
+            {key: 'material_NmbName', value: '物料编码',width:80},
+            {key: 'material_DspName', value: '物料名称',width:80},
+            {key: 'unit_DspName', value: '单位',width:80},
+            {key: 'actualQty', value: '收货数量',width:80},],
         "2022": [
-            {key: 'number', value: '收货单号'},
-            {key: 'orderSeq', value: '订单行号'},
-            {key: 'bizDate', value: '收货日期'},
-            {key: 'material_NmbName', value: '物料编码'},
-            {key: 'material_DspName', value: '物料名称'},
-            {key: 'unit_DspName', value: '单位'},
-            {key: 'actualQty', value: '收货数量'},],
+            {key: 'number', value: '收货单号',width:80},
+            {key: 'orderSeq', value: '订单行号',width:80},
+            {key: 'bizDate', value: '收货日期',width:80},
+            {key: 'material_NmbName', value: '物料编码',width:80},
+            {key: 'material_DspName', value: '物料名称',width:80},
+            {key: 'unit_DspName', value: '单位',width:80},
+            {key: 'actualQty', value: '收货数量',width:80},],
         "2023": [
-            {key: 'orderSeq', value: '订单行号'},
-            {key: 'number', value: '退货单号'},
-            {key: 'bizDate', value: '退货日期'},
-            {key: 'material_NmbName', value: '物料编码'},
-            {key: 'material_DspName', value: '物料名称'},
-            {key: 'unit_DspName', value: '单位'},
-            {key: 'returnQty', value: '退货数量'},
-            {key: 'qty', value: '订单数量'},],
+            {key: 'orderSeq', value: '订单行号',width:80},
+            {key: 'number', value: '退货单号',width:80},
+            {key: 'bizDate', value: '退货日期',width:80},
+            {key: 'material_NmbName', value: '物料编码',width:80},
+            {key: 'material_DspName', value: '物料名称',width:80},
+            {key: 'unit_DspName', value: '单位',width:80},
+            {key: 'returnQty', value: '退货数量',width:80},
+            {key: 'qty', value: '订单数量',width:80},],
     };
 
     var getRecordData = function (config, fn) {
@@ -97,6 +97,7 @@ define("List", function (require, exports, module) {
                 'ths': $.Array.keep(heads[config.classId], function (item, no) {
                     return $.String.format(samples.th, {
                         th: item.value,
+                        width:item.width,
                     });
                 }).join(''),
 
@@ -121,35 +122,8 @@ define("List", function (require, exports, module) {
                     defaultTab: 'li:first-child'
                 });
             }
-
-
-            // $('#tab-container').easytabs();
-
-            /*            $(document).ready(function () {
-             $('#tab-container').easytabs();
-             });*/
-
-            //sumTdTotal();
             fn && fn(total, config.pageSize);
         });
-    }
-
-    function sumTdTotal() {
-        // 求和运算
-        var needtotalTds = $("#div-list table>tfoot td[needtotal='true']");
-        var tbodytrLen = $("#div-list table>tbody>tr").length;
-        if (needtotalTds.length <= 0 || tbodytrLen === 0) {
-            $("#div-list table>tfoot").hide();
-        } else {
-            needtotalTds.each(function (index, item) {
-                var key = $(item).attr("totalkey");
-                var totalArray = $("#div-list table>tbody td[key='" + key + "']").map(function () {
-                    return $(this).html();
-                }).get();
-                var totalValue = $.Array.sum(totalArray);
-                $(item).html(totalValue.toFixed(2));
-            });
-        }
     }
 
     return {
