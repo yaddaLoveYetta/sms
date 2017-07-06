@@ -104,9 +104,9 @@
 
             getF7Data(itemId, classId, function (data) {
                 var selectorData = [{
-                    ID: data.id,
-                    number: data.number,
-                    name: data.name
+                    ID: data[metaData['formFields'][0].primaryKey],
+                    number: data.number || '',
+                    name: data.name || ''
                 }];
                 selectors[key].setData(selectorData);
                 emitter.fire(key + '.defaultFill', [selectorData]);

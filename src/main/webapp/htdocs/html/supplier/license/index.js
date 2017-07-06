@@ -112,15 +112,21 @@
             // 增加
             SMS.use('Dialog', function (Dialog) {
 
+                var dfValue = {};
+
+                if (treeClassId == 1005) {
+                    dfValue['supplier'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增供应商资质时，供应商默认值为当前选中的供应商
+                } else if (treeClassId == 3030) {
+                    dfValue['materialItem'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增供应商资质时，供应商默认值为当前选中的供应商
+                }
+
                 var dialog = new Dialog({
                     title: '新增-' + sysName,
                     width: 700,
                     height: 550,
                     url: $.Url.setQueryString('html/base_edit/index.html', 'classId', classId),
                     data: {
-                        defaultValue: {
-                            'supplier': treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增供应商资质时，供应商默认值为当前选中的供应商
-                        }
+                        defaultValue: dfValue
                     },
                     button: [],
                 });
