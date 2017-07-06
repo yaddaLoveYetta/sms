@@ -523,7 +523,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional
 	public String addItem(Integer classId, String data) {
 
 		String userType = SessionUtil.getUserType();
@@ -603,7 +603,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional
 	public void editItem(Integer classId, String id, String data) {
 
 		String userType = SessionUtil.getUserType();
@@ -678,7 +678,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional
 	public void delItem(Integer classId, String items) {
 		List list = new ArrayList();
 		// 判断是否为发货单数据

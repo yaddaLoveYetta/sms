@@ -1,20 +1,13 @@
 package com.kingdee.eas.hrp.sms.service.impl.sendcargo;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.xml.namespace.QName;
-import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.client.Call;
-import org.apache.axis.message.SOAPHeaderElement;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -24,7 +17,6 @@ import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Sendcargo;
 import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.api.sendcargo.ISendcargoService;
-import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 
 @Service
@@ -53,6 +45,7 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 	}
 
 	@Override
+	@Transactional
 	public String sendCargoHrp(String items) {
 
 		SendcargoDaoMapper sendcargoDaoMapper = sqlSession.getMapper(SendcargoDaoMapper.class);
