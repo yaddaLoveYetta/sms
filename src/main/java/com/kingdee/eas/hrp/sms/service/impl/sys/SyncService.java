@@ -30,7 +30,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	@Resource
 	ITemplateService templateService;
-
+	@Transactional
 	public List<Map<String, Object>> sync_old(int classId, JSONArray list) {
 
 		// 同步失败的记录S
@@ -69,7 +69,7 @@ public class SyncService extends BaseService implements ISyncService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(propagation = Propagation.NEVER)
+	@Transactional
 	public List<Map<String, Object>> sync(int classId, JSONArray list) {
 
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();

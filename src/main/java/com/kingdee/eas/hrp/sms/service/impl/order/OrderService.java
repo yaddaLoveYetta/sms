@@ -58,6 +58,7 @@ public class OrderService extends BaseService implements IOrderService {
 	 * 同步订单
 	 */
 	@Override
+	@Transactional
 	public String order(JSONArray orderjson) {
 		Order order = new Order();
 		OrderEntry orderEntry = new OrderEntry();
@@ -128,7 +129,7 @@ public class OrderService extends BaseService implements IOrderService {
 	 * 采购订单接单
 	 */
 	@Override
-	@Transactional(propagation = Propagation.NEVER)
+	@Transactional
 	public void tick(String id, String entryStr) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
@@ -752,6 +753,7 @@ public class OrderService extends BaseService implements IOrderService {
 	 * HRP->SMS接单确认接口
 	 * 
 	 */
+	@Transactional
 	public String updateTickType(JSONObject jsonObject) {
 		OrderEntry orderEntry = new OrderEntry();
 		Order order = new Order();

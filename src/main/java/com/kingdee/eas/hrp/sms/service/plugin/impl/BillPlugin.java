@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -35,6 +36,7 @@ public class BillPlugin extends PlugInAdpter {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public PlugInRet afterSave(int classId, String id, JSONObject data) {
 		if (classId == 2020) {
 			ITemplateService temp = Environ.getBean(ITemplateService.class);
@@ -190,6 +192,7 @@ public class BillPlugin extends PlugInAdpter {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data) {
 		if (classId == 2020) {
 			JSONObject entry = data.getJSONObject("entry");
@@ -255,6 +258,7 @@ public class BillPlugin extends PlugInAdpter {
 	}
 
 	@Override
+	@Transactional
 	public PlugInRet afterModify(int classId, JSONObject data) {
 		if (classId == 2020) {
 			JSONObject entry = (JSONObject) data.get("entry");
@@ -308,6 +312,7 @@ public class BillPlugin extends PlugInAdpter {
 	}
 
 	@Override
+	@Transactional
 	public PlugInRet afterDelete(int classId, List<Map<String, Object>> data, String items) {
 		if (classId == 2020) {
 			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");

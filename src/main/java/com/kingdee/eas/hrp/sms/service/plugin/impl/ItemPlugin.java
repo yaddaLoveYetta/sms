@@ -13,6 +13,7 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -59,6 +60,7 @@ public class ItemPlugin extends PlugInAdpter {
 	List<Integer> reviewAndSyncClassIdList = new ArrayList<Integer>(Arrays.asList(1005, 3010, 3020, 3030, 1023, 1007));
 
 	@Override
+	@Transactional
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data) {
 
 		ITemplateService templateService = Environ.getBean(ITemplateService.class);

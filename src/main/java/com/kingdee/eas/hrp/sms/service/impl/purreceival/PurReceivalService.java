@@ -3,6 +3,7 @@ package com.kingdee.eas.hrp.sms.service.impl.purreceival;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -30,6 +31,7 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 	 * 
 	 */
 	@Override
+	@Transactional
 	public String purReceival(JSONArray jsonarray) {
 		PurReceival purReceival = new PurReceival();
 		PurReceivalEntry purReceivalEntry = new PurReceivalEntry();

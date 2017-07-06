@@ -3,6 +3,7 @@ package com.kingdee.eas.hrp.sms.service.impl.purinwarehs;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -26,6 +27,7 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 	 * 
 	 */
 	@Override
+	@Transactional
 	public String purInWarehs(JSONArray jsonarray) {
 		PurInWarehs purInWarehs = new PurInWarehs();
 		PurInWarehsEntry purInWarehsEntry = new PurInWarehsEntry();

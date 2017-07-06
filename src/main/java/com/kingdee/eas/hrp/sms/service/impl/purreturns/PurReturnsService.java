@@ -3,6 +3,7 @@ package com.kingdee.eas.hrp.sms.service.impl.purreturns;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -21,6 +22,7 @@ public class PurReturnsService extends BaseService implements IPurReturnsService
 	ITemplateService iTemplateService;
 
 	@Override
+	@Transactional
 	public String purreturns(JSONArray jsonarray) {
 		PurReturns purreturns = new PurReturns();
 		PurReturnsEntry purReturnsEntry = new PurReturnsEntry();
