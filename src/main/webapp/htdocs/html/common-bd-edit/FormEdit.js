@@ -260,7 +260,7 @@
                     if (field["dataType"] == 4) { //布尔
                         element.prop("checked", defaultValue);
                     }
-                    if (field["dataType"] == 6) { //选择框
+                    if (field["ctrlType"] == 6) { //选择框
                         getF7Data(defaultValue, formClassId, function (data) {
                             setF7Data(data, keyName, selectors);
                         });
