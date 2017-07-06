@@ -261,7 +261,7 @@
                         element.prop("checked", defaultValue);
                     }
                     if (field["ctrlType"] == 6) { //选择框
-                        getF7Data(defaultValue, formClassId, function (data) {
+                        getF7Data(defaultValue, field['lookUpClassID'], function (data) {
                             setF7Data(data, keyName, selectors);
                         });
                     }
