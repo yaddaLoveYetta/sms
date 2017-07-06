@@ -166,7 +166,7 @@
 
             var field = fields[item];
             var keyName = field['key'];
-            var defaultValue = initValue || initValue[keyName] || field['defaultValue'];
+            var defaultValue = initValue ? initValue[keyName] || field['defaultValue'] : field['defaultValue'];
             var lookUpClassId = field['lookUpClassID'];
             var element = getElements(keyName);
             if (!element) {
