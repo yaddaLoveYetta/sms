@@ -182,6 +182,7 @@ public class ItemPlugin extends PlugInAdpter {
 			UserExample e = new UserExample();
 			Criteria c = e.createCriteria();
 			c.andNameEqualTo(json.getString("name"));
+			c.andUserIdNotEqualTo(id);
 			// 根据订单号和行号查询对应的记录
 			List<User> o = userMapper.selectByExample(e);
 			if (o.size() > 0) {
@@ -242,6 +243,7 @@ public class ItemPlugin extends PlugInAdpter {
 			UserExample e = new UserExample();
 			Criteria c = e.createCriteria();
 			c.andNameEqualTo(json.getString("name"));
+			c.andUserIdNotEqualTo(json.getString("userId"));
 			// 根据订单号和行号查询对应的记录
 			List<User> o = userMapper.selectByExample(e);
 			if (o.size() > 0) {
@@ -274,12 +276,12 @@ public class ItemPlugin extends PlugInAdpter {
 
 		JSONArray conditionArry = new JSONArray();
 		JSONObject condition = new JSONObject(true);
-		condition.put("fieldKey", "name");
-		condition.put("logicOperator", "=");
-		condition.put("value", data.get("name"));
-		conditionArry.add(condition);
+//		condition.put("fieldKey", "name");
+//		condition.put("logicOperator", "=");
+//		condition.put("value", data.get("name"));
+//		conditionArry.add(condition);
 
-		condition = new JSONObject(true);
+//		condition = new JSONObject(true);
 		condition.put("andOr", "and");
 		condition.put("fieldKey", "number");
 		condition.put("logicOperator", "=");
@@ -295,7 +297,7 @@ public class ItemPlugin extends PlugInAdpter {
 		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10);
 
 		if ((long) result.get("count") > 0) {
-			throw new PlugInRuntimeException("该记录已存在");
+			throw new PlugInRuntimeException("该记录已存在,代码重复");
 		}
 	}
 
