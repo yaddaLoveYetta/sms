@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -101,7 +103,8 @@ public class AttachmentController {
 		// 是否已审核
 		Map<String, Object> itemById = templateService.getItemById(classId, itemId);
 		String number = (String) itemById.get("number");
-		int review = Integer.parseInt(itemById.get("review").toString()) ;
+		String code = filter(number);
+		int review = Integer.parseInt(itemById.get("review").toString());
 		if (1 == review) {
 			throw new PlugInRuntimeException("记录已审核，无法进行操作！");
 		}
@@ -111,7 +114,7 @@ public class AttachmentController {
 
 		String classDirector = fileDirector.endsWith("\\") ? classId + "\\\\" : "\\\\" + classId + "\\\\";
 
-		fileDirector = fileDirector + classDirector;// 真实存放路径
+		fileDirector = fileDirector + classDirector + code;// 真实存放路径
 
 		File f = new File(fileDirector);
 
@@ -125,7 +128,7 @@ public class AttachmentController {
 
 		for (FileItem fileItem : file) {
 
-			String fileName = number + "-" + fileItem.getName();
+			String fileName = fileItem.getName();
 
 			if (fileName == null || fileName.trim().equals("")) {
 				continue;
@@ -158,6 +161,12 @@ public class AttachmentController {
 
 		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
 
+		String itemId = ParameterUtils.getParameter(request, "itemId", "");
+
+		Map<String, Object> itemById = templateService.getItemById(classId, itemId);
+		String number = (String) itemById.get("number");
+		String code = filter(number);
+
 		if (classId < 0) {
 			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR,
 			// "参数错误：必须提交classId");
@@ -182,7 +191,7 @@ public class AttachmentController {
 		// 获取目标文件的绝对路径
 		String fileDirector = SystemParamUtil.getString("sys", "FILE_PATH"); // 文件存放目录
 		String classDirector = fileDirector.endsWith("\\") ? classId + "\\\\" : "\\\\" + classId + "\\\\";
-		fileDirector = fileDirector + classDirector;// 真实存放路径
+		fileDirector = fileDirector + classDirector + code;// 真实存放路径
 
 		File f = new File(fileDirector);
 
@@ -231,6 +240,13 @@ public class AttachmentController {
 				out.close();
 			}
 		}
+	}
+
+	public String filter(String str) {
+		String regEx = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(str);
+		return m.replaceAll("").trim();
 	}
 
 }
