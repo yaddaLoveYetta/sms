@@ -35,6 +35,7 @@ import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
 import com.kingdee.eas.hrp.sms.model.UserExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
@@ -47,6 +48,9 @@ public class ItemPlugin extends PlugInAdpter {
 	private ITemplateService templateService;
 	@Resource
 	private ISyncHRPService syncHRPService;
+
+	@Resource
+	IWebService IWebService;
 
 	// 当业务用户查询时，相关item需做数据隔离
 	List<Integer> isolateClassIdList = new ArrayList<Integer>(
@@ -67,7 +71,6 @@ public class ItemPlugin extends PlugInAdpter {
 				data = data.substring(0, data.length() - 2);
 			}
 		}
-		
 
 		// 装配待删除ID
 		String[] idString = data.split(",");
@@ -131,36 +134,36 @@ public class ItemPlugin extends PlugInAdpter {
 
 		// 同步删除
 		if (reviewAndSyncClassIdList.contains(classId) && flag) {
-			String sessionId = syncHRPService.loginInEAS();
+
 			JSONObject delJson = new JSONObject(true);
 			delJson.put("classId", classId);
 			delJson.put("items", data);
-			String syncRet = syncHRPService.syncItemByWS(sessionId, delJson.toString(), "delSms2hrpBaseData");
+			// 调用HRP删除接口
+			String syncRet = IWebService.webService(delJson.toString(), "delSms2hrpBaseData");
+			JSONObject syncJson = JSONObject.parseObject(syncRet);
+			// 获取接口返回值数据
+			String syncData = syncJson.getString("data");
 			if (null == syncRet || "".equals(syncRet)) {
 				throw new RuntimeException("同步删除医院数据时网络异常！");
 			}
-			JSONObject syncJson = JSONObject.parseObject(syncRet);
-			String syncData = syncJson.getString("data");
 			if (!(null == syncData || "".equals(syncData))) {
 				throw new PlugInRuntimeException("记录无法在医院数据中删除，故删除失败");
 			}
 		}
-		if(classId==1003){
+		if (classId == 1003) {
 			String[] split = data.split("\\,");
 			SqlSession rolesqlSession = (SqlSession) Environ.getBean("sqlSession");
 			RoleMapper roleMapper = rolesqlSession.getMapper(RoleMapper.class);
-			AccessControlMapper accessControlMapper=rolesqlSession.getMapper(AccessControlMapper.class);
+			AccessControlMapper accessControlMapper = rolesqlSession.getMapper(AccessControlMapper.class);
 			for (int i = 0; i < split.length; i++) {
 				Role role = roleMapper.selectByPrimaryKey(split[i]);
-				AccessControlExample  e = new AccessControlExample();
+				AccessControlExample e = new AccessControlExample();
 				com.kingdee.eas.hrp.sms.model.AccessControlExample.Criteria c = e.createCriteria();
 				c.andRoleIdEqualTo(role.getRoleId());
 				accessControlMapper.deleteByExample(e);
 			}
-			
+
 		}
-		
-		
 
 		return super.beforeDelete(classId, formData, data);
 	}
@@ -296,12 +299,12 @@ public class ItemPlugin extends PlugInAdpter {
 
 		JSONArray conditionArry = new JSONArray();
 		JSONObject condition = new JSONObject(true);
-//		condition.put("fieldKey", "name");
-//		condition.put("logicOperator", "=");
-//		condition.put("value", data.get("name"));
-//		conditionArry.add(condition);
+		// condition.put("fieldKey", "name");
+		// condition.put("logicOperator", "=");
+		// condition.put("value", data.get("name"));
+		// conditionArry.add(condition);
 
-//		condition = new JSONObject(true);
+		// condition = new JSONObject(true);
 		condition.put("andOr", "and");
 		condition.put("fieldKey", "number");
 		condition.put("logicOperator", "=");
