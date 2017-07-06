@@ -73,7 +73,7 @@
     }
 
     //-----------F7处理逻辑Begin-------------//
-    var getF7Data = function (itemId, classId, lookUpType, fn) {
+    var getF7Data = function (itemId, classId, fn) {
 
 
         var api = new API('template/getItemById');
