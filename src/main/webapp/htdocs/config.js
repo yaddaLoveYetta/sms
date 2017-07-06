@@ -11,7 +11,7 @@
         // Web 站点的根地址
         Url: {
             'default': $('script[src*="config.js"]').get(0).src.split('config.js')[0],
-            'uploadFileUrlRoot':'http://127.0.0.1:8080/sms/uploadFile', //上传文件存储地址
+            'uploadFileUrlRoot': 'http://127.0.0.1:8080/sms/uploadFile', //上传文件存储地址
         },
 
         //后台接口
@@ -45,7 +45,7 @@
 
             //'user/getSidebar':'api/master/sidebar.js',
             //'report/orderCount':'api/report/orderCount.js',
-           // 'report/traceQuery':'api/report/traceQuery.js',
+            // 'report/traceQuery':'api/report/traceQuery.js',
         },
 
         //简易分页器
@@ -116,21 +116,21 @@
                 'datetimepicker-js': 'datetimepicker/js/datetimepicker.mod.{@}.js',
                 'zTree-js': 'ztree/js/jquery.ztree.all-3.5.js?r=' + Math.random(),
                 'zTree-css': 'ztree/css/zTreeStyle/zTreeStyle.css#',
-                'grid-base-js':'jqgrid/grid.base.js?r=' + Math.random(),
-                'grid-celledit-js':'jqgrid/grid.celledit.js',
-                'grid-custom-js':'jqgrid/grid.custom.js',
-                'grid-common-js':'jqgrid/grid.common.js',
-                'grid-locale-cn-js':'jqgrid/i18n/grid.locale-cn.js',
-                'jquery-combo-js':'jqgrid/jquery.combo.js',
-                'jqgrid-css':'jqgrid/ui.jqgrid.css#',
-                'ui-css':'jqgrid/ui.css#',
-                'common-css':'jqgrid/common.css#',
-                'jqgrid-all-js':'jqGrid-5.1.0/jqGrid-master/js/jquery.jqGrid.js',
-                'jqgrid-all-css':'jqGrid-5.1.0/jqGrid-master/css/ui.jqgrid.css#',
-                'jquery-barcode':'jquery-barcode-2.0.3/jquery/jquery-barcode.{@}.js',
-                'jquery.jqprint':'jquery.jqprint/jquery.jqprint-0.3.js',
-                'jquery-migrate':'jquery.jqprint/jquery-migrate-1.2.1.min.js',
-                'easy-tabs':'jspkg-archive/lib/jquery.easytabs.{@}.js',
+                'grid-base-js': 'jqgrid/grid.base.js?r=' + Math.random(),
+                'grid-celledit-js': 'jqgrid/grid.celledit.js',
+                'grid-custom-js': 'jqgrid/grid.custom.js',
+                'grid-common-js': 'jqgrid/grid.common.js',
+                'grid-locale-cn-js': 'jqgrid/i18n/grid.locale-cn.js',
+                'jquery-combo-js': 'jqgrid/jquery.combo.js',
+                'jqgrid-css': 'jqgrid/ui.jqgrid.css#',
+                'ui-css': 'jqgrid/ui.css#',
+                'common-css': 'jqgrid/common.css#',
+                'jqgrid-all-js': 'jqGrid-5.1.0/jqGrid-master/js/jquery.jqGrid.js',
+                'jqgrid-all-css': 'jqGrid-5.1.0/jqGrid-master/css/ui.jqgrid.css#',
+                'jquery-barcode': 'jquery-barcode-2.0.3/jquery/jquery-barcode.{@}.js',
+                'jquery.jqprint': 'jquery.jqprint/jquery.jqprint-0.3.js',
+                'jquery-migrate': 'jquery.jqprint/jquery-migrate-1.2.1.min.js',
+                'easy-tabs': 'jspkg-archive/lib/jquery.easytabs.{@}.js',
             }
         },
 
@@ -191,6 +191,14 @@
                 showLine: true,
                 dblClickExpand: true,//双击展开
                 selectedMulti: false,//是否允许多选
+                addDiyDom: function (treeId, treeNode) {
+
+                    var text = $("#" + treeNode.tId + "_span").html();
+                    if (text.length > 10) {
+                        text = text.substring(0, 10) + "...";
+                        $("#" + treeNode.tId + "_span").html(text);
+                    }
+                }
             },
             data: {
                 simpleData: {
@@ -214,7 +222,7 @@
             autoclose: true,
             todayBtn: true,
             todayHighlight: true,
-            timepicker:false,
+            timepicker: false,
             startView: 'month',
             minView: 'hour',
         },
