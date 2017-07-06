@@ -63,6 +63,7 @@ public class ItemPlugin extends PlugInAdpter {
 				data = data.substring(0, data.length() - 2);
 			}
 		}
+		
 
 		// 装配待删除ID
 		String[] idString = data.split(",");
@@ -140,6 +141,13 @@ public class ItemPlugin extends PlugInAdpter {
 				throw new PlugInRuntimeException("记录无法在医院数据中删除，故删除失败");
 			}
 		}
+		if(classId==1001){
+			String[] split = data.split("\\,");
+			SqlSession usersqlSession = (SqlSession) Environ.getBean("sqlSession");
+			UserMapper userMapper = usersqlSession.getMapper(UserMapper.class);
+		}
+		
+		
 
 		return super.beforeDelete(classId, formData, data);
 	}
@@ -183,7 +191,7 @@ public class ItemPlugin extends PlugInAdpter {
 			Criteria c = e.createCriteria();
 			c.andNameEqualTo(json.getString("name"));
 			c.andUserIdNotEqualTo(id);
-			// 根据订单号和行号查询对应的记录
+			// UserID和name查询记录
 			List<User> o = userMapper.selectByExample(e);
 			if (o.size() > 0) {
 				throw new PlugInRuntimeException("账号已存在,请重新输入！");
@@ -243,8 +251,7 @@ public class ItemPlugin extends PlugInAdpter {
 			UserExample e = new UserExample();
 			Criteria c = e.createCriteria();
 			c.andNameEqualTo(json.getString("name"));
-			c.andUserIdNotEqualTo(json.getString("userId"));
-			// 根据订单号和行号查询对应的记录
+			// UserID和name查询
 			List<User> o = userMapper.selectByExample(e);
 			if (o.size() > 0) {
 				throw new PlugInRuntimeException("账号已存在,请重新输入！");
