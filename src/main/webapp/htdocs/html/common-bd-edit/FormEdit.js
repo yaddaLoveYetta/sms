@@ -104,7 +104,7 @@
 
             getF7Data(itemId, classId, function (data) {
                 var selectorData = [{
-                    ID: data[metaData['formFields'][0].primaryKey],
+                    ID: data[metaData['formClass'].primaryKey],
                     number: data.number || '',
                     name: data.name || ''
                 }];
