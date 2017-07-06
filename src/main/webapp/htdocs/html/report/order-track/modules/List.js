@@ -89,7 +89,8 @@ define("List", function (require, exports, module) {
     }]);
 
     function render(config, fn) {
-        //div.innerHTML = '';
+
+        div.innerHTML = '';// 先清空，tabs切换后数据未加载完成，引起歧义
         getRecordData(config, function (list, total) {
 
             div.innerHTML = $.String.format(samples.table, {
