@@ -119,7 +119,7 @@
                     url: $.Url.setQueryString('html/base_edit/index.html', 'classId', classId),
                     data: {
                         defaultValue: {
-                            'supplier': treeFilter || treeFilter.id  // 新增供应商资质时，供应商默认值为当前选中的供应商
+                            'supplier': treeFilter ? treeFilter.id : null  // 新增供应商资质时，供应商默认值为当前选中的供应商
                         }
                     },
                     button: [],
