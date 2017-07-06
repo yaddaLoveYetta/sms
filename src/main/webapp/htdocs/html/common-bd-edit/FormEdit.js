@@ -98,27 +98,20 @@
 
     };
 
-    var setF7Data = function (data, key, selectors) {
-        var selectorData = [{
-            ID: data.ID,
-            number: data.number,
-            name: data.name
-        }];
-        selectors[key].setData(selectorData);
-        emitter.fire(key + '.defaultFill', [selectorData]);
+    var setF7Data = function (itemId, classId, key) {
 
-    };
+        if (itemId && itemId.trim() != '') { //是否具有默认值
 
-    //锁定F7控件
-    var lockF7 = function (key, defaultVal, classId, lookUpType, isDisabled, selectors) {
-
-        if (defaultVal) { //是否具有默认值
-            getF7Data(defaultVal, classId, lookUpType, function (data) {
-                setF7Data(data, key, selectors);
+            getF7Data(itemId, classId, function (data) {
+                var selectorData = [{
+                    ID: data.id,
+                    number: data.number,
+                    name: data.name
+                }];
+                selectors[key].setData(selectorData);
+                emitter.fire(key + '.defaultFill', [selectorData]);
             });
-        }
-        if (isDisabled) { // 是否锁定
-            selectors[key].lock();
+
         }
     };
 
@@ -261,9 +254,7 @@
                         element.prop("checked", defaultValue);
                     }
                     if (field["ctrlType"] == 6) { //选择框
-                        getF7Data(defaultValue, field['lookUpClassID'], function (data) {
-                            setF7Data(data, keyName, selectors);
-                        });
+                        setF7Data(defaultValue, field['lookUpClassID'], keyName);
                     }
                 }
             }
