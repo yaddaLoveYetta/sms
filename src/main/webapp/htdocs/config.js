@@ -194,8 +194,8 @@
                 addDiyDom: function (treeId, treeNode) {
 
                     var text = $("#" + treeNode.tId + "_span").html();
-                    if (text.length > 10) {
-                        text = text.substring(0, 10) + "...";
+                    if (text.length > 15) {
+                        text = text.substring(0, 15) + "...";
                         $("#" + treeNode.tId + "_span").html(text);
                     }
                 }
