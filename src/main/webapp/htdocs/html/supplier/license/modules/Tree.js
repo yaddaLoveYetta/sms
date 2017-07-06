@@ -96,7 +96,7 @@ define('Tree', function (require, module, exports) {
                 'logicOperator': '=',
                 'value': 1,
                 'rightParenTheses': ')',
-                'needConvert':false
+                'needConvert': false
             });
         }
         SMS.Tips.loading("数据加载中...");
@@ -135,6 +135,7 @@ define('Tree', function (require, module, exports) {
                     id: item.id,
                     pId: 0,
                     name: item.name || '',
+                    value: item // 所有明细
                 }
             });
         } else if (formClassId === 3030) {
@@ -144,6 +145,7 @@ define('Tree', function (require, module, exports) {
                     id: item.materialItem,
                     pId: 0,
                     name: item.materialItem_DspName || '',
+                    value: item// 所有明细
                 }
             });
 

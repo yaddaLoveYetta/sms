@@ -74,12 +74,12 @@ define('Edit', function (require, module, exports) {
 
     }
 
-    function render(formClassId, itemID) {
+    function render(formClassId, itemID, defaultValue) {
 
         itemId = itemID;
         classId = formClassId;
-       // FormEdit.render(formClassId, itemId, initGrid, initSelectors);
-        FormEdit.render(formClassId, itemId, null, initSelectors);
+        // FormEdit.render(formClassId, itemId, initGrid, initSelectors);
+        FormEdit.render(formClassId, itemId, null, initSelectors,defaultValue);
     }
 
     function clear() {
@@ -164,7 +164,7 @@ define('Edit', function (require, module, exports) {
         if (classId == 1001 && key == 'role') {
             // 用户角色依赖于用户类别
             config = {
-                conditionF7Names: [{
+                conditionF7Names: [{ //级联查询条件 多个用逗号分割
                     type: "selector",
                     target: 'type',
                     filterKey: "type",
@@ -172,7 +172,7 @@ define('Edit', function (require, module, exports) {
                         'QpXq24FxxE6c3lvHMPyYCxACEAI=': 'Ro9iCuOsVEmznmE+YZSi7hAEEAQ=',
                         'B3sMo22ZLkWApjO/oEeDOxACEAI=': 'f1sGInqJq0aUNY5MmpKM8RAEEAQ='
                     }
-                }],   //级联查询条件 多个用逗号分割
+                }],
             };
         }
         if (classId == 3020 && key == 'material') {
@@ -183,6 +183,12 @@ define('Edit', function (require, module, exports) {
                     target: 'supplier',
                     filterKey: "supplier",
                 }],   //级联查询条件 多个用逗号分割
+            };
+        }
+        if (classId == 3010 && key == 'supplier' && itemId) {
+            // 供应商资质新增-供应商设置默认值
+            config = {
+                defaultValue: ''
             };
         }
         return config;

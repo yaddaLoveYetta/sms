@@ -117,7 +117,11 @@
                     width: 700,
                     height: 550,
                     url: $.Url.setQueryString('html/base_edit/index.html', 'classId', classId),
-                    data: {},
+                    data: {
+                        defaultValue: {
+                            'supplier': treeFilter || treeFilter.id  // 新增供应商资质时，供应商默认值为当前选中的供应商
+                        }
+                    },
                     button: [],
                 });
 

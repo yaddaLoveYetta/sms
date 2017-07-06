@@ -13,19 +13,28 @@
 
     var ButtonList = bl.create(itemId);
 
+    var defaultValue;
+
     //检查登录
     if (!SMS.Login.check(true)) {
         return;
     }
 
-/*    Iframe.on('before-close', function (infos) {
+    /*    Iframe.on('before-close', function (infos) {
 
-        MessageBox.confirm('正在编辑，确认关闭?', function (result) {
-            if (!result) {
-                return false;
-            }
-        });
-    });*/
+     MessageBox.confirm('正在编辑，确认关闭?', function (result) {
+     if (!result) {
+     return false;
+     }
+     });
+     });*/
+
+    var dialog = Iframe.getDialog();
+
+    if (dialog) {
+        var data = dialog.getData() || {};
+        defaultValue = data.defaultValue;
+    }
 
     // 基础资料类别ID
     // 支持二级事件，二级事件对应 item 中的 name
@@ -49,6 +58,6 @@
 
     DatetimePicker.render();
     ButtonList.render();
-    Edit.render(formClassId, itemId);
+    Edit.render(formClassId, itemId, defaultValue);
 
 })();

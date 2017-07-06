@@ -23,6 +23,7 @@
     var formClassId;
     var fnEntry;
     var fnSelectors;
+    var initValue;
 
     /**
      * 表格数据呈现
@@ -31,12 +32,13 @@
      * @param fnE 含有表体字段时，暂时通过回调给到调用者呈现
      * @param fnS 含有特殊控件时，特殊控件初始化前回调给调用者做配置
      */
-    function render(classId, itemId, fnE, fnS) {
+    function render(classId, itemId, fnE, fnS, dfValue) {
 
         // selectors = elements;
         formClassId = classId;
         fnEntry = fnE;
         fnSelectors = fnS;
+        initValue = dfValue;
         getMetaData(formClassId, itemId, fnEntry);
 
     }
@@ -151,8 +153,9 @@
     //------是否必填校验逻辑 END-----//
 
     function initController(itemId) {
-        var isUpdate = !!itemId;
-        //是否是修改
+
+        var isUpdate = !!itemId; //新增 || 修改
+
         if (!metaData || !metaData['formFields'] || !metaData['formFields'][0]) {
             SMS.Tips.error('元数据错误，请联系管理员');
             return;
@@ -160,9 +163,10 @@
         var fields = metaData['formFields'][0];
 
         for (var item in fields) {
+
             var field = fields[item];
             var keyName = field['key'];
-            var defaultValue = field['defaultValue'];
+            var defaultValue = initValue || initValue[keyName] || field['defaultValue'];
             var lookUpClassId = field['lookUpClassID'];
             var element = getElements(keyName);
             if (!element) {
@@ -172,9 +176,11 @@
             var mask = field["display"] || 0;
             var lockMaskDisplay = 0;
             var display = 0;
-            if (isUpdate) {
-                lockMaskDisplay = 2;
 
+            // 字段显示性，锁定性处理
+            if (isUpdate) {
+
+                lockMaskDisplay = 2;
                 //display 字段显示权限-后端FDisPlay定义 4：编辑时对于平台用户显示，8：编辑时对于供应商用户显示：12：平台供应商用户都显示
                 //lockMaskDisplay  字段显示权限-后端FLock定义 4 编辑时平台用户锁定，8编辑时候供应商用户锁定
                 if (user.type == 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
@@ -205,41 +211,63 @@
             //是否 移除
             var isRemove = !(mask & display);
 
-            //if (field['FCtrlType'] == 1) {
-            //    element.autoNumeric('init');
-            //}
-            //默认值处理
-            if (defaultValue || defaultValue == false && defaultValue == 0) {
-                if (field['ctrlType'] == 1) {
-                    //                  if (element.autoNumeric) {
-                    //                      element.autoNumeric('set', defaultValue);
-                    //                  } else {
-                    element.val(defaultValue);
-                    //                  }
-                }
-                if (field["dataType"] == 2) { //数字 文本值
-                    element.val(defaultValue);
-                }
-                if (field["dataType"] == 3) { //日期时间
-                    // element.value = defaultValue;
-                }
-                if (field["dataType"] == 4) { //布尔
-                    element.prop("checked", defaultValue);
-                }
-            }
-            //F7选择框处理
-            if (field['ctrlType'] == 6) {
-                var key1 = keyName;
-                var lookUpType = field['lookUpType'];
-                var classId = field['lookUpClassId'];
-                lockF7(key1, defaultValue, classId, lookUpType, isLock, selectors);
-            }
             //锁定处理
             if (isLock) {
-                element.prop("disabled", "disabled");
+                if (field['ctrlType'] == 6) {
+                    //F7选择框锁定特殊处理
+                    selectors[keyName].lock();
+                } else {
+                    element.prop("disabled", "disabled");
+                }
             } else {
-                element.prop("disabled", "");
+                if (field['ctrlType'] == 6) {
+                    //F7选择框锁定特殊处理
+                    selectors[keyName].unlock();
+                } else {
+                    element.prop("disabled", "");
+                }
             }
+
+            //F7选择框锁定特殊处理
+            /*            if (field['ctrlType'] == 6) {
+             /!*                var key1 = keyName;
+             var lookUpType = field['lookUpType'];
+             var classId = field['lookUpClassId'];
+             lockF7(key1, defaultValue, classId, lookUpType, isLock, selectors);*!/
+
+             selectors[keyName].lock();
+             }*/
+
+            // 默认值处理
+            if (!isUpdate) {
+
+                //新增时处理默认值-默认值可来自模板配置或者业务传递，业务传递的默认值优先于模板配置
+                if (defaultValue || defaultValue == false && defaultValue == 0) {
+
+                    if (field['ctrlType'] == 1) {
+                        //                  if (element.autoNumeric) {
+                        //                      element.autoNumeric('set', defaultValue);
+                        //                  } else {
+                        element.val(defaultValue);
+                        //                  }
+                    }
+                    if (field["dataType"] == 2) { //数字 文本值
+                        element.val(defaultValue);
+                    }
+                    if (field["dataType"] == 3) { //日期时间
+                        // element.value = defaultValue;
+                    }
+                    if (field["dataType"] == 4) { //布尔
+                        element.prop("checked", defaultValue);
+                    }
+                    if (field["dataType"] == 6) { //选择框
+                        getF7Data(defaultValue, formClassId, function (data) {
+                            setF7Data(data, keyName, selectors);
+                        });
+                    }
+                }
+            }
+
             //移除处理
             element.parents("tr").hide();
             if (isRemove) {
@@ -352,7 +380,7 @@
 
             var field = fields[item];
 
-            if (field.lookUpType === 1 || field.lookUpType === 2 ) {
+            if (field.lookUpType === 1 || field.lookUpType === 2) {
                 // 引用基础资料
                 var config = {
                     targetType: 1, //跳转方案
@@ -449,11 +477,11 @@
         initSelectors(metaData);
         // 初始化时间控件
         initDateTimerPicker(metaData);
-        //控件初始化，控制显示隐藏，只读 等..
+        //控件初始化，控制显示隐藏，只读 ,默认值等..
         initController(itemId);
 
         if (!itemId) {
-
+            // 初始化子表-调用者处理
             if (!!fnEntry && !MiniQuery.Object.isEmpty(metaData['formEntries'])) {
                 fnEntry && fnEntry(null, metaData);
             }
