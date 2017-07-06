@@ -17,16 +17,20 @@ import org.apache.ibatis.session.SqlSession;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.dao.generate.AccessControlMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ApprovedSupplierMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.FormFieldsMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.RoleMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
+import com.kingdee.eas.hrp.sms.model.AccessControlExample;
 import com.kingdee.eas.hrp.sms.model.ApprovedSupplier;
 import com.kingdee.eas.hrp.sms.model.ApprovedSupplierExample;
 import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.model.FormFieldsExample;
+import com.kingdee.eas.hrp.sms.model.Role;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
 import com.kingdee.eas.hrp.sms.model.UserExample.Criteria;
@@ -141,10 +145,19 @@ public class ItemPlugin extends PlugInAdpter {
 				throw new PlugInRuntimeException("记录无法在医院数据中删除，故删除失败");
 			}
 		}
-		if(classId==1001){
+		if(classId==1003){
 			String[] split = data.split("\\,");
-			SqlSession usersqlSession = (SqlSession) Environ.getBean("sqlSession");
-			UserMapper userMapper = usersqlSession.getMapper(UserMapper.class);
+			SqlSession rolesqlSession = (SqlSession) Environ.getBean("sqlSession");
+			RoleMapper roleMapper = rolesqlSession.getMapper(RoleMapper.class);
+			AccessControlMapper accessControlMapper=rolesqlSession.getMapper(AccessControlMapper.class);
+			for (int i = 0; i < split.length; i++) {
+				Role role = roleMapper.selectByPrimaryKey(split[i]);
+				AccessControlExample  e = new AccessControlExample();
+				com.kingdee.eas.hrp.sms.model.AccessControlExample.Criteria c = e.createCriteria();
+				c.andRoleIdEqualTo(role.getRoleId());
+				accessControlMapper.deleteByExample(e);
+			}
+			
 		}
 		
 		
