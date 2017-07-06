@@ -242,7 +242,7 @@
             if (!isUpdate) {
 
                 //新增时处理默认值-默认值可来自模板配置或者业务传递，业务传递的默认值优先于模板配置
-                if (defaultValue || defaultValue == false && defaultValue == 0) {
+                if (defaultValue && defaultValue.trim() != '') {
 
                     if (field['ctrlType'] == 1) {
                         //                  if (element.autoNumeric) {
