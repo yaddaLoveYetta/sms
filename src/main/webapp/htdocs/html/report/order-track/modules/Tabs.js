@@ -6,7 +6,7 @@ define('Tabs', function (require, module, exports) {
 
     var MiniQuery = require("MiniQuery");
     var emitter = MiniQuery.Event.create();
-
+    var div = document.getElementById('tab-container');
     var hasbind = false;
 
     function bindEvents() {
@@ -14,7 +14,7 @@ define('Tabs', function (require, module, exports) {
             return;
         }
 
-        $('#tab-container')
+        $(div)
             .bind('easytabs:before', function (event, $clicked, $targetPanel, settings) {
                 var classId = $clicked.eq(0).parent().attr('id');
                 emitter.fire('easytabs:before', [classId]);
@@ -31,6 +31,11 @@ define('Tabs', function (require, module, exports) {
 
 
     function render() {
+
+        $(div).easytabs({
+            defaultTab: 'li:first-child'
+        });
+
         bindEvents();
     }
 

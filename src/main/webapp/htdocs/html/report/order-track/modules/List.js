@@ -117,11 +117,6 @@ define("List", function (require, exports, module) {
                 }).join('')
             });
 
-            if (config.classId == 2020) {
-                $('#tab-container').easytabs({
-                    defaultTab: 'li:first-child'
-                });
-            }
             fn && fn(total, config.pageSize);
         });
     }

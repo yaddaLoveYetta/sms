@@ -64,6 +64,10 @@
             config.endDate = endDate;
         }
 
+        // 点击按钮查询时Tabs回到第一个页签
+        $('#tab-container').easytabs('select', '#2020');
+
+
         List.render(config, function (total, pageSize) {
             Pager.render({
                 size: pageSize,
