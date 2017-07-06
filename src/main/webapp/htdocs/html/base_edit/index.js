@@ -10,12 +10,12 @@
     var DatetimePicker = require('DatetimePicker');
     var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
     var formClassId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
-
-    var ButtonList = bl.create(itemId);
-
     var defaultValue;
 
     //检查登录
+
+    var ButtonList = bl.create(itemId);
+
     if (!SMS.Login.check(true)) {
         return;
     }
