@@ -1713,4 +1713,5 @@ table {
     border-radius: 2px;
     border: 1px solid #ddd;
     background: url(img/golbal-icons.png) no-repeat right;
+    background-size: 16px 16px;
 }
