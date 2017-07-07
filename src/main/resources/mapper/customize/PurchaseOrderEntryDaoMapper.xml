@@ -34,6 +34,7 @@
 	<select id="selectOrderStatistics" parameterType="map" resultType="map">
 		SELECT
 		t.id,
+		t.qty,
 		t.parent,
 		t.material,
 		t.invoiceQty,
@@ -48,10 +49,10 @@
 		ON t.parent = i.id
 		LEFT JOIN
 		t_sms_purinwarehs_entry w
-		on t.parent = w.orderId
+		on t.parent = w.orderId and t.material = w.material
 		LEFT JOIN
 		t_sms_purreturns_entry r
-		on t.parent = r.orderId
+		on t.parent = r.orderId and t.material = r.material
 		WHERE
 		1=1
 		<if test="supplier !=null and supplier!='' ">

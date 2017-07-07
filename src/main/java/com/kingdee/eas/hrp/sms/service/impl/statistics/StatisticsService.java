@@ -84,8 +84,11 @@ public class StatisticsService extends BaseService implements IStatisticsService
 
 					if (!materialOrder.contains(materialOrderStr)) {
 						// 累加物料的订单数量
-						int countOrder = (int) orderCount.get(material) + 1;
-						orderCount.replace(material, countOrder);
+//						int countOrder = (int) orderCount.get(material) + 1;
+//						orderCount.replace(material, countOrder);
+						double qty = (double) orderCount.get(material)
+								+ Double.parseDouble(order.get("qty").toString());
+						orderCount.replace(material, qty);
 						materialOrder.add(materialOrderStr);
 					}
 
@@ -110,7 +113,8 @@ public class StatisticsService extends BaseService implements IStatisticsService
 
 				} else {
 
-					orderCount.put(material, 1);
+					//orderCount.put(material, 1);
+					orderCount.put(material, Double.parseDouble(order.get("qty").toString()));
 					materialOrder.add(materialOrderStr);
 
 					orderInvoiceQty.put(material, Double.parseDouble(order.get("invoiceQty").toString()));
