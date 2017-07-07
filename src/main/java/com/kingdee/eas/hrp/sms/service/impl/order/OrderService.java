@@ -110,7 +110,7 @@ public class OrderService extends BaseService implements IOrderService {
 				orderEntry.setLocalAmount(orderEntryObject.getBigDecimal("localAmount"));
 				orderEntry.setSeq(orderEntryObject.getInteger("seq"));
 				orderEntry.setId(orderEntryObject.getString("id"));
-				orderEntry.setAmount(orderEntryObject.getBigDecimal("amount")); 
+				orderEntry.setAmount(orderEntryObject.getBigDecimal("amount"));
 				if (orderEntryObject.getString("deliveryDate") != null) {
 					orderEntry.setDeliveryDate(orderEntryObject.getDate("deliveryDate"));
 				}
@@ -822,7 +822,7 @@ public class OrderService extends BaseService implements IOrderService {
 
 			endTime = endDate;
 		}
-		if (null != supplierId && !"".equals(supplierId)) {
+		if (null != supplierIds && !"".equals(supplierIds)) {
 			supplierId = supplierIds;
 		}
 
