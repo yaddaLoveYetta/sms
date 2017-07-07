@@ -32,7 +32,8 @@
 		t_sms_purchase_order.[id] AS [orderId],
 		t_sms_purchase_order.[bizDate]
 		AS bizDate,
-		t_sms_purchase_order_entry.[qty] AS [qty]
+		t_sms_purchase_order_entry.[qty] AS [qty],
+		t_sms_sendcargo_entry.[seq] AS [sendSeq]
 		FROM
 		t_sms_sendcargo
 		INNER JOIN t_sms_sendcargo_entry ON
@@ -94,7 +95,8 @@
 		[unit_DspName],
 		t_sms_unit.[number] AS
 		[unit_NmbName],
-		t_sms_purreceival_entry.[actualQty] AS [actualQty]
+		t_sms_purreceival_entry.[actualQty] AS [actualQty],
+		t_sms_purreceival_entry.[orderSeq] AS [orderSeq]
 		FROM
 		t_sms_purreceival
 		INNER JOIN t_sms_purreceival_entry ON
@@ -131,7 +133,8 @@
 			AND t_sms_supplier.[id] = #{supplierId}
 		</if>
 	</select>
-
+	
+	<!-- 入库单追踪查询 -->
 	<select id="selectPurInwarehs" parameterType="String"
 		resultType="map">
 		SELECT
@@ -146,8 +149,7 @@
 		[material_NmbName],
 		t_sms_item.[specification] AS [specification],
 		t_sms_unit.[name] AS [unit_DspName],
-		t_sms_purinwarehs_entry.[actualQty] AS [actualQty],
-		t_sms_purreceival_entry.[orderSeq] AS [orderSeq]
+		t_sms_purinwarehs_entry.[actualQty] AS [actualQty]
 		FROM
 		t_sms_purinwarehs
 		INNER JOIN t_sms_purinwarehs_entry ON
@@ -187,7 +189,8 @@
 			AND t_sms_supplier.[id] = #{supplierId}
 		</if>
 	</select>
-
+	
+	<!-- 退货追踪查询 -->
 	<select id="selectPurReturns" parameterType="String" resultType="map">
 		SELECT
 		distinct
