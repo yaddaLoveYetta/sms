@@ -55,7 +55,8 @@
 		LEFT JOIN t_sms_purchase_order_entry ON
 		t_sms_sendcargo_entry.[orderId] =
 		t_sms_purchase_order_entry.[parent]
-
+		AND t_sms_sendcargo_entry.[orderSeq] =
+		t_sms_purchase_order_entry.[seq]
 		WHERE
 		1=1
 		<if test="orderId!=null">
@@ -69,9 +70,6 @@
 		</if>
 		<if test="number!=null">
 			AND t_sms_supplier.[number] = #{number}
-		</if>
-		<if test="name!=null">
-			AND t_sms_supplier.[name] LIKE #{name}
 		</if>
 		<if test="supplierId!=null">
 			AND t_sms_supplier.[id] = #{supplierId}
@@ -89,11 +87,13 @@
 		CONVERT(nvarchar(10),t_sms_purreceival.[bizDate],102) AS [bizDate],
 		t_sms_item.[name] AS
 		[material_DspName],
-		t_sms_item.[number] AS [material_NmbName],
+		t_sms_item.[number] AS
+		[material_NmbName],
 		t_sms_item.[specification] AS [specification],
 		t_sms_unit.[name] AS
 		[unit_DspName],
-		t_sms_unit.[number] AS [unit_NmbName],
+		t_sms_unit.[number] AS
+		[unit_NmbName],
 		t_sms_purreceival_entry.[actualQty] AS [actualQty]
 		FROM
 		t_sms_purreceival
@@ -127,9 +127,6 @@
 		<if test="number!=null">
 			AND t_sms_supplier.[number] = #{number}
 		</if>
-		<if test="name!=null">
-			AND t_sms_supplier.[name] LIKE #{name}
-		</if>
 		<if test="supplierId!=null">
 			AND t_sms_supplier.[id] = #{supplierId}
 		</if>
@@ -145,7 +142,8 @@
 		[bizDate],
 		t_sms_item.[name] AS [material_DspName],
 		t_sms_item.[number]
-		AS [material_NmbName],
+		AS
+		[material_NmbName],
 		t_sms_item.[specification] AS [specification],
 		t_sms_unit.[name] AS [unit_DspName],
 		t_sms_purinwarehs_entry.[actualQty] AS [actualQty]
@@ -181,9 +179,6 @@
 		<if test="number!=null">
 			AND t_sms_supplier.[number] = #{number}
 		</if>
-		<if test="name!=null">
-			AND t_sms_supplier.[name] LIKE #{name}
-		</if>
 		<if test="supplierId!=null">
 			AND t_sms_supplier.[id] = #{supplierId}
 		</if>
@@ -196,7 +191,8 @@
 		t_sms_purreturns.[number] AS [number],
 		CONVERT(nvarchar(10),t_sms_purreturns.[bizDate],102) AS[bizDate],
 		t_sms_item.[name] AS [material_DspName],
-		t_sms_item.[number]AS [material_NmbName],
+		t_sms_item.[number]AS
+		[material_NmbName],
 		t_sms_item.[specification] AS [specification],
 		t_sms_unit.[name] AS [unit_DspName],
 		t_sms_purreturns_entry.[returnQty] AS [returnQty],
@@ -236,9 +232,6 @@
 		</if>
 		<if test="number!=null">
 			AND t_sms_supplier.[number] = #{number}
-		</if>
-		<if test="name!=null">
-			AND t_sms_supplier.[name] LIKE #{name}
 		</if>
 		<if test="supplierId!=null">
 			AND t_sms_supplier.[id] = #{supplierId}
