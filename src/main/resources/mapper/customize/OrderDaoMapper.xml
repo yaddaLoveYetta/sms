@@ -146,16 +146,20 @@
 		[material_NmbName],
 		t_sms_item.[specification] AS [specification],
 		t_sms_unit.[name] AS [unit_DspName],
-		t_sms_purinwarehs_entry.[actualQty] AS [actualQty]
+		t_sms_purinwarehs_entry.[actualQty] AS [actualQty],
+		t_sms_purreceival_entry.[orderSeq] AS [orderSeq]
 		FROM
 		t_sms_purinwarehs
 		INNER JOIN t_sms_purinwarehs_entry ON
-		t_sms_purinwarehs_entry.[parent] =
+		t_sms_purinwarehs_entry.[parent]
+		=
 		t_sms_purinwarehs.[id]
 		INNER JOIN
-		t_sms_supplier ON t_sms_purinwarehs.[supplier] =
+		t_sms_supplier ON
+		t_sms_purinwarehs.[supplier] =
 		t_sms_supplier.[id]
-		LEFT JOIN t_sms_base_status ON t_sms_purinwarehs.[baseStatus] =
+		LEFT JOIN
+		t_sms_base_status ON t_sms_purinwarehs.[baseStatus] =
 		t_sms_base_status.[id]
 		INNER JOIN t_sms_item ON
 		t_sms_purinwarehs_entry.[material] =
