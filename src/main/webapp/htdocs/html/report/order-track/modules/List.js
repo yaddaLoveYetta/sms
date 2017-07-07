@@ -7,9 +7,9 @@ define("List", function (require, exports, module) {
     var heads = {
         "2020": [
             {key: 'orderNumber', value: '采购订单号', width: 120},
-            {key: 'orderSeq', value: '采购订单行号', width: 50},
-            {key: 'number', value: '发货单号', width: 120},
-            {key: 'sendSeq', value: '发货单行号', width: 50},
+            {key: 'orderSeq', value: '采购订单行号', width: 40},
+            {key: 'number', value: '发货单号', width: 150},
+            {key: 'sendSeq', value: '发货单行号', width: 40},
             {key: 'date', value: '发货日期', width: 80},
             {key: 'material_NmbName', value: '物料编号', width: 80},
             {key: 'material_DspName', value: '物料名称', width: 120},
