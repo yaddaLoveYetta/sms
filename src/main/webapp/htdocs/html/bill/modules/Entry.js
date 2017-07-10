@@ -33,11 +33,12 @@ define('Entry', function (require, module, exports) {
 
         billTemplate = template;
 
+        if(billGrid){
+            billGrid.clear();
+        }
         SMS.use('Grid', function (Grid) {
 
             billGrid = new Grid('bd-grid');
-
-           // billGrid.clear();
 
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
