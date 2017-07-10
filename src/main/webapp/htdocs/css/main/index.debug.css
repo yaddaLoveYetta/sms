@@ -8,64 +8,71 @@
 
 @media (min-width: 1024px) {
     .container {
-        width: 1024px;
+        width: 890px;
     }
+
     .top-fixed {
-        width: 1024px;
+        width: 890px;
     }
 }
 
 @media (min-width: 1160px) {
     .container {
-        width: 1160px;
+        width: 1030px;
     }
+
     .top-fixed {
-        width: 1160px;
+        width: 1030px;
     }
 }
 
 @media (min-width: 1145px) {
     .container {
-        width: 1145px;
+        width: 1015px;
     }
+
     .top-fixed {
-        width: 1145px;
+        width: 1015px;
     }
 }
 
 @media (min-width: 1352px) {
     .container {
-        width: 1352px;
+        width: 1222px;
     }
+
     .top-fixed {
-        width: 1352px;
+        width: 1222px;
     }
 }
 
 @media (min-width: 1366px) {
     .container {
-        width: 1366px;
+        width: 1236px;
     }
+
     .top-fixed {
-        width: 1366px;
+        width: 1236px;
     }
 }
 
 @media (min-width: 1390px) {
     .container {
-        width: 1390px;
+        width: 1260px;
     }
+
     .top-fixed {
-        width: 1390px;
+        width: 1260px;
     }
 }
 
 @media (min-width: 1440px) {
     .container {
-        width: 1440px;
+        width: 1310px;
     }
+
     .top-fixed {
-        width: 1440px;
+        width: 1310px;
     }
 }
 
@@ -73,12 +80,13 @@
     #ul-sidebar {
         overflow: auto;
     }
-/*    .side-bar {
-        width: 160px !important;
-    }
-    .content {
-        padding-left: 160px !important;
-    }*/
+
+    /*    .side-bar {
+            width: 160px !important;
+        }
+        .content {
+            padding-left: 160px !important;
+        }*/
 }
 
 body {
