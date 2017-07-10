@@ -310,21 +310,21 @@
                 return false;
             });
 
-/*            var listItem = $.Array.each(item.data.entry[1], function (row, index) {
-                if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
-                    // 接单数量已经全部发货
-                    //SMS.Tips.error(item.data.number + 'seq' + index + '接单数量已发货完毕，不能再发货');
-                    done = false;
-                    return false;
-                }
-                return true;
-            });
+            /*            var listItem = $.Array.each(item.data.entry[1], function (row, index) {
+             if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
+             // 接单数量已经全部发货
+             //SMS.Tips.error(item.data.number + 'seq' + index + '接单数量已发货完毕，不能再发货');
+             done = false;
+             return false;
+             }
+             return true;
+             });
 
-            if (listItem.length === 0) {
-                // 接单数量已经全部发货
-                SMS.Tips.error(item.data.number + ':接单数量已发货完毕，不能再发货');
-                return;
-            }*/
+             if (listItem.length === 0) {
+             // 接单数量已经全部发货
+             SMS.Tips.error(item.data.number + ':接单数量已发货完毕，不能再发货');
+             return;
+             }*/
 
             if (!done) {
                 return false;
@@ -369,6 +369,10 @@
 
             dialog.on({
                 remove: function () {
+                    var data = dialog.getData();
+                    if (data ) {
+                        console.log(data.itemId);
+                    }
                     refresh();
                 }
             });

@@ -23,6 +23,22 @@
     if (!SMS.Login.check(true)) {
         return;
     }
+
+    var dialog = Iframe.getDialog();
+
+    if (dialog) {
+
+        dialog.on({
+            close: function () {
+                if (!!Bill.getItemId()) {
+                    dialog.setData({
+                        'itemId': Bill.getItemId()
+                    });
+                }
+            }
+        });
+    }
+
     ButtonList.render();
 
     ButtonList.on('click', {
@@ -35,7 +51,7 @@
         'optSave': function () {
 
             Bill.save(function (data) {
-
+                dialog.close();
             });
         }
 

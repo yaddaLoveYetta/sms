@@ -134,10 +134,17 @@ define('Bill', function (require, module, exports) {
         });
 
     }
-
+    
+    function eidtBill() {
+        
+    }
+    function getItemId() {
+        return itemId;
+    }
 
     return {
         render: render,
         save: save,
+        getItemId:getItemId,
     }
 });
