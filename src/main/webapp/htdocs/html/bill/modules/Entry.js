@@ -37,6 +37,8 @@ define('Entry', function (require, module, exports) {
 
             billGrid = new Grid('bd-grid');
 
+            billGrid.clear();
+
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
