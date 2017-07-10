@@ -3,30 +3,93 @@
 }
 
 .container {
-    width: auto;
+    width: 1024px;
 }
 
-@media (max-width: 960px) {
+@media (min-width: 1024px) {
     .container {
-        width: 830px;
+        width: 1024px;
+    }
+    .top-fixed {
+        width: 1024px;
+    }
+}
+
+@media (min-width: 1160px) {
+    .container {
+        width: 1160px;
+    }
+    .top-fixed {
+        width: 1160px;
+    }
+}
+
+@media (min-width: 1145px) {
+    .container {
+        width: 1145px;
+    }
+    .top-fixed {
+        width: 1145px;
+    }
+}
+
+@media (min-width: 1352px) {
+    .container {
+        width: 1352px;
+    }
+    .top-fixed {
+        width: 1352px;
+    }
+}
+
+@media (min-width: 1366px) {
+    .container {
+        width: 1366px;
+    }
+    .top-fixed {
+        width: 1366px;
+    }
+}
+
+@media (min-width: 1390px) {
+    .container {
+        width: 1390px;
+    }
+    .top-fixed {
+        width: 1390px;
     }
 }
 
 @media (min-width: 1440px) {
     .container {
-        width: 1310px;
+        width: 1440px;
     }
+    .top-fixed {
+        width: 1440px;
+    }
+}
+
+@media (max-height: 768px) {
+    #ul-sidebar {
+        overflow: auto;
+    }
+    .side-bar {
+        width: 160px !important;
+    }
+    .content {
+        padding-left: 160px !important;
+    }
+}
+
+body {
+    overflow-y: scroll;
 }
 
 .top-fixed {
     position: fixed;
     background: white;
-    width: auto;
+    width: 90%;
     /* height: 85px;*/
-}
-
-body {
-    overflow-y: scroll;
 }
 
 .side-bar {
