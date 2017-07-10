@@ -252,7 +252,7 @@
         var done = true;
         var list = List.getSelectedItems();
 
-        if (list.length == 0) {
+        if (list.length === 0) {
             SMS.Tips.error('请选择要操作的项', 1500);
             return;
         }
@@ -296,23 +296,48 @@
             // 不满足发货条件
             return;
         }
-        // 判断订单数量是否符合发货条件
-        $.Array.each(list, function (item, index) {
+        // 判断订单数量是否符合发货条件(过滤掉已经发货完毕的订单-每条分录都发货完毕)
+        list = $.Array.each(list, function (item, index) {
 
             $.Array.each(item.data.entry[1], function (row, index) {
+
+                if (!done) {
+                    return false;
+                }
+                if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
+                    done = false;
+                }
+                return false;
+            });
+
+/*            var listItem = $.Array.each(item.data.entry[1], function (row, index) {
                 if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
                     // 接单数量已经全部发货
-                    SMS.Tips.error(item.data.number + 'seq' + index + '接单数量已发货完毕，不能再发货');
+                    //SMS.Tips.error(item.data.number + 'seq' + index + '接单数量已发货完毕，不能再发货');
                     done = false;
                     return false;
                 }
+                return true;
             });
+
+            if (listItem.length === 0) {
+                // 接单数量已经全部发货
+                SMS.Tips.error(item.data.number + ':接单数量已发货完毕，不能再发货');
+                return;
+            }*/
+
+            if (!done) {
+                return false;
+            }
+            return true;
         });
 
-        if (!done) {
-            // 不满足发货条件
+        if (list.length() === 0) {
+            // 接单数量已经全部发货
+            SMS.Tips.error('您选择的订单已发货完毕，不能再发货');
             return;
         }
+
         var items = ''; // 发货订单主键集合，多个逗号分隔
 
         for (var item in list) {
