@@ -119,11 +119,12 @@ public class BillPlugin extends PlugInAdpter {
 		if (classId == 2020) {
 			String logistics = data.getString("logistics");
 			String logisticsNo = data.getString("logisticsNo");
-			if (!logistics.equals("") && logistics != null) {
-				if (logistics.matches("^[0-9]*$")) {
-					throw new BusinessLogicRunTimeException("物流公司名称格式错误");
-				}
-			}
+			// modify by yadda--此校验无意义--快递100?
+//			if (!logistics.equals("") && logistics != null) {
+//				if (logistics.matches("^[0-9]*$")) {
+//					throw new BusinessLogicRunTimeException("物流公司名称格式错误");
+//				}
+//			}
 			if (!logisticsNo.equals("") && logisticsNo != null) {
 				if (logisticsNo.matches("[\u4e00-\u9fa5]")) {
 					throw new BusinessLogicRunTimeException("物流单号格式错误");
