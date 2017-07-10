@@ -73,12 +73,12 @@
     #ul-sidebar {
         overflow: auto;
     }
-    .side-bar {
+/*    .side-bar {
         width: 160px !important;
     }
     .content {
         padding-left: 160px !important;
-    }
+    }*/
 }
 
 body {
