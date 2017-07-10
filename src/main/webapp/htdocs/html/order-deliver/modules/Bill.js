@@ -80,11 +80,14 @@ define('Bill', function (require, module, exports) {
         }
 
         submit(itemId, billData.successData, function (data) {
-            itemId = data.id;// 新增成功后记录id，界面变修改逻辑
-            if (itemId) {
+
+            if (!!itemId) {
                 SMS.Tips.success("修改发货单成功", 1500);
+            }else {
+                itemId = data.id;// 新增成功后记录id，界面变修改逻辑
+                SMS.Tips.success("新增发货单成功", 1500);
             }
-            SMS.Tips.success("新增发货单成功", 1500);
+
 
             fn && fn(data);
         });
@@ -100,7 +103,7 @@ define('Bill', function (require, module, exports) {
 
         api.post({
             classId: classId,
-            id: itemId,
+            itemId: itemId,
             data: data,
         });
 
