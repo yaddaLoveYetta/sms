@@ -23,6 +23,8 @@ define('Bill', function (require, module, exports) {
     var classId;
     var itemId;
 
+    var busy = false; // 控制多次点击
+
     function load(config, fn) {
         SMS.Tips.loading("数据加载中...");
         API.get({
@@ -52,6 +54,11 @@ define('Bill', function (require, module, exports) {
     //保存
     function save(fn) {
 
+        if (busy) {
+            return;
+        }
+        busy = true;
+
         var valid = true;
         billData = Head.getData();
         var entry = Entry.getData();
@@ -72,6 +79,7 @@ define('Bill', function (require, module, exports) {
         }
 
         if (!valid) {
+            busy = false;
             return;
         }
 
@@ -83,14 +91,14 @@ define('Bill', function (require, module, exports) {
 
             if (!!itemId) {
                 SMS.Tips.success("修改发货单成功", 1500);
-            }else {
+            } else {
                 itemId = data.id;// 新增成功后记录id，界面变修改逻辑
                 SMS.Tips.success("新增发货单成功", 1500);
             }
-
-
             fn && fn(data);
         });
+
+        busy = false;
     }
 
     function submit(itemId, data, fn) {

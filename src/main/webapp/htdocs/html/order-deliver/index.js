@@ -19,7 +19,6 @@
 
     var conditions = {};
 
-
     //检查登录
     if (!SMS.Login.check(true)) {
         return;
@@ -34,6 +33,7 @@
             });
         },
         'optSave': function () {
+
             Bill.save(function (data) {
 
             });
