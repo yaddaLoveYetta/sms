@@ -351,7 +351,7 @@
 
         // 获取发货单数据包
         Bill.load({
-            'classId': classId,
+            'classId': 2020,
             'items': items
         }, function (data) {
 
