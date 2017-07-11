@@ -10,6 +10,7 @@
     var List = require('List');
     var Pager = require('Pager');
     var bl = require('ButtonList');
+    var Bill = require('Bill');
     var ButtonListOption = require('ButtonListOption');
     var MessageBox = SMS.require('MessageBox');
     var Iframe = SMS.require('Iframe');
@@ -348,36 +349,70 @@
 
         items = items.substr(1);
 
-        SMS.use('Dialog', function (Dialog) {
+        // 获取发货单数据包
+        Bill.load({
+            'classId': classId,
+            'items': items
+        }, function (data) {
 
-            var dialog = new Dialog({
-                title: '生成发货单',
-                width: 1024,
-                height: 550,
-                url: $.Url.setQueryString('html/order-deliver/index.html', {
-                    'classId': 2020,
-                    'items': items,
-                }),
-                data: {},
-                button: [],
-            });
+            SMS.use('Dialog', function (Dialog) {
 
-            //默认关闭行为为不提交
-            dialog.isSubmit = false;
+                var dialog = new Dialog({
+                    title: '生成发货单',
+                    width: 1024,
+                    height: 550,
+                    url: $.Url.setQueryString('html/bill/index.html', {
+                        'classId': 2020,
+                        'type': 1,
+                    }),
+                    data: data,
+                    button: [],
+                });
 
-            dialog.showModal();
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
 
-            dialog.on({
-                remove: function () {
-                    var data = dialog.getData();
-                    if (data ) {
-                        console.log(data.itemId);
+                dialog.showModal();
+
+                dialog.on({
+                    remove: function () {
+                        refresh();
                     }
-                    refresh();
-                }
-            });
+                });
 
+            });
         });
+
+        /*        SMS.use('Dialog', function (Dialog) {
+
+         var dialog = new Dialog({
+         title: '生成发货单',
+         width: 1024,
+         height: 550,
+         url: $.Url.setQueryString('html/order-deliver/index.html', {
+         'classId': 2020,
+         'items': items,
+         }),
+         data: {},
+         button: [],
+         });
+
+         //默认关闭行为为不提交
+         dialog.isSubmit = false;
+
+         dialog.showModal();
+
+         dialog.on({
+         remove: function () {
+         var data = dialog.getData();
+         if (data) {
+         console.log(data.itemId);
+         }
+         refresh();
+         }
+         });
+
+         });*/
 
     }
 

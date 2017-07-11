@@ -19,6 +19,8 @@
     var Head = require('Head');
     var Entry = require('Entry');
 
+    var billData;
+
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
     var type = MiniQuery.Url.getQueryString(window.location.href, 'type');
@@ -33,11 +35,17 @@
     var dialog = Iframe.getDialog();
 
     var blConfig;
+
     if (dialog) {
         // 对话框中不要工具栏
         blConfig = {
             'items': []
         };
+
+        var data = dialog.getData();
+
+        billData = data['billData'];// 新增时单据数据
+
     } else {
         blConfig = ButtonListOption.get(classId, type);
     }
@@ -155,7 +163,7 @@
 
             if (itemId) {
                 SMS.Tips.success("修改成功", 1500);
-            }else {
+            } else {
                 SMS.Tips.success("新增成功", 1500);
             }
 
@@ -205,6 +213,17 @@
     function refresh() {
 
         SMS.Tips.loading("数据加载中...");
+
+        if (billData) {
+            // 新增时dialog传递了数据-新增单据
+
+            Head.render(data, data.data.headData, type);
+            Entry.render(data.template, data.data.entryData, type);
+            SMS.Tips.success("数据加载成功", 1500);
+
+            return;
+        }
+
         $API.get({
             classId: classId,
             id: itemId,
@@ -216,8 +235,6 @@
             SMS.Tips.success("数据加载成功", 1500);
         });
     }
-
-
 
 
     refresh();
