@@ -37,18 +37,11 @@
     var blConfig;
 
     if (dialog) {
-        // 对话框中不要工具栏
-        blConfig = {
-            'items': []
-        };
-
         var data = dialog.getData();
-
         selData = data['billData'];// 新增时单据数据
-
-    } else {
-        blConfig = ButtonListOption.get(classId, type);
     }
+
+    blConfig = ButtonListOption.get(classId, type);
 
     var ButtonList = bl.create(blConfig);
 
