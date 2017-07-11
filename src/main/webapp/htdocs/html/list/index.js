@@ -335,7 +335,7 @@
 
         if (list.length === 0) {
             // 接单数量已经全部发货
-            SMS.Tips.error('您选择的订单已发货完毕，不能再发货');
+            SMS.Tips.error('您选择的订单已发货完毕，不能再发货',1500);
             return;
         }
 
