@@ -365,7 +365,7 @@
                         'classId': 2020,
                         'type': 1,
                     }),
-                    data: data,
+                    data: {'billData': data},
                     button: [],
                 });
 
