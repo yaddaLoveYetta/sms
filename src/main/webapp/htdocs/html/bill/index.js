@@ -19,7 +19,7 @@
     var Head = require('Head');
     var Entry = require('Entry');
 
-    var billData;
+    var selData;
 
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
@@ -44,7 +44,7 @@
 
         var data = dialog.getData();
 
-        billData = data['billData'];// 新增时单据数据
+        selData = data['billData'];// 新增时单据数据
 
     } else {
         blConfig = ButtonListOption.get(classId, type);
@@ -214,11 +214,11 @@
 
         SMS.Tips.loading("数据加载中...");
 
-        if (billData) {
+        if (selData) {
             // 新增时dialog传递了数据-新增单据
 
-            Head.render(data, data.data.headData, type);
-            Entry.render(data.template, data.data.entryData, type);
+            Head.render(selData, selData.data.headData, type);
+            Entry.render(selData.template, selData.data.entryData, type);
             SMS.Tips.success("数据加载成功", 1500);
 
             return;
