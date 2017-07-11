@@ -132,7 +132,7 @@ public class BillPlugin extends PlugInAdpter {
 					Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
 				    Matcher m = p.matcher(logisticsNo);
 				    if(m.find()){
-				    	throw new BusinessLogicRunTimeException("物流单号格式错误");
+				    	throw new BusinessLogicRunTimeException("物流单号不能包含中文，请重新输入");
 				    }
 				}
 			}
@@ -207,7 +207,7 @@ public class BillPlugin extends PlugInAdpter {
 				Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
 			    Matcher m = p.matcher(logisticsNo);
 			    if(m.find()){
-			    	throw new BusinessLogicRunTimeException("物流单号格式错误");
+			    	throw new BusinessLogicRunTimeException("物流单号不能包含中文，请重新输入");
 			    }
 			}
 			JSONObject entry = data.getJSONObject("entry");
