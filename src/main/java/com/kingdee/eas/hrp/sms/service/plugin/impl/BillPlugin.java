@@ -89,8 +89,7 @@ public class BillPlugin extends PlugInAdpter {
 				// 根据订单号和行号查询对应的记录
 				List<OrderEntry> o = orderEntryMapper.selectByExample(e);
 				if (o.size() > 0) {
-					orderEntry.setInvoiceQty(
-							new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
+					orderEntry.setInvoiceQty(new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
 					orderEntry.setId(o.get(0).getId());
 					// 根据订单ID 修改发货数量
 					orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
@@ -162,7 +161,7 @@ public class BillPlugin extends PlugInAdpter {
 				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
 				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
-				if (dyProDate != null &&!dyProDate.equals("") && effectiveDate != null && !effectiveDate.equals("")) {
+				if (dyProDate != null && !dyProDate.equals("") && effectiveDate != null && !effectiveDate.equals("")) {
 					if (dyProDate.after(effectiveDate)) {
 						throw new BusinessLogicRunTimeException("生产日期不能大于有效期");
 					}
@@ -231,9 +230,7 @@ public class BillPlugin extends PlugInAdpter {
 					throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
 				}
 				String actualQty = datas.getString("actualQty");// 实发数量
-				if (actualQty.matches("^[0-9]*$")) {
-					System.out.println(actualQty.matches("^[0-9]*$"));
-				} else {
+				if (!actualQty.matches("^[0-9]*$")) {
 					throw new BusinessLogicRunTimeException("发货数量格式不正确");
 				}
 				BigDecimal qty = datas.getBigDecimal("qty");// 应发数量
@@ -253,7 +250,7 @@ public class BillPlugin extends PlugInAdpter {
 				if (actualQty.equals("") || actualQty == null) {
 					throw new BusinessLogicRunTimeException("实发数量不能为空");
 				}
-				if(actualQty.equals("0")){
+				if (actualQty.equals("0")) {
 					throw new BusinessLogicRunTimeException("实发数量不能0");
 				}
 				if (new BigDecimal(actualQty).compareTo(qty) > 0) {
