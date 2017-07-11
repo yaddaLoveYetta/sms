@@ -143,6 +143,7 @@
             valid = false;
         }
 
+        Entry.showValidInfo(entry.errorData);
         if (entry.errorData && !$.Object.isEmpty(entry.errorData)) {
             Entry.showValidInfo(entry.errorData);
             valid = false;

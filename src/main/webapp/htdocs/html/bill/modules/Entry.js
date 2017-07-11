@@ -153,6 +153,9 @@ define('Entry', function (require, module, exports) {
 
     function showValidInfo(errorData) {
 
+        var msgElement = document.getElementById('bd-grid-msg');
+        $(msgElement).html('');
+
         if (errorData) {
 
             var errors = '';
@@ -160,12 +163,11 @@ define('Entry', function (require, module, exports) {
             for (var item in errorData) {
                 errors = errors + '<br/>第' + item + '行[' + errorData[item].join('-') + ']是必录项';
             }
-
-            var msgElement = document.getElementById('bd-grid-msg');
+            $(msgElement).html(errors);
             if (!$(msgElement).hasClass('show')) {
                 $(msgElement).toggleClass('show');
             }
-            $(msgElement).html(errors);
+
         }
     }
 
