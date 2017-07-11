@@ -57,6 +57,7 @@ define("List", function (require, module, exports) {
                         child: 1,
                         key: field.key,
                         td: item,
+                        title: item,
                     })
                 });
             }).join(""),
@@ -143,6 +144,7 @@ define("List", function (require, module, exports) {
                                 key: field.key,
                                 "number-class": field.key == "number" ? "number" : "",
                                 td: field.isEntry ? getTableHtml(field, item.value) : getHtml(field.type, item.value),
+                                title: field.isEntry ? '' : getHtml(field.type, item.value),
                             });
                         }).join("")
                     });
