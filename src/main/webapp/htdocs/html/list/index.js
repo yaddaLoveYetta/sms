@@ -267,7 +267,7 @@
             }
 
             if (item.data.saleProxy !== saleProxy) {
-                SMS.Tips.error('代销订单不能与非代销订单合并发货',1500);
+                SMS.Tips.error('代销订单不能与非代销订单合并发货', 1500);
                 done = false;
                 return false;
             }
@@ -282,13 +282,13 @@
         $.Array.each(list, function (item, index) {
             if (!item.data.confirmTick) {
                 // 供应商没有接单
-                SMS.Tips.error(item.data.number + ' 供应商未接单，不能发货',1500);
+                SMS.Tips.error(item.data.number + ' 供应商未接单，不能发货', 1500);
                 done = false;
                 return false;
             }
             if (!item.data.tickType) {
                 // HRP没有确认接单
-                SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货',1500);
+                SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货', 1500);
                 done = false;
                 return false;
             }
@@ -300,42 +300,19 @@
         // 判断订单数量是否符合发货条件(过滤掉已经发货完毕的订单-每条分录都发货完毕)
         list = $.Array.grep(list, function (item, index) {
 
-            $.Array.each(item.data.entry[1], function (row, index) {
+            var v = $.Array.grep(item.data.entry[1], function (row, index) {
 
-                if (!done) {
-                    return false;
-                }
-                if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
-                    done = false;
-                }
-                return false;
+                return (row.invoiceQty || 0) < (row.confirmQty || 0)
+
             });
 
-            /*            var listItem = $.Array.each(item.data.entry[1], function (row, index) {
-             if ((row.invoiceQty || 0) >= (row.confirmQty || 0)) {
-             // 接单数量已经全部发货
-             //SMS.Tips.error(item.data.number + 'seq' + index + '接单数量已发货完毕，不能再发货');
-             done = false;
-             return false;
-             }
-             return true;
-             });
+            return v.length > 0;
 
-             if (listItem.length === 0) {
-             // 接单数量已经全部发货
-             SMS.Tips.error(item.data.number + ':接单数量已发货完毕，不能再发货');
-             return;
-             }*/
-
-            if (!done) {
-                return false;
-            }
-            return true;
         });
 
         if (list.length === 0) {
             // 接单数量已经全部发货
-            SMS.Tips.error('您选择的订单已发货完毕，不能再发货',1500);
+            SMS.Tips.error('您选择的订单已发货完毕，不能再发货', 1500);
             return;
         }
 
