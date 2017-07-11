@@ -297,7 +297,9 @@ public class OrderService extends BaseService implements IOrderService {
 			generateEntries(shipOrder, purOrder);
 
 		}
-
+		if(shipOrder.containsKey("entry")==false){
+			throw new BusinessLogicRunTimeException("接单数量已发货完毕，不能再发货");
+		}
 		return shipOrder;
 	}
 
@@ -338,7 +340,10 @@ public class OrderService extends BaseService implements IOrderService {
 			}
 			if (saleProxy == 1) {
 				// 非代销物料--一条采购订单分录对应一条发货单分录
-
+				BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty"));
+				if(qty.compareTo(BigDecimal.ZERO)==0){
+					continue;
+				}
 				Map<String, Object> entryItem = generateEntryItem(purOrderEntry, purOrder);
 				addToShipOrderEntry(shipOrder, entryItem);
 
