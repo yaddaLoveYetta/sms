@@ -4,7 +4,9 @@
 
 define('ButtonListOption', function (require, module, exports) {
 
-    var config = {};
+    var config = {
+        'items': []
+    };
 
     function get(classId, type) {
 
