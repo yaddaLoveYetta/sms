@@ -122,18 +122,18 @@ public class BillPlugin extends PlugInAdpter {
 			String logistics = data.getString("logistics");
 			String logisticsNo = data.getString("logisticsNo");
 			// modify by yadda--此校验无意义--快递100?
-//			if (!logistics.equals("") && logistics != null) {
-//				if (logistics.matches("^[0-9]*$")) {
-//					throw new BusinessLogicRunTimeException("物流公司名称格式错误");
-//				}
-//			}
+			// if (!logistics.equals("") && logistics != null) {
+			// if (logistics.matches("^[0-9]*$")) {
+			// throw new BusinessLogicRunTimeException("物流公司名称格式错误");
+			// }
+			// }
 			if (!logisticsNo.equals("") && logisticsNo != null) {
-				if(logisticsNo!=null&&!logisticsNo.equals("")){
+				if (logisticsNo != null && !logisticsNo.equals("")) {
 					Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
-				    Matcher m = p.matcher(logisticsNo);
-				    if(m.find()){
-				    	throw new BusinessLogicRunTimeException("物流单号不能包含中文，请重新输入");
-				    }
+					Matcher m = p.matcher(logisticsNo);
+					if (m.find()) {
+						throw new BusinessLogicRunTimeException("物流单号不能包含中文，请重新输入");
+					}
 				}
 			}
 			JSONObject entry = data.getJSONObject("entry");
@@ -158,10 +158,15 @@ public class BillPlugin extends PlugInAdpter {
 				String lot = datas.getString("lot");// 批次
 				String dyBatchNum = datas.getString("dyBatchNum");// 批号
 				Date effectiveDate = datas.getDate("effectiveDate");// 有效期
+				Date dyProDate = datas.getDate("dyProDate");// 生产日期
 				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
 				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
-
+				if (!dyProDate.equals("") && dyProDate != null && effectiveDate != null && !effectiveDate.equals("")) {
+					if (dyProDate.after(effectiveDate)) {
+						throw new BusinessLogicRunTimeException("生产日期不能大于有效期");
+					}
+				}
 				String code = datas.getString("code");
 				if (actualQty.equals("") || actualQty == null) {
 					throw new BusinessLogicRunTimeException("实发数量不能为空");
@@ -203,12 +208,12 @@ public class BillPlugin extends PlugInAdpter {
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data) {
 		if (classId == 2020) {
 			String logisticsNo = data.getString("logisticsNo");
-			if(logisticsNo!=null&&!logisticsNo.equals("")){
+			if (logisticsNo != null && !logisticsNo.equals("")) {
 				Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
-			    Matcher m = p.matcher(logisticsNo);
-			    if(m.find()){
-			    	throw new BusinessLogicRunTimeException("物流单号不能包含中文，请重新输入");
-			    }
+				Matcher m = p.matcher(logisticsNo);
+				if (m.find()) {
+					throw new BusinessLogicRunTimeException("物流单号不能包含中文，请重新输入");
+				}
 			}
 			JSONObject entry = data.getJSONObject("entry");
 			JSONArray array = entry.getJSONArray("1");
@@ -235,10 +240,15 @@ public class BillPlugin extends PlugInAdpter {
 				String lot = datas.getString("lot");// 批次
 				String dyBatchNum = datas.getString("dyBatchNum");// 批号
 				Date effectiveDate = datas.getDate("effectiveDate");// 有效期
+				Date dyProDate = datas.getDate("dyProDate");// 生产日期
 				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
 				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
-
+				if (!dyProDate.equals("") && dyProDate != null && effectiveDate != null && !effectiveDate.equals("")) {
+					if (dyProDate.after(effectiveDate)) {
+						throw new BusinessLogicRunTimeException("生产日期不能大于有效期");
+					}
+				}
 				String code = datas.getString("code");
 				if (actualQty.equals("") || actualQty == null) {
 					throw new BusinessLogicRunTimeException("实发数量不能为空");
@@ -267,7 +277,7 @@ public class BillPlugin extends PlugInAdpter {
 					throw new BusinessLogicRunTimeException("有效期不能为空");
 				}
 			}
-			
+
 			boolean fl = false; // 表示有没有可用分录
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject entrys = array.getJSONObject(i);
