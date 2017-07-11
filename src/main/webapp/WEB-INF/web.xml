@@ -23,6 +23,11 @@
 		<param-value>sms.root</param-value>
 	</context-param>
 
+	<!-- Log4jConfigListener -->
+	<listener>
+		<display-name></display-name>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
 	<!-- spring ContextLoaderListener -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -31,11 +36,7 @@
 	<listener>
 		<listener-class>com.kingdee.eas.hrp.sms.filter.SessionAttributeListener</listener-class>
 	</listener>
-	<!-- Log4jConfigListener -->
-	<listener>
-		<display-name></display-name>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener>
+
 
 	<!-- 防止Spring内存溢出监听器 -->
 	<listener>
