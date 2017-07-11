@@ -237,7 +237,7 @@
         }
 
         Iframe.open({
-            id: classId + '-detail-' + list[0].data[List.getPrimaryKey()],
+            id: classId + '-edit-' + list[0].data[List.getPrimaryKey()],
             name: '编辑-' + name,
             url: 'html/bill/index.html',
             query: {
