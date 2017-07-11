@@ -52,7 +52,12 @@
             refresh();
         },
         'optSave': function () {
-            save();
+            save(function () {
+                if (type === 1) {
+                    // 新增时，新增成功后用内码刷新一次-重新填充界面-为了获取新增后分录的内码数据
+                    refresh();
+                }
+            });
         },
         'optPrint': function () {
             codePrint();
@@ -207,9 +212,8 @@
 
         SMS.Tips.loading("数据加载中...");
 
-        if (selData) {
+        if (selData && type === 1 && !itemId) {
             // 新增时dialog传递了数据-新增单据
-
             Head.render(selData, selData.data.headData, type);
             Entry.render(selData.template, selData.data.entryData, type);
             SMS.Tips.success("数据加载成功", 1500);
