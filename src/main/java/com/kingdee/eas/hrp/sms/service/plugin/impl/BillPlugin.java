@@ -162,7 +162,7 @@ public class BillPlugin extends PlugInAdpter {
 				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
 				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
-				if (!dyProDate.equals("") && dyProDate != null && effectiveDate != null && !effectiveDate.equals("")) {
+				if (dyProDate != null &&!dyProDate.equals("") && effectiveDate != null && !effectiveDate.equals("")) {
 					if (dyProDate.after(effectiveDate)) {
 						throw new BusinessLogicRunTimeException("生产日期不能大于有效期");
 					}
