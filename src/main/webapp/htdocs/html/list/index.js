@@ -298,7 +298,7 @@
             return;
         }
         // 判断订单数量是否符合发货条件(过滤掉已经发货完毕的订单-每条分录都发货完毕)
-        list = $.Array.each(list, function (item, index) {
+        list = $.Array.grep(list, function (item, index) {
 
             $.Array.each(item.data.entry[1], function (row, index) {
 
