@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.transaction.annotation.Transactional;
@@ -126,8 +128,12 @@ public class BillPlugin extends PlugInAdpter {
 //				}
 //			}
 			if (!logisticsNo.equals("") && logisticsNo != null) {
-				if (logisticsNo.matches("[\u4e00-\u9fa5]")) {
-					throw new BusinessLogicRunTimeException("物流单号格式错误");
+				if(logisticsNo!=null&&!logisticsNo.equals("")){
+					Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+				    Matcher m = p.matcher(logisticsNo);
+				    if(m.find()){
+				    	throw new BusinessLogicRunTimeException("物流单号格式错误");
+				    }
 				}
 			}
 			JSONObject entry = data.getJSONObject("entry");
@@ -196,8 +202,72 @@ public class BillPlugin extends PlugInAdpter {
 	@Transactional
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data) {
 		if (classId == 2020) {
+			String logisticsNo = data.getString("logisticsNo");
+			if(logisticsNo!=null&&!logisticsNo.equals("")){
+				Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+			    Matcher m = p.matcher(logisticsNo);
+			    if(m.find()){
+			    	throw new BusinessLogicRunTimeException("物流单号格式错误");
+			    }
+			}
 			JSONObject entry = data.getJSONObject("entry");
 			JSONArray array = entry.getJSONArray("1");
+			if (array == null || array.equals("")) {
+				throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
+			}
+			if (array == null || array.equals("")) {
+				throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
+			}
+			System.out.println(array.size());
+			for (int i = 0; i < array.size(); i++) {
+				JSONObject entrys = array.getJSONObject(i);
+				JSONObject datas = entrys.getJSONObject("data");
+				if (datas == null || datas.equals("")) {
+					throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
+				}
+				String actualQty = datas.getString("actualQty");// 实发数量
+				if (actualQty.matches("^[0-9]*$")) {
+					System.out.println(actualQty.matches("^[0-9]*$"));
+				} else {
+					throw new BusinessLogicRunTimeException("发货数量格式不正确");
+				}
+				BigDecimal qty = datas.getBigDecimal("qty");// 应发数量
+				String lot = datas.getString("lot");// 批次
+				String dyBatchNum = datas.getString("dyBatchNum");// 批号
+				Date effectiveDate = datas.getDate("effectiveDate");// 有效期
+				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
+				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
+
+				String code = datas.getString("code");
+				if (actualQty.equals("") || actualQty == null) {
+					throw new BusinessLogicRunTimeException("实发数量不能为空");
+				}
+				if (new BigDecimal(actualQty).compareTo(qty) > 0) {
+					throw new BusinessLogicRunTimeException("发货数量不能大于应发数量");
+				}
+				if (items.getIsLotNumber() != null) {
+					if (items.getIsLotNumber().equals("1") || items.getIsLotNumber() == 1) {
+						if (lot.equals("") || lot == null) {
+							throw new BusinessLogicRunTimeException("批次不能为空");
+						}
+						if (dyBatchNum.equals("") || dyBatchNum == null) {
+							throw new BusinessLogicRunTimeException("有批次的物料,批号不能为空");
+						}
+					}
+				}
+				if (items.getHighConsumable() != null) {
+					if (items.getHighConsumable().equals("1") || items.getHighConsumable() == 1) {
+						if (code.equals("") || code == null) {
+							throw new BusinessLogicRunTimeException("高值物料个体码不能为空");
+						}
+					}
+				}
+				if (effectiveDate.equals("") || effectiveDate == null) {
+					throw new BusinessLogicRunTimeException("有效期不能为空");
+				}
+			}
+			
 			boolean fl = false; // 表示有没有可用分录
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject entrys = array.getJSONObject(i);
