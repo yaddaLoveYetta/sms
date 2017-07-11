@@ -849,7 +849,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@Override
 	@Transactional
 	public void delItem(Integer classId, String items) {
-		List list = new ArrayList();
+		List<Map<String, Object>> list = null;
 		// 判断是否为发货单数据
 		if (classId == 2020) {
 			// 根据发货单号查询数据
@@ -857,8 +857,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 			SendcargoDaoMapper sendcargoDaoMapper = sqlSession.getMapper(SendcargoDaoMapper.class);
 			String[] split = items.split("\\,");
 			for (int i = 0; i < split.length; i++) {
-				List<Map<String, Object>> entry = sendcargoDaoMapper.selectInvoiceEntryByParent(split[i]);
-				list.add(entry);
+				list = sendcargoDaoMapper.selectInvoiceEntryByParent(split[i]);
+				
 			}
 		}
 

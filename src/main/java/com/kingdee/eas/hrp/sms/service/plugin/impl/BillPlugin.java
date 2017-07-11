@@ -241,7 +241,7 @@ public class BillPlugin extends PlugInAdpter {
 				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
 				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
-				if (dyProDate != null && !dyProDate.equals("") && effectiveDate != null && !effectiveDate.equals("")) {
+				if (dyProDate != null && dyProDate.equals("") && effectiveDate != null && !effectiveDate.equals("")) {
 					if (dyProDate.after(effectiveDate)) {
 						throw new BusinessLogicRunTimeException("生产日期不能大于有效期");
 					}
@@ -400,10 +400,10 @@ public class BillPlugin extends PlugInAdpter {
 			OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
 			OrderEntry orderEntry = new OrderEntry();
 			for (int i = 0; i < data.size(); i++) {
-				List<Map<String, Object>> entry = (List<Map<String, Object>>) data.get(i);
-				String parent = entry.get(0).get("orderId").toString();
-				int seq = Integer.parseInt(entry.get(0).get("orderSeq").toString());
-				BigDecimal actualQty = new BigDecimal(entry.get(0).get("actualQty").toString());
+				Map<String, Object> entry = (Map<String, Object>)data.get(i);
+				String parent = entry.get("orderId").toString();
+				int seq = Integer.parseInt(entry.get("orderSeq").toString());
+				BigDecimal actualQty = new BigDecimal(entry.get("actualQty").toString());
 				OrderEntryExample e = new OrderEntryExample();
 				Criteria c = e.createCriteria();
 				c.andSeqEqualTo(seq);
