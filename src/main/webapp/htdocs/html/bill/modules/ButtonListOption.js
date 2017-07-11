@@ -4,13 +4,7 @@
 
 define('ButtonListOption', function (require, module, exports) {
 
-    var config = {
-        'items': [{
-            text: '刷新',
-            name: 'optRefresh',
-            icon: '../../css/main/img/refresh.png'
-        }]
-    };
+    var config = {};
 
     function get(classId, type) {
 
@@ -25,17 +19,6 @@ define('ButtonListOption', function (require, module, exports) {
                     break;
                 case 2020:
                     //发货单
-                    config = {
-                        'items': [{
-                            text: '个体码打印',
-                            name: 'optPrint',
-                            icon: '../../css/main/img/print.png'
-                        }, {
-                            text: '刷新',
-                            name: 'optRefresh',
-                            icon: '../../css/main/img/refresh.png'
-                        }]
-                    };
                     break;
             }
         } else if (type === 1) {
