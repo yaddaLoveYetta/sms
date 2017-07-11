@@ -267,7 +267,7 @@
             }
 
             if (item.data.saleProxy !== saleProxy) {
-                SMS.Tips.error('代销订单不能与非代销订单合并发货');
+                SMS.Tips.error('代销订单不能与非代销订单合并发货',1500);
                 done = false;
                 return false;
             }
@@ -282,13 +282,13 @@
         $.Array.each(list, function (item, index) {
             if (!item.data.confirmTick) {
                 // 供应商没有接单
-                SMS.Tips.error(item.data.number + ' 供应商未接单，不能发货');
+                SMS.Tips.error(item.data.number + ' 供应商未接单，不能发货',1500);
                 done = false;
                 return false;
             }
             if (!item.data.tickType) {
                 // HRP没有确认接单
-                SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货');
+                SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货',1500);
                 done = false;
                 return false;
             }
