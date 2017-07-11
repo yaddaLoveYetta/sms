@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.api;
 
+import java.util.List;
 import java.util.Map;
 
 import com.kingdee.eas.hrp.sms.model.FormFields;
@@ -68,6 +69,19 @@ public interface ITemplateService {
 	 * @date 2017-04-26 14:42:58 星期三
 	 */
 	Map<String, Object> getItemById(Integer classId, String id);
+
+	/**
+	 * 根据模板查询多个业务数据
+	 * 
+	 * @Title getItemByIds
+	 * @param classId
+	 * @param ids
+	 *            单据内码集合
+	 * @return
+	 * @return Map<String,Object>
+	 * @date 2017-07-11 15:42:31 星期二
+	 */
+	List<Map<String, Object>> getItemByIds(Integer classId, List<String> ids);
 
 	/**
 	 * 根基模板新增基础资料
