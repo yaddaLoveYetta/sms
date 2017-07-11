@@ -64,7 +64,7 @@ define('Login', function (require, module, exports) {
     function init() {
 
         var user = SMS.Login.getLast() || {};
-        user = user.number || '';
+        user = user.name || '';
 
         if (user) {
             txtUser.value = user;
