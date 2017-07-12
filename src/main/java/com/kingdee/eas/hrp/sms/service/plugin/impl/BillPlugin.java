@@ -171,6 +171,9 @@ public class BillPlugin extends PlugInAdpter {
 				if (actualQty.equals("") || actualQty == null) {
 					throw new BusinessLogicRunTimeException("实发数量不能为空");
 				}
+				if (actualQty.equals("0")) {
+					throw new BusinessLogicRunTimeException("实发数量不能0");
+				}
 				if (new BigDecimal(actualQty).compareTo(qty) > 0) {
 					throw new BusinessLogicRunTimeException("发货数量不能大于应发数量");
 				}
