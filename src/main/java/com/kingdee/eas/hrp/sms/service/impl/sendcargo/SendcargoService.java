@@ -7,7 +7,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -18,6 +22,7 @@ import com.kingdee.eas.hrp.sms.model.Sendcargo;
 import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.api.sendcargo.ISendcargoService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
+import com.kingdee.eas.hrp.sms.util.Environ;
 
 @Service
 public class SendcargoService extends BaseService implements ISendcargoService {
@@ -46,7 +51,7 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 
 	@Override
 	@Transactional
-	public String sendCargoHrp(String items) {
+	public void sendCargoHrp(String items) {
 
 		SendcargoDaoMapper sendcargoDaoMapper = sqlSession.getMapper(SendcargoDaoMapper.class);
 
@@ -102,14 +107,25 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 		String response = IWebService.webService(lists.toString(), "sms2hrpSendCargo");
 		JSONObject rps = JSONObject.parseObject(response);
 		if(rps.get("code").equals("200")){
-			SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
-			Sendcargo sendcargo = new Sendcargo();
-			for (int i = 0; i < split.length; i++) {
-				sendcargo.setId(split[i]);
-				sendcargo.setType(Byte.parseByte("1"));
-				sendcargoMapper.updateByPrimaryKeySelective(sendcargo);
+		PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
+
+		TransactionTemplate template = new TransactionTemplate(txManager);
+
+		template.execute(new TransactionCallback<Object>() {
+
+			@Override
+			public Object doInTransaction(TransactionStatus status) {
+				SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
+				Sendcargo sendcargo = new Sendcargo();
+				for (int i = 0; i < split.length; i++) {
+					sendcargo.setId(split[i]);
+					sendcargo.setType(Byte.parseByte("1"));
+					sendcargoMapper.updateByPrimaryKeySelective(sendcargo);
+				}
+				return "success";
 			}
-		}
-		return "success";
+		});
+		
 	}
+}
 }

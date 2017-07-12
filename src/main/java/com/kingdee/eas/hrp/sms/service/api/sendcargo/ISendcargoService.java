@@ -8,6 +8,6 @@ public interface ISendcargoService {
 	
 	List<Map<String, Object>> getCode(String items);
 	
-	public String sendCargoHrp(String items);
+	public void sendCargoHrp(String items);
 
 }

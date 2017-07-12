@@ -49,7 +49,7 @@ public class SendcargoController {
 			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
 		}
 
-		String shipSendcargo = sendcargoService.sendCargoHrp(items);
+		 sendcargoService.sendCargoHrp(items);
 
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, "发送到医院成功");
 
