@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.junit.Assert;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -55,6 +56,8 @@ public class PlugInFactory implements IPlugIn {
 	 */
 	private void init() {
 
+		Assert.assertNotNull("classId不能为空!", classId);
+		
 		SqlSession sqlSession = Environ.getBean(SqlSession.class);
 
 		PluginsMapper mapper = sqlSession.getMapper(PluginsMapper.class);
@@ -86,8 +89,7 @@ public class PlugInFactory implements IPlugIn {
 				if (isPlugIn(clazz, "com.kingdee.eas.hrp.sms.service.plugin.IPlugIn")) {
 
 					/**
-					 * 从spring中获取插件bean，如果没有则将插件加入到spring中管理-
-					 * bean注册的名字为插件不包含包名的类名
+					 * 从spring中获取插件bean，如果没有则将插件加入到spring中管理- bean注册的名字为插件不包含包名的类名
 					 */
 					String className = clazz.getName();
 					String beanName = className.substring(className.lastIndexOf(".") + 1);
@@ -116,12 +118,10 @@ public class PlugInFactory implements IPlugIn {
 	private void registerBean(String name, Class clazz) {
 
 		// 将applicationContext转换为ConfigurableApplicationContext
-		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) Environ
-				.getApplicationContext();
+		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) Environ.getApplicationContext();
 
 		// 获取bean工厂并转换为DefaultListableBeanFactory
-		DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext
-				.getBeanFactory();
+		DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory();
 
 		// 通过BeanDefinitionBuilder创建bean定义
 		BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(clazz);
@@ -197,7 +197,16 @@ public class PlugInFactory implements IPlugIn {
 		for (IPlugIn plugin : plugIns) {
 
 			ret = plugin.beforeModify(classId, id, formData, data);
-			data = (JSONObject) ret.getData();
+			// data = (JSONObject) ret.getData();
+		}
+		return ret;
+	}
+
+	@Override
+	public PlugInRet beforeEntryModify(int classId, String primaryId, String entryId, Map<String, Object> formData, JSONObject data) {
+		PlugInRet ret = new PlugInRet();
+		for (IPlugIn plugin : plugIns) {
+			ret = plugin.beforeEntryModify(classId, primaryId, entryId, formData, data);
 		}
 		return ret;
 	}
@@ -231,11 +240,24 @@ public class PlugInFactory implements IPlugIn {
 	}
 
 	@Override
-	public PlugInRet afterDelete(int classId,List<Map<String, Object>> data, String items) {
+	public PlugInRet beforeEntryDelete(int classId, String primaryId, String entryId, Map<String, Object> formData) {
+		for (IPlugIn plugin : plugIns) {
+
+			PlugInRet ret = plugin.beforeEntryDelete(classId, primaryId, entryId, formData);
+			if (ret.getCode() != 200) {
+				// 插件返回了阻止继续运行的情况--返回不继续执行
+				return ret;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public PlugInRet afterDelete(int classId, List<Map<String, Object>> data, String items) {
 
 		for (IPlugIn plugin : plugIns) {
 
-			PlugInRet ret = plugin.afterDelete(classId,data, items);
+			PlugInRet ret = plugin.afterDelete(classId, data, items);
 			if (ret.getCode() != 200) {
 				// 插件返回了阻止继续运行的情况--返回不继续执行
 				return ret;

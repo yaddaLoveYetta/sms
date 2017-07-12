@@ -57,6 +57,26 @@ public interface IPlugIn {
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data);
 
 	/**
+	 * 单据/基础资料修改分录数据前事件
+	 * 
+	 * @Title beforeEntryModify
+	 * @param classId
+	 *            事务类型
+	 * @param primaryId
+	 *            主表内码
+	 * @param entryId
+	 *            子表内码
+	 * @param formData
+	 *            模板数据
+	 * @param data
+	 *            修改数据内容
+	 * @return
+	 * @return PlugInRet
+	 * @date 2017-07-12 09:05:42 星期三
+	 */
+	public PlugInRet beforeEntryModify(int classId, String primaryId, String entryId, Map<String, Object> formData, JSONObject data);
+
+	/**
 	 * 基础资料修改后操作
 	 * 
 	 * @param classId
@@ -79,6 +99,24 @@ public interface IPlugIn {
 	public PlugInRet beforeDelete(int classId, Map<String, Object> formData, String data);
 
 	/**
+	 * 单据/基础资料分录删除前事件
+	 * 
+	 * @Title beforeentryDelete
+	 * @param classId
+	 *            事务类型
+	 * @param primaryId
+	 *            主表内码
+	 * @param entryId
+	 *            子表内码
+	 * @param formData
+	 *            模板数据
+	 * @return
+	 * @return PlugInRet
+	 * @date 2017-07-12 09:10:46 星期三
+	 */
+	public PlugInRet beforeEntryDelete(int classId, String primaryId, String entryId, Map<String, Object> formData);
+
+	/**
 	 * 基础资料删除后操作
 	 * 
 	 * @param classId
@@ -87,7 +125,7 @@ public interface IPlugIn {
 	 *            删除的内码集合
 	 * @return
 	 */
-	public PlugInRet afterDelete(int classId,List<Map<String, Object>> data, String items);
+	public PlugInRet afterDelete(int classId, List<Map<String, Object>> data, String items);
 
 	/**
 	 * 基础资料查询前操作

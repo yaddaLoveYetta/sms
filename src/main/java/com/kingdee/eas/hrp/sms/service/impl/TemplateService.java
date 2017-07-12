@@ -309,7 +309,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 				idList.add("'" + item.get("id").toString() + "'");
 			}
 
-			List<Map<String, Object>> itemByIds = getItemByIds(classId, idList);
+			List<Map<String, Object>> itemByIds = new ArrayList<>();
+
+			if (idList.size() > 0) {
+				itemByIds = getItemByIds(classId, idList);
+			}
 
 			ret.put("list", itemByIds);
 
@@ -822,13 +826,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			sqlMap.put("sql", sql);// 完整带参数的sql
 
-			sqlMap.putAll(sqlParams);// --格式化参数
-			// // --参数列表
-			// for (Iterator<Entry<String, Object>> it =
-			// sqlParams.entrySet().iterator(); it.hasNext();) {
-			// Entry<String, Object> item = it.next();
-			// sqlMap.put(item.getKey(), item.getValue());
-			// }
+			sqlMap.putAll(sqlParams);// --格式化参数列表
 
 			TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
 			templateDaoMapper.edit(sqlMap);
@@ -858,7 +856,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			String[] split = items.split("\\,");
 			for (int i = 0; i < split.length; i++) {
 				list = sendcargoDaoMapper.selectInvoiceEntryByParent(split[i]);
-				
+
 			}
 		}
 
@@ -2277,7 +2275,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 			Integer lookUpType = formField.getLookUpType();
 			Integer needSave = formField.getNeedSave();
 
-			if (needSave == 0 && (lookUpType == 3 || lookUpType == 5))// 引用基础资料的附加属性OR关联普通表携带字段，无需保存
+			if (needSave == 0 && (lookUpType == 3 || lookUpType == 5))
+				// 引用基础资料的附加属性OR关联普通表携带字段，无需保存
 				continue;
 
 			String value = data.getString(key);
@@ -2291,35 +2290,25 @@ public class TemplateService extends BaseService implements ITemplateService {
 			kvBuffer.append(",").append(fieldName).append("=").append("#{" + key + "}");
 
 			if (value == null) {
-				// kvBuffer.append("null");
-				// sqlParams.put(fieldName, "null");
 				sqlParams.put(key, "");
 			} else {
 				int dataType = formField.getDataType();
 				DataTypeeEnum typeEnum = DataTypeeEnum.getTypeEnum(dataType);
 				switch (typeEnum) {
 				case NUMBER:
-					// BigDecimal db = new BigDecimal(value);
-					// value = db.toPlainString();
-					// kvBuffer.append(value);
 					break;
 				case TEXT:
-					// kvBuffer.append("'").append(value).append("'");
 					break;
 				case BOOLEAN:
 					if (!(value.equals("0") || value.equals("1"))) {
 						boolean b = Boolean.valueOf(value);
-						// kvBuffer.append(b ? 1 : 0);
 						value = b ? "1" : "0";
 					}
 					break;
 				case TIME:
-					// kvBuffer.append("'").append(value).append("'");
 					break;
 				default:
-					// kvBuffer.append("'").append(value).append("'");
 					break;
-
 				}
 				sqlParams.put(key, value);
 			}
@@ -2339,12 +2328,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 		return ret;
 	}
 
-	private Map<String, Object> prepareStatement(String data, String primaryTableName, String primaryKey, int dataType) {
+	private Map<String, Object> prepareStatement(String ids, String primaryTableName, String primaryKey, int dataType) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		String[] idString = data.split(",");
-		List<String> idList = Arrays.asList(idString);
+		List<String> idList = Arrays.asList(ids.split(","));
 
 		StringBuilder items = new StringBuilder();
 		for (String id : idList) {

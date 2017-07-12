@@ -30,7 +30,10 @@ public abstract class PlugInAdpter implements IPlugIn {
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject data) {
 		return result;
 	}
-
+	@Override
+	public PlugInRet beforeEntryModify(int classId, String primaryId, String entryId, Map<String, Object> formData, JSONObject data) {
+		return result;
+	}
 	@Override
 	public PlugInRet afterModify(int classId, JSONObject data) {
 		return result;
@@ -45,7 +48,10 @@ public abstract class PlugInAdpter implements IPlugIn {
 	public PlugInRet afterDelete(int classId,List<Map<String, Object>> data, String items) {
 		return result;
 	}
-
+	@Override
+	public PlugInRet beforeEntryDelete(int classId, String primaryId, String entryId, Map<String, Object> formData) {
+		return result;
+	}
 	@Override
 	public PlugInRet beforeQuery(int classId, Map<String, Object> param) {
 		return result;

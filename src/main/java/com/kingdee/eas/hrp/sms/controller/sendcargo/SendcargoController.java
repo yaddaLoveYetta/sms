@@ -1,6 +1,5 @@
 package com.kingdee.eas.hrp.sms.controller.sendcargo;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -21,10 +20,10 @@ import com.kingdee.eas.hrp.sms.util.StatusCode;
 @Controller
 @RequestMapping(value = "/sendcargo/")
 public class SendcargoController {
-	
+
 	@Resource
 	ISendcargoService sendcargoService;
-	
+
 	@ControllerLog(desc = "获取个体码")
 	@RequestMapping(value = "getCode")
 	public void getCode(HttpServletRequest request, HttpServletResponse response) {
@@ -39,8 +38,7 @@ public class SendcargoController {
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipSendcargo);
 
 	}
-	
-	
+
 	@ControllerLog(desc = "发送到医院")
 	@RequestMapping(value = "sendHrp")
 	public void sendHrp(HttpServletRequest request, HttpServletResponse response) {
@@ -52,10 +50,8 @@ public class SendcargoController {
 		}
 
 		String shipSendcargo = sendcargoService.sendCargoHrp(items);
-		if(shipSendcargo.equals("success")){
-			throw new BusinessLogicRunTimeException("发送到医院成功");
-		}
-		ResponseWriteUtil.output(response, StatusCode.SUCCESS, shipSendcargo);
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, "发送到医院成功");
 
 	}
 
