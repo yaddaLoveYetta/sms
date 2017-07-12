@@ -64,6 +64,7 @@
 			e.registrationNo,
 			e.effectiveDate,
 			e.amount,
+			e.actualQty,
 			o.id AS orderEntryId
 		FROM
 			t_sms_sendcargo t
