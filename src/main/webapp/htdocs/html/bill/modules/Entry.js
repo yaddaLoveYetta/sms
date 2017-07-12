@@ -31,7 +31,7 @@ define('Entry', function (require, module, exports) {
             gridName: 'bd-grid',
             width: $(window).width() - 5,
             height: 'auto',
-            classId:template.formClass.classId,
+            classId: template.formClass.classId,
         };
 
         if (billGrid) {
@@ -66,13 +66,29 @@ define('Entry', function (require, module, exports) {
                 console.log("iCol=" + iCol);
             });
 
-            billGrid.on('afterSaveCell',function (classId, rowid, name, value, iRow, iCol) {
+            billGrid.on('afterSaveCell', function (classId, rowid, cellname, value, iRow, iCol) {
                 console.log("classId=" + classId);
                 console.log("rowid=" + rowid);
-                console.log("name=" + name);
+                console.log("cellname=" + cellname);
                 console.log("value=" + value);
                 console.log("iRow=" + iRow);
                 console.log("iCol=" + iCol);
+
+                if (classId === 2020) {
+                    // 发货单新增编辑时候值更新事件处理
+                    // 下一迭代重构(应该由数据库配置字段值更新规则先)
+                    switch (cellname) {
+                        case 'actualQty':
+                            // 实发数量变化后修改金额
+                            // 1：获取物料单价
+                            var price = billGrid.getCell(rowid, 'price');
+                            console.log("price=" + price);
+                            var amount = value * price;
+                            billGrid.setCell(rowid, 'price', amount)
+                            break;
+                    }
+
+                }
             });
 
         });

@@ -6324,11 +6324,11 @@
                     emitter.fire('afterEditCell', [config.classId, rowid, cellname, value, iRow, iCol]);
                 },
 
-                afterSaveCell: function (rowid, name, val, iRow, iCol) {
+                afterSaveCell: function (rowid, cellname, value, iRow, iCol) {
 
                     console.log("afterSaveCell");
-                    config.fnAfterSaveCell && config.fnAfterSaveCell(rowid, name, val, iRow, iCol);
-                    emitter.fire('afterSaveCell', [config.classId, rowid, name, val, iRow, iCol]);
+                    config.fnAfterSaveCell && config.fnAfterSaveCell(rowid, cellname, value, iRow, iCol);
+                    emitter.fire('afterSaveCell', [config.classId, rowid, cellname, value, iRow, iCol]);
                 },
 
                 loadComplete: function (data) {
@@ -6819,6 +6819,12 @@
                 var meta = mapper.get(this);
                 // 设置单元格的值-调用原始控件方法
                 meta.grid.jqGrid('setCell', rowid, colname, data, cssClass, properties);
+
+            },
+            getCell: function (rowid, iCol) {
+                var meta = mapper.get(this);
+                // 设置单元格的值-调用原始控件方法
+                return meta.grid.jqGrid('getCell', rowid, iCol);
 
             },
             getColProp: function (name) {
