@@ -847,18 +847,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@Override
 	@Transactional
 	public void delItem(Integer classId, String items) {
-		List<Map<String, Object>> list = null;
-		// 判断是否为发货单数据
-		if (classId == 2020) {
-			// 根据发货单号查询数据
-			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
-			SendcargoDaoMapper sendcargoDaoMapper = sqlSession.getMapper(SendcargoDaoMapper.class);
-			String[] split = items.split("\\,");
-			for (int i = 0; i < split.length; i++) {
-				list = sendcargoDaoMapper.selectInvoiceEntryByParent(split[i]);
-
-			}
-		}
+		
+		List<String> split = Arrays.asList(items.split("\\,"));
+		List<Map<String, Object>> delData = getItemByIds(classId, split); // 待删除的数据明细
 
 		String userType = SessionUtil.getUserType();
 		// 基础资料模板
@@ -897,7 +888,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			templateDaoMapper.del(statement);
 		}
 
-		result = factory.afterDelete(classId, list, items);
+		result = factory.afterDelete(classId, delData, items);
 
 		if (result != null && result.getCode() != 200) {
 			throw new PlugInRuntimeException(result.getMsg());

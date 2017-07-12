@@ -121,11 +121,13 @@ public interface IPlugIn {
 	 * 
 	 * @param classId
 	 *            业务类型
+	 * @param delData
+	 *            待删除的数据明细集合
 	 * @param items
 	 *            删除的内码集合
 	 * @return
 	 */
-	public PlugInRet afterDelete(int classId, List<Map<String, Object>> data, String items);
+	public PlugInRet afterDelete(int classId, List<Map<String, Object>> delData, String items);
 
 	/**
 	 * 基础资料查询前操作
