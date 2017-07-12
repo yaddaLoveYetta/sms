@@ -18,12 +18,6 @@ define('Entry', function (require, module, exports) {
         billGrid.clear();
     };
 
-    var defaults = {
-        gridName: 'bd-grid',
-        width: $(window).width() - 5,
-        height: 'auto',
-    };
-
     //jqGrid初始化
     function gridRender(template, data) {
 
@@ -32,6 +26,13 @@ define('Entry', function (require, module, exports) {
         }
 
         billTemplate = template;
+
+        var defaults = {
+            gridName: 'bd-grid',
+            width: $(window).width() - 5,
+            height: 'auto',
+            classId:template.formClass.classId,
+        };
 
         if (billGrid) {
             billGrid.clear();
@@ -60,6 +61,15 @@ define('Entry', function (require, module, exports) {
                 console.log("classId=" + classId);
                 console.log("rowid=" + rowid);
                 console.log("cellname=" + cellname);
+                console.log("value=" + value);
+                console.log("iRow=" + iRow);
+                console.log("iCol=" + iCol);
+            });
+
+            billGrid.on('afterSaveCell',function (classId, rowid, name, value, iRow, iCol) {
+                console.log("classId=" + classId);
+                console.log("rowid=" + rowid);
+                console.log("name=" + name);
                 console.log("value=" + value);
                 console.log("iRow=" + iRow);
                 console.log("iCol=" + iCol);

@@ -6319,15 +6319,16 @@
                 afterEditCell: function (rowid, cellname, value, iRow, iCol) {
                     cfg.curCell.row = iRow;
                     cfg.curCell.col = iCol;
-                    console.log("afterEditCell:" + value);
+                    console.log("afterEditCell");
                     config.fnAfterEditCell && config.fnAfterEditCell(rowid, cellname, value, iRow, iCol);
                     emitter.fire('afterEditCell', [config.classId, rowid, cellname, value, iRow, iCol]);
                 },
 
                 afterSaveCell: function (rowid, name, val, iRow, iCol) {
 
-                    console.log("abcd宿舍");
+                    console.log("afterSaveCell");
                     config.fnAfterSaveCell && config.fnAfterSaveCell(rowid, name, val, iRow, iCol);
+                    emitter.fire('afterSaveCell', [config.classId, rowid, name, val, iRow, iCol]);
                 },
 
                 loadComplete: function (data) {
