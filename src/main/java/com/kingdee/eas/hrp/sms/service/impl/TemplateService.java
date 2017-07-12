@@ -849,10 +849,19 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@Transactional
 	public void delItem(Integer classId, String items) {
 
-		List<String> split = Arrays.asList(items.split("\\,"));
-		List<Map<String, Object>> delData = getItemByIds(classId, split, ""); // 待删除的数据明细
+		String[] ids = items.split("\\,");
+		List<String> idList = new ArrayList<>();
+		List<Map<String, Object>> delData = new ArrayList<Map<String, Object>>();
 
-		String userType = SessionUtil.getUserType();
+		for (int i = 0; i < ids.length; i++) {
+			// 获取主表内码集合
+			idList.add("'" + ids[i] + "'");
+		}
+
+		if (idList.size() > 0) {
+			delData = getItemByIds(classId, idList, "");// 待删除的数据明细
+		}
+
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);
 		// 主表资料描述信息
@@ -2057,6 +2066,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 				}
 				break;
 			case TIME:
+				if (value != null && value.isEmpty()) {
+					value = null;
+				}
 				break;
 			default:
 				break;
