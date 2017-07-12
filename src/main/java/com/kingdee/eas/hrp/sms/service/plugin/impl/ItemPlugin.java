@@ -54,8 +54,7 @@ public class ItemPlugin extends PlugInAdpter {
 	IWebService IWebService;
 
 	// 当业务用户查询时，相关item需做数据隔离
-	List<Integer> isolateClassIdList = new ArrayList<Integer>(
-			Arrays.asList(2019, 2020, 1001, 1005, 3010, 3020, 3030, 1023, 1007));
+	List<Integer> isolateClassIdList = new ArrayList<Integer>(Arrays.asList(2019, 2020, 1001, 1005, 3010, 3020, 3030, 1023, 1007));
 	// 需要同步和审核classId
 	List<Integer> reviewAndSyncClassIdList = new ArrayList<Integer>(Arrays.asList(1005, 3010, 3020, 3030, 1023, 1007));
 
@@ -124,8 +123,7 @@ public class ItemPlugin extends PlugInAdpter {
 				condition.put("needConvert", false);
 				conditionArry.add(condition);
 
-				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy,
-						1, 10);
+				Map<String, Object> result = templateService.getItems(citedClassId, conditionArry.toString(), orderBy, 1, 10);
 
 				if ((long) result.get("count") > 0) {
 					Map<String, Object> errData = templateService.getItemById(classId, id);
@@ -321,8 +319,12 @@ public class ItemPlugin extends PlugInAdpter {
 
 		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10);
 
-		if ((long) result.get("count") > 0) {
-			throw new PlugInRuntimeException("该记录已存在,代码重复");
+		if (classId == 1026) {
+			// 单据类型 代码可能重复，此处不校验单据类型代码重复
+		} else {
+			if ((int) result.get("count") > 0) {
+				throw new PlugInRuntimeException("该记录已存在,代码重复");
+			}
 		}
 	}
 
@@ -333,8 +335,7 @@ public class ItemPlugin extends PlugInAdpter {
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(json.getString("type"))) {
-				if (json.getString("supplier") != null && !"".equals(json.getString("supplier"))
-						&& !"0".equals(json.getString("supplier"))) {
+				if (json.getString("supplier") != null && !"".equals(json.getString("supplier")) && !"0".equals(json.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
 			}
@@ -376,8 +377,7 @@ public class ItemPlugin extends PlugInAdpter {
 		// 如果flag是true，表明这个字段需要验证是否非空，新增需要验证全部字段
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = formFields.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -416,8 +416,7 @@ public class ItemPlugin extends PlugInAdpter {
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
 		if (classId == 1001) {
 			if ("QpXq24FxxE6c3lvHMPyYCxACEAI=".equals(json.getString("type"))) {
-				if (json.getString("supplier") != null && !"".equals(json.getString("supplier"))
-						&& !"0".equals(json.getString("supplier"))) {
+				if (json.getString("supplier") != null && !"".equals(json.getString("supplier")) && !"0".equals(json.getString("supplier"))) {
 					throw new PlugInRuntimeException("系统用户不能选择供应商");
 				}
 			}
@@ -460,8 +459,7 @@ public class ItemPlugin extends PlugInAdpter {
 		// 如果flag是true，表明这个字段需要验证是否非空,修改只验证修改的字段
 		boolean flag = false;
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData
-				.get("formFields")).get("0"); // 主表的字段模板
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formData.get("formFields")).get("0"); // 主表的字段模板
 		Set<String> keySet = json.keySet();
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
@@ -504,9 +502,7 @@ public class ItemPlugin extends PlugInAdpter {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter#getConditions(int,
-	 * java.util.Map, java.lang.String)
+	 * @see com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter#getConditions(int, java.util.Map, java.lang.String)
 	 */
 	@Override
 	public String getConditions(int classId, Map<String, Object> formData, String conditon) {

@@ -18,6 +18,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
@@ -30,6 +31,7 @@ public class SyncService extends BaseService implements ISyncService {
 
 	@Resource
 	ITemplateService templateService;
+
 	@Transactional
 	public List<Map<String, Object>> sync_old(int classId, JSONArray list) {
 
@@ -59,8 +61,8 @@ public class SyncService extends BaseService implements ISyncService {
 	/**
 	 * 同步基础资料 (non-Javadoc)
 	 * 
-	 * @see com.kingdee.eas.hrp.sms.service.api.sys.ISyncService#sync(int,
-	 *      com.alibaba.fastjson.JSONArray, java.lang.String)
+	 * @see com.kingdee.eas.hrp.sms.service.api.sys.ISyncService#sync(int, com.alibaba.fastjson.JSONArray,
+	 *      java.lang.String)
 	 * @param classId
 	 * @param list
 	 * @param userType
@@ -74,21 +76,22 @@ public class SyncService extends BaseService implements ISyncService {
 
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 
-		PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
-
 		ITemplateService templateService = Environ.getBean(ITemplateService.class);
 
 		// 基础资料模板
 		Map<String, Object> formTemplate = templateService.getFormTemplate(classId, 1);
 		// 主表资料描述信息
 		FormClass formClass = (FormClass) formTemplate.get("formClass");
-		
+
 		// 主表字段模板
-		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formTemplate
-						.get("formFields")).get("0");
+		Map<String, FormFields> formFields = (Map<String, FormFields>) ((Map<String, Object>) formTemplate.get("formFields")).get("0");
 
 		String primaryKey = formClass.getPrimaryKey(); // 主表主键key
 
+		if (list.size() > 1000) {
+			throw new BusinessLogicRunTimeException("你提交的数据太多：每次最多同步1000条数据");
+		}
+		
 		for (int i = 0; i < list.size(); i++) {
 
 			Map<String, Object> errItem = new HashMap<String, Object>();
@@ -105,48 +108,25 @@ public class SyncService extends BaseService implements ISyncService {
 
 				continue; // 忽略该条记录
 			}
-			
-			if(formFields.containsKey("review")){
+
+			if (formFields.containsKey("review")) {
 				baseItem.put("review", "true");
-			}if(formFields.containsKey("syncStatus")){
+			}
+			if (formFields.containsKey("syncStatus")) {
 				baseItem.put("syncStatus", "true");
 			}
 
 			String interId = baseItem.getString(primaryKey);// 主键值
 
-			TransactionTemplate template = new TransactionTemplate(txManager);
-
-			boolean success = template.execute(new TransactionCallback<Boolean>() {
-
-				@Override
-				public Boolean doInTransaction(TransactionStatus status) {
-
-					try {
-
-						if (templateService.getItemById(classId, interId) == null) {
-							templateService.addItem(classId, baseItem.toJSONString());
-						} else {
-							templateService.editItem(classId, interId, baseItem.toJSONString());
-						}
-
-						return true; // 同步成功
-
-					} catch (Exception e) {
-
-						status.setRollbackOnly();// 回滚事务
-						errItem.put("msg", e.getMessage());
-						errItem.put("item", baseItem);
-						ret.add(errItem);
-
-						return false; // 同步失败
-					}
-
-				}
-			});
+			if (templateService.getItemById(classId, interId) == null) {
+				templateService.addItem(classId, baseItem.toJSONString());
+			} else {
+				templateService.editItem(classId, interId, baseItem.toJSONString());
+			}
 
 		}
 
-	return ret;
-}
+		return ret;
+	}
 
 }
