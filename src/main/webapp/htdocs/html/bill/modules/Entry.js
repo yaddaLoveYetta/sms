@@ -84,7 +84,7 @@ define('Entry', function (require, module, exports) {
                             var price = billGrid.getCell(rowid, 'price');
                             console.log("price=" + price);
                             var amount = value * price;
-                            billGrid.setCell(rowid, 'price', amount)
+                            billGrid.setCell(rowid, 'amount', amount)
                             break;
                     }
 
