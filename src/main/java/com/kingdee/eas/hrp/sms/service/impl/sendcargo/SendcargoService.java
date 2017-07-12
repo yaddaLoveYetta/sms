@@ -89,7 +89,7 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 					entrys.put("innerCode", sendCargo.get("code"));
 					entrys.put("dyPrice", sendCargo.get("price"));
 					entrys.put("unit", sendCargo.get("unit"));
-					entrys.put("actualQty", sendCargo.get("actualQty"));
+					entrys.put("qty", sendCargo.get("actualQty"));
 					entrys.put("dyProDate", sendCargo.get("dyProDate"));
 					entrys.put("dyProduct", sendCargo.get("dyManufacturer"));
 					entrys.put("dyRegistNum", sendCargo.get("registrationNo"));
