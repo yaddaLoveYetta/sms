@@ -312,7 +312,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 			List<Map<String, Object>> itemByIds = new ArrayList<>();
 
 			if (idList.size() > 0) {
-				itemByIds = getItemByIds(classId, idList);
+				itemByIds = getItemByIds(classId, idList, orderByStr);
 			}
 
 			ret.put("list", itemByIds);
@@ -535,7 +535,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getItemByIds(Integer classId, List<String> idList) {
+	public List<Map<String, Object>> getItemByIds(Integer classId, List<String> idList, String orderByStr) {
 
 		if (idList == null || idList.size() == 0) {
 			throw new BusinessLogicRunTimeException("请提交单据内码");
@@ -594,7 +594,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		Map<String, Object> sqlMap = new HashMap<String, Object>();
 		// 完整的sql(带格式化参数)
-		String sql = select.toString() + System.getProperty("line.separator") + from.toString() + System.getProperty("line.separator") + where + System.getProperty("line.separator");
+		String sql = select.toString() + System.getProperty("line.separator") + from.toString() + System.getProperty("line.separator") + where + System.getProperty("line.separator") + orderByStr
+				+ System.getProperty("line.separator");
 		sqlMap.put("sql", sql);
 
 		TemplateDaoMapper templateDaoMapper = sqlSession.getMapper(TemplateDaoMapper.class);
@@ -847,9 +848,9 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@Override
 	@Transactional
 	public void delItem(Integer classId, String items) {
-		
+
 		List<String> split = Arrays.asList(items.split("\\,"));
-		List<Map<String, Object>> delData = getItemByIds(classId, split); // 待删除的数据明细
+		List<Map<String, Object>> delData = getItemByIds(classId, split, ""); // 待删除的数据明细
 
 		String userType = SessionUtil.getUserType();
 		// 基础资料模板

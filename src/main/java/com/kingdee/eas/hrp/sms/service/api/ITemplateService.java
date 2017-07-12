@@ -77,11 +77,13 @@ public interface ITemplateService {
 	 * @param classId
 	 * @param ids
 	 *            单据内码集合
+	 * @param orderByStr
+	 *            排序规则
 	 * @return
 	 * @return Map<String,Object>
 	 * @date 2017-07-11 15:42:31 星期二
 	 */
-	List<Map<String, Object>> getItemByIds(Integer classId, List<String> ids);
+	List<Map<String, Object>> getItemByIds(Integer classId, List<String> ids, String orderByStr);
 
 	/**
 	 * 根基模板新增基础资料
