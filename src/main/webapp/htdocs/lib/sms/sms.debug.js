@@ -615,7 +615,7 @@
              * 最终请求的路径
              * @return {*}
              */
-            getUrl:function(){
+            getUrl: function () {
                 var meta = mapper.get(this);
                 return meta.url;
             }
@@ -2051,7 +2051,7 @@
         return $.Object.extend({}, $.Url.Current, {
 
             root: root,
-            uploadFileUrlRoot:uploadFileUrlRoot,
+            uploadFileUrlRoot: uploadFileUrlRoot,
             config: config,
             check: check,
             format: format,
@@ -6319,8 +6319,9 @@
                 afterEditCell: function (rowid, cellname, value, iRow, iCol) {
                     cfg.curCell.row = iRow;
                     cfg.curCell.col = iCol;
-                    console.log("abcd");
+                    console.log("afterEditCell:" + value);
                     config.fnAfterEditCell && config.fnAfterEditCell(rowid, cellname, value, iRow, iCol);
+                    emitter.fire('afterEditCell', [config.classId, rowid, cellname, value, iRow, iCol]);
                 },
 
                 afterSaveCell: function (rowid, name, val, iRow, iCol) {
@@ -6377,7 +6378,7 @@
                 if (su && row[primaryKey]) {
                     deleteRows.push(row);
                 }
-                ;
+
             });
 
             // 取消分录编辑状态

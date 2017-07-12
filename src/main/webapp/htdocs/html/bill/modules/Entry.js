@@ -33,7 +33,7 @@ define('Entry', function (require, module, exports) {
 
         billTemplate = template;
 
-        if(billGrid){
+        if (billGrid) {
             billGrid.clear();
             billGrid.render(defaults, data, template, 1);
             return;
@@ -54,6 +54,15 @@ define('Entry', function (require, module, exports) {
 
             billGrid.on('f7Selected', function (data) {
 
+            });
+
+            billGrid.on('afterEditCell', function (classId, rowid, cellname, value, iRow, iCol) {
+                console.log("classId=" + classId);
+                console.log("rowid=" + rowid);
+                console.log("cellname=" + cellname);
+                console.log("value=" + value);
+                console.log("iRow=" + iRow);
+                console.log("iCol=" + iCol);
             });
 
         });
