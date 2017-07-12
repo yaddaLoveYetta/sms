@@ -89,7 +89,8 @@ public class BillPlugin extends PlugInAdpter {
 				// 根据订单号和行号查询对应的记录
 				List<OrderEntry> o = orderEntryMapper.selectByExample(e);
 				if (o.size() > 0) {
-					orderEntry.setInvoiceQty(new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
+					orderEntry.setInvoiceQty(
+							new BigDecimal(lists.get("invoiceQty").toString()).add(o.get(0).getInvoiceQty()));
 					orderEntry.setId(o.get(0).getId());
 					// 根据订单ID 修改发货数量
 					orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
@@ -400,21 +401,27 @@ public class BillPlugin extends PlugInAdpter {
 			OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
 			OrderEntry orderEntry = new OrderEntry();
 			for (int i = 0; i < data.size(); i++) {
-				Map<String, Object> entry = (Map<String, Object>)data.get(i);
-				String parent = entry.get("orderId").toString();
-				int seq = Integer.parseInt(entry.get("orderSeq").toString());
-				BigDecimal actualQty = new BigDecimal(entry.get("actualQty").toString());
-				OrderEntryExample e = new OrderEntryExample();
-				Criteria c = e.createCriteria();
-				c.andSeqEqualTo(seq);
-				c.andParentEqualTo(parent);
-				List<OrderEntry> o = orderEntryMapper.selectByExample(e);
-				for (int j = 0; j < o.size(); j++) {
-					orderEntry.setParent(parent);
-					orderEntry.setSeq(seq);
-					orderEntry.setInvoiceQty(o.get(0).getInvoiceQty().subtract(actualQty));
-					orderEntry.setId(o.get(0).getId());
-					orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+				Map<String, Object> entry = (Map<String, Object>) data.get(i);
+				Map<String, Object> entrys = (Map<String, Object>) entry.get("entry");
+				ArrayList<Object> arrayList = (ArrayList<Object>) entrys.get("1");
+				for (int k = 0; k < arrayList.size(); k++) {
+				Map<String, Object> array = (Map<String, Object>) arrayList.get(k);
+					String parent = array.get("orderId").toString();
+					int seq = Integer.parseInt(array.get("orderSeq").toString());
+					BigDecimal actualQty = new BigDecimal(array.get("actualQty").toString());
+					OrderEntryExample e = new OrderEntryExample();
+					Criteria c = e.createCriteria();
+					c.andSeqEqualTo(seq);
+					c.andParentEqualTo(parent);
+					List<OrderEntry> o = orderEntryMapper.selectByExample(e);
+					for (int j = 0; j < o.size(); j++) {
+						orderEntry.setParent(parent);
+						orderEntry.setSeq(seq);
+						orderEntry.setInvoiceQty(o.get(0).getInvoiceQty().subtract(actualQty));
+						orderEntry.setId(o.get(0).getId());
+						orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+					}
+
 				}
 			}
 		}
