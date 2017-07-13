@@ -320,7 +320,7 @@ public class ItemPlugin extends PlugInAdpter {
 		Map<String, Object> result = templateService.getItems(classId, conditionArry.toString(), orderBy, 1, 10);
 
 		if (classId == 1026) {
-			// 单据类型 代码可能重复，此处不校验单据类型代码重复
+			// EAS"单据类型"资料 代码可能重复，此处不校验单据类型代码重复
 		} else {
 			if ((int) result.get("count") > 0) {
 				throw new PlugInRuntimeException("该记录已存在,代码重复");
