@@ -220,7 +220,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
 
                 cModel.push(keyModel);
 
-                if (field.FCtrlType == 6 && field.disPlayNum) {
+                if (field.ctrlType == 6 && field.disPlayNum) {
                     // 有配置显示代码时增加代码显示
                     var keyNmbModel = {
                         name: field.name + '_NmbName',
