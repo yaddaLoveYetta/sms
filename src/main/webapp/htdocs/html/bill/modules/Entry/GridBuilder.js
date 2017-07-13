@@ -224,8 +224,8 @@ define('Entry/GridBuilder', function (require, module, exports) {
                     // 有配置显示代码时增加代码显示
                     var keyNmbModel = {
                         name: field.name + '_NmbName',
-                        label: field.key + '_NmbName',
-                        tabIndex: field.index,
+                        label: field.name+'代码',
+                        tabIndex: field.index +1,
                         hidden: false
                     };
                     cModel.push(keyNmbModel);
