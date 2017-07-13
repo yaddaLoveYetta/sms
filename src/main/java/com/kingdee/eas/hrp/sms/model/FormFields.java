@@ -2,16 +2,12 @@ package com.kingdee.eas.hrp.sms.model;
 
 import java.math.BigDecimal;
 
-public class FormFields {
-    private Integer classId;
-
+public class FormFields extends FormFieldsKey {
     private Integer page;
 
     private String name;
 
     private String sqlColumnName;
-
-    private String key;
 
     private Integer dataType;
 
@@ -61,14 +57,6 @@ public class FormFields {
 
     private Integer needSave;
 
-    public Integer getClassId() {
-        return classId;
-    }
-
-    public void setClassId(Integer classId) {
-        this.classId = classId;
-    }
-
     public Integer getPage() {
         return page;
     }
@@ -91,14 +79,6 @@ public class FormFields {
 
     public void setSqlColumnName(String sqlColumnName) {
         this.sqlColumnName = sqlColumnName == null ? null : sqlColumnName.trim();
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key == null ? null : key.trim();
     }
 
     public Integer getDataType() {

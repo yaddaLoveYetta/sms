@@ -41,6 +41,8 @@ public class Supplier {
 
     private String mobile;
 
+    private String contactPerson;
+
     public String getId() {
         return id;
     }
@@ -191,5 +193,13 @@ public class Supplier {
 
     public void setMobile(String mobile) {
         this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson == null ? null : contactPerson.trim();
     }
 }

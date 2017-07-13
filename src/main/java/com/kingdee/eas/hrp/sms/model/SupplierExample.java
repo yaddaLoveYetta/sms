@@ -1394,6 +1394,76 @@ public class SupplierExample {
             addCriterion("mobile not between", value1, value2, "mobile");
             return (Criteria) this;
         }
+
+        public Criteria andContactPersonIsNull() {
+            addCriterion("contactPerson is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonIsNotNull() {
+            addCriterion("contactPerson is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonEqualTo(String value) {
+            addCriterion("contactPerson =", value, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonNotEqualTo(String value) {
+            addCriterion("contactPerson <>", value, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonGreaterThan(String value) {
+            addCriterion("contactPerson >", value, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonGreaterThanOrEqualTo(String value) {
+            addCriterion("contactPerson >=", value, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonLessThan(String value) {
+            addCriterion("contactPerson <", value, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonLessThanOrEqualTo(String value) {
+            addCriterion("contactPerson <=", value, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonLike(String value) {
+            addCriterion("contactPerson like", value, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonNotLike(String value) {
+            addCriterion("contactPerson not like", value, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonIn(List<String> values) {
+            addCriterion("contactPerson in", values, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonNotIn(List<String> values) {
+            addCriterion("contactPerson not in", values, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonBetween(String value1, String value2) {
+            addCriterion("contactPerson between", value1, value2, "contactPerson");
+            return (Criteria) this;
+        }
+
+        public Criteria andContactPersonNotBetween(String value1, String value2) {
+            addCriterion("contactPerson not between", value1, value2, "contactPerson");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
