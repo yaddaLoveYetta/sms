@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.controller.system;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -56,4 +57,13 @@ public class SyncController {
 
 	}
 
+	public static void main(String[] args) {
+
+		String STR_FORMAT = "000000";
+
+		Integer currentNumber = 1110123;
+		DecimalFormat df = new DecimalFormat(STR_FORMAT);
+		System.out.println(df.format(currentNumber));
+
+	}
 }

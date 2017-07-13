@@ -322,7 +322,7 @@ public class ItemPlugin extends PlugInAdpter {
 		if (classId == 1026) {
 			// EAS"单据类型"资料 代码可能重复，此处不校验单据类型代码重复
 		} else {
-			if ((int) result.get("count") > 0) {
+			if ((long) result.get("count") > 0) {
 				throw new PlugInRuntimeException("该记录已存在,代码重复");
 			}
 		}
