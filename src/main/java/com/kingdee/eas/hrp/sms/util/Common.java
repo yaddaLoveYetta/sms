@@ -365,45 +365,6 @@ public class Common {
 		return retSb.toString();
 	}
 
-	/**
-	 * 创建发货单订单号
-	 * 
-	 * @Title createShipOrderNo
-	 * @return String
-	 * @date 2017-05-20 09:46:06 星期六
-	 */
-
-	public static String createShipOrderNo(int classId) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.CHINA);
-		int year = Integer.parseInt(sdf.format(new Date()));
-		String code = null;
-		// 根据classId获取流水号
-		SerialNumber sn = new SerialNumber();
-		SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
-		SerialNumberMapper serialNumberMapper = sqlSession.getMapper(SerialNumberMapper.class);
-		SerialNumberExample e = new SerialNumberExample();
-		com.kingdee.eas.hrp.sms.model.SerialNumberExample.Criteria c = e.createCriteria();
-		c.andClassIdEqualTo(classId);
-		c.andYearEqualTo(year);
-		List<SerialNumber> serialNumber = serialNumberMapper.selectByExample(e);
-		DecimalFormat df = new DecimalFormat("000000");
-		sn.setClassId(classId);
-		sn.setYear(year);
-		serialNumberMapper.updateByPrimaryKey(sn);
-		if (serialNumber.size() > 0) {
-			// 将获得的获得随机数转化为字符串
-			code = df.format(serialNumber.get(0).getNumber() + 1);
-			sn.setId(serialNumber.get(0).getId());
-			sn.setNumber(serialNumber.get(0).getNumber() + 1);
-			serialNumberMapper.updateByPrimaryKey(sn);
-		} else {
-			sn.setNumber(1);
-			serialNumberMapper.insert(sn);
-			code = df.format(1);
-		}
-
-		return "Pur" + year + code;
-	}
 
 	/**
 	 * 
