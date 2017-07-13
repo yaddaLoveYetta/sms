@@ -5,9 +5,9 @@ public class SerialNumber {
 
     private Integer classId;
 
-    private Integer number;
-
     private Integer year;
+
+    private Integer number;
 
     public Integer getId() {
         return id;
@@ -25,19 +25,19 @@ public class SerialNumber {
         this.classId = classId;
     }
 
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
     public Integer getYear() {
         return year;
     }
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }
