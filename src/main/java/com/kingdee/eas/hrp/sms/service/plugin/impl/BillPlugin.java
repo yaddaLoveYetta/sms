@@ -367,10 +367,12 @@ public class BillPlugin extends PlugInAdpter {
 					if (o.get(0).getInvoiceQty().add(actualQty).compareTo(o.get(0).getConfirmQty()) == 1) {
 						throw new BusinessLogicRunTimeException("发货总数不能大于接单数量");
 					}
-					orderEntry.setInvoiceQty(o.get(0).getInvoiceQty().add(actualQty));
-					orderEntry.setId(o.get(0).getId());
-					// 根据订单ID 修改发货数量
-					orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+					if (entry1.getString("flag").equals("2")) {
+						orderEntry.setInvoiceQty(o.get(0).getInvoiceQty().add(actualQty));
+						orderEntry.setId(o.get(0).getId());
+						// 根据订单ID 修改发货数量
+						orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
+					}
 				}
 			}
 		}
@@ -408,7 +410,7 @@ public class BillPlugin extends PlugInAdpter {
 				Map<String, Object> entrys = (Map<String, Object>) entry.get("entry");
 				ArrayList<Object> arrayList = (ArrayList<Object>) entrys.get("1");
 				for (int k = 0; k < arrayList.size(); k++) {
-				Map<String, Object> array = (Map<String, Object>) arrayList.get(k);
+					Map<String, Object> array = (Map<String, Object>) arrayList.get(k);
 					String parent = array.get("orderId").toString();
 					int seq = Integer.parseInt(array.get("orderSeq").toString());
 					BigDecimal actualQty = new BigDecimal(array.get("actualQty").toString());
