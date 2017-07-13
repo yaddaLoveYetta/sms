@@ -731,7 +731,7 @@ public class OrderService extends BaseService implements IOrderService {
 		 */
 		shipOrderHead.put("logistics", "");
 		shipOrderHead.put("logisticsNo", "");
-		shipOrderHead.put("number", Common.createShipOrderNo());
+		shipOrderHead.put("number", Common.createShipOrderNo(2020));
 
 		shipOrderHead.put("Date", sdf.format(new Date()));
 		shipOrderHead.put("supplier", purOrder.get("supplier")); // 采购订单"供应商"携带到发货单"供应商"字段
