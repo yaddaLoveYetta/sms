@@ -109,7 +109,7 @@
 		<mapper resource="mapper/generate/SupplierItemLicenseEntryMapper.xml" />
 		<mapper resource="mapper/generate/PurReturnsEntryMapper.xml" />
 		<mapper resource="mapper/generate/PurReturnsMapper.xml" />
-
+		<mapper resource="mapper/generate/SerialNumberMapper.xml" />
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
 		<!-- =============================== 复杂Mapper ========================begin=== -->
@@ -121,6 +121,8 @@
 		<mapper resource="mapper/customize/PurchaseOrderEntryDaoMapper.xml" />
 
 		<mapper resource="mapper/customize/OrderDaoMapper.xml" />
+		
+		
 
 		<!-- =============================== 复杂Mapper =====================end==== -->
 
