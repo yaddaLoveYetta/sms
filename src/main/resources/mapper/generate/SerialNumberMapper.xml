@@ -99,17 +99,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.SerialNumber">
-    insert into t_sms_serial_number (id, classId, [year], 
+    insert into t_sms_serial_number (classId, [year], 
       [number])
-    values (#{id,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
+    values (#{classId,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
       #{number,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.SerialNumber">
     insert into t_sms_serial_number
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="classId != null">
         classId,
       </if>
@@ -121,9 +118,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="classId != null">
         #{classId,jdbcType=INTEGER},
       </if>
