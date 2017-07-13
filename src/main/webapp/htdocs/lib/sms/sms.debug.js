@@ -6827,10 +6827,25 @@
                 return meta.grid.jqGrid('getCell', rowid, iCol);
 
             },
-            editCell:function(iRow, iCol, edit){
+            editCell: function (iRow, iCol, edit) {
                 // 设置单元格为编辑状态
                 var meta = mapper.get(this);
-                meta.grid.jqGrid('editCell', iRow, iCol, edit);
+                var pos;
+                var colModel = meta.grid.jqGrid('getGridParam', 'colModel');
+
+                if (isNaN(iCol)) {
+                    $(colModel).each(function (i) {
+
+                        if (this.name === iCol) {
+                            pos = i;
+                            return false;
+                        }
+                    });
+                } else {
+                    pos = parseInt(iCol, 10);
+                }
+
+                meta.grid.jqGrid('editCell', iRow, pos, edit);
             },
             getColProp: function (name) {
                 var meta = mapper.get(this);
