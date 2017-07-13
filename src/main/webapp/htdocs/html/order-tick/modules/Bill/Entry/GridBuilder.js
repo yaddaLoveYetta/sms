@@ -100,6 +100,24 @@ define('Bill/Entry/GridBuilder', function (require, module, exports) {
                 }
             }
         }
+        
+        if (field.dataType == 1) {
+            // 数字
+            //model.edittype = 'text';
+            model.align='right'; // 数字靠右显示
+            model.editrules = {
+                required: false,
+                number: true
+            };
+            model.formatter = 'number';
+            model.formatoptions = {
+                decimalSeparator: ".",
+                thousandsSeparator: "",
+                decimalPlaces: 2,
+                defaulValue: 0
+            };
+        }
+        
         return model;
     }
 
