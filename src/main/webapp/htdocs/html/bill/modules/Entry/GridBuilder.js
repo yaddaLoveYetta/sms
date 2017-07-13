@@ -81,7 +81,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
              * newformat: 'Y-m-d H:i:s' }
              */
             model.edittype = 'text';
-            model.editrules = {required: true};
+            model.editrules = {required: false};
             model.editoptions = {
                 size: 10, maxlengh: 10,
                 dataInit: function (element) {
