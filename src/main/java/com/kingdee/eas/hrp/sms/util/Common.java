@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
@@ -27,13 +29,20 @@ import java.util.regex.Pattern;
 //import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.model.SerialNumberExample;
+import com.kingdee.eas.hrp.sms.dao.generate.SerialNumberMapper;
+import com.kingdee.eas.hrp.sms.model.OrderEntryExample.Criteria;
+import com.kingdee.eas.hrp.sms.model.SerialNumber;
 
 public class Common {
 
 	/*
-	 * public static void main(String[] args) { System.out.println(getBarCodeISN(16)); }
+	 * public static void main(String[] args) {
+	 * System.out.println(getBarCodeISN(16)); }
 	 */
 
 	/*
@@ -155,7 +164,8 @@ public class Common {
 
 	/**
 	 * 将json格式的字符串解析成Map对象
-	 * <li>json格式：{"name":"admin","retries":"3fff","testname" :"ddd","testretries":"fffffffff"}
+	 * <li>json格式：{"name":"admin","retries":"3fff","testname"
+	 * :"ddd","testretries":"fffffffff"}
 	 */
 	public static HashMap<String, Object> toHashMap(JSONObject object) {
 
@@ -178,7 +188,8 @@ public class Common {
 
 	/**
 	 * 将json格式的字符串解析成Map对象
-	 * <li>json格式：{"name":"admin","retries":"3fff","testname" :"ddd","testretries":"fffffffff"}
+	 * <li>json格式：{"name":"admin","retries":"3fff","testname"
+	 * :"ddd","testretries":"fffffffff"}
 	 */
 	public static HashMap<String, Object> toHashMap(String jsonStr) {
 
@@ -360,22 +371,46 @@ public class Common {
 	 * @return String
 	 * @date 2017-05-20 09:46:06 星期六
 	 */
-	public static String createShipOrderNo() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss", Locale.CHINA);
-		Random rm = new Random();
-		// 获得随机数
-		double pross = (1 + rm.nextDouble()) * Math.pow(10, 3);
-		// 将获得的获得随机数转化为字符串
-		String fixLenthString = String.valueOf(pross);
-		return "Pur-" + sdf.format(new Date()) + fixLenthString.substring(1, 3 + 1);
-
+	
+	public static String createShipOrderNo(int classId) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.CHINA);
+		int year = Integer.parseInt(sdf.format(new Date()));
+		String code = null;
+		// 根据classId获取流水号
+		SerialNumber sn = new SerialNumber();
+		SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+		SerialNumberMapper serialNumberMapper = sqlSession.getMapper(SerialNumberMapper.class);
+		SerialNumberExample e = new SerialNumberExample();
+		com.kingdee.eas.hrp.sms.model.SerialNumberExample.Criteria c = e.createCriteria();
+		c.andClassIdEqualTo(classId);
+		c.andYearEqualTo(year);
+		List<SerialNumber> serialNumber = serialNumberMapper.selectByExample(e);
+		DecimalFormat df = new DecimalFormat("000000");
+		if (serialNumber.size() > 0) {
+			// 将获得的获得随机数转化为字符串
+			code = df.format(serialNumber.get(0).getNumber());
+			sn.setId(serialNumber.get(0).getId());
+			sn.setNumber(serialNumber.get(0).getNumber() + 1);
+			
+			serialNumberMapper.updateByPrimaryKey(sn);
+		} else {
+			sn.setNumber(1);
+			sn.setYear(year);
+			sn.setId(serialNumber.get(0).getId());
+			serialNumberMapper.updateByPrimaryKey(sn);
+			List<SerialNumber> s = serialNumberMapper.selectByExample(e);
+			code = df.format(serialNumber.get(0).getNumber());
+		}
+		
+		
+		return "Pur" + year + code;
 	}
 
 	/**
 	 * 
 	 * 创建发货单批次
 	 */
-	public static String createNo( String SDF, String ZF,int Num) {
+	public static String createNo(String SDF, String ZF, int Num) {
 		SimpleDateFormat sdf = new SimpleDateFormat(SDF, Locale.CHINA);
 		Random rm = new Random();
 		// 获得随机数
@@ -393,7 +428,8 @@ public class Common {
 	 * @return
 	 */
 	public static boolean valiDateTimeWithLongFormat(String timeStr) {
-		String format = "((19|20)[0-9]{2})-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) " + "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
+		String format = "((19|20)[0-9]{2})-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) "
+				+ "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
 		Pattern pattern = Pattern.compile(format);
 		Matcher matcher = pattern.matcher(timeStr);
 		if (matcher.matches()) {
@@ -425,13 +461,14 @@ public class Common {
 	 * @date 2017-05-27 16:41:17 星期六
 	 */
 	public static boolean isLongDate(String timeStr) {
-		String format = "((19|20)[0-9]{2})-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) " + "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
+		String format = "((19|20)[0-9]{2})-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) "
+				+ "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
 		Pattern pattern = Pattern.compile(format);
 		Matcher matcher = pattern.matcher(timeStr);
 		return matcher.matches();
 	}
 
 	public static void main(String[] args) {
-			System.out.println(MD5("123"));
+		System.out.println(MD5("123"));
 	}
 }
