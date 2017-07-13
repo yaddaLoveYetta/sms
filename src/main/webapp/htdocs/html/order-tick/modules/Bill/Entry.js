@@ -20,12 +20,6 @@ define('Bill/Entry', function (require, module, exports) {
         gridName: 'bd-grid',
         width: $(window).width() - 5,
         height: 'auto',
-        /*        fnAfterSaveCell_After: function (rowid, data) {
-         $('#bd-grid').jqGrid('setCell', rowid, 'roleName', data.name);
-         },
-         fnAfterEditCell_Before: function (rowId, cellName, cellValue) {
-         $.Combo.getCombo().selectByText(cellValue, false);
-         }*/
     };
 
     //jqGrid初始化
@@ -59,6 +53,8 @@ define('Bill/Entry', function (require, module, exports) {
 
 
             billGrid.render(defaults, data, template, 1);
+
+            billGrid.editCell(1,'confirmQty',true);
 
             billGrid.on('f7Selected', function (data) {
 

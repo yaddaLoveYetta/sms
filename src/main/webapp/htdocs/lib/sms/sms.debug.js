@@ -6827,6 +6827,10 @@
                 return meta.grid.jqGrid('getCell', rowid, iCol);
 
             },
+            editCell:function(iRow, iCol, edit){
+                // 设置单元格为编辑状态
+                meta.grid.jqGrid('editCell', iRow, iCol, edit);
+            },
             getColProp: function (name) {
                 var meta = mapper.get(this);
                 // 返回指定列的属性集合。name为colModel中名称-调用原始控件方法
