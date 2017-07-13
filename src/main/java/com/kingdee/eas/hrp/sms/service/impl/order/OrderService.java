@@ -236,7 +236,7 @@ public class OrderService extends BaseService implements IOrderService {
 				}
 			});
 		} else {
-			throw new BusinessLogicRunTimeException("接单失败" + rps.get("msg"));
+			throw new BusinessLogicRunTimeException("接单失败,确认数量或确认交货日期不能为空");
 		}
 	}
 
