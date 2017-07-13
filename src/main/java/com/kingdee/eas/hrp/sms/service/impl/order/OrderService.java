@@ -40,6 +40,7 @@ import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
+import com.kingdee.eas.hrp.sms.service.api.ISerialNumberService;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
@@ -53,7 +54,9 @@ public class OrderService extends BaseService implements IOrderService {
 
 	@Resource
 	IWebService IWebService;
-
+	
+	@Resource
+	ISerialNumberService ISerialNumberService;
 	/**
 	 * 同步订单
 	 */
@@ -731,7 +734,7 @@ public class OrderService extends BaseService implements IOrderService {
 		 */
 		shipOrderHead.put("logistics", "");
 		shipOrderHead.put("logisticsNo", "");
-		shipOrderHead.put("number", Common.createShipOrderNo(2020));
+		shipOrderHead.put("number", ISerialNumberService.getSerialNumber(2020));
 
 		shipOrderHead.put("Date", sdf.format(new Date()));
 		shipOrderHead.put("supplier", purOrder.get("supplier")); // 采购订单"供应商"携带到发货单"供应商"字段
