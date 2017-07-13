@@ -89,8 +89,8 @@ public interface ITemplateService {
 	 * 根基模板新增基础资料
 	 * 
 	 * @Title addItem
-	 * @param classId
-	 * @param data
+	 * @param classId 业务类型
+	 * @param data json格式的单据数据
 	 * @return String 主键
 	 * @date 2017-04-27 14:19:33 星期四
 	 */
@@ -100,9 +100,9 @@ public interface ITemplateService {
 	 * 根基模板修改基础资料
 	 * 
 	 * @Title editItem
-	 * @param classId
-	 * @param id
-	 * @param data
+	 * @param classId 业务类型
+	 * @param id 修改资料的内码
+	 * @param data json格式的修改资料数据包
 	 *            void
 	 * @param userType
 	 * @date 2017-04-27 15:40:28 星期四

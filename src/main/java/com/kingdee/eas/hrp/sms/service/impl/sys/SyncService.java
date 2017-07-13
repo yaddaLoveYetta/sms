@@ -91,7 +91,7 @@ public class SyncService extends BaseService implements ISyncService {
 		if (list.size() > 1000) {
 			throw new BusinessLogicRunTimeException("你提交的数据太多：每次最多同步1000条数据");
 		}
-		
+
 		for (int i = 0; i < list.size(); i++) {
 
 			Map<String, Object> errItem = new HashMap<String, Object>();
@@ -110,10 +110,10 @@ public class SyncService extends BaseService implements ISyncService {
 			}
 
 			if (formFields.containsKey("review")) {
-				baseItem.put("review", "true");
+				baseItem.put("review", "true"); // 默认已审核
 			}
 			if (formFields.containsKey("syncStatus")) {
-				baseItem.put("syncStatus", "true");
+				baseItem.put("syncStatus", "true");// 默认已同步
 			}
 
 			String interId = baseItem.getString(primaryKey);// 主键值
