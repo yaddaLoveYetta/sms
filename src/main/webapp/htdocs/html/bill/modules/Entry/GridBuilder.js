@@ -220,7 +220,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
 
                 cModel.push(keyModel);
 
-                if (field.ctrlType == 6 && field.disPlayNum) {
+/*                if (field.ctrlType == 6 && field.disPlayNum) {
                     // 有配置显示代码时增加代码显示
                     var keyNmbModel = {
                         name: field.name + '_NmbName',
@@ -229,7 +229,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
                         hidden: false
                     };
                     cModel.push(keyNmbModel);
-                }
+                }*/
             }
 
             model = getColModel(field, $.Array.contains(showKeys, field.key), $.Array.contains(editKeys, field.key));
