@@ -105,7 +105,6 @@ define('Entry/GridBuilder', function (require, module, exports) {
             // 数字
             //model.edittype = 'text';
             model.align='right'; // 数字靠右显示
-            model.editrules = {required: true};
             model.editrules = {
                 required: false,
                 number: true
