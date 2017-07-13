@@ -6829,6 +6829,7 @@
             },
             editCell:function(iRow, iCol, edit){
                 // 设置单元格为编辑状态
+                var meta = mapper.get(this);
                 meta.grid.jqGrid('editCell', iRow, iCol, edit);
             },
             getColProp: function (name) {
