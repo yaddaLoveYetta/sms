@@ -226,7 +226,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
                         name: field.name + '_NmbName',
                         label: field.key + '_NmbName',
                         tabIndex: field.index,
-                        hidden: true
+                        hidden: false
                     };
                     cModel.push(keyNmbModel);
                 }

@@ -58,21 +58,10 @@ define('Entry', function (require, module, exports) {
             });
 
             billGrid.on('afterEditCell', function (classId, rowid, cellname, value, iRow, iCol) {
-                console.log("classId=" + classId);
-                console.log("rowid=" + rowid);
-                console.log("cellname=" + cellname);
-                console.log("value=" + value);
-                console.log("iRow=" + iRow);
-                console.log("iCol=" + iCol);
+
             });
 
             billGrid.on('afterSaveCell', function (classId, rowid, cellname, value, iRow, iCol) {
-                console.log("classId=" + classId);
-                console.log("rowid=" + rowid);
-                console.log("cellname=" + cellname);
-                console.log("value=" + value);
-                console.log("iRow=" + iRow);
-                console.log("iCol=" + iCol);
 
                 if (classId === 2020) {
                     // 发货单新增编辑时候值更新事件处理
