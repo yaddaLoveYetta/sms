@@ -381,4 +381,32 @@
 		</plugins>
 
 	</build>
+
+	<!-- 构建环境配置 生产环境/开发环境分开不同配置 -->
+	<profiles>
+		<!-- 开发环境环境变量未指定的默认选择 -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<filters>
+					<filter>${project.basedir}/src/main/resources/config/dev/config.properties</filter>
+				</filters>
+			</build>
+		</profile>
+
+		<!-- 生产环境 -->
+		<profile>
+			<id>product</id>
+			<build>
+				<filters>
+					<filter>${project.basedir}/src/main/resources/config/product/config.properties</filter>
+				</filters>
+			</build>
+		</profile>
+
+	</profiles>
+
 </project>

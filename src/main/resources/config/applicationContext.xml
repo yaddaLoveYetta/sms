@@ -13,8 +13,18 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- import jdbc.properties -->
-	<context:property-placeholder location="classpath:/config/jdbc-sqlserver.properties"
-		ignore-unresolvable="true" />
+	<!-- <context:property-placeholder location="classpath:/config/jdbc-sqlserver.properties" -->
+	<!-- ignore-unresolvable="true" /> -->
+
+	<!-- 将多个配置文件读取到容器中，交给Spring管理 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- 这里支持多种寻址方式：classpath和file -->
+				<value>classpath:/config/${env.target}/jdbc-sqlserver.properties</value>
+			</list>
+		</property>
+	</bean>
 
 	<!-- 指定自动扫描路径 -->
 	<context:component-scan base-package="com.kingdee.eas.hrp.sms" />
@@ -58,7 +68,7 @@
 		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
 		<!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100。 -->
 		<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.maxPoolPreparedStatementPerConnectionSize}" />
-		
+
 		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" />
 		<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
 		<property name="logAbandoned" value="${jdbc.logAbandoned}" />
