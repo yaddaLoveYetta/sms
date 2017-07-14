@@ -149,6 +149,9 @@ public class OrderService extends BaseService implements IOrderService {
 		json.put("id", id);
 		String response = IWebService.webService(json.toString(), "sms2hrpOrderTake");
 		JSONObject rps = JSONObject.parseObject(response);
+		if(rps==null||rps.equals("")){
+			throw new BusinessLogicRunTimeException("网络错误!接单失败，请稍后再试");
+		}
 		if (rps.get("code").equals("200")) {
 			// 发送成功后开启事务更新本地订单接单状态
 
