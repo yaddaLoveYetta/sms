@@ -328,11 +328,20 @@
 		</pluginManagement>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 					<skip>true</skip>
 				</configuration>
 			</plugin>
@@ -380,6 +389,25 @@
 			</plugin>
 		</plugins>
 
+		<resources>
+			<!-- 先指定 src/main/resources下所有文件及文件夹为资源文件 -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+			<!-- 设置对jdbc-sqlserver.properties进行过虑，即这些文件中的${key}会被替换掉为真正的值 -->
+			<resource>
+				<directory>src/main/resources/config</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>jdbc-sqlserver.properties</include>
+				</includes>
+				<targetPath>config</targetPath>
+			</resource>
+
+		</resources>
 	</build>
 
 	<!-- 构建环境配置 生产环境/开发环境分开不同配置 -->
@@ -387,26 +415,33 @@
 		<!-- 开发环境环境变量未指定的默认选择 -->
 		<profile>
 			<id>dev</id>
+			<build>
+				<filters>
+					<filter>${project.basedir}/src/main/resources/config/config-dev.properties</filter>
+				</filters>
+			</build>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<build>
-				<filters>
-					<filter>${project.basedir}/src/main/resources/config/dev/config.properties</filter>
-				</filters>
-			</build>
 		</profile>
-
-		<!-- 生产环境 -->
+		<!-- 180测试环境 -->
 		<profile>
-			<id>product</id>
+			<id>product_180</id>
 			<build>
 				<filters>
-					<filter>${project.basedir}/src/main/resources/config/product/config.properties</filter>
+					<filter>${project.basedir}/src/main/resources/config/config-test.properties</filter>
 				</filters>
 			</build>
 		</profile>
-
+		<!-- 189生产环境 -->
+		<profile>
+			<id>product_189</id>
+			<build>
+				<filters>
+					<filter>${project.basedir}/src/main/resources/config/config-product.properties</filter>
+				</filters>
+			</build>
+		</profile>
 	</profiles>
 
 </project>
