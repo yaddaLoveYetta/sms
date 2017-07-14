@@ -426,7 +426,7 @@
 		</profile>
 		<!-- 180测试环境 -->
 		<profile>
-			<id>product_180</id>
+			<id>test_180</id>
 			<build>
 				<filters>
 					<filter>${project.basedir}/src/main/resources/config/config-test.properties</filter>
