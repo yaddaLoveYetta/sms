@@ -21,7 +21,7 @@
 		<property name="locations">
 			<list>
 				<!-- 这里支持多种寻址方式：classpath和file -->
-				<value>classpath:/config/${env.target}/jdbc-sqlserver.properties</value>
+				<value>classpath:/config/jdbc-sqlserver.properties</value>
 			</list>
 		</property>
 	</bean>
