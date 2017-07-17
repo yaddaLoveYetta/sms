@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -186,7 +187,7 @@ public class AttachmentController {
 		// 设置Content-Disposition
 		// response.setHeader("Content-Disposition", "attachment;filename=" +
 		// URLEncoder.encode(fileName, "UTF-8"));
-		response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
 		// 读取目标文件，通过response将目标文件写到客户端
 		// 获取目标文件的绝对路径
 		String fileDirector = SystemParamUtil.getString("sys", "FILE_PATH"); // 文件存放目录
