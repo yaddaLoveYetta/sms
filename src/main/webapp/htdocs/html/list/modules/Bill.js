@@ -18,6 +18,7 @@ define('Bill', function (require, module, exports) {
         API.get({
             classId: config.classId,
             items: config.items,
+            type: config.type || 0,
         }, function (data) {
             SMS.Tips.success("数据加载成功", 1500);
             fn && fn(data);
@@ -25,9 +26,7 @@ define('Bill', function (require, module, exports) {
     }
 
 
-
-
     return {
-        load:load,
+        load: load,
     }
 });

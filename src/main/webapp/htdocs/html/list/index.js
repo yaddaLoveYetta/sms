@@ -218,19 +218,19 @@
         var list = List.getSelectedItems();
 
         if (list.length == 0) {
-            SMS.Tips.error('请选择要操作的项',1500);
+            SMS.Tips.error('请选择要操作的项', 1500);
             return;
         }
 
         if (list.length > 1) {
-            SMS.Tips.error('只能对一条记录进行操作',1500);
+            SMS.Tips.error('只能对一条记录进行操作', 1500);
             return;
         }
 
         if (classId === 2020) {
             // 发货单已发送到医院-不能修改
             if (list[0].data['type'] === 1) {
-                SMS.Tips.error('发货单已经发送到医院，不可修改！',1500);
+                SMS.Tips.error('发货单已经发送到医院，不可修改！', 1500);
                 return;
             }
         }
@@ -337,7 +337,8 @@
         // 获取发货单数据包
         Bill.load({
             'classId': 2020,
-            'items': items
+            'items': items,
+            'type': 1, // 新增
         }, function (data) {
 
             SMS.use('Dialog', function (Dialog) {
