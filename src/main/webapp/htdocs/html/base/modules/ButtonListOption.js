@@ -168,6 +168,10 @@ define('ButtonListOption', function (require, module, exports) {
                         text: '过滤',
                         name: 'filter',
                         icon: '../../css/main/img/filter.png'
+                    }, {
+                        text: '刷新',
+                        name: 'refresh',
+                        icon: '../../css/main/img/refresh.png'
                     }
                 ]
             };
