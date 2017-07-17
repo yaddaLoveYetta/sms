@@ -225,6 +225,7 @@
         $API.get({
             classId: classId,
             id: itemId,
+            type:type,
         }, function (data) {
             // 填充数据
             console.log(data);

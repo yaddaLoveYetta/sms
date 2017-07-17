@@ -19,13 +19,15 @@ define('API', function (require, module, exports) {
         var tasks = [{
             fn: Template.get,
             args: [{
-                'classId': config.classId
+                'classId': config.classId,
+                'type':config.type,
             }]
         }, {
             fn: Data.get,
             args: [{
                 'classId': config.classId,
                 'id': config.id,
+                'type':config.type,
             }]
         }];
 
