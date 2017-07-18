@@ -28,12 +28,14 @@ public class PermissionService extends BaseService implements IPermissionService
 
 		int mask = getAccessMask(objectType, objectId, roleId);
 
-		if ((mask & accessMask) == accessMask) {
-			// 有权限
-			return true;
-		}
-
-		return false;
+//		if ((mask & accessMask) == accessMask) {
+//			// 有权限
+//			return true;
+//		}
+//
+//		return false;
+		
+		return (mask & accessMask) == accessMask;
 	}
 
 	private int getAccessMask(int objectType, int objectId, String roleId) {
