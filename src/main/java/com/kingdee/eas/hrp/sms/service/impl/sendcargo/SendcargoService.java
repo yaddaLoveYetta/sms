@@ -72,6 +72,11 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 					JSONObject entrys = new JSONObject();
 
 					Map<String, Object> sendCargo = map.get(j);
+					if (sendCargo.get("type") != "" && !sendCargo.get("type").equals("")) {
+						if (Integer.parseInt(sendCargo.get("type").toString())==1) {
+							throw new BusinessLogicRunTimeException("已发送到医院的发货单不能再次发送");
+						}
+					}
 
 					if (j == 0) {
 						// 表头
@@ -103,29 +108,29 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 				lists.add(json);
 			}
 		}
-		
+
 		String response = IWebService.webService(lists.toString(), "sms2hrpSendCargo");
 		JSONObject rps = JSONObject.parseObject(response);
-		if(rps.get("code").equals("200")){
-		PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
+		if (rps.get("code").equals("200")) {
+			PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
 
-		TransactionTemplate template = new TransactionTemplate(txManager);
+			TransactionTemplate template = new TransactionTemplate(txManager);
 
-		template.execute(new TransactionCallback<Object>() {
+			template.execute(new TransactionCallback<Object>() {
 
-			@Override
-			public Object doInTransaction(TransactionStatus status) {
-				SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
-				Sendcargo sendcargo = new Sendcargo();
-				for (int i = 0; i < split.length; i++) {
-					sendcargo.setId(split[i]);
-					sendcargo.setType(Byte.parseByte("1"));
-					sendcargoMapper.updateByPrimaryKeySelective(sendcargo);
+				@Override
+				public Object doInTransaction(TransactionStatus status) {
+					SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
+					Sendcargo sendcargo = new Sendcargo();
+					for (int i = 0; i < split.length; i++) {
+						sendcargo.setId(split[i]);
+						sendcargo.setType(Byte.parseByte("1"));
+						sendcargoMapper.updateByPrimaryKeySelective(sendcargo);
+					}
+					return "success";
 				}
-				return "success";
-			}
-		});
-		
+			});
+
+		}
 	}
-}
 }
