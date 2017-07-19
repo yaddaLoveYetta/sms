@@ -183,7 +183,7 @@ public class ItemPlugin extends PlugInAdpter {
 		modifyCheckMustInput(classId, formData, json);
 
 		// 如果json为空说明是同步到HRP修改同步字段，不用验证是否数据重复
-		if (classId / 100 == 10 && !json.isEmpty()) {
+		if (classId / 100 == 10 && !json.isEmpty() || (classId == 3010 || classId == 3030)) {
 
 			checkIfExistRecord(classId, id, formData, json);
 
@@ -245,7 +245,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 		saveCheckMustInput(classId, formData, json);
 
-		if (classId / 100 == 10) {
+		if (classId / 100 == 10 || classId == 3010 || classId == 3030) {
 
 			String id = "-1";
 			checkIfExistRecord(classId, id, formData, json);
