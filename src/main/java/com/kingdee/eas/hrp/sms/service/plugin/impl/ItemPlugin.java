@@ -275,7 +275,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 		saveCheckMustInput(classId, formData, json);
 
-		if (classId / 100 == 10 || classId == 3010 || classId == 3030) {
+		if (classId / 100 == 10 || classId == 3010 || classId == 3030 || classId == 3020 ) {
 
 			String id = "-1";
 			checkIfExistRecord(classId, id, formData, json);
