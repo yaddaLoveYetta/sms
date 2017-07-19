@@ -6,8 +6,10 @@ define('Edit', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
+    var emitter = MiniQuery.Event.create();
     var SMS = require('SMS');
     var FormEdit = require('FormEdit');
+
     var f7Selectors;
     var classId;
     var itemId = '';
@@ -79,7 +81,7 @@ define('Edit', function (require, module, exports) {
         itemId = itemID;
         classId = formClassId;
         // FormEdit.render(formClassId, itemId, initGrid, initSelectors);
-        FormEdit.render(formClassId, itemId, null, initSelectors,defaultValue);
+        FormEdit.render(formClassId, itemId, null, initSelectors, defaultValue);
     }
 
     function clear() {
@@ -144,11 +146,14 @@ define('Edit', function (require, module, exports) {
     }
 
     function saveSuccess(data) {
+
         if (itemId) {
             SMS.Tips.success('数据修改成功', 2000);
         } else {
             itemId = data['id']; // 新增后设置itemId，单据变成修改状态
             SMS.Tips.success('数据新增成功', 2000);
+
+            emitter.fire('addSuccess', []);
         }
         //refresh(classId, f7Selectors);
     }
@@ -299,7 +304,8 @@ define('Edit', function (require, module, exports) {
         cleanGrid: cleanGrid,
         getf7Selectors: function (name) {
             return f7Selectors[name];
-        }
+        },
+        on: emitter.on.bind(emitter),
     };
 
 });

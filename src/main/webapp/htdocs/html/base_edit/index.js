@@ -55,6 +55,12 @@
             Edit.forbid(formClassId, 0);
         }
     });
+    
+    edit.on({
+        'addSuccess':function () {
+            Iframe.fire('addSuccess', []);
+        }
+    });
 
     DatetimePicker.render();
     ButtonList.render();

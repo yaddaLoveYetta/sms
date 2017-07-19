@@ -139,6 +139,9 @@
 
         'load': function (item) {
 
+        },
+        'addSuccess': function () {
+            alert('addSuccess');
         }
     });
 
