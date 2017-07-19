@@ -169,6 +169,8 @@ body {
     background: #141719;
     padding: 10px 20px;
     min-width: 100px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .side-bar .menus-more li {
