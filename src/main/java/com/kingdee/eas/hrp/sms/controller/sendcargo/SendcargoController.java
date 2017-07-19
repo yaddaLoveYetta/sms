@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.sendcargo.ISendcargoService;
@@ -41,6 +42,7 @@ public class SendcargoController {
 
 	@ControllerLog(desc = "发送到医院")
 	@RequestMapping(value = "sendHrp")
+	@Permission(objectType=40,objectId=4005,desc="发送到医院", accessMask = 256)
 	public void sendHrp(HttpServletRequest request, HttpServletResponse response) {
 
 		String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
