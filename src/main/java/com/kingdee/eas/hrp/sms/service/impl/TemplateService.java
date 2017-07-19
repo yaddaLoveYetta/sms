@@ -1761,8 +1761,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 				}
 				break;
 			case BOOLEAN:
-				boolean b = value.equals("是") ? true : false;
-				value = b ? "1" : "0";
+				// boolean b = value.equals("是") ? true : false;
+				value = value.equals("是") ? "1" : value.equals("否") ? "0" : "2";
 				break;
 			default:
 				break;
