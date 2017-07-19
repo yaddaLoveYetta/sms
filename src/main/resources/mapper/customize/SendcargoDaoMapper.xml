@@ -65,7 +65,8 @@
 			e.effectiveDate,
 			e.amount,
 			e.actualQty,
-			o.id AS orderEntryId
+			o.id AS orderEntryId,
+			t.type
 		FROM
 			t_sms_sendcargo t
 		INNER JOIN 
