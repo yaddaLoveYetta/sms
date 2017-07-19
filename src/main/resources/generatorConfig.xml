@@ -26,7 +26,7 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 
-		<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://10.0.0.180:1433;database=hrp-sms"
+		<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://10.0.0.180:1433;database=hrp-sms-dev"
 			userId="sa" password="Kingdee123">
 		</jdbcConnection>
 		<!-- <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://127.0.0.1:52663;database=hrp-sms" -->
@@ -247,7 +247,7 @@
 
 		</table>
 
-		<table tableName="t_sms_supplier_license_type" domainObjectName="Supplier_License_Type">
+		<table tableName="t_sms_supplier_license_type" domainObjectName="SupplierLicenseType">
 
 			<property name="useActualColumnNames" value="true" />
 
@@ -308,6 +308,12 @@
 
 		</table>
 		<table tableName="t_sms_serial_number" domainObjectName="SerialNumber">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		
+		<table tableName="t_sms_supplier_item_license" domainObjectName="SupplierItemLicense">
 
 			<property name="useActualColumnNames" value="true" />
 
