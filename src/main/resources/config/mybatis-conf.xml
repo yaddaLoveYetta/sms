@@ -99,7 +99,7 @@
 		<mapper resource="mapper/generate/CountyMapper.xml" />
 		<mapper resource="mapper/generate/UnitMapper.xml" />
 		<mapper resource="mapper/generate/SendcargoMapper.xml" />
-		<mapper resource="mapper/generate/Supplier_License_TypeMapper.xml" />
+		<mapper resource="mapper/generate/SupplierLicenseTypeMapper.xml" />
 		<mapper resource="mapper/generate/PurInWarehsMapper.xml" />
 		<mapper resource="mapper/generate/PurReceivalMapper.xml" />
 		<mapper resource="mapper/generate/PurInWarehsEntryMapper.xml" />
@@ -110,6 +110,7 @@
 		<mapper resource="mapper/generate/PurReturnsEntryMapper.xml" />
 		<mapper resource="mapper/generate/PurReturnsMapper.xml" />
 		<mapper resource="mapper/generate/SerialNumberMapper.xml" />
+		<mapper resource="mapper/generate/SupplierItemLicenseMapper.xml" />
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
 		<!-- =============================== 复杂Mapper ========================begin=== -->
