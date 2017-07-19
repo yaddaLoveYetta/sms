@@ -111,6 +111,7 @@
 		<mapper resource="mapper/generate/PurReturnsMapper.xml" />
 		<mapper resource="mapper/generate/SerialNumberMapper.xml" />
 		<mapper resource="mapper/generate/SupplierItemLicenseMapper.xml" />
+		<mapper resource="mapper/generate/SupplierLicenseMapper.xml" />
 		<!-- =============================== 生成工具生成Mapper =====================end==== -->
 
 		<!-- =============================== 复杂Mapper ========================begin=== -->
