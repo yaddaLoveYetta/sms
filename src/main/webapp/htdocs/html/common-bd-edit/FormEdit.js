@@ -471,14 +471,16 @@
         //控件初始化，控制显示隐藏，只读 ,默认值等..
         initController(itemId);
 
+        fixIE();
+
         if (!itemId) {
             // 初始化子表-调用者处理
             if (!!fnEntry && !MiniQuery.Object.isEmpty(metaData['formEntries'])) {
                 fnEntry && fnEntry(null, metaData);
             }
-
             return;
         }
+
         var api = new API('template/getItemById');
         SMS.Tips.loading('数据加载中..');
 
@@ -505,7 +507,22 @@
             }
         });
     }
+    // IE环境下文本框不能获取焦点，不能编辑
+    function fixIE() {
 
+        if (!!window.ActiveXObject || "ActiveXObject" in window) {
+            $("input[type='text']").each(function () {
+                $(this).focus(function () {
+                    $(this).select();
+                });
+            });
+            $("textarea").each(function () {
+                $(this).focus(function () {
+                    $(this).select();
+                });
+            });
+        }
+    }
     /**
      * 保存
      * @param {} itemID 项目ID

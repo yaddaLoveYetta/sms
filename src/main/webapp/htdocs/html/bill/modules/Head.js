@@ -38,6 +38,25 @@ define('Head', function (require, module, exports) {
             lockControls(metaData.template);// 控件锁定性(是否可编辑)处理
 
             fill(metaData.template, data);
+
+            fixIE();
+        }
+
+        // IE环境下文本框不能获取焦点，不能编辑
+        function fixIE() {
+
+            if (!!window.ActiveXObject || "ActiveXObject" in window) {
+                $("input[type='text']").each(function () {
+                    $(this).focus(function () {
+                        $(this).select();
+                    });
+                });
+                $("textarea").each(function () {
+                    $(this).focus(function () {
+                        $(this).select();
+                    });
+                });
+            }
         }
 
         /**
