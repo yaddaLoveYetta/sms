@@ -1,9 +1,6 @@
-﻿
-
-
-/**
-* 侧边弹出的菜单列表模块
-*/
+﻿/**
+ * 侧边弹出的菜单列表模块
+ */
 define('Menus', function (require, module, exports) {
 
     var $ = require('$');
@@ -118,8 +115,8 @@ define('Menus', function (require, module, exports) {
 
 
     /**
-    * 固定位置显示。
-    */
+     * 固定位置显示。
+     */
     function fixed(isFixed) {
 
         hasFixed = isFixed;
@@ -130,19 +127,25 @@ define('Menus', function (require, module, exports) {
 
         var index = currentIndex + 1;
         $(div).toggleClass('menus-' + index, !isFixed);
+
+        var height = $(document.body).height() - div.offsetTop - div.offsetHeight;
+
+        $(div).css('top', '');
+
+        if (height < 0) {
+            $(div).css('top', $(document.body).height() - div.offsetHeight);
+        }
+
     }
 
 
-
-
-
     /**
-    * 填充呈现
-    * @param {Object} config，配置参数，其中：
-    * @param {number} config.index 对齐的位置索引值。
-    * @param {boolean} config.reversed 是否反向。
-    * @param {Array} config.data 填充的数据。
-    */
+     * 填充呈现
+     * @param {Object} config，配置参数，其中：
+     * @param {number} config.index 对齐的位置索引值。
+     * @param {boolean} config.reversed 是否反向。
+     * @param {Array} config.data 填充的数据。
+     */
     function render(config) {
 
         var index = config.index;
@@ -160,7 +163,7 @@ define('Menus', function (require, module, exports) {
             return {
                 index: index,
                 name: item.name,
-                icon:item.icon,
+                icon: item.icon,
             };
         });
 
@@ -170,7 +173,6 @@ define('Menus', function (require, module, exports) {
         //$(div).addClass('items-' + list.length);
         bindEvents();
     }
-
 
 
     //return {
