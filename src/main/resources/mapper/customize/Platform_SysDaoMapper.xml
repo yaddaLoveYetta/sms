@@ -31,8 +31,9 @@
 		AND t4.[index] = 0 -- 只过滤出菜单
 		WHERE
 		t1.visible = 1
-		AND t2.visible = 1
+		
 		<if test="_parameter !=null">
+			AND t2.visible &amp; #{type} = #{type}
 			AND t2.ownerType &amp; #{type} = #{type}
 		</if>
 		ORDER BY
