@@ -55,8 +55,8 @@
             Edit.forbid(formClassId, 0);
         }
     });
-    
-    edit.on({
+
+    Edit.on({
         'addSuccess':function () {
             Iframe.fire('addSuccess', []);
         }
