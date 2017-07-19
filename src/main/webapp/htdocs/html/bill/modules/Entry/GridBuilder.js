@@ -330,7 +330,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
             //lockMaskDisplay  字段显示权限-后端lock定义 2 编辑时平台用户锁定，8编辑时候供应商用户锁定
             if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
                 // 平台用户
-                lock = 4;
+                lock = 2;
             } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
                 //供应商用户
                 lock = 8;
@@ -340,10 +340,10 @@ define('Entry/GridBuilder', function (require, module, exports) {
             //lockMaskDisplay  字段显示权限-后端lock定义 1 编辑时平台用户锁定，4编辑时候供应商用户锁定
             if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
                 // 平台用户
-                lock = 16;
+                lock = 1;
             } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
                 //物业用户
-                lock = 32;
+                lock = 4;
             }
         } else if (showType == 0) {
             // 查看时都锁定
