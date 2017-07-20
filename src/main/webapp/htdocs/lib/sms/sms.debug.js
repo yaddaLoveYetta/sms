@@ -3961,7 +3961,7 @@
             var eventName=data.eventName;
             var item = data.data;
 
-            var sn = item.id;
+            var sn = item.sn;
 
             var iframe = top.$('iframe[data-sn="' + sn + '"]').get(0);
 
