@@ -37,9 +37,11 @@ import com.kingdee.eas.hrp.sms.dao.customize.OrderDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
+import com.kingdee.eas.hrp.sms.model.Supplier;
 import com.kingdee.eas.hrp.sms.service.api.ISerialNumberService;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.IWebService;
@@ -47,6 +49,7 @@ import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.Environ;
+import com.kingdee.eas.hrp.sms.util.MsgUtil;
 import com.kingdee.eas.hrp.sms.model.Item;
 
 @Service
@@ -54,9 +57,10 @@ public class OrderService extends BaseService implements IOrderService {
 
 	@Resource
 	IWebService IWebService;
-	
+
 	@Resource
 	ISerialNumberService ISerialNumberService;
+
 	/**
 	 * 同步订单
 	 */
@@ -124,7 +128,16 @@ public class OrderService extends BaseService implements IOrderService {
 					orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
 				}
 			}
+			SupplierMapper supplierMapper = sqlSession.getMapper(SupplierMapper.class);
+			Supplier supplier = supplierMapper.selectByPrimaryKey(order.getSupplier());
+			if (supplier.getMobile() != null && !supplier.getMobile().equals("")) {
+				String smsContent = "您有新的订单消息,订单号:" + order.getNumber() + "!请及时处理";
+				String[] mobiles = supplier.getMobile().split(",");
+				MsgUtil.sendSMS(mobiles, smsContent);
+			}
+
 		}
+
 		return "success";
 	}
 
@@ -149,7 +162,7 @@ public class OrderService extends BaseService implements IOrderService {
 		json.put("id", id);
 		String response = IWebService.webService(json.toString(), "sms2hrpOrderTake");
 		JSONObject rps = JSONObject.parseObject(response);
-		if(rps==null||rps.equals("")){
+		if (rps == null || rps.equals("")) {
 			throw new BusinessLogicRunTimeException("网络错误!接单失败，请稍后再试");
 		}
 		if (rps.get("code").equals("200")) {
@@ -303,7 +316,7 @@ public class OrderService extends BaseService implements IOrderService {
 			generateEntries(shipOrder, purOrder);
 
 		}
-		if(shipOrder.containsKey("entry")==false){
+		if (shipOrder.containsKey("entry") == false) {
 			throw new BusinessLogicRunTimeException("接单数量已发货完毕，不能再发货");
 		}
 		return shipOrder;
@@ -346,8 +359,9 @@ public class OrderService extends BaseService implements IOrderService {
 			}
 			if (saleProxy == 1) {
 				// 非代销物料--一条采购订单分录对应一条发货单分录
-				BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty"));
-				if(qty.compareTo(BigDecimal.ZERO)==0){
+				BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty")
+						.subtract(purOrderEntry.getBigDecimal("invoiceQty"));
+				if (qty.compareTo(BigDecimal.ZERO) == 0) {
 					continue;
 				}
 				Map<String, Object> entryItem = generateEntryItem(purOrderEntry, purOrder);
