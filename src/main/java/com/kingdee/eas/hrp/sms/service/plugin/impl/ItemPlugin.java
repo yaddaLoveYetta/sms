@@ -208,16 +208,6 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 		}
 
-		if (classId == 3020) {
-			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
-			SupplierItemLicenseMapper slt = sqlSession.getMapper(SupplierItemLicenseMapper.class);
-			SupplierItemLicense silt = slt.selectByPrimaryKey(id);
-			if (json.get("number") != null) {
-				if (silt.getNumber().equals(json.get("number"))) {
-					throw new PlugInRuntimeException("该记录已存在,代码重复");
-				}
-			}
-		}
 
 		// 如果字段含有同步到HRP的字段syncStatus，设置同步状态
 		if (reviewAndSyncClassIdList.contains(classId)) {
