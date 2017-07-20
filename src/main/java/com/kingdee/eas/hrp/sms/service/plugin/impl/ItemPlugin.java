@@ -197,16 +197,6 @@ public class ItemPlugin extends PlugInAdpter {
 			checkIfExistRecord(classId, id, formData, json);
 
 		}
-		if (classId == 3010) {
-			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
-			SupplierLicenseMapper slt = sqlSession.getMapper(SupplierLicenseMapper.class);
-			SupplierLicense sult = slt.selectByPrimaryKey(id);
-			if (json.get("number") != null) {
-				if (sult.getNumber().equals(json.get("number"))) {
-					throw new PlugInRuntimeException("该记录已存在,代码重复");
-				}
-			}
-		}
 		
 		if (classId == 1005) {
 			if (json.get("taxRate") != null && !json.get("taxRate").equals("")) {
