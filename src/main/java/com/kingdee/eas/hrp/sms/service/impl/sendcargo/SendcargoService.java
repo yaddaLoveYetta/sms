@@ -72,7 +72,7 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 					JSONObject entrys = new JSONObject();
 
 					Map<String, Object> sendCargo = map.get(j);
-					if (sendCargo.get("type") != "" && !sendCargo.get("type").equals("")) {
+					if (sendCargo.get("type") != null && !sendCargo.get("type").equals("")) {
 						if (Integer.parseInt(sendCargo.get("type").toString())==1) {
 							throw new BusinessLogicRunTimeException("已发送到医院的发货单不能再次发送");
 						}
