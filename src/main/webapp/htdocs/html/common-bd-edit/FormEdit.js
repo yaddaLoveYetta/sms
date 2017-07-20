@@ -704,7 +704,7 @@
 
             var keyName = item;
             var element = getValueElement(keyName);
-            var value = data[keyName];
+            var value = data[keyName] || '';
 
             // 保存内码，用于判断保存时，是新增还是修改
             // if (keyName == formClass['primaryKey']) {
@@ -754,7 +754,7 @@
                 continue;
             }
 
-            element.value = value;
+            element.value = value ;
         }
 
         // 存在表体数据时，交给调用者自己处理
