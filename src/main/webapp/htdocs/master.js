@@ -226,7 +226,6 @@
 
         'addSuccess': function (sn, text) {
             // 基础资料新增-保存成功后会抛出此事件
-            alert('dddd');
             var name = PageTabs.getTabName(sn);
             text = name.replace('新增', '修改');
             PageTabs.changeTitle(sn, text);
@@ -237,7 +236,6 @@
         },
         'addNew':function (sn, data) {
             // 基础资料新增页面点击新增会抛出此事件
-            alert('ffff');
             var name = PageTabs.getTabName(sn);
             text = name.replace('修改', '新增');
             PageTabs.changeTitle(sn, text);
