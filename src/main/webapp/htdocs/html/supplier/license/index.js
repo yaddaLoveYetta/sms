@@ -117,7 +117,8 @@
                 if (treeClassId == 1005) {
                     dfValue['supplier'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增供应商资质时，供应商默认值为当前选中的供应商
                 } else if (treeClassId == 3030) {
-                    dfValue['material'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增供应商资质时，供应商默认值为当前选中的供应商
+                    dfValue['material'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增物料证件，物料默认值为当前选中中标库的物料
+                    dfValue['supplier'] = treeFilter ? (treeFilter.value.supplier ? treeFilter.value.supplier : null ) : null  // 新增物料证件，供应商默认值为当前选中中标库物料关联的供应商
                 }
 
                 var dialog = new Dialog({
