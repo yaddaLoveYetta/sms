@@ -153,8 +153,9 @@ define('Edit', function (require, module, exports) {
             itemId = data['id']; // 新增后设置itemId，单据变成修改状态
             SMS.Tips.success('数据新增成功', 2000);
 
-            emitter.fire('addSuccess', []);
+
         }
+        emitter.fire('addSuccess', []);
         //refresh(classId, f7Selectors);
     }
 

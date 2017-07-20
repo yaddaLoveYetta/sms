@@ -71,6 +71,22 @@ define('PageTabs', function (require, module, exports) {
 
     }
 
+    function changeTitle(item) {
+
+        var index = findIndexById(item.id);
+
+        if (index < 0) { //已存在
+           // 不存在-忽略
+            return;
+        }
+        list[index].name=list[index].name.replace('修改','新增ddd');
+
+        fill(); // 重新填充
+
+        active(index, true); //不触发事件
+
+    }
+
 
     function remove(index, quiet) {
 
@@ -288,7 +304,8 @@ define('PageTabs', function (require, module, exports) {
         clear: clear,
         render: render,
         on: emitter.on.bind(emitter),
-        dragdrop: dragdrop
+        dragdrop: dragdrop,
+        changeTitle:changeTitle,
     };
 
 });

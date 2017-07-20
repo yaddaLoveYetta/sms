@@ -60,8 +60,8 @@
         'addSuccess':function () {
 
             Iframe.raise({
-                id: classId + '-edit-' + list[0].primaryValue,
-                name: '修改-' + name,
+                'eventName':'addSuccess',
+                'data':Iframe.getInfos(),
             });
 
         }

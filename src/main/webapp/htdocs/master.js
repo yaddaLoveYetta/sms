@@ -225,8 +225,11 @@
         }
     });
 
-    Iframe.on('raise', function (group, index, data) {
+    Iframe.on('addSuccess', function (sn, data) {
+
         alert('dddd');
+        PageTabs.changeTitle(data);
+
     });
 
 

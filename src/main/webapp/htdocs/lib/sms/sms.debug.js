@@ -3957,7 +3957,20 @@
         }
 
         function raise(data) {
-            emitter.fire('raise', []);
+
+            var eventName=data.eventName;
+            var item = data.data;
+
+            var sn = item.id;
+
+            var iframe = top.$('iframe[data-sn="' + sn + '"]').get(0);
+
+            if (!iframe) {
+                throw new Error('不存在 sn 为 ' + sn + ' 的 iframe 页面');
+            }
+
+            emitter.fire(eventName, [sn, data]);
+
         }
 
 
