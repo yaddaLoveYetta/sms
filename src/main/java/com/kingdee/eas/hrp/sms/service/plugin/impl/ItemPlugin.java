@@ -207,6 +207,16 @@ public class ItemPlugin extends PlugInAdpter {
 				}
 			}
 		}
+		
+		if (classId == 1005) {
+			if (json.get("taxRate") != null && !json.get("taxRate").equals("")) {
+				if (json.get("taxRate").toString().matches("^[-\\+]?[.\\d]*$")) {
+
+				} else {
+					throw new BusinessLogicRunTimeException("税率格式不正确");
+				}
+			}
+		}
 
 		if (classId == 3020) {
 			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
@@ -275,7 +285,7 @@ public class ItemPlugin extends PlugInAdpter {
 
 		saveCheckMustInput(classId, formData, json);
 
-		if (classId / 100 == 10 || classId == 3010 || classId == 3030 || classId == 3020 ) {
+		if (classId / 100 == 10 || classId == 3010 || classId == 3030 || classId == 3020) {
 
 			String id = "-1";
 			checkIfExistRecord(classId, id, formData, json);
@@ -288,6 +298,16 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 			if (!json.containsKey("review")) {
 				json.put("review", "false");
+			}
+		}
+
+		if (classId == 1005) {
+			if (json.get("taxRate") != null && !json.get("taxRate").equals("")) {
+				if (json.get("taxRate").toString().matches("^[-\\+]?[.\\d]*$")) {
+
+				} else {
+					throw new BusinessLogicRunTimeException("税率格式不正确");
+				}
 			}
 		}
 
