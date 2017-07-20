@@ -73,7 +73,7 @@ define('PageTabs', function (require, module, exports) {
 
     function changeTitle(item) {
 
-        var index = findIndexById(item.id);
+        var index = findIndexById(item.data.sn);
 
         if (index < 0) { //已存在
            // 不存在-忽略
