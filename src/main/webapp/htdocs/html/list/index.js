@@ -458,7 +458,7 @@
                     data: {
                         code: data,
                     },
-                    button: [
+/*                    button: [
                         {
                             value: '取消',
                             className: 'sms-cancel-btn',
@@ -470,7 +470,7 @@
                                 return true;
                             }
                         }
-                    ],
+                    ],*/
                 });
 
                 //默认关闭行为为不提交
