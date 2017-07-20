@@ -59,7 +59,7 @@
     Edit.on({
         'addSuccess':function () {
 
-            Iframe.changeTitle({
+            Iframe.raise({
                 id: classId + '-edit-' + list[0].primaryValue,
                 name: '修改-' + name,
             });
