@@ -783,7 +783,7 @@
         for (var item in fields) {
 
             var field = fields[item];
-            var keyName = field['FKey'];
+            var keyName = field['key'];
 
             var element = getValueElement(keyName);
 

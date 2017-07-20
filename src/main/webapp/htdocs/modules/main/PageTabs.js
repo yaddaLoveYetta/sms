@@ -68,6 +68,11 @@ define('PageTabs', function (require, module, exports) {
 
     }
 
+    /**
+     * 改变标题
+     * @param sn
+     * @param text
+     */
     function changeTitle(sn, text) {
 
         var index = findIndexById(sn);

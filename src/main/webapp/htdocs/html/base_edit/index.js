@@ -72,6 +72,14 @@
                 'data':Iframe.getInfos(),
             });
 
+        },
+        'addNew':function () {
+
+            Iframe.raise({
+                'eventName':'addNew',
+                'data':Iframe.getInfos(),
+            });
+
         }
     });
 

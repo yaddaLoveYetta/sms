@@ -87,6 +87,7 @@ define('Edit', function (require, module, exports) {
     function clear() {
         itemId = '';
         FormEdit.clear();
+        emitter.fire('addNew', []);
     }
 
     function save() {

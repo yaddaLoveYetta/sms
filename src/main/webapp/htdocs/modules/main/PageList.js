@@ -1,10 +1,7 @@
-﻿
-
-
-/**
-* 页签列表模块
-* 
-*/
+﻿/**
+ * 页签列表模块
+ *
+ */
 define('PageList', function (require, module, exports) {
 
     var $ = require('$');
@@ -47,7 +44,7 @@ define('PageList', function (require, module, exports) {
         var maxIndex = lastIndex();
 
         SMS.Template.fill(ul, list, function (item, index) {
-            
+
             return {
                 name: item.name,
                 index: index,
@@ -94,10 +91,30 @@ define('PageList', function (require, module, exports) {
         active(index, true); //不触发事件
     }
 
+    /**
+     * 改变标题
+     * @param sn
+     * @param text
+     */
+    function changeTitle(sn, text) {
+
+        var index = findIndexById(sn);
+
+        if (index < 0) { //已存在
+            // 不存在-忽略
+            return;
+        }
+        list[index].name = text;
+
+        fill(); // 重新填充
+
+        active(index, true); //不触发事件
+
+    }
 
     /**
-    * 移除指定索引位置的项。
-    */
+     * 移除指定索引位置的项。
+     */
     function remove(index, quiet) {
 
         var max = lastIndex();
@@ -135,14 +152,13 @@ define('PageList', function (require, module, exports) {
         }
 
 
-
     }
 
     /**
-    * 清空所有已添加的项。
-    * "首页" 和 "关闭所有页签" 不会给移除。
-    * 该方法已废弃。
-    */
+     * 清空所有已添加的项。
+     * "首页" 和 "关闭所有页签" 不会给移除。
+     * 该方法已废弃。
+     */
     function clear() {
 
         var index = lastIndex();
@@ -156,8 +172,8 @@ define('PageList', function (require, module, exports) {
 
 
     /**
-    * 激活指定索引值的项。
-    */
+     * 激活指定索引值的项。
+     */
     function active(index, quiet) {
 
         activedIndex = index;
@@ -169,7 +185,6 @@ define('PageList', function (require, module, exports) {
             emitter.fire('active', [item]);
         }
     }
-
 
 
     function show() {
@@ -195,8 +210,6 @@ define('PageList', function (require, module, exports) {
         });
     }
 
-
-    
 
     //关闭指定索引值的窗口，并在完成后执行指定的回调函数。
     function close(index, fn) {
@@ -302,7 +315,6 @@ define('PageList', function (require, module, exports) {
         });
 
 
-
         $(ul).delegate('>li[draggable]', 'dragstart', function (event) {
 
             var li = this;
@@ -324,14 +336,13 @@ define('PageList', function (require, module, exports) {
 
         });
 
-        
 
     }
 
 
     /**
-    * 拖放
-    */
+     * 拖放
+     */
     function dragdrop(srcIndex, destIndex) {
 
         if (srcIndex == destIndex) {
@@ -357,7 +368,6 @@ define('PageList', function (require, module, exports) {
         fill();
 
     }
-
 
 
     function render() {
@@ -392,7 +402,8 @@ define('PageList', function (require, module, exports) {
 
         render: render,
         on: emitter.on.bind(emitter),
-        dragdrop: dragdrop
+        dragdrop: dragdrop,
+        changeTitle: changeTitle,
     };
 
 });
