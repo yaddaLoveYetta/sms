@@ -28,7 +28,7 @@
 
 	<!-- 指定自动扫描路径 -->
 	<context:component-scan base-package="com.kingdee.eas.hrp.sms" use-default-filters="true">
-		<!-- do not scan Controller,servlet will check that -->
+		<!-- 不扫描@Controller注解 -->
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
