@@ -149,13 +149,12 @@ define('Edit', function (require, module, exports) {
 
         if (itemId) {
             SMS.Tips.success('数据修改成功', 2000);
+            emitter.fire('editSuccess', []);
         } else {
             itemId = data['id']; // 新增后设置itemId，单据变成修改状态
             SMS.Tips.success('数据新增成功', 2000);
-
-
+            emitter.fire('addSuccess', []);
         }
-        emitter.fire('addSuccess', []);
         //refresh(classId, f7Selectors);
     }
 

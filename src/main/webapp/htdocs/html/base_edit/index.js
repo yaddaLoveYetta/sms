@@ -64,6 +64,14 @@
                 'data':Iframe.getInfos(),
             });
 
+        },
+        'editSuccess':function () {
+
+            Iframe.raise({
+                'eventName':'editSuccess',
+                'data':Iframe.getInfos(),
+            });
+
         }
     });
 

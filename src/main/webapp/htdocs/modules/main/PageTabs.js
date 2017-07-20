@@ -1,9 +1,6 @@
-﻿
-
-
-/**
-* 页签模块
-*/
+﻿/**
+ * 页签模块
+ */
 define('PageTabs', function (require, module, exports) {
 
     var $ = require('$');
@@ -30,7 +27,7 @@ define('PageTabs', function (require, module, exports) {
             begin: '#--item.begin--#',
             end: '#--item.end--#',
             //优化模板，为了让生成的 html 在 DOM 查看器中更美观
-            fn: function (s) { 
+            fn: function (s) {
                 return s.replace(/\n/g, '')     //去掉空行
                     .replace(/\s{2,}/g, ' ');   //把多个空格合成一个
             }
@@ -71,15 +68,15 @@ define('PageTabs', function (require, module, exports) {
 
     }
 
-    function changeTitle(item) {
+    function changeTitle(sn, text) {
 
-        var index = findIndexById(item.data.sn);
+        var index = findIndexById(sn);
 
         if (index < 0) { //已存在
-           // 不存在-忽略
+            // 不存在-忽略
             return;
         }
-        list[index].name=list[index].name.replace('修改','新增ddd');
+        list[index].name = text;
 
         fill(); // 重新填充
 
@@ -115,7 +112,6 @@ define('PageTabs', function (require, module, exports) {
     }
 
 
-
     function active(index, quiet) {
 
         tabs.active(index);
@@ -131,8 +127,6 @@ define('PageTabs', function (require, module, exports) {
         fn.call(li);
 
     }
-
-
 
 
     function fill() {
@@ -153,7 +147,6 @@ define('PageTabs', function (require, module, exports) {
 
 
     }
-
 
 
     function bindEvents() {
@@ -205,7 +198,6 @@ define('PageTabs', function (require, module, exports) {
         });
 
 
-
         $(ul).delegate('>li[draggable]', 'dragstart', function (event) {
 
             var li = this;
@@ -231,8 +223,8 @@ define('PageTabs', function (require, module, exports) {
     }
 
     /**
-    * 拖放
-    */
+     * 拖放
+     */
     function dragdrop(srcIndex, destIndex) {
 
         if (srcIndex == destIndex || destIndex == 0) {
@@ -244,7 +236,6 @@ define('PageTabs', function (require, module, exports) {
         var item = list[srcIndex];
         list.splice(srcIndex, 1); //删除第 srcIndex 项，
         list.splice(destIndex, 0, item); //在 destIndex 后插入 srcIndex 对应的项
-
 
 
         if (srcIndex == activedIndex) {
@@ -265,7 +256,6 @@ define('PageTabs', function (require, module, exports) {
     }
 
 
-
     function render() {
 
 
@@ -273,7 +263,24 @@ define('PageTabs', function (require, module, exports) {
         bindEvents();
     }
 
+    function getTabName(sn) {
 
+        var index = -1;
+
+        if (!isNaN(sn)) {
+            // 传入index值
+            index = sn;
+        } else {
+            // 传入sn
+            index = findIndexById(sn);
+        }
+
+        if (index < 0) { //已存在
+            // 不存在
+            return '';
+        }
+        return list[index].name;
+    }
 
     return {
 
@@ -299,13 +306,13 @@ define('PageTabs', function (require, module, exports) {
 
             active(index, true);
         },
-
+        getTabName: getTabName,
 
         clear: clear,
         render: render,
         on: emitter.on.bind(emitter),
         dragdrop: dragdrop,
-        changeTitle:changeTitle,
+        changeTitle: changeTitle,
     };
 
 });

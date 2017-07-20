@@ -140,9 +140,6 @@
         'load': function (item) {
 
         },
-        'addSuccess': function () {
-            alert('addSuccess');
-        }
     });
 
 
@@ -225,11 +222,24 @@
         }
     });
 
-    Iframe.on('addSuccess', function (sn, data) {
+    Iframe.on({
 
-        alert('dddd');
-        PageTabs.changeTitle(data);
+        'addSuccess': function (sn, text) {
+            // 目前基础资料新增-保存成功后会抛出此事件
+            alert('dddd');
+            var name = PageTabs.getTabName(sn);
+            text = name.replace('新增', '修改');
+            PageTabs.changeTitle(sn, text);
 
+        },
+        'editSuccess': function (sn, data) {
+            // 目前基础资料修改-保存成功后会抛出此事件
+            alert('eeee');
+            var name = PageTabs.getTabName(sn);
+            text = name.replace('修改', '新增');
+            PageTabs.changeTitle(sn, text);
+
+        }
     });
 
 

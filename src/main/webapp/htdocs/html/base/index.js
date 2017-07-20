@@ -118,7 +118,7 @@
                     return;
                 }
                 Iframe.open({
-                    id: classId + '-add-',
+                    id: classId + '-add',
                     name: '新增-' + name,
                     url: url,
                     query: {
@@ -133,12 +133,12 @@
             var list = List.getSelectedItems();
 
             if (list.length == 0) {
-                SMS.Tips.error('请选择要操作的项', 1500);
+                SMS.Tips.error('请选择要操作的项', 1000);
                 return;
             }
 
             if (list.length > 1) {
-                SMS.Tips.error('一次只能对一条记录进行操作', 1500);
+                SMS.Tips.error('一次只能对一条记录进行操作', 1000);
                 return;
             }
 
@@ -151,7 +151,7 @@
             }
 
             Iframe.open({
-                id: classId + '-edit-' + list[0].primaryValue,
+                id: classId + '-edit' + list[0].primaryValue,
                 name: '修改-' + name,
                 url: url,
                 query: {
@@ -305,7 +305,7 @@
             var body = data.body;
 
             Iframe.open({
-                id: classId + '-edit-' + body.primaryValue,
+                id: classId + '-edit' + body.primaryValue,
                 name: '修改-' + name,
                 url: url,
                 query: {
