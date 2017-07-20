@@ -9,7 +9,7 @@ define('UserInfos', function (require, module, exports) {
 
     var MD5 = SMS.require('MD5');
     var API = SMS.require('API');
-
+    var MessageBox = SMS.require('MessageBox');
 
     var panel = document.getElementById('li-user-infos');
     var user = SMS.Login.get();
@@ -42,23 +42,31 @@ define('UserInfos', function (require, module, exports) {
         $('#btn-logout').on('click', function () {
 
             var btn = this;
-            btn.innerHTML = '注销中...';
-            $(btn).addClass('disabled');
+
+            MessageBox.confirm('确定退出系统?', function (result) {
+                if (result) {
 
 
-            SMS.Login.logout(function (user, data, json) { //成功
+                    btn.innerHTML = '注销中...';
+                    $(btn).addClass('disabled');
 
-                location.href = 'login.html';
+                    SMS.Login.logout(function (user, data, json) { //成功
 
-            }, function (code, msg, json) { //失败
+                        location.href = 'login.html';
 
-                reset();
-                alert(msg);
+                    }, function (code, msg, json) { //失败
 
-            }, function () { //错误
-                reset();
-                alert('网络错误，注销失败，请稍候再试');
+                        reset();
+                        alert(msg);
+
+                    }, function () { //错误
+                        reset();
+                        alert('网络错误，注销失败，请稍候再试');
+                    });
+
+                }
             });
+
         });
 
     }
