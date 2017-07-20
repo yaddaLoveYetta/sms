@@ -225,6 +225,10 @@
         }
     });
 
+    Iframe.on('raise', function (group, index, data) {
+        alert('dddd');
+    });
+
 
     PageTabs.render();
     PageList.render();

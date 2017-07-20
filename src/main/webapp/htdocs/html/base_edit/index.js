@@ -58,7 +58,12 @@
 
     Edit.on({
         'addSuccess':function () {
-            Iframe.fire('addSuccess', []);
+
+            Iframe.changeTitle({
+                id: classId + '-edit-' + list[0].primaryValue,
+                name: '修改-' + name,
+            });
+
         }
     });
 

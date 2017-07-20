@@ -3839,6 +3839,10 @@
             IframeManager.open(no, index, data);
         }
 
+        function raise(data) {
+            IframeManager.raise(data);
+        }
+
 
         function getData(key) {
             var sn = get('sn');
@@ -3906,7 +3910,7 @@
             removeData: removeData,
             getDialog: getDialog,
             open: open,
-
+            raise:raise,
             on: emitter.on.bind(emitter),
 
             // 该接口仅供主控制台调用。
@@ -3952,6 +3956,10 @@
             emitter.fire('open', [no, index, data]);
         }
 
+        function raise(data) {
+            emitter.fire('raise', []);
+        }
+
 
         function fire(sn, name, args) {
 
@@ -3994,6 +4002,7 @@
 
         return {
             open: open,
+            raise:raise,
             getData: getData,
             setData: setData,
             removeData: removeData,
