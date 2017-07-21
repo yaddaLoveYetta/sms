@@ -48,8 +48,6 @@ public interface ITemplateService {
 	 *            当前页码
 	 * @param pageSize
 	 *            分页大小
-	 * @param userType
-	 *            用户类型
 	 * @return Map<String,Object>
 	 * @date 2017-04-20 13:49:24 星期四
 	 */
@@ -63,12 +61,25 @@ public interface ITemplateService {
 	 *            业务类别
 	 * @param id
 	 *            内码(主键) EAS表主键竟然用字符串
-	 * @param userType
-	 *            用户类型
 	 * @return Map<String,Object>
 	 * @date 2017-04-26 14:42:58 星期三
 	 */
 	Map<String, Object> getItemById(Integer classId, String id);
+	
+	/**
+	 * 根据模板查询单个业务数据，如查询id=2的物料
+	 * 
+	 * @Title getItemById
+	 * @param classId
+	 *            业务类别
+	 * @param id
+	 *            内码(主键) EAS表主键竟然用字符串
+	 * @param orderBy
+	 *            格式化的排序条件
+	 * @return Map<String,Object>
+	 * @date 2017-04-26 14:42:58 星期三
+	 */
+	Map<String, Object> getItemById(Integer classId, String id, String orderBy);
 
 	/**
 	 * 根据模板查询多个业务数据
@@ -78,7 +89,7 @@ public interface ITemplateService {
 	 * @param ids
 	 *            单据内码集合
 	 * @param orderByStr
-	 *            排序规则
+	 *            排序规则(拼接好的排序字符串)
 	 * @return
 	 * @return Map<String,Object>
 	 * @date 2017-07-11 15:42:31 星期二
@@ -89,8 +100,10 @@ public interface ITemplateService {
 	 * 根基模板新增基础资料
 	 * 
 	 * @Title addItem
-	 * @param classId 业务类型
-	 * @param data json格式的单据数据
+	 * @param classId
+	 *            业务类型
+	 * @param data
+	 *            json格式的单据数据
 	 * @return String 主键
 	 * @date 2017-04-27 14:19:33 星期四
 	 */
@@ -100,11 +113,12 @@ public interface ITemplateService {
 	 * 根基模板修改基础资料
 	 * 
 	 * @Title editItem
-	 * @param classId 业务类型
-	 * @param id 修改资料的内码
-	 * @param data json格式的修改资料数据包
-	 *            void
-	 * @param userType
+	 * @param classId
+	 *            业务类型
+	 * @param id
+	 *            修改资料的内码
+	 * @param data
+	 *            json格式的修改资料数据包
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
 	void editItem(Integer classId, String id, String data);
@@ -118,7 +132,6 @@ public interface ITemplateService {
 	 * @param items
 	 *            待删除的基础资料内码集合
 	 * @return void
-	 * @return
 	 * @date 2017-05-02 17:49:38 星期二
 	 */
 	void delItem(Integer classId, String items);
@@ -131,7 +144,6 @@ public interface ITemplateService {
 	 *            业务类型
 	 * @param items
 	 *            待审核的基础资料内码集合
-	 * @param userType
 	 * @return void
 	 * @date 2017-05-23 16:11:01 星期二
 	 */
@@ -145,7 +157,6 @@ public interface ITemplateService {
 	 *            业务类型
 	 * @param items
 	 *            待反审核的基础资料内码集合
-	 * @param userType
 	 * @return void
 	 * @date 2017-05-23 16:48:45 星期二
 	 */
