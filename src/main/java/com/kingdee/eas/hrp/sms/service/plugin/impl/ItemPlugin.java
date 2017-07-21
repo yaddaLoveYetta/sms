@@ -381,7 +381,7 @@ public class ItemPlugin extends PlugInAdpter {
 			try {
 				Date dt1 = df.parse(beginDate);
 				Date dt2 = df.parse(endDate);
-				if (dt1.getTime() >= dt2.getTime()) {
+				if (dt1.getTime() > dt2.getTime()) {
 					throw new BusinessLogicRunTimeException("起始日期必须小于结束日期");
 				}
 			} catch (ParseException e) {
@@ -456,7 +456,7 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 
 		// 证件特殊业务判断，起始日期必须小于结束日期(只是更新entry数据时不用检查)
-		if ((classId == 3010 || classId == 3020) && !json.containsKey("entry") && json.size() == 1) {
+		if ((classId == 3010 || classId == 3020)) {
 			String beginDate = json.getString("beginDate");
 			String endDate = json.getString("endDate");
 
@@ -465,7 +465,7 @@ public class ItemPlugin extends PlugInAdpter {
 				Date dt1;
 				dt1 = df.parse(beginDate);
 				Date dt2 = df.parse(endDate);
-				if (dt1.getTime() >= dt2.getTime()) {
+				if (dt1.getTime() > dt2.getTime()) {
 					throw new BusinessLogicRunTimeException("起始日期必须小于结束日期");
 				}
 			} catch (ParseException e) {
