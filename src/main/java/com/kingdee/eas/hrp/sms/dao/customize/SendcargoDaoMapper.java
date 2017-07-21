@@ -18,5 +18,7 @@ public interface SendcargoDaoMapper {
 	 List<Map<String,Object>> selectInvoiceEntryByParent(String parent);
 	 
 	 List<Map<String, Object>> selectSendCargoANDEntry(String id);
+	 
+	 Map<String, Object> selectEntryByParent(String id);
 
 }
