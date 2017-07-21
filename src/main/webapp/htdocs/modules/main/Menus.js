@@ -133,6 +133,7 @@ define('Menus', function (require, module, exports) {
         // 重算菜单位置
         var t = $(document.body).height() - 85 - div.offsetTop - div.offsetHeight;
 
+        $(div).css('height', '');
         $(div).css('top', '');
 
         if (t < 0) {
