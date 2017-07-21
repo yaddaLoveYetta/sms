@@ -301,8 +301,13 @@ define('Entry/GridBuilder', function (require, module, exports) {
                 display = 32;
             }
         } else if (showType == 0) {
-            // 查看时都显示
-            display = 63;
+            if (user.type === 'QpXq24FxxE6c3lvHMPyYCxACEAI=') {
+                // 平台用户
+                display = 128;
+            } else if (user.type === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') {
+                //供应商用户
+                display = 256;
+            }
         }
 
         for (var key in fields) {
