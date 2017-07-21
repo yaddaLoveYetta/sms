@@ -133,7 +133,10 @@ define('Menus', function (require, module, exports) {
         $(div).css('top', '');
 
         if (height < 0) {
-            $(div).css('top', $(document.body).height() - div.offsetHeight);
+            var h = $(document.body).height() - div.offsetHeight;
+
+            h = h < 0 ? 0 : h;// 顶部85px
+            $(div).css('top', h);
         }
 
     }
