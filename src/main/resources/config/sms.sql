@@ -2888,7 +2888,7 @@ CREATE TABLE [t_sms_purinwarehs_entry] (
 [innercode] varchar(255) NULL ,
 [unit] varchar(255) NULL ,
 [price] money NULL ,
-[actualQty] numeric(18) NULL ,
+[actualQty] numeric(18,2) NULL ,
 [dyProDate] datetime NULL ,
 [dyManufacturer] varchar(255) NULL ,
 [registrationNo] varchar(255) NULL ,
@@ -3242,15 +3242,15 @@ CREATE TABLE [t_sms_purreceival_entry] (
 [innercode] varchar(255) NULL ,
 [unit] varchar(255) NULL ,
 [price] money NULL ,
-[qty] numeric(18) NULL ,
-[actualQty] numeric(18) NULL ,
+[qty] numeric(18,2) NULL ,
+[actualQty] numeric(18,2) NULL ,
 [dyProDate] datetime NULL ,
 [dyManufacturer] varchar(255) NULL ,
 [registrationNo] varchar(255) NULL ,
 [amount] money NULL ,
 [effectiveDate] datetime NULL ,
-[qualifiedQty] numeric(18) NULL ,
-[unqualifiedQty] numeric(18) NULL 
+[qualifiedQty] numeric(18,2) NULL ,
+[unqualifiedQty] numeric(18,2) NULL 
 )
 
 
@@ -3623,7 +3623,7 @@ CREATE TABLE [t_sms_purreturns_entry] (
 [orderSeq] varchar(255) NULL ,
 [material] varchar(255) NULL ,
 [unit] varchar(255) NULL ,
-[returnQty] numeric(18) NULL 
+[returnQty] numeric(18,2) NULL 
 )
 
 
@@ -4021,14 +4021,14 @@ CREATE TABLE [t_sms_sendcargo_entry] (
 [code] varchar(255) NULL ,
 [unit] varchar(255) NULL ,
 [price] money NULL ,
-[qty] numeric(18) NULL ,
+[qty] numeric(18,2) NULL ,
 [dyProDate] datetime NULL ,
 [dyManufacturer] varchar(255) NULL ,
 [registrationNo] varchar(255) NULL ,
 [amount] money NULL ,
 [effectiveDate] datetime NULL ,
 [orderSeq] varchar(255) NULL ,
-[actualQty] numeric(18) NULL 
+[actualQty] numeric(18,2) NULL 
 )
 
 
