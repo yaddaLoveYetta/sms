@@ -131,14 +131,13 @@ define('Menus', function (require, module, exports) {
         // 重算菜单高度
         $(div).css('height', '');
         if (($(document.body).height() - 85 - $(div).height()) < 0) {
-            var oh=$(div).outerHeight(true)-$(div).height();
-            $(div).css('height', $(document.body).height() - 85-oh);
+            $(div).css('height', $(document.body).height() - 85);
         }
         // 重算菜单位置
         $(div).css('top', '');
-        var t = $(document.body).height() - 85 -  $(div).offset().top - $(div).height();// 顶部fixed预留85px
+        var t = $(document.body).height() - 85 -  $(div).offset().top - $(div).outerHeight(true);// 顶部fixed预留85px
         if (t < 0) {
-            $(div).css('top', $(document.body).height() - $(div).height());
+            $(div).css('top', $(document.body).height() - $(div).outerHeight(true));
         }
 
     }
