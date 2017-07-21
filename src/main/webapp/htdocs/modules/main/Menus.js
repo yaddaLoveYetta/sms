@@ -129,16 +129,15 @@ define('Menus', function (require, module, exports) {
         $(div).toggleClass('menus-' + index, !isFixed);
 
         // 重算菜单高度
-        var h = ($(document.body).height() - 85 - div.offsetHeight) < 0 ? $(document.body).height() - 85 : div.offsetHeight;
-        // 重算菜单位置
-        var t = $(document.body).height() - 85 - div.offsetTop - div.offsetHeight;
-
         $(div).css('height', '');
+        if (($(document.body).height() - 85 - div.offsetHeight) < 0) {
+            $(div).css('height', $(document.body).height() - 85);
+        }
+        // 重算菜单位置
         $(div).css('top', '');
-
+        var t = $(document.body).height() - 85 - div.offsetTop - div.offsetHeight;// 顶部fixed预留85px
         if (t < 0) {
-            $(div).css('height', h);
-            $(div).css('top', 85);// 顶部fixed预留85px
+            $(div).css('top', $(document.body).height() - div.offsetHeight);
         }
 
     }
