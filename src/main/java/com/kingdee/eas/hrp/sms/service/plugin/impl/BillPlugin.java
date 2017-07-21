@@ -243,7 +243,7 @@ public class BillPlugin extends PlugInAdpter {
 					throw new BusinessLogicRunTimeException("发货单列表中缺少需要发货的商品");
 				}
 				String actualQty = datas.getString("actualQty");// 实发数量
-				if (!actualQty.matches("^[0-9]*$")) {
+				if (!actualQty.matches("^[-\\+]?[.\\d]*$")) {
 					throw new BusinessLogicRunTimeException("发货数量格式不正确");
 				}
 				String orderSeq = datas.getString("orderSeq");
