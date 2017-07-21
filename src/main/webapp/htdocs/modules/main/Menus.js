@@ -128,15 +128,16 @@ define('Menus', function (require, module, exports) {
         var index = currentIndex + 1;
         $(div).toggleClass('menus-' + index, !isFixed);
 
-        var height = $(document.body).height() - div.offsetTop - div.offsetHeight;
+        // 重算菜单高度
+        div.offsetHeight = ($(document.body).height() - 85 - div.offsetHeight) < 0 ? $(document.body).height() - 85 : div.offsetHeight;
+        // 重算菜单位置
+        var t = $(document.body).height() - 85 - div.offsetTop - div.offsetHeight;
 
         $(div).css('top', '');
 
-        if (height < 0) {
-            var h = $(document.body).height() - div.offsetHeight;
+        if (t < 0) {
 
-            h = h < 0 ? 0 : h;// 顶部85px
-            $(div).css('top', h);
+            $(div).css('top', 85);// 顶部fixed预留85px
         }
 
     }
