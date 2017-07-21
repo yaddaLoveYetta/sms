@@ -102,6 +102,7 @@ public class TemplateController {
 
 		Integer classId = ParameterUtils.getParameter(request, "classId", -1); // 业务类别代码
 		String id = ParameterUtils.getParameter(request, "id", ""); // 内码
+		String orderBy = ParameterUtils.getParameter(request, "orderBy", ""); // 排序字段json
 
 		if (classId < 0) {
 			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
@@ -112,7 +113,7 @@ public class TemplateController {
 			return;
 		}
 
-		Map<String, Object> result = templateService.getItemById(classId, id);
+		Map<String, Object> result = templateService.getItemById(classId, id,orderBy);
 
 		if (result == null) {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "资料不存在！");

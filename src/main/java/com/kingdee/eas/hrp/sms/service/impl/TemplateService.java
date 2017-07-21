@@ -457,6 +457,25 @@ public class TemplateService extends BaseService implements ITemplateService {
 		select = (String) statement.get("select");
 		from = (String) statement.get("from");
 
+		if (orderByStr.equals("")) {
+
+			// 单据详情分录应该排序
+			if (classId == 2019 || classId == 2020 || classId == 2021 || classId == 2022) {
+				// 单据按照单据编码降序排序
+				String orderByKey = "seq";
+				String orderDirection = "ASC";
+				JSONArray orderByArray = new JSONArray();
+				JSONObject orderByItem = new JSONObject(true);
+
+				orderByItem.put("fieldKey", orderByKey);
+				orderByItem.put("orderDirection", orderDirection);
+				orderByArray.add(orderByItem);
+				orderByStr = JSON.toJSONString(orderByArray);
+
+			}
+
+		}
+
 		if (orderByStr != null && !orderByStr.equals("")) {
 
 			// 客户端传入了排序字段
@@ -1975,6 +1994,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 			FormFields formFields = formFieldsAll.get(fieldKey);
 
+			Integer page = formFields.getPage();
 			String sqlColumnName = formFields.getSqlColumnName();
 			Integer lookUpType = formFields.getLookUpType();
 			String srcTable = formFields.getSrcTable();
@@ -1982,6 +2002,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 			String disPlayField = formFields.getDisPlayField();
 
 			String tableName = primaryTableName;
+
+			if (page > 0) {
+				FormEntries entrie = (FormEntries) formEntries.get(String.valueOf(page));
+				tableName = entrie.getTableName();
+			}
 			String fieldName = sqlColumnName;
 
 			if (lookUpType > 0) {
