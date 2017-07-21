@@ -41,7 +41,7 @@ public class SerialNumberService extends BaseService implements ISerialNumberSer
 		c.andClassIdEqualTo(classId);
 		c.andYearEqualTo(year);
 		List<SerialNumber> serialNumber = serialNumberMapper.selectByExample(e);
-		DecimalFormat df = new DecimalFormat("000000");
+		DecimalFormat df = new DecimalFormat("00000000");
 		sn.setClassId(classId);
 		sn.setYear(year);
 		serialNumberMapper.updateByPrimaryKey(sn);
