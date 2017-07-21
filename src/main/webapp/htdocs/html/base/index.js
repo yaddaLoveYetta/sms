@@ -233,15 +233,21 @@
                 SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
-            /*            if (list.length > 1) {
-             SMS.Tips.error('一次只能对一条记录进行操作');
-             return;
-             }*/
+
+            if (list.length > 1) {
+                SMS.Tips.error('一次只能对一条记录进行操作');
+                return;
+            }
+
             if (list[0].data.review === 0) {
                 SMS.Tips.error('该记录未审核，不可发送', 1500);
                 return;
             }
 
+            if (list[0].data.syncStatus === 1) {
+                SMS.Tips.error('该记录已发送到医院', 1500);
+                return;
+            }
 
             MessageBox.confirm('确定要将该记录发送给医院?', function (result) {
                 if (result) {
