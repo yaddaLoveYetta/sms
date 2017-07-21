@@ -136,9 +136,9 @@ define('Menus', function (require, module, exports) {
         }
         // 重算菜单位置
         $(div).css('top', '');
-        var t = $(document.body).height() - 85 - div.offsetTop - $(div).height();// 顶部fixed预留85px
+        var t = $(document.body).height() - 85 -  $(div).offset().top - $(div).height();// 顶部fixed预留85px
         if (t < 0) {
-            $(div).css('top', $(document.body).height() - div.offsetHeight);
+            $(div).css('top', $(document.body).height() - $(div).height());
         }
 
     }
