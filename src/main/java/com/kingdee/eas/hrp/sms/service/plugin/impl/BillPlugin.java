@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
+import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.SendcargoMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
@@ -154,7 +156,8 @@ public class BillPlugin extends PlugInAdpter {
 				} else {
 					throw new BusinessLogicRunTimeException("发货数量格式不正确");
 				}
-				BigDecimal qty = datas.getBigDecimal("qty");// 应发数量
+				String orderSeq = datas.getString("orderSeq");
+				String orderId = datas.getString("orderId");
 				String lot = datas.getString("lot");// 批次
 				String dyBatchNum = datas.getString("dyBatchNum");// 批号
 				Date effectiveDate = datas.getDate("effectiveDate");// 有效期
@@ -162,6 +165,12 @@ public class BillPlugin extends PlugInAdpter {
 				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
 				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
+				OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+				OrderEntryExample e = new OrderEntryExample();
+				Criteria c = e.createCriteria();
+				c.andSeqEqualTo(Integer.parseInt(orderSeq));
+				c.andParentEqualTo(orderId);
+				List<OrderEntry> o = orderEntryMapper.selectByExample(e);
 				if (dyProDate != null && !dyProDate.equals("") && effectiveDate != null && !effectiveDate.equals("")) {
 					if (dyProDate.after(effectiveDate)) {
 						throw new BusinessLogicRunTimeException("生产日期不能大于有效期");
@@ -174,7 +183,7 @@ public class BillPlugin extends PlugInAdpter {
 				if (actualQty.equals("0")) {
 					throw new BusinessLogicRunTimeException("实发数量不能0");
 				}
-				if (new BigDecimal(actualQty).compareTo(qty) > 0) {
+				if (new BigDecimal(actualQty).compareTo(o.get(0).getQty().subtract(o.get(0).getInvoiceQty())) > 0) {
 					throw new BusinessLogicRunTimeException("发货数量不能大于应发数量");
 				}
 				if (items.getIsLotNumber() != null) {
@@ -237,13 +246,22 @@ public class BillPlugin extends PlugInAdpter {
 				if (!actualQty.matches("^[0-9]*$")) {
 					throw new BusinessLogicRunTimeException("发货数量格式不正确");
 				}
-				BigDecimal qty = datas.getBigDecimal("qty");// 应发数量
+				String orderSeq = datas.getString("orderSeq");
+				String orderId = datas.getString("orderId");
 				String lot = datas.getString("lot");// 批次
 				String dyBatchNum = datas.getString("dyBatchNum");// 批号
 				Date effectiveDate = datas.getDate("effectiveDate");// 有效期
 				Date dyProDate = datas.getDate("dyProDate");// 生产日期
 				SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 				ItemMapper itemMapper = (ItemMapper) sqlSession.getMapper(ItemMapper.class);
+				OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
+				SendcargoDaoMapper sendcargoDaoMapper = sqlSession.getMapper(SendcargoDaoMapper.class);
+				Map<String, Object> sendcargo = sendcargoDaoMapper.selectEntryByParent(datas.getString("entryId"));
+				OrderEntryExample e = new OrderEntryExample();
+				Criteria c = e.createCriteria();
+				c.andSeqEqualTo(Integer.parseInt(orderSeq));
+				c.andParentEqualTo(orderId);
+				List<OrderEntry> o = orderEntryMapper.selectByExample(e);
 				Item items = itemMapper.selectByPrimaryKey(datas.getString("material"));
 				if (dyProDate != null && !dyProDate.equals("") && effectiveDate != null && !effectiveDate.equals("")) {
 					if (dyProDate.after(effectiveDate)) {
@@ -257,9 +275,13 @@ public class BillPlugin extends PlugInAdpter {
 				if (actualQty.equals("0")) {
 					throw new BusinessLogicRunTimeException("实发数量不能0");
 				}
-				if (new BigDecimal(actualQty).compareTo(qty) > 0) {
+
+				if (o.get(0).getQty().compareTo(
+						o.get(0).getInvoiceQty().subtract(new BigDecimal(sendcargo.get("actualQty").toString()))
+								.add(new BigDecimal(actualQty))) < 0) {
 					throw new BusinessLogicRunTimeException("发货数量不能大于应发数量");
 				}
+
 				if (items.getIsLotNumber() != null) {
 					if (items.getIsLotNumber().equals("1") || items.getIsLotNumber() == 1) {
 						if (lot.equals("") || lot == null) {

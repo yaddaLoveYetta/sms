@@ -76,4 +76,14 @@
 		WHERE
 			t.id = #{id}
 	</select>
+	
+	<select id="selectEntryByParent" parameterType="String" resultType="map">
+		SELECT
+			*
+		FROM
+			t_sms_sendcargo_entry t
+		WHERE
+			t.id = #{id}
+			
+	</select>
 </mapper>
