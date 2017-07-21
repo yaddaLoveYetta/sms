@@ -457,7 +457,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		select = (String) statement.get("select");
 		from = (String) statement.get("from");
 
-		if (orderByStr.equals("")) {
+		if (orderByStr== null || orderByStr.equals("")) {
 
 			// 单据详情分录应该排序
 			if (classId == 2019 || classId == 2020 || classId == 2021 || classId == 2022) {
