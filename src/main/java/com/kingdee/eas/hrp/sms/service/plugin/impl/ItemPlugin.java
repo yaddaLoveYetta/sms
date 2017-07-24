@@ -150,6 +150,9 @@ public class ItemPlugin extends PlugInAdpter {
 			// 调用HRP删除接口
 			String syncRet = IWebService.webService(delJson.toString(), "delSms2hrpBaseData");
 			JSONObject syncJson = JSONObject.parseObject(syncRet);
+			if (syncJson.getString("data") == null || syncJson.getString("data").equals("")) {
+				throw new RuntimeException("同步删除医院数据时网络异常！");
+			}
 			// 获取接口返回值数据
 			String syncData = syncJson.getString("data");
 			if (null == syncRet || "".equals(syncRet)) {
