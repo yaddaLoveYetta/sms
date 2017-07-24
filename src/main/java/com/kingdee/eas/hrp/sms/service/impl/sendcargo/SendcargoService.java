@@ -73,7 +73,7 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 
 					Map<String, Object> sendCargo = map.get(j);
 					if (sendCargo.get("type") != null && !sendCargo.get("type").equals("")) {
-						if (Integer.parseInt(sendCargo.get("type").toString())==1) {
+						if (Integer.parseInt(sendCargo.get("type").toString()) == 1) {
 							throw new BusinessLogicRunTimeException("已发送到医院的发货单不能再次发送");
 						}
 					}
@@ -111,6 +111,10 @@ public class SendcargoService extends BaseService implements ISendcargoService {
 
 		String response = IWebService.webService(lists.toString(), "sms2hrpSendCargo");
 		JSONObject rps = JSONObject.parseObject(response);
+		if (rps == null || rps.equals("")) {
+			throw new BusinessLogicRunTimeException("网络错误!请稍后再试");
+		}
+
 		if (rps.get("code").equals("200")) {
 			PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
 
