@@ -55,6 +55,8 @@
             save(function () {
                 if (type === 1) {
                     // 新增时，新增成功后用内码刷新一次-重新填充界面-为了获取新增后分录的内码数据
+                    // 新增保存成功后变为‘编辑’
+                    type = 2;
                     refresh();
                 }
             });
@@ -225,7 +227,7 @@
         $API.get({
             classId: classId,
             id: itemId,
-            type:type,
+            type: type,
         }, function (data) {
             // 填充数据
             console.log(data);

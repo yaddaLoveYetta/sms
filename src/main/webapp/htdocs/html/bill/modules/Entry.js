@@ -35,9 +35,10 @@ define('Entry', function (require, module, exports) {
         };
 
         if (billGrid) {
-            billGrid.clear();
+/*            billGrid.clear();
             billGrid.render(defaults, data, template, 1);
-            return;
+            return;*/
+            billGrid.unload();
         }
         SMS.use('Grid', function (Grid) {
 
