@@ -197,7 +197,7 @@ public class ItemPlugin extends PlugInAdpter {
 			checkIfExistRecord(classId, id, formData, json);
 
 		}
-		
+
 		if (classId == 1005) {
 			if (json.get("taxRate") != null && !json.get("taxRate").equals("")) {
 				if (json.get("taxRate").toString().matches("^[-\\+]?[.\\d]*$")) {
@@ -207,7 +207,6 @@ public class ItemPlugin extends PlugInAdpter {
 				}
 			}
 		}
-
 
 		// 如果字段含有同步到HRP的字段syncStatus，设置同步状态
 		if (reviewAndSyncClassIdList.contains(classId)) {
@@ -456,20 +455,22 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 
 		// 证件特殊业务判断，起始日期必须小于结束日期(只是更新entry数据时不用检查)
-		if ((classId == 3010 || classId == 3020)) {
-			String beginDate = json.getString("beginDate");
-			String endDate = json.getString("endDate");
+		if (json.getString("beginDate") != null && json.getString("endDate") != null) {
+			if ((classId == 3010 || classId == 3020)) {
+				String beginDate = json.getString("beginDate");
+				String endDate = json.getString("endDate");
 
-			try {
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				Date dt1;
-				dt1 = df.parse(beginDate);
-				Date dt2 = df.parse(endDate);
-				if (dt1.getTime() > dt2.getTime()) {
-					throw new BusinessLogicRunTimeException("起始日期必须小于结束日期");
+				try {
+					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+					Date dt1;
+					dt1 = df.parse(beginDate);
+					Date dt2 = df.parse(endDate);
+					if (dt1.getTime() > dt2.getTime()) {
+						throw new BusinessLogicRunTimeException("起始日期必须小于结束日期");
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-			} catch (ParseException e) {
-				e.printStackTrace();
 			}
 		}
 		// 中标库特殊业务判断，生效日期必须小于失效日期
