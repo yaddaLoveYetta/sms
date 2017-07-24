@@ -44,4 +44,9 @@
 		update ${tableName} set review=0 where ${primaryKey} in ( ${items}
 		)
 	</delete>
+	<!--反审核基础资料时，修改同步状态 -->
+	<delete id="unsyncStatus" parameterType="HashMap">
+		update ${tableName} set syncStatus=0 where ${primaryKey} in ( ${items}
+		)
+	</delete>
 </mapper>
