@@ -3910,7 +3910,7 @@
             removeData: removeData,
             getDialog: getDialog,
             open: open,
-            raise:raise,
+            raise: raise,
             on: emitter.on.bind(emitter),
 
             // 该接口仅供主控制台调用。
@@ -3958,7 +3958,7 @@
 
         function raise(data) {
 
-            var eventName=data.eventName;
+            var eventName = data.eventName;
             var item = data.data;
 
             var sn = item.sn;
@@ -4015,7 +4015,7 @@
 
         return {
             open: open,
-            raise:raise,
+            raise: raise,
             getData: getData,
             setData: setData,
             removeData: removeData,
@@ -6888,6 +6888,14 @@
                 var bdGrid = meta.grid;
                 bdGrid.jqGrid('setGridWidth', size);
             },
+            unload: function () {
+                var meta = mapper.get(this);
+                return meta.grid.jqGrid('GridUnload', meta.grid);
+            },
+            destroy: function () {
+                var meta = mapper.get(this);
+                return meta.grid.jqGrid('GridDestroy', meta.grid);
+            }
         };
 
         // 静态方法
