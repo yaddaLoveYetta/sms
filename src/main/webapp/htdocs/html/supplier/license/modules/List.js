@@ -454,43 +454,23 @@ define("List", function (require, module, exports) {
         var beginDate;
         var endDate;
 
-        for (var i = 0; i < headItems.length; i++) {
+        for (var i = 0; i < bodyItems.length; i++) {
 
-
-            var field = headItems[i];
-            if (field.key == 'beginDate') {
-                beginDate = bodyItems[i]['data']['beginDate'];
-            }
-            if (field.key == 'endDate') {
-                endDate = bodyItems[i]['data']['endDate'];
-            }
+            beginDate = bodyItems[i]['data']['beginDate'];
+            endDate = bodyItems[i]['data']['endDate'];
 
             if (beginDate && endDate) {
 
                 if (new Date(beginDate.replace(/\-/g, '\/')) > new Date(endDate.replace(/\-/g, '\/'))) {
                     //开始时间大于了结束时间
-                    $('tr[data-index='+i+']').css('background-color','#f35151');
+                    $('tr[data-index=' + j + '] td[key="number"]').css('background-color', '#f35151');
                 }
 
                 continue;
+
             }
 
         }
-
-        if (beginDate && endDate) {
-
-            if (new Date(beginDate.replace(/\-/g, '\/')) > new Date(endDate.replace(/\-/g, '\/'))) {
-                //开始时间大于了结束时间
-                return false;
-                $('tr[data-index=]')
-/*                $(div).delegate("td[data-index]", "click", function (event) {
-
-                }*/
-            }
-
-        }
-
-        return true;
     }
 
     return {
