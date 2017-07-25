@@ -454,7 +454,7 @@ define("List", function (require, module, exports) {
         var beginDate;
         var endDate;
 
-        for (var i = 0; i < headItems.length(); i++) {
+        for (var i = 0; i < headItems.length; i++) {
 
 
             var field = headItems[i];
