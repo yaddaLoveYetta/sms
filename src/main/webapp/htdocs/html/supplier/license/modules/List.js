@@ -140,7 +140,7 @@ define("List", function (require, module, exports) {
                         checkbox: data.checkbox ? $.String.format(samples["td.checkbox"], {
                             index: no
                         }) : "",
-                        tds: $.Array.keep(item.items, function (item, index) {
+                        tds: $.Array.keep(item.items, function (colItem, index) {
                             // 列
                             var field = headItems[index];
                             // 当前列的表头信息
@@ -148,8 +148,8 @@ define("List", function (require, module, exports) {
                                 index: index,
                                 key: field.key,
                                 "number-class": field.key == "number" ? "number" : "",
-                                td: field.isEntry ? getTableHtml(field, no, index, item.value) : getHtml(field.type, item.value),
-                                title: field.isEntry ? '' : getHtml(field.type, item.value),
+                                td: field.isEntry ? getTableHtml(field, no, index, colItem.value) : getHtml(field.type, colItem.value),
+                                title: field.isEntry ? '' : getHtml(field.type, colItem.value),
                             });
                         }).join("")
                     });
@@ -164,8 +164,11 @@ define("List", function (require, module, exports) {
                     });
                 }).join("")
             });
+
             sumTdTotal(data);
+
             bindHover();
+
             if (!hasBind) {
                 bindEvents(config.multiSelect);
                 hasBind = true;
@@ -175,7 +178,10 @@ define("List", function (require, module, exports) {
                 $('[data-check="all"]').hide();
             }
             fn && fn(total, config.pageSize);
+
+            emitter.fire("renderDone", []);
         });
+
     }
 
     function sumTdTotal(data) {
@@ -440,6 +446,53 @@ define("List", function (require, module, exports) {
         });
     }
 
+    function checkExpired() {
+
+        var headItems = list.head.items;
+        var bodyItems = list.body.items;
+
+        var beginDate;
+        var endDate;
+
+        for (var i = 0; i < headItems.length(); i++) {
+
+
+            var field = headItems[i];
+            if (field.key == 'beginDate') {
+                beginDate = bodyItems[i]['data']['beginDate'];
+            }
+            if (field.key == 'endDate') {
+                endDate = bodyItems[i]['data']['endDate'];
+            }
+
+            if (beginDate && endDate) {
+
+                if (new Date(beginDate.replace(/\-/g, '\/')) > new Date(endDate.replace(/\-/g, '\/'))) {
+                    //开始时间大于了结束时间
+                    $('tr[data-index='+i+']').css('background-color','#f35151');
+                }
+
+                continue;
+            }
+
+        }
+
+        if (beginDate && endDate) {
+
+            if (new Date(beginDate.replace(/\-/g, '\/')) > new Date(endDate.replace(/\-/g, '\/'))) {
+                //开始时间大于了结束时间
+                return false;
+                $('tr[data-index=]')
+/*                $(div).delegate("td[data-index]", "click", function (event) {
+
+                }*/
+            }
+
+        }
+
+        return true;
+    }
+
     return {
         load: load,
         render: render,
@@ -454,7 +507,7 @@ define("List", function (require, module, exports) {
         review: review,
         unReview: unReview,
         send: send,
-        /*        upload: upload,*/
+        checkExpired: checkExpired,
     };
 })
 ;
