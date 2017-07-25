@@ -463,7 +463,7 @@ define("List", function (require, module, exports) {
 
                 if (new Date(beginDate.replace(/\-/g, '\/')) > new Date(endDate.replace(/\-/g, '\/'))) {
                     //开始时间大于了结束时间
-                    $('tr[data-index=' + j + '] td[key="number"]').css('background-color', '#f35151');
+                    $('tr[data-index=' + i + '] td[key="number"]').css('background-color', '#f35151');
                 }
 
                 continue;
