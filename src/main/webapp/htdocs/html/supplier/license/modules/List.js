@@ -461,7 +461,7 @@ define("List", function (require, module, exports) {
 
             if (beginDate && endDate) {
 
-                if (new Date(beginDate.replace(/\-/g, '\/')) > new Date(endDate.replace(/\-/g, '\/'))) {
+                if (new Date(endDate.replace(/\-/g, '\/')) < new Date()) {
                     //开始时间大于了结束时间
                     $('tr[data-index=' + i + '] td[key="number"]').css('background-color', '#f35151');
                 }
