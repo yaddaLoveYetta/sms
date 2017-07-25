@@ -458,7 +458,7 @@
 
         },
         'renderDone': function () {
-            if (classId === 3010 || classId === 3020) {
+            if (classId == 3010 || classId == 3020) {
                 List.checkExpired(classId);
             }
         }
