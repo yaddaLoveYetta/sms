@@ -89,16 +89,15 @@ define('Tree', function (require, module, exports) {
 
         if (classId == 1005) {
             // 供应商过滤出审核状态的
-            // 港大医院需要脱离hrp直接用供应商资质-此处先去掉供应商资质中供应商数查询时候供应商要求已审核状态的条件
-            /*            conditions.push({
-             'andOr': 'AND',
-             'leftParenTheses': '(',
-             'fieldKey': 'status',
-             'logicOperator': '=',
-             'value': 1,
-             'rightParenTheses': ')',
-             'needConvert': false
-             });*/
+            conditions.push({
+                'andOr': 'AND',
+                'leftParenTheses': '(',
+                'fieldKey': 'status',
+                'logicOperator': '=',
+                'value': 1,
+                'rightParenTheses': ')',
+                'needConvert': false
+            });
         }
         SMS.Tips.loading("数据加载中...");
         load({
