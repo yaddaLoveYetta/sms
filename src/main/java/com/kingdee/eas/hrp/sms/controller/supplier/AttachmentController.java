@@ -171,23 +171,19 @@ public class AttachmentController {
 		if (classId < 0) {
 			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR,
 			// "参数错误：必须提交classId");
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, "参数错误：必须提交classId");
+			//response.sendError(HttpServletResponse.SC_NOT_FOUND, "参数错误：必须提交classId");
+			response.getWriter().write("<script>alert('参数错误：必须提交classId');history.back();</script>");
 			return;
 		}
 
 		if ("".equals(fileName)) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, "参数错误：必须提交fileName");
+			//response.sendError(HttpServletResponse.SC_NOT_FOUND, "参数错误：必须提交fileName");
+			response.getWriter().write("<script>alert('参数错误：必须提交fileName');history.back();</script>");
 			// ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR,
 			// "参数错误：必须提交itemId及fileName");
 			return;
 		}
 
-		// 设置文件MIME类型
-		response.setContentType("application/force-download");
-		// 设置Content-Disposition
-		// response.setHeader("Content-Disposition", "attachment;filename=" +
-		// URLEncoder.encode(fileName, "UTF-8"));
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
 		// 读取目标文件，通过response将目标文件写到客户端
 		// 获取目标文件的绝对路径
 		String fileDirector = SystemParamUtil.getString("sys", "FILE_PATH"); // 文件存放目录
@@ -198,7 +194,7 @@ public class AttachmentController {
 
 		if (!f.exists()) {
 			// 路径不存在
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, "文件不存在");
+			response.getWriter().write("<script>alert('文件不存在');history.back();</script>");
 			return;
 			// throw new BusinessLogicRunTimeException("文件不存在");
 		}
@@ -209,10 +205,18 @@ public class AttachmentController {
 
 		if (!f.exists()) {
 			// 路径不存在
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, "文件不存在");
+			// response.sendError(HttpServletResponse.SC_NOT_FOUND, "文件不存在");
+			// response.getWriter().write("<div>文件不存在www</div>");
+			response.getWriter().write("<script>alert('文件不存在');history.back();</script>");
+			// response.getWriter().write("<script>SMS.Tips.error('请选择要操作的项', 1500);</script>");
 			return;
 			// throw new BusinessLogicRunTimeException("文件不存在");
 		}
+
+		// 设置文件MIME类型
+		response.setContentType("application/force-download");
+		// 设置Content-Disposition
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
 
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
 		BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
