@@ -54,7 +54,7 @@ public class PurReturnsService extends BaseService implements IPurReturnsService
 				purReturnsEntry.setMaterial(purEntryObject.getString("material"));
 				purReturnsEntry.setParent(purEntryObject.getString("parent"));
 				purReturnsEntry.setUnit(purEntryObject.getString("unit"));
-				purReturnsEntry.setReturnQty(purEntryObject.getLong("returnQty"));
+				purReturnsEntry.setReturnQty(purEntryObject.getBigDecimal("returnQty"));
 				PurReturnsEntryMapper purReturnsEntryMapper = sqlSession.getMapper(PurReturnsEntryMapper.class);
 				if (jsonObject.getByte("baseStatus") == 4) {
 					purReturnsEntryMapper.insertSelective(purReturnsEntry);

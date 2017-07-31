@@ -67,8 +67,8 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 				purReceivalEntry.setInnercode(purEntryObject.getString("innercode"));
 				purReceivalEntry.setUnit(purEntryObject.getString("unit"));
 				purReceivalEntry.setPrice(purEntryObject.getBigDecimal("price"));
-				purReceivalEntry.setQty(purEntryObject.getLong("qty"));
-				purReceivalEntry.setActualQty(purEntryObject.getLong("actualQty"));
+				purReceivalEntry.setQty(purEntryObject.getBigDecimal("qty"));
+				purReceivalEntry.setActualQty(purEntryObject.getBigDecimal("actualQty"));
 				if (purEntryObject.getDate("dyProDate") != null) {
 					purReceivalEntry.setDyProDate(purEntryObject.getDate("dyProDate"));
 				}
@@ -78,8 +78,8 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 				if (purEntryObject.getDate("effectiveDate") != null) {
 					purReceivalEntry.setEffectiveDate(purEntryObject.getDate("effectiveDate"));
 				}
-				purReceivalEntry.setQualifiedQty(purEntryObject.getLong("qualifiedQty"));
-				purReceivalEntry.setUnqualifiedQty(purEntryObject.getLong("unqualifiedQty"));
+				purReceivalEntry.setQualifiedQty(purEntryObject.getBigDecimal("qualifiedQty"));
+				purReceivalEntry.setUnqualifiedQty(purEntryObject.getBigDecimal("unqualifiedQty"));
 				PurReceivalEntryMapper purReceivalEntryMapper = sqlSession.getMapper(PurReceivalEntryMapper.class);
 				if (jsonObject.getByte("baseStatus") == 4) {
 					purReceivalEntryMapper.insertSelective(purReceivalEntry);

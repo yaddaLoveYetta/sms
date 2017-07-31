@@ -17,6 +17,7 @@
     <result column="prohibited" jdbcType="TINYINT" property="prohibited" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="number" jdbcType="NVARCHAR" property="number" />
+    <result column="dyManufacturer" jdbcType="VARCHAR" property="dyManufacturer" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, [type], supplier, authOrg, description, beginDate, endDate, syncStatus, review, 
-    material, isMust, isControl, prohibited, [name], [number]
+    material, isMust, isControl, prohibited, [name], [number], dyManufacturer
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierItemLicenseExample" resultMap="BaseResultMap">
     select
@@ -115,14 +116,14 @@
       authOrg, description, beginDate, 
       endDate, syncStatus, review, 
       material, isMust, isControl, 
-      prohibited, [name], [number]
-      )
+      prohibited, [name], [number], 
+      dyManufacturer)
     values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, 
       #{authOrg,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
       #{endDate,jdbcType=TIMESTAMP}, #{syncStatus,jdbcType=TINYINT}, #{review,jdbcType=TINYINT}, 
       #{material,jdbcType=VARCHAR}, #{isMust,jdbcType=TINYINT}, #{isControl,jdbcType=TINYINT}, 
-      #{prohibited,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=NVARCHAR}
-      )
+      #{prohibited,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=NVARCHAR}, 
+      #{dyManufacturer,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.SupplierItemLicense">
     insert into t_sms_supplier_item_license
@@ -172,6 +173,9 @@
       <if test="number != null">
         [number],
       </if>
+      <if test="dyManufacturer != null">
+        dyManufacturer,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -218,6 +222,9 @@
       </if>
       <if test="number != null">
         #{number,jdbcType=NVARCHAR},
+      </if>
+      <if test="dyManufacturer != null">
+        #{dyManufacturer,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -275,6 +282,9 @@
       <if test="record.number != null">
         [number] = #{record.number,jdbcType=NVARCHAR},
       </if>
+      <if test="record.dyManufacturer != null">
+        dyManufacturer = #{record.dyManufacturer,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -296,7 +306,8 @@
       isControl = #{record.isControl,jdbcType=TINYINT},
       prohibited = #{record.prohibited,jdbcType=TINYINT},
       [name] = #{record.name,jdbcType=VARCHAR},
-      [number] = #{record.number,jdbcType=NVARCHAR}
+      [number] = #{record.number,jdbcType=NVARCHAR},
+      dyManufacturer = #{record.dyManufacturer,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -346,6 +357,9 @@
       <if test="number != null">
         [number] = #{number,jdbcType=NVARCHAR},
       </if>
+      <if test="dyManufacturer != null">
+        dyManufacturer = #{dyManufacturer,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -364,7 +378,8 @@
       isControl = #{isControl,jdbcType=TINYINT},
       prohibited = #{prohibited,jdbcType=TINYINT},
       [name] = #{name,jdbcType=VARCHAR},
-      [number] = #{number,jdbcType=NVARCHAR}
+      [number] = #{number,jdbcType=NVARCHAR},
+      dyManufacturer = #{dyManufacturer,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
