@@ -9,7 +9,7 @@ public class DataFlowSubClass {
 
     private Integer index;
 
-    private Boolean visible;
+    private Byte visible;
 
     private String url;
 
@@ -49,11 +49,11 @@ public class DataFlowSubClass {
         this.index = index;
     }
 
-    public Boolean getVisible() {
+    public Byte getVisible() {
         return visible;
     }
 
-    public void setVisible(Boolean visible) {
+    public void setVisible(Byte visible) {
         this.visible = visible;
     }
 

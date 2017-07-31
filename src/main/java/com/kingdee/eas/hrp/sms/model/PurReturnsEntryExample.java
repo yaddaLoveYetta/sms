@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -534,52 +535,52 @@ public class PurReturnsEntryExample {
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyEqualTo(Long value) {
+        public Criteria andReturnQtyEqualTo(BigDecimal value) {
             addCriterion("returnQty =", value, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyNotEqualTo(Long value) {
+        public Criteria andReturnQtyNotEqualTo(BigDecimal value) {
             addCriterion("returnQty <>", value, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyGreaterThan(Long value) {
+        public Criteria andReturnQtyGreaterThan(BigDecimal value) {
             addCriterion("returnQty >", value, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyGreaterThanOrEqualTo(Long value) {
+        public Criteria andReturnQtyGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("returnQty >=", value, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyLessThan(Long value) {
+        public Criteria andReturnQtyLessThan(BigDecimal value) {
             addCriterion("returnQty <", value, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyLessThanOrEqualTo(Long value) {
+        public Criteria andReturnQtyLessThanOrEqualTo(BigDecimal value) {
             addCriterion("returnQty <=", value, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyIn(List<Long> values) {
+        public Criteria andReturnQtyIn(List<BigDecimal> values) {
             addCriterion("returnQty in", values, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyNotIn(List<Long> values) {
+        public Criteria andReturnQtyNotIn(List<BigDecimal> values) {
             addCriterion("returnQty not in", values, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyBetween(Long value1, Long value2) {
+        public Criteria andReturnQtyBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("returnQty between", value1, value2, "returnQty");
             return (Criteria) this;
         }
 
-        public Criteria andReturnQtyNotBetween(Long value1, Long value2) {
+        public Criteria andReturnQtyNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("returnQty not between", value1, value2, "returnQty");
             return (Criteria) this;
         }
