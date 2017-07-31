@@ -63,7 +63,7 @@ public class PurInWarehsService extends BaseService implements IPurInWarehsServi
 				purInWarehsEntry.setInnercode(purEntryObject.getString("innercode"));
 				purInWarehsEntry.setUnit(purEntryObject.getString("unit"));
 				purInWarehsEntry.setPrice(purEntryObject.getBigDecimal("price"));
-				purInWarehsEntry.setActualQty(purEntryObject.getLong("actualQty"));
+				purInWarehsEntry.setActualQty(purEntryObject.getBigDecimal("actualQty"));
 				if (purEntryObject.getDate("dyProDate") != null) {
 					purInWarehsEntry.setDyProDate(purEntryObject.getDate("dyProDate"));
 				}
