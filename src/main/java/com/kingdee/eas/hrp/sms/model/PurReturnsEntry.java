@@ -1,5 +1,7 @@
 package com.kingdee.eas.hrp.sms.model;
 
+import java.math.BigDecimal;
+
 public class PurReturnsEntry {
     private String id;
 
@@ -13,7 +15,7 @@ public class PurReturnsEntry {
 
     private String unit;
 
-    private Long returnQty;
+    private BigDecimal returnQty;
 
     public String getId() {
         return id;
@@ -63,11 +65,11 @@ public class PurReturnsEntry {
         this.unit = unit == null ? null : unit.trim();
     }
 
-    public Long getReturnQty() {
+    public BigDecimal getReturnQty() {
         return returnQty;
     }
 
-    public void setReturnQty(Long returnQty) {
+    public void setReturnQty(BigDecimal returnQty) {
         this.returnQty = returnQty;
     }
 }

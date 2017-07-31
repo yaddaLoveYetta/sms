@@ -1084,6 +1084,76 @@ public class SupplierItemLicenseExample {
             addCriterion("[number] not between", value1, value2, "number");
             return (Criteria) this;
         }
+
+        public Criteria andDyManufacturerIsNull() {
+            addCriterion("dyManufacturer is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerIsNotNull() {
+            addCriterion("dyManufacturer is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerEqualTo(String value) {
+            addCriterion("dyManufacturer =", value, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerNotEqualTo(String value) {
+            addCriterion("dyManufacturer <>", value, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerGreaterThan(String value) {
+            addCriterion("dyManufacturer >", value, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerGreaterThanOrEqualTo(String value) {
+            addCriterion("dyManufacturer >=", value, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerLessThan(String value) {
+            addCriterion("dyManufacturer <", value, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerLessThanOrEqualTo(String value) {
+            addCriterion("dyManufacturer <=", value, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerLike(String value) {
+            addCriterion("dyManufacturer like", value, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerNotLike(String value) {
+            addCriterion("dyManufacturer not like", value, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerIn(List<String> values) {
+            addCriterion("dyManufacturer in", values, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerNotIn(List<String> values) {
+            addCriterion("dyManufacturer not in", values, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerBetween(String value1, String value2) {
+            addCriterion("dyManufacturer between", value1, value2, "dyManufacturer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyManufacturerNotBetween(String value1, String value2) {
+            addCriterion("dyManufacturer not between", value1, value2, "dyManufacturer");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

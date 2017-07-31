@@ -796,52 +796,52 @@ public class PurInWarehsEntryExample {
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyEqualTo(Long value) {
+        public Criteria andActualQtyEqualTo(BigDecimal value) {
             addCriterion("actualQty =", value, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyNotEqualTo(Long value) {
+        public Criteria andActualQtyNotEqualTo(BigDecimal value) {
             addCriterion("actualQty <>", value, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyGreaterThan(Long value) {
+        public Criteria andActualQtyGreaterThan(BigDecimal value) {
             addCriterion("actualQty >", value, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyGreaterThanOrEqualTo(Long value) {
+        public Criteria andActualQtyGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("actualQty >=", value, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyLessThan(Long value) {
+        public Criteria andActualQtyLessThan(BigDecimal value) {
             addCriterion("actualQty <", value, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyLessThanOrEqualTo(Long value) {
+        public Criteria andActualQtyLessThanOrEqualTo(BigDecimal value) {
             addCriterion("actualQty <=", value, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyIn(List<Long> values) {
+        public Criteria andActualQtyIn(List<BigDecimal> values) {
             addCriterion("actualQty in", values, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyNotIn(List<Long> values) {
+        public Criteria andActualQtyNotIn(List<BigDecimal> values) {
             addCriterion("actualQty not in", values, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyBetween(Long value1, Long value2) {
+        public Criteria andActualQtyBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("actualQty between", value1, value2, "actualQty");
             return (Criteria) this;
         }
 
-        public Criteria andActualQtyNotBetween(Long value1, Long value2) {
+        public Criteria andActualQtyNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("actualQty not between", value1, value2, "actualQty");
             return (Criteria) this;
         }

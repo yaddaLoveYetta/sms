@@ -33,6 +33,8 @@ public class SupplierItemLicense {
 
     private String number;
 
+    private String dyManufacturer;
+
     public String getId() {
         return id;
     }
@@ -151,5 +153,13 @@ public class SupplierItemLicense {
 
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
+    }
+
+    public String getDyManufacturer() {
+        return dyManufacturer;
+    }
+
+    public void setDyManufacturer(String dyManufacturer) {
+        this.dyManufacturer = dyManufacturer == null ? null : dyManufacturer.trim();
     }
 }

@@ -24,9 +24,9 @@ public class PurReceivalEntry {
 
     private BigDecimal price;
 
-    private Long qty;
+    private BigDecimal qty;
 
-    private Long actualQty;
+    private BigDecimal actualQty;
 
     private Date dyProDate;
 
@@ -38,9 +38,9 @@ public class PurReceivalEntry {
 
     private Date effectiveDate;
 
-    private Long qualifiedQty;
+    private BigDecimal qualifiedQty;
 
-    private Long unqualifiedQty;
+    private BigDecimal unqualifiedQty;
 
     public String getId() {
         return id;
@@ -122,19 +122,19 @@ public class PurReceivalEntry {
         this.price = price;
     }
 
-    public Long getQty() {
+    public BigDecimal getQty() {
         return qty;
     }
 
-    public void setQty(Long qty) {
+    public void setQty(BigDecimal qty) {
         this.qty = qty;
     }
 
-    public Long getActualQty() {
+    public BigDecimal getActualQty() {
         return actualQty;
     }
 
-    public void setActualQty(Long actualQty) {
+    public void setActualQty(BigDecimal actualQty) {
         this.actualQty = actualQty;
     }
 
@@ -178,19 +178,19 @@ public class PurReceivalEntry {
         this.effectiveDate = effectiveDate;
     }
 
-    public Long getQualifiedQty() {
+    public BigDecimal getQualifiedQty() {
         return qualifiedQty;
     }
 
-    public void setQualifiedQty(Long qualifiedQty) {
+    public void setQualifiedQty(BigDecimal qualifiedQty) {
         this.qualifiedQty = qualifiedQty;
     }
 
-    public Long getUnqualifiedQty() {
+    public BigDecimal getUnqualifiedQty() {
         return unqualifiedQty;
     }
 
-    public void setUnqualifiedQty(Long unqualifiedQty) {
+    public void setUnqualifiedQty(BigDecimal unqualifiedQty) {
         this.unqualifiedQty = unqualifiedQty;
     }
 }
