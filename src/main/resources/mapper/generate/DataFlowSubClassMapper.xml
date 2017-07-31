@@ -6,7 +6,7 @@
     <result column="topClassId" jdbcType="INTEGER" property="topClassId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="index" jdbcType="INTEGER" property="index" />
-    <result column="visible" jdbcType="BIT" property="visible" />
+    <result column="visible" jdbcType="TINYINT" property="visible" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="ownerType" jdbcType="INTEGER" property="ownerType" />
@@ -104,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.DataFlowSubClass">
     insert into t_sms_dataFlowSubClass (subSysId, topClassId, [name], 
-      [index], visible, url, icon, 
-      ownerType)
+      [index], visible, url, 
+      icon, ownerType)
     values (#{subSysId,jdbcType=INTEGER}, #{topClassId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{index,jdbcType=INTEGER}, #{visible,jdbcType=BIT}, #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
-      #{ownerType,jdbcType=INTEGER})
+      #{index,jdbcType=INTEGER}, #{visible,jdbcType=TINYINT}, #{url,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{ownerType,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.DataFlowSubClass">
     insert into t_sms_dataFlowSubClass
@@ -152,7 +152,7 @@
         #{index,jdbcType=INTEGER},
       </if>
       <if test="visible != null">
-        #{visible,jdbcType=BIT},
+        #{visible,jdbcType=TINYINT},
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
@@ -187,7 +187,7 @@
         [index] = #{record.index,jdbcType=INTEGER},
       </if>
       <if test="record.visible != null">
-        visible = #{record.visible,jdbcType=BIT},
+        visible = #{record.visible,jdbcType=TINYINT},
       </if>
       <if test="record.url != null">
         url = #{record.url,jdbcType=VARCHAR},
@@ -209,7 +209,7 @@
       topClassId = #{record.topClassId,jdbcType=INTEGER},
       [name] = #{record.name,jdbcType=VARCHAR},
       [index] = #{record.index,jdbcType=INTEGER},
-      visible = #{record.visible,jdbcType=BIT},
+      visible = #{record.visible,jdbcType=TINYINT},
       url = #{record.url,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
       ownerType = #{record.ownerType,jdbcType=INTEGER}
@@ -230,7 +230,7 @@
         [index] = #{index,jdbcType=INTEGER},
       </if>
       <if test="visible != null">
-        visible = #{visible,jdbcType=BIT},
+        visible = #{visible,jdbcType=TINYINT},
       </if>
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
@@ -249,7 +249,7 @@
     set topClassId = #{topClassId,jdbcType=INTEGER},
       [name] = #{name,jdbcType=VARCHAR},
       [index] = #{index,jdbcType=INTEGER},
-      visible = #{visible,jdbcType=BIT},
+      visible = #{visible,jdbcType=TINYINT},
       url = #{url,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       ownerType = #{ownerType,jdbcType=INTEGER}
