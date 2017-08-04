@@ -52,7 +52,7 @@ define('UserInfos1', function (require, module, exports) {
 
                     SMS.Login.logout(function (user, data, json) { //成功
 
-                        location.href = 'login1.html';
+                        location.href = 'hospitallogin.html';
 
                     }, function (code, msg, json) { //失败
 
