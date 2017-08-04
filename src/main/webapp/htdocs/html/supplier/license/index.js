@@ -22,16 +22,15 @@
 
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var txtItemSearch = document.getElementById('txt-item-search');
+    
+    
 
     var conditions = {};
     var treeFilter;
-
+    
     //检查登录
     if (!SMS.Login.check(true)) {
         return;
-    }
-    window.onload = function(){
-    	refresh();
     }
 
     // 供应商资质维护tree中显示供应商，物料证件维护tree中显示供应商中标库物料
@@ -466,7 +465,7 @@
             }
         }
     });
-   /* Tree.on({
+    Tree.on({
 
         onClick: function (data) {
 
@@ -479,6 +478,6 @@
         }
     });
 
-    Tree.render(treeClassId);*/
+    Tree.render(treeClassId);
 
 })();
