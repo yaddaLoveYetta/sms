@@ -30,9 +30,6 @@
     if (!SMS.Login.check(true)) {
         return;
     }
-    window.onload = function(){
-    	refresh();
-    }
 
     // 供应商资质维护tree中显示供应商，物料证件维护tree中显示供应商中标库物料
     var treeClassId = classId == 3010 ? 1005 : classId == 3020 ? 3030 : 0;
@@ -466,7 +463,7 @@
             }
         }
     });
-   /* Tree.on({
+    Tree.on({
 
         onClick: function (data) {
 
@@ -479,6 +476,6 @@
         }
     });
 
-    Tree.render(treeClassId);*/
+    Tree.render(treeClassId);
 
 })();
