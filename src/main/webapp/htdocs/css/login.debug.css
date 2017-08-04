@@ -80,15 +80,14 @@ body {
 }
 .login-box .content .login-panel .select-tab {
   text-align: center;
-  width: 50%;
+  width: 100%;
   height: 40px;
   line-height: 40px;
   cursor: pointer;
-  background: #36586e;
   /*background:#3f3541;*/
   /*opacity:0.8;
                 filter:alpha(opacity=80);*/
-  color: #fff;
+  color: #131212;
   font-size: 18px;
 }
 .login-box .content .login-panel .left.select-tab {
@@ -100,25 +99,6 @@ body {
 .login-box .content .login-panel .hover {
   background: #ffffff;
   color: #292929;
-}
-.login-box .content .login-panel .hover .tab {
-  color: #292929;
-  margin: -1px 20px 0;
-  border-bottom: 1px solid #d0d5da;
-  position: relative;
-}
-.login-box .content .login-panel .hover .tab:after {
-  position: absolute;
-  display: block;
-  border-style: solid;
-  border-color: transparent transparent #d0d5da transparent;
-  z-index: 2;
-  border-width: 6px 10px;
-  left: 43%;
-  top: 28px;
-  content: "";
-  height: 0;
-  width: 0px;
 }
 .login-box .content .login-panel .hover .selected-back {
   position: absolute;
