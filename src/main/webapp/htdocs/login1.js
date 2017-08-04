@@ -3,10 +3,10 @@
 
 
     var Tabs = require('Tabs');
-    var Login = require('Login');
+    var Login = require('Login1');
     var WarnTip = require('WarnTip');
 
-    Tabs.init(0);
+    Tabs.init(1);
     Login.init();
 
 
@@ -17,14 +17,14 @@
         // 'B3sMo22ZLkWApjO/oEeDOxACEAI=' 业务用户 'QpXq24FxxE6c3lvHMPyYCxACEAI=' 系统用户
         'keydown': function (event) {
             if (event.keyCode == 13) {
-                Login.login('B3sMo22ZLkWApjO/oEeDOxACEAI=');
+                Login.login('QpXq24FxxE6c3lvHMPyYCxACEAI=');
             }
         }
     });
 
     Login.on({
         'login': function () {
-            Login.login('B3sMo22ZLkWApjO/oEeDOxACEAI=');
+            Login.login('QpXq24FxxE6c3lvHMPyYCxACEAI=');
             // 50801-供应商用户，50802-系统用户
         }
     });
