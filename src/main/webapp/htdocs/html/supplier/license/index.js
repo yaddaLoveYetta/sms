@@ -22,12 +22,10 @@
 
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var txtItemSearch = document.getElementById('txt-item-search');
-    
-    
 
     var conditions = {};
     var treeFilter;
-    
+
     //检查登录
     if (!SMS.Login.check(true)) {
         return;
