@@ -142,7 +142,7 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 
 		// 同步删除
-		if (reviewAndSyncClassIdList.contains(classId) && flag) {
+		/*if (reviewAndSyncClassIdList.contains(classId) && flag) {
 
 			JSONObject delJson = new JSONObject(true);
 			delJson.put("classId", classId);
@@ -158,7 +158,7 @@ public class ItemPlugin extends PlugInAdpter {
 			if (!(null == syncData || "".equals(syncData))) {
 				throw new PlugInRuntimeException("记录无法在医院数据中删除，故删除失败");
 			}
-		}
+		}*/
 		if (classId == 1003) {
 			String[] split = data.split("\\,");
 			SqlSession rolesqlSession = (SqlSession) Environ.getBean("sqlSession");
