@@ -47,7 +47,7 @@ define('Upload', function (require, module, exports) {
             fileTypeExts: '*.*',
             multi: true,
             method: 'post',
-            removeCompleted: false,// 上传完成后自动删除队列
+            removeCompleted: true,// 上传完成后自动删除队列
             removeTimeout: 1,
             queueID: "fileQueue",
             queueSizeLimit: 3,
