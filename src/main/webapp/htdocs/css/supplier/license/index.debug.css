@@ -158,6 +158,7 @@
 .data-table td {
     height: 30px;
     vertical-align: middle;
+    word-wrap: break-word;
 }
 
 .data-table img {
