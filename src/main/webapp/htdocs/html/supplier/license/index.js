@@ -331,10 +331,20 @@
         'refresh': function (item, index) {
             refresh();
         },
+        'export': function (item, index) {
+            var conditions = getCondition();
+
+            var api = new API("file/export");
+
+            api.get({
+                classId:classId,
+                condition:conditions,
+            });
+        }
 
     });
 
-    function refresh() {
+    function getCondition() {
 
         conditions = {};
 
@@ -385,6 +395,13 @@
                 };
             }
         }
+
+        return conditions;
+    }
+
+    function refresh() {
+
+        var conditions = getCondition();
 
         List.render({
             classId: classId,
