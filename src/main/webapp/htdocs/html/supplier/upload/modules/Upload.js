@@ -42,7 +42,7 @@ define('Upload', function (require, module, exports) {
             auto: false,
             width: 60,
             height: 25,
-            fileSizeLimit: "5MB",
+            fileSizeLimit: "10MB",
             fileTypeDesc: '文件',
             fileTypeExts: '*.*',
             multi: true,
