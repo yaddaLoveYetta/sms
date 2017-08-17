@@ -97,6 +97,11 @@
                 text: '发送到医院',
                 name: 'send',
                 icon: '../../../css/main/img/send.png',
+            },
+            {
+                text: '导出',
+                name: 'export',
+                icon: '../../../css/main/img/download.png',
             }]
     };
 
@@ -426,7 +431,6 @@
                 data.control.href = url;
                 data.control.click();
                 data.control.href = "#";
-
 
             } else if (type == 2) {
 
