@@ -334,11 +334,19 @@
         'export': function (item, index) {
             var conditions = getCondition();
 
+            var conditionArray = new Array();
+            for (var item in conditions) {
+                if (conditions[item] === '') {
+                    continue;
+                }
+                conditionArray.push(conditions[item]);
+            }
+
             var api = new API("file/export");
 
             api.get({
                 classId:classId,
-                condition:conditions,
+                condition:conditionArray,
             });
         }
 
