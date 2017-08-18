@@ -65,7 +65,7 @@
     /*min-width: 80px;*/
     background-color: transparent;
     font-size: 14px;
-    padding: 0px 20px;
+    padding: 0px 15px;
 }
 .sms-btn-menu .btn-more li .icons{
     background-size: 14px,14px;
@@ -155,7 +155,7 @@
     color: #fff;
     /*background: #54add3;*/
     background: #009bd9;
-    padding: 0 10px;
+    padding: 0 15px;
     height: 25px;
     line-height: 25px;
     cursor: pointer;
