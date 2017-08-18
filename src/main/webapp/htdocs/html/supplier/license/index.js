@@ -344,10 +344,22 @@
 
             var api = new API("file/export");
 
-            api.get({
-                classId:classId,
-                condition:conditionArray,
-            });
+            var url = api.getUrl();
+            url = $.Url.addQueryString(url, {
+                classId: classId,
+                condition:$.Object.toJson(conditionArray),
+            })
+
+
+            var form = $("<form>");//定义一个form表单
+            form.attr("style", "display:none");
+            form.attr("target", "");
+            form.attr("method", "post");//请求类型
+            form.attr("action", url);//请求地址
+            $("body").append(form);//将表单放置在web中
+
+            form.submit();//表单提交
+            $(form).remove();
         }
 
     });
