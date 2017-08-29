@@ -17,7 +17,18 @@
 
     //检查登录
 
-    var ButtonList = bl.create(itemId);
+    var blConfig = {
+        items: [{
+            text: '新增',
+            name: 'optNew',
+            icon: '../../../css/main/img/add.png',
+        }, {
+            text: '保存',
+            name: 'optSave',
+            icon: '../../../css/main/img/save.png',
+        }],
+    };
+    var ButtonList = bl.create(blConfig);
 
     if (!SMS.Login.check(true)) {
         return;
