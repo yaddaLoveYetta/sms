@@ -68,6 +68,7 @@ define('Edit', function (require, module, exports) {
         // 构造模板，模仿物料证件有物料子表
         var materialModel = template.formFields["0"]["material"]; // 主表中的物料模板
         delete  template.formFields["1"];
+        template.formFields["1"]={};
         template.formFields["1"]["material"] = materialModel; // 子表模板加入物料
         template.formEntries["1"]["primaryKey"] = "material"; // 修改子表主键-grid判断用
 
