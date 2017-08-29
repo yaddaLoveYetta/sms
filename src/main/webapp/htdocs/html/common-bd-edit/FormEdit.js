@@ -475,7 +475,10 @@
 
         if (!itemId) {
             // 初始化子表-调用者处理
-            if (!!fnEntry && !MiniQuery.Object.isEmpty(metaData['formEntries'])) {
+            /*            if (!!fnEntry && !MiniQuery.Object.isEmpty(metaData['formEntries'])) {
+             fnEntry && fnEntry(null, metaData);
+             }*/
+            if (!!fnEntry) {
                 fnEntry && fnEntry(null, metaData);
             }
             return;
@@ -507,6 +510,7 @@
             }
         });
     }
+
     // IE环境下文本框不能获取焦点，不能编辑
     function fixIE() {
 
@@ -523,6 +527,7 @@
             });
         }
     }
+
     /**
      * 保存
      * @param {} itemID 项目ID
@@ -754,7 +759,7 @@
                 continue;
             }
 
-            element.value = value ;
+            element.value = value;
         }
 
         // 存在表体数据时，交给调用者自己处理

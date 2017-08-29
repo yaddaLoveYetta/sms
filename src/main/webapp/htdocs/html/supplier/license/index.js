@@ -62,6 +62,11 @@
                 text: '新增',
                 name: 'add',
                 icon: '../../../css/main/img/add.png',
+                items: [{
+                    text: '批量新增',
+                    name: 'batchAdd',
+                    icon: '../../../css/main/img/add.png',
+                }],
             },
             {
                 text: '删除',
@@ -120,8 +125,10 @@
                 var dfValue = {};
 
                 if (treeClassId == 1005) {
+                    // 供应商资质
                     dfValue['supplier'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增供应商资质时，供应商默认值为当前选中的供应商
                 } else if (treeClassId == 3030) {
+                    // 物料证件
                     dfValue['material'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增物料证件，物料默认值为当前选中中标库的物料
                     dfValue['supplier'] = treeFilter ? (treeFilter.value.supplier ? treeFilter.value.supplier : null ) : null  // 新增物料证件，供应商默认值为当前选中中标库物料关联的供应商
                 }
@@ -149,6 +156,44 @@
                 });
             });
 
+        },
+        'batchAdd': function (item, index) {
+            // 增加
+            SMS.use('Dialog', function (Dialog) {
+
+                var dfValue = {};
+
+                if (treeClassId == 1005) {
+                    // 供应商资质
+                    dfValue['supplier'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增供应商资质时，供应商默认值为当前选中的供应商
+                } else if (treeClassId == 3030) {
+                    // 物料证件
+                    dfValue['material'] = treeFilter ? (treeFilter.id == 0 ? null : treeFilter.id) : null  // 新增物料证件，物料默认值为当前选中中标库的物料
+                    dfValue['supplier'] = treeFilter ? (treeFilter.value.supplier ? treeFilter.value.supplier : null ) : null  // 新增物料证件，供应商默认值为当前选中中标库物料关联的供应商
+                }
+
+                var dialog = new Dialog({
+                    title: '批量新增-' + sysName,
+                    width: 700,
+                    height: 550,
+                    url: $.Url.setQueryString('html/supplier/batchAdd/index.html', 'classId', classId),
+                    data: {
+                        defaultValue: dfValue
+                    },
+                    button: [],
+                });
+
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
+
+                dialog.showModal();
+
+                dialog.on({
+                    remove: function () {
+                        refresh();
+                    }
+                });
+            });
         },
         'del': function (item, index) {
 
@@ -347,7 +392,7 @@
             var url = api.getUrl();
             url = $.Url.addQueryString(url, {
                 classId: classId,
-                condition:$.Object.toJson(conditionArray),
+                condition: $.Object.toJson(conditionArray),
             })
 
 
