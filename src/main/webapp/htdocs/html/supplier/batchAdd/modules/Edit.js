@@ -67,7 +67,7 @@ define('Edit', function (require, module, exports) {
 
         // 构造模板，模仿物料证件有物料子表
         var materialModel = template.formFields["0"]["material"]; // 主表中的物料模板
-        template.formFields["1"]={};
+        template.formFields["1"] = {};
         template.formFields["1"]["material"] = materialModel; // 子表模板加入物料
         template.formEntries["1"]["primaryKey"] = "material"; // 修改子表主键-grid判断用
 
@@ -129,26 +129,6 @@ define('Edit', function (require, module, exports) {
         });
 
     };
-    /**
-     * 表格数据填充
-     * @param entryData 数据
-     * @param metaData 元数据
-     */
-    var fillGrid = function (entryData, metaData) {
-
-        gridConfig = GridBuilder.getConfig(metaData['formFields'][1], gridConfig, columns, isNeedOpt);
-        mGrid.render(gridConfig, entryData, metaData, 1);
-        mGrid.on('f7Selected', function (data) {
-            var itemData = {
-                'FPark': data[0].ID,
-                'FParkID': data[0].ID,
-                'FParkNumber': data[0].number,
-                'FParkName': data[0].name
-            };
-            mGrid.setRowData(data.row, itemData);
-        });
-
-    }
 
     function render(formClassId, itemID, defaultValue) {
 
@@ -177,7 +157,80 @@ define('Edit', function (require, module, exports) {
             }
         }
 
-        FormEdit.save(itemId, showValidInfo, saveSuccess, entryData, errorData);
+        var entry = [];
+        /*
+         'flag':'1' 0删除, 1新增，2修改
+         */
+        var gridData = mGrid.getGridDatas(1); // 获取第一个表体数据
+
+        var errorData = gridData["error"] || []
+
+        if ((gridData["add"] || []).length == 0 && (gridData["update"] || []).length == 0) {
+            errorData['1'] = ['无有效分录，请在列表界面选择单据操作!'];
+        }
+
+
+        var msgElement = document.getElementById('bd-grid-msg');
+        $(msgElement).html('');
+
+        if (errorData) {
+
+            var errors = '';
+            // 显示错误提示
+            for (var item in errorData) {
+                errors = errors + '<br/>第' + item + '行[' + errorData[item].join('-') + ']是必录项';
+            }
+            $(msgElement).html(errors);
+            if (!$(msgElement).hasClass('show')) {
+                $(msgElement).toggleClass('show');
+            }
+            return;
+        }
+
+
+        //新增数据
+        $.Array.each(gridData["add"] || [], function (item, index) {
+
+            var addData = {
+                data: $.Object.grep(item, function (key, value) {
+                    return !(value === null);
+                }),
+                flag: '1'
+            };
+            entry.push(addData);
+        });
+
+        //修改数据
+        $.Array.each(gridData["update"] || [], function (item, index) {
+
+            var addData = {
+                data: $.Object.grep(item, function (key, value) {
+                    return !(value === null);
+                }),
+                flag: '2'
+            };
+            entry.push(addData);
+        });
+
+        //删除数据
+        $.Array.each(gridData["delete"] || [], function (item, index) {
+
+            var addData = {
+                data: $.Object.grep(item, function (key, value) {
+                    return !(value === null);
+                }),
+                flag: '0'
+            };
+            entry.push(addData);
+        });
+
+        var entryData = {
+            1: entry
+        };
+
+        entryData = entry;
+
+        FormEdit.save(itemId, showValidInfo, saveSuccess, entryData, null);
 
     }
 
