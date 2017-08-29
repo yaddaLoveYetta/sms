@@ -174,7 +174,7 @@ define('Edit', function (require, module, exports) {
         var msgElement = document.getElementById('bd-grid-msg');
         $(msgElement).html('');
 
-        if (errorData.length > 0) {
+        if (!$.Object.isEmpty(errorData)) {
 
             var errors = '';
             // 显示错误提示
