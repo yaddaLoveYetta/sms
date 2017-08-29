@@ -113,7 +113,7 @@ public class TemplateController {
 			return;
 		}
 
-		Map<String, Object> result = templateService.getItemById(classId, id,orderBy);
+		Map<String, Object> result = templateService.getItemById(classId, id, orderBy);
 
 		if (result == null) {
 			ResponseWriteUtil.output(response, StatusCode.BUSINESS_LOGIC_ERROR, "资料不存在！");
@@ -161,6 +161,41 @@ public class TemplateController {
 	}
 
 	/**
+	 * 物料证件实现一个证件多物料新增功能
+	 * 
+	 * 此方法仅供物料证件批量新增使用
+	 * 
+	 * @Title addItem
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-04-27 14:09:59 星期四
+	 */
+	@RequestMapping(value = "batchAddItemLicense")
+	@ControllerLog(desc = "新增", classId = 0)
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_ADD, desc = "新增")
+	public void batchAddItemLicense(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		String data = ParameterUtils.getParameter(request, "data", "");
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+
+		if (data.equals("")) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
+			return;
+		}
+
+		String id = templateService.batchAddItemLicense(classId, data);
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, "新增物料证件成功!");
+
+	}
+
+	/**
 	 * 修改基础资料
 	 * 
 	 * @Title editItem
@@ -192,6 +227,45 @@ public class TemplateController {
 		}
 
 		templateService.editItem(classId, id, data);
+
+		ResponseWriteUtil.output(response, "修改成功！");
+
+	}
+
+	/**
+	 * 物料证件实现一个证件多物料修改功能
+	 * 
+	 * 此方法仅供物料证件批量新增保存后当前页面修改使用
+	 * 
+	 * @Title editItem
+	 * @param request
+	 * @param response
+	 *            void
+	 * @date 2017-04-27 14:09:59 星期四
+	 */
+	@RequestMapping(value = "batchEditItemLicense")
+	@ControllerLog(desc = "修改")
+	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_EDIT, desc = "修改")
+	public void batchEditItemLicense(HttpServletRequest request, HttpServletResponse response) {
+
+		Integer classId = ParameterUtils.getParameter(request, "classId", -1);
+		String id = ParameterUtils.getParameter(request, "itemId", "");
+		String data = ParameterUtils.getParameter(request, "data", "");
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+		if (null == id || "".equals(id)) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id");
+			return;
+		}
+		if (data.equals("")) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交data");
+			return;
+		}
+
+		templateService.batchEditItemLicense(classId, id, data);
 
 		ResponseWriteUtil.output(response, "修改成功！");
 

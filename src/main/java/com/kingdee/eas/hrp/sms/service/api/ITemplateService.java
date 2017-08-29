@@ -65,7 +65,7 @@ public interface ITemplateService {
 	 * @date 2017-04-26 14:42:58 星期三
 	 */
 	Map<String, Object> getItemById(Integer classId, String id);
-	
+
 	/**
 	 * 根据模板查询单个业务数据，如查询id=2的物料
 	 * 
@@ -110,6 +110,20 @@ public interface ITemplateService {
 	String addItem(Integer classId, String data);
 
 	/**
+	 * 物料证件实现一个证件多物料新增功能,此方法仅供物料证件批量新增使用
+	 * 
+	 * @Title batchAddItemLicense
+	 * @param classId
+	 *            业务类型
+	 * @param data
+	 *            json格式的单据数据
+	 * @return
+	 * @return String
+	 * @date 2017-08-29 17:09:54 星期二
+	 */
+	String batchAddItemLicense(Integer classId, String data);
+
+	/**
 	 * 根基模板修改基础资料
 	 * 
 	 * @Title editItem
@@ -122,6 +136,22 @@ public interface ITemplateService {
 	 * @date 2017-04-27 15:40:28 星期四
 	 */
 	void editItem(Integer classId, String id, String data);
+
+	/**
+	 * 物料证件实现一个证件多物料修改功能
+	 * 
+	 * 此方法仅供物料证件批量新增保存后当前页面修改使用
+	 * 
+	 * @Title editItem
+	 * @param classId
+	 *            业务类型
+	 * @param id
+	 *            修改资料的内码
+	 * @param data
+	 *            json格式的修改资料数据包
+	 * @date 2017-04-27 15:40:28 星期四
+	 */
+	void batchEditItemLicense(Integer classId, String id, String data);
 
 	/**
 	 * 根基模板删除基础资料

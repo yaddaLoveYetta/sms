@@ -98,7 +98,7 @@
 
 
 	<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true" />
 
 	<!-- 打开@transaction注解方式使用事务 -->
 	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />

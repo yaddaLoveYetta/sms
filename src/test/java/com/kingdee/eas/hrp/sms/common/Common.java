@@ -38,4 +38,10 @@ public class Common {
 		// 声明工作表
 		HSSFSheet sheet= wb.createSheet("供应商资质");
 	}
+	
+	@Test
+	public void uuid(){
+		String uuid = com.kingdee.eas.hrp.sms.util.Common.createUUID();
+		System.out.println(uuid);
+	}
 }

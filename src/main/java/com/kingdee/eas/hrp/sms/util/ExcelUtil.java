@@ -428,12 +428,12 @@ public class ExcelUtil {
 				SXSSFRow headerRow = sheet.createRow(1); // 列头 rowIndex =1
 
 				// 设定列宽
-				for (int iii = 0; iii < headers.length; iii++) {
-					headerRow.createCell(iii).setCellValue(headers[iii]);
-					headerRow.getCell(iii).setCellStyle(headerStyle);
+				for (int j = 0; j < headers.length; j++) {
+					headerRow.createCell(j).setCellValue(headers[j]);
+					headerRow.getCell(j).setCellStyle(headerStyle);
 
-					int bytes = properties[iii].getBytes().length;
-					sheet.setColumnWidth(iii, (bytes < minBytes ? minBytes : bytes) * 256);
+					int bytes = properties[j].getBytes().length;
+					sheet.setColumnWidth(j, (bytes < minBytes ? minBytes : bytes) * 256);
 
 				}
 
