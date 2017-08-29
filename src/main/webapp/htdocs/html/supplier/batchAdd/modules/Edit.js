@@ -15,9 +15,8 @@ define('Edit', function (require, module, exports) {
     var itemId = '';
 
     // 带表体单据控件
-    var Grid = require('Grid');
     var GridBuilder = require('GridBuilder');
-    var mGrid = new Grid('bd-grid');
+    var mGrid ;
     var cleanGrid = function () {
         mGrid.clear();
         var successData = {
@@ -42,15 +41,15 @@ define('Edit', function (require, module, exports) {
     var initGrid = function (entryData, metaData) {
 
         // 物料证件-一个证件添加多个物料
-        if (classId !== 1005) {
+        if (classId != 3020) {
             return;
         }
 
         var material = document.getElementById('bd-material');
         // 删除按照模板填充的物料元素
-        $('data-table tbody').children().each(function () {
+        $('.data-table tbody').children().each(function () {
 
-                if ($(this).children('td').eq(1).children('div[id=bd-material]')) {
+                if ($(this).children('td').eq(1).children('div').eq(0).attr('id')==='bd-material') {
                     $(this).remove();
                 }
             }
