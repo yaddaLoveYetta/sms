@@ -994,6 +994,9 @@
         getSelectors: function (name) {
             return selectors[name];
         },
+        getSamples: function () {
+            return samples;
+        },
         searchItems: searchItems,
         initController: initController,
         on: emitter.on.bind(emitter)

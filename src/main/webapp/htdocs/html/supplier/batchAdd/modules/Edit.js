@@ -10,13 +10,15 @@ define('Edit', function (require, module, exports) {
     var SMS = require('SMS');
     var FormEdit = require('FormEdit');
 
+    var samples = FormEdit.getSamples(); // 原始模板
+
     var f7Selectors;
     var classId;
     var itemId = '';
 
     // 带表体单据控件
     var GridBuilder = require('GridBuilder');
-    var mGrid ;
+    var mGrid;
     var cleanGrid = function () {
         mGrid.clear();
         var successData = {
@@ -49,11 +51,20 @@ define('Edit', function (require, module, exports) {
         // 删除按照模板填充的物料元素
         $('.data-table tbody').children().each(function () {
 
-                if ($(this).children('td').eq(1).children('div').eq(0).attr('id')==='bd-material') {
+                if ($(this).children('td').eq(1).children('div').eq(0).attr('id') === 'bd-material') {
                     $(this).remove();
                 }
             }
         );
+
+        // 添加dom结构都最后
+        var sample = samples['tr.table']
+        var text = $.String.format(sample, {
+            mustInput: $.String.format(samples["td.mustInput"], {}),
+            name: '物料',
+        });
+        $('.data-table tbody').append(text);
+
 
         if (mGrid) {
             mGrid.unload();
@@ -97,16 +108,16 @@ define('Edit', function (require, module, exports) {
         });
 
 
-        mGrid.render(gridConfig, entryData, metaData, 1);
-        mGrid.on('f7Selected', function (data) {
-            var itemData = {
-                'FPark': data[0].ID,
-                'FParkID': data[0].ID,
-                'FParkNumber': data[0].number,
-                'FParkName': data[0].name
-            };
-            mGrid.setRowData(data.row, itemData);
-        });
+        /*        mGrid.render(gridConfig, entryData, metaData, 1);
+         mGrid.on('f7Selected', function (data) {
+         var itemData = {
+         'FPark': data[0].ID,
+         'FParkID': data[0].ID,
+         'FParkNumber': data[0].number,
+         'FParkName': data[0].name
+         };
+         mGrid.setRowData(data.row, itemData);
+         });*/
     };
     /**
      * 表格数据填充
