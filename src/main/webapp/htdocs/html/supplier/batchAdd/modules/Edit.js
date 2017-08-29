@@ -40,7 +40,7 @@ define('Edit', function (require, module, exports) {
     };
 
     //jqGrid初始化
-    var initGrid = function (entryData, metaData) {
+    var initGrid = function (entryData, template) {
 
         // 物料证件-一个证件添加多个物料
         if (classId != 3020) {
@@ -65,6 +65,22 @@ define('Edit', function (require, module, exports) {
         });
         $('.data-table tbody').append(text);
 
+        // 构造模板，模仿物料证件有物料子表
+        var materialModel = template.formFields["0"]["material"]; // 主表中的物料模板
+        delete  template.formFields["1"];
+        template.formFields["1"]["material"] = materialModel; // 子表模板加入物料
+        template.formEntries["1"]["primaryKey"] = "material"; // 修改子表主键-grid判断用
+
+        if (!template.formFields["1"]) {
+            return;
+        }
+
+        var defaults = {
+            gridName: 'bd-grid',
+            width: 500,
+            height: 'auto',
+            classId: template.formClass.classId,
+        };
 
         if (mGrid) {
             mGrid.unload();
@@ -73,10 +89,15 @@ define('Edit', function (require, module, exports) {
 
             mGrid = new Grid('bd-grid');
 
-            defaults = GridBuilder.getConfig(gridConfig);
+            defaults = GridBuilder.getConfig({
+                'fields': template.formFields["1"],
+                'defaults': defaults,
+                'operator': 2, // 新增时有添加删除按钮，编辑时有删除按钮,查看时无按钮
+                'showType': 2,
+            });
 
 
-            mGrid.render(defaults, null, template, 1);
+            mGrid.render(defaults, data, template, 1);
 
             mGrid.on('f7Selected', function (data) {
 
@@ -95,10 +116,10 @@ define('Edit', function (require, module, exports) {
                         case 'actualQty':
                             // 实发数量变化后修改金额
                             // 1：获取物料单价
-                            var price = billGrid.getCell(rowid, 'price');
+                            var price = mGrid.getCell(rowid, 'price');
                             console.log("price=" + price);
                             var amount = (value * price).toFixed(2);
-                            billGrid.setCell(rowid, 'amount', amount)
+                            mGrid.setCell(rowid, 'amount', amount)
                             break;
                     }
 
@@ -107,17 +128,6 @@ define('Edit', function (require, module, exports) {
 
         });
 
-
-        /*        mGrid.render(gridConfig, entryData, metaData, 1);
-         mGrid.on('f7Selected', function (data) {
-         var itemData = {
-         'FPark': data[0].ID,
-         'FParkID': data[0].ID,
-         'FParkNumber': data[0].number,
-         'FParkName': data[0].name
-         };
-         mGrid.setRowData(data.row, itemData);
-         });*/
     };
     /**
      * 表格数据填充
