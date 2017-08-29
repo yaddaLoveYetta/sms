@@ -92,8 +92,8 @@ define('Edit', function (require, module, exports) {
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
-                'operator': 2, // 新增时有添加删除按钮，编辑时有删除按钮,查看时无按钮
-                'showType': 2,
+                'operator': 3, // 新增时有添加删除按钮，编辑时有删除按钮,查看时无按钮
+                'showType': 1,
             });
 
 
