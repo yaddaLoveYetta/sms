@@ -885,6 +885,11 @@
             action = 'template/editItem';
         }
 
+        if (formClassId == 3020 && metaData.formFields["1"]["material"]) {
+            // 物料证件批量新增特殊处理
+            action = 'template/batchAddItemLicense';
+        }
+
         var api = new API(action);
 
         api.post({
