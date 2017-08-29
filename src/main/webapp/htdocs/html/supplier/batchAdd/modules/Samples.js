@@ -73,6 +73,12 @@ define('Samples', function (require, module, exports) {
                 outer: '{f7}',
                 //fn: trim,
             },
+            {
+                name:'tr.table',
+                begin:'#--tr.table.begin--#',
+                end: '#--tr.table.end--#',
+                outer: '{table}',
+            },
         ]);
 
         return samples;

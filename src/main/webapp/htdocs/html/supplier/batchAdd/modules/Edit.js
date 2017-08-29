@@ -17,19 +17,16 @@ define('Edit', function (require, module, exports) {
     // 带表体单据控件
     var Grid = require('Grid');
     var GridBuilder = require('GridBuilder');
-    var parkGrid = new Grid('bd-grid');
-    var columns = ["FParkNumber"];
-    var isNeedOpt = true; //Jqgrid是否可操作
-
+    var mGrid = new Grid('bd-grid');
     var cleanGrid = function () {
-        parkGrid.clear();
+        mGrid.clear();
         var successData = {
             grid: ""
         };
         showValidInfo(successData, null);
     };
 
-    var parkGridConfig = {
+    var gridConfig = {
         gridName: 'bd-grid',
         width: 500,
         height: '100%',
@@ -43,16 +40,73 @@ define('Edit', function (require, module, exports) {
 
     //jqGrid初始化
     var initGrid = function (entryData, metaData) {
-        parkGridConfig = GridBuilder.getConfig(metaData['formFields'][1], parkGridConfig, columns, isNeedOpt);
-        parkGrid.render(parkGridConfig, entryData, metaData, 1);
-        parkGrid.on('f7Selected', function (data) {
+
+        // 物料证件-一个证件添加多个物料
+        if (classId !== 1005) {
+            return;
+        }
+
+        var material = document.getElementById('bd-material');
+        // 删除按照模板填充的物料元素
+        $('data-table tbody').children().each(function () {
+
+                if ($(this).children('td').eq(1).children('div[id=bd-material]')) {
+                    $(this).remove();
+                }
+            }
+        );
+
+        if (mGrid) {
+            mGrid.unload();
+        }
+        SMS.use('Grid', function (Grid) {
+
+            mGrid = new Grid('bd-grid');
+
+            defaults = GridBuilder.getConfig(gridConfig);
+
+
+            mGrid.render(defaults, null, template, 1);
+
+            mGrid.on('f7Selected', function (data) {
+
+            });
+
+            mGrid.on('afterEditCell', function (classId, rowid, cellname, value, iRow, iCol) {
+
+            });
+
+            mGrid.on('afterSaveCell', function (classId, rowid, cellname, value, iRow, iCol) {
+
+                if (classId === 2020) {
+                    // 发货单新增编辑时候值更新事件处理
+                    // 下一迭代重构(应该由数据库配置字段值更新规则先)
+                    switch (cellname) {
+                        case 'actualQty':
+                            // 实发数量变化后修改金额
+                            // 1：获取物料单价
+                            var price = billGrid.getCell(rowid, 'price');
+                            console.log("price=" + price);
+                            var amount = (value * price).toFixed(2);
+                            billGrid.setCell(rowid, 'amount', amount)
+                            break;
+                    }
+
+                }
+            });
+
+        });
+
+
+        mGrid.render(gridConfig, entryData, metaData, 1);
+        mGrid.on('f7Selected', function (data) {
             var itemData = {
                 'FPark': data[0].ID,
                 'FParkID': data[0].ID,
                 'FParkNumber': data[0].number,
                 'FParkName': data[0].name
             };
-            parkGrid.setRowData(data.row, itemData);
+            mGrid.setRowData(data.row, itemData);
         });
     };
     /**
@@ -62,16 +116,16 @@ define('Edit', function (require, module, exports) {
      */
     var fillGrid = function (entryData, metaData) {
 
-        parkGridConfig = GridBuilder.getConfig(metaData['formFields'][1], parkGridConfig, columns, isNeedOpt);
-        parkGrid.render(parkGridConfig, entryData, metaData, 1);
-        parkGrid.on('f7Selected', function (data) {
+        gridConfig = GridBuilder.getConfig(metaData['formFields'][1], gridConfig, columns, isNeedOpt);
+        mGrid.render(gridConfig, entryData, metaData, 1);
+        mGrid.on('f7Selected', function (data) {
             var itemData = {
                 'FPark': data[0].ID,
                 'FParkID': data[0].ID,
                 'FParkNumber': data[0].number,
                 'FParkName': data[0].name
             };
-            parkGrid.setRowData(data.row, itemData);
+            mGrid.setRowData(data.row, itemData);
         });
 
     }
@@ -81,7 +135,7 @@ define('Edit', function (require, module, exports) {
         itemId = itemID;
         classId = formClassId;
         // FormEdit.render(formClassId, itemId, initGrid, initSelectors);
-        FormEdit.render(formClassId, itemId, null, initSelectors, defaultValue);
+        FormEdit.render(formClassId, itemId, initGrid, initSelectors, defaultValue);
     }
 
     function clear() {
