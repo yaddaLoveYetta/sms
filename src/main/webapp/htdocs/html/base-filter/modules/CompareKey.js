@@ -31,7 +31,13 @@ define('CompareKey', function (require, module, exports) {
         //F7选择框
         6: [{name: "包含", value: "like"}, {name: "等于", value: "="}],
         //手机号码
-        8: [{name: "包含", value: "like"}, {name: "等于", value: "="}]
+        8: [{name: "包含", value: "like"}, {name: "等于", value: "="}],
+        // 日期
+        12: [{name: "等于", value: "="}, {name: "小于", value: "<"}, {name: "小于等于", value: "<="}, {
+            name: "大于",
+            value: ">"
+        }, {name: "大于等于", value: ">="}],
+        11: [{name: "包含", value: "like"}, {name: "等于", value: "="}],
     };
 
     function setCompareKey(sourceTagte, dataType, ctrlType) {
