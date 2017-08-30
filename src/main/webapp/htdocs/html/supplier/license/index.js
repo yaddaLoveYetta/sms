@@ -55,60 +55,113 @@
         }
     });
 
+    var blConfig;
 
-    var blConfig = {
-        'items': [
-            {
-                text: '新增',
-                name: 'add',
-                icon: '../../../css/main/img/add.png',
-                items: [{
-                    text: '批量新增',
-                    name: 'batchAdd',
+    if (classId == 3020) {
+        blConfig = {
+            'items': [
+                {
+                    text: '新增',
+                    name: 'add',
                     icon: '../../../css/main/img/add.png',
-                }],
-            },
-            {
-                text: '删除',
-                name: 'del',
-                icon: '../../../css/main/img/delete.png',
-            },
-            {
-                text: '修改',
-                name: 'edit',
-                icon: '../../../css/main/img/edit.png',
-            },
-            {
-                text: '刷新',
-                name: 'refresh',
-                icon: '../../../css/main/img/refresh.png',
-            },
-            {
-                text: '审核',
-                name: 'check',
-                icon: '../../../css/main/img/check.png',
-                items: [{
-                    text: '反审核',
-                    name: 'unCheck',
-                    icon: '../../../css/main/img/uncheck.png',
-                }],
-            },
-            {
-                text: '上传附件',
-                name: 'upload',
-                icon: '../../../css/main/img/upload.png',
-            },
-            {
-                text: '发送到医院',
-                name: 'send',
-                icon: '../../../css/main/img/send.png',
-            },
-            {
-                text: '导出',
-                name: 'export',
-                icon: '../../../css/main/img/download.png',
-            }]
-    };
+                    items: [{
+                        text: '批量新增',
+                        name: 'batchAdd',
+                        icon: '../../../css/main/img/add.png',
+                    }],
+                },
+                {
+                    text: '删除',
+                    name: 'del',
+                    icon: '../../../css/main/img/delete.png',
+                },
+                {
+                    text: '修改',
+                    name: 'edit',
+                    icon: '../../../css/main/img/edit.png',
+                },
+                {
+                    text: '刷新',
+                    name: 'refresh',
+                    icon: '../../../css/main/img/refresh.png',
+                },
+                {
+                    text: '审核',
+                    name: 'check',
+                    icon: '../../../css/main/img/check.png',
+                    items: [{
+                        text: '反审核',
+                        name: 'unCheck',
+                        icon: '../../../css/main/img/uncheck.png',
+                    }],
+                },
+                {
+                    text: '上传附件',
+                    name: 'upload',
+                    icon: '../../../css/main/img/upload.png',
+                },
+                {
+                    text: '发送到医院',
+                    name: 'send',
+                    icon: '../../../css/main/img/send.png',
+                },
+                {
+                    text: '导出',
+                    name: 'export',
+                    icon: '../../../css/main/img/download.png',
+                }]
+        };
+    } else {
+        blConfig = {
+            'items': [
+                {
+                    text: '新增',
+                    name: 'add',
+                    icon: '../../../css/main/img/add.png',
+                },
+                {
+                    text: '删除',
+                    name: 'del',
+                    icon: '../../../css/main/img/delete.png',
+                },
+                {
+                    text: '修改',
+                    name: 'edit',
+                    icon: '../../../css/main/img/edit.png',
+                },
+                {
+                    text: '刷新',
+                    name: 'refresh',
+                    icon: '../../../css/main/img/refresh.png',
+                },
+                {
+                    text: '审核',
+                    name: 'check',
+                    icon: '../../../css/main/img/check.png',
+                    items: [{
+                        text: '反审核',
+                        name: 'unCheck',
+                        icon: '../../../css/main/img/uncheck.png',
+                    }],
+                },
+                {
+                    text: '上传附件',
+                    name: 'upload',
+                    icon: '../../../css/main/img/upload.png',
+                },
+                {
+                    text: '发送到医院',
+                    name: 'send',
+                    icon: '../../../css/main/img/send.png',
+                },
+                {
+                    text: '导出',
+                    name: 'export',
+                    icon: '../../../css/main/img/download.png',
+                }]
+        };
+
+    }
 
 
     var ButtonList = bl.create(blConfig);
