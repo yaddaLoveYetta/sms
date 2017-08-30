@@ -25,12 +25,14 @@ define('Filter', function (require, module, exports) {
             var fieldKey = $(item).find("select[name='filterKeys']").val();
             var logicOperator = $(item).find("select[name='compareKeys']").val();
             var value = $(item).find("input[name='compareValue']").val();
+            var joinType = $(item).find("select[name='joinType']").val();
+
             if (!fieldKey) {
                 return true;
             }
             // 查询条件
             conditions[fieldKey] = {
-                'andOr': 'AND',
+                'andOr': joinType,
                 'leftParenTheses': '(',
                 'fieldKey': fieldKey,
                 'logicOperator': logicOperator,
