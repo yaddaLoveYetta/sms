@@ -138,22 +138,6 @@ public interface ITemplateService {
 	void editItem(Integer classId, String id, String data);
 
 	/**
-	 * 物料证件实现一个证件多物料修改功能
-	 * 
-	 * 此方法仅供物料证件批量新增保存后当前页面修改使用
-	 * 
-	 * @Title editItem
-	 * @param classId
-	 *            业务类型
-	 * @param id
-	 *            修改资料的内码
-	 * @param data
-	 *            json格式的修改资料数据包
-	 * @date 2017-04-27 15:40:28 星期四
-	 */
-	void batchEditItemLicense(Integer classId, String id, String data);
-
-	/**
 	 * 根基模板删除基础资料
 	 * 
 	 * @Title delItem

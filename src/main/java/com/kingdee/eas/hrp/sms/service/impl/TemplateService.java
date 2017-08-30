@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.plugin.PluginException;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -830,10 +831,11 @@ public class TemplateService extends BaseService implements ITemplateService {
 		}
 		jsonData.remove("entry");// 移除手工构造的表体
 
+		ITemplateService currentProxy = (ITemplateService) AopContext.currentProxy();
+
 		for (int i = 0; i < materials.size(); i++) {
 			jsonData.put("material", materials.getJSONObject(i).getJSONObject("data").getString("material"));
-
-			this.addItem(classId, JSON.toJSONString(jsonData));
+			currentProxy.addItem(classId, JSON.toJSONString(jsonData));
 		}
 
 		return null;
@@ -907,28 +909,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	}
 
-	@Transactional
-	@Override
-	public void batchEditItemLicense(Integer classId, String id, String data) {
-
-		// 转成json便于操作
-		JSONObject jsonData = JSONObject.parseObject(data);
-
-		JSONArray materials = jsonData.getJSONArray("entry");
-
-		if (materials.size() == 0) {
-			throw new BusinessLogicRunTimeException("至少选择一个物料");
-		}
-
-		jsonData.remove("entry");// 移除手工构造的表体
-
-		for (int i = 0; i < materials.size(); i++) {
-			jsonData.put("material", materials.getJSONObject(i).getJSONObject("data").getString("material"));
-
-			this.editItem(classId, id, JSON.toJSONString(jsonData));
-		}
-
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override

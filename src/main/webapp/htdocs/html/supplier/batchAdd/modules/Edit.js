@@ -431,7 +431,7 @@ define('Edit', function (require, module, exports) {
 
                 // 物料证件维护-供应商变化时-不能保证已选择物料属于该供应商需重新选择物料-清空物料选择框-
                 //selectors['material'] && selectors['material'].clearData();
-                mGrid.unload();
+            	cleanGrid();
             }
 
         },
