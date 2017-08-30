@@ -175,6 +175,21 @@ define('ButtonListOption', function (require, module, exports) {
                     }
                 ]
             };
+        } else if (classId == 3020) {
+            // 中标库
+            config = {
+                'items': [
+                    {
+                        text: '过滤',
+                        name: 'filter',
+                        icon: '../../css/main/img/filter.png'
+                    }, {
+                        text: '刷新',
+                        name: 'refresh',
+                        icon: '../../css/main/img/refresh.png'
+                    }
+                ]
+            };
         } else {
 
             config = {
