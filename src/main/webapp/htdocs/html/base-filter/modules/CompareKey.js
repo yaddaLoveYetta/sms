@@ -20,7 +20,9 @@ define('CompareKey', function(require, module, exports) {
 		//下拉框
 		5: [{name:"包含",value:"like"},{name:"等于",value:"="}],
 		//F7选择框
-		6: [{name:"包含",value:"like"},{name:"等于",value:"="}]
+		6: [{name:"包含",value:"like"},{name:"等于",value:"="}],
+        //手机号码
+        8: [{name:"包含",value:"like"},{name:"等于",value:"="}]
 	};
 	
 	function setCompareKey(sourceTagte,dataType,ctrlType){
