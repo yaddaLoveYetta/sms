@@ -96,6 +96,26 @@ define('Edit', function (require, module, exports) {
                 'showType': 1,
             });
 
+            defaults.getConditions = function (rowNumb, colNumb, colModels) {
+                // 选择物料时要考虑供应商过滤条件
+                var condition = {};
+                var selector = FormEdit.getSelectors("supplier")
+                var value = selector && selector.getData() && selector.getData()[0].ID || null;
+
+                if (value) {
+                    condition["supplier"] = {
+                        'andOr': 'and',
+                        'leftParenTheses': '(',
+                        'fieldKey': "supplier",
+                        'logicOperator': '=',
+                        'value': value,
+                        'rightParenTheses': ')',
+                        needConvert: false
+                    }
+                }
+
+                return condition;
+            }
 
             mGrid.render(defaults, null, template, 1);
 
@@ -124,27 +144,6 @@ define('Edit', function (require, module, exports) {
                     }
 
                 }
-            });
-
-            mGrid.on('getConditions', function (rowNumb, colNumb, colModels) {
-                // 选择物料时要考虑供应商过滤条件
-                var condition = {};
-                var selector = FormEdit.getSelectors("supplier")
-                var value = selector && selector.getData() && selector.getData()[0].ID || null;
-
-                if (value) {
-                    condition["supplier"] = {
-                        'andOr': 'and',
-                        'leftParenTheses': '(',
-                        'fieldKey': "supplier",
-                        'logicOperator': '=',
-                        'value': value,
-                        'rightParenTheses': ')',
-                        needConvert: false
-                    }
-                }
-
-                return condition;
             });
 
         });
