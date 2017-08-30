@@ -6431,7 +6431,10 @@
                 showF7({
                     field: colModels[colNumb].data,
                     cfg: cfg,
-                    container: $_comboAuto
+                    container: $_comboAuto,
+                    rowNumb: rowNumb,
+                    colNumb: colNumb,
+                    colModels: colModels,
                 });
 
             });
@@ -6452,13 +6455,16 @@
                 field = params.field;
                 cfg = params.cfg;
                 container = params.container;
+                rowNumb = params.rowNumb;
+                colNumb = params.colNumb;
+                colModels = params.colModels;
 
             }
 
             var formClassID = field.lookUpClassID;
             var url = $.Url.setQueryString('./html/base/index.html', 'classId', formClassID);
 
-            var condition = {};
+            var condition = cfg.config.getConditions && cfg.config.getConditions(rowNumb, colNumb,colModels)||{};
 
             var title = field.name || '';
 
