@@ -78,7 +78,6 @@ define('Edit', function (require, module, exports) {
 
         var defaults = {
             gridName: 'bd-grid',
-            width: 500,
             height: 'auto',
             classId: template.formClass.classId,
         };

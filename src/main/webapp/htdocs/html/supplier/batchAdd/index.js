@@ -68,7 +68,7 @@
                 'eventName': 'addSuccess',
                 'data': Iframe.getInfos(),
             });
-
+            dialog.close();
         },
         'editSuccess': function () {
 
