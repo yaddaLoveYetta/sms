@@ -124,13 +124,9 @@ public interface WSDataSynYZJFacade {
 	 * 
 	 * @Title yzj2hrpMaintainRequestEvaluate
 	 * @param sessionId
-	 *            登录接口获取的用户身份标识
 	 * @param id
-	 *            报修单id
 	 * @param score
-	 *            评分
 	 * @param description
-	 *            评价内容
 	 * @return void
 	 * @date 2017-08-28 17:53:50 星期一
 	 */
