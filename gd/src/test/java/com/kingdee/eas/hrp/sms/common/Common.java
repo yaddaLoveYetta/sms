@@ -43,5 +43,7 @@ public class Common {
 	public void uuid(){
 		String uuid = com.kingdee.eas.hrp.sms.util.Common.createUUID();
 		System.out.println(uuid);
+		String code = com.kingdee.eas.hrp.sms.util.Common.getCode(10, 2);
+		System.out.println(code);
 	}
 }
