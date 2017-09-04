@@ -5,10 +5,13 @@ body {
   /*background: #8aa0b0 url('img/sign_in_bg_2.png') no-repeat top;*/
 }
 .left {
-  float: left;
+  /*float: left;*/
 }
 .right {
-  float: right;
+  /*float: right;*/
+}
+.select-tab{
+  width: 100%;
 }
 .clear {
   display: block;
@@ -95,7 +98,8 @@ body {
   border-top-left-radius: 0px;
 }
 .login-box .content .login-panel .right.select-tab {
-  border-top-right-radius: 0px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 }
 .login-box .content .login-panel .hover {
   background: #ffffff;
