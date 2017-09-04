@@ -10,9 +10,6 @@ body {
 .right {
   /*float: right;*/
 }
-.select-tab{
-  width: 100%;
-}
 .clear {
   display: block;
   clear: both;
@@ -83,7 +80,7 @@ body {
 }
 .login-box .content .login-panel .select-tab {
   text-align: center;
-  width: 50%;
+  width: 100%;
   height: 40px;
   line-height: 40px;
   cursor: pointer;
