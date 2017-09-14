@@ -326,10 +326,10 @@
                 SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
-            if (list.length > 1) {
+/*            if (list.length > 1) {
                 SMS.Tips.error('一次只能对一条记录进行操作', 1500);
                 return;
-            }
+            }*/
             List.review(classId, list, function () {
                 SMS.Tips.success("审核成功", 1500);
                 refresh();
@@ -345,10 +345,10 @@
                 SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
-            if (list.length > 1) {
+/*            if (list.length > 1) {
                 SMS.Tips.error('一次只能对一条记录进行操作', 1500);
                 return;
-            }
+            }*/
 
             List.unReview(classId, list, function () {
                 SMS.Tips.success("反审核成功", 1500);
