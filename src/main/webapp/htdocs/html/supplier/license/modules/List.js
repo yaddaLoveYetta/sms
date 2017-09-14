@@ -312,7 +312,18 @@ define("List", function (require, module, exports) {
             var bodyItems = list.body.items;
             var operate;
 
-            if (index == 1) {
+            if (index == 0) {
+                // 预览
+                var fileName = bodyItems[row].items[col].value[childNo].value.replace(/.*(\/|\\)/, "");
+                var fileExt=(/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName.toLowerCase()) : '';
+
+                if(fileExt==".jpg"||fileExt==".gif"||fileExt==".JPG"||fileExt==".GIF"){
+
+                }
+                SMS.Tips.error("不支持的文件类型", 1500);
+
+            }
+            else if (index == 1) {
                 // 下载
                 var fileDirector = bodyItems[row].items[col].value[childNo].value;
                 var fileName = fileDirector.substr(fileDirector.lastIndexOf('/') + 1);
@@ -353,15 +364,11 @@ define("List", function (require, module, exports) {
             }
             emitter.fire("row.item.click", args);
         });
-
+/*
         $("a[class='attachment']").on('click', function () {
-            alert('ssss');
-            Ext.Msg.confirm('提示', '你确定要删除该公告吗？', function (button, text) {
-                if (button == 'yes') {
-                    window.location.href = "/admin/note!delete.action?id=${id}";
-                }
-            });
-        });
+
+            alert($(this).text());
+        });*/
     }
 
     function bindHover() {
