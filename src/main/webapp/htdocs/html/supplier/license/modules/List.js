@@ -353,6 +353,15 @@ define("List", function (require, module, exports) {
             }
             emitter.fire("row.item.click", args);
         });
+
+        $("a[class='attachment']").on('click', function () {
+            alert('ssss');
+            Ext.Msg.confirm('提示', '你确定要删除该公告吗？', function (button, text) {
+                if (button == 'yes') {
+                    window.location.href = "/admin/note!delete.action?id=${id}";
+                }
+            });
+        });
     }
 
     function bindHover() {
