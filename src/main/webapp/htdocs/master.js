@@ -40,6 +40,12 @@
         'mouseout': function () {
             Menus.hideAfter(200); //延迟隐藏 Menus
             Sidebar.activeAfter(200);
+        },
+        'hiden':function () {
+        	// 简单处理
+            $('.content').toggleClass('content-hiden');
+            $('.content .top-fixed').toggleClass('toggle-width');
+            $('.side-bar .menus-more').toggleClass('toggle-menus-more');
         }
     });
 

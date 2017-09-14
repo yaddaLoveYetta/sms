@@ -120,6 +120,10 @@ define('Sidebar', function (require, module, exports) {
             emitter.fire('mouseout');
         });
 
+        $(hiden).on('click' ,function () {
+            $(div).toggleClass('side-bar-hiden');
+            emitter.fire('hiden');
+        })
     }
 
 
