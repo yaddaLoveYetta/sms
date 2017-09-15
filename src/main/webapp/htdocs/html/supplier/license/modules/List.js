@@ -331,16 +331,16 @@ define("List", function (require, module, exports) {
                     fileName: fileName,
                 })
 
-                window.open("/lib/pdfjs/web/viewer.html?file=url");
-/*                var $a = $(btn).parent().prev();
-                operate = 0;
+                window.open("../../../../lib/pdfjs/web/viewer.html?file=" + url);
+                /*                var $a = $(btn).parent().prev();
+                 operate = 0;
 
-                var args = [{
-                    itemId: bodyItems[row].primaryValue,
-                    fileName: fileName,
-                    control: $a[0],
-                    operate: operate
-                }, event];*/
+                 var args = [{
+                 itemId: bodyItems[row].primaryValue,
+                 fileName: fileName,
+                 control: $a[0],
+                 operate: operate
+                 }, event];*/
 
             }
             else if (index == 1) {
