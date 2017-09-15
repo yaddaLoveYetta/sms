@@ -233,5 +233,5 @@
 }
 .item-pop-menu{
     padding: 2px;
-    display: table-cell;
+    display: inline-block;
 }
