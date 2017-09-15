@@ -315,9 +315,9 @@ define("List", function (require, module, exports) {
             if (index == 0) {
                 // 预览
                 var fileName = bodyItems[row].items[col].value[childNo].value.replace(/.*(\/|\\)/, "");
-                var fileExt=(/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName.toLowerCase()) : '';
+                var fileExt = (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName.toLowerCase()) : '';
 
-                if(!(fileExt==".jpg"||fileExt==".gif"||fileExt==".pdf"||fileExt==".jpeg")){
+                if (!(fileExt == "jpg" || fileExt == "jpeg" || fileExt == "png" || fileExt == "gif" || fileExt == "pdf")) {
                     SMS.Tips.error("不支持该类型文件预览", 2000);
                     return;
                 }
@@ -372,11 +372,11 @@ define("List", function (require, module, exports) {
             }
             emitter.fire("row.item.click", args);
         });
-/*
-        $("a[class='attachment']").on('click', function () {
+        /*
+         $("a[class='attachment']").on('click', function () {
 
-            alert($(this).text());
-        });*/
+         alert($(this).text());
+         });*/
     }
 
     function bindHover() {
