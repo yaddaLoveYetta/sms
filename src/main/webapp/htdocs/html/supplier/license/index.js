@@ -554,11 +554,22 @@
 
             if(type == 0){
                 // 预览
+                var api = new API("file/preview");
+                var url = api.getUrl();
+                url = $.Url.addQueryString(url, {
+                    classId: classId,
+                    itemId: data.itemId,
+                    fileName: data.fileName,
+                })
+
+                data.control.href = url;
+                data.control.click();
+                data.control.href = "#";
             }
             else if (type == 1) {
                 // 下载子表行附件
 
-                var api = new API("file/preview");
+                var api = new API("file/download");
                 var url = api.getUrl();
                 url = $.Url.addQueryString(url, {
                     classId: classId,
