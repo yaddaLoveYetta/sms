@@ -321,9 +321,18 @@ define("List", function (require, module, exports) {
                     SMS.Tips.error("不支持该类型文件预览", 2000);
                     return;
                 }
-                //SMS.Tips.error("不支持的文件类型", 1500);
 
-                var $a = $(btn).parent().prev();
+                var $API = SMS.require('API');
+                var api = new $API("file/download");
+                var url = api.getUrl();
+                url = $.Url.addQueryString(url, {
+                    classId: 3010,
+                    itemId: bodyItems[row].primaryValue,
+                    fileName: fileName,
+                })
+
+                window.open("/lib/pdfjs/web/viewer.html?file=url");
+/*                var $a = $(btn).parent().prev();
                 operate = 0;
 
                 var args = [{
@@ -331,7 +340,7 @@ define("List", function (require, module, exports) {
                     fileName: fileName,
                     control: $a[0],
                     operate: operate
-                }, event];
+                }, event];*/
 
             }
             else if (index == 1) {
