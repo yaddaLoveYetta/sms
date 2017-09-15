@@ -552,10 +552,13 @@
 
             var type = data.operate;
 
-            if (type == 1) {
+            if(type == 0){
+                // 预览
+            }
+            else if (type == 1) {
                 // 下载子表行附件
 
-                var api = new API("file/download");
+                var api = new API("file/preview");
                 var url = api.getUrl();
                 url = $.Url.addQueryString(url, {
                     classId: classId,

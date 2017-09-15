@@ -300,7 +300,7 @@ define("List", function (require, module, exports) {
         });
 
         // 下载-删除功能按钮
-        $(document).on("click", ".item-pop-menu", function () {
+        $(document).on("click", ".item-pop-menu", function (event) {
             var btn = this;
             var index = btn.getAttribute("index");
 
@@ -317,10 +317,21 @@ define("List", function (require, module, exports) {
                 var fileName = bodyItems[row].items[col].value[childNo].value.replace(/.*(\/|\\)/, "");
                 var fileExt=(/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName.toLowerCase()) : '';
 
-                if(fileExt==".jpg"||fileExt==".gif"||fileExt==".JPG"||fileExt==".GIF"){
-
+                if(!(fileExt==".jpg"||fileExt==".gif"||fileExt==".pdf"||fileExt==".jpeg")){
+                    SMS.Tips.error("不支持该类型文件预览", 2000);
+                    return;
                 }
-                SMS.Tips.error("不支持的文件类型", 1500);
+                //SMS.Tips.error("不支持的文件类型", 1500);
+
+                var $a = $(btn).parent().prev();
+                operate = 0;
+
+                var args = [{
+                    itemId: bodyItems[row].primaryValue,
+                    fileName: fileName,
+                    control: $a[0],
+                    operate: operate
+                }, event];
 
             }
             else if (index == 1) {
@@ -337,10 +348,7 @@ define("List", function (require, module, exports) {
                     fileName: fileName,
                 })
                 var $a = $(btn).parent().prev();
-                /*                $a[0].href = url;
-                 $a[0].click();
-                 $a[0].href = "#";
-                 return;*/
+
                 operate = 1;
 
                 var args = [{
