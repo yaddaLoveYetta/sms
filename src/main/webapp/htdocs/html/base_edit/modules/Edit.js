@@ -294,7 +294,7 @@ define('Edit', function (require, module, exports) {
             // 新增时-模板填充完后事件
             if (classId == 1005) {
                 // 新增供应商，代码自动生成-蛋疼的需求
-                var element = getValueElement(field.key);
+                var element = getValueElement('number');
 
                 if (!element) {
                     return;
@@ -304,7 +304,7 @@ define('Edit', function (require, module, exports) {
             }
             if (classId == 3010) {
                 // 新增供应商纸质，代码自动生成-蛋疼的需求
-                var element = getValueElement(field.key);
+                var element = getValueElement('number');
 
                 if (!element) {
                     return;
