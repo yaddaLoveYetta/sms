@@ -24,9 +24,7 @@
 
 'use strict';
 
-//var DEFAULT_URL = '信管网信息系统项目管理师论文精编(2014上半年版).pdf';
-//var DEFAULT_URL = 'http://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf';
-var DEFAULT_URL = 'http://tqm.cwcec.com/07-qybz-IT/Q%20WH%2007-A12%20公司软件开发管理规定（2014）/Q%20WH%2007-A12%20公司软件开发管理规定.pdf';
+var DEFAULT_URL = 'http://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf';
 var DEFAULT_SCALE = 'auto';
 var DEFAULT_SCALE_DELTA = 1.1;
 var UNKNOWN_SCALE = 0;
@@ -5677,7 +5675,7 @@ function webViewerInitialized() {
   }
 
   if (file) {
-    PDFView.open(file, 0);
+    PDFView.open(file, 0,undefined,undefined,params);
   }
 }
 
