@@ -337,6 +337,9 @@ define("List", function (require, module, exports) {
                     url = encodeURIComponent(url);
                     window.open("../../../lib/pdfjs/web/viewer.html?file=" + url);
                     return;
+                }else {
+                    window.open(url);
+                    return;
                 }
 
 
