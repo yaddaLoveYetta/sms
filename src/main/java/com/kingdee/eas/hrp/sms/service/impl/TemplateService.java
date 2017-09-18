@@ -573,6 +573,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Map<String, Object>> getItemByIds(Integer classId, List<String> idList, String orderByStr) {
 
@@ -621,6 +622,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 		String select = ""; // 查询字段
 		String from = "";// 查询表
 		String where = ""; // 查询条件
+		String orderBy = orderByStr == null ? "" : orderByStr;
 
 		Map<String, Object> statement = getStatement(classId);
 
@@ -633,7 +635,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		Map<String, Object> sqlMap = new HashMap<String, Object>();
 		// 完整的sql(带格式化参数)
-		String sql = select.toString() + System.getProperty("line.separator") + from.toString() + System.getProperty("line.separator") + where + System.getProperty("line.separator") + orderByStr
+		String sql = select.toString() + System.getProperty("line.separator") + from.toString() + System.getProperty("line.separator") + where + System.getProperty("line.separator") + orderBy
 				+ System.getProperty("line.separator");
 		sqlMap.put("sql", sql);
 
@@ -909,7 +911,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 	}
 
-
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -977,9 +978,29 @@ public class TemplateService extends BaseService implements ITemplateService {
 	public void checkItem(Integer classId, String items) {
 
 		// 判断是否已审核
-		Map<String, Object> review = getItemById(classId, items);
-		if (Integer.parseInt(review.get("review").toString()) == 1) {
-			throw new BusinessLogicRunTimeException("该资料已审核过，无需重复审核");
+
+		List<String> ids = Arrays.asList(items.split(","));
+		List<String> idList = new ArrayList<String>();
+		// 获取本次查询的主表内码集合
+		for (String id : ids) {
+			idList.add("'" + id + "'");
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		List<Map<String, Object>> itemByIds = getItemByIds(classId, idList, null);
+
+		for (Map<String, Object> item : itemByIds) {
+
+			if (Integer.parseInt(item.get("review").toString()) == 1) {
+				sb.append(item.get("name") + ":");
+			}
+
+		}
+
+		if (sb.length() > 0) {
+
+			throw new BusinessLogicRunTimeException("审核失败，存在已审核的记录，名称："+sb.toString());
 		}
 
 		String userType = SessionUtil.getUserType();

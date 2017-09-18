@@ -6,14 +6,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,6 +27,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +41,6 @@ import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.supplier.IFileUploadService;
-import com.kingdee.eas.hrp.sms.service.impl.TemplateService;
 import com.kingdee.eas.hrp.sms.util.ExcelUtil;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
@@ -233,7 +229,7 @@ public class AttachmentController {
 		// 设置文件MIME类型
 		response.setContentType("application/force-download");
 		// 设置Content-Disposition
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "utf-8"));
 
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
 		BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
@@ -262,6 +258,100 @@ public class AttachmentController {
 				out.close();
 			}
 		}
+	}
+
+	/**
+	 * 证件预览
+	 * 
+	 * @Title preview
+	 * @param request
+	 * @param response
+	 * @return void
+	 * @throws IOException
+	 * @date 2017-09-15 13:45:50 星期五
+	 */
+	@RequestMapping(value = "preview")
+	public void preview(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		int classId = ParameterUtils.getParameter(request, "classId", -1);
+
+		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
+
+		String itemId = ParameterUtils.getParameter(request, "itemId", "");
+		
+		Map<String, Object> itemById = templateService.getItemById(classId, itemId);
+		String number = (String) itemById.get("number");
+		String code = filter(number);
+
+		if (classId < 0) {
+			response.getWriter().write("<script>alert('参数错误：必须提交classId');history.back();</script>");
+			return;
+		}
+
+		if ("".equals(fileName)) {
+			response.getWriter().write("<script>alert('参数错误：必须提交fileName');history.back();</script>");
+			return;
+		}
+
+		// 读取目标文件，通过response将目标文件写到客户端
+		// 获取目标文件的绝对路径
+		String fileDirector = SystemParamUtil.getString("sys", "FILE_PATH"); // 文件存放目录
+		String classDirector = fileDirector.endsWith("\\") ? classId + "\\\\" : "\\\\" + classId + "\\\\";
+		fileDirector = fileDirector + classDirector + code;// 真实存放路径
+
+		File f = new File(fileDirector);
+
+		if (!f.exists()) {
+			response.getWriter().write("<script>alert('文件不存在');history.back();</script>");
+			return;
+		}
+
+		String filePath = fileDirector + "\\\\" + fileName;
+
+		f = new File(filePath);
+
+		if (!f.exists()) {
+			// 路径不存在
+			response.getWriter().write("<script>alert('文件不存在');history.back();</script>");
+			return;
+		}
+
+		// 设置文件MIME类型
+		// response.setContentType("application/force-download");
+		// 设置Content-Disposition
+		// response.setHeader("Content-Disposition", "inline;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+
+		response.setHeader("Content-Disposition", "attachment;fileName=test.pdf");
+		response.setContentType("multipart/form-data");
+
+		BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
+		BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+
+		IOUtils.write(IOUtils.toByteArray(in), out);
+//		try {
+//			// 读取文件
+//			// 写文件
+//			byte[] b = new byte[1024];
+//			int len = 0;
+//
+//			while ((len = in.read(b)) != -1) {
+//				out.write(b, 0, len);
+//			}
+//
+//			in.close();
+//			out.close();
+//
+//		} catch (IOException e) {
+//
+//			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+//
+//			if (in != null) {
+//				in.close();
+//			}
+//			if (out != null) {
+//				out.close();
+//			}
+//		}
 	}
 
 	private String filter(String str) {
@@ -320,8 +410,8 @@ public class AttachmentController {
 		SXSSFWorkbook excel = ExcelUtil.exportExcelX(title, head, array, false);
 
 		try {
-//			 OutputStream outXlsx = new FileOutputStream("E://b.xlsx");
-//			 excel.write(outXlsx);
+			// OutputStream outXlsx = new FileOutputStream("E://b.xlsx");
+			// excel.write(outXlsx);
 
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 
@@ -334,7 +424,7 @@ public class AttachmentController {
 			response.reset();
 			// response.setContentType("application/force-download");
 			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
-			response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(title+".xlsx", "UTF-8"));
+			response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(title + ".xlsx", "UTF-8"));
 			response.setContentLength(content.length);
 
 			ServletOutputStream outputStream = response.getOutputStream();

@@ -330,8 +330,10 @@ define("List", function (require, module, exports) {
                     itemId: bodyItems[row].primaryValue,
                     fileName: fileName,
                 })
-
-                window.open("../../../../lib/pdfjs/web/viewer.html?file=" + url);
+            
+                url = encodeURIComponent(url);
+                window.open("../../../lib/pdfjs/web/viewer.html?file=" + url);
+                return;
                 /*                var $a = $(btn).parent().prev();
                  operate = 0;
 
