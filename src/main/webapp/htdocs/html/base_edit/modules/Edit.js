@@ -289,6 +289,29 @@ define('Edit', function (require, module, exports) {
         },
         'afterInitSelectors': function (selectors) {
             f7Selectors = selectors;
+        },
+        'afterNewBill': function (classId, metaData) {
+            // 新增时-模板填充完后事件
+            if (classId == 1005) {
+                // 新增供应商，代码自动生成-蛋疼的需求
+                var element = getValueElement(field.key);
+
+                if (!element) {
+                    return;
+                }
+
+                element.value = $.Date.format(new Date(), 'yyyy-MM-dd hh:mm:ss');
+            }
+            if (classId == 3010) {
+                // 新增供应商纸质，代码自动生成-蛋疼的需求
+                var element = getValueElement(field.key);
+
+                if (!element) {
+                    return;
+                }
+
+                element.value = $.Date.format(new Date(), 'yyyy-MM-dd hh:mm:ss');
+            }
         }
     });
 

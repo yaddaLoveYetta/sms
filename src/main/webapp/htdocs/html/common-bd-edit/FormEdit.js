@@ -481,6 +481,8 @@
             if (!!fnEntry) {
                 fnEntry && fnEntry(null, metaData);
             }
+
+            emitter.fire('afterNewBill', [formClassId, metaData]);
             return;
         }
 
