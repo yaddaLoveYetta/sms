@@ -337,13 +337,32 @@ define("List", function (require, module, exports) {
                     url = encodeURIComponent(url);
                     window.open("../../../lib/pdfjs/web/viewer.html?file=" + url);
                     return;
-                }else {
-                    window.open(url);
-                    return;
+                } else {
+
+                    SMS.use('Dialog', function (Dialog) {
+
+                        var dialog = new Dialog({
+                            title: '图片预览',
+                            width: 700,
+                            height: 550,
+                            url: 'html/supplier/picView/index.html',
+                            data: {
+                                picUrl: url
+                            },
+                            button: [],
+                        });
+
+                        //默认关闭行为为不提交
+                        dialog.isSubmit = false;
+
+                        dialog.showModal();
+
+                    });
+
                 }
 
 
-                var $a = $(btn).parent().prev();
+/*                var $a = $(btn).parent().prev();
                 operate = 0;
 
                 var args = [{
@@ -351,7 +370,7 @@ define("List", function (require, module, exports) {
                     fileName: fileName,
                     control: $a[0],
                     operate: operate
-                }, event];
+                }, event];*/
 
             }
             else if (index == 1) {
