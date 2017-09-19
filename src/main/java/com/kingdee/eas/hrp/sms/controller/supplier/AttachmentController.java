@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -46,6 +47,7 @@ import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
+import com.sun.tools.extcheck.Main;
 
 @Controller
 @RequestMapping(value = "/file/")
@@ -278,7 +280,7 @@ public class AttachmentController {
 		String fileName = ParameterUtils.getParameter(request, "fileName", ""); // 文件名
 
 		String itemId = ParameterUtils.getParameter(request, "itemId", "");
-		
+
 		Map<String, Object> itemById = templateService.getItemById(classId, itemId);
 		String number = (String) itemById.get("number");
 		String code = filter(number);
@@ -320,38 +322,37 @@ public class AttachmentController {
 		// response.setContentType("application/force-download");
 		// 设置Content-Disposition
 		// response.setHeader("Content-Disposition", "inline;filename=" + URLEncoder.encode(fileName, "UTF-8"));
-
-		response.setHeader("Content-Disposition", "attachment;fileName=test.pdf");
-		response.setContentType("multipart/form-data");
+		// response.setContentType("multipart/form-data");
+		response.setContentType("image/jpeg");
 
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
 		BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
 
-		IOUtils.write(IOUtils.toByteArray(in), out);
-//		try {
-//			// 读取文件
-//			// 写文件
-//			byte[] b = new byte[1024];
-//			int len = 0;
-//
-//			while ((len = in.read(b)) != -1) {
-//				out.write(b, 0, len);
-//			}
-//
-//			in.close();
-//			out.close();
-//
-//		} catch (IOException e) {
-//
-//			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-//
-//			if (in != null) {
-//				in.close();
-//			}
-//			if (out != null) {
-//				out.close();
-//			}
-//		}
+		// IOUtils.write(IOUtils.toByteArray(in), out);
+		try {
+			// 读取文件
+			// 写文件
+			byte[] b = new byte[1024];
+			int len = 0;
+
+			while ((len = in.read(b)) != -1) {
+				out.write(b, 0, len);
+			}
+
+			in.close();
+			out.close();
+
+		} catch (IOException e) {
+
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+
+			if (in != null) {
+				in.close();
+			}
+			if (out != null) {
+				out.close();
+			}
+		}
 	}
 
 	private String filter(String str) {
@@ -444,5 +445,18 @@ public class AttachmentController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		
+		Class<?> c1 = Date.class;
+		Class<?> c2 = Date.class;
+		Class<?> c3 = Class.forName("java.util.Map");
+
+		System.out.println(c1.equals(c2));
+		System.out.println(c1 == c3);
+		System.out.println(int.class == Integer.class);
+		System.out.println(int.class == Integer.TYPE);
 	}
 }
