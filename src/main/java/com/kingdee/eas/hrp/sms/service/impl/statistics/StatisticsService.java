@@ -27,7 +27,6 @@ public class StatisticsService extends BaseService implements IStatisticsService
 	@Resource
 	ITemplateService templateService;
 
-	@ServiceLog(desc = "获取订单统计记录")
 	@Override
 	public JSONObject getRecord(String itemId, String supplier, String orderStartDate, String orderEndDate, int pageNo,
 			int pageSize) {

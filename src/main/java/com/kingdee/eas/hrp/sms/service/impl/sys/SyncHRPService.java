@@ -41,7 +41,6 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 	@Resource
 	ITemplateService templateService;
 
-	@ServiceLog(desc = "同步item到HRP")
 	@Override
 	public String sendItem(int classId, String data) {
 

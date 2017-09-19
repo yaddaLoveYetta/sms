@@ -1,21 +1,17 @@
 package com.kingdee.eas.hrp.sms.service.impl.user;
 
-import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.InitBinder;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.BloomFilter;
-import com.google.common.hash.Funnel;
 import com.google.common.hash.Funnels;
 import com.kingdee.eas.hrp.sms.dao.generate.UserMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
-import com.kingdee.eas.hrp.sms.log.ServiceLog;
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.model.UserExample;
 import com.kingdee.eas.hrp.sms.model.UserExample.Criteria;
@@ -46,7 +42,6 @@ public class LoginService extends BaseService implements ILoginService {
 
 	}
 
-	@ServiceLog(desc = "登录服务")
 	@Override
 	public User login(String username, String password, String type) {
 
