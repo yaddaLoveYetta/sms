@@ -312,6 +312,16 @@ define('Edit', function (require, module, exports) {
 
                 element.value = $.Date.format(new Date(), 'yyyy-MM-dd hh:mm:ss');
             }
+            if (classId == 3010) {
+                // 新增用户，米面随机生成-蛋疼的需求
+                var element = getValueElement('password');
+
+                if (!element) {
+                    return;
+                }
+
+                element.value = $.String.randomString(8, 0);
+            }
         }
     });
 

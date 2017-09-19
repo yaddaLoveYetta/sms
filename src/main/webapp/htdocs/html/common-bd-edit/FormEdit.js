@@ -648,7 +648,7 @@
             }
 
             if (fields[keyName]['ctrlType'] == 99) {
-                // 合作商家基础资料多一个密码字段特殊，蛋疼的处理-写死它，用来判断是否修改-加密
+                // 基础资料密码字段特殊，蛋疼的处理-写死它，用来判断是否修改-加密
                 if (!element.value && isMustFiled(isUpdate, field)) {
                     var msg = field['name'] + '为必填项';
                     errorData[keyName] = msg;
