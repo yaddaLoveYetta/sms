@@ -23,7 +23,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.kingdee.eas.hrp.sms.dao.generate.SysProfileMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
-import com.kingdee.eas.hrp.sms.log.ServiceLog;
 import com.kingdee.eas.hrp.sms.model.SysProfile;
 import com.kingdee.eas.hrp.sms.model.SysProfileExample;
 import com.kingdee.eas.hrp.sms.model.SysProfileExample.Criteria;
