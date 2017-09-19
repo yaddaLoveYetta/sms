@@ -300,7 +300,7 @@ define('Edit', function (require, module, exports) {
                     return;
                 }
 
-                element.value = $.Date.format(new Date(), 'yyyy-MM-dd hh:mm:ss');
+                element.value = $.Date.format(new Date(), 'yyyyMMddhhmmss');
             }
             if (classId == 3010) {
                 // 新增供应商纸质，代码自动生成-蛋疼的需求
@@ -310,7 +310,7 @@ define('Edit', function (require, module, exports) {
                     return;
                 }
 
-                element.value = $.Date.format(new Date(), 'yyyy-MM-dd hh:mm:ss');
+                element.value = $.Date.format(new Date(), 'yyyyMMddhhmmss');
             }
             if (classId == 1001) {
                 // 新增用户，米面随机生成-蛋疼的需求
