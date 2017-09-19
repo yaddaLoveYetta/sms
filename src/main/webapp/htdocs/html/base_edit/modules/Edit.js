@@ -313,7 +313,7 @@ define('Edit', function (require, module, exports) {
                 element.value = $.Date.format(new Date(), 'yyyyMMddhhmmss');
             }
             if (classId == 1001) {
-                // 新增用户，米面随机生成-蛋疼的需求
+                // 新增用户，密码随机生成-蛋疼的需求
                 var element = getValueElement('password');
 
                 if (!element) {
