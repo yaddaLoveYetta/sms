@@ -755,7 +755,7 @@
                 continue;
             }
 
-            if (fields[keyName]['ctrlType'] == 99 || fields[keyName]['dateType'] == 5) {
+            if (fields[keyName]['ctrlType'] == 99 || fields[keyName]['dataType'] == 5) {
                 // 用户多一个密码字段特殊，蛋疼的处理-写死它，用来判断是否修改-加密
                 element.value = 'XXXXXXXX';
                 continue;
