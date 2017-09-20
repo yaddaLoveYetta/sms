@@ -647,7 +647,7 @@
                 continue;
             }
 
-            if (fields[keyName]['ctrlType'] == 99) {
+            if (fields[keyName]['ctrlType'] == 99 || fields[keyName]['dataType'] == 5) {
                 // 基础资料密码字段特殊，蛋疼的处理-写死它，用来判断是否修改-加密
                 if (!element.value && isMustFiled(isUpdate, field)) {
                     var msg = field['name'] + '为必填项';
