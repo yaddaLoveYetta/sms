@@ -319,7 +319,7 @@ define('Edit', function (require, module, exports) {
                 if (!element) {
                     return;
                 }
-
+                $(element).attr('type','text'); // 新增时密码明文显示
                 element.value = $.String.randomString(8, 0);
             }
         }

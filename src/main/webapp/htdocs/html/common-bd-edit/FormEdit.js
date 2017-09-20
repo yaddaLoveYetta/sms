@@ -1,4 +1,4 @@
-﻿define('FormEdit', function (require, module, exports) {
+﻿﻿define('FormEdit', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
