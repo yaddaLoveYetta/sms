@@ -2551,7 +2551,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'方法参数' 
 GO
 
 
-/****** Object:  Table [dbo].[t_sms_item_license_type]    Script Date: 09/19/2017 15:34:18 ******/
+/****** Object:  Table [dbo].[t_sms_supplier_item_license_type]    Script Date: 09/19/2017 15:34:18 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -2564,7 +2564,7 @@ SET ANSI_PADDING ON
 GO
 
 
-CREATE TABLE [dbo].[t_sms_item_license_type](
+CREATE TABLE [dbo].[t_sms_supplier_item_license_type](
 	[id] [varchar](50) NOT NULL,
 	[number] [varchar](50) NULL,
 	[name] [varchar](50) NULL,
@@ -2584,35 +2584,35 @@ SET ANSI_PADDING OFF
 GO
 
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'内码' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item_license_type', @level2type=N'COLUMN',@level2name=N'id'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'内码' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_supplier_item_license_type', @level2type=N'COLUMN',@level2name=N'id'
 GO
 
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'代码' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item_license_type', @level2type=N'COLUMN',@level2name=N'number'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'代码' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_supplier_item_license_type', @level2type=N'COLUMN',@level2name=N'number'
 GO
 
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'名称' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item_license_type', @level2type=N'COLUMN',@level2name=N'name'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'名称' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_supplier_item_license_type', @level2type=N'COLUMN',@level2name=N'name'
 GO
 
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'同步状态（1.未编辑，2.新增，3.已编辑）' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item_license_type', @level2type=N'COLUMN',@level2name=N'syncStatus'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'同步状态（1.未编辑，2.新增，3.已编辑）' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_supplier_item_license_type', @level2type=N'COLUMN',@level2name=N'syncStatus'
 GO
 
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'是否必须' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item_license_type', @level2type=N'COLUMN',@level2name=N'isMust'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'是否必须' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_supplier_item_license_type', @level2type=N'COLUMN',@level2name=N'isMust'
 GO
 
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'是否控制' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item_license_type', @level2type=N'COLUMN',@level2name=N'isControl'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'是否控制' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_supplier_item_license_type', @level2type=N'COLUMN',@level2name=N'isControl'
 GO
 
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'审核状态：0.未审核，1.已审核' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item_license_type', @level2type=N'COLUMN',@level2name=N'review'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'审核状态：0.未审核，1.已审核' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_supplier_item_license_type', @level2type=N'COLUMN',@level2name=N'review'
 GO
 
 
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'物料证件类型' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item_license_type'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @VALUE=N'物料证件类型' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_supplier_item_license_type'
 GO
 
 
@@ -3737,12 +3737,12 @@ GO
 
 
 /****** Object:  Default [DF__t_sms_ite__syncS__2B3F6F97]    Script Date: 09/19/2017 15:34:18 ******/
-ALTER TABLE [dbo].[t_sms_item_license_type] ADD  DEFAULT ((0)) FOR [syncStatus]
+ALTER TABLE [dbo].[t_sms_supplier_item_license_type] ADD  DEFAULT ((0)) FOR [syncStatus]
 GO
 
 
 /****** Object:  Default [DF__t_sms_ite__revie__2C3393D0]    Script Date: 09/19/2017 15:34:18 ******/
-ALTER TABLE [dbo].[t_sms_item_license_type] ADD  DEFAULT ((0)) FOR [review]
+ALTER TABLE [dbo].[t_sms_supplier_item_license_type] ADD  DEFAULT ((0)) FOR [review]
 GO
 
 
@@ -4173,8 +4173,8 @@ INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [ke
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'结束日期', N'endDate', N'endDate', 3, 12, 5, 7, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 255, 0, 1, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 1, N'内码', N'id', N'entryId', 2, NULL, 1, 1, 0, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 50, 0, 0, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'内码', N'id', N'id', 2, NULL, 1, 1, 0, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 4, 0, 0, 0, 1)
-INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'是否控制', N'isControl', N'isControl', 4, 3, 10, 12, 63, 80, 3, 1023, N't_sms_item_license_type', N'', N'', N'isControl', N'', N'', N'', N'', NULL, NULL, 0, 1, 0, 1, 0, 1)
-INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'是否必须', N'isMust', N'isMust', 4, 3, 9, 11, 63, 80, 3, 1023, N't_sms_item_license_type', N'', N'', N'isMust', N'', N'', N'', N'', NULL, NULL, 0, 1, 0, 1, 0, 1)
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'是否控制', N'isControl', N'isControl', 4, 3, 10, 12, 63, 80, 3, 1023, N't_sms_supplier_item_license_type', N'', N'', N'isControl', N'', N'', N'', N'', NULL, NULL, 0, 1, 0, 1, 0, 1)
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'是否必须', N'isMust', N'isMust', 4, 3, 9, 11, 63, 80, 3, 1023, N't_sms_supplier_item_license_type', N'', N'', N'isMust', N'', N'', N'', N'', NULL, NULL, 0, 1, 0, 1, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'物料', N'material', N'material', 2, 6, 7, 9, 63, 200, 1, 1013, N't_sms_item', N'', N'id', N'name', N'number', N'INNER JOIN ', N'', N'', NULL, NULL, 15, 50, 0, 1, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'注册证名称名称', N'name', N'name', 2, NULL, 3, 3, 63, 200, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 50, 0, 1, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'注册证编号', N'number', N'number', 2, NULL, 2, 2, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 1, 0, 1)
@@ -4183,7 +4183,7 @@ INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [ke
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'审核状态', N'review', N'review', 4, 3, 12, 14, 3, 50, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 1, 0, 1, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'供应商', N'supplier', N'supplier', 2, 6, 6, 8, 63, 80, 1, 1005, N't_sms_supplier', N'', N'id', N'name', N'number', N'INNER JOIN ', N'', N'', NULL, NULL, 15, 50, 0, 1, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'同步状态', N'syncStatus', N'syncStatus', 4, 3, 99, 99, 3, 50, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 1, 0, 1, 0, 1)
-INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'注册证类别', N'type', N'type', 2, 6, 2, 4, 63, 80, 1, 1023, N't_sms_item_license_type', N'', N'id', N'name', N'number', N'INNER JOIN ', N'', N'', NULL, NULL, 15, 8, 0, 1, 0, 1)
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 0, N'注册证类别', N'type', N'type', 2, 6, 2, 4, 63, 80, 1, 1023, N't_sms_supplier_item_license_type', N'', N'id', N'name', N'number', N'INNER JOIN ', N'', N'', NULL, NULL, 15, 8, 0, 1, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3020, 1, N'附件路径', N'url', N'url', 2, NULL, 3, 3, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 255, 0, 0, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3030, 0, N'生效日期', N'effectualDate', N'effectualDate', 3, 12, 10, 10, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 100, 0, 0, 0, 1)
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (3030, 0, N'内码', N'id', N'id', 2, NULL, 1, 1, 0, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 4, 0, 0, 0, 1)
@@ -4233,7 +4233,7 @@ GO
 -- Records of t_sms_formClass
 -- ----------------------------
 
-INSERT INTO [t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (N'1001', N'用户', N't_sms_user', N'userId', N'10011001'), (N'1002', N'用户类别', N't_sms_userType', N'typeId', N'10021002'), (N'1003', N'角色', N't_sms_role', N'roleId', N'10031003'), (N'1004', N'角色类别', N't_sms_roleType', N'typeId', N'10041004'), (N'1005', N'供应商', N't_sms_supplier', N'id', N'37C67DFC'), (N'1006', N'供应商类别', N't_sms_category', N'id', N'7A2569A2'), (N'1007', N'供应商证件类别', N't_sms_supplier_license_type', N'id', N'9D1A92CC'), (N'1008', N'城市', N't_sms_city', N'id', N'0C5DD6B6'), (N'1009', N'国家', N't_sms_country', N'id', N'2665126B'), (N'1010', N'区县', N't_sms_county', N'id', N'859D3D7F'), (N'1011', N'币别', N't_sms_currency', N'id', N'DEB58FDC'), (N'1012', N'行业', N't_sms_industry', N'id', N'C3FDE1A9'), (N'1013', N'物料', N't_sms_item', N'id', N'4409E7F0'), (N'1014', N'付款方式', N't_sms_pay', N'id', N'6BCA0AB5'), (N'1015', N'省份', N't_sms_province', N'id', N'818DCAFB'), (N'1016', N'结算方式', N't_sms_settlement', N'id', N'E96B2B8E'), (N'1017', N'税种', N't_sms_taxCategory', N'id', N'91E210CA'), (N'1018', N'单位', N't_sms_unit', N'id', N'5B825C57'), (N'1021', N'采购模式', N't_sms_sale_proxy', N'id', N''), (N'1023', N'物料证件类型', N't_sms_item_license_type', N'id', N'2F32B746'), (N'1024', N'职员', N't_sms_employee', N'id', N''), (N'1025', N'单据状态', N't_sms_base_status', N'id', N''), (N'1026', N'原单据类型', N't_sms_sourceBillType', N'id', N''), (N'1027', N'状态', N't_sms_status', N'id', N''), (N'2019', N'采购订单', N't_sms_purchase_order', N'id', N''), (N'2020', N'发货单', N't_sms_sendcargo', N'id', N'15F2BD83'), (N'2021', N'收货单', N't_sms_purreceival', N'id', N''), (N'2022', N'入库单', N't_sms_purinwarehs', N'id', N''), (N'2023', N'退货单', N't_sms_purreturns', N'id', N''), (N'3010', N'供应商资质', N't_sms_supplier_license', N'id', N'8D759F89'), (N'3020', N'物料证件', N't_sms_supplier_item_license', N'id', N'24631D4E'), (N'3030', N'中标库', N't_sms_approved_supplier', N'id', N'ssssssss'), (N'14001', N'系统日志', N't_sms_log', N'id', N'')
+INSERT INTO [t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (N'1001', N'用户', N't_sms_user', N'userId', N'10011001'), (N'1002', N'用户类别', N't_sms_userType', N'typeId', N'10021002'), (N'1003', N'角色', N't_sms_role', N'roleId', N'10031003'), (N'1004', N'角色类别', N't_sms_roleType', N'typeId', N'10041004'), (N'1005', N'供应商', N't_sms_supplier', N'id', N'37C67DFC'), (N'1006', N'供应商类别', N't_sms_category', N'id', N'7A2569A2'), (N'1007', N'供应商证件类别', N't_sms_supplier_license_type', N'id', N'9D1A92CC'), (N'1008', N'城市', N't_sms_city', N'id', N'0C5DD6B6'), (N'1009', N'国家', N't_sms_country', N'id', N'2665126B'), (N'1010', N'区县', N't_sms_county', N'id', N'859D3D7F'), (N'1011', N'币别', N't_sms_currency', N'id', N'DEB58FDC'), (N'1012', N'行业', N't_sms_industry', N'id', N'C3FDE1A9'), (N'1013', N'物料', N't_sms_item', N'id', N'4409E7F0'), (N'1014', N'付款方式', N't_sms_pay', N'id', N'6BCA0AB5'), (N'1015', N'省份', N't_sms_province', N'id', N'818DCAFB'), (N'1016', N'结算方式', N't_sms_settlement', N'id', N'E96B2B8E'), (N'1017', N'税种', N't_sms_taxCategory', N'id', N'91E210CA'), (N'1018', N'单位', N't_sms_unit', N'id', N'5B825C57'), (N'1021', N'采购模式', N't_sms_sale_proxy', N'id', N''), (N'1023', N'物料证件类型', N't_sms_supplier_item_license_type', N'id', N'2F32B746'), (N'1024', N'职员', N't_sms_employee', N'id', N''), (N'1025', N'单据状态', N't_sms_base_status', N'id', N''), (N'1026', N'原单据类型', N't_sms_sourceBillType', N'id', N''), (N'1027', N'状态', N't_sms_status', N'id', N''), (N'2019', N'采购订单', N't_sms_purchase_order', N'id', N''), (N'2020', N'发货单', N't_sms_sendcargo', N'id', N'15F2BD83'), (N'2021', N'收货单', N't_sms_purreceival', N'id', N''), (N'2022', N'入库单', N't_sms_purinwarehs', N'id', N''), (N'2023', N'退货单', N't_sms_purreturns', N'id', N''), (N'3010', N'供应商资质', N't_sms_supplier_license', N'id', N'8D759F89'), (N'3020', N'物料证件', N't_sms_supplier_item_license', N'id', N'24631D4E'), (N'3030', N'中标库', N't_sms_approved_supplier', N'id', N'ssssssss'), (N'14001', N'系统日志', N't_sms_log', N'id', N'')
 GO
 
 

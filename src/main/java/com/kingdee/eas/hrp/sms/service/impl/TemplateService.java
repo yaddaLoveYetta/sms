@@ -1000,7 +1000,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		if (sb.length() > 0) {
 
-			throw new BusinessLogicRunTimeException("审核失败，存在已审核的记录，名称："+sb.toString());
+			throw new BusinessLogicRunTimeException("审核失败，存在已审核的记录，名称：" + sb.toString());
 		}
 
 		String userType = SessionUtil.getUserType();
@@ -1030,9 +1030,30 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@Transactional
 	public void unCheckItem(Integer classId, String items) {
 
-		Map<String, Object> review = getItemById(classId, items);
-		if (Integer.parseInt(review.get("review").toString()) == 0) {
-			throw new BusinessLogicRunTimeException("该资料未审核，不能反审核");
+		// 判断是否未审核-未审核不能反审核
+
+		List<String> ids = Arrays.asList(items.split(","));
+		List<String> idList = new ArrayList<String>();
+		// 获取本次查询的主表内码集合
+		for (String id : ids) {
+			idList.add("'" + id + "'");
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		List<Map<String, Object>> itemByIds = getItemByIds(classId, idList, null);
+
+		for (Map<String, Object> item : itemByIds) {
+
+			if (Integer.parseInt(item.get("review").toString()) == 0) {
+				sb.append(item.get("name") + ":");
+			}
+
+		}
+
+		if (sb.length() > 0) {
+
+			throw new BusinessLogicRunTimeException("反审核失败，存在未审核的记录，名称：" + sb.toString());
 		}
 
 		String userType = SessionUtil.getUserType();
