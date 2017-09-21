@@ -18,15 +18,15 @@ define("List", function (require, exports, module) {
 
         api.on({
             'success': function (data, json) {
-                SMS.Tips.success('数据加载成功');
+                SMS.Tips.success('数据加载成功', 1000);
                 fn && fn(data.list, data.count);
             },
             'fail': function (code, msg, json) {
                 var s = $.String.format('{0} (数据加载异常: {1})', msg, code);
-                SMS.Tips.error(s);
+                SMS.Tips.error(s, 1000);
             },
             'error': function () {
-                SMS.Tips.error('数据加载异常');
+                SMS.Tips.error('数据加载异常', 1000);
             }
         });
     };
