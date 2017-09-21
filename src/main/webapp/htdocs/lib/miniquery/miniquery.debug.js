@@ -2529,6 +2529,23 @@
                 dt.setMilliseconds(datetime.getMilliseconds() + value);
 
                 return dt;
+            },
+            /**
+             * 判断两个日期之间相差的天数
+             * date1>date2时返回0
+             * @param date1
+             * @param date2
+             */
+            dateDiff: function (date1, date2) {
+
+                date1 = Date.parse(new Date(date1));
+                date2 = Date.parse(new Date(date2));
+
+                if (date2 < date1) {
+                    return 0;
+                }
+                return Math.abs(parseInt((date2 - date1) / 1000 / 3600 / 24));
+
             }
 
         });
@@ -2609,6 +2626,9 @@
                     addMilliseconds: function (value) {
                         this.value = $Date.addMilliseconds(this.value, value);
                         return this;
+                    },
+                    dateDiff: function (value) {
+                        return $Date.dateDiff(this.value, value);
                     }
                 };
 

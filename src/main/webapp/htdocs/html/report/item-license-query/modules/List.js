@@ -69,6 +69,9 @@ define("List", function (require, exports, module) {
                             'idType': item.idType || "",
                             'authOrg': item.authOrg || "",
                             'supplier': item.supplier || 0,
+                            'beginDate': item.beginDate || 0,
+                            'endDate': item.endDate || 0,
+                            'effective': $.Date.dateDiff(item.beginDate, item.endDate) || 0,
                         })
                     });
                 }).join('')
