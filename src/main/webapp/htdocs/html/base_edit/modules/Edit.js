@@ -322,6 +322,17 @@ define('Edit', function (require, module, exports) {
                 $(element).attr('type','text'); // 新增时密码明文显示
                 element.value = $.String.randomString(8, 0);
             }
+
+            if (classId == 1020) {
+                // 新增生产企业，代码随机生成默认值-蛋疼的需求
+                var element = getValueElement('number');
+
+                if (!element) {
+                    return;
+                }
+
+                element.value = $.Date.format(new Date(), 'yyyyMMddhhmmss');
+            }
         }
     });
 
