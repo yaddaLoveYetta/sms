@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.plugin.PluginException;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.customize.TemplateDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.FormClassMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.FormEntriesMapper;
@@ -41,7 +39,6 @@ import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInFactory;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Common;
-import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.SessionUtil;
 
 @Service
