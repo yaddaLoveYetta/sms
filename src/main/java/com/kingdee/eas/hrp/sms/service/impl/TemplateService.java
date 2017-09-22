@@ -766,11 +766,12 @@ public class TemplateService extends BaseService implements ITemplateService {
 			throw new PluginException(result.getMsg());
 		}
 
-		jsonData = (JSONObject) result.getData();
+		//jsonData = (JSONObject) result.getData();
+		
 		// 获取主键
 		String id = "";
 		// 同步数据自带主键
-		if (jsonData.containsKey(formClass.getPrimaryKey())) {
+		if (jsonData != null && jsonData.containsKey(formClass.getPrimaryKey())) {
 			id = jsonData.getString(formClass.getPrimaryKey());
 			jsonData.remove(formClass.getPrimaryKey());
 		} else {

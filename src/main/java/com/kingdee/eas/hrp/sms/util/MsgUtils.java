@@ -17,7 +17,7 @@ import net.sf.jsqlparser.statement.execute.Execute;
 * @version 
 * 类说明：
 */
-public class MsgUtil {
+public class MsgUtils {
 	
 	/**
 	 * 调用该方法进行即时短信发送.
@@ -78,7 +78,7 @@ public class MsgUtil {
 		String smsContent = "好好上班！";
 		String times = "20170519155100";
 
-		MsgUtil.sendSMS(mobiles, smsContent);
+		MsgUtils.sendSMS(mobiles, smsContent);
 		System.out.println("123212");
 		//MsgUtil.sendtimesMS(mobiles, smsContent, times);
 		//System.out.println(client.getBalance());

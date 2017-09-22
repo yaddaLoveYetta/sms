@@ -42,7 +42,7 @@ import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.supplier.IFileUploadService;
-import com.kingdee.eas.hrp.sms.util.ExcelUtil;
+import com.kingdee.eas.hrp.sms.util.ExcelUtils;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
@@ -408,7 +408,7 @@ public class AttachmentController {
 			head.add(headMap);
 		}
 
-		SXSSFWorkbook excel = ExcelUtil.exportExcelX(title, head, array, false);
+		SXSSFWorkbook excel = ExcelUtils.exportExcelX(title, head, array, false);
 
 		try {
 			// OutputStream outXlsx = new FileOutputStream("E://b.xlsx");

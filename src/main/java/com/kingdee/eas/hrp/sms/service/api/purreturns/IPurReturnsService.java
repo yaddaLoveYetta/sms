@@ -9,6 +9,6 @@ public interface IPurReturnsService {
 	 * 退货单同步
 	 * 
 	 */
-	public String purreturns(JSONArray jsonarray);
+	 String purreturns(JSONArray jsonarray);
 
 }

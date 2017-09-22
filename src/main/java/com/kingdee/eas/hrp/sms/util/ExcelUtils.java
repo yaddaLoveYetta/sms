@@ -43,7 +43,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.domain.DataTypeeEnum;
 
-public class ExcelUtil {
+public class ExcelUtils {
 
 	public static String NO_DEFINE = "no_define";// 未定义的字段
 	public static String DEFAULT_DATE_PATTERN = "yyyy年MM月dd日";// 默认日期格式
@@ -521,7 +521,7 @@ public class ExcelUtil {
 	public static void downloadExcelFile(String title, Map<String, String> headMap, JSONArray ja, HttpServletResponse response) {
 		try {
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
-			ExcelUtil.exportExcelX(title, headMap, ja, null, 0, os, true);
+			ExcelUtils.exportExcelX(title, headMap, ja, null, 0, os, true);
 			byte[] content = os.toByteArray();
 			InputStream is = new ByteArrayInputStream(content);
 			// 设置response参数，可以打开下载页面
@@ -552,7 +552,7 @@ public class ExcelUtil {
 		int count = 100000;
 		JSONArray ja = new JSONArray();
 		for (int i = 0; i < 100000; i++) {
-			Student s = new ExcelUtil().new Student();
+			Student s = new ExcelUtils().new Student();
 			s.setName("POI" + i);
 			s.setAge(i);
 			s.setBirthday(new Date());
@@ -586,7 +586,7 @@ public class ExcelUtil {
 		Date d2 = new Date();
 		// ExcelUtil.exportExcelX(title, headMap, ja, null, 0, outXlsx, false);
 
-		SXSSFWorkbook exportExcelX = ExcelUtil.exportExcelX(title, head, ja, false);
+		SXSSFWorkbook exportExcelX = ExcelUtils.exportExcelX(title, head, ja, false);
 		exportExcelX.write(outXlsx);
 
 		System.out.println("共" + count + "条数据,执行" + (new Date().getTime() - d2.getTime()) + "ms");
