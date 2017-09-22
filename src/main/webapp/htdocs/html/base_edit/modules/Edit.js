@@ -208,7 +208,7 @@ define('Edit', function (require, module, exports) {
                     conditionF7Names: [{
                         type: "fixedValue",
                         filterKey: "type",
-                        filterValue: 'qdiWDEkcF0e6c5a0zztPfFxCPHE',
+                        filterValue: 'qdiWDEkcF0e6c5a0zztPfFxCPHE=',
                     }],
                 }
             }
