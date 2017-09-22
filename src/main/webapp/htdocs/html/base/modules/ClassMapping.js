@@ -37,6 +37,14 @@ define('ClassMapping', function (require, module, exports) {
             name: '供应商证件类别',
             url: 'html/base_edit/index.html'
         },
+        '1019': {
+            name: '企业类型',
+            url: 'html/base_edit/index.html'
+        },
+        '1020': {
+            name: '生产企业',
+            url: 'html/base_edit/index.html'
+        },
         '1023': {
             name: '物料证件类型',
             url: 'html/base_edit/index.html'
