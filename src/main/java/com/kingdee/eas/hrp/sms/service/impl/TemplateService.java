@@ -15,6 +15,7 @@ import org.apache.ibatis.plugin.PluginException;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.NativeWebRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -763,8 +764,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 			throw new PluginException(result.getMsg());
 		}
 
-		//jsonData = (JSONObject) result.getData();
-		
+		// jsonData = (JSONObject) result.getData();
+
 		// 获取主键
 		String id = "";
 		// 同步数据自带主键
@@ -1981,10 +1982,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 		return ret;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(Boolean.valueOf("true"));
-	}
-
 	/**
 	 * 防注入特殊符号处理
 	 * 
@@ -2532,6 +2529,17 @@ public class TemplateService extends BaseService implements ITemplateService {
 			// statement.put("items", items);
 			templateDaoMapper.del(statement);
 		}
+	}
+
+	public static void main(String[] args) {
+		Integer var1 = 127;
+
+		Integer var2 = 127;
+
+		System.err.println(var1 == var2);
+
+		System.out.println(var1.equals(var2));
+
 	}
 
 }

@@ -57,13 +57,13 @@
     });
 
     Edit.on({
-        'addSuccess':function () {
+        'addSuccess':function (itemId) {
 
             Iframe.raise({
                 'eventName':'addSuccess',
                 'data':Iframe.getInfos(),
             });
-
+            Edit.render(formClassId, itemId);
         },
         'editSuccess':function () {
 

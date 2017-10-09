@@ -148,6 +148,9 @@ a:focus, *:focus {
 .clearfix {
     zoom: 1; /* for ie6 & ie7 */
 }
+.clear-both {
+   clear: both;
+}
 
 .clear {
     clear: both;
@@ -378,6 +381,10 @@ a:focus, *:focus {
     padding-top: 15px !important;
 }
 
+.pt25 {
+    padding-top: 25px !important;
+}
+
 .pt85 {
     padding-top: 85px !important;
 }
@@ -421,7 +428,18 @@ a:focus, *:focus {
 .pb15 {
     padding-bottom: 15px !important;
 }
-
+.b1{
+    border: 1px;
+}
+.bt1{
+    border-top: 1px;
+}
+.bb1{
+    border-top: 1px;
+}
+.bl1{
+    border-top: 1px;
+}
 .aW {
     width: auto;
 }

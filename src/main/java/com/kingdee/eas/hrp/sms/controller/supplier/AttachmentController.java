@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +28,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.IOUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,20 +40,19 @@ import com.kingdee.eas.hrp.sms.exception.PlugInRuntimeException;
 import com.kingdee.eas.hrp.sms.model.FormClass;
 import com.kingdee.eas.hrp.sms.model.FormFields;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
-import com.kingdee.eas.hrp.sms.service.api.supplier.IFileUploadService;
+import com.kingdee.eas.hrp.sms.service.api.supplier.IFileService;
 import com.kingdee.eas.hrp.sms.util.ExcelUtils;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
-import com.sun.tools.extcheck.Main;
 
 @Controller
 @RequestMapping(value = "/file/")
 public class AttachmentController {
 
 	@Resource
-	IFileUploadService fileUploadService;
+	IFileService fileUploadService;
 	@Resource
 	ITemplateService templateService;
 
@@ -73,7 +71,7 @@ public class AttachmentController {
 		ServletFileUpload fu = new ServletFileUpload(ff);
 
 		fu.setHeaderEncoding("utf-8");
-		fu.setSizeMax(5 * 1024 * 1024);// 限制文件大小为5M
+		fu.setSizeMax(10 * 1024 * 1024);// 限制文件大小为10M
 
 		ff.setRepository(new File(System.getProperty("java.io.tmpdir")));
 		ff.setSizeThreshold(1024 * 1024);// 超过内存阀值就保存到temp目录,这里设为系统缓存路径
@@ -448,15 +446,59 @@ public class AttachmentController {
 
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException {
-		
-		Class<?> c1 = Date.class;
-		Class<?> c2 = Date.class;
-		Class<?> c3 = Class.forName("java.util.Map");
+	/**
+	 * 证件/资质 附件审核
+	 * 
+	 * @Title check
+	 * @param request
+	 * @param response
+	 * @return void
+	 * @date 2017-09-29 15:19:46 星期五
+	 */
+	@RequestMapping(value = "checkAttachment")
+	public void check(HttpServletRequest request, HttpServletResponse response) {
 
-		System.out.println(c1.equals(c2));
-		System.out.println(c1 == c3);
-		System.out.println(int.class == Integer.class);
-		System.out.println(int.class == Integer.TYPE);
+		int classId = ParameterUtils.getParameter(request, "classId", -1);
+		String id = ParameterUtils.getParameter(request, "id", ""); // 主表内码
+		String entryId = ParameterUtils.getParameter(request, "entryId", ""); // 子表内码
+		int type = ParameterUtils.getParameter(request, "type", 0); // 1通过/0不通过
+
+		if (classId < 0) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交classId");
+			return;
+		}
+
+		if ("".equals(id) || "".equals(entryId)) {
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "参数错误：必须提交id-entryId");
+			return;
+		}
+
+		boolean b = fileUploadService.checkAttachment(classId, id, entryId, type);
+
+		ResponseWriteUtil.output(response, StatusCode.SUCCESS, "操作成功！");
+
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException {
+
+//		Class<?> c1 = Date.class;
+//		Class<?> c2 = Date.class;
+//		Class<?> c3 = Class.forName("java.util.Map");
+//
+//		System.out.println(c1.equals(c2));
+//		System.out.println(c1 == c3);
+//		System.out.println(int.class == Integer.class);
+//		System.out.println(int.class == Integer.TYPE);
+		
+		String str = "a,b,c,,";
+		String[] ary = str.split(",");
+		//预期大于 3，结果是 3
+		System.out.println(ary.length);
+		
+		Executors.newFixedThreadPool(2);
+		
+		//DateTimeFormatter dateTimeFormatter= 
+		
+		
 	}
 }

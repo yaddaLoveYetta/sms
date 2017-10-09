@@ -26,6 +26,10 @@ define('ButtonListOption', function (require, module, exports) {
                     text: '刷新',
                     name: 'refresh',
                     icon: '../../css/main/img/refresh.png'
+                }, {
+                    text: '导出',
+                    name: 'export',
+                    icon: '../../../css/main/img/download.png',
                 }
                 ]
             };
@@ -189,27 +193,6 @@ define('ButtonListOption', function (require, module, exports) {
                         icon: '../../css/main/img/refresh.png'
                     }
                 ]
-            };
-        } else if (classId == 1019) {
-            // 企业类型
-            config = {
-                'items': [{
-                    text: '新增',
-                    name: 'add',
-                    icon: '../../css/main/img/add.png'
-                }, {
-                    text: '修改',
-                    name: 'edit',
-                    icon: '../../css/main/img/edit.png'
-                }, {
-                    text: '删除',
-                    name: 'delete',
-                    icon: '../../css/main/img/delete.png'
-                }, {
-                    text: '刷新',
-                    name: 'refresh',
-                    icon: '../../css/main/img/refresh.png'
-                }]
             };
         } else if (classId == 1020) {
             // 生产企业

@@ -9,7 +9,7 @@
 
     var config = {
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 5,
         conditions: {}
     };
 
@@ -33,8 +33,10 @@
         var idType = SelectorList["idType"].getData()[0].ID;
         var authOrg = $("#authOrg").val().trim();
         var supplier = SelectorList["supplier"].getData()[0].ID;
+        var soonExpired=$('#soonExpired').is(':checked');
+        var expired=$('#expired').is(':checked');
 
-        //查询条件
+        //榛樿杩囨护鏉′欢
         config.conditions = {};
         if ($.trim(itemNumber) != "") {
             config.conditions['itemNumber'] = itemNumber;
@@ -62,6 +64,12 @@
         }
         if ($.trim(supplier) != "") {
             config.conditions['supplier'] = supplier;
+        }
+        if (soonExpired ) {
+            config.conditions['soonExpired'] = 1;
+        }
+        if (expired )    {
+            config.conditions['expired'] = 1;
         }
 
         List.render(config, function (total, pageSize) {

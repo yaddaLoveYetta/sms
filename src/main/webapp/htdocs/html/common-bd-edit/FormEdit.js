@@ -1,4 +1,5 @@
-﻿﻿define('FormEdit', function (require, module, exports) {
+﻿﻿
+define('FormEdit', function (require, module, exports) {
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -648,7 +649,7 @@
             }
 
             if (fields[keyName]['ctrlType'] == 99) {
-                // 基础资料密码字段特殊，蛋疼的处理-写死它，用来判断是否修改-加密
+                // 用户基础资料密码字段特殊，蛋疼的处理-写死它，用来判断是否修改-加密
                 if (!element.value && isMustFiled(isUpdate, field)) {
                     var msg = field['name'] + '为必填项';
                     errorData[keyName] = msg;
@@ -656,6 +657,10 @@
                 } else {
                     if (element.value != 'XXXXXXXX') {
                         successData[keyName] = MD5.encrypt(element.value);
+                        // 只有用户有密码，需求说新增用户时要保存明文密码--明文还是密码？？
+                        if (!isUpdate) {
+                            successData['initPwd'] = element.value;
+                        }
                     }
                 }
                 continue;

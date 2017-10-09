@@ -98,9 +98,9 @@ define('Edit', function (require, module, exports) {
             if (classId == 1001) {
                 // 用户信息特殊校验逻辑
                 // 供应商用户必须关联供应商
-                if ((f7Selectors['type'].getData()[0].ID || '') == 'B3sMo22ZLkWApjO/oEeDOxACEAI=' && (f7Selectors['supplier'].getData()[0].ID || '') == '') {
+/*                if ((f7Selectors['type'].getData()[0].ID || '') == 'B3sMo22ZLkWApjO/oEeDOxACEAI=' && (f7Selectors['supplier'].getData()[0].ID || '') == '') {
                     errorData["supplier"] = $.String.format("供应商不可为空");
-                }
+                }*/
             }
 
             FormEdit.save(itemId, showValidInfo, saveSuccess, entryData, errorData);
@@ -154,7 +154,7 @@ define('Edit', function (require, module, exports) {
             } else {
                 itemId = data['id']; // 新增后设置itemId，单据变成修改状态
                 SMS.Tips.success('数据新增成功', 2000);
-                emitter.fire('addSuccess', []);
+                emitter.fire('addSuccess', [itemId]);
             }
             //refresh(classId, f7Selectors);
         }
@@ -192,7 +192,7 @@ define('Edit', function (require, module, exports) {
                 };
             }
             if (classId == 3020 && key == 'factory') {
-                // 供应商资质新增-供应商设置默认值
+                // 物料证件新增-生产厂家选择“生产厂家”类别的生产企业
                 config = {
                     conditionF7Names: [{
                         type: "fixedValue",
@@ -203,7 +203,7 @@ define('Edit', function (require, module, exports) {
 
             }
             if (classId == 3020 && key == 'agent') {
-                // 供应商资质新增-供应商设置默认值
+                // 物料证件新增-代理商选择“代理商”类别的生产企业
                 config = {
                     conditionF7Names: [{
                         type: "fixedValue",
@@ -262,10 +262,10 @@ define('Edit', function (require, module, exports) {
                         selectors['supplier'] && selectors['supplier'].unlock();
 
                         //如果是必填需要添加 红色 * 号
-                        if ($(element).parents("td").siblings().find(".must-mark").length <= 0) { //如果不存在
-                            var html = $(element).parents("td").siblings().html();
-                            $(element).parents("td").siblings().html("<span class=\"must-mark\">*</span>" + html);
-                        }
+                        /*                        if ($(element).parents("td").siblings().find(".must-mark").length <= 0) { //如果不存在
+                         var html = $(element).parents("td").siblings().html();
+                         $(element).parents("td").siblings().html("<span class=\"must-mark\">*</span>" + html);
+                         }*/
                     }
                 }
 
@@ -325,7 +325,7 @@ define('Edit', function (require, module, exports) {
                     element.value = $.Date.format(new Date(), 'yyyyMMddhhmmss');
                 }
                 if (classId == 3010) {
-                    // 新增供应商纸质，代码自动生成-蛋疼的需求
+                    // 新增供应商资质，代码自动生成-蛋疼的需求
                     var element = getValueElement('number');
 
                     if (!element) {
@@ -334,6 +334,18 @@ define('Edit', function (require, module, exports) {
 
                     element.value = $.Date.format(new Date(), 'yyyyMMddhhmmss');
                 }
+
+                if (classId == 3020) {
+                    // 新增物料证件，代码自动生成-蛋疼的需求
+                    var element = getValueElement('number');
+
+                    if (!element) {
+                        return;
+                    }
+
+                    element.value = $.Date.format(new Date(), 'yyyyMMddhhmmss');
+                }
+
                 if (classId == 1001) {
                     // 新增用户，密码随机生成-蛋疼的需求
                     var element = getValueElement('password');

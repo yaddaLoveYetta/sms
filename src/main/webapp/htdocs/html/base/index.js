@@ -290,6 +290,37 @@
                 dialog.showModal();
             });
         },
+        'export': function (item, index) {
+
+
+            var conditions = getCondition();
+            var conditionArray = new Array();
+            for (var item in conditions) {
+                if (conditions[item] === '') {
+                    continue;
+                }
+                conditionArray.push(conditions[item]);
+            }
+
+            var api = new API("file/export");
+
+            var url = api.getUrl();
+            url = $.Url.addQueryString(url, {
+                classId: classId,
+                condition: $.Object.toJson(conditionArray),
+            })
+
+
+            var form = $("<form>");//定义一个form表单
+            form.attr("style", "display:none");
+            form.attr("target", "");
+            form.attr("method", "post");//请求类型
+            form.attr("action", url);//请求地址
+            $("body").append(form);//将表单放置在web中
+
+            form.submit();//表单提交
+            $(form).remove();
+        },
     });
 
     List.on({
@@ -323,7 +354,7 @@
         },
     });
 
-    function refresh() {
+    function getCondition() {
 
         var keyWorld = $(txtSimpleSearch).val()
         conditions['name'] = "";
@@ -346,6 +377,13 @@
                 'rightParenTheses': '))'
             };
         }
+
+        return conditions;
+    }
+
+    function refresh() {
+
+        conditions = getCondition();
 
         var conditionAll = $.extend({}, conditions, conditionExt);
 

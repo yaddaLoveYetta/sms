@@ -123,6 +123,7 @@
 		<mapper resource="mapper/customize/PurchaseOrderEntryDaoMapper.xml" />
 
 		<mapper resource="mapper/customize/OrderDaoMapper.xml" />
+		<mapper resource="mapper/customize/ReportDaoMapper.xml" />
 		
 		
 

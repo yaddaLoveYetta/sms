@@ -22,7 +22,6 @@ public class SysParamService extends BaseService implements ISysParamService {
 		SysProfileMapper mapper = sqlSession.getMapper(SysProfileMapper.class);
 
 		SysProfileExample example = new SysProfileExample();
-
 		Criteria criteria = example.createCriteria();
 
 		criteria.andCategoryEqualTo(category);
@@ -42,7 +41,11 @@ public class SysParamService extends BaseService implements ISysParamService {
 
 		SysProfileMapper mapper = sqlSession.getMapper(SysProfileMapper.class);
 
-		List<SysProfile> list = mapper.selectByExample(null);
+		SysProfileExample example = new SysProfileExample();
+
+		example.setOrderByClause("[index] ASC");
+		
+		List<SysProfile> list = mapper.selectByExample(example);
 
 		return list;
 

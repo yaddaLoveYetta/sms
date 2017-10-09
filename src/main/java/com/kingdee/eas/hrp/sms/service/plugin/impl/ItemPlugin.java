@@ -6,12 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -140,23 +142,23 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 
 		// 同步删除
-		if (reviewAndSyncClassIdList.contains(classId) && flag) {
-
-			JSONObject delJson = new JSONObject(true);
-			delJson.put("classId", classId);
-			delJson.put("items", data);
-			// 调用HRP删除接口
-			String syncRet = IWebService.webService(delJson.toString(), "delSms2hrpBaseData");
-			if (syncRet == null || syncRet.equals("")) {
-				throw new RuntimeException("同步删除医院数据时网络异常！");
-			}
-			JSONObject syncJson = JSONObject.parseObject(syncRet);
-			// 获取接口返回值数据
-			String syncData = syncJson.getString("data");
-			if (!(null == syncData || "".equals(syncData))) {
-				throw new PlugInRuntimeException("记录无法在医院数据中删除，故删除失败");
-			}
-		}
+		// if (reviewAndSyncClassIdList.contains(classId) && flag) {
+		//
+		// JSONObject delJson = new JSONObject(true);
+		// delJson.put("classId", classId);
+		// delJson.put("items", data);
+		// // 调用HRP删除接口
+		// String syncRet = IWebService.webService(delJson.toString(), "delSms2hrpBaseData");
+		// if (syncRet == null || syncRet.equals("")) {
+		// throw new RuntimeException("同步删除医院数据时网络异常！");
+		// }
+		// JSONObject syncJson = JSONObject.parseObject(syncRet);
+		// // 获取接口返回值数据
+		// String syncData = syncJson.getString("data");
+		// if (!(null == syncData || "".equals(syncData))) {
+		// throw new PlugInRuntimeException("记录无法在医院数据中删除，故删除失败");
+		// }
+		// }
 		if (classId == 1003) {
 			String[] split = data.split("\\,");
 			SqlSession rolesqlSession = (SqlSession) Environ.getBean("sqlSession");
@@ -291,6 +293,7 @@ public class ItemPlugin extends PlugInAdpter {
 		}
 
 		if (classId == 1001) {
+
 			SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
 			UserMapper userMapper = (UserMapper) sqlSession.getMapper(UserMapper.class);
 			UserExample e = new UserExample();
@@ -301,6 +304,26 @@ public class ItemPlugin extends PlugInAdpter {
 			if (o.size() > 0) {
 				throw new PlugInRuntimeException("账号已存在,请重新输入！");
 			}
+
+			// 新增供应商用户时，同步新增供应商(如果用户关联了供应商不新增) =======begin==========================
+			// 用户名-->供应商名称 ， 账号-->供应商代码
+
+			String userType = json.getString("type"); // 用户类别
+			String supplier = json.getString("supplier"); // 关联供应商
+
+			if (StringUtils.isEmpty(supplier) && null != userType && userType.equals("B3sMo22ZLkWApjO/oEeDOxACEAI=")) {
+				// 新建供应商用户且新建时没有关联供应商
+
+				Map<String, Object> item = new HashMap<String, Object>();
+				item.put("name", json.getString("number"));// 用户名-->供应商名称
+				item.put("number", json.getString("name"));// 账号-->供应商代码
+
+				String supplierId = templateService.addItem(1005, JSON.toJSONString(item));
+
+				json.put("supplier", supplierId);
+			}
+			// 新增供应商用户时，同步新增供应商(如果用户关联了供应商不新增) =======end============================
+
 		}
 
 		PlugInRet ret = new PlugInRet();
