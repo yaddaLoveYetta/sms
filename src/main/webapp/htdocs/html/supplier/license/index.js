@@ -99,6 +99,11 @@
                     text: '上传附件',
                     name: 'upload',
                     icon: '../../../css/main/img/upload.png',
+                    items: [{
+                        text: '附件预览',
+                        name: 'preview',
+                        icon: '../../../css/main/img/preview.png',
+                    }],
                 },
                 {
                     text: '发送到医院',
@@ -148,6 +153,11 @@
                     text: '上传附件',
                     name: 'upload',
                     icon: '../../../css/main/img/upload.png',
+                    items: [{
+                        text: '附件预览',
+                        name: 'preview',
+                        icon: '../../../css/main/img/preview.png',
+                    }],
                 },
                 {
                     text: '发送到医院',
@@ -326,10 +336,10 @@
                 SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
-/*            if (list.length > 1) {
-                SMS.Tips.error('一次只能对一条记录进行操作', 1500);
-                return;
-            }*/
+            /*            if (list.length > 1) {
+             SMS.Tips.error('一次只能对一条记录进行操作', 1500);
+             return;
+             }*/
             List.review(classId, list, function () {
                 SMS.Tips.success("审核成功", 1500);
                 refresh();
@@ -345,10 +355,10 @@
                 SMS.Tips.error('请选择要操作的项', 1500);
                 return;
             }
-/*            if (list.length > 1) {
-                SMS.Tips.error('一次只能对一条记录进行操作', 1500);
-                return;
-            }*/
+            /*            if (list.length > 1) {
+             SMS.Tips.error('一次只能对一条记录进行操作', 1500);
+             return;
+             }*/
 
             List.unReview(classId, list, function () {
                 SMS.Tips.success("反审核成功", 1500);
@@ -458,9 +468,72 @@
 
             form.submit();//表单提交
             $(form).remove();
+        },
+        'preview': function (item, index) {
+
+            //  判断列表中有无可预览的附件
+
+            // var showItems = getShowItems(List.getData().body.items);
+            var showItems = getShowItems(List.getSelectedItems());
+
+            if (showItems.length === 0) {
+                SMS.Tips.error('列表没有可预览的附件!', 1000);
+                return;
+            }
+
+            // 附件预览
+            SMS.use('Dialog', function (Dialog) {
+
+                var dialog = new Dialog({
+                    title: sysName + '-附件预览-',
+                    width: 900,
+                    height: 550,
+                    url: $.Url.setQueryString('html/supplier/attachmentView/index.html'),
+                    data: {
+                        'showItems': showItems,
+                        'classId': classId,
+                    },
+                    button: [],
+                });
+
+                //默认关闭行为为不提交
+                dialog.isSubmit = false;
+
+                dialog.showModal();
+
+                dialog.on({
+                    remove: function () {
+                        refresh();
+                    }
+                });
+
+            });
         }
 
     });
+
+    /**
+     * 获取有可显示附件的记录
+     * @param items
+     * @return {Array}
+     */
+    function getShowItems(items) {
+
+        var showItems = [];
+        var url
+
+        for (var i = 0; i < items.length; i++) {
+            for (var j = 0; j < items[i].data.entry["1"].length; j++) {
+                url = items[i].data.entry["1"][j].url;
+                if (url && ( $.String.endsWith(url, '.pdf', true) || $.String.endsWith(url, '.jpg', true) || $.String.endsWith(url, '.jpeg', true) || $.String.endsWith(url, '.png', true) || $.String.endsWith(url, '.gif', true)  )) {
+                    showItems.push(items[i].data);
+                    break;
+                }
+            }
+        }
+
+        return showItems;
+    }
 
     function getCondition() {
 
@@ -552,7 +625,7 @@
 
             var type = data.operate;
 
-            if(type == 0){
+            if (type == 0) {
                 // 预览
                 var api = new API("file/preview");
                 var url = api.getUrl();

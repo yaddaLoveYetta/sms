@@ -26,11 +26,13 @@ define("List", function (require, module, exports) {
     var emitter = MiniQuery.Event.create();
     var index$selected = {};
     // 记录选中的索引
+    var classId;
 
     var tid = null;
 
     function load(config, fn) {
         SMS.Tips.loading("数据加载中...");
+        classId = config.classId;
         API.get({
             classId: config.classId,
             pageNo: config.pageNo,
@@ -59,6 +61,7 @@ define("List", function (require, module, exports) {
         var html = $.String.format(samples["item.table"], {
             // 行
             'item_table_tr': $.Array.keep(data, function (item, no) {
+                item.value = getHtml(field.type, item.value);
                 return $.String.format(samples["item.table.tr"], {
                     row: row,
                     col: col,
@@ -327,7 +330,7 @@ define("List", function (require, module, exports) {
                 var api = new $API("file/download");
                 var url = api.getUrl();
                 url = $.Url.addQueryString(url, {
-                    classId: 3010,
+                    classId: classId,
                     itemId: bodyItems[row].primaryValue,
                     fileName: fileName,
                 })
@@ -360,17 +363,7 @@ define("List", function (require, module, exports) {
                     });
 
                 }
-
                 return;
-                /*                var $a = $(btn).parent().prev();
-                 operate = 0;
-
-                 var args = [{
-                 itemId: bodyItems[row].primaryValue,
-                 fileName: fileName,
-                 control: $a[0],
-                 operate: operate
-                 }, event];*/
 
             }
             else if (index == 1) {
@@ -378,14 +371,6 @@ define("List", function (require, module, exports) {
                 var fileDirector = bodyItems[row].items[col].value[childNo].value;
                 var fileName = fileDirector.substr(fileDirector.lastIndexOf('/') + 1);
 
-                var $API = SMS.require('API');
-                var api = new $API("file/download");
-                var url = api.getUrl();
-                url = $.Url.addQueryString(url, {
-                    classId: 3010,
-                    itemId: bodyItems[row].primaryValue,
-                    fileName: fileName,
-                })
                 var $a = $(btn).parent().prev();
 
                 operate = 1;
@@ -526,7 +511,7 @@ define("List", function (require, module, exports) {
 
                 if (new Date(endDate.replace(/\-/g, '\/')) < new Date()) {
                     //开始时间大于了结束时间
-                    $('tr[data-index=' + i + '] td[key="number"]').css('background-color', '#f35151');
+                    $('tr[data-index=' + i + ']').css('color', '#f35151');
                 }
 
                 continue;
@@ -534,6 +519,10 @@ define("List", function (require, module, exports) {
             }
 
         }
+    }
+
+    function getData() {
+        return list;
     }
 
     return {
@@ -551,6 +540,7 @@ define("List", function (require, module, exports) {
         unReview: unReview,
         send: send,
         checkExpired: checkExpired,
+        getData: getData,
     };
 })
 ;
