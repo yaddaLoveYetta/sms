@@ -4163,6 +4163,8 @@
             var user = get();
             var valid = !!(user && user.userId);
 
+            var userType = getUserType();
+
             if (!valid && jump) {
 
                 var url = top.location.href;
@@ -4170,7 +4172,7 @@
                 var files = defaults.files;
 
                 var master = '/' + files.master;
-                var login = '/' + files.login;
+                var login = (userType && userType === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') ? '/' + files.loginSupplier : '/' + files.login;
 
                 if (top === window && url.indexOf(master) < 0) { // 直接打开的是
                     // iframe
@@ -4306,6 +4308,10 @@
             return user || null;
         }
 
+        function getUserType() {
+            var userType = $.SessionStorage.get('userType');
+            return userType || null;
+        }
 
         /**
          * 调用登录接口进行登录。
@@ -4329,12 +4335,12 @@
                         // { name: '蓝海机电有限公司' },
                         // { name: '蓝海机电有限公司演示账套' },
                         // { name: '金蝶国际有限公司' },
-                        // { name: 'KIS 移动应用产品' }
                     ]
                 });
 
                 $.SessionStorage.set(key, user); // 把用户信息存起来，以便跨页使用
                 $.LocalStorage.set(key, user);
+                $.SessionStorage.set('userType', user.type); // 把用户类别存起来，session丢失时候不同用户登录页面不一致
 
                 fnSuccess && fnSuccess(user, data, json);
 
@@ -6464,7 +6470,7 @@
             var formClassID = field.lookUpClassID;
             var url = $.Url.setQueryString('./html/base/index.html', 'classId', formClassID);
 
-            var condition = cfg.config.getConditions && cfg.config.getConditions(rowNumb, colNumb,colModels)||{};
+            var condition = cfg.config.getConditions && cfg.config.getConditions(rowNumb, colNumb, colModels) || {};
 
             var title = field.name || '';
 

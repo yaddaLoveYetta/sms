@@ -241,6 +241,7 @@
             files: {
                 master: 'master.html',
                 login: 'login.html',
+                loginSupplier: 'login_supplier.html',
             },
         },
 
