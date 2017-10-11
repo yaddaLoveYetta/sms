@@ -52,7 +52,11 @@ define('UserInfos', function (require, module, exports) {
 
                     SMS.Login.logout(function (user, data, json) { //成功
 
-                        location.href = 'login.html';
+                        var userType = $.SessionStorage.get('userType') || null;
+
+                        var login = (userType && userType === 'B3sMo22ZLkWApjO/oEeDOxACEAI=') ? 'login_supplier.html' : 'login.html';
+
+                        location.href = login;
 
                     }, function (code, msg, json) { //失败
 
