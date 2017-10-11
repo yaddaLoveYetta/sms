@@ -18,7 +18,7 @@
 
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
 
-    var sysName = classId == 3010 ? '供应商资质' : '物料证件'
+    var sysName = classId == 3010 ? '供应商资质' : '物料证件';
 
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var txtItemSearch = document.getElementById('txt-item-search');
