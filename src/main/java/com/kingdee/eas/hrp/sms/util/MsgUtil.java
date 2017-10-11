@@ -1,16 +1,7 @@
 package com.kingdee.eas.hrp.sms.util;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import net.sf.jsqlparser.statement.execute.Execute;
 
 /**
 * 类名称：MsgUtil.java

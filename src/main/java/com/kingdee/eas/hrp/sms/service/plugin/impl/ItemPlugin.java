@@ -154,7 +154,7 @@ public class ItemPlugin extends PlugInAdpter {
 			// 获取接口返回值数据
 			String syncData = syncJson.getString("data");
 			if (!(null == syncData || "".equals(syncData))) {
-				throw new PlugInRuntimeException("记录无法在医院数据中删除，故删除失败");
+				throw new PlugInRuntimeException("记录无法在HRP中删除，删除失败");
 			}
 		}
 		if (classId == 1003) {

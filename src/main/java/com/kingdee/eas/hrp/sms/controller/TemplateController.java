@@ -232,7 +232,6 @@ public class TemplateController {
 
 	}
 
-
 	/**
 	 * 删除基础资料
 	 * 

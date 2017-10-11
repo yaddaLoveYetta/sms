@@ -1,5 +1,8 @@
 package com.kingdee.eas.hrp.sms.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.kingdee.eas.hrp.sms.model.SysProfile;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISysParamService;
 
@@ -9,7 +12,9 @@ import com.kingdee.eas.hrp.sms.service.api.sys.ISysParamService;
  * @author Administrator
  *
  */
-public class SystemParamUtil {
+public final class SystemParamUtil {
+
+	private static Map<String, Object> paramsCache = new HashMap<String, Object>();
 
 	/**
 	 * 获取系统参数值
@@ -22,14 +27,16 @@ public class SystemParamUtil {
 	 */
 	public static Object get(String category, String key) {
 
+		if (paramsCache.containsKey(category + "_" + key)) {
+			return paramsCache.get(category + "_" + key);
+		}
+
 		ISysParamService sysParamService = Environ.getBean(ISysParamService.class);
 		SysProfile sysParam = sysParamService.getSysParam(category, key);
 
-		if (sysParam != null ) {
-			return sysParam.getValue();
-		}
-		
-		return null;
+		paramsCache.put(category + "_" + key, sysParam.getValue());
+
+		return sysParam.getValue();
 
 	}
 

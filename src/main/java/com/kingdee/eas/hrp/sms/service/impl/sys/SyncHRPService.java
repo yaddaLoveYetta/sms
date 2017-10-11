@@ -54,10 +54,12 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		Map<String, Object> successSupplier = new HashMap<String, Object>();
 
 		for (int i = 0; i < idList.size(); i++) {
+
 			Map<String, Object> item = templateService.getItemById(classId, idList.get(i));
 			String id = (String) item.get("id");
-			if (0 == (short) item.get("syncStatus") || null == item.get("syncStatus")
-					|| "".equals(item.get("syncStatus"))) {
+
+			if (null == item.get("syncStatus") || "".equals(item.get("syncStatus")) || 0 == (short) item.get("syncStatus")) {
+
 				idTargetList.add(id);
 				String supplierId = "";
 				if (classId == 1005) {
@@ -72,7 +74,6 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 				}
 				String targetItem = JSON.toJSONString(item, SerializerFeature.WriteMapNullValue);
 				JSONObject targetJson = JSONObject.parseObject(targetItem);
-				System.out.println(targetItem);
 
 				targetList.add(targetJson);
 			}
@@ -88,14 +89,19 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		jsonData.put("list", targetList.toString());
 
 		String sessionId = loginInEAS();
+
 		if (null == sessionId || "".equals(sessionId)) {
 			throw new RuntimeException("连接医院服务器异常！");
 		}
+
 		String ret = syncItemByWS(sessionId, jsonData.toString(), "sms2hrpBaseData");
+
 		if (null == ret || "".equals(ret)) {
 			throw new RuntimeException("连接医院服务器异常！");
 		}
+
 		JSONObject jsonRet = JSONObject.parseObject(ret);
+
 		// HRP验证到一个错误就都不同步
 		if (StatusCode.BUSINESS_LOGIC_ERROR == jsonRet.getIntValue("code")) {
 			throw new BusinessLogicRunTimeException(jsonRet.getString("msg"));
@@ -111,7 +117,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			}
 		}
 
-		System.out.println(targetList.toString());
+		// System.out.println(targetList.toString());
 		// 获取同步发送电话
 		String mobie = SystemParamUtil.getString("sys", "hrp-sync-mobie", "");
 		if (!(mobie.equals("")) && !(successSupplier.isEmpty())) {
@@ -201,10 +207,11 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			call.addHeader(soapHeaderElement);
 
 			response = (String) call.invoke(new Object[] { data });
-			System.out.println(response);// 打印字符串
+			// System.out.println(response);// 打印字符串
 
 		} catch (RemoteException | ServiceException | MalformedURLException e) {
 			e.printStackTrace();
+			throw new BusinessLogicRunTimeException(e.getMessage(), e);
 		}
 
 		return response;
@@ -220,7 +227,9 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		SysProfileExample example = new SysProfileExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andKeyLike("%hrp-login-%");
+
 		List<SysProfile> selectByExample = mapper.selectByExample(example);
+
 		String urlStr = "";
 		String nameSpace = "";
 		String userName = "";
@@ -230,7 +239,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 		String language = "";
 		int dbType = -1;
 		String authPattern = "";
-		int i = 0;
+
 		for (SysProfile sysProfile : selectByExample) {
 			String key = sysProfile.getKey();
 			switch (key) {
@@ -239,72 +248,70 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				urlStr = sysProfile.getValue();
-				i++;
+
 				break;
 			case "hrp-login-namespace":
 				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				nameSpace = sysProfile.getValue();
-				i++;
+
 				break;
 			case "hrp-login-userName":
 				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				userName = sysProfile.getValue();
-				i++;
+
 				break;
 			case "hrp-login-psw":
 				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				password = sysProfile.getValue();
-				i++;
+
 				break;
 			case "hrp-login-slnName":
 				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				slnName = sysProfile.getValue();
-				i++;
+
 				break;
 			case "hrp-login-dcName":
 				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				dcName = sysProfile.getValue();
-				i++;
+
 				break;
 			case "hrp-login-language":
 				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				language = sysProfile.getValue();
-				i++;
+
 				break;
 			case "hrp-login-dbType":
 				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				dbType = Integer.parseInt(sysProfile.getValue());
-				i++;
+
 				break;
 			case "hrp-login-authPattern":
 				if (null == sysProfile.getValue() || "".equals(sysProfile.getValue())) {
 					throw new BusinessLogicRunTimeException("同步到HRP系统参数不能设置为空");
 				}
 				authPattern = sysProfile.getValue();
-				i++;
+
 				break;
 
 			default:
 				break;
 			}
 		}
-		if (i != 9) {
-			throw new BusinessLogicRunTimeException("系统参数设置有误，请核实！");
-		}
+
 		try {
 			org.apache.axis.client.Service sv = new org.apache.axis.client.Service();
 			Call call = (Call) sv.createCall();
@@ -317,20 +324,18 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			call.addParameter("dcName", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
 			call.addParameter("language", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
 			call.addParameter("dbType", org.apache.axis.encoding.XMLType.XSD_INT, javax.xml.rpc.ParameterMode.IN);
-			call.addParameter("authPattern", org.apache.axis.encoding.XMLType.XSD_STRING,
-					javax.xml.rpc.ParameterMode.IN);
+			call.addParameter("authPattern", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);
 
 			call.setTimeout(20000);// 超时时间为20s
 			call.setReturnType(org.apache.axis.encoding.XMLType.XSD_ANYTYPE);//
 			// 返回参数类型
 			call.setReturnClass(WSContext.class);
-			WSContext wsContext = (WSContext) call
-					.invoke(new Object[] { userName, password, slnName, dcName, language, dbType, authPattern });
-			System.out.println(wsContext);// 打印字符串
+			WSContext wsContext = (WSContext) call.invoke(new Object[] { userName, password, slnName, dcName, language, dbType, authPattern });
+			// System.out.println(wsContext);// 打印字符串
 			sessionId = wsContext.getSessionId();
 
 		} catch (RemoteException | ServiceException | MalformedURLException e) {
-			e.printStackTrace();
+			throw new BusinessLogicRunTimeException(e.getMessage(), e);
 		}
 		return sessionId;
 	}

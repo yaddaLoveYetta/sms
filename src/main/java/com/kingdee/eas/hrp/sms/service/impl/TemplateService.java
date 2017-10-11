@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.plugin.PluginException;
@@ -1941,9 +1942,6 @@ public class TemplateService extends BaseService implements ITemplateService {
 		return ret;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(Boolean.valueOf("true"));
-	}
 
 	/**
 	 * 防注入特殊符号处理
@@ -2493,5 +2491,5 @@ public class TemplateService extends BaseService implements ITemplateService {
 			templateDaoMapper.del(statement);
 		}
 	}
-
+	
 }

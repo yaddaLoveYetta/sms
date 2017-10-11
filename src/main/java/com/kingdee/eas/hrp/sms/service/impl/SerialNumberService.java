@@ -16,16 +16,14 @@ import com.kingdee.eas.hrp.sms.model.SerialNumberExample;
 import com.kingdee.eas.hrp.sms.service.api.ISerialNumberService;
 import com.kingdee.eas.hrp.sms.util.Environ;
 
-
 @Service
 public class SerialNumberService extends BaseService implements ISerialNumberService {
 
-
-/**
- * 
- * 创建发货单订单号
- * 
- */
+	/**
+	 * 
+	 * 创建发货单订单号
+	 * 
+	 */
 	@Override
 	@Transactional
 	public String getSerialNumber(int classId) {
