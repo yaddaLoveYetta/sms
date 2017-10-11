@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kingdee.eas.hrp.sms.dao.generate.AnomalyParamsMapper;
-import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.AnomalyParams;
 import com.kingdee.eas.hrp.sms.service.api.Anomaly.IAnomalyService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
