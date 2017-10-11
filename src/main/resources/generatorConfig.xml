@@ -312,14 +312,19 @@
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_supplier_item_license" domainObjectName="SupplierItemLicense">
 
 			<property name="useActualColumnNames" value="true" />
 
 		</table>
-		
+
 		<table tableName="t_sms_supplier_license" domainObjectName="SupplierLicense">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+		<table tableName="t_sms_anomaly_params" domainObjectName="AnomalyParams">
 
 			<property name="useActualColumnNames" value="true" />
 

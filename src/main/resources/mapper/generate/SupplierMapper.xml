@@ -22,6 +22,7 @@
     <result column="review" jdbcType="TINYINT" property="review" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="contactPerson" jdbcType="VARCHAR" property="contactPerson" />
+    <result column="simpleName" jdbcType="VARCHAR" property="simpleName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -84,7 +85,7 @@
   <sql id="Base_Column_List">
     id, [name], taxId, corp, brno, taxCategoryId, taxRate, country, city, province, county, 
     address, industryId, categoryId, [status], [number], syncStatus, review, mobile, 
-    contactPerson
+    contactPerson, simpleName
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierExample" resultMap="BaseResultMap">
     select
@@ -123,14 +124,16 @@
       province, county, address, 
       industryId, categoryId, [status], 
       [number], syncStatus, review, 
-      mobile, contactPerson)
+      mobile, contactPerson, simpleName
+      )
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taxId,jdbcType=VARCHAR}, 
       #{corp,jdbcType=VARCHAR}, #{brno,jdbcType=VARCHAR}, #{taxCategoryId,jdbcType=VARCHAR}, 
       #{taxRate,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{industryId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
       #{number,jdbcType=VARCHAR}, #{syncStatus,jdbcType=TINYINT}, #{review,jdbcType=TINYINT}, 
-      #{mobile,jdbcType=VARCHAR}, #{contactPerson,jdbcType=VARCHAR})
+      #{mobile,jdbcType=VARCHAR}, #{contactPerson,jdbcType=VARCHAR}, #{simpleName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Supplier">
     insert into t_sms_supplier
@@ -195,6 +198,9 @@
       <if test="contactPerson != null">
         contactPerson,
       </if>
+      <if test="simpleName != null">
+        simpleName,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -256,6 +262,9 @@
       </if>
       <if test="contactPerson != null">
         #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleName != null">
+        #{simpleName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -328,6 +337,9 @@
       <if test="record.contactPerson != null">
         contactPerson = #{record.contactPerson,jdbcType=VARCHAR},
       </if>
+      <if test="record.simpleName != null">
+        simpleName = #{record.simpleName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -354,7 +366,8 @@
       syncStatus = #{record.syncStatus,jdbcType=TINYINT},
       review = #{record.review,jdbcType=TINYINT},
       mobile = #{record.mobile,jdbcType=VARCHAR},
-      contactPerson = #{record.contactPerson,jdbcType=VARCHAR}
+      contactPerson = #{record.contactPerson,jdbcType=VARCHAR},
+      simpleName = #{record.simpleName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -419,6 +432,9 @@
       <if test="contactPerson != null">
         contactPerson = #{contactPerson,jdbcType=VARCHAR},
       </if>
+      <if test="simpleName != null">
+        simpleName = #{simpleName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -442,7 +458,8 @@
       syncStatus = #{syncStatus,jdbcType=TINYINT},
       review = #{review,jdbcType=TINYINT},
       mobile = #{mobile,jdbcType=VARCHAR},
-      contactPerson = #{contactPerson,jdbcType=VARCHAR}
+      contactPerson = #{contactPerson,jdbcType=VARCHAR},
+      simpleName = #{simpleName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

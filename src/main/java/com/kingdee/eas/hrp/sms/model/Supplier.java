@@ -43,6 +43,8 @@ public class Supplier {
 
     private String contactPerson;
 
+    private String simpleName;
+
     public String getId() {
         return id;
     }
@@ -201,5 +203,13 @@ public class Supplier {
 
     public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson == null ? null : contactPerson.trim();
+    }
+
+    public String getSimpleName() {
+        return simpleName;
+    }
+
+    public void setSimpleName(String simpleName) {
+        this.simpleName = simpleName == null ? null : simpleName.trim();
     }
 }

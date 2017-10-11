@@ -327,23 +327,21 @@ define('Edit', function (require, module, exports) {
 
             if (classId == 1001) {
                 // 新增用户，用户名按流水号自动生成
-                var element = getValueElement('password');
+                var element = getValueElement('number');
 
                 if (!element) {
                     return;
                 }
 
-                var api = new API('');
+                var code = '';
+                var api = new API('anomaly/getUserNameEncode');
 
-                api.post({
-                    classId: data.classId,
-                    itemId: data.itemId,
-                    data: data.data
-                });
+                api.get();
 
                 api.on({
                     'success': function (rData, json) {
-                        fnSuccess(rData);
+                        code = rData.userNameEncode;
+                        element.value = 'hc-' + code;
                     },
 
                     'fail': function (code, msg, json) {
@@ -356,8 +354,7 @@ define('Edit', function (require, module, exports) {
                     }
                 });
 
-                $(element).attr('type', 'text'); // 新增时密码明文显示
-                element.value = $.String.randomString(8, 0);
+
             }
         }
     });
