@@ -46,7 +46,7 @@ public class AnomalyService extends BaseService implements IAnomalyService {
 
 		DecimalFormat df = new DecimalFormat("00000");
 
-		return df.format(currentCode);
+		return "hc-" + df.format(currentCode);
 	}
 
 }

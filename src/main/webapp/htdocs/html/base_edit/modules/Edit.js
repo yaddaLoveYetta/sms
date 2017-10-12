@@ -341,7 +341,7 @@ define('Edit', function (require, module, exports) {
                 api.on({
                     'success': function (rData, json) {
                         code = rData.userNameEncode;
-                        element.value = 'hc-' + code;
+                        element.value = code;
                     },
 
                     'fail': function (code, msg, json) {
