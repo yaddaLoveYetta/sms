@@ -23,7 +23,7 @@ public interface ISysParamService {
 	 * 
 	 * @return
 	 */
-	public List<SysProfile> getSysParams();
+	List<SysProfile> getSysParams();
 
 	/**
 	 * 设置参数的值
@@ -35,6 +35,6 @@ public interface ISysParamService {
 	 * @param value
 	 *            参数值
 	 */
-	public void setSysParam(String category, String key, String value);
+	void setSysParam(String category, String key, String value);
 
 }

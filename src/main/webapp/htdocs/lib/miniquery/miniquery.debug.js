@@ -2529,6 +2529,23 @@
                 dt.setMilliseconds(datetime.getMilliseconds() + value);
 
                 return dt;
+            },
+            /**
+             * 判断两个日期之间相差的天数
+             * date1>date2时返回0
+             * @param date1
+             * @param date2
+             */
+            dateDiff: function (date1, date2) {
+
+                date1 = Date.parse(new Date(date1));
+                date2 = Date.parse(new Date(date2));
+
+                if (date2 < date1) {
+                    return 0;
+                }
+                return Math.abs(parseInt((date2 - date1) / 1000 / 3600 / 24));
+
             }
 
         });
@@ -2609,6 +2626,9 @@
                     addMilliseconds: function (value) {
                         this.value = $Date.addMilliseconds(this.value, value);
                         return this;
+                    },
+                    dateDiff: function (value) {
+                        return $Date.dateDiff(this.value, value);
                     }
                 };
 
@@ -5033,8 +5053,38 @@
                     var r = Math.random() * 16 | 0;
                     return r.toString(16);
                 }).toUpperCase();
-            }
+            },
+            /**
+             * 按规则生成指定长度字符串
+             * @param len 长度，默认8位
+             * @param type 类别 0：数字 1：小写字母2：大写字母3:数字与小写字母混搭4：数字与大写字母混搭5：数字-小写字母-大写字母混搭 默认0
+             */
+            randomString: function (len, type) {
 
+                len = len || 8;
+                type = type || 0;
+
+                var $chars = '0123456789';
+
+                if (type === 1) {
+                    $chars = 'abcdefghijklmnopqrstuvwxyz';
+                } else if (type === 2) {
+                    $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                } else if (type === 3) {
+                    $chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+                } else if (type === 4) {
+                    $chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                } else if (type === 5) {
+                    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                }
+
+                var maxPos = $chars.length;
+                var ret = '';
+                for (i = 0; i < len; i++) {
+                    ret += $chars.charAt(Math.floor(Math.random() * maxPos));
+                }
+                return ret;
+            }
         });//--------------------------------------------------------------------------------------
 
 

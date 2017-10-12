@@ -9,6 +9,6 @@ public interface IPurInWarehsService {
 	 * 入库单同步
 	 * 
 	 */
-	public String purInWarehs(JSONArray jsonarray);
+	 String purInWarehs(JSONArray jsonarray);
 
 }

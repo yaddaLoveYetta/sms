@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public interface IOrderService {
 
-	public String order(JSONArray jsonarray);
+	 String order(JSONArray jsonarray);
 
 	/**
 	 * 采购订单接单
@@ -21,7 +21,7 @@ public interface IOrderService {
 	 * @return String
 	 * @date 2017-05-17 20:19:53 星期三
 	 */
-	public void tick(String id, String entry);
+	 void tick(String id, String entry);
 
 
 	/**
@@ -52,7 +52,7 @@ public interface IOrderService {
 	 *            接单数据
 	 * @return String
 	 */
-	public String updateTickType(JSONObject jsonObject);
+	 String updateTickType(JSONObject jsonObject);
 	
 	
 	/**

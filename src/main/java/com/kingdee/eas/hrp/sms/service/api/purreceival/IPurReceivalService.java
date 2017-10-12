@@ -8,5 +8,5 @@ public interface IPurReceivalService {
 	 * 收货单同步
 	 * 
 	 */
-	public String purReceival(JSONArray jsonarray);
+	 String purReceival(JSONArray jsonarray);
 }

@@ -23,14 +23,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.kingdee.eas.hrp.sms.dao.generate.SysProfileMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
-import com.kingdee.eas.hrp.sms.log.ServiceLog;
 import com.kingdee.eas.hrp.sms.model.SysProfile;
 import com.kingdee.eas.hrp.sms.model.SysProfileExample;
 import com.kingdee.eas.hrp.sms.model.SysProfileExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.sys.ISyncHRPService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
-import com.kingdee.eas.hrp.sms.util.MsgUtil;
+import com.kingdee.eas.hrp.sms.util.MsgUtils;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
 import com.kingdee.eas.hrp.sms.util.WSContext;
@@ -41,7 +40,6 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 	@Resource
 	ITemplateService templateService;
 
-	@ServiceLog(desc = "同步item到HRP")
 	@Override
 	public String sendItem(int classId, String data) {
 
@@ -126,7 +124,7 @@ public class SyncHRPService extends BaseService implements ISyncHRPService {
 			}
 			msgToSupplier.deleteCharAt(msgToSupplier.length() - 1);
 			msgToSupplier.append("的资料已同步，请及时查看！");
-			MsgUtil.sendSMS(new String[] { mobie }, msgToSupplier.toString());
+			MsgUtils.sendSMS(new String[] { mobie }, msgToSupplier.toString());
 		}
 
 		if (failIdList.isEmpty()) {

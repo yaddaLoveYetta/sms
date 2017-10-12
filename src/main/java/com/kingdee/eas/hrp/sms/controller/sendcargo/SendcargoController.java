@@ -40,9 +40,9 @@ public class SendcargoController {
 
 	}
 
-	@ControllerLog(desc = "发送到医院")
+	@ControllerLog(desc = "发货单发送到医院")
 	@RequestMapping(value = "sendHrp")
-	@Permission(objectType=40,objectId=4005,desc="发送到医院", accessMask = 256)
+	@Permission(objectType = 40, objectId = 4005, desc = "发送到医院", accessMask = 256)
 	public void sendHrp(HttpServletRequest request, HttpServletResponse response) {
 
 		String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
@@ -51,7 +51,7 @@ public class SendcargoController {
 			throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
 		}
 
-		 sendcargoService.sendCargoHrp(items);
+		sendcargoService.sendCargoHrp(items);
 
 		ResponseWriteUtil.output(response, StatusCode.SUCCESS, "发送到医院成功");
 

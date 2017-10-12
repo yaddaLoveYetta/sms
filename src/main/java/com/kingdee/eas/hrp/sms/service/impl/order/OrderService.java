@@ -49,7 +49,7 @@ import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.Environ;
-import com.kingdee.eas.hrp.sms.util.MsgUtil;
+import com.kingdee.eas.hrp.sms.util.MsgUtils;
 import com.kingdee.eas.hrp.sms.model.Item;
 
 @Service
@@ -133,7 +133,7 @@ public class OrderService extends BaseService implements IOrderService {
 			if (supplier.getMobile() != null && !supplier.getMobile().equals("")) {
 				String smsContent = "您有新的订单消息,订单号:" + order.getNumber() + "!请及时处理";
 				String[] mobiles = supplier.getMobile().split(",");
-				MsgUtil.sendSMS(mobiles, smsContent);
+				MsgUtils.sendSMS(mobiles, smsContent);
 			}
 
 		}
