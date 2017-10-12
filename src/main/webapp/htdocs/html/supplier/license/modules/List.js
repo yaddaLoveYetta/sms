@@ -1,4 +1,5 @@
-﻿/**
+﻿﻿
+/**
  * List 模块
  *
  */
@@ -25,11 +26,13 @@ define("List", function (require, module, exports) {
     var emitter = MiniQuery.Event.create();
     var index$selected = {};
     // 记录选中的索引
+    var classId;
 
     var tid = null;
 
     function load(config, fn) {
         SMS.Tips.loading("数据加载中...");
+        classId = config.classId;
         API.get({
             classId: config.classId,
             pageNo: config.pageNo,
@@ -58,6 +61,7 @@ define("List", function (require, module, exports) {
         var html = $.String.format(samples["item.table"], {
             // 行
             'item_table_tr': $.Array.keep(data, function (item, no) {
+                item.value = getHtml(field.type, item.value);
                 return $.String.format(samples["item.table.tr"], {
                     row: row,
                     col: col,
@@ -300,7 +304,7 @@ define("List", function (require, module, exports) {
         });
 
         // 下载-删除功能按钮
-        $(document).on("click", ".item-pop-menu", function () {
+        $(document).on("click", ".item-pop-menu", function (event) {
             var btn = this;
             var index = btn.getAttribute("index");
 
@@ -312,24 +316,63 @@ define("List", function (require, module, exports) {
             var bodyItems = list.body.items;
             var operate;
 
-            if (index == 1) {
-                // 下载
-                var fileDirector = bodyItems[row].items[col].value[childNo].value;
-                var fileName = fileDirector.substr(fileDirector.lastIndexOf('/') + 1);
+            if (index == 0) {
+                // 预览
+                var fileName = bodyItems[row].items[col].value[childNo].value.replace(/.*(\/|\\)/, "");
+                var fileExt = (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName.toLowerCase()) : '';
+
+                if (!(fileExt == "jpg" || fileExt == "jpeg" || fileExt == "png" || fileExt == "gif" || fileExt == "pdf")) {
+                    SMS.Tips.error("不支持该类型文件预览", 2000);
+                    return;
+                }
 
                 var $API = SMS.require('API');
                 var api = new $API("file/download");
                 var url = api.getUrl();
                 url = $.Url.addQueryString(url, {
-                    classId: 3010,
+                    classId: classId,
                     itemId: bodyItems[row].primaryValue,
                     fileName: fileName,
                 })
+
+                if (fileExt == "pdf") {
+                    // pdf 预览
+                    url = encodeURIComponent(url);
+                    window.open("../../../lib/pdfjs/web/viewer.html?file=" + url);
+                    return;
+                } else {
+
+                    SMS.use('Dialog', function (Dialog) {
+
+                        var dialog = new Dialog({
+                            title: '图片预览',
+                            width: 700,
+                            height: 550,
+                            url: 'html/supplier/picView/index.html',
+                            data: {
+                                picUrl: url
+                            },
+                            button: [],
+                        });
+
+                        //默认关闭行为为不提交
+                        dialog.isSubmit = false;
+
+                        dialog.showModal();
+
+                    });
+
+                }
+                return;
+
+            }
+            else if (index == 1) {
+                // 下载
+                var fileDirector = bodyItems[row].items[col].value[childNo].value;
+                var fileName = fileDirector.substr(fileDirector.lastIndexOf('/') + 1);
+
                 var $a = $(btn).parent().prev();
-                /*                $a[0].href = url;
-                 $a[0].click();
-                 $a[0].href = "#";
-                 return;*/
+
                 operate = 1;
 
                 var args = [{
@@ -353,6 +396,11 @@ define("List", function (require, module, exports) {
             }
             emitter.fire("row.item.click", args);
         });
+        /*
+         $("a[class='attachment']").on('click', function () {
+
+         alert($(this).text());
+         });*/
     }
 
     function bindHover() {
@@ -463,7 +511,7 @@ define("List", function (require, module, exports) {
 
                 if (new Date(endDate.replace(/\-/g, '\/')) < new Date()) {
                     //开始时间大于了结束时间
-                    $('tr[data-index=' + i + '] td[key="number"]').css('background-color', '#f35151');
+                    $('tr[data-index=' + i + ']').css('color', '#f35151');
                 }
 
                 continue;
@@ -471,6 +519,10 @@ define("List", function (require, module, exports) {
             }
 
         }
+    }
+
+    function getData() {
+        return list;
     }
 
     return {
@@ -488,6 +540,7 @@ define("List", function (require, module, exports) {
         unReview: unReview,
         send: send,
         checkExpired: checkExpired,
+        getData: getData,
     };
 })
 ;
