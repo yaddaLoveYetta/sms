@@ -385,9 +385,9 @@ public class AttachmentController {
 			Entry<String, Object> item = it.next();
 			FormFields fields = (FormFields) item.getValue();
 
-			if (fields.getDisplay() == 0)
+			if (fields.getDisplay() == 0){
 				// 简单处理
-				continue;
+				continue;}
 
 			String key = item.getKey();
 			String name = fields.getName();
@@ -495,7 +495,7 @@ public class AttachmentController {
 		// 预期大于 3，结果是 3
 		System.out.println(ary.length);
 
-		Executors.newFixedThreadPool(2);
+		//Executors.newFixedThreadPool(2);
 
 		// DateTimeFormatter dateTimeFormatter=
 

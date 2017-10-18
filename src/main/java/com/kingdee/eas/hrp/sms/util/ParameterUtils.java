@@ -29,10 +29,10 @@ public class ParameterUtils {
 			throw new RuntimeException("获取参数出错", e);
 		}
 		String para = request.getParameter(parameterName);
-		if (para != null && para.equals("undefined"))
-			return null;
-		else
-			return para;
+		if (para != null && para.equals("undefined")){
+			return null;}
+		else{
+			return para;}
 	}
 
 	public static Object getAttribute(HttpServletRequest request, String parameterName) {

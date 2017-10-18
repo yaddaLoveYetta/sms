@@ -47,8 +47,8 @@ public class FileService extends BaseService implements IFileService {
 			conditionArry.add(condition);
 
 			Map<String, Object> items = templateService.getItems(classId, conditionArry.toString(), "", 1, 1000);
-			if ((long) items.get("count") > 0)
-				continue;
+			if ((long) items.get("count") > 0){
+				continue;}
 
 			JSONObject json = new JSONObject();
 			JSONObject entry = new JSONObject();

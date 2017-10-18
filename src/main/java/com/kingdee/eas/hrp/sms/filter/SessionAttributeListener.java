@@ -16,6 +16,7 @@ public class SessionAttributeListener implements HttpSessionAttributeListener {
 	/**
 	 * 添加Session
 	 */
+	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
 
 		SessionUtil.set(event.getName(), event.getValue());
@@ -24,6 +25,7 @@ public class SessionAttributeListener implements HttpSessionAttributeListener {
 	/**
 	 * 销毁Session
 	 */
+	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
 		SessionUtil.remove(event.getName());
 	}
@@ -31,6 +33,7 @@ public class SessionAttributeListener implements HttpSessionAttributeListener {
 	/**
 	 * 重置Session
 	 */
+	@Override
 	public void attributeReplaced(HttpSessionBindingEvent event) {
 
 		SessionUtil.set(event.getName(), event.getValue());

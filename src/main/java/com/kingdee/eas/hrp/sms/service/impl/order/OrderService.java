@@ -351,7 +351,7 @@ public class OrderService extends BaseService implements IOrderService {
 			Map<String, Object> entry = isInShipOrderEntries(shipOrder, purOrderId, purOrderEntrySeq);
 
 			if (saleProxy == 2) {
-				// TODO 代销物料--拆单--拆成一个一个的物料
+				// 代销物料--拆单--拆成一个一个的物料
 
 				List<Map<String, Object>> entryItems = generateEntryItems(purOrderEntry, purOrder);
 				addToShipOrderEntry(shipOrder, entryItems);
@@ -359,8 +359,7 @@ public class OrderService extends BaseService implements IOrderService {
 			}
 			if (saleProxy == 1) {
 				// 非代销物料--一条采购订单分录对应一条发货单分录
-				BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty")
-						.subtract(purOrderEntry.getBigDecimal("invoiceQty"));
+				BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty"));
 				if (qty.compareTo(BigDecimal.ZERO) == 0) {
 					continue;
 				}
@@ -616,18 +615,18 @@ public class OrderService extends BaseService implements IOrderService {
 		// 数量尾差，尾差放到最后一行
 		float lastLineQty = bQty.floatValue() > qty ? bQty.floatValue() - qty + 1 : 1;
 		// 金额尾差，尾差放到最后一行
-		BigDecimal lastLineAmount = amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty")))
-				.compareTo(x1.multiply(x2)) > 0
-						? x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty")))
-								.subtract(x1.multiply(x2)))
-						: x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty")))
-								.subtract(x1.multiply(x2)));
+		BigDecimal lastLineAmount = amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).compareTo(x1.multiply(x2)) > 0
+				? x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).subtract(x1.multiply(x2)))
+				: x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).subtract(x1.multiply(x2)));
 		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
+
 		for (int i = 0; i < qty; i++) {
 
 			Map<String, Object> entry = new HashMap<String, Object>();
+
 			ItemMapper itemMapper = sqlSession.getMapper(ItemMapper.class);
 			Item item = itemMapper.selectByPrimaryKey(purOrderEntry.getString("material"));
+
 			entry.put("seq", 0);
 			entry.put("orderId", purOrderEntry.getString("parent"));
 			entry.put("orderNumber", purOrder.getString("number"));
@@ -643,10 +642,20 @@ public class OrderService extends BaseService implements IOrderService {
 					entry.put("lot", "");
 				}
 			}
+
+			if (item.getDyFactory() != null) {
+				// 生产厂家取物料生产厂家
+				entry.put("dyManufacturer", item.getDyFactory());
+			}
+			if (item.getRigsterNum() != null) {
+				// 注册号取物料注册号
+				entry.put("registrationNo", item.getRigsterNum());
+			}
+
 			entry.put("isLotNumber", item.getIsLotNumber());
 			entry.put("dyBatchNum", "");
 			if (item.getHighConsumable() != null) {
-				if (item.getHighConsumable() == 1 && !item.getHighConsumable().equals(1)) {
+				if (item.getHighConsumable().intValue() == 1) {
 					entry.put("code", Common.createNo("yyMMdd", "", 5));
 				}
 			} else {
@@ -694,8 +703,7 @@ public class OrderService extends BaseService implements IOrderService {
 	 * @return Map<String,Object> 采购订单分录号
 	 * @date 2017-05-20 12:20:26 星期六
 	 */
-	private Map<String, Object> isInShipOrderEntries(Map<String, Object> shipOrder, String purOrderId,
-			int purOrderEntrySeq) {
+	private Map<String, Object> isInShipOrderEntries(Map<String, Object> shipOrder, String purOrderId, int purOrderEntrySeq) {
 
 		Object obj = shipOrder.get("entry");
 		if (null == obj) {
@@ -792,13 +800,11 @@ public class OrderService extends BaseService implements IOrderService {
 			orderEntry.setId(orderEntryObject.getString("entryId"));// 订单子表内码
 			orderEntry.setLocalAmount(orderEntryObject.getBigDecimal("localAmount"));// 修改本位币金额
 			orderEntry.setAmount(orderEntryObject.getBigDecimal("amount"));// 修改金额
-			if (orderEntryObject.getDate("confirmDate") != null
-					&& !orderEntryObject.getDate("confirmDate").equals("")) {
+			if (orderEntryObject.getDate("confirmDate") != null && !orderEntryObject.getDate("confirmDate").equals("")) {
 				orderEntry.setConfirmDate(orderEntryObject.getDate("confirmDate"));// 修改供应商确认日期
 				orderEntry.setDeliveryDate(orderEntryObject.getDate("confirmDate"));// 修改原单发货日期
 			}
-			if (orderEntryObject.getBigDecimal("confirmQty") != null
-					&& !orderEntryObject.getBigDecimal("confirmQty").equals("")) {
+			if (orderEntryObject.getBigDecimal("confirmQty") != null && !orderEntryObject.getBigDecimal("confirmQty").equals("")) {
 				orderEntry.setConfirmQty(orderEntryObject.getBigDecimal("confirmQty"));// 修改供应商确认数量
 				orderEntry.setQty(orderEntryObject.getBigDecimal("confirmQty"));// 修改原单数量
 			}
@@ -823,8 +829,8 @@ public class OrderService extends BaseService implements IOrderService {
 	 * 订单追踪查询
 	 * 
 	 */
-	public JSONObject traceQuery(String supplierIds, String pageNo, String pageSize, String classId, String supplier,
-			String order, String beginDate, String endDate) {
+	@Override
+	public JSONObject traceQuery(String supplierIds, String pageNo, String pageSize, String classId, String supplier, String order, String beginDate, String endDate) {
 		OrderDaoMapper orderDaoMapper = sqlSession.getMapper(OrderDaoMapper.class);
 		JSONObject ret = new JSONObject();
 		String orderId = null;

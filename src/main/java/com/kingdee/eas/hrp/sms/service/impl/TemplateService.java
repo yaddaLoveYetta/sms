@@ -2155,13 +2155,13 @@ public class TemplateService extends BaseService implements ITemplateService {
 		for (Iterator<String> iterator = data.keySet().iterator(); iterator.hasNext();) {
 
 			String key = iterator.next();
-			if (key.equals("entry"))
-				continue;
+			if (key.equals("entry")){
+				continue;}
 
 			FormFields formField = formFields.get(key);
 
-			if (formField == null)
-				continue;
+			if (formField == null){
+				continue;}
 			Integer lookUpType = formField.getLookUpType();
 			Integer needSave = formField.getNeedSave();
 
@@ -2395,19 +2395,19 @@ public class TemplateService extends BaseService implements ITemplateService {
 		for (Iterator<String> iterator = data.keySet().iterator(); iterator.hasNext();) {
 
 			String key = iterator.next();
-			if (key.equals("entry"))
-				continue;
+			if (key.equals("entry")){
+				continue;}
 
 			FormFields formField = formFields.get(key);
-			if (formField == null)
-				continue;
+			if (formField == null){
+				continue;}
 
 			Integer lookUpType = formField.getLookUpType();
 			Integer needSave = formField.getNeedSave();
 
-			if (needSave == 0 && (lookUpType == 3 || lookUpType == 5))
+			if (needSave == 0 && (lookUpType == 3 || lookUpType == 5)){
 				// 引用基础资料的附加属性OR关联普通表携带字段，无需保存
-				continue;
+				continue;}
 
 			String value = data.getString(key);
 			// value = handleSqlInjection(value);
@@ -2535,7 +2535,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
 		Integer var2 = 127;
 
-		System.err.println(var1 == var2);
+		//System.err.println(var1 == var2);
 
 		System.out.println(var1.equals(var2));
 

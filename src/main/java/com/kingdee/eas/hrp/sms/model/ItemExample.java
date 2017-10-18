@@ -503,6 +503,146 @@ public class ItemExample {
             addCriterion("isLotNumber not between", value1, value2, "isLotNumber");
             return (Criteria) this;
         }
+
+        public Criteria andDyFactoryIsNull() {
+            addCriterion("dyFactory is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryIsNotNull() {
+            addCriterion("dyFactory is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryEqualTo(String value) {
+            addCriterion("dyFactory =", value, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryNotEqualTo(String value) {
+            addCriterion("dyFactory <>", value, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryGreaterThan(String value) {
+            addCriterion("dyFactory >", value, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryGreaterThanOrEqualTo(String value) {
+            addCriterion("dyFactory >=", value, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryLessThan(String value) {
+            addCriterion("dyFactory <", value, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryLessThanOrEqualTo(String value) {
+            addCriterion("dyFactory <=", value, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryLike(String value) {
+            addCriterion("dyFactory like", value, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryNotLike(String value) {
+            addCriterion("dyFactory not like", value, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryIn(List<String> values) {
+            addCriterion("dyFactory in", values, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryNotIn(List<String> values) {
+            addCriterion("dyFactory not in", values, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryBetween(String value1, String value2) {
+            addCriterion("dyFactory between", value1, value2, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDyFactoryNotBetween(String value1, String value2) {
+            addCriterion("dyFactory not between", value1, value2, "dyFactory");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumIsNull() {
+            addCriterion("rigsterNum is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumIsNotNull() {
+            addCriterion("rigsterNum is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumEqualTo(String value) {
+            addCriterion("rigsterNum =", value, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumNotEqualTo(String value) {
+            addCriterion("rigsterNum <>", value, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumGreaterThan(String value) {
+            addCriterion("rigsterNum >", value, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumGreaterThanOrEqualTo(String value) {
+            addCriterion("rigsterNum >=", value, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumLessThan(String value) {
+            addCriterion("rigsterNum <", value, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumLessThanOrEqualTo(String value) {
+            addCriterion("rigsterNum <=", value, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumLike(String value) {
+            addCriterion("rigsterNum like", value, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumNotLike(String value) {
+            addCriterion("rigsterNum not like", value, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumIn(List<String> values) {
+            addCriterion("rigsterNum in", values, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumNotIn(List<String> values) {
+            addCriterion("rigsterNum not in", values, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumBetween(String value1, String value2) {
+            addCriterion("rigsterNum between", value1, value2, "rigsterNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andRigsterNumNotBetween(String value1, String value2) {
+            addCriterion("rigsterNum not between", value1, value2, "rigsterNum");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

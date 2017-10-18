@@ -18,6 +18,7 @@ import com.kingdee.eas.hrp.sms.util.WSContext;
 @Service
 public class WebService extends BaseService implements IWebService {
 
+	@Override
 	public String webService(String json, String name) {
 		String response = "";
 		try {

@@ -33,7 +33,6 @@ public class MsgHttpClient {
 	private String password;
 	private String code;
 	private static volatile MsgHttpClient instance = null;
-	
 
 	private MsgHttpClient() {
 		init();
@@ -48,11 +47,13 @@ public class MsgHttpClient {
 	}
 
 	public static MsgHttpClient getInstance() {
-		if (instance == null)
+		if (instance == null) {
 			synchronized (MsgHttpClient.class) {
-				if (instance == null)
+				if (instance == null) {
 					instance = new MsgHttpClient();
+				}
 			}
+		}
 		return instance;
 	}
 
@@ -86,8 +87,7 @@ public class MsgHttpClient {
 		String url = baseUrl + "sendsms.action";
 		String phone = StringUtils.join(mobiles, ",");
 		String seqId = String.valueOf(System.currentTimeMillis());
-		String param = "cdkey=" + softwareSerialNo + "&password=" + key + "&phone=" + phone + "&message=" + smsContent
-				+ "&addserial=" + code + "&seqid=" + seqId;
+		String param = "cdkey=" + softwareSerialNo + "&password=" + key + "&phone=" + phone + "&message=" + smsContent + "&addserial=" + code + "&seqid=" + seqId;
 		String reStr = "-250";
 		Map resultMap = sendHttp(url, param);
 		if (!resultMap.isEmpty()) {
@@ -105,8 +105,7 @@ public class MsgHttpClient {
 		String url = baseUrl + "sendtimesms.action";
 		String phone = StringUtils.join(mobiles, ",");
 		String seqId = String.valueOf(System.currentTimeMillis());
-		String param = "cdkey=" + softwareSerialNo + "&password=" + key + "&phone=" + phone + "&message=" + smsContent
-				+ "&addserial=" + code + "&sendtime=" + times + "&seqid=" + seqId;
+		String param = "cdkey=" + softwareSerialNo + "&password=" + key + "&phone=" + phone + "&message=" + smsContent + "&addserial=" + code + "&sendtime=" + times + "&seqid=" + seqId;
 		String reStr = "-250";
 		Map resultMap = sendHttp(url, param);
 		if (!resultMap.isEmpty()) {
@@ -131,6 +130,5 @@ public class MsgHttpClient {
 		}
 		return "获取余额失败";
 	}
-
 
 }

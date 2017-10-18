@@ -13,6 +13,10 @@ public class Item {
 
     private Byte isLotNumber;
 
+    private String dyFactory;
+
+    private String rigsterNum;
+
     public String getId() {
         return id;
     }
@@ -59,5 +63,21 @@ public class Item {
 
     public void setIsLotNumber(Byte isLotNumber) {
         this.isLotNumber = isLotNumber;
+    }
+
+    public String getDyFactory() {
+        return dyFactory;
+    }
+
+    public void setDyFactory(String dyFactory) {
+        this.dyFactory = dyFactory == null ? null : dyFactory.trim();
+    }
+
+    public String getRigsterNum() {
+        return rigsterNum;
+    }
+
+    public void setRigsterNum(String rigsterNum) {
+        this.rigsterNum = rigsterNum == null ? null : rigsterNum.trim();
     }
 }

@@ -77,8 +77,8 @@ public class UserController {
 		if (userService.editPwd(userId, oldpwd, newpwd)) {
 			ResponseWriteUtil.output(response, StatusCode.SUCCESS, "密码修改成功，请退出重新登录！");
 			return;
-		} else
-			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "原密码错误！");
+		} else{
+			ResponseWriteUtil.output(response, StatusCode.PARAMETER_ERROR, "原密码错误！");}
 
 		return;
 

@@ -7,6 +7,8 @@ public class SupplierLicenseEntry {
 
     private String url;
 
+    private Byte check;
+
     public String getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class SupplierLicenseEntry {
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    public Byte getCheck() {
+        return check;
+    }
+
+    public void setCheck(Byte check) {
+        this.check = check;
     }
 }

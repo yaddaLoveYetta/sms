@@ -230,11 +230,11 @@ public class UserService extends BaseService implements IUserService {
 			user = list.get(0);
 		}
 
-		if (null == user)
-			throw new BusinessLogicRunTimeException("原密码错误");
+		if (null == user){
+			throw new BusinessLogicRunTimeException("原密码错误");}
 
-		if (user.getPassword().equals(newpwd))
-			throw new BusinessLogicRunTimeException("新密码不可与原密码相同");
+		if (user.getPassword().equals(newpwd)){
+			throw new BusinessLogicRunTimeException("新密码不可与原密码相同");}
 
 		user.setPassword(newpwd);
 

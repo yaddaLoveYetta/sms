@@ -66,8 +66,9 @@ public class ExcelUtils {
 	 *            输出流
 	 */
 	public static void exportExcel(String title, Map<String, String> headMap, JSONArray jsonArray, String datePattern, int colWidth, OutputStream out) {
-		if (datePattern == null)
+		if (datePattern == null) {
 			datePattern = DEFAULT_DATE_PATTERN;
+		}
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		workbook.createInformationProperties();
@@ -143,50 +144,52 @@ public class ExcelUtils {
 		int rowIndex = 0;
 		for (Object obj : jsonArray) {
 			if (rowIndex == 65535 || rowIndex == 0) {
-				if (rowIndex != 0)
-					sheet = workbook.createSheet();// 如果数据超过了，则在第二页显示
+				if (rowIndex != 0) {
+					sheet = workbook.createSheet();// 如果数据超过了，则在第二页显示}
 
-				HSSFRow titleRow = sheet.createRow(0);// 表头 rowIndex=0
-				titleRow.createCell(0).setCellValue(title);
-				titleRow.getCell(0).setCellStyle(titleStyle);
-				sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, headMap.size() - 1));
+					HSSFRow titleRow = sheet.createRow(0);// 表头 rowIndex=0
+					titleRow.createCell(0).setCellValue(title);
+					titleRow.getCell(0).setCellStyle(titleStyle);
+					sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, headMap.size() - 1));
 
-				HSSFRow headerRow = sheet.createRow(1); // 列头 rowIndex =1
-				for (int i = 0; i < headers.length; i++) {
-					headerRow.createCell(i).setCellValue(headers[i]);
-					headerRow.getCell(i).setCellStyle(headerStyle);
+					HSSFRow headerRow = sheet.createRow(1); // 列头 rowIndex =1
+					for (int i = 0; i < headers.length; i++) {
+						headerRow.createCell(i).setCellValue(headers[i]);
+						headerRow.getCell(i).setCellStyle(headerStyle);
 
+					}
+					rowIndex = 2;// 数据内容从 rowIndex=2开始
 				}
-				rowIndex = 2;// 数据内容从 rowIndex=2开始
-			}
-			JSONObject jo = (JSONObject) JSONObject.toJSON(obj);
-			HSSFRow dataRow = sheet.createRow(rowIndex);
-			for (int i = 0; i < properties.length; i++) {
-				HSSFCell newCell = dataRow.createCell(i);
+				JSONObject jo = (JSONObject) JSONObject.toJSON(obj);
+				HSSFRow dataRow = sheet.createRow(rowIndex);
+				for (int i = 0; i < properties.length; i++) {
+					HSSFCell newCell = dataRow.createCell(i);
 
-				Object o = jo.get(properties[i]);
-				String cellValue = "";
-				if (o == null)
-					cellValue = "";
-				else if (o instanceof Date)
-					cellValue = new SimpleDateFormat(datePattern).format(o);
-				else
-					cellValue = o.toString();
+					Object o = jo.get(properties[i]);
+					String cellValue = "";
+					if (o == null) {
+						cellValue = "";
+					} else if (o instanceof Date) {
+						cellValue = new SimpleDateFormat(datePattern).format(o);
+					} else {
+						cellValue = o.toString();
+					}
 
-				newCell.setCellValue(cellValue);
-				newCell.setCellStyle(cellStyle);
+					newCell.setCellValue(cellValue);
+					newCell.setCellStyle(cellStyle);
+				}
+				rowIndex++;
 			}
-			rowIndex++;
-		}
-		// 自动调整宽度
-		/*
-		 * for (int i = 0; i < headers.length; i++) { sheet.autoSizeColumn(i); }
-		 */
-		try {
-			workbook.write(out);
-			workbook.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+			// 自动调整宽度
+			/*
+			 * for (int i = 0; i < headers.length; i++) { sheet.autoSizeColumn(i); }
+			 */
+			try {
+				workbook.write(out);
+				workbook.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -208,8 +211,9 @@ public class ExcelUtils {
 	 */
 	public static void exportExcelX(String title, Map<String, String> headMap, JSONArray jsonArray, String datePattern, int colWidth, OutputStream out, boolean autoSize) {
 
-		if (datePattern == null)
+		if (datePattern == null) {
 			datePattern = DEFAULT_DATE_PATTERN;
+		}
 
 		// 声明一个工作薄
 		SXSSFWorkbook workbook = new SXSSFWorkbook(100);// 缓存
@@ -314,14 +318,15 @@ public class ExcelUtils {
 
 				Object o = jo.get(properties[cIndex]);
 				String cellValue = "";
-				if (o == null)
+				if (o == null) {
 					cellValue = "";
-				else if (o instanceof Date)
+				} else if (o instanceof Date) {
 					cellValue = new SimpleDateFormat(datePattern).format(o);
-				else if (o instanceof Float || o instanceof Double)
+				} else if (o instanceof Float || o instanceof Double) {
 					cellValue = new BigDecimal(o.toString()).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
-				else
+				} else {
 					cellValue = o.toString();
+				}
 
 				newCell.setCellValue(cellValue);
 				newCell.setCellStyle(cellStyle);

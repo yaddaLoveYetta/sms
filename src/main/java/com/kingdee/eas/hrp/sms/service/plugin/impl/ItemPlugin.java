@@ -184,8 +184,8 @@ public class ItemPlugin extends PlugInAdpter {
 	public PlugInRet beforeModify(int classId, String id, Map<String, Object> formData, JSONObject json) {
 
 		// 需要审核的数据检查审核状态
-		if (reviewAndSyncClassIdList.contains(classId))
-			checkIfReview(classId, id, json);
+		if (reviewAndSyncClassIdList.contains(classId)){
+			checkIfReview(classId, id, json);}
 
 		modifyCheckMustInput(classId, formData, json);
 
@@ -438,8 +438,8 @@ public class ItemPlugin extends PlugInAdpter {
 	private void modifyCheckMustInput(int classId, Map<String, Object> formData, JSONObject json) {
 
 		// json为空说明同步修改同步状态，不用检查
-		if (json.isEmpty())
-			return;
+		if (json.isEmpty()){
+			return;}
 
 		String userTyepe = SessionUtil.getUserType();
 		// 用户特殊业务判断，当用户类型是系统用户时，该用户不能选择供应商
@@ -495,8 +495,8 @@ public class ItemPlugin extends PlugInAdpter {
 		StringBuilder errMsg = new StringBuilder();
 		for (String key : keySet) {
 			flag = false;
-			if (key.equals("entry"))
-				continue;
+			if (key.equals("entry")){
+				continue;}
 			FormFields ff = formFields.get(key);
 			if (null == ff) {
 				throw new PlugInRuntimeException("字段：" + key + "没有配置到模板上");
@@ -613,8 +613,8 @@ public class ItemPlugin extends PlugInAdpter {
 			}
 			conditionArray.add(con);
 		}
-		if (null == conditionArray || conditionArray.isEmpty())
-			return conditon;
+		if (null == conditionArray || conditionArray.isEmpty()){
+			return conditon;}
 		return conditionArray.toString();
 	}
 

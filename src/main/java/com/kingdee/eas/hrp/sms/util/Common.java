@@ -64,8 +64,8 @@ public class Common {
 	 * @return
 	 */
 	public static String getBarCodeISN(Integer length) {
-		if (null == length)
-			length = 12;
+		if (null == length){
+			length = 12;}
 
 		Long timestamp = System.currentTimeMillis();
 
@@ -130,10 +130,10 @@ public class Common {
 			StringBuffer buf = new StringBuffer("");
 			for (int offset = 0; offset < b.length; offset++) {
 				i = b[offset];
-				if (i < 0)
-					i += 256;
-				if (i < 16)
-					buf.append("0");
+				if (i < 0){
+					i += 256;}
+				if (i < 16){
+					buf.append("0");}
 				buf.append(Integer.toHexString(i));
 			}
 			result = buf.toString();
@@ -180,8 +180,8 @@ public class Common {
 		while (it.hasNext()) {
 			String key = it.next();
 			Object value = object.get(key);
-			if (null == value)
-				continue;
+			if (null == value){
+				continue;}
 			data.put(key, value);
 		}
 		return data;
@@ -204,8 +204,8 @@ public class Common {
 		while (it.hasNext()) {
 			String key = it.next();
 			Object value = object.get(key);
-			if (null == value)
-				continue;
+			if (null == value){
+				continue;}
 			data.put(key, value);
 		}
 		return data;

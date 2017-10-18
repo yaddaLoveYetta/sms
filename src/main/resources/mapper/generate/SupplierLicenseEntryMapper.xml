@@ -5,6 +5,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="parent" jdbcType="VARCHAR" property="parent" />
     <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="check" jdbcType="TINYINT" property="check" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, parent, url
+    id, parent, url, [check]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SupplierLicenseEntryExample" resultMap="BaseResultMap">
     select
@@ -98,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.SupplierLicenseEntry">
-    insert into t_sms_supplier_license_entry (id, parent, url
-      )
-    values (#{id,jdbcType=VARCHAR}, #{parent,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}
-      )
+    insert into t_sms_supplier_license_entry (id, parent, url, 
+      [check])
+    values (#{id,jdbcType=VARCHAR}, #{parent,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{check,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.SupplierLicenseEntry">
     insert into t_sms_supplier_license_entry
@@ -115,6 +116,9 @@
       <if test="url != null">
         url,
       </if>
+      <if test="check != null">
+        [check],
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -125,6 +129,9 @@
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="check != null">
+        #{check,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -146,6 +153,9 @@
       <if test="record.url != null">
         url = #{record.url,jdbcType=VARCHAR},
       </if>
+      <if test="record.check != null">
+        [check] = #{record.check,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +165,8 @@
     update t_sms_supplier_license_entry
     set id = #{record.id,jdbcType=VARCHAR},
       parent = #{record.parent,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR}
+      url = #{record.url,jdbcType=VARCHAR},
+      [check] = #{record.check,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +180,17 @@
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
+      <if test="check != null">
+        [check] = #{check,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kingdee.eas.hrp.sms.model.SupplierLicenseEntry">
     update t_sms_supplier_license_entry
     set parent = #{parent,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR}
+      url = #{url,jdbcType=VARCHAR},
+      [check] = #{check,jdbcType=TINYINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

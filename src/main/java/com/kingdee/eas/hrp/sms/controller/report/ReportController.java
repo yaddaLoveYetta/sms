@@ -1,6 +1,8 @@
 package com.kingdee.eas.hrp.sms.controller.report;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -40,8 +42,9 @@ public class ReportController {
 		int pageNo = ParameterUtils.getParameter(request, "pageNo", 1);
 		int pageSize = ParameterUtils.getParameter(request, "pageSize", 10);
 
-		if (!(null == SessionUtil.getUserLinkSupplier() || "".equals(SessionUtil.getUserLinkSupplier())))
+		if (!(null == SessionUtil.getUserLinkSupplier() || "".equals(SessionUtil.getUserLinkSupplier()))) {
 			supplier = SessionUtil.getUserLinkSupplier();
+		}
 
 		if (itemId.equals("") && supplier.equals("") && orderStartDate.equals("") && orderEndDate.equals("")) {
 			throw new BusinessLogicRunTimeException("必须提交参数");
@@ -136,11 +139,11 @@ public class ReportController {
 		}
 		if (soonExpired == 1) {
 			params.put("soonExpired", soonExpired);
-			//params.put("PromptLeadDay", SystemParamUtil.getInt("sys", "Prompt-lead-day", 0));
+			// params.put("PromptLeadDay", SystemParamUtil.getInt("sys", "Prompt-lead-day", 0));
 		}
-		
+
 		params.put("PromptLeadDay", SystemParamUtil.getInt("sys", "Prompt-lead-day", 0));// 用来获取有效期天数与设定提示提前天数关系
-		
+
 		if (expired == 1) {
 			params.put("expired", expired);
 		}
@@ -154,14 +157,23 @@ public class ReportController {
 	}
 
 	public static void main(String[] args) {
-		String s[] = new String[4];
+		// String s[] = new String[4];
+		//
+		// s[0] = "dfsdf";
+		// System.out.println(s[0]);
+		//
+		// String[] s2 = new String[1];
+		// s2[0] = "dfdsfdfdf";
+		// System.out.println(s2[0]);
 
-		s[0] = "dfsdf";
-		System.out.println(s[0]);
-
-		String[] s2 = new String[1];
-		s2[0] = "dfdsfdfdf";
-		System.out.println(s2[0]);
+		List<String> a = new ArrayList<String>();
+		a.add("1");
+		a.add("2");
+		for (String temp : a) {
+			if ("2".equals(temp)) {
+				a.remove(temp);
+			}
+		}
 
 	}
 

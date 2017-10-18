@@ -8,6 +8,8 @@
     <result column="specification" jdbcType="VARCHAR" property="specification" />
     <result column="highConsumable" jdbcType="TINYINT" property="highConsumable" />
     <result column="isLotNumber" jdbcType="TINYINT" property="isLotNumber" />
+    <result column="dyFactory" jdbcType="VARCHAR" property="dyFactory" />
+    <result column="rigsterNum" jdbcType="VARCHAR" property="rigsterNum" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, [name], [number], specification, highConsumable, isLotNumber
+    id, [name], [number], specification, highConsumable, isLotNumber, dyFactory, rigsterNum
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.ItemExample" resultMap="BaseResultMap">
     select
@@ -102,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Item">
     insert into t_sms_item (id, [name], [number], 
-      specification, highConsumable, isLotNumber
-      )
+      specification, highConsumable, isLotNumber, 
+      dyFactory, rigsterNum)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
-      #{specification,jdbcType=VARCHAR}, #{highConsumable,jdbcType=TINYINT}, #{isLotNumber,jdbcType=TINYINT}
-      )
+      #{specification,jdbcType=VARCHAR}, #{highConsumable,jdbcType=TINYINT}, #{isLotNumber,jdbcType=TINYINT}, 
+      #{dyFactory,jdbcType=VARCHAR}, #{rigsterNum,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Item">
     insert into t_sms_item
@@ -129,6 +131,12 @@
       <if test="isLotNumber != null">
         isLotNumber,
       </if>
+      <if test="dyFactory != null">
+        dyFactory,
+      </if>
+      <if test="rigsterNum != null">
+        rigsterNum,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +156,12 @@
       </if>
       <if test="isLotNumber != null">
         #{isLotNumber,jdbcType=TINYINT},
+      </if>
+      <if test="dyFactory != null">
+        #{dyFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="rigsterNum != null">
+        #{rigsterNum,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -178,6 +192,12 @@
       <if test="record.isLotNumber != null">
         isLotNumber = #{record.isLotNumber,jdbcType=TINYINT},
       </if>
+      <if test="record.dyFactory != null">
+        dyFactory = #{record.dyFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rigsterNum != null">
+        rigsterNum = #{record.rigsterNum,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +210,9 @@
       [number] = #{record.number,jdbcType=VARCHAR},
       specification = #{record.specification,jdbcType=VARCHAR},
       highConsumable = #{record.highConsumable,jdbcType=TINYINT},
-      isLotNumber = #{record.isLotNumber,jdbcType=TINYINT}
+      isLotNumber = #{record.isLotNumber,jdbcType=TINYINT},
+      dyFactory = #{record.dyFactory,jdbcType=VARCHAR},
+      rigsterNum = #{record.rigsterNum,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +235,12 @@
       <if test="isLotNumber != null">
         isLotNumber = #{isLotNumber,jdbcType=TINYINT},
       </if>
+      <if test="dyFactory != null">
+        dyFactory = #{dyFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="rigsterNum != null">
+        rigsterNum = #{rigsterNum,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -222,7 +250,9 @@
       [number] = #{number,jdbcType=VARCHAR},
       specification = #{specification,jdbcType=VARCHAR},
       highConsumable = #{highConsumable,jdbcType=TINYINT},
-      isLotNumber = #{isLotNumber,jdbcType=TINYINT}
+      isLotNumber = #{isLotNumber,jdbcType=TINYINT},
+      dyFactory = #{dyFactory,jdbcType=VARCHAR},
+      rigsterNum = #{rigsterNum,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
