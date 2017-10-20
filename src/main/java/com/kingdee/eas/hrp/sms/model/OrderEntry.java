@@ -42,6 +42,8 @@ public class OrderEntry {
 
     private BigDecimal invoiceQty;
 
+    private String department;
+
     public String getId() {
         return id;
     }
@@ -192,5 +194,13 @@ public class OrderEntry {
 
     public void setInvoiceQty(BigDecimal invoiceQty) {
         this.invoiceQty = invoiceQty;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department == null ? null : department.trim();
     }
 }
