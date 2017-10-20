@@ -2165,8 +2165,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 			Integer lookUpType = formField.getLookUpType();
 			Integer needSave = formField.getNeedSave();
 
-			if (needSave == 0 && (lookUpType == 3 || lookUpType == 5))// 引用基础资料的附加属性/普通表关联显示字段，无需保存
-				continue;
+			if (needSave == 0 && (lookUpType == 3 || lookUpType == 5)){// 引用基础资料的附加属性/普通表关联显示字段，无需保存
+				continue;}
 
 			String value = data.getString(key);
 
@@ -2234,8 +2234,8 @@ public class TemplateService extends BaseService implements ITemplateService {
 	@SuppressWarnings("unchecked")
 	private void handleEntryData(int classId, String id, JSONObject data) {
 
-		if (!data.containsKey("entry") || data.getJSONObject("entry").size() == 0)
-			return;
+		if (!data.containsKey("entry") || data.getJSONObject("entry").size() == 0){
+			return;}
 
 		// 基础资料模板
 		Map<String, Object> template = getFormTemplate(classId, 1);

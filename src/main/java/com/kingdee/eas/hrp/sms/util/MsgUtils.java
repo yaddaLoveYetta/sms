@@ -2,6 +2,8 @@ package com.kingdee.eas.hrp.sms.util;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
 * 类名称：MsgUtil.java
@@ -21,7 +23,7 @@ public class MsgUtils {
 	 */
 	public static void sendSMS(String[] mobiles, String smsContent){
 		ExecutorService executorService = Executors.newSingleThreadExecutor();
-		executorService.execute(new Runnable() {			
+		executorService.execute(new Runnable() {
 			@Override
 			public void run() {
 				MsgHttpClient client = MsgHttpClient.getInstance();

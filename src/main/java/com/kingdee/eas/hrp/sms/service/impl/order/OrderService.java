@@ -666,6 +666,11 @@ public class OrderService extends BaseService implements IOrderService {
             entry.put("qty", 1); // 拆单后，发货单明细行数量为1
             entry.put("amount", purOrderEntry.getFloatValue("price"));
 
+
+            if (purOrderEntry.getString("department") != null) {
+                entry.put("department", purOrderEntry.getString("department")); // 使用部门
+            }
+
             if (i == qty - 1) {
                 // lastLine
                 entry.put("qty", lastLineQty); // 拆单后，发货单明细行数量为1
@@ -773,6 +778,7 @@ public class OrderService extends BaseService implements IOrderService {
     /**
      * HRP->SMS接单确认接口
      */
+    @Override
     @Transactional
     public String updateTickType(JSONObject jsonObject) {
         OrderEntry orderEntry = new OrderEntry();
