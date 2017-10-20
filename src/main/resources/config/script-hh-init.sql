@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [hrp-sms-hh]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Database [hrp-sms-hh]    Script Date: 2017/10/20 16:13:34 ******/
 IF EXISTS (
     SELECT
         *
@@ -8,15 +8,15 @@ IF EXISTS (
         sysdatabases
     WHERE
         name = 'hrp-sms-hh'
-) 
+)
 BEGIN
     DROP DATABASE [hrp-sms-hh]
 END
 GO
-CREATE DATABASE [hrp-sms-hh] ON  PRIMARY 
-( NAME = N'hrp-sms-hh', FILENAME = N'D:\SMS_DATA\hrp-sms-hh.mdf' , SIZE = 17408KB , MAXSIZE = UNLIMITED, FILEGROWTH = 10%)
- LOG ON 
-( NAME = N'hrp-sms-hh_log', FILENAME = N'D:\SMS_DATA\hrp-sms-hh.ldf' , SIZE = 123648KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+CREATE DATABASE [hrp-sms-hh] ON  PRIMARY
+( NAME = N'hrp-sms-hh', FILENAME = N'C:\SMS_DATA\hrp-sms-hh.mdf' , SIZE = 17408KB , MAXSIZE = UNLIMITED, FILEGROWTH = 10%)
+ LOG ON
+( NAME = N'hrp-sms-hh_log', FILENAME = N'C:\SMS_DATA\hrp-sms-hh.ldf' , SIZE = 123648KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
 GO
 ALTER DATABASE [hrp-sms-hh] SET COMPATIBILITY_LEVEL = 100
 GO
@@ -25,65 +25,65 @@ begin
 EXEC [hrp-sms-hh].[dbo].[sp_fulltext_database] @action = 'enable'
 end
 GO
-ALTER DATABASE [hrp-sms-hh] SET ANSI_NULL_DEFAULT OFF 
+ALTER DATABASE [hrp-sms-hh] SET ANSI_NULL_DEFAULT OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET ANSI_NULLS OFF 
+ALTER DATABASE [hrp-sms-hh] SET ANSI_NULLS OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET ANSI_PADDING OFF 
+ALTER DATABASE [hrp-sms-hh] SET ANSI_PADDING OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET ANSI_WARNINGS OFF 
+ALTER DATABASE [hrp-sms-hh] SET ANSI_WARNINGS OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET ARITHABORT OFF 
+ALTER DATABASE [hrp-sms-hh] SET ARITHABORT OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET AUTO_CLOSE OFF 
+ALTER DATABASE [hrp-sms-hh] SET AUTO_CLOSE OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET AUTO_CREATE_STATISTICS ON 
+ALTER DATABASE [hrp-sms-hh] SET AUTO_CREATE_STATISTICS ON
 GO
-ALTER DATABASE [hrp-sms-hh] SET AUTO_SHRINK OFF 
+ALTER DATABASE [hrp-sms-hh] SET AUTO_SHRINK OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET AUTO_UPDATE_STATISTICS ON 
+ALTER DATABASE [hrp-sms-hh] SET AUTO_UPDATE_STATISTICS ON
 GO
-ALTER DATABASE [hrp-sms-hh] SET CURSOR_CLOSE_ON_COMMIT OFF 
+ALTER DATABASE [hrp-sms-hh] SET CURSOR_CLOSE_ON_COMMIT OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET CURSOR_DEFAULT  GLOBAL 
+ALTER DATABASE [hrp-sms-hh] SET CURSOR_DEFAULT  GLOBAL
 GO
-ALTER DATABASE [hrp-sms-hh] SET CONCAT_NULL_YIELDS_NULL OFF 
+ALTER DATABASE [hrp-sms-hh] SET CONCAT_NULL_YIELDS_NULL OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET NUMERIC_ROUNDABORT OFF 
+ALTER DATABASE [hrp-sms-hh] SET NUMERIC_ROUNDABORT OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET QUOTED_IDENTIFIER OFF 
+ALTER DATABASE [hrp-sms-hh] SET QUOTED_IDENTIFIER OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET RECURSIVE_TRIGGERS OFF 
+ALTER DATABASE [hrp-sms-hh] SET RECURSIVE_TRIGGERS OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET  DISABLE_BROKER 
+ALTER DATABASE [hrp-sms-hh] SET  DISABLE_BROKER
 GO
-ALTER DATABASE [hrp-sms-hh] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+ALTER DATABASE [hrp-sms-hh] SET AUTO_UPDATE_STATISTICS_ASYNC OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET DATE_CORRELATION_OPTIMIZATION OFF 
+ALTER DATABASE [hrp-sms-hh] SET DATE_CORRELATION_OPTIMIZATION OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET TRUSTWORTHY OFF 
+ALTER DATABASE [hrp-sms-hh] SET TRUSTWORTHY OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+ALTER DATABASE [hrp-sms-hh] SET ALLOW_SNAPSHOT_ISOLATION OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET PARAMETERIZATION SIMPLE 
+ALTER DATABASE [hrp-sms-hh] SET PARAMETERIZATION SIMPLE
 GO
-ALTER DATABASE [hrp-sms-hh] SET READ_COMMITTED_SNAPSHOT OFF 
+ALTER DATABASE [hrp-sms-hh] SET READ_COMMITTED_SNAPSHOT OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET HONOR_BROKER_PRIORITY OFF 
+ALTER DATABASE [hrp-sms-hh] SET HONOR_BROKER_PRIORITY OFF
 GO
-ALTER DATABASE [hrp-sms-hh] SET RECOVERY FULL 
+ALTER DATABASE [hrp-sms-hh] SET RECOVERY FULL
 GO
-ALTER DATABASE [hrp-sms-hh] SET  MULTI_USER 
+ALTER DATABASE [hrp-sms-hh] SET  MULTI_USER
 GO
-ALTER DATABASE [hrp-sms-hh] SET PAGE_VERIFY CHECKSUM  
+ALTER DATABASE [hrp-sms-hh] SET PAGE_VERIFY CHECKSUM
 GO
-ALTER DATABASE [hrp-sms-hh] SET DB_CHAINING OFF 
+ALTER DATABASE [hrp-sms-hh] SET DB_CHAINING OFF
 GO
-EXEC sys.sp_db_vardecimal_storage_format N'hrp-sms-dev', N'ON'
+EXEC sys.sp_db_vardecimal_storage_format N'hrp-sms-hh', N'ON'
 GO
 USE [hrp-sms-hh]
 GO
-/****** Object:  UserDefinedFunction [dbo].[base64encode]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  UserDefinedFunction [dbo].[base64encode]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -148,7 +148,7 @@ END
 
 
 GO
-/****** Object:  UserDefinedFunction [dbo].[newbosid]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  UserDefinedFunction [dbo].[newbosid]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -217,7 +217,7 @@ END
 
 
 GO
-/****** Object:  Table [dbo].[t_sms_accessControl]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_accessControl]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -225,22 +225,22 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_accessControl](
-    [objectType] [int] NOT NULL,
-    [objectId] [int] NOT NULL,
-    [roleId] [varchar](50) NOT NULL,
-    [accessMask] [int] NOT NULL,
- CONSTRAINT [PK_t_sms_accessControl] PRIMARY KEY CLUSTERED 
+	[objectType] [int] NOT NULL,
+	[objectId] [int] NOT NULL,
+	[roleId] [varchar](50) NOT NULL,
+	[accessMask] [int] NOT NULL,
+ CONSTRAINT [PK_t_sms_accessControl] PRIMARY KEY CLUSTERED
 (
-    [objectType] ASC,
-    [objectId] ASC,
-    [roleId] ASC
+	[objectType] ASC,
+	[objectId] ASC,
+	[roleId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_anomaly_params]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_anomaly_params]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -248,18 +248,18 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_anomaly_params](
-    [key] [varchar](255) NOT NULL,
-    [value] [varchar](255) NULL,
-PRIMARY KEY CLUSTERED 
+	[key] [varchar](255) NOT NULL,
+	[value] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED
 (
-    [key] ASC
+	[key] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_approved_supplier]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_approved_supplier]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -267,28 +267,28 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_approved_supplier](
-    [id] [varchar](50) NOT NULL,
-    [supplier] [varchar](50) NULL,
-    [materialItem] [varchar](50) NULL,
-    [isStopped] [tinyint] NULL,
-    [measureUnit] [varchar](44) NULL,
-    [supplierRate] [decimal](20, 10) NULL,
-    [taxPrice] [decimal](20, 10) NULL,
-    [effectualDate] [date] NULL,
-    [uneffectualDate] [date] NULL,
-    [syncStatus] [tinyint] NULL,
-    [review] [tinyint] NULL,
-    [purMeasureUnit] [varchar](44) NULL,
- CONSTRAINT [PK_t_sms_approved_supplier] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[supplier] [varchar](50) NULL,
+	[materialItem] [varchar](50) NULL,
+	[isStopped] [tinyint] NULL,
+	[measureUnit] [varchar](44) NULL,
+	[supplierRate] [decimal](20, 10) NULL,
+	[taxPrice] [decimal](20, 10) NULL,
+	[effectualDate] [date] NULL,
+	[uneffectualDate] [date] NULL,
+	[syncStatus] [tinyint] NULL,
+	[review] [tinyint] NULL,
+	[purMeasureUnit] [varchar](44) NULL,
+ CONSTRAINT [PK_t_sms_approved_supplier] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_base_status]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_base_status]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -296,19 +296,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_base_status](
-    [id] [int] NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
-PRIMARY KEY CLUSTERED 
+	[id] [int] NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_category]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_category]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -316,19 +316,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_category](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_category] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_category] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_certificate]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_certificate]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -336,19 +336,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_certificate](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_certificate] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_certificate] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_city]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_city]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -356,19 +356,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_city](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_city] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_city] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_country]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_country]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -376,19 +376,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_country](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_country] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_country] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_county]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_county]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -396,19 +396,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_county](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_county] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_county] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_currency]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_currency]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -416,19 +416,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_currency](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_currency] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_currency] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_dataFlowSubClass]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_dataFlowSubClass]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -436,24 +436,24 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_dataFlowSubClass](
-    [topClassId] [int] NOT NULL,
-    [subSysId] [int] NOT NULL,
-    [name] [varchar](255) NOT NULL,
-    [index] [int] NOT NULL,
-    [visible] [tinyint] NULL,
-    [url] [varchar](500) NULL,
-    [icon] [varchar](100) NULL,
-    [ownerType] [int] NULL,
-PRIMARY KEY CLUSTERED 
+	[topClassId] [int] NOT NULL,
+	[subSysId] [int] NOT NULL,
+	[name] [varchar](255) NOT NULL,
+	[index] [int] NOT NULL,
+	[visible] [tinyint] NULL,
+	[url] [varchar](500) NULL,
+	[icon] [varchar](100) NULL,
+	[ownerType] [int] NULL,
+PRIMARY KEY CLUSTERED
 (
-    [subSysId] ASC
+	[subSysId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_dataFlowTopClass]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_dataFlowTopClass]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -461,21 +461,41 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_dataFlowTopClass](
-    [topClassId] [int] NOT NULL,
-    [topClassName] [varchar](50) NOT NULL,
-    [index] [int] NOT NULL,
-    [visible] [bit] NOT NULL,
-    [icon] [varchar](100) NULL,
-PRIMARY KEY CLUSTERED 
+	[topClassId] [int] NOT NULL,
+	[topClassName] [varchar](50) NOT NULL,
+	[index] [int] NOT NULL,
+	[visible] [bit] NOT NULL,
+	[icon] [varchar](100) NULL,
+PRIMARY KEY CLUSTERED
 (
-    [topClassId] ASC
+	[topClassId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_employee]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_department]    Script Date: 2017/10/20 16:13:34 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[t_sms_department](
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NOT NULL,
+	[number] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[t_sms_employee]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -483,20 +503,20 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_employee](
-    [id] [varchar](255) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](30) NULL,
-    [mobile] [varchar](20) NULL,
- CONSTRAINT [PK_t_sms_employee] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](30) NULL,
+	[mobile] [varchar](20) NULL,
+ CONSTRAINT [PK_t_sms_employee] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_formClass]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_formClass]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -504,21 +524,21 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_formClass](
-    [classId] [int] NOT NULL,
-    [name] [varchar](50) NOT NULL,
-    [tableName] [varchar](50) NOT NULL,
-    [primaryKey] [varchar](20) NOT NULL,
-    [bosType] [varchar](8) NOT NULL,
-PRIMARY KEY CLUSTERED 
+	[classId] [int] NOT NULL,
+	[name] [varchar](50) NOT NULL,
+	[tableName] [varchar](50) NOT NULL,
+	[primaryKey] [varchar](20) NOT NULL,
+	[bosType] [varchar](8) NOT NULL,
+PRIMARY KEY CLUSTERED
 (
-    [classId] ASC
+	[classId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_formEntries]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_formEntries]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -526,24 +546,24 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_formEntries](
-    [classId] [int] NOT NULL,
-    [entryIndex] [int] NOT NULL,
-    [tableName] [varchar](50) NOT NULL,
-    [foreignKey] [varchar](20) NOT NULL,
-    [primaryKey] [varchar](20) NOT NULL,
-    [bosType] [varchar](8) NOT NULL,
-    [joinType] [varchar](20) NOT NULL,
-PRIMARY KEY CLUSTERED 
+	[classId] [int] NOT NULL,
+	[entryIndex] [int] NOT NULL,
+	[tableName] [varchar](50) NOT NULL,
+	[foreignKey] [varchar](20) NOT NULL,
+	[primaryKey] [varchar](20) NOT NULL,
+	[bosType] [varchar](8) NOT NULL,
+	[joinType] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED
 (
-    [classId] ASC,
-    [entryIndex] ASC
+	[classId] ASC,
+	[entryIndex] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_formFields]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_formFields]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -551,46 +571,46 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_formFields](
-    [classId] [int] NOT NULL,
-    [page] [int] NOT NULL,
-    [name] [varchar](50) NOT NULL,
-    [sqlColumnName] [varchar](30) NULL,
-    [key] [varchar](30) NOT NULL,
-    [dataType] [int] NULL,
-    [ctrlType] [int] NULL,
-    [ctlIndex] [int] NULL,
-    [index] [int] NULL,
-    [display] [int] NULL,
-    [showWidth] [int] NULL,
-    [lookUpType] [int] NULL,
-    [lookUpClassID] [int] NULL,
-    [srcTable] [varchar](50) NULL,
-    [srcTableAlisAs] [varchar](30) NULL,
-    [srcField] [varchar](30) NULL,
-    [disPlayField] [varchar](30) NULL,
-    [disPlayNum] [varchar](30) NULL,
-    [joinType] [varchar](20) NULL,
-    [filter] [varchar](500) NULL,
-    [defaultValue] [varchar](255) NULL,
-    [maxValue] [numeric](10, 2) NULL,
-    [minValue] [numeric](10, 2) NULL,
-    [mustInput] [int] NULL,
-    [length] [int] NULL,
-    [lock] [int] NULL,
-    [isCondition] [int] NULL,
-    [isCount] [int] NULL,
-    [needSave] [int] NULL,
-PRIMARY KEY CLUSTERED 
+	[classId] [int] NOT NULL,
+	[page] [int] NOT NULL,
+	[name] [varchar](50) NOT NULL,
+	[sqlColumnName] [varchar](30) NULL,
+	[key] [varchar](30) NOT NULL,
+	[dataType] [int] NULL,
+	[ctrlType] [int] NULL,
+	[ctlIndex] [int] NULL,
+	[index] [int] NULL,
+	[display] [int] NULL,
+	[showWidth] [int] NULL,
+	[lookUpType] [int] NULL,
+	[lookUpClassID] [int] NULL,
+	[srcTable] [varchar](50) NULL,
+	[srcTableAlisAs] [varchar](30) NULL,
+	[srcField] [varchar](30) NULL,
+	[disPlayField] [varchar](30) NULL,
+	[disPlayNum] [varchar](30) NULL,
+	[joinType] [varchar](20) NULL,
+	[filter] [varchar](500) NULL,
+	[defaultValue] [varchar](255) NULL,
+	[maxValue] [numeric](10, 2) NULL,
+	[minValue] [numeric](10, 2) NULL,
+	[mustInput] [int] NULL,
+	[length] [int] NULL,
+	[lock] [int] NULL,
+	[isCondition] [int] NULL,
+	[isCount] [int] NULL,
+	[needSave] [int] NULL,
+PRIMARY KEY CLUSTERED
 (
-    [classId] ASC,
-    [key] ASC
+	[classId] ASC,
+	[key] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_industry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_industry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -598,19 +618,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_industry](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_industry] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_industry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_item]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_item]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -618,22 +638,24 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_item](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
-    [specification] [varchar](255) NULL,
-    [highConsumable] [tinyint] NULL,
-    [isLotNumber] [tinyint] NULL,
- CONSTRAINT [PK_t_sms_item] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+	[specification] [varchar](255) NULL,
+	[highConsumable] [tinyint] NULL,
+	[isLotNumber] [tinyint] NULL,
+	[dyFactory] [varchar](100) NULL,
+	[rigsterNum] [varchar](100) NULL,
+ CONSTRAINT [PK_t_sms_item] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_log]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_log]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -641,24 +663,24 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_log](
-    [userName] [varchar](50) NULL,
-    [ip] [varchar](20) NULL,
-    [message] [varchar](255) NULL,
-    [operateTime] [datetime] NULL,
-    [clazz] [varchar](500) NULL,
-    [method] [varchar](50) NULL,
-    [id] [int] IDENTITY(1,1) NOT NULL,
-    [params] [varchar](1000) NULL,
- CONSTRAINT [PK__t_sms_lo__3213E83F5224328E] PRIMARY KEY CLUSTERED 
+	[userName] [varchar](50) NULL,
+	[ip] [varchar](20) NULL,
+	[message] [varchar](255) NULL,
+	[operateTime] [datetime] NULL,
+	[clazz] [varchar](500) NULL,
+	[method] [varchar](50) NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[params] [varchar](1000) NULL,
+ CONSTRAINT [PK__t_sms_lo__3213E83F5224328E] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_msglog]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_msglog]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -666,21 +688,21 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_msglog](
-    [seqid] [varchar](50) NOT NULL,
-    [mobiles] [varchar](1000) NULL,
-    [smsContent] [varchar](1000) NULL,
-    [restr] [varchar](100) NULL,
-    [sendtime] [datetime] NULL,
- CONSTRAINT [PK_t_sms_msglog] PRIMARY KEY CLUSTERED 
+	[seqid] [varchar](50) NOT NULL,
+	[mobiles] [varchar](1000) NULL,
+	[smsContent] [varchar](1000) NULL,
+	[restr] [varchar](100) NULL,
+	[sendtime] [datetime] NULL,
+ CONSTRAINT [PK_t_sms_msglog] PRIMARY KEY CLUSTERED
 (
-    [seqid] ASC
+	[seqid] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_objectAccessType]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_objectAccessType]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -688,26 +710,26 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_objectAccessType](
-    [objectType] [int] NOT NULL,
-    [objectId] [int] NOT NULL,
-    [index] [int] NOT NULL,
-    [name] [varchar](50) NULL,
-    [accessMask] [int] NULL,
-    [accessUse] [int] NULL,
-    [ownerType] [int] NULL,
-    [description] [varchar](100) NULL,
-PRIMARY KEY CLUSTERED 
+	[objectType] [int] NOT NULL,
+	[objectId] [int] NOT NULL,
+	[index] [int] NOT NULL,
+	[name] [varchar](50) NULL,
+	[accessMask] [int] NULL,
+	[accessUse] [int] NULL,
+	[ownerType] [int] NULL,
+	[description] [varchar](100) NULL,
+PRIMARY KEY CLUSTERED
 (
-    [objectType] ASC,
-    [objectId] ASC,
-    [index] ASC
+	[objectType] ASC,
+	[objectId] ASC,
+	[index] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_objectType]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_objectType]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -715,26 +737,26 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_objectType](
-    [topClassId] [int] NOT NULL,
-    [subSysId] [int] NOT NULL,
-    [objectType] [int] NOT NULL,
-    [objectId] [int] NOT NULL,
-    [name] [varchar](50) NULL,
-    [description] [varchar](100) NOT NULL,
-    [classId] [int] NULL,
- CONSTRAINT [PK_t_sms_objectType] PRIMARY KEY CLUSTERED 
+	[topClassId] [int] NOT NULL,
+	[subSysId] [int] NOT NULL,
+	[objectType] [int] NOT NULL,
+	[objectId] [int] NOT NULL,
+	[name] [varchar](50) NULL,
+	[description] [varchar](100) NOT NULL,
+	[classId] [int] NULL,
+ CONSTRAINT [PK_t_sms_objectType] PRIMARY KEY CLUSTERED
 (
-    [topClassId] ASC,
-    [subSysId] ASC,
-    [objectType] ASC,
-    [objectId] ASC
+	[topClassId] ASC,
+	[subSysId] ASC,
+	[objectType] ASC,
+	[objectId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_pay]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_pay]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -742,19 +764,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_pay](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_pay] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_pay] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_paymentType]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_paymentType]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -762,18 +784,18 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_paymentType](
-    [id] [varchar](255) NOT NULL,
-    [name] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_paymentType] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[name] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_paymentType] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_plugins]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_plugins]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -781,21 +803,21 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_plugins](
-    [id] [int] NOT NULL,
-    [classId] [int] NOT NULL,
-    [plugName] [varchar](255) NOT NULL,
-    [index] [int] NOT NULL,
-    [desc] [varchar](255) NOT NULL,
-PRIMARY KEY CLUSTERED 
+	[id] [int] NOT NULL,
+	[classId] [int] NOT NULL,
+	[plugName] [varchar](255) NOT NULL,
+	[index] [int] NOT NULL,
+	[desc] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_province]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_province]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -803,19 +825,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_province](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_province] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_province] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_purchase_order]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_purchase_order]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -823,34 +845,34 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_purchase_order](
-    [id] [varchar](50) NOT NULL,
-    [supplier] [varchar](255) NULL,
-    [bizDate] [date] NULL,
-    [purchasePerson] [varchar](255) NULL,
-    [saleProxy] [tinyint] NULL,
-    [isInTax] [tinyint] NULL,
-    [tickDate] [datetime] NULL,
-    [confirmTickDate] [datetime] NULL,
-    [tickType] [tinyint] NULL,
-    [confirmTick] [tinyint] NULL,
-    [number] [varchar](255) NULL,
-    [isQuicken] [tinyint] NULL,
-    [currency] [varchar](255) NULL,
-    [totalAmount] [money] NULL,
-    [totalTax] [money] NULL,
-    [totalTaxAmount] [money] NULL,
-    [createTime] [datetime] NULL,
-    [baseStatus] [tinyint] NULL,
- CONSTRAINT [PK_t_sms_purchase_order] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[supplier] [varchar](255) NULL,
+	[bizDate] [date] NULL,
+	[purchasePerson] [varchar](255) NULL,
+	[saleProxy] [tinyint] NULL,
+	[isInTax] [tinyint] NULL,
+	[tickDate] [datetime] NULL,
+	[confirmTickDate] [datetime] NULL,
+	[tickType] [tinyint] NULL,
+	[confirmTick] [tinyint] NULL,
+	[number] [varchar](255) NULL,
+	[isQuicken] [tinyint] NULL,
+	[currency] [varchar](255) NULL,
+	[totalAmount] [money] NULL,
+	[totalTax] [money] NULL,
+	[totalTaxAmount] [money] NULL,
+	[createTime] [datetime] NULL,
+	[baseStatus] [tinyint] NULL,
+ CONSTRAINT [PK_t_sms_purchase_order] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_purchase_order_entry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_purchase_order_entry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -858,35 +880,36 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_purchase_order_entry](
-    [material] [varchar](255) NULL,
-    [parent] [varchar](255) NULL,
-    [price] [money] NULL,
-    [qty] [numeric](10, 2) NULL,
-    [deliveryDate] [datetime] NULL,
-    [discountRate] [float] NULL,
-    [taxRate] [float] NULL,
-    [taxPrice] [money] NULL,
-    [actualTaxPrice] [money] NULL,
-    [discountAmount] [money] NULL,
-    [tax] [money] NULL,
-    [localAmount] [money] NULL,
-    [seq] [int] NULL,
-    [confirmDate] [datetime] NULL,
-    [confirmQty] [numeric](10, 2) NULL,
-    [unit] [varchar](255) NULL,
-    [id] [varchar](255) NOT NULL,
-    [amount] [money] NULL,
-    [invoiceQty] [numeric](10, 2) NULL,
- CONSTRAINT [PK_t_sms_purchase_order_entry] PRIMARY KEY CLUSTERED 
+	[material] [varchar](255) NULL,
+	[parent] [varchar](255) NULL,
+	[price] [money] NULL,
+	[qty] [numeric](10, 2) NULL,
+	[deliveryDate] [datetime] NULL,
+	[discountRate] [float] NULL,
+	[taxRate] [float] NULL,
+	[taxPrice] [money] NULL,
+	[actualTaxPrice] [money] NULL,
+	[discountAmount] [money] NULL,
+	[tax] [money] NULL,
+	[localAmount] [money] NULL,
+	[seq] [int] NULL,
+	[confirmDate] [datetime] NULL,
+	[confirmQty] [numeric](10, 2) NULL,
+	[unit] [varchar](255) NULL,
+	[id] [varchar](255) NOT NULL,
+	[amount] [money] NULL,
+	[invoiceQty] [numeric](10, 2) NULL,
+	[department] [varchar](50) NULL,
+ CONSTRAINT [PK_t_sms_purchase_order_entry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_purinwarehs]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_purinwarehs]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -894,22 +917,22 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_purinwarehs](
-    [id] [varchar](255) NOT NULL,
-    [number] [varchar](255) NULL,
-    [bizDate] [datetime] NULL,
-    [baseStatus] [tinyint] NULL,
-    [sourceBillType] [varchar](255) NULL,
-    [supplier] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_purinwarehs] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[number] [varchar](255) NULL,
+	[bizDate] [datetime] NULL,
+	[baseStatus] [tinyint] NULL,
+	[sourceBillType] [varchar](255) NULL,
+	[supplier] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_purinwarehs] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_purinwarehs_entry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_purinwarehs_entry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -917,32 +940,32 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_purinwarehs_entry](
-    [id] [varchar](255) NOT NULL,
-    [parent] [varchar](255) NULL,
-    [seq] [int] NULL,
-    [orderId] [varchar](255) NULL,
-    [orderSeq] [varchar](255) NULL,
-    [material] [varchar](255) NULL,
-    [lot] [varchar](255) NULL,
-    [innercode] [varchar](255) NULL,
-    [unit] [varchar](255) NULL,
-    [price] [money] NULL,
-    [actualQty] [numeric](18, 2) NULL,
-    [dyProDate] [datetime] NULL,
-    [dyManufacturer] [varchar](255) NULL,
-    [registrationNo] [varchar](255) NULL,
-    [amount] [money] NULL,
-    [effectiveDate] [datetime] NULL,
- CONSTRAINT [PK_t_sms_purinwarehs_entry] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[parent] [varchar](255) NULL,
+	[seq] [int] NULL,
+	[orderId] [varchar](255) NULL,
+	[orderSeq] [varchar](255) NULL,
+	[material] [varchar](255) NULL,
+	[lot] [varchar](255) NULL,
+	[innercode] [varchar](255) NULL,
+	[unit] [varchar](255) NULL,
+	[price] [money] NULL,
+	[actualQty] [numeric](18, 2) NULL,
+	[dyProDate] [datetime] NULL,
+	[dyManufacturer] [varchar](255) NULL,
+	[registrationNo] [varchar](255) NULL,
+	[amount] [money] NULL,
+	[effectiveDate] [datetime] NULL,
+ CONSTRAINT [PK_t_sms_purinwarehs_entry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_purreceival]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_purreceival]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -950,22 +973,22 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_purreceival](
-    [id] [varchar](255) NOT NULL,
-    [number] [varchar](255) NULL,
-    [bizDate] [datetime] NULL,
-    [baseStatus] [tinyint] NULL,
-    [sourceBillType] [varchar](255) NULL,
-    [supplier] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_purreceival] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[number] [varchar](255) NULL,
+	[bizDate] [datetime] NULL,
+	[baseStatus] [tinyint] NULL,
+	[sourceBillType] [varchar](255) NULL,
+	[supplier] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_purreceival] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_purreceival_entry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_purreceival_entry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -973,35 +996,35 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_purreceival_entry](
-    [id] [varchar](255) NOT NULL,
-    [parent] [varchar](255) NULL,
-    [seq] [int] NULL,
-    [orderId] [varchar](255) NULL,
-    [orderSeq] [varchar](255) NULL,
-    [material] [varchar](255) NULL,
-    [lot] [varchar](255) NULL,
-    [innercode] [varchar](255) NULL,
-    [unit] [varchar](255) NULL,
-    [price] [money] NULL,
-    [qty] [numeric](18, 2) NULL,
-    [actualQty] [numeric](18, 2) NULL,
-    [dyProDate] [datetime] NULL,
-    [dyManufacturer] [varchar](255) NULL,
-    [registrationNo] [varchar](255) NULL,
-    [amount] [money] NULL,
-    [effectiveDate] [datetime] NULL,
-    [qualifiedQty] [numeric](18, 2) NULL,
-    [unqualifiedQty] [numeric](18, 2) NULL,
- CONSTRAINT [PK_t_sms_purreceival_entry] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[parent] [varchar](255) NULL,
+	[seq] [int] NULL,
+	[orderId] [varchar](255) NULL,
+	[orderSeq] [varchar](255) NULL,
+	[material] [varchar](255) NULL,
+	[lot] [varchar](255) NULL,
+	[innercode] [varchar](255) NULL,
+	[unit] [varchar](255) NULL,
+	[price] [money] NULL,
+	[qty] [numeric](18, 2) NULL,
+	[actualQty] [numeric](18, 2) NULL,
+	[dyProDate] [datetime] NULL,
+	[dyManufacturer] [varchar](255) NULL,
+	[registrationNo] [varchar](255) NULL,
+	[amount] [money] NULL,
+	[effectiveDate] [datetime] NULL,
+	[qualifiedQty] [numeric](18, 2) NULL,
+	[unqualifiedQty] [numeric](18, 2) NULL,
+ CONSTRAINT [PK_t_sms_purreceival_entry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_purreturns]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_purreturns]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1009,22 +1032,22 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_purreturns](
-    [id] [varchar](255) NOT NULL,
-    [number] [varchar](255) NULL,
-    [bizDate] [datetime] NULL,
-    [baseStatus] [tinyint] NULL,
-    [sourceBillType] [varchar](255) NULL,
-    [supplier] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_purreturns] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[number] [varchar](255) NULL,
+	[bizDate] [datetime] NULL,
+	[baseStatus] [tinyint] NULL,
+	[sourceBillType] [varchar](255) NULL,
+	[supplier] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_purreturns] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_purreturns_entry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_purreturns_entry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1032,23 +1055,23 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_purreturns_entry](
-    [id] [varchar](255) NOT NULL,
-    [parent] [varchar](255) NULL,
-    [orderId] [varchar](255) NULL,
-    [orderSeq] [varchar](255) NULL,
-    [material] [varchar](255) NULL,
-    [unit] [varchar](255) NULL,
-    [returnQty] [numeric](18, 2) NULL,
- CONSTRAINT [PK_t_sms_purreturns_entry] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[parent] [varchar](255) NULL,
+	[orderId] [varchar](255) NULL,
+	[orderSeq] [varchar](255) NULL,
+	[material] [varchar](255) NULL,
+	[unit] [varchar](255) NULL,
+	[returnQty] [numeric](18, 2) NULL,
+ CONSTRAINT [PK_t_sms_purreturns_entry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_role]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_role]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1056,21 +1079,21 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_role](
-    [roleId] [varchar](50) NOT NULL,
-    [name] [varchar](20) NOT NULL,
-    [number] [varchar](20) NOT NULL,
-    [type] [varchar](50) NOT NULL,
-    [status] [tinyint] NOT NULL,
- CONSTRAINT [PK_t_sms_role] PRIMARY KEY CLUSTERED 
+	[roleId] [varchar](50) NOT NULL,
+	[name] [varchar](20) NOT NULL,
+	[number] [varchar](20) NOT NULL,
+	[type] [varchar](50) NOT NULL,
+	[status] [tinyint] NOT NULL,
+ CONSTRAINT [PK_t_sms_role] PRIMARY KEY CLUSTERED
 (
-    [roleId] ASC
+	[roleId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_roleType]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_roleType]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1078,19 +1101,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_roleType](
-    [typeId] [nvarchar](50) NOT NULL,
-    [number] [varchar](20) NOT NULL,
-    [name] [varchar](20) NOT NULL,
- CONSTRAINT [PK_t_sms_roleType] PRIMARY KEY CLUSTERED 
+	[typeId] [nvarchar](50) NOT NULL,
+	[number] [varchar](20) NOT NULL,
+	[name] [varchar](20) NOT NULL,
+ CONSTRAINT [PK_t_sms_roleType] PRIMARY KEY CLUSTERED
 (
-    [typeId] ASC
+	[typeId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_sale_proxy]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_sale_proxy]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1098,19 +1121,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_sale_proxy](
-    [id] [int] NOT NULL,
-    [name] [varchar](50) NULL,
-    [number] [varchar](50) NULL,
-PRIMARY KEY CLUSTERED 
+	[id] [int] NOT NULL,
+	[name] [varchar](50) NULL,
+	[number] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_sendcargo]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_sendcargo]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1118,24 +1141,24 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_sendcargo](
-    [id] [varchar](50) NOT NULL,
-    [number] [varchar](255) NULL,
-    [Date] [datetime] NULL,
-    [supplier] [varchar](255) NULL,
-    [logistics] [varchar](255) NULL,
-    [logisticsNo] [varchar](255) NULL,
-    [saleProxy] [tinyint] NULL,
-    [type] [tinyint] NULL,
- CONSTRAINT [PK_t_sms_sendcargo] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[number] [varchar](255) NULL,
+	[Date] [datetime] NULL,
+	[supplier] [varchar](255) NULL,
+	[logistics] [varchar](255) NULL,
+	[logisticsNo] [varchar](255) NULL,
+	[saleProxy] [tinyint] NULL,
+	[type] [tinyint] NULL,
+ CONSTRAINT [PK_t_sms_sendcargo] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_sendcargo_entry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_sendcargo_entry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1143,51 +1166,52 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_sendcargo_entry](
-    [id] [varchar](255) NOT NULL,
-    [parent] [varchar](255) NULL,
-    [orderId] [varchar](255) NULL,
-    [seq] [int] NULL,
-    [material] [varchar](255) NULL,
-    [lot] [varchar](255) NULL,
-    [dyBatchNum] [varchar](255) NULL,
-    [code] [varchar](255) NULL,
-    [unit] [varchar](255) NULL,
-    [price] [money] NULL,
-    [qty] [numeric](18, 2) NULL,
-    [dyProDate] [datetime] NULL,
-    [dyManufacturer] [varchar](255) NULL,
-    [registrationNo] [varchar](255) NULL,
-    [amount] [money] NULL,
-    [effectiveDate] [datetime] NULL,
-    [orderSeq] [varchar](255) NULL,
-    [actualQty] [numeric](18, 2) NULL,
- CONSTRAINT [PK_t_sms_sendcargo_entry] PRIMARY KEY CLUSTERED 
+	[id] [varchar](255) NOT NULL,
+	[parent] [varchar](255) NULL,
+	[orderId] [varchar](255) NULL,
+	[seq] [int] NULL,
+	[material] [varchar](255) NULL,
+	[lot] [varchar](255) NULL,
+	[dyBatchNum] [varchar](255) NULL,
+	[code] [varchar](255) NULL,
+	[unit] [varchar](255) NULL,
+	[price] [money] NULL,
+	[qty] [numeric](18, 2) NULL,
+	[dyProDate] [datetime] NULL,
+	[dyManufacturer] [varchar](255) NULL,
+	[registrationNo] [varchar](255) NULL,
+	[amount] [money] NULL,
+	[effectiveDate] [datetime] NULL,
+	[orderSeq] [varchar](255) NULL,
+	[actualQty] [numeric](18, 2) NULL,
+	[department] [varchar](50) NULL,
+ CONSTRAINT [PK_t_sms_sendcargo_entry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_serial_number]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_serial_number]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[t_sms_serial_number](
-    [id] [int] IDENTITY(1,1) NOT NULL,
-    [classId] [int] NULL,
-    [year] [int] NULL,
-    [number] [int] NULL,
- CONSTRAINT [PK_t_sms_serial] PRIMARY KEY CLUSTERED 
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[classId] [int] NULL,
+	[year] [int] NULL,
+	[number] [int] NULL,
+ CONSTRAINT [PK_t_sms_serial] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[t_sms_settlement]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_settlement]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1195,19 +1219,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_settlement](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_settlement] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_settlement] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_sourceBillType]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_sourceBillType]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1215,19 +1239,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_sourceBillType](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_sourceBillType] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_sourceBillType] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_status]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_status]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1235,19 +1259,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_status](
-    [id] [int] NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](255) NULL,
-PRIMARY KEY CLUSTERED 
+	[id] [int] NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_subMessage]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_subMessage]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1255,23 +1279,23 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_subMessage](
-    [detailId] [int] NOT NULL,
-    [typeId] [int] NOT NULL,
-    [number] [varchar](20) NOT NULL,
-    [name] [varchar](200) NULL,
-    [enable] [tinyint] NOT NULL,
-    [index] [int] NOT NULL,
- CONSTRAINT [PK__t_sms_sy__3213E83F7B5B524B] PRIMARY KEY CLUSTERED 
+	[detailId] [int] NOT NULL,
+	[typeId] [int] NOT NULL,
+	[number] [varchar](20) NOT NULL,
+	[name] [varchar](200) NULL,
+	[enable] [tinyint] NOT NULL,
+	[index] [int] NOT NULL,
+ CONSTRAINT [PK__t_sms_sy__3213E83F7B5B524B] PRIMARY KEY CLUSTERED
 (
-    [detailId] ASC,
-    [typeId] ASC
+	[detailId] ASC,
+	[typeId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_subMesType]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_subMesType]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1279,20 +1303,20 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_subMesType](
-    [typeId] [int] NOT NULL,
-    [name] [varchar](20) NOT NULL,
-    [desc] [varchar](100) NOT NULL,
-    [systemType] [tinyint] NOT NULL,
-PRIMARY KEY CLUSTERED 
+	[typeId] [int] NOT NULL,
+	[name] [varchar](20) NOT NULL,
+	[desc] [varchar](100) NOT NULL,
+	[systemType] [tinyint] NOT NULL,
+PRIMARY KEY CLUSTERED
 (
-    [typeId] ASC
+	[typeId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_supplier]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_supplier]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1300,37 +1324,37 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_supplier](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [taxId] [varchar](100) NULL,
-    [corp] [varchar](255) NULL,
-    [brno] [varchar](255) NULL,
-    [taxCategoryId] [varchar](50) NULL,
-    [taxRate] [decimal](28, 10) NULL,
-    [country] [varchar](50) NULL,
-    [city] [varchar](50) NULL,
-    [province] [varchar](50) NULL,
-    [county] [varchar](50) NULL,
-    [address] [varchar](255) NULL,
-    [industryId] [varchar](50) NULL,
-    [categoryId] [varchar](50) NULL,
-    [status] [tinyint] NULL,
-    [number] [varchar](50) NULL,
-    [syncStatus] [tinyint] NULL,
-    [review] [tinyint] NULL,
-    [mobile] [varchar](20) NULL,
-    [contactPerson] [varchar](50) NULL,
-    [simpleName] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_supplier] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[taxId] [varchar](100) NULL,
+	[corp] [varchar](255) NULL,
+	[brno] [varchar](255) NULL,
+	[taxCategoryId] [varchar](50) NULL,
+	[taxRate] [decimal](28, 10) NULL,
+	[country] [varchar](50) NULL,
+	[city] [varchar](50) NULL,
+	[province] [varchar](50) NULL,
+	[county] [varchar](50) NULL,
+	[address] [varchar](255) NULL,
+	[industryId] [varchar](50) NULL,
+	[categoryId] [varchar](50) NULL,
+	[status] [tinyint] NULL,
+	[number] [varchar](50) NULL,
+	[syncStatus] [tinyint] NULL,
+	[review] [tinyint] NULL,
+	[mobile] [varchar](20) NULL,
+	[contactPerson] [varchar](50) NULL,
+	[simpleName] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_supplier] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_supplier_item_license]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_supplier_item_license]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1338,31 +1362,31 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_supplier_item_license](
-    [id] [varchar](50) NOT NULL,
-    [type] [varchar](50) NULL,
-    [supplier] [varchar](50) NULL,
-    [authOrg] [varchar](100) NULL,
-    [description] [varchar](255) NULL,
-    [beginDate] [datetime] NULL,
-    [endDate] [datetime] NULL,
-    [syncStatus] [tinyint] NULL,
-    [review] [tinyint] NULL,
-    [material] [varchar](50) NULL,
-    [isMust] [tinyint] NULL,
-    [isControl] [tinyint] NULL,
-    [prohibited] [tinyint] NULL,
-    [name] [varchar](80) NULL,
-    [number] [nvarchar](80) NULL,
- CONSTRAINT [PK_t_sms_supplier_item_license] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[type] [varchar](50) NULL,
+	[supplier] [varchar](50) NULL,
+	[authOrg] [varchar](100) NULL,
+	[description] [varchar](255) NULL,
+	[beginDate] [datetime] NULL,
+	[endDate] [datetime] NULL,
+	[syncStatus] [tinyint] NULL,
+	[review] [tinyint] NULL,
+	[material] [varchar](50) NULL,
+	[isMust] [tinyint] NULL,
+	[isControl] [tinyint] NULL,
+	[prohibited] [tinyint] NULL,
+	[name] [varchar](80) NULL,
+	[number] [nvarchar](80) NULL,
+ CONSTRAINT [PK_t_sms_supplier_item_license] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_supplier_item_license_entry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_supplier_item_license_entry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1370,20 +1394,20 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_supplier_item_license_entry](
-    [id] [varchar](50) NOT NULL,
-    [parent] [varchar](50) NULL,
-    [url] [varchar](255) NULL,
-    [check] [tinyint] NULL,
- CONSTRAINT [PK_t_sms_supplier_item_license_entry] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[parent] [varchar](50) NULL,
+	[url] [varchar](255) NULL,
+	[check] [tinyint] NULL,
+ CONSTRAINT [PK_t_sms_supplier_item_license_entry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_supplier_item_license_type]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_supplier_item_license_type]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1391,23 +1415,23 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_supplier_item_license_type](
-    [id] [varchar](50) NOT NULL,
-    [number] [varchar](50) NULL,
-    [name] [varchar](50) NULL,
-    [syncStatus] [tinyint] NULL,
-    [isMust] [tinyint] NULL,
-    [isControl] [tinyint] NULL,
-    [review] [tinyint] NULL,
- CONSTRAINT [PK_t_sms_item_license_type] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[number] [varchar](50) NULL,
+	[name] [varchar](50) NULL,
+	[syncStatus] [tinyint] NULL,
+	[isMust] [tinyint] NULL,
+	[isControl] [tinyint] NULL,
+	[review] [tinyint] NULL,
+ CONSTRAINT [PK_t_sms_item_license_type] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_supplier_license]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_supplier_license]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1415,30 +1439,30 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_supplier_license](
-    [id] [varchar](50) NOT NULL,
-    [type] [varchar](50) NULL,
-    [supplier] [varchar](50) NULL,
-    [authOrg] [varchar](100) NULL,
-    [description] [varchar](255) NULL,
-    [beginDate] [datetime] NULL,
-    [endDate] [datetime] NULL,
-    [syncStatus] [tinyint] NULL,
-    [review] [tinyint] NULL,
-    [isMust] [tinyint] NULL,
-    [isControl] [tinyint] NULL,
-    [prohibited] [tinyint] NULL,
-    [name] [varchar](80) NULL,
-    [number] [nvarchar](80) NULL,
- CONSTRAINT [PK_t_sms_supplier_license] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[type] [varchar](50) NULL,
+	[supplier] [varchar](50) NULL,
+	[authOrg] [varchar](100) NULL,
+	[description] [varchar](255) NULL,
+	[beginDate] [datetime] NULL,
+	[endDate] [datetime] NULL,
+	[syncStatus] [tinyint] NULL,
+	[review] [tinyint] NULL,
+	[isMust] [tinyint] NULL,
+	[isControl] [tinyint] NULL,
+	[prohibited] [tinyint] NULL,
+	[name] [varchar](80) NULL,
+	[number] [nvarchar](80) NULL,
+ CONSTRAINT [PK_t_sms_supplier_license] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_supplier_license_entry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_supplier_license_entry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1446,20 +1470,20 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_supplier_license_entry](
-    [id] [varchar](50) NOT NULL,
-    [parent] [varchar](50) NULL,
-    [url] [varchar](255) NULL,
-    [check] [tinyint] NULL,
- CONSTRAINT [PK_t_sms_supplier_license_entry] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[parent] [varchar](50) NULL,
+	[url] [varchar](255) NULL,
+	[check] [tinyint] NULL,
+ CONSTRAINT [PK_t_sms_supplier_license_entry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_supplier_license_type]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_supplier_license_type]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1467,23 +1491,23 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_supplier_license_type](
-    [id] [varchar](50) NOT NULL,
-    [number] [varchar](20) NULL,
-    [name] [varchar](50) NULL,
-    [isMust] [tinyint] NULL,
-    [isControl] [tinyint] NULL,
-    [syncStatus] [tinyint] NULL,
-    [review] [tinyint] NULL,
- CONSTRAINT [PK_t_sms_supplier_license_type] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[number] [varchar](20) NULL,
+	[name] [varchar](50) NULL,
+	[isMust] [tinyint] NULL,
+	[isControl] [tinyint] NULL,
+	[syncStatus] [tinyint] NULL,
+	[review] [tinyint] NULL,
+ CONSTRAINT [PK_t_sms_supplier_license_type] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_sys_profile]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_sys_profile]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1491,25 +1515,25 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_sys_profile](
-    [category] [varchar](255) NOT NULL,
-    [key] [varchar](255) NOT NULL,
-    [name] [varchar](255) NOT NULL,
-    [desc] [varchar](255) NULL,
-    [value] [varchar](255) NOT NULL,
-    [index] [int] NOT NULL,
-    [explanation] [varchar](255) NOT NULL,
-    [readOnly] [tinyint] NOT NULL,
- CONSTRAINT [PK_t_sms_sys_profile] PRIMARY KEY CLUSTERED 
+	[category] [varchar](255) NOT NULL,
+	[key] [varchar](255) NOT NULL,
+	[name] [varchar](255) NOT NULL,
+	[desc] [varchar](255) NULL,
+	[value] [varchar](255) NOT NULL,
+	[index] [int] NOT NULL,
+	[explanation] [varchar](255) NOT NULL,
+	[readOnly] [tinyint] NOT NULL,
+ CONSTRAINT [PK_t_sms_sys_profile] PRIMARY KEY CLUSTERED
 (
-    [category] ASC,
-    [key] ASC
+	[category] ASC,
+	[key] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_taxCategory]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_taxCategory]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1517,19 +1541,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_taxCategory](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](20) NOT NULL,
- CONSTRAINT [PK_t_sms_taxCategory] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NULL,
+	[number] [varchar](20) NOT NULL,
+ CONSTRAINT [PK_t_sms_taxCategory] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_unit]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_unit]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1537,19 +1561,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_unit](
-    [id] [varchar](50) NOT NULL,
-    [name] [varchar](255) NULL,
-    [number] [varchar](20) NOT NULL,
- CONSTRAINT [PK_t_sms_unit] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](255) NOT NULL,
+	[number] [varchar](255) NOT NULL,
+ CONSTRAINT [PK_t_sms_unit] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_user]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_user]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1557,26 +1581,26 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_user](
-    [userId] [varchar](50) NOT NULL,
-    [number] [varchar](20) NOT NULL,
-    [name] [varchar](20) NOT NULL,
-    [password] [varchar](50) NOT NULL,
-    [type] [varchar](50) NOT NULL,
-    [status] [tinyint] NOT NULL,
-    [role] [varchar](50) NOT NULL,
-    [supplier] [varchar](50) NULL,
-    [token] [varchar](255) NOT NULL,
-    [phone] [varchar](20) NOT NULL,
- CONSTRAINT [PK_t_sms_user] PRIMARY KEY CLUSTERED 
+	[userId] [varchar](50) NOT NULL,
+	[number] [varchar](20) NOT NULL,
+	[name] [varchar](20) NOT NULL,
+	[password] [varchar](50) NOT NULL,
+	[type] [varchar](50) NOT NULL,
+	[status] [tinyint] NOT NULL,
+	[role] [varchar](50) NOT NULL,
+	[supplier] [varchar](50) NULL,
+	[token] [varchar](255) NOT NULL,
+	[phone] [varchar](20) NOT NULL,
+ CONSTRAINT [PK_t_sms_user] PRIMARY KEY CLUSTERED
 (
-    [userId] ASC
+	[userId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_user_entry]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_user_entry]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1584,20 +1608,20 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_user_entry](
-    [id] [varchar](50) NOT NULL,
-    [parent] [varchar](50) NULL,
-    [mobile] [varchar](11) NULL,
-    [pic] [varchar](255) NULL,
- CONSTRAINT [PK_t_sms_user_entry] PRIMARY KEY CLUSTERED 
+	[id] [varchar](50) NOT NULL,
+	[parent] [varchar](50) NULL,
+	[mobile] [varchar](11) NULL,
+	[pic] [varchar](255) NULL,
+ CONSTRAINT [PK_t_sms_user_entry] PRIMARY KEY CLUSTERED
 (
-    [id] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_userType]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_userType]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1605,19 +1629,19 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_userType](
-    [typeId] [varchar](50) NOT NULL,
-    [number] [varchar](20) NOT NULL,
-    [name] [varchar](20) NOT NULL,
- CONSTRAINT [PK_t_sms_userType] PRIMARY KEY CLUSTERED 
+	[typeId] [varchar](50) NOT NULL,
+	[number] [varchar](20) NOT NULL,
+	[name] [varchar](20) NOT NULL,
+ CONSTRAINT [PK_t_sms_userType] PRIMARY KEY CLUSTERED
 (
-    [typeId] ASC
+	[typeId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_sms_validation]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_sms_validation]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1625,13 +1649,13 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_sms_validation](
-    [a] [char](1) NULL
+	[a] [char](1) NULL
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[t_user_session]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  Table [dbo].[t_user_session]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1639,15 +1663,15 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[t_user_session](
-    [userId] [int] NOT NULL,
-    [session] [varchar](50) NOT NULL,
-    [lostTime] [int] NULL
+	[userId] [int] NOT NULL,
+	[session] [varchar](50) NOT NULL,
+	[lostTime] [int] NULL
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  View [dbo].[vw_newid]    Script Date: 2017/10/12 15:19:14 ******/
+/****** Object:  View [dbo].[vw_newid]    Script Date: 2017/10/20 16:13:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1725,7 +1749,11 @@ ALTER TABLE [dbo].[t_sms_plugins] ADD  DEFAULT ((0)) FOR [index]
 GO
 ALTER TABLE [dbo].[t_sms_plugins] ADD  DEFAULT ('') FOR [desc]
 GO
+ALTER TABLE [dbo].[t_sms_purchase_order_entry] ADD  DEFAULT ('') FOR [department]
+GO
 ALTER TABLE [dbo].[t_sms_role] ADD  CONSTRAINT [DF_t_sms_role_status]  DEFAULT ((0)) FOR [status]
+GO
+ALTER TABLE [dbo].[t_sms_sendcargo_entry] ADD  DEFAULT ('') FOR [department]
 GO
 ALTER TABLE [dbo].[t_sms_subMessage] ADD  DEFAULT ('') FOR [number]
 GO
@@ -1975,6 +2003,10 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否高值' 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否批次' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item', @level2type=N'COLUMN',@level2name=N'isLotNumber'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'生产厂家' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item', @level2type=N'COLUMN',@level2name=N'dyFactory'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'注册号' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item', @level2type=N'COLUMN',@level2name=N'rigsterNum'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'物料' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_item'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'操作用户名' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_log', @level2type=N'COLUMN',@level2name=N'userName'
@@ -2094,6 +2126,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'金额' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_purchase_order_entry', @level2type=N'COLUMN',@level2name=N'amount'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'发货数量' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_purchase_order_entry', @level2type=N'COLUMN',@level2name=N'invoiceQty'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'使用部门' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_purchase_order_entry', @level2type=N'COLUMN',@level2name=N'department'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'入库单内码' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_purinwarehs', @level2type=N'COLUMN',@level2name=N'id'
 GO
@@ -2276,6 +2310,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'订单行号' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_sendcargo_entry', @level2type=N'COLUMN',@level2name=N'orderSeq'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'实发数量' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_sendcargo_entry', @level2type=N'COLUMN',@level2name=N'actualQty'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'使用部门' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_sendcargo_entry', @level2type=N'COLUMN',@level2name=N'department'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'结算方式ID' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N't_sms_settlement', @level2type=N'COLUMN',@level2name=N'id'
 GO
@@ -2515,7 +2551,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'session' , @le
 GO
 USE [master]
 GO
-ALTER DATABASE [hrp-sms-hh] SET  READ_WRITE 
+ALTER DATABASE [hrp-sms-hh] SET  READ_WRITE
 GO
 
 -- 初始化数据
@@ -2692,6 +2728,24 @@ INSERT [dbo].[t_sms_dataFlowTopClass] ([topClassId], [topClassName], [index], [v
 GO
 INSERT [dbo].[t_sms_dataFlowTopClass] ([topClassId], [topClassName], [index], [visible], [icon]) VALUES (1000, N'Test', 100, 0, N'all.png')
 GO
+INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (1001, 1, N't_sms_user_entry', N'parent', N'entryId', N'10011001', N'left join')
+GO
+INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2019, 1, N't_sms_purchase_order_entry', N'parent', N'entryId', N'', N'')
+GO
+INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2020, 1, N't_sms_sendcargo_entry', N'parent', N'entryId', N'15F2BD83', N'')
+GO
+INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2021, 1, N't_sms_purreceival_entry', N'parent', N'entryId', N'', N'')
+GO
+INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2022, 1, N't_sms_purinwarehs_entry', N'parent', N'entryId', N'', N'')
+GO
+INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2023, 1, N't_sms_purreturns_entry', N'parent', N'entryId', N'', N'')
+GO
+INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (3010, 1, N't_sms_supplier_license_entry', N'parent', N'entryId', N'10011001', N'left join')
+GO
+INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (3020, 1, N't_sms_supplier_item_license_entry', N'parent', N'entryId', N'10011001', N'left join')
+GO
+
+
 INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (1001, N'用户', N't_sms_user', N'userId', N'10011001')
 GO
 INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (1002, N'用户类别', N't_sms_userType', N'typeId', N'10021002')
@@ -2728,6 +2782,8 @@ INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [b
 GO
 INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (1018, N'单位', N't_sms_unit', N'id', N'5B825C57')
 GO
+INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (1019, N'部门', N't_sms_department', N'id', N'6A6435BE')
+GO
 INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (1021, N'采购模式', N't_sms_sale_proxy', N'id', N'')
 GO
 INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (1023, N'物料证件类型', N't_sms_supplier_item_license_type', N'id', N'2F32B746')
@@ -2758,29 +2814,13 @@ INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [b
 GO
 INSERT [dbo].[t_sms_formClass] ([classId], [name], [tableName], [primaryKey], [bosType]) VALUES (14001, N'系统日志', N't_sms_log', N'id', N'')
 GO
-INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (1001, 1, N't_sms_user_entry', N'parent', N'entryId', N'10011001', N'left join')
-GO
-INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2019, 1, N't_sms_purchase_order_entry', N'parent', N'entryId', N'', N'')
-GO
-INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2020, 1, N't_sms_sendcargo_entry', N'parent', N'entryId', N'15F2BD83', N'')
-GO
-INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2021, 1, N't_sms_purreceival_entry', N'parent', N'entryId', N'', N'')
-GO
-INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2022, 1, N't_sms_purinwarehs_entry', N'parent', N'entryId', N'', N'')
-GO
-INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (2023, 1, N't_sms_purreturns_entry', N'parent', N'entryId', N'', N'')
-GO
-INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (3010, 1, N't_sms_supplier_license_entry', N'parent', N'entryId', N'10011001', N'left join')
-GO
-INSERT [dbo].[t_sms_formEntries] ([classId], [entryIndex], [tableName], [foreignKey], [primaryKey], [bosType], [joinType]) VALUES (3020, 1, N't_sms_supplier_item_license_entry', N'parent', N'entryId', N'10011001', N'left join')
-GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1001, 1, N'电话', N'mobile', N'mobile', 2, 8, 7, 7, 127, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 15, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1001, 0, N'账号', N'name', N'name', 2, NULL, 3, 3, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 10, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1001, 0, N'用户名', N'number', N'number', 2, NULL, 2, 2, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 0, 0, 1)
 GO
-INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1001, 0, N'密码', N'password', N'password', 5, 99, 4, 4, 60, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 50, 0, 0, 0, 1)
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1001, 0, N'密码', N'password', N'password', 99, NULL, 4, 4, 60, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 50, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1001, 0, N'手机', N'phone', N'phone', 2, 8, 7, 7, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 15, 0, 0, 0, 1)
 GO
@@ -2910,6 +2950,8 @@ INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [ke
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1012, 0, N'代码', N'number', N'number', 2, NULL, 2, 2, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 0, 0, 1)
 GO
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1013, 0, N'生产厂家', N'dyFactory', N'dyFactory', 2, NULL, 5, 5, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 50, 0, 0, 0, 1)
+GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1013, 0, N'是否高值', N'highConsumable', N'highConsumable', 4, 3, 5, 5, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 1, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1013, 0, N'内码', N'id', N'id', 2, NULL, 1, 1, 0, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 4, 0, 0, 0, 1)
@@ -2919,6 +2961,8 @@ GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1013, 0, N'名称', N'name', N'name', 2, NULL, 3, 3, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1013, 0, N'代码', N'number', N'number', 2, NULL, 2, 2, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 0, 0, 1)
+GO
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1013, 0, N'注册号', N'rigsterNum', N'rigsterNum', 2, NULL, 6, 6, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 50, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1013, 0, N'规格型号', N'specification', N'specification', 2, NULL, 4, 4, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 20, 0, 0, 0, 1)
 GO
@@ -2951,6 +2995,12 @@ GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1018, 0, N'名称', N'name', N'name', 2, NULL, 3, 3, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1018, 0, N'代码', N'number', N'number', 2, NULL, 2, 2, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 0, 0, 1)
+GO
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1019, 0, N'内码', N'id', N'id', 2, NULL, 1, 1, 0, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 4, 0, 0, 0, 1)
+GO
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1019, 0, N'名称', N'name', N'name', 2, NULL, 3, 3, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 0, 0, 1)
+GO
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1019, 0, N'代码', N'number', N'number', 2, NULL, 2, 2, 63, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 20, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (1021, 0, N'内码', N'id', N'id', 2, NULL, 1, 1, 0, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 4, 0, 0, 0, 1)
 GO
@@ -3011,6 +3061,8 @@ GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2019, 0, N'币别', N'currency', N'currency', 2, 6, 7, 7, 447, 150, 1, 1011, N't_sms_currency', N'', N'id', N'name', N'number', N'INNER JOIN ', N'', N'', NULL, NULL, 0, 11, 1, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2019, 1, N'交货日期', N'deliveryDate', N'deliveryDate', 3, 12, 13, 13, 447, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 100, 0, 0, 0, 1)
+GO
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2019, 1, N'使用部门', N'department', N'department', 2, 6, 20, 20, 447, 80, 1, 1019, N't_sms_department', N'', N'id', N'name', N'number', N'LEFT JOIN ', N'', N'', NULL, NULL, 0, 11, 1, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2019, 1, N'折扣额', N'discountAmount', N'discountAmount', 1, NULL, 11, 11, 447, 80, 0, 0, N'', NULL, N'', NULL, NULL, N'', N'', NULL, NULL, NULL, 15, 4, 0, 0, 0, 1)
 GO
@@ -3080,13 +3132,15 @@ INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [ke
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2020, 0, N'发货日期', N'Date', N'Date', 3, 12, 2, 7, 447, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 100, 15, 0, 0, 1)
 GO
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2020, 1, N'使用部门', N'department', N'department', 2, 6, 20, 20, 447, 80, 1, 1019, N't_sms_department', N'', N'id', N'name', N'number', N'LEFT JOIN ', N'', N'', NULL, NULL, 0, 11, 1, 0, 0, 1)
+GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2020, 1, N'批号', N'dyBatchNum', N'dyBatchNum', 2, NULL, 7, 7, 447, 100, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 20, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2020, 1, N'生产厂家', N'dyManufacturer', N'dyManufacturer', 2, NULL, 14, 14, 447, 150, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 11, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2020, 1, N'生产日期', N'dyProDate', N'dyProDate', 3, 12, 13, 13, 447, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 100, 0, 0, 0, 1)
 GO
-INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2020, 1, N'有效期', N'effectiveDate', N'effectiveDate', 3, 12, 16, 16, 447, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 100, 0, 0, 0, 1)
+INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2020, 1, N'产品有效期', N'effectiveDate', N'effectiveDate', 3, 12, 16, 16, 447, 80, 0, 0, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 15, 100, 0, 0, 0, 1)
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (2020, 1, N'内码', N'id', N'entryId', 2, NULL, 1, 1, 0, 80, 0, 0, N'', NULL, N'', NULL, NULL, N'', N'', NULL, NULL, NULL, 0, 4, 15, 0, 0, 1)
 GO
@@ -3372,6 +3426,7 @@ INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [ke
 GO
 INSERT [dbo].[t_sms_formFields] ([classId], [page], [name], [sqlColumnName], [key], [dataType], [ctrlType], [ctlIndex], [index], [display], [showWidth], [lookUpType], [lookUpClassID], [srcTable], [srcTableAlisAs], [srcField], [disPlayField], [disPlayNum], [joinType], [filter], [defaultValue], [maxValue], [minValue], [mustInput], [length], [lock], [isCondition], [isCount], [needSave]) VALUES (14001, 0, N'用户', N'userName', N'userName', 2, NULL, 15, 15, 63, 80, 0, NULL, N'', N'', N'', N'', N'', N'', N'', N'', NULL, NULL, 0, 50, NULL, 0, 0, 1)
 GO
+
 INSERT [dbo].[t_sms_objectAccessType] ([objectType], [objectId], [index], [name], [accessMask], [accessUse], [ownerType], [description]) VALUES (10, 1005, 0, N'查看', 1, 1, 3, N'用户管理查看权限-由此权限才可进入用户管理界面')
 GO
 INSERT [dbo].[t_sms_objectAccessType] ([objectType], [objectId], [index], [name], [accessMask], [accessUse], [ownerType], [description]) VALUES (10, 1005, 1, N'新增', 2, 1, 3, N'新增')
