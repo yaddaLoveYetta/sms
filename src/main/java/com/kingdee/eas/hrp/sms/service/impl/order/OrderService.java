@@ -563,6 +563,10 @@ public class OrderService extends BaseService implements IOrderService {
         entry.put("amount", purOrderEntry.getBigDecimal("price").multiply(qty));
         entry.put("effectiveDate", "");
 
+        if (purOrderEntry.getString("department") != null) {
+            entry.put("department", purOrderEntry.getString("department")); // 使用部门
+        }
+
         return entry;
     }
 
