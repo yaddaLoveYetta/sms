@@ -118,7 +118,7 @@ public class OrderService extends BaseService implements IOrderService {
                 orderEntry.setSeq(orderEntryObject.getInteger("seq"));
                 orderEntry.setId(orderEntryObject.getString("id"));
                 orderEntry.setAmount(orderEntryObject.getBigDecimal("amount"));
-                orderEntry.setDepartment(orderEntryObject.getString("department"));// 增加部门同步
+                orderEntry.setDepartment(orderEntryObject.getString("entryOrgUnit"));// 增加部门同步
                 if (orderEntryObject.getString("deliveryDate") != null) {
                     orderEntry.setDeliveryDate(orderEntryObject.getDate("deliveryDate"));
                 }
