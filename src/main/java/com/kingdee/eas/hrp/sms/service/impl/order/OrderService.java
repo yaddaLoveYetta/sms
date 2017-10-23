@@ -563,6 +563,15 @@ public class OrderService extends BaseService implements IOrderService {
         entry.put("amount", purOrderEntry.getBigDecimal("price").multiply(qty));
         entry.put("effectiveDate", "");
 
+        if (item.getDyFactory() != null) {
+            // 生产厂家取物料生产厂家
+            entry.put("dyManufacturer", item.getDyFactory());
+        }
+        if (item.getRigsterNum() != null) {
+            // 注册号取物料注册号
+            entry.put("registrationNo", item.getRigsterNum());
+        }
+
         if (purOrderEntry.getString("department") != null) {
             entry.put("department", purOrderEntry.getString("department")); // 使用部门
         }
@@ -640,15 +649,6 @@ public class OrderService extends BaseService implements IOrderService {
                 }
             }
 
-            if (item.getDyFactory() != null) {
-                // 生产厂家取物料生产厂家
-                entry.put("dyManufacturer", item.getDyFactory());
-            }
-            if (item.getRigsterNum() != null) {
-                // 注册号取物料注册号
-                entry.put("registrationNo", item.getRigsterNum());
-            }
-
             entry.put("isLotNumber", item.getIsLotNumber());
             entry.put("dyBatchNum", "");
             if (item.getHighConsumable() != null) {
@@ -670,6 +670,14 @@ public class OrderService extends BaseService implements IOrderService {
             entry.put("qty", 1); // 拆单后，发货单明细行数量为1
             entry.put("amount", purOrderEntry.getFloatValue("price"));
 
+            if (item.getDyFactory() != null) {
+                // 生产厂家取物料生产厂家
+                entry.put("dyManufacturer", item.getDyFactory());
+            }
+            if (item.getRigsterNum() != null) {
+                // 注册号取物料注册号
+                entry.put("registrationNo", item.getRigsterNum());
+            }
 
             if (purOrderEntry.getString("department") != null) {
                 entry.put("department", purOrderEntry.getString("department")); // 使用部门
