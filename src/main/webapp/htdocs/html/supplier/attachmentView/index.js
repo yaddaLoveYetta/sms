@@ -155,6 +155,12 @@
                 item.check = 1;
                 Header.render(item);
                 SMS.Tips.success('操作成功！', 500);
+
+                setTimeout(function () {
+                    var item = getItem(1);
+                    Iframes.add(item);
+                    Header.render(item);
+                },500)
             });
 
         },
@@ -169,6 +175,13 @@
                 item.check = 0;
                 Header.render(item);
                 SMS.Tips.success('操作成功！', 500);
+
+                setTimeout(function () {
+                    var item = getItem(1);
+                    Iframes.add(item);
+                    Header.render(item);
+                },500)
+
             });
 
         }
