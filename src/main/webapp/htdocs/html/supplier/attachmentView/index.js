@@ -161,8 +161,8 @@
                     if (item_next === item) {
                         return;
                     }
-                    Iframes.add(item);
-                    Header.render(item);
+                    Iframes.add(item_next);
+                    Header.render(item_next);
                 }, 500)
             });
 
@@ -184,8 +184,8 @@
                     if (item_next === item) {
                         return;
                     }
-                    Iframes.add(item);
-                    Header.render(item);
+                    Iframes.add(item_next);
+                    Header.render(item_next);
                 }, 500)
 
             });
