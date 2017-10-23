@@ -158,6 +158,9 @@
                 
                 setTimeout(function () {
                     var item = getItem(1);
+                    if (item_next === item) {
+                        return;
+                    }
                     Iframes.add(item);
                     Header.render(item);
                 },500)
@@ -178,6 +181,9 @@
                 
                 setTimeout(function () {
                     var item = getItem(1);
+                    if (item_next === item) {
+                        return;
+                    }
                     Iframes.add(item);
                     Header.render(item);
                 },500)
