@@ -2688,6 +2688,8 @@ INSERT [dbo].[t_sms_dataFlowSubClass] ([topClassId], [subSysId], [name], [index]
 GO
 INSERT [dbo].[t_sms_dataFlowSubClass] ([topClassId], [subSysId], [name], [index], [visible], [url], [icon], [ownerType]) VALUES (10, 1085, N'省份', 17, 1, N'html/base/index.html?classId=1015', N'country.png', 3)
 GO
+INSERT INTO [t_sms_dataFlowSubClass] ([topClassId], [subSysId], [name], [index], [visible], [url], [icon], [ownerType]) VALUES (10, 1090, N'部门', 18, 1, N'html/base/index.html?classId=1019', N'file.png', 3);
+GO
 INSERT [dbo].[t_sms_dataFlowSubClass] ([topClassId], [subSysId], [name], [index], [visible], [url], [icon], [ownerType]) VALUES (20, 2005, N'采购订单', 1, 3, N'html/list/index.html?classId=2019', N'purchase.png', 3)
 GO
 INSERT [dbo].[t_sms_dataFlowSubClass] ([topClassId], [subSysId], [name], [index], [visible], [url], [icon], [ownerType]) VALUES (20, 2010, N'订单追踪', 1, 3, N'html/report/order-track/index.html', N'purchase.png', 3)
@@ -3491,8 +3493,9 @@ INSERT [dbo].[t_sms_objectAccessType] ([objectType], [objectId], [index], [name]
 GO
 INSERT [dbo].[t_sms_objectAccessType] ([objectType], [objectId], [index], [name], [accessMask], [accessUse], [ownerType], [description]) VALUES (10, 1080, 0, N'查看', 1, 1, 3, N'区县查看权限')
 GO
-INSERT [dbo].[t_sms_objectAccessType] ([objectType], [objectId], [index], [name], [accessMask], [accessUse], [ownerType], [description]) VALUES (10, 1085, 0, N'查看', 1, 1, 3, N'省份查看权限
-')
+INSERT [dbo].[t_sms_objectAccessType] ([objectType], [objectId], [index], [name], [accessMask], [accessUse], [ownerType], [description]) VALUES (10, 1085, 0, N'查看', 1, 1, 3, N'省份查看权限')
+GO
+INSERT INTO [t_sms_objectAccessType] ([objectType], [objectId], [index], [name], [accessMask], [accessUse], [ownerType], [description]) VALUES (10, 1090, 0, N'查看', 1, 1, 3, N'部门查看权限')
 GO
 INSERT [dbo].[t_sms_objectAccessType] ([objectType], [objectId], [index], [name], [accessMask], [accessUse], [ownerType], [description]) VALUES (20, 2005, 0, N'查看', 1, 1, 3, N'采购订单查看权限')
 GO
@@ -3625,6 +3628,8 @@ GO
 INSERT [dbo].[t_sms_objectType] ([topClassId], [subSysId], [objectType], [objectId], [name], [description], [classId]) VALUES (10, 1080, 10, 1080, N'区县', N'区县', 1010)
 GO
 INSERT [dbo].[t_sms_objectType] ([topClassId], [subSysId], [objectType], [objectId], [name], [description], [classId]) VALUES (10, 1085, 10, 1085, N'省份', N'省份', 1015)
+GO
+INSERT INTO [t_sms_objectType] ([topClassId], [subSysId], [objectType], [objectId], [name], [description], [classId]) VALUES (10, 1090, 10, 1090, N'部门', N'部门', 1019);
 GO
 INSERT [dbo].[t_sms_objectType] ([topClassId], [subSysId], [objectType], [objectId], [name], [description], [classId]) VALUES (20, 2005, 20, 2005, N'采购订单', N'采购订单', 2019)
 GO
