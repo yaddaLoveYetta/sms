@@ -1,33 +1,5 @@
 package com.kingdee.eas.hrp.sms.service.impl.order;
 
-import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.rmi.RemoteException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.xml.namespace.QName;
-import javax.xml.rpc.ServiceException;
-
-import org.apache.axis.client.Call;
-import org.apache.axis.message.SOAPHeaderElement;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -39,6 +11,7 @@ import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
+import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.model.Supplier;
@@ -50,7 +23,18 @@ import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.Common;
 import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.MsgUtils;
-import com.kingdee.eas.hrp.sms.model.Item;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class OrderService extends BaseService implements IOrderService {
@@ -574,6 +558,8 @@ public class OrderService extends BaseService implements IOrderService {
 
         if (purOrderEntry.getString("department") != null) {
             entry.put("department", purOrderEntry.getString("department")); // 使用部门
+            entry.put("department_DspName", purOrderEntry.getString("department_DspName"));
+            entry.put("department_NmbName", purOrderEntry.getString("department_NmbName"));
         }
 
         return entry;
@@ -681,6 +667,8 @@ public class OrderService extends BaseService implements IOrderService {
 
             if (purOrderEntry.getString("department") != null) {
                 entry.put("department", purOrderEntry.getString("department")); // 使用部门
+                entry.put("department_DspName", purOrderEntry.getString("department_DspName"));
+                entry.put("department_NmbName", purOrderEntry.getString("department_NmbName"));
             }
 
             if (i == qty - 1) {
