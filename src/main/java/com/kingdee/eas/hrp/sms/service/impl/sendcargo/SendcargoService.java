@@ -102,6 +102,9 @@ public class SendcargoService extends BaseService implements ISendcargoService {
                     entrys.put("dyRegistNum", sendCargo.get("registrationNo"));
                     entrys.put("dyEffDate", sendCargo.get("effectiveDate"));
                     entrys.put("dyamount", sendCargo.get("amount"));
+                    entrys.put("department_name", sendCargo.get("department_name"));
+                    entrys.put("department", sendCargo.get("department"));
+
                     entrys.put("remark", "来自供应商平台发货单[" + sendCargo.get("number") + "]行号[" + sendCargo.get("seq"));
                     list.add(entrys);
                 }

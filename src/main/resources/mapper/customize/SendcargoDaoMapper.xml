@@ -3,33 +3,33 @@
 <mapper namespace="com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper">
 
 
-	<!--根据Id查询个体码-->
-	<select id="selectInvoiceById" parameterType="map" resultType="map">
-		SELECT
-			i.code,
-			i.effectiveDate,
-			i.dyBatchNum,
-			t.name,
-			t.specification
-		FROM
-			t_sms_sendcargo_entry i
-		INNER JOIN 
-			t_sms_item t 
-		ON 	i.material = t.id
-		INNER JOIN 
-			t_sms_sendcargo v 
-		ON 	i.parent = v.id
-		WHERE
-		 v.id in
-		 <foreach collection="id" index="index" item="item" open="("
-   			 separator="," close=")">
-   			#{item} 
-  			</foreach>
-  		AND
-  			i.code !=''
-	</select>
-	
-	<select id="selectInvoiceEntryByParent" parameterType="String" resultType="map">
+    <!--根据Id查询个体码-->
+    <select id="selectInvoiceById" parameterType="map" resultType="map">
+        SELECT
+        i.code,
+        i.effectiveDate,
+        i.dyBatchNum,
+        t.name,
+        t.specification
+        FROM
+        t_sms_sendcargo_entry i
+        INNER JOIN
+        t_sms_item t
+        ON i.material = t.id
+        INNER JOIN
+        t_sms_sendcargo v
+        ON i.parent = v.id
+        WHERE
+        v.id in
+        <foreach collection="id" index="index" item="item" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+        AND
+        i.code !=''
+    </select>
+
+    <select id="selectInvoiceEntryByParent" parameterType="String" resultType="map">
 		SELECT
 			t.orderId,
 			t.orderSeq,
@@ -42,8 +42,8 @@
 			t.orderId,
 			t.orderSeq
 	</select>
-	
-	<select id="selectSendCargoANDEntry" parameterType="String" resultType="map">
+
+    <select id="selectSendCargoANDEntry" parameterType="String" resultType="map">
 		SELECT
 			t.id,
 			t.supplier,
@@ -65,6 +65,8 @@
 			e.effectiveDate,
 			e.amount,
 			e.actualQty,
+			e.department,
+			d.name AS department_name,
 			o.id AS orderEntryId,
 			t.type
 		FROM
@@ -73,11 +75,12 @@
 			t_sms_sendcargo_entry e ON t.id = e.parent
 		INNER JOIN 
 			t_sms_purchase_order_entry o ON e.orderId = o.parent AND e.orderSeq = o.seq
+		LEFT JOIN t_sms_department d ON e.department=d.id
 		WHERE
 			t.id = #{id}
 	</select>
-	
-	<select id="selectEntryByParent" parameterType="String" resultType="map">
+
+    <select id="selectEntryByParent" parameterType="String" resultType="map">
 		SELECT
 			*
 		FROM
