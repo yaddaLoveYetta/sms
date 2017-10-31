@@ -34,7 +34,9 @@
     function search(defaultCondition) {
 
         // 订单内码
-        var order = SelectorList["order"].getData()[0].ID;
+        //var order = SelectorList["order"].getData()[0].ID;
+        // 订单号
+        var order = $("#bd-order").val();
         // 供应商
         var supplier = SelectorList["supplier"].getData()[0].ID;
         // 开始日期

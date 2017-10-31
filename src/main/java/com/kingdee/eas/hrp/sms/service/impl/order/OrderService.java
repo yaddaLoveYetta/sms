@@ -824,7 +824,7 @@ public class OrderService extends BaseService implements IOrderService {
     public JSONObject traceQuery(String supplierIds, String pageNo, String pageSize, String classId, String supplier, String order, String beginDate, String endDate) {
         OrderDaoMapper orderDaoMapper = sqlSession.getMapper(OrderDaoMapper.class);
         JSONObject ret = new JSONObject();
-        String orderId = null;
+        String orderNo = null;
         String number = null;
         String name = null;
         String startTime = null;
@@ -832,7 +832,7 @@ public class OrderService extends BaseService implements IOrderService {
         String supplierId = null;
         List<Map<String, Object>> data = null;
         if (null != order && !"".equals(order)) {
-            orderId = order;
+            orderNo = order;
         }
         if (null != supplier && !"".equals(supplier)) {
             supplierId = supplier;
@@ -857,16 +857,16 @@ public class OrderService extends BaseService implements IOrderService {
          * classId=2020 发货单 classId=2021 收货单 classId=2022 入库单 classId=2023 退货单
          */
         if (classId.equals("2020")) {
-            data = orderDaoMapper.selectSendcargo(orderId, number, name, startTime, endTime, supplierId);
+            data = orderDaoMapper.selectSendcargo(orderNo, number, name, startTime, endTime, supplierId);
         }
         if (classId.equals("2021")) {
-            data = orderDaoMapper.selectPurReceival(orderId, number, name, startTime, endTime, supplierId);
+            data = orderDaoMapper.selectPurReceival(orderNo, number, name, startTime, endTime, supplierId);
         }
         if (classId.equals("2022")) {
-            data = orderDaoMapper.selectPurInwarehs(orderId, number, name, startTime, endTime, supplierId);
+            data = orderDaoMapper.selectPurInwarehs(orderNo, number, name, startTime, endTime, supplierId);
         }
         if (classId.equals("2023")) {
-            data = orderDaoMapper.selectPurReturns(orderId, number, name, startTime, endTime, supplierId);
+            data = orderDaoMapper.selectPurReturns(orderNo, number, name, startTime, endTime, supplierId);
         }
         ret.put("list", data);
         if (Integer.parseInt(pageNo) == 1) {

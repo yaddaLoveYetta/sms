@@ -12,7 +12,7 @@ define('SelectorList', function (require, module, exports) {
 
     var selectors = {};
 
-    var orderContainer = document.getElementById('bd-order');
+/*    var orderContainer = document.getElementById('bd-order');
     var config = {
         targetType: 1, //跳转方案
         classID: 2019,
@@ -24,7 +24,7 @@ define('SelectorList', function (require, module, exports) {
         }
     };
     var orderSelector = DataSelector.create(config);
-    selectors['order'] = orderSelector;
+    selectors['order'] = orderSelector;*/
 
     var supplierContainer = document.getElementById('bd-supplier');
     var config = {

@@ -64,8 +64,8 @@
 		t_sms_purchase_order_entry.[seq]
 		WHERE
 		1=1
-		<if test="orderId!=null">
-			AND orderId = #{orderId}
+		<if test="orderNo!=null">
+			AND t_sms_purchase_order.number = #{orderNo}
 		</if>
 		<if test="startTime!=null">
 			AND bizDate&gt;=#{startTime}
@@ -132,8 +132,8 @@
 		t_sms_purreceival_entry.[orderSeq] = t_sms_purchase_order_entry.[seq]
 		WHERE
 		1 = 1
-		<if test="orderId!=null">
-			AND orderId = #{orderId}
+		<if test="orderNo!=null">
+			AND t_sms_purchase_order.[number] = #{orderNo}
 		</if>
 		<if test="startTime!=null">
 			AND t_sms_purchase_order.[bizDate]&gt;=#{startTime}
@@ -197,8 +197,8 @@
 		t_sms_purinwarehs_entry.[orderSeq] = t_sms_purchase_order_entry.[seq]
 		WHERE
 		1 = 1
-		<if test="orderId!=null">
-			AND orderId = #{orderId}
+		<if test="orderNo!=null">
+			AND t_sms_purchase_order.[number] = #{orderNo}
 		</if>
 		<if test="startTime!=null">
 			AND t_sms_purchase_order.[bizDate]&gt;=#{startTime}
@@ -254,8 +254,8 @@
 		t_sms_purchase_order_entry.[seq]
 		WHERE
 		1 = 1
-		<if test="orderId!=null">
-			AND orderId = #{orderId}
+		<if test="orderNo!=null">
+			AND t_sms_purchase_order.[number] = #{orderNo}
 		</if>
 		<if test="startTime!=null">
 			AND t_sms_purchase_order.[bizDate]&gt;=#{startTime}
