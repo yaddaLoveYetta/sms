@@ -129,6 +129,7 @@ public class OrderService extends BaseService implements IOrderService {
     /**
      * 采购订单接单
      */
+
     @Override
     @Transactional
     public void tick(String id, String entryStr) {
