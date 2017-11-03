@@ -294,12 +294,13 @@
                 done = false;
                 return false;
             }
-            if (!item.data.tickType) {
+            //需求变动，医院不需要确认接单
+/*            if (!item.data.tickType) {
                 // HRP没有确认接单
                 SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货', 1500);
                 done = false;
                 return false;
-            }
+            }*/
         });
         if (!done) {
             // 不满足发货条件

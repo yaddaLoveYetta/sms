@@ -283,9 +283,10 @@ public class OrderService extends BaseService implements IOrderService {
                 throw new BusinessLogicRunTimeException("不同供应商的订单不允许合并发货！");
             }
 
-            if (purOrder.getIntValue("tickType") == 0) {
+            //需求变动，医院不需要确认接单
+         /*   if (purOrder.getIntValue("tickType") == 0) {
                 throw new BusinessLogicRunTimeException("采购订单[" + purOrderNo + "]医院未确认接单,不可发货");
-            }
+            }*/
 
             if (i == 0) {
                 saleProxy = purOrder.getInteger("saleProxy");
