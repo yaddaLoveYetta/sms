@@ -75,6 +75,16 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>openApi</servlet-name>
+		<servlet-class>com.yadda.api.core.ApiServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>openApi</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
 	<!-- Druid监控 -->
 	<servlet>
 		<servlet-name>DruidView</servlet-name>

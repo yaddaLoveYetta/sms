@@ -1,5 +1,7 @@
 package com.kingdee.eas.hrp.sms.exception;
 
+import com.yadda.api.common.BaseException;
+
 /**
  * 错误基础类
  * 
@@ -8,7 +10,7 @@ package com.kingdee.eas.hrp.sms.exception;
  * @author yadda
  * @date 2017-04-15 22:29:23 星期六
  */
-public abstract class BaseRuntimeException extends RuntimeException {
+public abstract class BaseRuntimeException extends BaseException {
 
 	private static final long serialVersionUID = 1L;
 

@@ -33,6 +33,12 @@ public class SupplierItemLicense {
 
     private String number;
 
+    private String factory;
+
+    private String agent;
+
+    private String idNumber;
+
     public String getId() {
         return id;
     }
@@ -151,5 +157,29 @@ public class SupplierItemLicense {
 
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
+    }
+
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory == null ? null : factory.trim();
+    }
+
+    public String getAgent() {
+        return agent;
+    }
+
+    public void setAgent(String agent) {
+        this.agent = agent == null ? null : agent.trim();
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber == null ? null : idNumber.trim();
     }
 }

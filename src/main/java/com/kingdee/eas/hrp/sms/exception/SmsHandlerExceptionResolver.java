@@ -1,14 +1,12 @@
 package com.kingdee.eas.hrp.sms.exception;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
+import com.kingdee.eas.hrp.sms.util.StatusCode;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kingdee.eas.hrp.sms.exception.BaseRuntimeException;
-import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
-import com.kingdee.eas.hrp.sms.util.StatusCode;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 
@@ -19,7 +17,7 @@ import com.kingdee.eas.hrp.sms.util.StatusCode;
  *
  */
 
-public class SMSHandlerExceptionResolver implements HandlerExceptionResolver {
+public class SmsHandlerExceptionResolver implements HandlerExceptionResolver {
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {

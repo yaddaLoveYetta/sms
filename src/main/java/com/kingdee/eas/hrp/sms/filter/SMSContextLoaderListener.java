@@ -5,6 +5,9 @@ import javax.servlet.ServletContextEvent;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.util.Log4jWebConfigurer;
 
+/**
+ * @author yadda
+ */
 public class SMSContextLoaderListener extends ContextLoaderListener {
 
 	@Override

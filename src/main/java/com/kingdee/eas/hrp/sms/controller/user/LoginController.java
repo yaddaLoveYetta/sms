@@ -19,6 +19,9 @@ import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
 
+/**
+ * @author yadda
+ */
 @Controller
 @RequestMapping(value = "/user/")
 public class LoginController {
@@ -35,8 +38,6 @@ public class LoginController {
 		String username = ParameterUtils.getParameter(request, "user", "");
 		String password = ParameterUtils.getParameter(request, "pwd", "");
 		String type = ParameterUtils.getParameter(request, "type", "");
-
-		// logger.debug("{},{}", username, password);
 
 		// 参数校验
 		if ("".equals(username) || "".equals(password)) {

@@ -21,6 +21,8 @@ public class User {
 
     private String phone;
 
+    private String initPwd;
+
     public String getUserId() {
         return userId;
     }
@@ -99,5 +101,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getInitPwd() {
+        return initPwd;
+    }
+
+    public void setInitPwd(String initPwd) {
+        this.initPwd = initPwd == null ? null : initPwd.trim();
     }
 }

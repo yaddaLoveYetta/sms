@@ -793,6 +793,76 @@ public class UserExample {
             addCriterion("phone not between", value1, value2, "phone");
             return (Criteria) this;
         }
+
+        public Criteria andInitPwdIsNull() {
+            addCriterion("initPwd is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdIsNotNull() {
+            addCriterion("initPwd is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdEqualTo(String value) {
+            addCriterion("initPwd =", value, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdNotEqualTo(String value) {
+            addCriterion("initPwd <>", value, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdGreaterThan(String value) {
+            addCriterion("initPwd >", value, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdGreaterThanOrEqualTo(String value) {
+            addCriterion("initPwd >=", value, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdLessThan(String value) {
+            addCriterion("initPwd <", value, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdLessThanOrEqualTo(String value) {
+            addCriterion("initPwd <=", value, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdLike(String value) {
+            addCriterion("initPwd like", value, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdNotLike(String value) {
+            addCriterion("initPwd not like", value, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdIn(List<String> values) {
+            addCriterion("initPwd in", values, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdNotIn(List<String> values) {
+            addCriterion("initPwd not in", values, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdBetween(String value1, String value2) {
+            addCriterion("initPwd between", value1, value2, "initPwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andInitPwdNotBetween(String value1, String value2) {
+            addCriterion("initPwd not between", value1, value2, "initPwd");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
