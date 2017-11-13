@@ -29,6 +29,21 @@ define('Bill/Entry', function (require, module, exports) {
             return;
         }
 
+        // 接单数量默认数量，接单日期默认当前日期
+        var d = $.Array.map(data['1'], function (item, index) {
+            var a = item;
+            if (item.confirmQty == 0) {
+                a.confirmQty = item.qty;
+            }
+            if (!item.confirmDate) {
+                a.confirmDate = $.Date.format(new Date(), "yyyy-MM-dd");
+            }
+
+            return a;
+        }, false);
+
+        data['1'] = d;
+
         billTemplate = template;
 
         SMS.use('Grid', function (Grid) {
@@ -54,7 +69,7 @@ define('Bill/Entry', function (require, module, exports) {
 
             billGrid.render(defaults, data, template, 1);
 
-            billGrid.editCell(1,'confirmQty',true);
+            billGrid.editCell(1, 'confirmQty', true);
 
             billGrid.on('f7Selected', function (data) {
 
