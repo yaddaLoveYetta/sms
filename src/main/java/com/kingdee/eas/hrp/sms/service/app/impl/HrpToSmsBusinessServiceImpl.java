@@ -118,7 +118,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
     @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizationOrder", useLogin = true)
     public Map<String, Object> synchronizationOrder(JSONArray orders) {
 
-        return doSync(orders, SyncType.order);
+        return doSync(orders, SyncType.ORDER);
 
     }
 
@@ -142,7 +142,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
     @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizeInWarehouse", useLogin = true)
     public Map<String, Object> synchronizeInWarehouse(JSONArray warehouses) {
 
-        return doSync(warehouses, SyncType.warehouse);
+        return doSync(warehouses, SyncType.WAREHOUSE);
 
     }
 
@@ -155,7 +155,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
     @Transactional(propagation = Propagation.NEVER)
     @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizeReceipt", useLogin = true)
     public Map<String, Object> synchronizeReceipt(JSONArray Receipts) {
-        return doSync(Receipts, SyncType.Receipt);
+        return doSync(Receipts, SyncType.RECEIPT);
     }
 
     /**
@@ -626,7 +626,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
 
     private enum SyncType {
 
-        order, warehouse, Receipt
+        ORDER, WAREHOUSE, RECEIPT
     }
 
     /**
@@ -655,11 +655,11 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
 
             // 提交每一条同步数据任务到线程池
 
-            if (type == SyncType.order) {
+            if (type == SyncType.ORDER) {
                 completionService.submit(new DoSyncOrder(tasks.getJSONObject(i)));
-            } else if (type == SyncType.warehouse) {
+            } else if (type == SyncType.WAREHOUSE) {
                 completionService.submit(new DoSyncWarehouse(tasks.getJSONObject(i)));
-            } else if (type == SyncType.Receipt) {
+            } else if (type == SyncType.RECEIPT) {
                 completionService.submit(new DoSyncReceipt(tasks.getJSONObject(i)));
             }
         }
