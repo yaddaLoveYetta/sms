@@ -2,9 +2,7 @@ package com.kingdee.eas.hrp.sms.service.app.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
-import com.kingdee.eas.hrp.sms.dao.generate.OrderMapper;
-import com.kingdee.eas.hrp.sms.dao.generate.SupplierMapper;
+import com.kingdee.eas.hrp.sms.dao.generate.*;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.*;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
@@ -22,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.context.ContextLoader;
 
@@ -58,6 +58,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
      * @param data    数据
      */
     @Override
+    @Transactional(propagation = Propagation.NEVER)
     @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizeBaseData", useLogin = true)
     public Map<String, Object> synchronizeBaseData(Integer classId, JSONArray data) {
 
@@ -72,13 +73,8 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
         Map<String, Object> formTemplate = templateService.getFormTemplate(classId, 1);
 
         // 开多线程进行数据同步操作
-        int threadCount = 1;
+        int threadCount = getThreadCount(data.size());
 
-        if (data.size() % 50 == 0) {
-            threadCount = data.size() / 50;
-        } else {
-            threadCount = data.size() / 50 + 1;
-        }
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(threadCount, threadCount * 2, 5,
                 TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(3),
@@ -98,37 +94,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
         List<Map<String, Object>> list_fail = new ArrayList<>();
 
         // 检查线程池任务执行结果
-        for (int i = 0; i < data.size(); i++) {
-            try {
-                //线程执行结果
-                Result r = completionService.take().get();
-
-                if (r.getCode() == 200) {
-                    // 同步成功
-                    list_success.add((Map<String, Object>) r.getData());
-
-                } else {
-                    // 同步失败
-                    Map<String, Object> item = new HashMap<>(2);
-                    // 元数据
-                    item.put("data", r.getData());
-                    // 失败原因
-                    item.put("msg", r.getMsg());
-                    list_fail.add(item);
-                }
-
-            } catch (Exception e) {
-
-                Map<String, Object> item = new HashMap<>(2);
-                // 元数据
-                item.put("data", data.getJSONObject(i));
-                // 失败原因
-                item.put("msg", e.getMessage());
-                list_fail.add(item);
-
-                logger.error(e.getMessage(), e);
-            }
-        }
+        getSyncResult(data, completionService, list_success, list_fail);
 
         // 关闭线程池
         threadPoolExecutor.shutdown();
@@ -148,87 +114,11 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
      * @param orders 订单列表
      */
     @Override
+    @Transactional(propagation = Propagation.NEVER)
+    @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizationOrder", useLogin = true)
     public Map<String, Object> synchronizationOrder(JSONArray orders) {
 
-        Map<String, Object> ret = new HashMap<>(4);
-
-        if (orders.size() > MAX_PER_TIME_UPLOAD_ORDER) {
-            throw new BusinessLogicRunTimeException("你提交的订单太多：每次最多同步" + MAX_PER_TIME_UPLOAD_ORDER + "张订单");
-        }
-
-        ITemplateService templateService = Environ.getBean(ITemplateService.class);
-
-        Map<String, Object> formTemplate = templateService.getFormTemplate(11, 1);
-
-        // 开多线程进行数据同步操作
-        int threadCount = 1;
-
-        if (orders.size() % 50 == 0) {
-            threadCount = orders.size() / 50;
-        } else {
-            threadCount = orders.size() / 50 + 1;
-        }
-
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(threadCount, threadCount * 2, 5,
-                TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(3),
-                new ThreadPoolExecutor.DiscardOldestPolicy());
-
-        CompletionService<Result> completionService = new ExecutorCompletionService<Result>(threadPoolExecutor);
-
-        for (int i = 0; i < orders.size(); i++) {
-
-            // 提交每一条同步数据任务到线程池
-            completionService.submit(new DoSyncBaseData(11, orders.getJSONObject(i), formTemplate));
-
-        }
-        //同步成功的记录
-        List<Map<String, Object>> list_success = new ArrayList<>();
-        //同步失败的记录
-        List<Map<String, Object>> list_fail = new ArrayList<>();
-
-        // 检查线程池任务执行结果
-        for (int i = 0; i < orders.size(); i++) {
-            try {
-
-                //线程执行结果
-                Result r = completionService.take().get();
-
-                if (r.getCode() == 200) {
-                    // 同步成功
-                    list_success.add((Map<String, Object>) r.getData());
-
-                } else {
-                    // 同步失败
-                    Map<String, Object> item = new HashMap<>(2);
-                    // 元数据
-                    item.put("data", r.getData());
-                    // 失败原因
-                    item.put("msg", r.getMsg());
-                    list_fail.add(item);
-                }
-
-            } catch (Exception e) {
-
-                Map<String, Object> item = new HashMap<>(2);
-                // 元数据
-                item.put("data", orders.getJSONObject(i));
-                // 失败原因
-                item.put("msg", e.getMessage());
-                list_fail.add(item);
-
-                logger.error(e.getMessage(), e);
-            }
-        }
-
-        // 关闭线程池
-        threadPoolExecutor.shutdown();
-
-        ret.put("success", list_success);
-        ret.put("success_count", list_success.size());
-        ret.put("fail", list_fail);
-        ret.put("fail_count", list_fail.size());
-
-        return ret;
+        return doSync(orders, SyncType.order);
 
     }
 
@@ -245,10 +135,14 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
     /**
      * hrp同步入库单到sms
      *
-     * @param data
+     * @param warehouses
      */
     @Override
-    public void synchronizeInWarehouse(List data) {
+    @Transactional(propagation = Propagation.NEVER)
+    @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizeInWarehouse", useLogin = true)
+    public Map<String, Object> synchronizeInWarehouse(JSONArray warehouses) {
+
+        return doSync(warehouses, SyncType.warehouse);
 
     }
 
@@ -272,7 +166,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
 
     }
 
-    private class DoSyncBaseData implements Callable {
+    private class DoSyncBaseData implements Callable<Result> {
         /**
          * 审核字段key
          */
@@ -356,7 +250,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
         }
     }
 
-    private class DoSyncOrder implements Callable {
+    private class DoSyncOrder implements Callable<Result> {
 
         ITemplateService templateService = Environ.getBean(ITemplateService.class);
         /**
@@ -377,7 +271,6 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
         @Override
         public Result call() throws Exception {
 
-            // 录入订单抬头
             Result ret = new Result();
 
             Order order = new Order();
@@ -490,4 +383,240 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
             return ret;
         }
     }
+
+    private class DoSyncWarehouse implements Callable<Result> {
+
+
+        /**
+         * 一条入库单数据
+         */
+        private JSONObject item;
+
+        public DoSyncWarehouse(JSONObject item) {
+            this.item = item;
+        }
+
+        /**
+         * Computes a result, or throws an exception if unable to do so.
+         *
+         * @return computed result
+         * @throws Exception if unable to compute a result
+         */
+        @Override
+        public Result call() throws Exception {
+
+            Result ret = new Result();
+
+            PurInWarehs purInWarehs = new PurInWarehs();
+            PurInWarehsEntry purInWarehsEntry;
+
+            purInWarehs.setId(item.getString("id"));
+            purInWarehs.setNumber(item.getString("number"));
+
+            if (item.getDate("bizDate") != null) {
+                purInWarehs.setBizDate(item.getDate("bizDate"));
+            }
+
+            purInWarehs.setBaseStatus(item.getByte("baseStatus"));
+
+            purInWarehs.setSourceBillType(item.getString("sourceBillType"));
+            purInWarehs.setSupplier(item.getString("supplier"));
+
+            DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+            defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+            PlatformTransactionManager txManager = ContextLoader.getCurrentWebApplicationContext().getBean(PlatformTransactionManager.class);
+            TransactionStatus status = txManager.getTransaction(defaultTransactionDefinition);
+
+            PurInWarehsMapper purInWarehsMapper = sqlSession.getMapper(PurInWarehsMapper.class);
+            PurInWarehsEntryMapper purInWarehsEntryMapper = sqlSession.getMapper(PurInWarehsEntryMapper.class);
+
+            try {
+                // 如果存在，先删除再新增
+                if (purInWarehsMapper.selectByPrimaryKey(item.getString("id")) != null) {
+                    purInWarehsMapper.deleteByPrimaryKey(item.getString("id"));
+                }
+
+                purInWarehsMapper.insertSelective(purInWarehs);
+
+                JSONArray entries = item.getJSONObject("entry").getJSONArray("1");
+
+                for (int i = 0; i < entries.size(); i++) {
+
+                    purInWarehsEntry = new PurInWarehsEntry();
+
+                    JSONObject entry = entries.getJSONObject(i);
+
+                    purInWarehsEntry.setId(entry.getString("id"));
+                    purInWarehsEntry.setParent(entry.getString("parent"));
+                    purInWarehsEntry.setSeq(entry.getInteger("seq"));
+                    purInWarehsEntry.setOrderId(entry.getString("orderId"));
+                    purInWarehsEntry.setOrderSeq(entry.getString("orderSeq"));
+                    purInWarehsEntry.setMaterial(entry.getString("material"));
+                    purInWarehsEntry.setLot(entry.getString("lot"));
+                    purInWarehsEntry.setInnercode(entry.getString("innercode"));
+                    purInWarehsEntry.setUnit(entry.getString("unit"));
+                    purInWarehsEntry.setPrice(entry.getBigDecimal("price"));
+                    purInWarehsEntry.setActualQty(entry.getBigDecimal("actualQty"));
+                    purInWarehsEntry.setDyManufacturer(entry.getString("dyManufacturer"));
+                    purInWarehsEntry.setRegistrationNo(entry.getString("registrationNo"));
+                    purInWarehsEntry.setAmount(entry.getBigDecimal("amount"));
+
+                    if (entry.getDate("dyProDate") != null) {
+                        purInWarehsEntry.setDyProDate(entry.getDate("dyProDate"));
+                    }
+                    if (entry.getDate("effectiveDate") != null) {
+                        purInWarehsEntry.setEffectiveDate(entry.getDate("effectiveDate"));
+                    }
+
+                    if (purInWarehsEntryMapper.selectByPrimaryKey(entry.getString("id")) != null) {
+                        purInWarehsEntryMapper.deleteByPrimaryKey(entry.getString("id"));
+                    }
+
+                    purInWarehsEntryMapper.insertSelective(purInWarehsEntry);
+
+                }
+
+                // 操作成功提交事务
+                txManager.commit(status);
+
+                ret.setData(item);
+                ret.setMsg("上传成功");
+
+            } catch (Exception e) {
+                // 操作失败-回滚事务
+                txManager.rollback(status);
+
+                ret.setCode(StatusCode.BUSINESS_LOGIC_ERROR);
+                ret.setData(item);
+                ret.setMsg(e.getMessage());
+            }
+
+            return ret;
+        }
+    }
+
+    private enum SyncType {
+
+        order, warehouse
+    }
+
+    /**
+     * 同步
+     *
+     * @param tasks
+     * @return
+     */
+    private Map<String, Object> doSync(JSONArray tasks, SyncType type) {
+        Map<String, Object> ret = new HashMap<>(4);
+
+        if (tasks.size() > MAX_PER_TIME_UPLOAD_ORDER) {
+            throw new BusinessLogicRunTimeException("你提交的订单太多：每次最多同步" + MAX_PER_TIME_UPLOAD_ORDER + "张订单");
+        }
+
+        // 开多线程进行数据同步操作
+        int threadCount = getThreadCount(tasks.size());
+
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(threadCount, threadCount, 5,
+                TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(3),
+                new ThreadPoolExecutor.DiscardOldestPolicy());
+
+        CompletionService<Result> completionService = new ExecutorCompletionService<Result>(threadPoolExecutor);
+
+        for (int i = 0; i < tasks.size(); i++) {
+
+            // 提交每一条同步数据任务到线程池
+
+            if (type == SyncType.order) {
+                completionService.submit(new DoSyncOrder(tasks.getJSONObject(i)));
+            } else if (type == SyncType.warehouse) {
+                completionService.submit(new DoSyncWarehouse(tasks.getJSONObject(i)));
+            }
+
+        }
+        //同步成功的记录
+        List<Map<String, Object>> success = new ArrayList<>();
+        //同步失败的记录
+        List<Map<String, Object>> fail = new ArrayList<>();
+
+        // 检查线程池任务执行结果
+        getSyncResult(tasks, completionService, success, fail);
+
+        // 关闭线程池
+        threadPoolExecutor.shutdown();
+
+        ret.put("success", success);
+        ret.put("success_count", success.size());
+        ret.put("fail", fail);
+        ret.put("fail_count", fail.size());
+
+        return ret;
+    }
+
+    /**
+     * 获取异步线程执行结果
+     *
+     * @param items             任务集合
+     * @param completionService 执行器
+     * @param list_success      成功的结果
+     * @param list_fail         失败的结果
+     */
+    private void getSyncResult(JSONArray items, CompletionService<Result> completionService, List<Map<String, Object>> list_success, List<Map<String, Object>> list_fail) {
+
+        // 检查线程池任务执行结果
+        for (int i = 0; i < items.size(); i++) {
+            try {
+
+                //线程执行结果
+                Result r = completionService.take().get();
+
+                if (r.getCode() == 200) {
+                    // 同步成功
+                    list_success.add((Map<String, Object>) r.getData());
+
+                } else {
+                    // 同步失败
+                    Map<String, Object> item = new HashMap<>(2);
+                    // 元数据
+                    item.put("data", r.getData());
+                    // 失败原因
+                    item.put("msg", r.getMsg());
+                    list_fail.add(item);
+                }
+
+            } catch (Exception e) {
+
+                Map<String, Object> item = new HashMap<>(2);
+                // 元数据
+                item.put("data", items.getJSONObject(i));
+                // 失败原因
+                item.put("msg", e.getMessage());
+                list_fail.add(item);
+
+                logger.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    /**
+     * 确定异步线程数量
+     *
+     * @param taskCount
+     * @return
+     */
+    private int getThreadCount(int taskCount) {
+
+        if (taskCount <= 0) {
+            return 1;
+        }
+        // 平均每个线程的任务数
+        double perThreadTasks = 5;
+        // 最大线程数量
+        int maxThreadCount = 8;
+
+        int threadCount = (int) Math.ceil(taskCount / perThreadTasks);
+
+        return threadCount > maxThreadCount ? maxThreadCount : threadCount;
+
+    }
+
 }

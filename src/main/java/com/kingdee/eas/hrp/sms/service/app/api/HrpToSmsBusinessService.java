@@ -39,9 +39,9 @@ public interface HrpToSmsBusinessService {
     /**
      * hrp同步入库单到sms
      *
-     * @param data
+     * @param warehouses
      */
-    void synchronizeInWarehouse(List data);
+    Map<String, Object> synchronizeInWarehouse(JSONArray warehouses);
 
     /**
      * hrp同步收货单到sms
