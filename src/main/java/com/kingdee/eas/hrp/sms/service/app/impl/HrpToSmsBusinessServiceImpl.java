@@ -149,11 +149,13 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
     /**
      * hrp同步收货单到sms
      *
-     * @param data
+     * @param Receipts
      */
     @Override
-    public void synchronizeReceipt(List data) {
-
+    @Transactional(propagation = Propagation.NEVER)
+    @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizeReceipt", useLogin = true)
+    public Map<String, Object> synchronizeReceipt(JSONArray Receipts) {
+        return doSync(Receipts, SyncType.Receipt);
     }
 
     /**
@@ -166,6 +168,9 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
 
     }
 
+    /**
+     * 基础资料同步处理类
+     */
     private class DoSyncBaseData implements Callable<Result> {
         /**
          * 审核字段key
@@ -250,6 +255,9 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
         }
     }
 
+    /**
+     * 订单同步处理类
+     */
     private class DoSyncOrder implements Callable<Result> {
 
         ITemplateService templateService = Environ.getBean(ITemplateService.class);
@@ -384,6 +392,9 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
         }
     }
 
+    /**
+     * 入库单同步处理类
+     */
     private class DoSyncWarehouse implements Callable<Result> {
 
 
@@ -433,7 +444,14 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
             try {
                 // 如果存在，先删除再新增
                 if (purInWarehsMapper.selectByPrimaryKey(item.getString("id")) != null) {
+                    //删除表头
                     purInWarehsMapper.deleteByPrimaryKey(item.getString("id"));
+
+                    PurInWarehsEntryExample example = new PurInWarehsEntryExample();
+                    PurInWarehsEntryExample.Criteria criteria = example.createCriteria();
+                    criteria.andParentEqualTo(item.getString("id"));
+                    // 删除表体
+                    purInWarehsEntryMapper.deleteByExample(example);
                 }
 
                 purInWarehsMapper.insertSelective(purInWarehs);
@@ -468,11 +486,122 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
                         purInWarehsEntry.setEffectiveDate(entry.getDate("effectiveDate"));
                     }
 
-                    if (purInWarehsEntryMapper.selectByPrimaryKey(entry.getString("id")) != null) {
-                        purInWarehsEntryMapper.deleteByPrimaryKey(entry.getString("id"));
-                    }
-
                     purInWarehsEntryMapper.insertSelective(purInWarehsEntry);
+
+                }
+
+                // 操作成功提交事务
+                txManager.commit(status);
+
+                ret.setData(item);
+                ret.setMsg("上传成功");
+
+            } catch (Exception e) {
+                // 操作失败-回滚事务
+                txManager.rollback(status);
+
+                ret.setCode(StatusCode.BUSINESS_LOGIC_ERROR);
+                ret.setData(item);
+                ret.setMsg(e.getMessage());
+            }
+
+            return ret;
+        }
+    }
+
+    /**
+     * 收货单同步处理类
+     */
+    private class DoSyncReceipt implements Callable<Result> {
+
+        /**
+         * 一条入库单数据
+         */
+        private JSONObject item;
+
+        public DoSyncReceipt(JSONObject item) {
+            this.item = item;
+        }
+
+        /**
+         * Computes a result, or throws an exception if unable to do so.
+         *
+         * @return computed result
+         * @throws Exception if unable to compute a result
+         */
+        @Override
+        public Result call() throws Exception {
+
+            Result ret = new Result();
+
+            PurReceival purReceival = new PurReceival();
+            PurReceivalEntry purReceivalEntry;
+
+            purReceival.setId(item.getString("id"));
+            purReceival.setNumber(item.getString("number"));
+
+            if (item.getDate("bizDate") != null) {
+                purReceival.setBizDate(item.getDate("bizDate"));
+            }
+            purReceival.setBaseStatus(item.getByte("baseStatus"));
+
+            purReceival.setSourceBillType(item.getString("sourceBillType"));
+            purReceival.setSupplier(item.getString("supplier"));
+
+            DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+            defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+            PlatformTransactionManager txManager = ContextLoader.getCurrentWebApplicationContext().getBean(PlatformTransactionManager.class);
+            TransactionStatus status = txManager.getTransaction(defaultTransactionDefinition);
+
+            PurReceivalMapper purReceivalMapper = sqlSession.getMapper(PurReceivalMapper.class);
+            PurReceivalEntryMapper purReceivalEntryMapper = sqlSession.getMapper(PurReceivalEntryMapper.class);
+
+            try {
+                // 如果存在，先删除再新增
+                if (purReceivalMapper.selectByPrimaryKey(item.getString("id")) != null) {
+                    // 删除表头
+                    purReceivalMapper.deleteByPrimaryKey(item.getString("id"));
+
+                    PurReceivalEntryExample example = new PurReceivalEntryExample();
+                    PurReceivalEntryExample.Criteria criteria = example.createCriteria();
+                    criteria.andParentEqualTo(item.getString("id"));
+                    // 删除表体
+                    purReceivalEntryMapper.deleteByExample(example);
+                }
+
+                purReceivalMapper.insertSelective(purReceival);
+
+                JSONArray entries = item.getJSONObject("entry").getJSONArray("1");
+
+                for (int i = 0; i < entries.size(); i++) {
+
+                    purReceivalEntry = new PurReceivalEntry();
+                    JSONObject entry = entries.getJSONObject(i);
+                    purReceivalEntry.setId(entry.getString("id"));
+                    purReceivalEntry.setParent(entry.getString("parent"));
+                    purReceivalEntry.setSeq(entry.getInteger("seq"));
+                    purReceivalEntry.setOrderId(entry.getString("orderId"));
+                    purReceivalEntry.setOrderSeq(entry.getString("orderSeq"));
+                    purReceivalEntry.setMaterial(entry.getString("material"));
+                    purReceivalEntry.setLot(entry.getString("lot"));
+                    purReceivalEntry.setInnercode(entry.getString("innercode"));
+                    purReceivalEntry.setUnit(entry.getString("unit"));
+                    purReceivalEntry.setPrice(entry.getBigDecimal("price"));
+                    purReceivalEntry.setQty(entry.getBigDecimal("qty"));
+                    purReceivalEntry.setActualQty(entry.getBigDecimal("actualQty"));
+                    if (entry.getDate("dyProDate") != null) {
+                        purReceivalEntry.setDyProDate(entry.getDate("dyProDate"));
+                    }
+                    purReceivalEntry.setDyManufacturer(entry.getString("dyManufacturer"));
+                    purReceivalEntry.setRegistrationNo(entry.getString("registrationNo"));
+                    purReceivalEntry.setAmount(entry.getBigDecimal("amount"));
+                    if (entry.getDate("effectiveDate") != null) {
+                        purReceivalEntry.setEffectiveDate(entry.getDate("effectiveDate"));
+                    }
+                    purReceivalEntry.setQualifiedQty(entry.getBigDecimal("qualifiedQty"));
+                    purReceivalEntry.setUnqualifiedQty(entry.getBigDecimal("unqualifiedQty"));
+
+                    purReceivalEntryMapper.insertSelective(purReceivalEntry);
 
                 }
 
@@ -497,7 +626,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
 
     private enum SyncType {
 
-        order, warehouse
+        order, warehouse, Receipt
     }
 
     /**
@@ -530,8 +659,9 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
                 completionService.submit(new DoSyncOrder(tasks.getJSONObject(i)));
             } else if (type == SyncType.warehouse) {
                 completionService.submit(new DoSyncWarehouse(tasks.getJSONObject(i)));
+            } else if (type == SyncType.Receipt) {
+                completionService.submit(new DoSyncReceipt(tasks.getJSONObject(i)));
             }
-
         }
         //同步成功的记录
         List<Map<String, Object>> success = new ArrayList<>();
