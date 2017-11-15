@@ -129,7 +129,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
      */
     @Override
     public void confirmOrder(List<ConfirmOrderModel> orders) {
-
+        /* TODO */
     }
 
     /**
