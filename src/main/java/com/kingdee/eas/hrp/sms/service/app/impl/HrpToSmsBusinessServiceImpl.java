@@ -149,23 +149,26 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
     /**
      * hrp同步收货单到sms
      *
-     * @param Receipts
+     * @param receipts
      */
     @Override
     @Transactional(propagation = Propagation.NEVER)
     @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizeReceipt", useLogin = true)
-    public Map<String, Object> synchronizeReceipt(JSONArray Receipts) {
-        return doSync(Receipts, SyncType.RECEIPT);
+    public Map<String, Object> synchronizeReceipt(JSONArray receipts) {
+        return doSync(receipts, SyncType.RECEIPT);
     }
 
     /**
      * hrp同步收货单到hrp
      *
-     * @param data
+     * @param returns
      */
     @Override
-    public void synchronizeReturns(List data) {
+    @Transactional(propagation = Propagation.NEVER)
+    @ApiMapping(value = "kingdee.eas.hrp.sms.bz.synchronizeReturns", useLogin = true)
+    public Map<String, Object> synchronizeReturns(JSONArray returns) {
 
+        return doSync(returns, SyncType.RETURNS);
     }
 
     /**
@@ -624,9 +627,109 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
         }
     }
 
+
+    /**
+     * 退货单同步处理类
+     */
+    private class DoSyncReturn implements Callable<Result> {
+
+        /**
+         * 一条入库单数据
+         */
+        private JSONObject item;
+
+        public DoSyncReturn(JSONObject item) {
+            this.item = item;
+        }
+
+        /**
+         * Computes a result, or throws an exception if unable to do so.
+         *
+         * @return computed result
+         * @throws Exception if unable to compute a result
+         */
+        @Override
+        public Result call() throws Exception {
+
+            Result ret = new Result();
+
+            PurReturns purReturns = new PurReturns();
+            PurReturnsEntry purReturnsEntry;
+
+            purReturns.setId(item.getString("id"));
+            purReturns.setNumber(item.getString("number"));
+            if (item.getDate("bizDate") != null) {
+                purReturns.setBizDate(item.getDate("bizDate"));
+            }
+            purReturns.setBaseStatus(item.getByte("baseStatus"));
+            purReturns.setSourceBillType(item.getString("sourceBillType"));
+            purReturns.setSupplier(item.getString("supplier"));
+
+            DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+            defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+            PlatformTransactionManager txManager = ContextLoader.getCurrentWebApplicationContext().getBean(PlatformTransactionManager.class);
+            TransactionStatus status = txManager.getTransaction(defaultTransactionDefinition);
+
+            PurReturnsMapper purReturnsMapper = sqlSession.getMapper(PurReturnsMapper.class);
+            PurReturnsEntryMapper purReturnsEntryMapper = sqlSession.getMapper(PurReturnsEntryMapper.class);
+
+            try {
+                // 如果存在，先删除再新增
+                if (purReturnsMapper.selectByPrimaryKey(item.getString("id")) != null) {
+                    // 删除表头
+                    purReturnsMapper.deleteByPrimaryKey(item.getString("id"));
+
+                    PurReturnsEntryExample example = new PurReturnsEntryExample();
+                    PurReturnsEntryExample.Criteria criteria = example.createCriteria();
+                    criteria.andParentEqualTo(item.getString("id"));
+                    // 删除表体
+                    purReturnsEntryMapper.deleteByExample(example);
+                }
+
+                purReturnsMapper.insertSelective(purReturns);
+
+                JSONArray entries = item.getJSONObject("entry").getJSONArray("1");
+
+                for (int i = 0; i < entries.size(); i++) {
+
+                    purReturnsEntry = new PurReturnsEntry();
+                    JSONObject entry = entries.getJSONObject(i);
+
+                    purReturnsEntry.setId(entry.getString("id"));
+                    purReturnsEntry.setOrderId(entry.getString("orderId"));
+                    purReturnsEntry.setOrderSeq(entry.getString("orderSeq"));
+                    purReturnsEntry.setMaterial(entry.getString("material"));
+                    purReturnsEntry.setParent(entry.getString("parent"));
+                    purReturnsEntry.setUnit(entry.getString("unit"));
+                    purReturnsEntry.setReturnQty(entry.getBigDecimal("returnQty"));
+
+                    purReturnsEntryMapper.insertSelective(purReturnsEntry);
+
+                }
+
+                // 操作成功提交事务
+                txManager.commit(status);
+
+                ret.setData(item);
+                ret.setMsg("上传成功");
+
+            } catch (Exception e) {
+                // 操作失败-回滚事务
+                txManager.rollback(status);
+
+                ret.setCode(StatusCode.BUSINESS_LOGIC_ERROR);
+                ret.setData(item);
+                ret.setMsg(e.getMessage());
+            }
+
+            return ret;
+        }
+    }
+
+
     private enum SyncType {
 
-        ORDER, WAREHOUSE, RECEIPT
+        ORDER, WAREHOUSE, RECEIPT, RETURNS
     }
 
     /**

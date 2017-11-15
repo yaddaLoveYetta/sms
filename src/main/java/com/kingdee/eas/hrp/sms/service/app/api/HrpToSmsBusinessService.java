@@ -39,21 +39,24 @@ public interface HrpToSmsBusinessService {
     /**
      * hrp同步入库单到sms
      *
-     * @param warehouses
+     * @param warehouses 入库单集合
+     * @return 成功/失败记录详情
      */
     Map<String, Object> synchronizeInWarehouse(JSONArray warehouses);
 
     /**
      * hrp同步收货单到sms
      *
-     * @param Receipts
+     * @param receipts 收货单集合
+     * @return 成功/失败记录详情
      */
-    Map<String, Object> synchronizeReceipt(JSONArray Receipts);
+    Map<String, Object> synchronizeReceipt(JSONArray receipts);
 
     /**
-     * hrp同步收货单到hrp
+     * hrp同步退货单到hrp
      *
-     * @param data
+     * @param returns 退货单集合
+     * @return 成功/失败记录详情
      */
-    void synchronizeReturns(List data);
+    Map<String, Object> synchronizeReturns(JSONArray returns);
 }
