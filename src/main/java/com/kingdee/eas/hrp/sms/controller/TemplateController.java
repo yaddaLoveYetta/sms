@@ -1,15 +1,5 @@
 package com.kingdee.eas.hrp.sms.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.kingdee.eas.hrp.sms.authority.AccessMaskCode;
 import com.kingdee.eas.hrp.sms.authority.Permission;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
@@ -18,6 +8,14 @@ import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 操作系统单据模板
@@ -65,7 +63,7 @@ public class TemplateController {
 	 * @date 2017-04-20 13:41:06 星期四
 	 */
 	@RequestMapping(value = "getItems")
-	// @ControllerLog(desc = "查看", classId = 0)
+	@ControllerLog(desc = "查看")
 	@Permission(objectType = 0, objectId = 0, accessMask = AccessMaskCode.MASK_VIEW, desc = "查看")
 	public void getItems(HttpServletRequest request, HttpServletResponse response) {
 
