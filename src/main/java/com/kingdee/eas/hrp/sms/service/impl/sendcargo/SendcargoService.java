@@ -1,18 +1,5 @@
 package com.kingdee.eas.hrp.sms.service.impl.sendcargo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
@@ -23,6 +10,17 @@ import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.api.sendcargo.ISendcargoService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
 import com.kingdee.eas.hrp.sms.util.Environ;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class SendcargoService extends BaseService implements ISendcargoService {
@@ -85,6 +83,7 @@ public class SendcargoService extends BaseService implements ISendcargoService {
                         json.put("id", sendCargo.get("id"));
                         json.put("supplier", sendCargo.get("supplier"));
                         json.put("number", sendCargo.get("number"));
+                        json.put("saleProxy", sendCargo.get("saleProxy"));
                     }
                     entrys.put("entryId", sendCargo.get("entryId"));
                     entrys.put("seq", sendCargo.get("seq"));
