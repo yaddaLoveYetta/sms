@@ -1,0 +1,19 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\CodePrint]
+;将C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQScLauncher.exe修改成个体码打印程序的绝对路径,注意路径、程序名称不能有中文
+"URL Protocol"="C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQScLauncher.exe"
+
+@="CodePrintProtocol"
+
+[HKEY_CLASSES_ROOT\CodePrint\DefaultIcon]
+;将C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQScLauncher.exe修改成个体码打印程序的绝对路径
+@="C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQScLauncher.exe,1"
+
+[HKEY_CLASSES_ROOT\CodePrint\shell]
+
+[HKEY_CLASSES_ROOT\CodePrint\shell\open]
+
+[HKEY_CLASSES_ROOT\CodePrint\shell\open\command]
+;将C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQScLauncher.exe修改成个体码打印程序的绝对路径
+@="\"C:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQScLauncher.exe\" \"%1\""

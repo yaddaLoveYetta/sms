@@ -170,7 +170,20 @@
             });
         },
         'print': function (item, index) {
-            print();
+            //print();
+
+            // 调用本地打印程序
+
+            var $aa = $('<a></a>');
+            $aa.attr('href', 'CodePrint://print');
+            console.log($aa.attr('href'));
+            $aa.get(0).click();
+            /*    if ($.browser.msie || $.browser.mozilla) {
+                    $aa.get(0).click();
+                } else {
+                    window.open($aa.attr('href'), $aa.attr('target'));
+                }*/
+
         },
         'send': function (item, index) {
             send();
@@ -295,12 +308,12 @@
                 return false;
             }
             //需求变动，医院不需要确认接单
-/*            if (!item.data.tickType) {
-                // HRP没有确认接单
-                SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货', 1500);
-                done = false;
-                return false;
-            }*/
+            /*            if (!item.data.tickType) {
+                            // HRP没有确认接单
+                            SMS.Tips.error(item.data.number + ' 医院未确认接单信息，不能发货', 1500);
+                            done = false;
+                            return false;
+                        }*/
         });
         if (!done) {
             // 不满足发货条件
@@ -459,19 +472,19 @@
                     data: {
                         code: data,
                     },
-/*                    button: [
-                        {
-                            value: '取消',
-                            className: 'sms-cancel-btn',
-                        },
-                        {
-                            value: '确定',
-                            className: 'sms-submit-btn',
-                            callback: function () {
-                                return true;
-                            }
-                        }
-                    ],*/
+                    /*                    button: [
+                                            {
+                                                value: '取消',
+                                                className: 'sms-cancel-btn',
+                                            },
+                                            {
+                                                value: '确定',
+                                                className: 'sms-submit-btn',
+                                                callback: function () {
+                                                    return true;
+                                                }
+                                            }
+                                        ],*/
                 });
 
                 //默认关闭行为为不提交
