@@ -15,6 +15,7 @@ import com.kingdee.eas.hrp.sms.model.Item;
 import com.kingdee.eas.hrp.sms.model.Order;
 import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.model.Supplier;
+import com.kingdee.eas.hrp.sms.service.api.Anomaly.IAnomalyService;
 import com.kingdee.eas.hrp.sms.service.api.ISerialNumberService;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.IWebService;
@@ -508,6 +509,8 @@ public class OrderService extends BaseService implements IOrderService {
         // amount --->localAmount 金额
         // effectiveDate --->"" 有效期
 
+        IAnomalyService anomalyService=Environ.getBean(IAnomalyService.class);
+
         Map<String, Object> entry = new HashMap<String, Object>();
         BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty"));
         ItemMapper itemMapper = sqlSession.getMapper(ItemMapper.class);
@@ -532,7 +535,8 @@ public class OrderService extends BaseService implements IOrderService {
         entry.put("dyBatchNum", "");
         if (item.getHighConsumable() != null) {
             if (item.getHighConsumable() == 1 && !item.getHighConsumable().equals(1)) {
-                entry.put("code", Common.createNo("yyMMdd", "", 5));
+                //entry.put("code", Common.createNo("yyMMdd", "", 5));
+                entry.put("code", anomalyService.getDeliverOrderCodeEncode());
             }
         } else {
             entry.put("code", "");

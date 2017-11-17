@@ -12,4 +12,10 @@ public interface IAnomalyService {
 	 */
 	String getUserNameEncode();
 
+	/**
+	 * 订单生成发货单时，发货单个体码生成后5位用当天的递增流水号
+	 * @return
+	 */
+	String getDeliverOrderCodeEncode();
+
 }

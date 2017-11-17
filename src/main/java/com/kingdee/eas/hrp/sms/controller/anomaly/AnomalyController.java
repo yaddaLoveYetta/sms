@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * @author yadda
+ */
 @Controller
 @RequestMapping(value = "/anomaly/")
 public class AnomalyController {
@@ -44,10 +47,9 @@ public class AnomalyController {
 
     public static void main(String[] args) {
         // psvm
-
-
-        for (int i = 0; i <10 ; i++) {
-            System.out.println(i); //sout
+        for (int i = 0; i < 10; i++) {
+            //sout
+            System.out.println(i);
         }
     }
 }
