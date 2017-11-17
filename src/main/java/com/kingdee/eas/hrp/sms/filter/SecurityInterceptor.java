@@ -1,19 +1,16 @@
 package com.kingdee.eas.hrp.sms.filter;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import com.kingdee.eas.hrp.sms.model.User;
 import com.kingdee.eas.hrp.sms.service.api.user.IUserService;
 import com.kingdee.eas.hrp.sms.util.Environ;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
-import com.kingdee.eas.hrp.sms.util.SessionUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * 拦截请求
@@ -24,9 +21,15 @@ import com.kingdee.eas.hrp.sms.util.StatusCode;
  * @date 2017-04-15 21:43:12 星期六
  */
 public class SecurityInterceptor extends HandlerInterceptorAdapter {
+	/**
+	 * web不拦截的资源
+	 */
+	public Map<String, String> allowUrls;
 
-	public Map<String, String> allowUrls;// 不拦截的资源
-	public Map<String, String> clientUrls;// 不拦截的资源
+	/**
+	 * app请求不拦截的资源
+	 */
+	public Map<String, String> clientUrls;
 
 	public void setClientUrls(Map<String, String> clientUrls) {
 		this.clientUrls = clientUrls;
