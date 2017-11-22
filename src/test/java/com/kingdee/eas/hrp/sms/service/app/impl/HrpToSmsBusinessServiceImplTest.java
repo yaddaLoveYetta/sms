@@ -80,4 +80,55 @@ public class HrpToSmsBusinessServiceImplTest {
 
     }
 
+    @Test
+    public void fact() {
+
+        int n = 90;
+        int ret = 1;
+
+        for (int i = 1; i <= n; i++) {
+            ret *= i;
+        }
+        System.out.println(ret);
+        System.out.println(10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1);
+    }
+
+    @Test
+    public void fact2() {
+
+        int n = 30;
+
+        // 数组从地位到高位表示结果的个十百千万……位上的数字
+        int[] ret = new int[50];
+
+        ret[0] = 1;
+
+        for (int i = 1; i <= n; i++) {
+
+            for (int j = 0; j < ret.length; j++) {
+                //数组个位置上数字操作
+                ret[j] = ret[j] * i;
+            }
+
+            for (int j = 1; j < ret.length; j++) {
+                int up = ret[j - 1] / 10;
+                ret[j - 1] = ret[j - 1] % 10;
+                ret[j] = ret[j] + up;
+            }
+
+        }
+
+        String result = "";
+        //去掉开头的0
+        boolean frontZero = true;
+        for (int i = ret.length - 1; i >= 0; i--) {
+            if (ret[i] != 0 || !frontZero) {
+                frontZero = false;
+                result += ret[i];
+            }
+        }
+
+        System.out.println(result);
+    }
+
 }
