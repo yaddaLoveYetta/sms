@@ -35,7 +35,7 @@ define('Bill/Entry', function (require, module, exports) {
             if (!item.confirmQty || item.confirmQty == 0) {
                 a.confirmQty = item.qty;
             }
-            if (!item.confirmDate) {
+            if (!item.confirmDate || item.confirmDate == '') {
                 a.confirmDate = $.Date.format(new Date(), "yyyy-MM-dd");
             }
 
