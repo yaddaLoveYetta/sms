@@ -32,7 +32,7 @@ define('Bill/Entry', function (require, module, exports) {
         // 接单数量默认数量，接单日期默认当前日期
         var d = $.Array.map(data['1'], function (item, index) {
             var a = item;
-            if (item.confirmQty == 0) {
+            if (!item.confirmQty || item.confirmQty == 0) {
                 a.confirmQty = item.qty;
             }
             if (!item.confirmDate) {
