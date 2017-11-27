@@ -48,6 +48,7 @@
 			t.id,
 			t.supplier,
 			t.number,
+			t.saleProxy,
 			e.id AS entryId,
 			e.seq,
 			e.orderId,
