@@ -323,15 +323,20 @@ public class OrderService extends BaseService implements IOrderService {
      */
     private void generateEntries(Map<String, Object> shipOrder, JSONObject purOrder) {
 
-        int saleProxy = purOrder.getIntValue("saleProxy"); // 销售模式 1：非代销 2：代销
-        JSONArray purOrderEntries = purOrder.getJSONObject("entry").getJSONArray("1"); // 采购订单子表数据，值处理第一个子表
+        // 销售模式 1：非代销 2：代销
+        int saleProxy = purOrder.getIntValue("saleProxy");
+        // 采购订单子表数据，值处理第一个子表
+        JSONArray purOrderEntries = purOrder.getJSONObject("entry").getJSONArray("1");
 
         for (int j = 0; j < purOrderEntries.size(); j++) {
 
-            JSONObject purOrderEntry = purOrderEntries.getJSONObject(j); // 第一条分录
+            // 第一条分录
+            JSONObject purOrderEntry = purOrderEntries.getJSONObject(j);
 
-            String purOrderId = purOrderEntry.getString("parent");// 采购订单主表内码
-            int purOrderEntrySeq = purOrderEntry.getIntValue("seq");// 采购订单分录行号
+            // 采购订单主表内码
+            String purOrderId = purOrderEntry.getString("parent");
+            // 采购订单分录行号
+            int purOrderEntrySeq = purOrderEntry.getIntValue("seq");
 
             // 判断该分录对应的源单内码，源单分录是否已处理过数据-是，返回该分录，数量累加上本条采购订单分录数据(代销物料除外)
             Map<String, Object> entry = isInShipOrderEntries(shipOrder, purOrderId, purOrderEntrySeq);
@@ -509,7 +514,7 @@ public class OrderService extends BaseService implements IOrderService {
         // amount --->localAmount 金额
         // effectiveDate --->"" 有效期
 
-        IAnomalyService anomalyService=Environ.getBean(IAnomalyService.class);
+        IAnomalyService anomalyService = Environ.getBean(IAnomalyService.class);
 
         Map<String, Object> entry = new HashMap<String, Object>();
         BigDecimal qty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty"));
@@ -602,25 +607,33 @@ public class OrderService extends BaseService implements IOrderService {
         // amount --->localAmount 金额
         // effectiveDate --->"" 有效期
 
-        BigDecimal bQty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty")); // 采购订单分录数量
-        BigDecimal amount = purOrderEntry.getBigDecimal("localAmount");
-        float price = purOrderEntry.getFloatValue("price");
+        // 采购订单分录数量
+        BigDecimal bQty = purOrderEntry.getBigDecimal("confirmQty").subtract(purOrderEntry.getBigDecimal("invoiceQty"));
+/*        BigDecimal amount = purOrderEntry.getBigDecimal("localAmount");
+        float price = purOrderEntry.getFloatValue("price");*/
 
         int qty = bQty.intValue();
 
+        if (bQty.compareTo(new BigDecimal(qty)) != 0) {
+            throw new BusinessLogicRunTimeException("高值耗材数量必须为正整数，请检查订单数据!");
+        }
+
+/*
         BigDecimal x1 = new BigDecimal(Float.toString(price));
-        BigDecimal x2 = new BigDecimal(Integer.toString(qty));
+        BigDecimal x2 = new BigDecimal(Float.toString(qty));
         // 数量尾差，尾差放到最后一行
         float lastLineQty = bQty.floatValue() > qty ? bQty.floatValue() - qty + 1 : 1;
         // 金额尾差，尾差放到最后一行
         BigDecimal lastLineAmount = amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).compareTo(x1.multiply(x2)) > 0
                 ? x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).subtract(x1.multiply(x2)))
                 : x1.add(amount.subtract(x1.multiply(purOrderEntry.getBigDecimal("invoiceQty"))).subtract(x1.multiply(x2)));
+*/
+
         List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 
         for (int i = 0; i < qty; i++) {
 
-            Map<String, Object> entry = new HashMap<String, Object>();
+            Map<String, Object> entry = new HashMap<String, Object>(qty);
 
             ItemMapper itemMapper = sqlSession.getMapper(ItemMapper.class);
             Item item = itemMapper.selectByPrimaryKey(purOrderEntry.getString("material"));
@@ -659,7 +672,8 @@ public class OrderService extends BaseService implements IOrderService {
             entry.put("registrationNo", "");
             entry.put("effectiveDate", "");
             entry.put("actualQty", 1);
-            entry.put("qty", 1); // 拆单后，发货单明细行数量为1
+            // 拆单后，发货单明细行数量为1
+            entry.put("qty", 1);
             entry.put("amount", purOrderEntry.getFloatValue("price"));
 
             if (item.getDyFactory() != null) {
@@ -672,17 +686,20 @@ public class OrderService extends BaseService implements IOrderService {
             }
 
             if (purOrderEntry.getString("department") != null) {
-                entry.put("department", purOrderEntry.getString("department")); // 使用部门
+                // 使用部门
+                entry.put("department", purOrderEntry.getString("department"));
                 entry.put("department_DspName", purOrderEntry.getString("department_DspName"));
                 entry.put("department_NmbName", purOrderEntry.getString("department_NmbName"));
             }
 
-            if (i == qty - 1) {
+/*            if (i == qty - 1) {
                 // lastLine
-                entry.put("qty", lastLineQty); // 拆单后，发货单明细行数量为1
+                // 拆单后，发货单明细行数量为1
+                entry.put("qty", lastLineQty);
                 entry.put("actualQty", lastLineQty);
-                entry.put("amount", lastLineAmount); // ? 本位币金额 No Amount
-            }
+                // ? 本位币金额 No Amount
+                entry.put("amount", lastLineAmount);
+            }*/
 
             ret.add(entry);
         }
