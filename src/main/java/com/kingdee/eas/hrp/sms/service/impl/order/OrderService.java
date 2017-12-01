@@ -55,6 +55,7 @@ public class OrderService extends BaseService implements IOrderService {
         Order order = new Order();
         OrderEntry orderEntry = new OrderEntry();
         ITemplateService templateService = Environ.getBean(ITemplateService.class);
+
         for (int i = 0; i < orderjson.size(); i++) {
             // 录入订单抬头
             JSONObject ob = orderjson.getJSONObject(i);
@@ -173,14 +174,16 @@ public class OrderService extends BaseService implements IOrderService {
                             throw new BusinessLogicRunTimeException("数据错误");
                         }
 
-                        JSONArray entry1 = entrys.getJSONArray("1"); // 只处理第一个子表
+                        // 只处理第一个子表
+                        JSONArray entry1 = entrys.getJSONArray("1");
 
                         for (Iterator<Object> it = entry1.iterator(); it.hasNext(); ) {
                             Object obj = it.next();
                             JSONObject entryItem = (JSONObject) JSON.toJSON(obj);
-
-                            String entryId = entryItem.getString("entryId"); // 分录id
-                            float confirmQty = entryItem.getFloatValue("confirmQty"); // 接单数量
+                            // 分录id
+                            String entryId = entryItem.getString("entryId");
+                            // 接单数量
+                            float confirmQty = entryItem.getFloatValue("confirmQty");
 
                             String dataStr = entryItem.getString("confirmDate");
 
