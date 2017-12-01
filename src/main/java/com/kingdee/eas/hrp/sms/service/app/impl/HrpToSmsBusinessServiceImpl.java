@@ -410,12 +410,7 @@ public class HrpToSmsBusinessServiceImpl extends BaseService implements HrpToSms
             this.item = item;
         }
 
-        /**
-         * Computes a result, or throws an exception if unable to do so.
-         *
-         * @return computed result
-         * @throws Exception if unable to compute a result
-         */
+
         @Override
         public Result call() throws Exception {
 
