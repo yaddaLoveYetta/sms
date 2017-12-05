@@ -19,17 +19,18 @@
     var dialog = Iframe.getDialog();
 
     var classId;
-    var showItems = [];
+    var items = []; // all items
+    var showItems = []; // current show items
 
     if (dialog) {
 
         var data = dialog.getData() || {};
-        showItems = data.showItems;
+        items = data.showItems;
         classId = data.classId;
-        console.log(showItems);
+        console.log(items);
     }
 
-    showItems = arrangeShowItems(showItems);
+    showItems = items = arrangeShowItems(items);
 
     if (showItems.length === 0) {
         return;
@@ -123,6 +124,21 @@
                 text: '下一个',
                 name: 'next',
                 icon: '../../../css/main/img/next.png',
+            }, {
+                text: '显示未通过',
+                name: 'showUnCheck',
+                icon: '../../../css/main/img/previous.png',
+                items: [
+                    {
+                        text: '显示已通过',
+                        name: 'showCheck',
+                        icon: '../../../css/main/img/check.png',
+                    }, {
+                        text: '显示全部',
+                        name: 'showAll',
+                        icon: '../../../css/main/img/check.png',
+                    }
+                ],
             }
         ]
     };
@@ -157,7 +173,7 @@
                 SMS.Tips.success('操作成功！', 500);
 
                 setTimeout(function () {
-                    var item = getItem(1);
+                    var item_next = getItem(1);
                     if (item_next === item) {
                         return;
                     }
@@ -190,7 +206,33 @@
 
             });
 
+        },
+        'showUnCheck': function (item, index) {
+            // 显示未通过审核的证件
+            showItems = $.Array.grep(items, function (item, index) {
+                return !item.check;
+            });
+            Iframes.clear();
+            Header.render(showItems[0]);
+            Iframes.add(showItems[0]);
+        },
+        'showCheck': function (item, index) {
+            // 显示通过审核的证件
+            showItems = $.Array.grep(items, function (item, index) {
+                return !!item.check;
+            });
+            Iframes.clear();
+            Header.render(showItems[0]);
+            Iframes.add(showItems[0]);
+        },
+        'showAll': function (item, index) {
+            // 显示全部
+            showItems =items
+            Iframes.clear();
+            Header.render(showItems[0]);
+            Iframes.add(showItems[0]);
         }
+
     });
 
     function getItem(step) {

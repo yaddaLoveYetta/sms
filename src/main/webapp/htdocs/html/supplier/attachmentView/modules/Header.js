@@ -16,14 +16,19 @@ define('Header', function (require, module, exports) {
 
     function render(item) {
 
-        var html = $.String.format(sample, {
-            'idNumber': item.idNumber, //
-            'name': item.name,
-            'type': item.type,
-            'beginDate': item.beginDate,
-            'endDate': item.endDate,
-            'check': !!item.check ? 'correct.png' : item.check == 0 ? 'wrong.png' : 'unknow.png',
-        });
+        var html;
+        if (item) {
+            html = $.String.format(sample, {
+                'idNumber': item.idNumber, //
+                'name': item.name,
+                'type': item.type,
+                'beginDate': item.beginDate,
+                'endDate': item.endDate,
+                'check': !!item.check ? 'correct.png' : item.check == 0 ? 'wrong.png' : 'unknow.png',
+            });
+        } else {
+            html = 'none item';
+        }
 
         $(div).html(html);
     }

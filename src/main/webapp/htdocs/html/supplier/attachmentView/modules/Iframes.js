@@ -131,6 +131,9 @@ define('Iframes', function (require, module, exports) {
 
     function add(item, forceRefresh) {
 
+        if (!item) {
+            return;
+        }
         var index = findIndexById(item);
 
         if (index >= 0) { //已存在该项
@@ -189,7 +192,7 @@ define('Iframes', function (require, module, exports) {
         div.removeChild(iframe);
 
         //再修改数据，否则可能会乱掉
-        list.splice(index, 1);  //注意，此时 list 的长度已发生了变化
+        list.splice(index, 0);  //注意，此时 list 的长度已发生了变化
         tabs.remove(index);
 
         emitter.fire('remove', [list[index]]);
@@ -229,7 +232,7 @@ define('Iframes', function (require, module, exports) {
 
     function clear() {
 
-        var a = list.splice(1); //只保留第 0 项
+        var a = list.splice(0);
 
         $.Array.each(a, function (item, index) {
 
@@ -237,6 +240,7 @@ define('Iframes', function (require, module, exports) {
             div.removeChild(iframe);
 
         });
+        tabs.reset();
 
 
     }
