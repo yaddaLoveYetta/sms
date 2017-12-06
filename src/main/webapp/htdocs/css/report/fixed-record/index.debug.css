@@ -1,0 +1,48 @@
+
+.chart {
+    width: 30%;
+    height: 700px;
+    margin: 0px;
+    overflow: hidden;
+    background-color: white;
+    display: inline-block;
+}
+
+.chart-item {
+    width: 90%;
+    height: 300px;
+    margin: 10px;
+    background: red;
+}
+
+.detail {
+    width: 60%;
+    height: 700px;
+    display: inline-block;
+    float: right;
+    padding: 10px;
+}
+
+.iframe {
+    text-align: center;
+}
+
+.table_panel span {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.table_panel .body_item .report_content {
+    height: 30px;
+    line-height: 35px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table_panel .report_content:hover {
+    background-color: #ddd;
+}
+
+.table_panel .report_content:nth-child(even) {
+    background-color: #f8f8f9;
+}

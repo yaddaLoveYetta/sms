@@ -43,7 +43,7 @@
                 // 'api/portal/login-action.js',
 
             ],
-
+            'report/getFixedRecord':'api/report/fixRecord.js',
             //'user/getSidebar':'api/master/sidebar.js',
             //'report/orderCount':'api/report/orderCount.js',
             // 'report/traceQuery':'api/report/traceQuery.js',
