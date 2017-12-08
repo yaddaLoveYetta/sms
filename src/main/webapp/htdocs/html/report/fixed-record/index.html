@@ -9,6 +9,7 @@
     <link href="../../../css/base/index.debug.css" rel="stylesheet"/>
     <link href="../../../css/base.css" rel="stylesheet"/>
     <link href="../../../css/report/fixed-record/index.debug.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../lib/font-awesome-3.2.1/css/font-awesome.debug.css"/>
     <!--grunt.css.end-->
 </head>
 
@@ -16,44 +17,64 @@
 
 <div id="div-container" class="box">
 
-    <div id="content" class="chart">
+    <div class="chart">
 
-        <div id="order" class="chart-item">
-
+        <div class="box-item box-order">
+            <div id="order" class="chart-item"></div>
+            <div id="div-loading-order" class="loading"></div>
         </div>
-        <div id="trend" class="chart-item">
-
+        <div class="box-item box-trend">
+            <div id="trend" class="chart-item"></div>
+            <div id="div-loading-trend" class="loading"></div>
         </div>
-
     </div>
-    <div id="list" class="detail table_panel">
-        <div class="head">
-            <span style="width: 10%" >申请单号</span>
-            <span style="width: 10%">科室</span>
-            <span style="width: 10%">申请人</span>
-            <span style="width: 10%">申请时间</span>
-            <span style="width: 10%">状态</span>
-            <span style="width: 10%">派工时间</span>
-            <span style="width: 10%">维修人</span>
-            <span style="width: 10%">维修项目</span>
-            <span style="width: 10%">完成时间</span>
-        </div>
-        <div id="body_item" >
-            <!--
-            <div class="report_content item">
-                <span style="width: 10%">{reqNumber}</span>
-                <span style="width: 10%">{department}</span>
-                <span style="width: 10%">{builder}</span>
-                <span style="width: 10%">{date}</span>
-                <span style="width: 10%">{status}</span>
-                <span style="width: 10%">{dispatchTime}</span>
-                <span style="width: 10%">{repairMan}</span>
-                <span style="width: 10%">{targetItem}</span>
-                <span style="width: 10%">{fixedTime}</span>
+    <div class="content">
+        <div id="list" class=" box-list">
+            <div class="table_head">
+                <span style="width: 10%">申请单号</span>
+                <span style="width: 10%">科室</span>
+                <span style="width: 10%">申请人</span>
+                <span style="width: 10%">申请时间</span>
+                <span style="width: 10%">状态</span>
+                <span style="width: 10%">派工时间</span>
+                <span style="width: 10%">维修人</span>
+                <span style="width: 10%">维修项目</span>
+                <span style="width: 10%">完成时间</span>
             </div>
-            -->
+
+
+            <div id="body_item" class="table_pane">
+                <!--
+                <div class="report_content item">
+                    <span style="width: 10%">{reqNumber}</span>
+                    <span style="width: 10%">{department}</span>
+                    <span style="width: 10%">{builder}</span>
+                    <span style="width: 10%">{date}</span>
+                    <span style="width: 10%">{status}</span>
+                    <span style="width: 10%">{dispatchTime}</span>
+                    <span style="width: 10%">{repairMan}</span>
+                    <span style="width: 10%">{targetItem}</span>
+                    <span style="width: 10%">{fixedTime}</span>
+                </div>
+                -->
+            </div>
+
+
         </div>
+        <div id="div-loading-list" class="loading"></div>
     </div>
+</div>
+<!--<marquee direction="up"
+         onmouseover="this.stop();" onmouseout="this.start();">
+</marquee>-->
+
+<div id="loading">
+    <!--
+    <p>
+    <i class="icon-refresh icon-spin"></i>
+    {text}
+    </p>
+    -->
 </div>
 
 <script src="../../../lib/jquery/jquery-1.11.1.debug.js"></script>

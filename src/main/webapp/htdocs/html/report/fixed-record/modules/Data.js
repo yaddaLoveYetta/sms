@@ -13,16 +13,16 @@ define('Data', function (require, module, exports) {
 
         var api = new API("report/getFixedRecord");
 
-        SMS.Tips.loading('数据加载中...');
+        //SMS.Tips.loading('数据加载中...');
 
         api.get({
             pageNo: 1,
-            pageSize: 20,
+            pageSize: 2,
         });
 
         api.on({
             'success': function (data, json) {
-                SMS.Tips.success('数据加载成功', 1500);
+                //SMS.Tips.success('数据加载成功', 1500);
                 fn && fn(data);
             },
             'fail': function (code, msg, json) {

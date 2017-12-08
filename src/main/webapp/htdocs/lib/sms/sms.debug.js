@@ -4061,7 +4061,7 @@
                 selector: config.selector,
                 text: text,
                 rendered: false,
-
+                sample: config.sample,
             };
 
             mapper.set(this, meta);
@@ -4077,7 +4077,7 @@
             render: function () {
 
                 var meta = mapper.get(this);
-
+                sample = meta.sample || sample;
                 var html = $.String.format(sample, {
                     'text': meta.text
                 });

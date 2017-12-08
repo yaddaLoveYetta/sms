@@ -1,48 +1,124 @@
 
-.chart {
-    width: 30%;
-    height: 700px;
-    margin: 0px;
-    overflow: hidden;
-    background-color: white;
-    display: inline-block;
-}
-
-.chart-item {
-    width: 90%;
-    height: 300px;
-    margin: 10px;
-    background: red;
-}
-
-.detail {
-    width: 60%;
-    height: 700px;
-    display: inline-block;
-    float: right;
-    padding: 10px;
-}
-
 .iframe {
     text-align: center;
 }
 
-.table_panel span {
+.chart {
+    width: 35%;
+    height: 700px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow: hidden;
+    background-color: white;
+    display: inline-block;
+    float: left;
+}
+
+.chart-item {
+    width: 100%;
+    height: 100%
+}
+
+.box .loading {
+    font-size: 16px;
+    color: #fff;
+    -ms-flex: 1;
+    flex: 1;
+    text-align: center;
+    align-items: center;
+    display: inline-flex;
+    height: 100%;
+    margin: auto;
+}
+
+.box-item {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    flex-flow: column;
+    display: flex;
+    height: 330px;
+    width: 100%;
+}
+
+.box-order {
+    background: #5392cc;
+}
+
+.box-trend {
+    background: #ee894f;
+    margin-top: 20px;
+}
+
+.box-item .loading i {
+    margin-right: 6px;
+    font-size: 20px;
+}
+
+.content {
+    width: 60%;
+    height: 700px;
+    margin-top: 10px;
+    margin-right: 10px;
+    background: #77bbd2;
+    /*    overflow-x: hidden;
+        overflow-y: hidden;*/
+    overflow: hidden;
+    display: block;
+    float: left;
+}
+
+.box-list {
+ height: 700px;
+    overflow: hidden;
+}
+
+.table_head {
+    /*    position: fixed;
+        width: 60%;
+        height: 30px;
+        line-height: 30px;
+        background: #78acff;*/
+
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: #78acff;
+}
+
+.table_head span {
+    display: inline-block;
+}
+
+.table_pane {
+    clear: both;
+    width: 100%;
+    /*height: 700px;*/
+    overflow: hidden;
+}
+
+.table_pane span {
     display: inline-block;
     overflow: hidden;
     text-overflow: clip;
+    text-align: center;
+
 }
 
-.table_panel .body_item .report_content {
-    height: 30px;
-    line-height: 35px;
-    border-bottom: 1px solid #ddd;
+.table_pane .report_content {
+    /*    height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid #ddd;
+        overflow-y: hidden;*/
+    align-items: center;
+
 }
 
-.table_panel .report_content:hover {
+.table_pane .report_content:hover {
     background-color: #ddd;
 }
 
-.table_panel .report_content:nth-child(even) {
+.table_pane .report_content:nth-child(even) {
     background-color: #f8f8f9;
 }
