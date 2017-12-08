@@ -1,29 +1,25 @@
 package com.kingdee.eas.hrp.sms.controller.report;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.service.api.report.IReportService;
-import com.kingdee.eas.hrp.sms.util.Environ;
-import com.kingdee.eas.hrp.sms.util.ParameterUtils;
-import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
-import com.kingdee.eas.hrp.sms.util.SessionUtil;
-import com.kingdee.eas.hrp.sms.util.StatusCode;
-import com.kingdee.eas.hrp.sms.util.SystemParamUtil;
+import com.kingdee.eas.hrp.sms.util.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author ss
+ */
 @Controller
 @RequestMapping(value = "/report/")
 public class ReportController {

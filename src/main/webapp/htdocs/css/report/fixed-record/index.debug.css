@@ -8,7 +8,7 @@
     height: 700px;
     margin-top: 10px;
     margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 20px;
     overflow: hidden;
     background-color: white;
     display: inline-block;
@@ -55,32 +55,23 @@
     margin-right: 6px;
     font-size: 20px;
 }
-
-.content {
+.detail{
     width: 60%;
     height: 700px;
     margin-top: 10px;
     margin-right: 10px;
     background: #77bbd2;
-    /*    overflow-x: hidden;
-        overflow-y: hidden;*/
     overflow: hidden;
     display: block;
     float: left;
 }
 
 .box-list {
- height: 700px;
+    height: 700px;
     overflow: hidden;
 }
 
 .table_head {
-    /*    position: fixed;
-        width: 60%;
-        height: 30px;
-        line-height: 30px;
-        background: #78acff;*/
-
     width: 100%;
     height: 30px;
     line-height: 30px;

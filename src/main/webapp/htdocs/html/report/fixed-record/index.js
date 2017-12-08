@@ -16,7 +16,7 @@
 
     var div_order = document.getElementById('order');
     var div_trend = document.getElementById('trend');
-    var div_list = document.getElementById('list');
+    var div_list = document.getElementById('content');
 
     var div_loading = document.getElementById("loading");
 
@@ -45,15 +45,26 @@
         sample: samples.loading,
     });
 
-    order_loading.show();
-    trend_loading.show();
-    list_loading.show();
-    Data.getData(function (data) {
-        Order.render(data.trendQty);
-        Trend.render(data.workload);
-        List.render(data.list);
-        order_loading.hide();
-        trend_loading.hide();
-        list_loading.hide();
+
+    function refresh() {
+        order_loading.show();
+        trend_loading.show();
+        list_loading.show();
+        Data.getData(function (data) {
+            order_loading.hide();
+            trend_loading.hide();
+            list_loading.hide();
+            Order.render(data.trendQty);
+            Trend.render(data.workload);
+            List.render(data.list);
+
+        });
+    }
+
+    List.on('refresh', function (args) {
+        refresh();
     });
+
+    refresh();
+
 })();

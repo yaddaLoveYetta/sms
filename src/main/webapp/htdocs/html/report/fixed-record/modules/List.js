@@ -7,19 +7,24 @@ define('List', function (require, module, exports) {
         var $ = require('$');
         var MiniQuery = require('MiniQuery');
         var SMS = require('SMS');
+        var emitter = MiniQuery.Event.create();
 
-        var scrollSpeed = 40;//值越大，滚动的越慢
+        var scrollSpeed = 10;//值越大，滚动的越慢
         var div = document.getElementById('body_item');
 
         var list = document.getElementById('list');
 
         var div2 = $("<div class='table_pane'></div>")[0];
 
+        var timer;
+
         function ScrollMarquee() {
 
 
             if (div2.offsetTop - list.scrollTop <= 0) {
-                list.scrollTop -= div2.offsetHeight;
+                //list.scrollTop -= div2.offsetHeight;
+                clearInterval(timer);
+                emitter.fire("refresh", []);
             }
             else {
                 list.scrollTop++;
@@ -28,6 +33,7 @@ define('List', function (require, module, exports) {
         }
 
         function render(data) {
+
             SMS.Template.fill(div, data, function (item, index) {
                 return {
                     'reqNumber': item.reqNumber,
@@ -41,24 +47,28 @@ define('List', function (require, module, exports) {
                     'fixedTime': item.fixedTime,
                 };
             });
+            list.scrollTop = 0;
+            if (div.offsetHeight > list.offsetHeight) {
+                div2.innerHTML = div.innerHTML;
 
-            div2.innerHTML = div.innerHTML;
+                $(list).append($(div2))
 
-            $('#list').append($(div2))
-
-            var timer = setInterval(ScrollMarquee, scrollSpeed);
-
-            list.onmouseover = function () {
-                clearInterval(timer);
-            };
-
-            list.onmouseout = function () {
                 timer = setInterval(ScrollMarquee, scrollSpeed);
-            };
+
+                list.onmouseover = function () {
+                    clearInterval(timer);
+                };
+
+                list.onmouseout = function () {
+                    timer = setInterval(ScrollMarquee, scrollSpeed);
+                };
+            }
+
         }
 
         return {
-            render: render
+            render: render,
+            on: emitter.on.bind(emitter),
         };
 
     }
