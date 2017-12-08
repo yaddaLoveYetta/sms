@@ -1,8 +1,10 @@
 package com.kingdee.eas.hrp.sms.service.impl.report;
 
 import com.kingdee.eas.hrp.sms.service.api.report.IFixedRecordService;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,10 @@ import java.util.Map;
  */
 @Service
 public class FixedRecordService implements IFixedRecordService {
+
+    @Resource
+    private JdbcTemplate jdbcTemplate;
+
     /**
      * 获取设备维修记录报表数据
      *
@@ -76,7 +82,10 @@ public class FixedRecordService implements IFixedRecordService {
      * @return
      */
     private int getTotalUndoneQty() {
-        return 0;
+
+        String sql = "select username from user where id=?";
+        int c = jdbcTemplate.queryForObject(sql, Integer.class);
+        return c;
     }
 
     /**

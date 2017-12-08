@@ -21,6 +21,7 @@ public class FixRecordController {
     @Resource
     private IFixedRecordService fixedRecordService;
 
+
     public void getFixedRecord(HttpServletRequest request, HttpServletResponse response) {
 
         int pageSize = ParameterUtils.getParameter(request, "pageSize", 50);

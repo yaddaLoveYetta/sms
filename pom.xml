@@ -160,6 +160,17 @@
 			<version>${mssql.jdbc.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>db2jcc_license_cu</groupId>
+			<artifactId>db2jcc_license_cu</artifactId>
+			<version>9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>db2jcc</groupId>
+			<artifactId>db2jcc</artifactId>
+			<version>9.0</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
