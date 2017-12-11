@@ -34,17 +34,20 @@ define('List', function (require, module, exports) {
 
         function render(data) {
 
+            if (!data || data.length === 0) {
+                return;
+            }
             SMS.Template.fill(div, data, function (item, index) {
                 return {
-                    'reqNumber': item.reqNumber,
-                    'department': item.department,
-                    'builder': item.builder,
-                    'date': item.date,
-                    'status': item.status,
-                    'dispatchTime': item.dispatchTime,
-                    'repairMan': item.repairMan,
-                    'targetItem': item.targetItem,
-                    'fixedTime': item.fixedTime,
+                    'reqNumber': item.reqNumber || '',
+                    'department': item.department || '',
+                    'builder': item.builder || '',
+                    'reqDate': item.reqDate || '',
+                    'status': item.status || '',
+                    'dispatchTime': item.dispatchTime || '',
+                    'repairMan': item.repairMan || '',
+                    'targetItem': item.targetItem || '',
+                    'fixedTime': item.fixedTime || '',
                 };
             });
             list.scrollTop = 0;

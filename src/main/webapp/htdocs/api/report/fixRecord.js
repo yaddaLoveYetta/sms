@@ -31,7 +31,7 @@ SMS.Proxy.response(function (data, config) {
             reqNumber: 'req-' + $.Math.randomInt(10000, 20000), // 申请单号
             department: 'dep-' + $.Math.randomInt(123, 321), // 科室
             builder: '深圳市南山区科技园南区'.slice($.Math.randomInt(0, 9), 3),// 申请人
-            date: $.Date.format(new Date(), "yyyy-MM-dd hh:mm:ss"), // 申请时间
+            reqDate: $.Date.format(new Date(), "yyyy-MM-dd hh:mm:ss"), // 申请时间
             status: ['已派工', '已确认'][$.Math.randomInt(0, 1)],// 状态
             dispatchTime: $.Date.format(new Date(), "yyyy-MM-dd hh:mm:ss"), // 派工时间
             repairMan: ['张山', '李四', '王老五'][$.Math.randomInt(0, 2)],// 维修人

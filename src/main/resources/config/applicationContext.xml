@@ -18,11 +18,12 @@
     <!-- ignore-unresolvable="true" /> -->
 
     <!-- 将多个配置文件读取到容器中，交给Spring管理 -->
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="propertyConfigurer" class="com.kingdee.eas.hrp.sms.filter.CustomizedPropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <!-- 这里支持多种寻址方式：classpath和file -->
                 <value>classpath:/config/jdbc-sqlserver.properties</value>
+                <value>classpath:/config/fixed-record-sql.properties</value>
             </list>
         </property>
     </bean>
@@ -92,11 +93,11 @@
         <!-- 配置初始化大小、最小、最大 -->
         <!-- 通常来说，只需要修改initialSize、minIdle、maxActive -->
         <!-- 初始化时建立物理连接的个数，缺省值为0 -->
-        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="initialSize" value="1"/>
         <!-- 最小连接池数量 -->
-        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="minIdle" value="1"/>
         <!-- 最大连接池数量，缺省值为8 -->
-        <property name="maxActive" value="${jdbc.maxActive}"/>
+        <property name="maxActive" value="2"/>
 
 
     </bean>
