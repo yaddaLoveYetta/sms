@@ -13,11 +13,9 @@ define('Data', function (require, module, exports) {
 
         var api = new API("report/getFixedRecord");
 
-        //SMS.Tips.loading('数据加载中...');
-
         api.get({
             pageNo: 1,
-            pageSize: 10,
+            pageSize: 500,
         });
 
         api.on({
