@@ -1,5 +1,4 @@
 ;(function () {
-    //alert('hello word');
 
     var $ = require('$');
     var MiniQuery = require('MiniQuery');
@@ -12,7 +11,7 @@
     var Trend = require("Trend");
     var List = require("List");
 
-//那个7日图，是近7日的申请单数量，右侧的是，截止到当天，未完成的申请单，完成的不用显示
+    //那个7日图，是近7日的申请单数量，右侧的是，截止到当天，未完成的申请单，完成的不用显示
 
     var div_order = document.getElementById('order');
     var div_trend = document.getElementById('trend');
@@ -29,19 +28,19 @@
     var order_loading = new SMS.Loading({
         selector: div_order,
         container: '#div-loading-order',
-        text: '数据加载中，请稍候...',
+        text: '数据刷新中，请稍候...',
         sample: samples.loading,
     });
     var trend_loading = new SMS.Loading({
         selector: div_trend,
         container: '#div-loading-trend',
-        text: '数据加载中，请稍候...',
+        text: '数据刷新中，请稍候...',
         sample: samples.loading,
     });
     var list_loading = new SMS.Loading({
         selector: div_list,
         container: '#div-loading-list',
-        text: '数据加载中，请稍候...',
+        text: '数据刷新中，请稍候...',
         sample: samples.loading,
     });
 

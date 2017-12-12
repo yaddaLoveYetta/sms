@@ -17,7 +17,7 @@ define('Data', function (require, module, exports) {
 
         api.get({
             pageNo: 1,
-            pageSize: 500,
+            pageSize: 10,
         });
 
         api.on({

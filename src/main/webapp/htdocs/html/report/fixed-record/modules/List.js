@@ -22,7 +22,6 @@ define('List', function (require, module, exports) {
 
 
             if (div2.offsetTop - list.scrollTop <= 0) {
-                //list.scrollTop -= div2.offsetHeight;
                 clearInterval(timer);
                 emitter.fire("refresh", []);
             }
@@ -65,6 +64,11 @@ define('List', function (require, module, exports) {
                 list.onmouseout = function () {
                     timer = setInterval(ScrollMarquee, scrollSpeed);
                 };
+            } else {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    emitter.fire("refresh", []);
+                }, 10000);
             }
 
         }
