@@ -36,6 +36,7 @@ SMS.Proxy.response(function (data, config) {
             dispatchTime: $.Date.format(new Date(), "yyyy-MM-dd hh:mm:ss"), // 派工时间
             repairMan: ['张山', '李四', '王老五'][$.Math.randomInt(0, 2)],// 维修人
             targetItem: ['飞船', '灯泡', '火箭', '坦克'][$.Math.randomInt(0, 3)],// 维修项目
+            simpleName:['短路', '缺水', '主板坏', '无影像'][$.Math.randomInt(0, 3)],// 故障类型
             fixedTime: $.Date.format(new Date(), "yyyy-MM-dd hh:mm:ss"), // 完成时间
         };
 

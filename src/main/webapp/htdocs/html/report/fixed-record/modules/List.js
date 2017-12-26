@@ -46,11 +46,12 @@ define('List', function (require, module, exports) {
                     'dispatchTime': item.dispatchTime || '',
                     'repairMan': item.repairMan || '',
                     'targetItem': item.targetItem || '',
+                    'simpleName': item.simpleName || '',
                     'fixedTime': item.fixedTime || '',
                 };
             });
             list.scrollTop = 0;
-            if (div.offsetHeight > list.offsetHeight) {
+/*            if (div.offsetHeight > list.offsetHeight) {
                 div2.innerHTML = div.innerHTML;
 
                 $(list).append($(div2))
@@ -69,7 +70,7 @@ define('List', function (require, module, exports) {
                 timer = setInterval(function () {
                     emitter.fire("refresh", []);
                 }, 10000);
-            }
+            }*/
 
         }
 
