@@ -117,7 +117,7 @@ public class OrderService extends BaseService implements IOrderService {
             }
             SupplierMapper supplierMapper = sqlSession.getMapper(SupplierMapper.class);
             Supplier supplier = supplierMapper.selectByPrimaryKey(order.getSupplier());
-            if (supplier.getMobile() != null && !supplier.getMobile().equals("")) {
+            if (supplier != null && supplier.getMobile() != null && !supplier.getMobile().equals("")) {
                 String smsContent = "您有新的订单消息,订单号:" + order.getNumber() + "!请及时处理";
                 String[] mobiles = supplier.getMobile().split(",");
                 MsgUtils.sendSMS(mobiles, smsContent);
