@@ -61,7 +61,7 @@
 }
 
 .sms-btn-menu .btn-more li {
-    text-align: center;
+    text-align: left;
     /*min-width: 80px;*/
     background-color: transparent;
     font-size: 14px;
