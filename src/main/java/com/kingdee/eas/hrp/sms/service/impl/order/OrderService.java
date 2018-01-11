@@ -153,7 +153,7 @@ public class OrderService extends BaseService implements IOrderService {
         if (rps == null || rps.equals("")) {
             throw new BusinessLogicRunTimeException("网络错误!接单失败，请稍后再试");
         }
-        if (rps.get("code").equals("200")) {
+        if (rps.getIntValue("code") == 200) {
             // 发送成功后开启事务更新本地订单接单状态
 
             PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
@@ -242,7 +242,7 @@ public class OrderService extends BaseService implements IOrderService {
                 }
             });
         } else {
-            throw new BusinessLogicRunTimeException("接单失败,确认数量或确认交货日期不能为空");
+            throw new BusinessLogicRunTimeException("接单信息发送至HRP错误:" + rps.getString("msg"));
         }
     }
 
