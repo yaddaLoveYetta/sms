@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>打印机设置</title>
+    <script src="../../../lib/jatoolsPrinter/jcp.js"></script>
+    <script>
+        function updatePapers(printer) {
+            var paperlist = document.getElementById('paper-list');
+            paperlist.options.length = 0;
+            if (printer) {
+                getJCP().getPapers(printer, function (papers) {
+
+                    for (i = 0; i < papers.length; i++)
+                        paperlist.options[i + 1] = new Option(papers[i].name, papers[i].name);
+
+                });
+            }
+        }
+
+        function loadPrinters() {
+            getJCP().getPrinters(
+                function (printers) {
+                    var printerlist = document.getElementById('printer-list');
+                    for (i = 0; i < printers.length; i++)
+                        printerlist.options[i + 1] = new Option(printers[i],
+                            printers[i]);
+                    printerlist.options[0].selected = true;
+                })
+        }
+
+        function printerChanged() {
+            var printerlist = document.getElementById('printer-list');
+            updatePapers(printerlist.value);
+        }
+
+        function doPrint(how) {
+            var myDoc = {
+                settings: {
+                    printer: document.getElementById('printer-list').value,// 设置选中的打印机
+                    paperName: document.getElementById('paper-list').value,// 设置选中的打印机
+                    portrait: document.getElementById('portrait').checked
+
+                },
+
+                documents: document,
+                copyrights: '杰创软件拥有版权  www.jatools.com'
+            };
+
+            var margin = document.getElementById('margin-list').value;
+            if (margin) {
+                // 如果选择了边距，则设置
+                margin = parseFloat(margin);
+                myDoc.settings.marginLeft = margin;
+                myDoc.settings.marginRight = margin;
+                myDoc.settings.marginTop = margin;
+                myDoc.settings.marginBottom = margin;
+            }
+
+            var jcp = getJCP();
+
+            if (how == '打印预览...')
+                jcp.printPreview(myDoc); // 打印预览
+
+            else if (how == '打印...')
+                jcp.print(myDoc, true); // 打印前弹出打印设置对话框
+
+            else
+                jcp.print(myDoc, false); // 不弹出对话框打印
+
+        }
+
+        function getDefaultPrinter() {
+            getJCP().getDefaultPrinter(function (result) {
+                document.getElementById("default-printer").innerText = result;
+            })
+        }
+
+        function setDefaultPrinter() {
+            var printerlist = document.getElementById('printer-list');
+            getJCP().setDefaultPrinter(printerlist.value, function () {
+                getDefaultPrinter();
+            });
+        }
+
+    </script>
+
+</head>
+<body onload="loadPrinters()">
+
+<ul class='demo'>
+    <li>
+        <span>选择打印机:</span>
+        <span>
+				<select id="printer-list" onchange='printerChanged()'></select>
+				<input type="button" value="设置为默认打印机" onClick="setDefaultPrinter()">
+			</span>
+    </li>
+    <li>
+        <span>当前默认打印机:</span>
+        <span id='default-printer'></span>
+    </li>
+
+    <li>
+        <span>可用纸张:</span>
+        <span>
+				<select id="paper-list"></select>
+			</span>
+    </li>
+    <li>
+        <span>方向:</span>
+        <span>
+				<label>
+					纵向
+					<input type='radio' id="portrait" name="paper-orientation" value="true" checked>
+				</label>
+				<label>
+					横向
+					<input type='radio' name="paper-orientation" value="false">
+				</label>
+			</span>
+    </li>
+    <li>
+        <span>页边距(mm):</span>
+        <span>
+				<select id="margin-list">
+					<option></option>
+					<option value="10">10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+					<option value="25">25</option>
+					<option value="30">30</option>
+				</select>
+			</span>
+    </li>
+    <li>
+        <span></span>
+        <span>
+				<br/>
+				<input type="button" value="打印预览..." onClick="doPrint('打印预览...')">
+				<input type="button" value="打印..." onClick="doPrint('打印...')">
+				<input type="button" value="打印" onClick="doPrint('打印')">
+			</span>
+    </li>
+</ul>
+</body>
+</html>

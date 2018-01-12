@@ -35,8 +35,9 @@ select option {
 }
 
 .item {
-    /*	width: 200px;
-        height: 200px;*/
+    	width: 200px;
+        height: 200px;
+        color: red;
     margin-bottom: 5px;
     margin-right: 5px;
     padding: 5px;

@@ -170,14 +170,15 @@
             });
         },
         'print': function (item, index) {
-            //print();
+            print();
 
             // 调用本地打印程序
 
-            var $aa = $('<a></a>');
+/*            var $aa = $('<a></a>');
             $aa.attr('href', 'CodePrint://print');
             console.log($aa.attr('href'));
-            $aa.get(0).click();
+            $aa.get(0).click();*/
+
             /*    if ($.browser.msie || $.browser.mozilla) {
                     $aa.get(0).click();
                 } else {

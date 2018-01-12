@@ -27,18 +27,22 @@ define('ButtonList', function (require, module, exports) {
             text: '打印',
             name: 'optPrint',
             icon: '../../css/main/img/print.png',
-        }]
+        }, {
+            text: '选择打印机',
+            name: 'optPrintSelect',
+            icon: '../../css/main/img/print.png',
+        }
+        ]
     };
 
 
+    var bl = new ButtonList(config);
 
-        var bl = new ButtonList(config);
+    // 总事件，最后触发
+    bl.on('click', function (item, index) {
+        console.dir(item);
+    });
 
-        // 总事件，最后触发
-        bl.on('click', function (item, index) {
-            console.dir(item);
-        });
-
-        return bl;
+    return bl;
 
 });

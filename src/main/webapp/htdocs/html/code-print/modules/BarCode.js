@@ -73,6 +73,7 @@ define('BarCode', function (require, module, exports) {
         div.innerHTML = $.Array.keep(code, function (item, index) {
 
             return $.String.format(samples["codes"], {
+                id:'page'+(index+1),
                 index: index,
                 name: item.name || '',
                 model: item.specification || '',

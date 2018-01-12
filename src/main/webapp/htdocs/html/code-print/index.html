@@ -7,10 +7,15 @@
     <link rel="stylesheet" href="../../css/global.debug.css"/>
     <link rel="stylesheet" href="../../css/base.css"/>
     <link rel="stylesheet" href="../../css/code-print/index.debug.css">
+
     <!--grunt.css.end-->
+<!--    <OBJECT ID="jatoolsPrinter" CLASSID="CLSID:B43D3361-D075-4BE2-87FE-057188254255"
+            codebase="/sms/htdocs/lib/jatoolsPrinter/jatoolsPrinter.cab#version=8,6,0,0" width="0"
+            height="0"></OBJECT>-->
 </head>
 
 <body class="iframe">
+
 <!--按钮区-->
 <div class="options">
     <div id="div-button-list" class="btn-box"></div>
@@ -47,7 +52,7 @@
         <div id="code">
 
             <!--
-            <div class="item" data-index="{index}">
+            <div id='{id}' class="item" data-index="{index}">
                 <span class="title">广州红十字会高值管理条码</span>
 
                 <div class='bc-target' data-index="{index}"></div>
@@ -73,8 +78,12 @@
 <script src="../../config.js"></script>
 
 <!--<script src="../../lib/jquery-barcode-2.0.3/jquery/jquery-barcode.min.js"></script>-->
-<script src="../../lib/jquery.jqprint/jquery.jqprint-0.3.js"></script>
-<script src="../../lib/jquery.jqprint/jquery-migrate-1.2.1.min.js"></script>
+<!--<script src="../../lib/jquery.jqprint/jquery.jqprint-0.3.js"></script>
+<script src="../../lib/jquery.jqprint/jquery-migrate-1.2.1.min.js"></script>-->
+
+<!--<script src="../../lib/jatoolsPrinter/jatoolsPrinter.js"></script>-->
+<!--<script src="../../lib/jatoolsPrinter/jcp.js"></script>-->
+<script type="text/javascript" src="http://print.jatools.com/jcp/0.99/jcp.js"></script>
 <!--grunt.js.begin-->
 <script src="modules/ButtonList.js"></script>
 <script src="modules/BarCode.js"></script>
