@@ -44,6 +44,8 @@ public class OrderEntry {
 
     private String department;
 
+    private String remark;
+
     public String getId() {
         return id;
     }
@@ -202,5 +204,13 @@ public class OrderEntry {
 
     public void setDepartment(String department) {
         this.department = department == null ? null : department.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

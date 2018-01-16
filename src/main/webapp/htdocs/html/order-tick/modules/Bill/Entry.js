@@ -52,7 +52,7 @@ define('Bill/Entry', function (require, module, exports) {
 
             //要展示的列
             var showKeys = ['entryId', 'parent', 'material', 'specification', 'unit', 'qty',
-                'confirmDate', 'deliveryDate', 'confirmQty'];
+                'confirmDate', 'deliveryDate', 'confirmQty','remark'];
 
             //可编辑的列
             var editKeys = ['confirmQty', 'confirmDate'];
