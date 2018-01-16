@@ -1800,8 +1800,8 @@ public class TemplateService extends BaseService implements ITemplateService {
              * lessThan 等于 <=
              * greaterThan 等于 >=
              */
-
-            switch (logicOperator.toLowerCase()) {
+            String logicOperatorCopy = logicOperator.toLowerCase();
+            switch (logicOperatorCopy) {
                 case "equal":
                     logicOperator = "=";
                     break;
