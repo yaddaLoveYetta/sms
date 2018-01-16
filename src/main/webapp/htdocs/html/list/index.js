@@ -174,10 +174,10 @@
 
             // 调用本地打印程序
 
-/*            var $aa = $('<a></a>');
-            $aa.attr('href', 'CodePrint://print');
-            console.log($aa.attr('href'));
-            $aa.get(0).click();*/
+            /*            var $aa = $('<a></a>');
+                        $aa.attr('href', 'CodePrint://print');
+                        console.log($aa.attr('href'));
+                        $aa.get(0).click();*/
 
             /*    if ($.browser.msie || $.browser.mozilla) {
                     $aa.get(0).click();
@@ -444,7 +444,8 @@
 
         api.on({
             'success': function (data, json) {
-                showCode(data);
+                localPrint(data);
+                //showCode(data);
             },
 
             'fail': function (code, msg, json) {
@@ -455,6 +456,23 @@
                 SMS.Tips.error('网络错误，请稍候再试', 1500);
             }
         });
+
+        /**
+         * 调用本地打印程序进行打印
+         * @param data
+         */
+        function localPrint(data) {
+
+            if (data.length === 0) {
+                SMS.Tips.error('发货单无个体码数据!', 1500);
+                return;
+            }
+
+            var $aa = $('<a></a>');
+            $aa.attr('href', 'CodePrint://?data=' + JSON.stringify(data));
+            console.log($aa.attr('href'));
+            $aa.get(0).click();
+        }
 
         function showCode(data) {
 

@@ -42,6 +42,20 @@
                 -->
             </select>
         </div>
+        <div id="div-printer-list" class="code-style-box">
+            <select id="printerList">
+                <!--
+                <option value="{value}">"{text}"</option>
+                -->
+            </select>
+        </div>
+        <div id="div-paper-list" class="code-style-box">
+            <select id="paperList">
+                <!--
+                <option value="{value}">"{text}"</option>
+                -->
+            </select>
+        </div>
     </div>
 </div>
 <!--主显示区-->
@@ -52,15 +66,15 @@
         <div id="code">
 
             <!--
-            <div id='{id}' class="item" data-index="{index}">
+            <div id='{id}' class="item" data-index="{index}" style='position: relative; width: 50mm; height: 50mm; margin: auto'>
                 <span class="title">广州红十字会高值管理条码</span>
 
-                <div class='bc-target' data-index="{index}"></div>
+                <div draggable='true' style='position: absolute;' class='bc-target' data-index="{index}"></div>
 
-                <div class="footer">物料名称：{name}</div>
-                <div class="footer">规格型号：{model}</div>
-                <div class="footer">有效期：{effective}</div>
-                <div class="footer">批号：{batch}</div>
+                <div draggable='true' style='position: absolute;' class="footer">物料名称：{name}</div>
+                <div draggable='true' style='position: absolute;' class="footer">规格型号：{model}</div>
+                <div draggable='true' style='position: absolute;' class="footer">有效期：{effective}</div>
+                <div draggable='true' style='position: absolute;' class="footer">批号：{batch}</div>
             </div>
             <div style="page-break-after:always;"></div>
             -->

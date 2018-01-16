@@ -17,10 +17,14 @@ define('BarCode', function (require, module, exports) {
     var codeType = document.getElementById('codeType');
     var codeWidth = document.getElementById('codeWidth');
     var codeHeight = document.getElementById('codeHeight');
+    var printerList = document.getElementById('printerList');
+    var paperList = document.getElementById('paperList');
 
     var codeTypes = ['code39', 'code93', 'code128'];
     var codeWidths = [1, 2, 3];
     var codeHeights = [50, 60, 70];
+
+    var printerLists = [];
 
     var codeData = [];
     var hasBind = false;
@@ -50,6 +54,15 @@ define('BarCode', function (require, module, exports) {
 
         $(codeType).val('code128');// 默认code128编码
 
+        printerList.innerHTML = $.Array.keep(printerLists, function (item, index) {
+                return $.String.format('<option value={value}>{text}</option>', {
+                    value: item,
+                    text: item,
+                });
+            }
+        ).join('');
+
+
         codeWidth.innerHTML = $.Array.keep(codeWidths, function (item, index) {
                 return $.String.format('<option value={value}>{text}</option>', {
                     value: item,
@@ -73,7 +86,7 @@ define('BarCode', function (require, module, exports) {
         div.innerHTML = $.Array.keep(code, function (item, index) {
 
             return $.String.format(samples["codes"], {
-                id:'page'+(index+1),
+                id: 'page' + (index + 1),
                 index: index,
                 name: item.name || '',
                 model: item.specification || '',

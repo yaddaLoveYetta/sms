@@ -47,6 +47,10 @@
             });
 
             var myDoc = {
+                ui: "design", // 进入设计模式
+                dragDesigner: {viewSource: false},  // 必须设置,
+                //fitToPage: true,   //必要时缩放打印
+
                 //第一次打印时，注册表中没有‘mysettings2’的打印参数
                 //所以使用上面指定的参数
                 //打印后，控件自动将最后一次打印设置保存
@@ -54,24 +58,26 @@
                 //上述的settings将被忽略
                 //settingsID: "mySettings2",
                 //print_settings
+                settingsID: 'mydoc2',    // 会在注册表中记录该布局样式
                 settings: {
                     // 如果想使用默认打印机,不需要设置
                     printer: 'Microsoft Print to PDF',
+                    copies: 1,  	//打印份数
                     //paperName:'a4',
                     // 指定纸张的高宽以毫米为单位z,本设置实际是指定为a4大小
                     /*       pageWidth: 2100,
                            pageHeight: 2970,*/
-                    pageWidth: 1397,
-                    pageHeight: 2100,
-                    // 指定打打印方向为横向, 1/2 = 纵向/横向
-                    orientation: 2
+                    paperWidth: '50mm',
+                    paperHeight: '50mm',
+                    orientationMixed: true,   // 此属性通知控件，存在有纵有横的打印页面
+                    orientation: 2,// 指定打打印方向为横向, 1/2 = 纵向/横向
                 },
                 documents: {
                     //当只有一页时，可以直接以字符串指定，如：
                     //documents: {html:'<span>我是老大！</span>'},
-                    html: document, // 用 html 指定每页的html，数组，每个元素表示一页
+                    html: html, // 用 html 指定每页的html，数组，每个元素表示一页
                     //style: "span#second{font-size:150%;}" // 可以用 style指定所有页面的 css
-                    style:['../../css/code-print/index.debug.css'],
+                    // style:['../../css/code-print/index.debug.css'],
                 },
                 importedStyle: ['../../css/code-print/index.debug.css'],
 
@@ -83,7 +89,7 @@
                 window.close();
             }
             var jcp = getJCP();
-            jcp.printPreview(myDoc,true); // 打印预览
+            jcp.printPreview(myDoc); // 打印预览，显示进度条
 
             // 弹出对话框打
             //var jatoolsPrinter = document.getElementById("jatoolsPrinter");
