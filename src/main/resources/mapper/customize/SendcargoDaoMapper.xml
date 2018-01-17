@@ -5,28 +5,34 @@
 
     <!--根据Id查询个体码-->
     <select id="selectInvoiceById" parameterType="map" resultType="map">
-        SELECT
-        i.code,
-        i.effectiveDate,
-        i.dyBatchNum,
-        t.name,
-        t.specification
-        FROM
-        t_sms_sendcargo_entry i
-        INNER JOIN
-        t_sms_item t
-        ON i.material = t.id
-        INNER JOIN
-        t_sms_sendcargo v
-        ON i.parent = v.id
+		SELECT
+		t1.code,
+		t1.effectiveDate,
+		t1.dyBatchNum,
+		t1.dyProDate,
+		t2.name AS material_DspName,
+		t2.number AS material_NmbName,
+		t2.specification,
+		t3.number,
+		t3."Date" as "date",
+		t6.name AS saleProxy_DspName,
+		t4.number AS orderNumber,
+		t5.name AS unit_DspName
+		FROM
+		t_sms_sendcargo_entry t1
+		INNER JOIN t_sms_item t2 ON t1.material = t2.id
+		INNER JOIN t_sms_sendcargo t3 ON t1.parent = t3.id
+		LEFT JOIN t_sms_purchase_order t4 ON t1.orderId = t4.id
+		INNER JOIN t_sms_unit t5 ON t1.unit = t5.id
+		INNER JOIN t_sms_sale_proxy t6 ON t3.saleProxy = t6.id
         WHERE
-        v.id in
+		t3.id in
         <foreach collection="id" index="index" item="item" open="("
                  separator="," close=")">
             #{item}
         </foreach>
         AND
-        i.code !=''
+		t1.code !=''
     </select>
 
     <select id="selectInvoiceEntryByParent" parameterType="String" resultType="map">

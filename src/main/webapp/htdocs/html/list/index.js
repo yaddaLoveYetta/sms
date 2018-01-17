@@ -469,7 +469,7 @@
             }
 
             var $aa = $('<a></a>');
-            $aa.attr('href', 'CodePrint://?data=' + JSON.stringify(data));
+            $aa.attr('href', 'CodePrint://?data=' + JSON.stringify(data).replace(/\"/g,'\\"'));
             console.log($aa.attr('href'));
             $aa.get(0).click();
         }
