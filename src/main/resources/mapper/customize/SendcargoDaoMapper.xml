@@ -14,7 +14,7 @@
 		t2.number AS material_NmbName,
 		t2.specification,
 		t3.number,
-		t3."Date" as "date",
+		t3."Date" as "Date",
 		t6.name AS saleProxy_DspName,
 		t4.number AS orderNumber,
 		t5.name AS unit_DspName
