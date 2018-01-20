@@ -6335,6 +6335,7 @@
                     sortable: false
                 },
                 rownumbers: true,
+                rowNum: data.length,// 全部显示，默认值：20
                 cellEdit: true,
                 // altRows: true,
                 shrinkToFit: false,
@@ -6360,7 +6361,7 @@
                 },
 
                 loadComplete: function (data) {
-                    config.fnLoadComplete && config.fnLoadComplete(data);
+                    config.fnLoadComplete && config.fnLoadComplete(cfg.grid);
                 },
             });
 
