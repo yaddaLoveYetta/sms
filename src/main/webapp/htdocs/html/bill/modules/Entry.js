@@ -29,7 +29,7 @@ define('Entry', function (require, module, exports) {
 
         var defaults = {
             gridName: 'bd-grid',
-            width: $(window).width() - 5,
+            width: $(window).width() - 20,
             height: 'auto',
             classId: template.formClass.classId,
         };

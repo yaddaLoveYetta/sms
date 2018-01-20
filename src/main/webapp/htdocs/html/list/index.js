@@ -360,8 +360,8 @@
 
                 var dialog = new Dialog({
                     title: '生成发货单',
-                    width: 1024,
-                    height: 550,
+                    width: $(window).width() - 200,
+                    height: $(window).height(),
                     url: $.Url.setQueryString('html/bill/index.html', {
                         'classId': 2020,
                         'type': 1,
@@ -469,7 +469,7 @@
             }
 
             var $aa = $('<a></a>');
-            $aa.attr('href', 'CodePrint://?data=' + JSON.stringify(data).replace(/\"/g,'\\"'));
+            $aa.attr('href', 'CodePrint://?data=' + JSON.stringify(data).replace(/\"/g, '\\"'));
             console.log($aa.attr('href'));
             $aa.get(0).click();
         }
