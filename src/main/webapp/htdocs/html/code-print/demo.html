@@ -1,83 +1,29 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    <title>我的第一个打印文档</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="guide.css"/>
-    <title>可视化设计套打</title>
-    <script type="text/javascript" src="http://print.jatools.com/jcp/0.99/jcp.js"></script>
+    <!-- 插入打印控件 -->
+
     <script>
-        function design() {
-
+        function doPrint() {
             var myDoc = {
-                ui: "design", // 进入设计模式
-                settings: {
-                    paperWidth: 210,
-                    paperHeight: 140,
-                    orientation: 1
-                },
-
                 documents: document,
-                noMargins: true,
-
-                settingsId: 'mydoc2',
-                copyrights: "杰创软件拥有版权  www.jatools.com"
-            }
-
-            getJCP().printPreview(myDoc);
+                /*
+                 要打印的div 对象在本文档中，控件将从本文档中的 id 为 'page1' 的div对象，
+                 作为首页打印id 为'page2'的作为第二页打印            */
+                copyrights: '杰创软件拥有版权  www.jatools.com' // 版权声明,必须
+            };
+            document.getElementById("jatoolsPrinter").print(myDoc, false); // 直接打印，不弹出打印机设置对话框
         }
+
     </script>
-    <style>
-        .title {
-            font-family: Arial, Vernada, Tahoma, sans-serif;
-            font-size: 30px;
-            color: #00008B;
-            background-color: White;
-            text-decoration: underline
-        }
-
-        .normal {
-            font-family: Arial, Vernada, Tahoma, Helvetica, sans-serif;
-            font-size: 14px;
-            color: #444444;
-            text-decoration: none;
-            line-height: 180%;
-        }
-
-        span.src {
-            font-size: 9pt;
-            margin-left: 100px;
-        }
-
-        #page1 DIV {
-            position: absolute;
-        }
-
-        .f1, .f2, .f3, .f4, .f5, .f6, .f7, .f8 {
-            top: 80;
-            left: 2;
-        }
-    </style>
 </head>
-<body>
-<p>
-    <span class="title">可视化设计套打</span>
-</p>
-<br/>
-<input type="button" value="设计" onClick="design()">
-<br/>
-<br/>
-<div style='background-color: #ff3fff; width: 100%; padding: 30px 0;'>
-    <div id="page1" style='position: relative; width: 210mm; height: 140mm; margin: auto'>
-        <img class='screen-only' src="cases/2088869/3.jpg" style='position: absolute; width: 100%; height: 100%;'/>
-        <div id='f1' draggable='true' class='f1 my-f1' style='position: absolute;'>423051702880563</div>
-        <div id='f2' draggable='true' class='f2 my-f2' style='position: absolute;'>13850775557</div>
-        <div id='f3' draggable='true' class='f3 my-f3' style='position: absolute;'>￥30.00</div>
-        <div id='f4' draggable='true' class='f4 my-f4' style='position: absolute;'>￥叁拾元整</div>
-        <div id='f5' draggable='true' class='f5 my-f5' style='position: absolute;'>423051702880563</div>
-        <div id='f6' draggable='true' class='f6 my-f6' style='position: absolute;'>12</div>
-        <div id='f7' draggable='true' class='f7 my-f7' style='position: absolute;'>24</div>
-        <div id='f8' draggable='true' class='f8 my-f8' style='position: absolute;'>7</div>
-    </div>
-</div>
+<body style='padding:10px;'>
+<span style='color:#B7C1D3;font-size:25px;font-family:"Microsoft YaHei","黑体",​"Segoe UI",​sans-serif'>我的第一个打印文档</span><br><br>
+<input type="button" value="打印" onClick='doPrint()'><br><br>
+<div id='page1' style='width:300px;height:300px;border:2px solid green'>Hello world</div>
+<OBJECT  ID="jatoolsPrinter" CLASSID="CLSID:B43D3361-D075-4BE2-87FE-057188254255"
+         codebase="jatoolsPrinter.cab#version=8,6,0,0"></OBJECT>
 </body>
 </html>

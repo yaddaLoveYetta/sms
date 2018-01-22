@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>我的第一个打印文档</title>
+    <!-- 插入打印控件 -->
+    <OBJECT ID="jatoolsPrinter" CLASSID="CLSID:B43D3361-D075-4BE2-87FE-057188254255"
+            codebase="jatoolsPrinter.cab#version=8,6,0,0"></OBJECT>
+
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        .f1 {
+            /* 标题*/
+            /*            left: 0px;
+                        top: 0px;*/
+            word-wrap: break-word;
+            word-break: normal;
+        }
+
+        .f2 {
+            /* 标题*/
+            /*       left: 0px;
+                   top: 20px;*/
+            word-wrap: break-word;
+            table-layout: auto;
+        }
+
+        .f3 {
+            /* 标题*/
+            /*  left: 0px;
+              top: 60px;*/
+            word-wrap: break-word;
+        }
+
+        .f4 {
+            /* 标题*/
+            /*left: 0px;
+            top: 60px;*/
+            word-wrap: break-word;
+        }
+
+        .f5 {
+            /* 标题*/
+            /*   left: 0px;
+               top: 80px;*/
+            word-wrap: break-word;
+        }
+
+        .item {
+
+            border: 5px solid red;
+            border-right: 5px solid blue;
+            float: left;
+        }
+    </style>
+</head>
+<body style=" padding:0px;">
+
+<div class="main-content">
+
+    <div id="div-content" class="content-box">
+
+        <div id="code">
+
+
+            <div id='page1' class="item" data-index="1"
+                 style='position: relative; width: 60mm; height: 30mm; margin: auto'>
+                <div draggable='true' style='position: relative;' class='f1'>广州红十字会高值管理条码</div>
+                <div draggable='true' style='position: relative;' class='f2'>物料名称：可吸收缝合线VICRYL Plus强生VCP358H---可吸收缝合线VICRYL Plus强生VCP358H---可吸收缝合线VICRYL Plus强生VCP358H</div>
+                <div draggable='true' style='position: relative;' class='f3'>规格型号：36条/合</div>
+                <div draggable='true' style='position: relative;' class='f4'>有效期：2018-01-11</div>
+                <div draggable='true' style='position: relative;' class='f5'>批号：60</div>
+            </div>
+
+            <div id='page2' class="item" data-index="1"
+                 style='position: relative; width: 60mm; height: 30mm; margin: auto'>
+                <div draggable='true' style='position: relative;' class='f1'>广州红十字会高值管理条码</div>
+                <div draggable='true' style='position: relative;' class='f2'>物料名称：可吸收缝合线VICRYL Plus强生VCP358H</div>
+                <div draggable='true' style='position: relative;' class='f3'>规格型号：36条/合</div>
+                <div draggable='true' style='position: relative;' class='f4'>有效期：2018-01-11</div>
+                <div draggable='true' style='position: relative;' class='f5'>批号：60</div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<input type="button" value="打印" onClick='doPrint()'>
+
+<script src="../../lib/jquery/jquery-1.11.1.debug.js"></script>
+<script src="../../lib/miniquery/miniquery.debug.js"></script>
+<script src="../../lib/sms/sms.debug.js"></script>
+<script src="../../config.js"></script>
+
+<!--grunt.js.begin-->
+<script src="modules/ButtonList.js"></script>
+<script src="modules/BarCode.js"></script>
+<script src="modules/Samples.js"></script>
+<!--grunt.js.end-->
+
+<script>
+    function doPrint() {
+        myDoc = {
+
+            ui: "design", // 进入设计模式
+            dragDesigner: {viewSource: false},  // 必须设置,
+
+            documents: document,
+
+            settings: {
+                // 如果想使用默认打印机,不需要设置
+                printer: 'Microsoft Print to PDF',
+                copies: 1,  	//打印份数
+                //paperName:'a4',
+                // 指定纸张的高宽以毫米为单位z,本设置实际是指定为a4大小
+                /*       pageWidth: 2100,
+                       pageHeight: 2970,*/
+                paperWidth: '60',
+                paperHeight: '30',
+                //orientationMixed: true,   // 此属性通知控件，存在有纵有横的打印页面
+                orientation: 2,// 指定打打印方向为横向, 1/2 = 纵向/横向
+
+                topMargin: 0,
+                leftMargin: 0,
+                bottomMargin: 0,
+                rightMargin: 0
+            },
+            /*
+             要打印的div 对象在本文档中，控件将从本文档中的 id 为 'page1' 的div对象，
+             作为首页打印id 为'page2'的作为第二页打印            */
+            copyrights: '杰创软件拥有版权  www.jatools.com' // 版权声明,必须
+        };
+        //document.getElementById("jatoolsPrinter").print(myDoc, false); // 直接打印，不弹出打印机设置对话框
+        document.getElementById("jatoolsPrinter").printPreview(myDoc); // 直接打印，不弹出打印机设置对话框
+    }
+</script>
+
+</body>
+</html>

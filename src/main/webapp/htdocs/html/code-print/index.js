@@ -67,8 +67,8 @@
                     // 指定纸张的高宽以毫米为单位z,本设置实际是指定为a4大小
                     /*       pageWidth: 2100,
                            pageHeight: 2970,*/
-                    paperWidth: '50mm',
-                    paperHeight: '50mm',
+                    paperWidth: '60mm',
+                    paperHeight: '30mm',
                     orientationMixed: true,   // 此属性通知控件，存在有纵有横的打印页面
                     orientation: 2,// 指定打打印方向为横向, 1/2 = 纵向/横向
                 },

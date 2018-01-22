@@ -468,10 +468,29 @@
                 return;
             }
 
-            var $aa = $('<a></a>');
-            $aa.attr('href', 'CodePrint://?data=' + JSON.stringify(data).replace(/\"/g, '\\"'));
-            console.log($aa.attr('href'));
-            $aa.get(0).click();
+            var href = 'http://127.0.0.1:30000?data=' + JSON.stringify(data);
+            var $frame = $('#print');
+
+            if ($frame.length === 0) {
+                $frame = $('<iframe id="print" style="position: absolute; top: -9999px;" ' + ' ></iframe>');
+
+                $('body').append($frame);
+            }
+            $frame.attr('src', '');
+            $frame.attr('src', href);
+            // $frame.remove();
+            /*            var $aa = $('<a></a>');
+                        //$aa.attr('href', 'CodePrint://?data=' + JSON.stringify(data).replace(/\"/g, '\\"'));
+                        $aa.attr('href', 'http://127.0.0.1:30000?data=' + JSON.stringify(data));
+                        $aa.attr('target', 'aaa');
+                        /!*            $aa.on('click', function () {
+                                        window.location.href = "http://127.0.0.1:30000?data=" + JSON.stringify(data);
+                                        $(this).remove();
+                                        return false;
+                                    });*!/
+                        $aa.get(0).click();
+                        $aa.remove();
+                        $frame.remove();*/
         }
 
         function showCode(data) {
