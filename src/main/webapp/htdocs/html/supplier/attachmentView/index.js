@@ -46,8 +46,12 @@
         var entryItem;
         var fileName;
 
-        var api = new API("file/download");
-        var url = api.getUrl();
+        /*        var api = new API("file/download");
+                var url = api.getUrl();*/
+
+        // url参数中有完整回调地址直接被院方防火墙拦截……
+        // 改为接口地址
+        var url = getProjectPath() + "/file/download";
 
         for (var i = 0; i < items.length; i++) {
             item = items[i];
@@ -100,6 +104,17 @@
         }
 
         return list;
+
+        function getProjectPath() {
+            var curWwwPath = window.document.location.href;
+            // 获取主机地址之后的目录，如： htdocs/html/meun.jsp
+            var pathName = window.document.location.pathname;
+            var pos = curWwwPath.indexOf(pathName);
+            // 获取主机地址，如： http://localhost:8080
+            var localhostPaht = curWwwPath.substring(0, pos);
+            // 获取带"/"的项目名，如：/sms
+            return  pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+        }
     }
 
     var blConfig = {
@@ -155,7 +170,7 @@
                 item.check = 1;
                 Header.render(item);
                 SMS.Tips.success('操作成功！', 500);
-                
+
                 setTimeout(function () {
                     var item_next = getItem(1);
                     if (item_next === item) {
@@ -163,7 +178,7 @@
                     }
                     Iframes.add(item_next);
                     Header.render(item_next);
-                },500)
+                }, 500)
             });
 
         },
@@ -178,7 +193,7 @@
                 item.check = 0;
                 Header.render(item);
                 SMS.Tips.success('操作成功！', 500);
-                
+
                 setTimeout(function () {
                     var item_next = getItem(1);
                     if (item_next === item) {
@@ -186,7 +201,7 @@
                     }
                     Iframes.add(item_next);
                     Header.render(item_next);
-                },500)
+                }, 500)
             });
 
         }
