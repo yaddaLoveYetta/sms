@@ -28,6 +28,8 @@
 	<!-- 添加注解驱动 -->
 	<mvc:annotation-driven />
 
+	<!--启用默认的静态资源处理Servlet处理静态资源-配合web.xml使用 -->
+	<mvc:default-servlet-handler/>
 
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
