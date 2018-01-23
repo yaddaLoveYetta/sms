@@ -35,9 +35,9 @@ define('Entry', function (require, module, exports) {
         };
 
         if (billGrid) {
-/*            billGrid.clear();
-            billGrid.render(defaults, data, template, 1);
-            return;*/
+            /*            billGrid.clear();
+                        billGrid.render(defaults, data, template, 1);
+                        return;*/
             billGrid.unload();
         }
         SMS.use('Grid', function (Grid) {
@@ -165,8 +165,10 @@ define('Entry', function (require, module, exports) {
 
             clearTimeout(tid);
 
-            tid = setTimeout(function () { //窗口大小变化停止一定时间后才重新启动定时器
-                billGrid.setGridWidth($(window).width() - 2);
+            //窗口大小变化停止一定时间后才重新启动定时器
+            tid = setTimeout(function () {
+                // billGrid为异步加载，此处不一定加载完成，增加判断
+                billGrid && billGrid.setGridWidth($(window).width() - 2);
             }, 500);
 
         });
