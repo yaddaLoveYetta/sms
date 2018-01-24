@@ -44,7 +44,8 @@ define('Upload', function (require, module, exports) {
             height: 25,
             fileSizeLimit: "10MB",
             fileTypeDesc: '文件',
-            fileTypeExts: '*.pdf;*.jpg;*.jpeg;*.png;*.gif',
+            //fileTypeExts: '*.pdf;*.jpg;*.jpeg;*.png;*.gif',
+            fileTypeExts: '*.pdf',
             multi: true,
             method: 'post',
             removeCompleted: true,// 上传完成后自动删除队列
