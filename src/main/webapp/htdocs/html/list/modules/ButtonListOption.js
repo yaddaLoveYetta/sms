@@ -30,6 +30,11 @@ define('ButtonListOption', function (require, module, exports) {
                             icon: '../../css/main/img/detail.png'
                         },
                         {
+                            text: '删除',
+                            name: 'delete',
+                            icon: '../../css/main/img/delete.png',
+                        },
+                        {
                             text: '生成发货单',
                             name: 'deliver',
                             icon: '../../css/main/img/deliver.png'

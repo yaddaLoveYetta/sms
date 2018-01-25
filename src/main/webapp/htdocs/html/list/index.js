@@ -151,8 +151,8 @@
         },
         'delete': function (item, index) {
 
-            if (parseInt(classId) !== 2020) {
-                return;// 只有发货单有删除功能
+            if (parseInt(classId) !== 2020 && parseInt(classId) !== 2019) {
+                return;// 目前只有订单/发货单有删除功能
             }
 
             var list = List.getSelectedItems();
