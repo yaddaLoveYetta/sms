@@ -200,8 +200,8 @@ public class OrderService extends BaseService implements IOrderService {
                             if ("".equals(entryId)) {
                                 throw new BusinessLogicRunTimeException("数据错误,缺少分录内码");
                             }
-                            if (confirmQty <= 0) {
-                                throw new BusinessLogicRunTimeException("数据错误,缺少接单数量");
+                            if (confirmQty < 0) {
+                                throw new BusinessLogicRunTimeException("数据错误,接单数量不能小于0");
                             }
                             if (null == confirmDate) {
                                 throw new BusinessLogicRunTimeException("数据错误,缺少接单日期或格式不正确");
