@@ -1,5 +1,6 @@
 package com.kingdee.eas.hrp.sms.service.plugin.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
@@ -411,14 +412,18 @@ public class BillPlugin extends PlugInAdpter {
         }
 
         if (classId == 2019) {
-            // 采购订单
+            // 采购订单删除校验-->已经发货的订单不能删除
             String[] ids = data.split("\\,");
             for (int i = 0; i < ids.length; i++) {
                 ITemplateService temp = Environ.getBean(ITemplateService.class);
                 Map<String, Object> item = temp.getItemById(classId, ids[i]);
-                if (item.get("confirmTick") != null) {
-                    if (Integer.parseInt(item.get("confirmTick").toString()) == 1) {
-                        throw new BusinessLogicRunTimeException("供应商已接单不可删除!");
+
+                JSONArray page1 = JSONArray.parseArray(JSON.toJSONString(((Map<String, Object>) item.get("entry")).get("1")));
+
+                for (int j = 0; j < page1.size(); j++) {
+                    JSONObject entry = page1.getJSONObject(j);
+                    if (entry.getDoubleValue("invoiceQty") > 0) {
+                        throw new BusinessLogicRunTimeException(String.format("订单[%s]有发货不可删除!", item.get("number")));
                     }
                 }
             }
