@@ -1,11 +1,10 @@
 package com.kingdee.eas.hrp.sms.authority;
 
-import java.lang.reflect.Method;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.kingdee.eas.hrp.sms.exception.PermissionDeniedRuntimeTimeException;
+import com.kingdee.eas.hrp.sms.model.ObjectType;
+import com.kingdee.eas.hrp.sms.model.User;
+import com.kingdee.eas.hrp.sms.service.api.sys.IPermissionService;
+import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -16,11 +15,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.kingdee.eas.hrp.sms.exception.PermissionDeniedRuntimeTimeException;
-import com.kingdee.eas.hrp.sms.model.ObjectType;
-import com.kingdee.eas.hrp.sms.model.User;
-import com.kingdee.eas.hrp.sms.service.api.sys.IPermissionService;
-import com.kingdee.eas.hrp.sms.util.ParameterUtils;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.lang.reflect.Method;
 
 /**
  * 系统权限统一检验
@@ -64,8 +62,8 @@ public class PermissionAspect {
 		// 权限校验
 
 		System.out.println("log PermissionAspect Before method: " + joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName());
-
-		Method method = getSourceMethod(joinPoint);// 验权的方法
+		// 验权的方法
+		Method method = getSourceMethod(joinPoint);
 
 		if (null == method) {
 			// 没有该方法！
