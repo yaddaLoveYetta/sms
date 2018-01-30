@@ -1758,7 +1758,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
         }
 
-        sbWhere.append("WHERE 1=1 ");
+        sbWhere.append("WHERE 1=1 AND (");
 
         for (int i = 0; i < conditoinArray.size(); i++) {
 
@@ -1775,6 +1775,8 @@ public class TemplateService extends BaseService implements ITemplateService {
             if (condition.containsKey("andOr")) {
                 andOr = condition.getString("andOr");
             }
+            // 第一个条件忽略连接关系
+            andOr = i == 0 ? "" : andOr;
 
             String leftParenTheses = "("; // 左括号-可能有多个，如 "(("，甚至"((("等复杂查询,默认"("
 
@@ -1796,6 +1798,28 @@ public class TemplateService extends BaseService implements ITemplateService {
                 logicOperator = condition.getString("logicOperator");
             } else {
                 throw new BusinessLogicRunTimeException("参数错误：condition必须包括logicOperator");
+            }
+
+            /**
+             * 有些公司防火墙会禁止>= <= 等比较符号参数，被认为可能存在sql注入，此处做兼容
+             *
+             * equal 等于 =
+             * lessThan 等于 <=
+             * greaterThan 等于 >=
+             */
+            String logicOperatorCopy = logicOperator.toLowerCase();
+            switch (logicOperatorCopy) {
+                case "equal":
+                    logicOperator = "=";
+                    break;
+                case "lessthan":
+                    logicOperator = "<=";
+                    break;
+                case "greaterthan":
+                    logicOperator = ">=";
+                    break;
+                default:
+                    break;
             }
 
             String value = ""; // 比较值
@@ -1974,9 +1998,12 @@ public class TemplateService extends BaseService implements ITemplateService {
 
         }
 
+        //将所有过滤条件用（）括起来
+        sbWhere.append(")");
+
         String whereStr = sbWhere.toString();
 
-        if (!whereStr.equals("WHERE")) {
+        if (!whereStr.equals("WHERE 1=1 AND ()")) {
             ret.put("whereStr", whereStr);
             ret.put("whereParams", sqlParams);
         }
