@@ -104,10 +104,12 @@ define('Filter', function (require, module, exports) {
             var fieldKey = condition.fieldKey;
             var logicOperator = condition.logicOperator;
             var value = condition.value;
+            var andOr = condition.andOr || 'AND';
             $("tr[index='" + index + "'] select[name='filterKeys']").val(fieldKey);
             $("tr[index='" + index + "'] select[name='filterKeys']").trigger("change");
             $("tr[index='" + index + "'] select[name='compareKeys']").val(logicOperator);
             $("tr[index='" + index + "'] input[name='compareValue']").val(value);
+            $("tr[index='" + index + "'] select[name='joinType']").val(andOr);
             index++;
         }
     }

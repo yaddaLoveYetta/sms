@@ -1753,7 +1753,7 @@ public class TemplateService extends BaseService implements ITemplateService {
 
         }
 
-        sbWhere.append("WHERE 1=1 ");
+        sbWhere.append("WHERE 1=1 AND (");
 
         for (int i = 0; i < conditoinArray.size(); i++) {
 
@@ -1770,6 +1770,8 @@ public class TemplateService extends BaseService implements ITemplateService {
             if (condition.containsKey("andOr")) {
                 andOr = condition.getString("andOr");
             }
+            // 最后一个条件忽略连接关系
+            andOr = i == conditoinArray.size() - 1 ? "" : andOr;
 
             String leftParenTheses = "("; // 左括号-可能有多个，如 "(("，甚至"((("等复杂查询,默认"("
 
@@ -1979,21 +1981,23 @@ public class TemplateService extends BaseService implements ITemplateService {
 
             if (skip) {
                 // 手工脚本
-                sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue, value,
-                        sufValue, rightParenTheses));
+                sbWhere.append(separator).append(String.format("%s %s.%s%s%s %s %s %s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue, value,
+                        sufValue, rightParenTheses, andOr));
             } else {
                 // 动态脚本
-                sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
-                        "#{" + fieldKey + i + "}", sufValue, rightParenTheses));
+                sbWhere.append(separator).append(String.format("%s %s.%s%s%s %s %s %s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
+                        "#{" + fieldKey + i + "}", sufValue, rightParenTheses, andOr));
 
                 sqlParams.put(fieldKey + i, value);
             }
 
         }
+        //将所有过滤条件用（）括起来
+        sbWhere.append(")");
 
         String whereStr = sbWhere.toString();
 
-        if (!whereStr.equals("WHERE")) {
+        if (!whereStr.equals("WHERE 1=1 AND ()")) {
             ret.put("whereStr", whereStr);
             ret.put("whereParams", sqlParams);
         }
