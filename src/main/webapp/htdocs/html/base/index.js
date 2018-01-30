@@ -346,10 +346,12 @@
                 'rightParenTheses': '))'
             };
         }
-
+        if (!$.Object.isEmpty(conditionExt)) {
+            // 如果有高级过滤条件，则高级过滤条件中第一个条件与简单过滤条件因为AND关系（如果没有简单过滤条件，该连接关系会被后台忽略）
+            conditionExt[Object.keys(conditionExt)[0]]['andOr']='AND';
+        }
         var conditionAll = $.extend({}, conditions, conditionExt);
 
-        console.log('render');
         List.render({
             classId: classId,
             pageNo: 1,

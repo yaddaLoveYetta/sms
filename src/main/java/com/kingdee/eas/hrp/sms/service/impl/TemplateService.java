@@ -1770,8 +1770,8 @@ public class TemplateService extends BaseService implements ITemplateService {
             if (condition.containsKey("andOr")) {
                 andOr = condition.getString("andOr");
             }
-            // 最后一个条件忽略连接关系
-            andOr = i == conditoinArray.size() - 1 ? "" : andOr;
+            // 第一个条件忽略连接关系
+            andOr = i == 0 ? "" : andOr;
 
             String leftParenTheses = "("; // 左括号-可能有多个，如 "(("，甚至"((("等复杂查询,默认"("
 
@@ -1981,12 +1981,12 @@ public class TemplateService extends BaseService implements ITemplateService {
 
             if (skip) {
                 // 手工脚本
-                sbWhere.append(separator).append(String.format("%s %s.%s%s%s %s %s %s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue, value,
-                        sufValue, rightParenTheses, andOr));
+                sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s ", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue, value,
+                        sufValue, rightParenTheses));
             } else {
                 // 动态脚本
-                sbWhere.append(separator).append(String.format("%s %s.%s%s%s %s %s %s %s %s %s", leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
-                        "#{" + fieldKey + i + "}", sufValue, rightParenTheses, andOr));
+                sbWhere.append(separator).append(String.format("%s %s %s.%s%s%s %s %s %s %s %s ", andOr, leftParenTheses, tableName, bDelimiter, fieldName, eDelimiter, logicOperator, preValue,
+                        "#{" + fieldKey + i + "}", sufValue, rightParenTheses));
 
                 sqlParams.put(fieldKey + i, value);
             }

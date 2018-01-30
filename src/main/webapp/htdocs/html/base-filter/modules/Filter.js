@@ -17,7 +17,13 @@ define('Filter', function (require, module, exports) {
         begin: '#--filterKeys.begin--#',
         end: '#--filterKeys.end--#',
         outer: '{filterKeys}'
-    }]);
+    }, {
+        name: 'joinType',
+        begin: '#--joinType.begin--#',
+        end: '#--joinType.end--#',
+        outer: '{joinType}'
+    }
+    ]);
 
     function getFilterObject() {
         var conditions = {};
@@ -25,7 +31,7 @@ define('Filter', function (require, module, exports) {
             var fieldKey = $(item).find("select[name='filterKeys']").val();
             var logicOperator = $(item).find("select[name='compareKeys']").val();
             var value = $(item).find("input[name='compareValue']").val();
-            var joinType = $(item).find("select[name='joinType']").val();
+            var joinType = index == 0 ? '' : $(item).find("select[name='joinType']").val();
 
             if (!fieldKey) {
                 return true;
@@ -56,6 +62,7 @@ define('Filter', function (require, module, exports) {
         for (var i = 0; i < 2; i++) {
             // 提供两个过滤条件-and关系
             html += $.String.format(samples['data'], {
+                'joinType': i === 0 ? '省略' : $.String.format(samples['joinType'], {}),
                 'index': i,
                 "filterKeys": $.Array.keep(fields, function (item, index) {
                     return $.String.format(samples['t.filterKeys'], {
