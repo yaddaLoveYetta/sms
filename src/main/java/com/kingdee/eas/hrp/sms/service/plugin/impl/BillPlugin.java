@@ -470,7 +470,7 @@ public class BillPlugin extends PlugInAdpter {
             }
         }
 
-        if (classId == 1019) {
+        if (classId == 2019) {
             // 采购订单删除后将删除消息发送给HRP
 
             IWebService hrpWebService = Environ.getBean(IWebService.class);
