@@ -12,6 +12,7 @@ import com.kingdee.eas.hrp.sms.model.OrderEntry;
 import com.kingdee.eas.hrp.sms.model.OrderEntryExample;
 import com.kingdee.eas.hrp.sms.model.OrderEntryExample.Criteria;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
+import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInAdpter;
 import com.kingdee.eas.hrp.sms.service.plugin.PlugInRet;
 import com.kingdee.eas.hrp.sms.util.Environ;
@@ -437,6 +438,8 @@ public class BillPlugin extends PlugInAdpter {
     @Override
     @Transactional
     public PlugInRet afterDelete(int classId, List<Map<String, Object>> data, String items) {
+
+
         if (classId == 2020) {
             SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
             OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
@@ -466,6 +469,29 @@ public class BillPlugin extends PlugInAdpter {
                 }
             }
         }
+
+        if (classId == 1019) {
+            // 采购订单删除后将删除消息发送给HRP
+
+            IWebService hrpWebService = Environ.getBean(IWebService.class);
+
+            JSONObject json = new JSONObject();
+            //删除的内码集合
+            json.put("ids", items);
+            String response = hrpWebService.webService(json.toString(), "delSms2hrpPurOrder");
+            JSONObject rps = JSONObject.parseObject(response);
+
+            if (null == rps || "".equals(rps)) {
+                throw new BusinessLogicRunTimeException("删除订单信息发送到HRP时网络出错!操作失败，请稍后再试!");
+            }
+
+            if (rps.getIntValue("code") != 200) {
+                throw new BusinessLogicRunTimeException("HRP处理删除订单失败，请重试!");
+            }
+
+        }
+
+
         return super.afterDelete(classId, data, items);
     }
 

@@ -137,7 +137,6 @@ public class OrderService extends BaseService implements IOrderService {
      */
 
     @Override
-    @Transactional
     public void tick(String id, String entryStr) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
