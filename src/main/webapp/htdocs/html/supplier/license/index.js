@@ -133,11 +133,6 @@
                         'export',
                     icon:
                         '../../../css/main/img/download.png',
-                },
-                {
-                    text: '过滤',
-                    name: 'filter',
-                    icon: '../../../css/main/img/filter.png'
                 }
             ]
         }
