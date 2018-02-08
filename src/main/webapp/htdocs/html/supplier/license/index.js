@@ -24,6 +24,7 @@
     var txtItemSearch = document.getElementById('txt-item-search');
 
     var conditions = {};
+    var conditionExt = {};
     var treeFilter;
 
     //检查登录
@@ -58,6 +59,7 @@
     var blConfig;
 
     if (classId == 3020) {
+        //物料证件
         blConfig = {
             'items': [
                 {
@@ -81,41 +83,65 @@
                     icon: '../../../css/main/img/edit.png',
                 },
                 {
+                    text: '过滤',
+                    name: 'filter',
+                    icon: '../../../css/main/img/filter.png'
+                },
+                {
                     text: '刷新',
-                    name: 'refresh',
-                    icon: '../../../css/main/img/refresh.png',
+                    name:
+                        'refresh',
+                    icon:
+                        '../../../css/main/img/refresh.png',
                 },
                 {
                     text: '审核',
-                    name: 'check',
-                    icon: '../../../css/main/img/check.png',
-                    items: [{
-                        text: '反审核',
-                        name: 'unCheck',
-                        icon: '../../../css/main/img/uncheck.png',
-                    }],
+                    name:
+                        'check',
+                    icon:
+                        '../../../css/main/img/check.png',
+                    items:
+                        [{
+                            text: '反审核',
+                            name: 'unCheck',
+                            icon: '../../../css/main/img/uncheck.png',
+                        }],
                 },
                 {
                     text: '上传附件',
-                    name: 'upload',
-                    icon: '../../../css/main/img/upload.png',
-                    items: [{
-                        text: '附件预览',
-                        name: 'preview',
-                        icon: '../../../css/main/img/preview.png',
-                    }],
+                    name:
+                        'upload',
+                    icon:
+                        '../../../css/main/img/upload.png',
+                    items:
+                        [{
+                            text: '附件预览',
+                            name: 'preview',
+                            icon: '../../../css/main/img/preview.png',
+                        }],
                 },
                 {
                     text: '发送到医院',
-                    name: 'send',
-                    icon: '../../../css/main/img/send.png',
+                    name:
+                        'send',
+                    icon:
+                        '../../../css/main/img/send.png',
                 },
                 {
                     text: '导出',
-                    name: 'export',
-                    icon: '../../../css/main/img/download.png',
-                }]
-        };
+                    name:
+                        'export',
+                    icon:
+                        '../../../css/main/img/download.png',
+                },
+                {
+                    text: '过滤',
+                    name: 'filter',
+                    icon: '../../../css/main/img/filter.png'
+                }
+            ]
+        }
+
     } else {
         blConfig = {
             'items': [
@@ -508,8 +534,38 @@
                 });
 
             });
-        }
+        },
+        'filter': function (item, index) {
+            var items = List.getFilterItems();
+            SMS.use('Dialog', function (Dialog) {
+                var dialog = new Dialog({
+                    title: '高级过滤',
+                    url: 'html/base-filter/index.html',
+                    data: items,
+                    conditionExt: conditionExt,
+                    width: 550,
+                    button: [{
+                        className: 'sms-cancel-btn',
+                        value: '取消',
+                        callback: function () {
+                        }
+                    }, {
+                        value: '确定',
+                        className: 'sms-submit-btn',
+                        autofocus: true,
+                        callback: function () {
+                            this.isSubmit = true;
+                            dialog.__dispatchEvent('get');
+                            var dialogData = dialog.getData();
+                            conditionExt = dialogData;
+                            refresh();
+                        }
+                    }]
+                });
 
+                dialog.showModal();
+            });
+        }
     });
 
     /**
@@ -594,11 +650,17 @@
 
         var conditions = getCondition();
 
+        if (!$.Object.isEmpty(conditionExt)) {
+            // 如果有高级过滤条件，则高级过滤条件中第一个条件与简单过滤条件因为AND关系（如果没有简单过滤条件，该连接关系会被后台忽略）
+            conditionExt[Object.keys(conditionExt)[0]]['andOr']='AND';
+        }
+        var conditionAll = $.extend({}, conditions, conditionExt);
+
         List.render({
             classId: classId,
             pageNo: 1,
             pageSize: defaults.pageSize,
-            conditions: conditions,
+            conditions: conditionAll,
             multiSelect: defaults.multiSelect
         }, function (total, pageSize) {
 
