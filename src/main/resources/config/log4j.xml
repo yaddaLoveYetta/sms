@@ -64,7 +64,7 @@
 	<!-- 把DEBUG信息输出到日志文件 -->
 
 	<appender name="DEBUGLog" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${webapp.root}/logs/debug" />
+		<param name="File" value="${user.dir}/logs/debug" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex" value="2" />
@@ -73,7 +73,7 @@
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
 			<param name="LevelMin" value="DEBUG" />
-			<param name="LevelMax" value="DEBUG" />
+			<param name="LevelMax" value="ERROR" />
 		</filter>
 	</appender>
 
@@ -114,7 +114,7 @@
 	<!-- 把ERROR信息输出到日志文件 -->
 
 	<appender name="ERRORLog" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${webapp.root}/logs/error" />
+		<param name="File" value="${user.dir}/logs/error" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex" value="2" />
@@ -158,11 +158,11 @@
 	<logger name="com.kingdee.eas.hrp.sms" additivity="false">
 		<level value="debug" />
 		<!-- <appender-ref ref="INFOJDBC" /> -->
-		<!-- <appender-ref ref="DEBUGLog" /> -->
+		<!-- <appender-ref ref="DEBUGLog" />-->
 		<!-- <appender-ref ref="INFOLog" /> -->
 		<!-- <appender-ref ref="WARNLog" /> -->
-		<!-- <appender-ref ref="ERRORLog" /> -->
-		<appender-ref ref="DEBUG-ERRPRConsole" />
+		 <appender-ref ref="ERRORLog" />
+		<!--<appender-ref ref="DEBUG-ERRPRConsole" />-->
 	</logger>
 
 	<!-- <logger additivity="false"> -->
