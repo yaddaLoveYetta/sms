@@ -139,6 +139,8 @@ public class SendcargoService extends BaseService implements ISendcargoService {
                 }
             });
 
+        } else {
+            throw new BusinessLogicRunTimeException(rps.getString("msg"));
         }
     }
 }
