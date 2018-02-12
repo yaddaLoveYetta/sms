@@ -30,6 +30,11 @@ define('ButtonListOption', function (require, module, exports) {
                             icon: '../../css/main/img/detail.png'
                         },
                         {
+                            text: '过滤',
+                            name: 'filter',
+                            icon: '../../css/main/img/filter.png'
+                        },
+                        {
                             text: '删除',
                             name: 'delete',
                             icon: '../../css/main/img/delete.png',
@@ -55,11 +60,18 @@ define('ButtonListOption', function (require, module, exports) {
                             text: '详情',
                             name: 'detail',
                             icon: '../../css/main/img/detail.png'
-                        }, {
+                        },
+                        {
+                            text: '过滤',
+                            name: 'filter',
+                            icon: '../../css/main/img/filter.png'
+                        },
+                        {
                             text: '修改',
                             name: 'edit',
                             icon: '../../css/main/img/edit.png'
-                        }, {
+                        },
+                        {
                             text: '删除',
                             name: 'delete',
                             icon: '../../css/main/img/delete.png'

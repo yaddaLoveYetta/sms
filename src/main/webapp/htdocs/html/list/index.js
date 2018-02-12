@@ -18,7 +18,7 @@
     var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
-
+    var conditionExt = {};
 
     //检查登录
     if (!SMS.Login.check(true)) {
@@ -188,7 +188,38 @@
         },
         'send': function (item, index) {
             send();
-        }
+        },
+        'filter': function (item, index) {
+            var items = List.getFilterItems();
+            SMS.use('Dialog', function (Dialog) {
+                var dialog = new Dialog({
+                    title: '高级过滤',
+                    url: 'html/base-filter/index.html',
+                    data: items,
+                    conditionExt: conditionExt,
+                    width: 550,
+                    button: [{
+                        className: 'sms-cancel-btn',
+                        value: '取消',
+                        callback: function () {
+                        }
+                    }, {
+                        value: '确定',
+                        className: 'sms-submit-btn',
+                        autofocus: true,
+                        callback: function () {
+                            this.isSubmit = true;
+                            dialog.__dispatchEvent('get');
+                            var dialogData = dialog.getData();
+                            conditionExt = dialogData;
+                            refresh();
+                        }
+                    }]
+                });
+
+                dialog.showModal();
+            });
+        },
     });
 
     function detailView() {
@@ -580,11 +611,17 @@
             };
         }
 
+        if (!$.Object.isEmpty(conditionExt)) {
+            // 如果有高级过滤条件，则高级过滤条件中第一个条件与简单过滤条件因为AND关系（如果没有简单过滤条件，该连接关系会被后台忽略）
+            conditionExt[Object.keys(conditionExt)[0]]['andOr']='AND';
+        }
+        var conditionAll = $.extend({}, conditions, conditionExt);
+
         List.render({
             classId: classId,
             pageNo: 1,
             pageSize: defaults.pageSize,
-            conditions: conditions,
+            conditions: conditionAll,
             multiSelect: defaults.multiSelect
         }, function (total, pageSize) {
 
