@@ -546,8 +546,8 @@ public class OrderService extends BaseService implements IOrderService {
         entry.put("dyBatchNum", "");
         if (item.getHighConsumable() != null) {
             if (item.getHighConsumable() == 1 && !item.getHighConsumable().equals(1)) {
-                //entry.put("code", Common.createNo("yyMMdd", "", 5));
-                entry.put("code", anomalyService.getDeliverOrderCodeEncode());
+                entry.put("code", Common.createNo("yyMMdd", "", 5));
+                //entry.put("code", anomalyService.getDeliverOrderCodeEncode());
             }
         } else {
             entry.put("code", "");
