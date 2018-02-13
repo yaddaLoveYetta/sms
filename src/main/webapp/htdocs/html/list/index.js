@@ -633,7 +633,7 @@
                         classId: classId,
                         pageNo: no,
                         pageSize: defaults.pageSize,
-                        conditions: conditions,
+                        conditions: conditionAll,
                         multiSelect: defaults.multiSelect
                     });
                 }
