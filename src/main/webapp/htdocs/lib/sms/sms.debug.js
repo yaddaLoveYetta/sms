@@ -4428,6 +4428,12 @@
                 end: '#--more.end--#',
                 outer: ''
             },
+            {
+                name: 'pageSize',
+                begin: '#--item.page-size.begin--#',
+                end: '#--item.page-size.end--#',
+                outer: '{pageSize}'
+            }
         ]);
 
 
@@ -4614,7 +4620,11 @@
             var container = config.container;
 
             var current = config.current || 1;  // 当前页码，从 1 开始
-            var size = config.size;             // 分页的大小，即每页的记录数
+
+            var sizes = config.sizes || [10, 20, 30]; // 分页大小设置项
+
+            //var size = config.size;
+            var size = sizes[0];             // 分页的大小，即每页的记录数
 
             var total = config.total;           // 总记录数
             var count = Math.ceil(total / size);// 总页数
@@ -4631,10 +4641,11 @@
                 container: container,
                 current: current,
                 size: size,
+                sizes: sizes,
                 count: count,
                 hideIfLessThen: config.hideIfLessThen || 0,
                 emitter: emitter,
-                last: 0, // 上一次的页码
+                last: 0 // 上一次的页码
             };
 
             mapper.set(this, meta);
@@ -4657,12 +4668,17 @@
                 self.to(no, true);
             }
 
+            function changePageSize(pageSize) {
+                self.changePageSize(pageSize);
+            }
+
 
             // 委托控件的 UI 事件
             var delegates = {
                 no: '#' + ulId + ' [data-no]',
                 button: '#' + ulId + ' [data-button]:not(.disabled)',
                 txt: '#' + txtId,
+                select: '#' + ulId + ' select.page-size-select'
             };
 
 
@@ -4688,6 +4704,17 @@
                 if (event.keyCode == 13) {
                     jump();
                 }
+            }).delegate(delegates.select, 'change', function () {
+                // 切换分页大小
+                meta.size = $(this).val();
+                // 当前页码，从 1 开始
+                meta.current = 1;
+                // 重新计算总页数
+                meta.count = Math.ceil(meta.total / meta.size);
+                // 触发事件
+                self.changePageSize(meta.size);
+                // 跳转到第一页
+                self.to(1, true);
             });
 
 
@@ -4719,6 +4746,15 @@
 
                 }).join('');
 
+                var sizesHtml = $.Array.keep(meta.sizes, function (item, index) {
+
+                    return $.String.format(samples.pageSize, {
+                        value: item,
+                        selected: item == meta.size ? 'selected' : ''
+                    });
+
+                }).join('');
+
 
                 var toNo = getJumpNo(count, current, meta.last);
 
@@ -4733,7 +4769,8 @@
                     'final-disabled-class': current == count ? 'disabled' : '',
                     'jump-disabled-class': count == 0 ? 'disabled' : '',
                     'txt-disabled': count == 0 ? 'disabled' : '',
-                    items: itemsHtml
+                    items: itemsHtml,
+                    pageSize: sizesHtml
                 });
 
 
@@ -4782,7 +4819,7 @@
                 this.render();
 
                 if (fireEvent) {
-                    emitter.fire('change', [no]);
+                    emitter.fire('change', [no, meta.size]);
                 }
 
             },
@@ -4811,7 +4848,11 @@
                 var meta = mapper.get(this);
                 this.to(meta.current, fireEvent);
             },
-
+            changePageSize:function (pageSize) {
+                var meta = mapper.get(this);
+                var emitter = meta.emitter;
+                emitter.fire('changePageSize', [pageSize]);
+            },
 
             /**
              * 给本控件实例绑定事件。
@@ -4893,7 +4934,9 @@
             pager.on('change', function (no) {
                 simple.to(no);
             });
-
+            pager.on('changePageSize', function (pageSize) {
+                simple.changePageSize(pageSize);
+            });
 
             simple.render();
             pager.render();
@@ -5029,8 +5072,9 @@
 
             var container = config.container || defaults.container;
             var current = config.current || defaults.current;   // 当前页码，从 1 开始
-            var size = config.size || defaults.size;            // 分页的大小，即每页的记录数
 
+            var sizes = config.sizes || [10, 20, 30];
+            var size = sizes[0];            // 分页的大小，即每页的记录数
             var total = config.total;           // 总记录数
             var count = Math.ceil(total / size);// 总页数
 
@@ -5045,6 +5089,8 @@
                 'container': container,
                 'current': current,
                 'size': size,
+                'sizes': sizes,
+                'total':total,
                 'count': count,
                 'hideIfLessThen': config.hideIfLessThen || defaults.hideIfLessThen,
                 'emitter': emitter,
@@ -5215,7 +5261,12 @@
                 var meta = mapper.get(this);
                 this.to(meta.current, fireEvent);
             },
-
+            changePageSize: function (pageSize) {
+                var meta = mapper.get(this);
+                meta.size = pageSize;
+                meta.count = Math.ceil(meta.total / meta.size);// 总页数
+                this.render();
+            },
             on: function () {
                 var meta = mapper.get(this);
                 var emitter = meta.emitter;

@@ -38,6 +38,7 @@
     //默认配置
     var defaults = {
         pageSize: 10,
+        sizes:[10,20,30,40],
         typeId: '',
         pageNo: 1,
         hasBreadcrumbs: true,
@@ -647,7 +648,7 @@
 
         if (!$.Object.isEmpty(conditionExt)) {
             // 如果有高级过滤条件，则高级过滤条件中第一个条件与简单过滤条件因为AND关系（如果没有简单过滤条件，该连接关系会被后台忽略）
-            conditionExt[Object.keys(conditionExt)[0]]['andOr']='AND';
+            conditionExt[Object.keys(conditionExt)[0]]['andOr'] = 'AND';
         }
         var conditionAll = $.extend({}, conditions, conditionExt);
 
@@ -660,13 +661,14 @@
         }, function (total, pageSize) {
 
             Pager.render({
-                size: pageSize,
+                size: defaults.pageSize,
+                sizes:defaults.sizes,
                 total: total,
-                change: function (no) {
+                change: function (no, pageSize) {
                     List.render({
                         classId: classId,
                         pageNo: no,
-                        pageSize: defaults.pageSize,
+                        pageSize: pageSize || defaults.pageSize,
                         conditions: conditions,
                         multiSelect: defaults.multiSelect
                     });
