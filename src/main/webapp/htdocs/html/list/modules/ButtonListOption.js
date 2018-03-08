@@ -20,6 +20,11 @@ define('ButtonListOption', function (require, module, exports) {
                             icon: '../../css/main/img/receive.png'
                         },
                         {
+                            text: '新增',
+                            name: 'add',
+                            icon: '../../css/main/img/add.png'
+                        },
+                        {
                             text: '刷新',
                             name: 'refresh',
                             icon: '../../css/main/img/refresh.png'

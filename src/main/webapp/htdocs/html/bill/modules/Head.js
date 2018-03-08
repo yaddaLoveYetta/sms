@@ -37,7 +37,9 @@ define('Head', function (require, module, exports) {
 
             lockControls(metaData.template);// 控件锁定性(是否可编辑)处理
 
-            fill(metaData.template, data);
+            if (showType !== 1) {
+                fill(metaData.template, data);
+            }
 
             fixIE();
         }

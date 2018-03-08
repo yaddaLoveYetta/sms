@@ -12,24 +12,38 @@ define('API', function (require, module, exports) {
     var Template = require('/Template');
     //完整名称为 API/Template
     var Data = require('/Data');
+
     //完整名称为 API/Data
 
     function get(config, fn) {
 
-        var tasks = [{
-            fn: Template.get,
-            args: [{
-                'classId': config.classId,
-                'type':config.type,
-            }]
-        }, {
-            fn: Data.get,
-            args: [{
-                'classId': config.classId,
-                'id': config.id,
-                'type':config.type,
-            }]
-        }];
+        var tasks;
+
+        if (config.type === 1) {
+            // 新增时只需要模板，没有数据
+            tasks = [{
+                fn: Template.get,
+                args: [{
+                    'classId': config.classId,
+                    'type': config.type,
+                }]
+            }];
+        } else {
+             tasks = [{
+                fn: Template.get,
+                args: [{
+                    'classId': config.classId,
+                    'type': config.type,
+                }]
+            }, {
+                fn: Data.get,
+                args: [{
+                    'classId': config.classId,
+                    'id': config.id,
+                    'type': config.type,
+                }]
+            }];
+        }
 
         //并行发起请求
         Multitask.concurrency(tasks, function (list) {

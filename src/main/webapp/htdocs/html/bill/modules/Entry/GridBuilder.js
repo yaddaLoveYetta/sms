@@ -104,7 +104,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
         if (field.dataType == 1) {
             // 数字
             //model.edittype = 'text';
-            model.align='right'; // 数字靠右显示
+            model.align = 'right'; // 数字靠右显示
             model.editrules = {
                 required: false,
                 number: true
@@ -145,7 +145,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
             config = params.defaults;
             showKeys = params.showKeys;
             editKeys = params.editKeys;
-            operator = params.operator;
+            // operator = params.operator;
             showType = type = params.showType;
 
         }
@@ -172,7 +172,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
         }
 
         // 需要有添加/删除行功能
-        if (operator) {
+        if (showType > 0) {
             // 增加一列添加/删除行功能的按钮
             model = {
                 name: 'operate',
@@ -182,10 +182,10 @@ define('Entry/GridBuilder', function (require, module, exports) {
                 formatter: function (val, opt, row) {
                     var html_con;
 
-                    if (operator === 1) {
+                    if (showType === 1) {
                         // add
-                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span></div>';
-                    } else if (operator === 2) {
+                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
+                    } else if (showType === 2) {
                         // del
                         html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
                     } else if (operator === 3) {
@@ -196,7 +196,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
                     return html_con;
                 },
                 align: "center",
-                hidden: !operator,
+                hidden: false,
             };
             cModel.push(model);
         }
@@ -220,16 +220,16 @@ define('Entry/GridBuilder', function (require, module, exports) {
 
                 cModel.push(keyModel);
 
-/*                if (field.ctrlType == 6 && field.disPlayNum) {
-                    // 有配置显示代码时增加代码显示
-                    var keyNmbModel = {
-                        name: field.name + '_NmbName',
-                        label: field.name+'代码',
-                        tabIndex: field.index +1,
-                        hidden: false
-                    };
-                    cModel.push(keyNmbModel);
-                }*/
+                /*                if (field.ctrlType == 6 && field.disPlayNum) {
+                                    // 有配置显示代码时增加代码显示
+                                    var keyNmbModel = {
+                                        name: field.name + '_NmbName',
+                                        label: field.name+'代码',
+                                        tabIndex: field.index +1,
+                                        hidden: false
+                                    };
+                                    cModel.push(keyNmbModel);
+                                }*/
             }
 
             model = getColModel(field, $.Array.contains(showKeys, field.key), $.Array.contains(editKeys, field.key));

@@ -66,6 +66,7 @@
         }
 
     });
+
 // 个体码打印
     function codePrint() {
 
@@ -216,7 +217,7 @@
         SMS.Tips.loading("数据加载中...");
 
         if (selData && type === 1 && !itemId) {
-            // 新增时dialog传递了数据-新增单据
+            // 新增时dialog传递了数据-新增单据--订单发货功能生成发货单
             Head.render(selData, selData.data.headData, type);
             Entry.render(selData.template, selData.data.entryData, type);
             SMS.Tips.success("数据加载成功", 1500);
@@ -231,8 +232,8 @@
         }, function (data) {
             // 填充数据
             console.log(data);
-            Head.render(data, data.data.headData, type);
-            Entry.render(data.template, data.data.entryData, type);
+            Head.render(data, type !== 1 ? data.data.headData : null, type);
+            Entry.render(data.template, type !== 1 ? data.data.entryData : null, type);
             SMS.Tips.success("数据加载成功", 1500);
         });
     }

@@ -138,6 +138,10 @@
 
             });
         },
+        'add': function (item, index) {
+            //订单新增
+            add();
+        },
         'detail': function (item, index) {
             detailView();
         },
@@ -254,6 +258,25 @@
                 'classId': classId,
                 'id': list[0].data[List.getPrimaryKey()],
                 'type': 0,
+            }
+        });
+    }
+
+    function add() {
+
+        if (parseInt(classId) !== 2019) {
+            // 只有订单有新增功能
+            return;
+        }
+
+        Iframe.open({
+            id: classId + '-order-add-',
+            name: '新增-采购订单',
+            url: 'html/bill/index.html',
+            query: {
+                'classId': classId,
+                'id': 0,
+                'type': 1,
             }
         });
     }
