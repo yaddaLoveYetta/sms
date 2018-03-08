@@ -29,6 +29,7 @@
     //默认配置
     var defaults = {
         pageSize: 10,
+        sizes: [10, 20, 30],
         typeId: '',
         pageNo: 1,
         hasBreadcrumbs: true,
@@ -362,12 +363,13 @@
 
             Pager.render({
                 size: pageSize,
+                sizes: defaults.sizes,
                 total: total,
-                change: function (no) {
+                change: function (no, pageSize) {
                     List.render({
                         classId: classId,
                         pageNo: no,
-                        pageSize: defaults.pageSize,
+                        pageSize: pageSize || defaults.pageSize,
                         conditions: conditionAll,
                         multiSelect: defaults.multiSelect
                     });

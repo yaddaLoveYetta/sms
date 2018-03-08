@@ -4624,7 +4624,7 @@
             var sizes = config.sizes || [10, 20, 30]; // 分页大小设置项
 
             //var size = config.size;
-            var size = sizes[0];             // 分页的大小，即每页的记录数
+            var size = config.size || sizes[0];             // 分页的大小，即每页的记录数
 
             var total = config.total;           // 总记录数
             var count = Math.ceil(total / size);// 总页数
@@ -4702,6 +4702,7 @@
 
             }).delegate(delegates.txt, 'keydown', function (event) { // 回车确定
                 if (event.keyCode == 13) {
+                    event.preventDefault();
                     jump();
                 }
             }).delegate(delegates.select, 'change', function () {
@@ -4848,7 +4849,7 @@
                 var meta = mapper.get(this);
                 this.to(meta.current, fireEvent);
             },
-            changePageSize:function (pageSize) {
+            changePageSize: function (pageSize) {
                 var meta = mapper.get(this);
                 var emitter = meta.emitter;
                 emitter.fire('changePageSize', [pageSize]);
@@ -5074,7 +5075,7 @@
             var current = config.current || defaults.current;   // 当前页码，从 1 开始
 
             var sizes = config.sizes || [10, 20, 30];
-            var size = sizes[0];            // 分页的大小，即每页的记录数
+            var size = config.size || sizes[0];            // 分页的大小，即每页的记录数
             var total = config.total;           // 总记录数
             var count = Math.ceil(total / size);// 总页数
 
@@ -5090,7 +5091,7 @@
                 'current': current,
                 'size': size,
                 'sizes': sizes,
-                'total':total,
+                'total': total,
                 'count': count,
                 'hideIfLessThen': config.hideIfLessThen || defaults.hideIfLessThen,
                 'emitter': emitter,
@@ -5135,6 +5136,7 @@
 
                 'keydown': function (event) {
                     if (event.keyCode == 13) { // 回车键
+                        event.preventDefault();
                         jump(this);
                     }
                 }

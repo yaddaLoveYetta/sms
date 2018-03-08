@@ -11,6 +11,7 @@
     var config = {
         pageNo: 1,
         pageSize: 10,
+        sizes: [10, 20, 30],
         classId: 14001,
         conditions: {}
     };
@@ -59,10 +60,12 @@
         }];
         List.render(config, function (total, pageSize) {
             Pager.render({
-                size: pageSize,
+                size: config.pageSize,
+                sizes: config.sizes,
                 total: total,
-                change: function (no) {
+                change: function (no, size) {
                     config.pageNo = no;
+                    config.pageSize = size || config.pageSize;
                     List.render(config);
                 }
             });
