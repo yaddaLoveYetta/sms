@@ -302,12 +302,16 @@
                 SMS.Tips.error('发货单已经发送到医院，不可修改！', 1500);
                 return;
             }
+            if (list[0].data['confirmTick'] === 1) {
+                SMS.Tips.error('供应商已接单，不可修改！', 1500);
+                return;
+            }
         }
 
         if (classId === 2019) {
             // 采购订单
-            if (list[0].data['confirmTick'] === 1) {
-                SMS.Tips.error('供应商已接单，不可修改！', 1500);
+            if (list[0].data['isSync'] === 1) {
+                SMS.Tips.error('HRP同步的订单，不可修改！', 1500);
                 return;
             }
         }

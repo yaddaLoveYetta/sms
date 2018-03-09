@@ -138,6 +138,7 @@ define('Entry', function (require, module, exports) {
                 }),
                 flag: '1'
             };
+
             entry.push(addData);
         });
 

@@ -21,7 +21,7 @@
 
     var selData;
 
-    var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
+    var classId = parseInt(MiniQuery.Url.getQueryString(window.location.href, 'classId'));
     var itemId = MiniQuery.Url.getQueryString(window.location.href, 'id');
     var type = MiniQuery.Url.getQueryString(window.location.href, 'type');
 
@@ -158,6 +158,11 @@
 
         if (entry.entryData) {
             billData.successData['entry'] = entry.entryData;
+        }
+
+        if (classId === 2019 && type === 1) {
+            // 手工新增订单--设置手工订单标志
+            billData.successData['isSync'] = 0;
         }
 
         submit(itemId, billData.successData, function (data) {
