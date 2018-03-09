@@ -37,7 +37,7 @@ define('Head', function (require, module, exports) {
 
             lockControls(metaData.template);// 控件锁定性(是否可编辑)处理
 
-            if (showType !== 1) {
+            if (data) {
                 fill(metaData.template, data);
             }
 
@@ -252,7 +252,7 @@ define('Head', function (require, module, exports) {
                 var lookUpClassId = field['lookUpClassID'];
                 var element = $('#' + keyName);
 
-                if (!element) {
+                if (!element.length) {
                     continue;
                 }
 

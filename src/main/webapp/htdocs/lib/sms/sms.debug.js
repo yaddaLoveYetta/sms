@@ -6475,8 +6475,6 @@
             // $('.grid-wrap').on('click', '.ui-icon-ellipsis', function (e) {
             bdGrid.on('click', '.ui-icon-ellipsis', function (e) {
 
-                var meta = mapper.get(this);
-
                 console.log("ellipsis");
                 var $_comboAuto = $(this).prev();
                 var gridRow = bdGrid.jqGrid('getGridParam');
@@ -6495,6 +6493,7 @@
                     rowNumb: rowNumb,
                     colNumb: colNumb,
                     colModels: colModels,
+                    emitter: emitter
                 });
 
             });
@@ -6507,7 +6506,9 @@
             });
         }
 
-        function showF7(field, cfg, container, rowNumb, colNumb, colModels) {
+        function showF7(field, cfg, container, rowNumb, colNumb, colModels, emitter) {
+
+            var meta = mapper.get(this);
 
             if (typeof field == 'object') {
                 // 重载方法
@@ -6518,6 +6519,7 @@
                 rowNumb = params.rowNumb;
                 colNumb = params.colNumb;
                 colModels = params.colModels;
+                emitter = params.emitter
 
             }
 
@@ -6586,6 +6588,8 @@
                             }
 
                             $(container).val(data[0].name);
+
+                            emitter.fire('afterF7Set', [field.classId, field.key, data[0].ID, data[0], row, col]);
                         }
                     }
                 });
@@ -6839,6 +6843,8 @@
                      */
                     // 行数据主键为空表示新增数据
                     if (!row[primaryKey]) {
+                        // row 中加入一个行号信息-seq为采购订单分录行号key，特殊处理
+                        row['seq'] = ++index;
                         addDatas.push(row);
                     }
                     /* 修改数据获取 [primaryKey]不为空表示修改数据 */

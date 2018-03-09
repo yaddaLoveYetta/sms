@@ -74,7 +74,36 @@ define('Entry', function (require, module, exports) {
                             var price = billGrid.getCell(rowid, 'price');
                             console.log("price=" + price);
                             var amount = (value * price).toFixed(2);
-                            billGrid.setCell(rowid, 'amount', amount)
+                            billGrid.setCell(rowid, 'amount', amount);
+                            break;
+                    }
+
+                }
+                if (classId === 2019) {
+                    // 采购订单
+                    switch (cellname) {
+                        case 'material_DspName':
+                            // 清除物料后将代码规格型号清空
+                            if (billGrid.getCell(rowid, 'material_DspName') == '') {
+                                billGrid.setCell(rowid, 'material', '&nbsp');
+                                billGrid.setCell(rowid, 'materialNumber', '&nbsp');
+                                billGrid.setCell(rowid, 'specification', '&nbsp');
+                            }
+
+                            break;
+                    }
+
+                }
+            });
+
+            billGrid.on('afterF7Set', function (classId, key, val, valExt, iRow, iCol) {
+                // F7 控件选单成功后
+                if (classId === 2019) {
+                    switch (key) {
+                        case 'material':
+                            // 设置物料后-带出代码及规格型号
+                            billGrid.setCell(iRow, 'materialNumber', valExt.all.number);
+                            billGrid.setCell(iRow, 'specification', valExt.all.specification);
                             break;
                     }
 

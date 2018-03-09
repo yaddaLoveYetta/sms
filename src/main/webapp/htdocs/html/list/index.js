@@ -15,7 +15,7 @@
     var MessageBox = SMS.require('MessageBox');
     var Iframe = SMS.require('Iframe');
 
-    var classId = MiniQuery.Url.getQueryString(window.location.href, 'classId');
+    var classId = parseInt(MiniQuery.Url.getQueryString(window.location.href, 'classId'));
     var txtSimpleSearch = document.getElementById('txt-simple-search');
     var conditions = {};
     var conditionExt = {};
@@ -276,7 +276,7 @@
             query: {
                 'classId': classId,
                 'id': 0,
-                'type': 1,
+                'type': 1
             }
         });
     }
@@ -304,23 +304,30 @@
             }
         }
 
+        if (classId === 2019) {
+            // 采购订单
+            if (list[0].data['confirmTick'] === 1) {
+                SMS.Tips.error('供应商已接单，不可修改！', 1500);
+                return;
+            }
+        }
+
         var name = '';
         switch (parseInt(classId)) {
             case 2019:
                 name = '采购订单';
-                return; // 采购订单不支持编辑
             case 2020:
                 name = '发货单';
         }
 
         Iframe.open({
             id: classId + '-edit-' + list[0].data[List.getPrimaryKey()],
-            name: '编辑-' + name,
+            name: '修改-' + name,
             url: 'html/bill/index.html',
             query: {
                 'classId': classId,
                 'id': list[0].data[List.getPrimaryKey()],
-                'type': 2,
+                'type': 2
             }
         });
     }

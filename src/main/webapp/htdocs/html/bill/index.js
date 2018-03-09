@@ -163,14 +163,15 @@
         submit(itemId, billData.successData, function (data) {
 
 
-            if (itemId) {
+            if (type === 2) {
                 SMS.Tips.success("修改成功", 1500);
             } else {
                 SMS.Tips.success("新增成功", 1500);
             }
 
-            if (!itemId) {
-                itemId = data.id;// 新增成功后记录id，界面变修改逻辑
+            if (type === 1) {
+                // 新增成功后记录id，界面变修改逻辑
+                itemId = data.id;
             }
 
             fn && fn(data);
@@ -180,7 +181,7 @@
     function submit(itemId, data, fn) {
 
         var action = 'template/addItem';
-        if (itemId) {
+        if (itemId && itemId !== '0' && itemId !== '') {
             action = 'template/editItem';
         }
         var api = new API(action);

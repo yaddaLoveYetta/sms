@@ -1,15 +1,5 @@
 package com.kingdee.eas.hrp.sms.controller.order;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
@@ -17,8 +7,14 @@ import com.kingdee.eas.hrp.sms.log.ControllerLog;
 import com.kingdee.eas.hrp.sms.service.api.order.IOrderService;
 import com.kingdee.eas.hrp.sms.util.ParameterUtils;
 import com.kingdee.eas.hrp.sms.util.ResponseWriteUtil;
-import com.kingdee.eas.hrp.sms.util.SessionUtil;
 import com.kingdee.eas.hrp.sms.util.StatusCode;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/order/")
@@ -73,7 +69,8 @@ public class OrderController {
     @RequestMapping(value = "deliver")
     public void deliver(HttpServletRequest request, HttpServletResponse response) {
 
-        String items = ParameterUtils.getParameter(request, "items", ""); // 订单内码集合，多个订单内码用逗号分隔
+        // 订单内码集合，多个订单内码用逗号分隔
+        String items = ParameterUtils.getParameter(request, "items", "");
         if ("".equals(items.trim())) {
             throw new BusinessLogicRunTimeException("参数错误：请选择需要发货的订单!");
         }
