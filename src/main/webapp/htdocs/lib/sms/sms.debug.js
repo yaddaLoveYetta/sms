@@ -6979,7 +6979,8 @@
                 // 4.5.4
                 Seajs.use([
                     'grid-locale-cn-js',
-                    'grid-base-js',
+                    'grid-all-js',
+                   /* 'grid-base-js',*/
                     'jquery-combo-js',
                     'jqgrid-css',
                     'ui-css',
@@ -6993,6 +6994,18 @@
                  * 'jqgrid-all-css', 'jqgrid-all-js',
                  *  ], function () { fn && fn(Grid); });
                  */
+
+                //4.5.4
+/*                Seajs.use([
+                    'grid.4.5.4-locale-cn-js',
+                    'jqgrid-4.5.4-all-js',
+                    'jquery-combo-js',
+                    'jqgrid-css',
+                    'ui-css',
+                    'common-css'
+                ], function () {
+                    fn && fn(Grid);
+                });*/
 
             },
 
