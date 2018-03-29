@@ -9970,9 +9970,22 @@ $.jgrid.extend({
 						}
 					} //ESC
 					if (e.keyCode === 13) {
-						$($t).jqGrid("saveCell",iRow,iCol);
+						//$($t).jqGrid("saveCell",iRow,iCol);
 						// Prevent default action
-						return false;
+						//return false;
+
+                        //enter跳到下一行(如果有)当前单元格编辑(如果下一行当前单元格不可编辑则不跳到下一行)
+						iRow = iRow + 1;
+						if($($t).find("tbody tr").eq(iRow).length === 0) {
+                            $($t).jqGrid("saveCell",iRow-1,iCol)
+                            // Prevent default action
+                            return false;
+						}else {
+                            if ($t.p.colModel[iCol].editable === true) {
+                                $($t).jqGrid("editCell",iRow,iCol,true);
+                            }
+						}
+
 					} //Enter
 					if (e.keyCode === 9)  {
 						if(!$t.grid.hDiv.loading ) {
