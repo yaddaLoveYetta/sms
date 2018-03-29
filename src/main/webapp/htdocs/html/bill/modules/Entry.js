@@ -27,6 +27,17 @@ define('Entry', function (require, module, exports) {
 
         billTemplate = template;
 
+        var classId = template.formClass.classId;
+
+        var operator;
+
+        if (classId === 2020) {
+            // 发货单新增（订单生成发货单）分录不能添加，只能删除
+            operator = showType == 1 ? 2 : showType == 2 ? 2 : 0;
+        }else {
+            operator = showType == 1 ? 3 : showType == 2 ? 3 : 0;
+        }
+
         var defaults = {
             gridName: 'bd-grid',
             width: $(window).width() - 20,
@@ -47,7 +58,7 @@ define('Entry', function (require, module, exports) {
             defaults = GridBuilder.getConfig({
                 'fields': template.formFields["1"],
                 'defaults': defaults,
-                'operator': showType == 1 ? 2 : showType == 2 ? 2 : 0, // 新增时有添加删除按钮，编辑时有删除按钮,查看时无按钮
+                'operator': operator, // 新增时有添加删除按钮，编辑时有删除按钮,查看时无按钮
                 'showType': showType,
             });
 

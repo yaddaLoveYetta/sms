@@ -145,8 +145,8 @@ define('Entry/GridBuilder', function (require, module, exports) {
             config = params.defaults;
             showKeys = params.showKeys;
             editKeys = params.editKeys;
-            // operator = params.operator;
-            showType = type = params.showType;
+            operator = params.operator || params.showType;
+            showType = params.showType;
 
         }
 
@@ -172,7 +172,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
         }
 
         // 需要有添加/删除行功能
-        if (showType > 0) {
+        if (operator > 0) {
             // 增加一列添加/删除行功能的按钮
             model = {
                 name: 'operate',
@@ -182,10 +182,10 @@ define('Entry/GridBuilder', function (require, module, exports) {
                 formatter: function (val, opt, row) {
                     var html_con;
 
-                    if (showType === 1) {
+                    if (operator === 1) {
                         // add
-                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
-                    } else if (showType === 2) {
+                        html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-plus" title="新增行"></span></div>';
+                    } else if (operator === 2) {
                         // del
                         html_con = '<div class="operating" data-id="' + opt.rowId + '"><span class="ui-icon ui-icon-trash" title="删除行"></span></div>';
                     } else if (operator === 3) {
