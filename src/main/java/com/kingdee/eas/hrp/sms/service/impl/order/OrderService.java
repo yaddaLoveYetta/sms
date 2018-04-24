@@ -147,6 +147,10 @@ public class OrderService extends BaseService implements IOrderService {
             throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
         }
 
+        if (order.getConfirmTick() != null && order.getConfirmTick().equals("1")) {
+            throw new BusinessLogicRunTimeException("您已接单，不可重复接单");
+        }
+
         // 調用hrp-web-service --发送接单数据至HRP
         JSONObject json = new JSONObject();
         json.put("entry", entryStr);
@@ -225,7 +229,8 @@ public class OrderService extends BaseService implements IOrderService {
                             orderEntry.setId(entryId);
                             orderEntry.setConfirmQty(BigDecimal.valueOf(confirmQty));
                             orderEntry.setConfirmDate(confirmDate);
-                            orderEntry.setInvoiceQty(new BigDecimal(0));
+                            // 重复接单不修改已发货数量--#bug5586
+                            //orderEntry.setInvoiceQty(new BigDecimal(0));
                             orderMapper.updateByPrimaryKeySelective(order);
                             entryMapper.updateByPrimaryKeySelective(orderEntry);
 
