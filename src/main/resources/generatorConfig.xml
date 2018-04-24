@@ -247,6 +247,12 @@
 
 		</table>
 
+		<table tableName="t_sms_sendcargo_entry" domainObjectName="SendcargoEntry">
+
+			<property name="useActualColumnNames" value="true" />
+
+		</table>
+
 		<table tableName="t_sms_supplier_license_type" domainObjectName="SupplierLicenseType">
 
 			<property name="useActualColumnNames" value="true" />
