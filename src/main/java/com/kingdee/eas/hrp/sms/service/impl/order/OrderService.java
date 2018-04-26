@@ -143,11 +143,11 @@ public class OrderService extends BaseService implements IOrderService {
 
         OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
         Order order = orderMapper.selectByPrimaryKey(id);
-        if (order.getTickType() != null && order.getTickType().equals("1")) {
+        if (order.getTickType() != null && order.getTickType() == 1) {
             throw new BusinessLogicRunTimeException("HRP已同意接单，不可重复接单");
         }
 
-        if (order.getConfirmTick() != null && order.getConfirmTick().equals("1")) {
+        if (order.getConfirmTick() != null && order.getConfirmTick() == 1) {
             throw new BusinessLogicRunTimeException("您已接单，不可重复接单");
         }
 
