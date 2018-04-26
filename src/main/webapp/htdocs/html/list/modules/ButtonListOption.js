@@ -90,6 +90,13 @@ define('ButtonListOption', function (require, module, exports) {
                             text: '发送到医院',
                             name: 'send',
                             icon: '../../css/main/img/send.png',
+                            items:[
+                                {
+                                    text: '撤回发送',
+                                    name: 'undoSend',
+                                    icon: '../../css/main/img/previous.png'
+                                }
+                            ]
                         },
                         {
                             text: '个体码打印',

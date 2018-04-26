@@ -276,6 +276,10 @@ define("List", function (require, module, exports) {
     function send(classId, list, fn) {
         Operation.send(classId, list, fn);
     }
+    
+    function undoSend(classId, list, fn) {
+        Operation.undoSend(classId, list, fn);
+    }
     return {
         load: load,
         render: render,
@@ -286,5 +290,6 @@ define("List", function (require, module, exports) {
         getFilterItems: getFilterItems,
         forbid: forbid,
         send: send,
+        undoSend:undoSend
     };
 });

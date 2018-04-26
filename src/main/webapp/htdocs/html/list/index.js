@@ -194,6 +194,10 @@
         'send': function (item, index) {
             send();
         },
+        'undoSend': function (item, index) {
+            // 撤销发送发货单到医院
+            undoSend();
+        },
         'filter': function (item, index) {
             var items = List.getFilterItems();
             SMS.use('Dialog', function (Dialog) {
@@ -224,7 +228,7 @@
 
                 dialog.showModal();
             });
-        },
+        }
     });
 
     function detailView() {
@@ -699,6 +703,36 @@
             if (result) {
                 List.send(classId, list, function () {
                     SMS.Tips.success('发送成功', 2000);
+                    refresh();
+                });
+            }
+        });
+    }
+
+    function undoSend() {
+
+        // 发送到HRP
+        if (classId != 2020) {
+            //目前单据只有发货单可同步回HRP
+            return;
+        }
+
+        var list = List.getSelectedItems();
+
+        if (list.length == 0) {
+            SMS.Tips.error('请选择要操作的项');
+            return;
+        }
+
+        if (list.length > 1) {
+            SMS.Tips.error('一次只能对一条记录进行操作');
+            return;
+        }
+
+        MessageBox.confirm('确定要撤回该发送记录?', function (result) {
+            if (result) {
+                List.undoSend(classId, list, function () {
+                    SMS.Tips.success('撤回成功，当前单据是未发送到医院的状态', 2000);
                     refresh();
                 });
             }

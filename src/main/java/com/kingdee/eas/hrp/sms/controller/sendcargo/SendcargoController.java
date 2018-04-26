@@ -57,8 +57,16 @@ public class SendcargoController {
 
     @ControllerLog(desc = "撤销发送")
     @RequestMapping(value = "undoSend")
-    public void undoSend(HttpServletRequest request, HttpServletResponse response) {
+    public void undoSendHrp(HttpServletRequest request, HttpServletResponse response) {
 
+        String id = ParameterUtils.getParameter(request, "id", "");
+
+        if ("".equals(id)) {
+            throw new BusinessLogicRunTimeException("请指定发货单撤回");
+        }
+
+        sendcargoService.undoSendHrp(id);
+        ResponseWriteUtil.output(response, StatusCode.SUCCESS, "撤回成功");
     }
 
 }

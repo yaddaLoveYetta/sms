@@ -6,6 +6,7 @@ import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.SendcargoMapper;
 import com.kingdee.eas.hrp.sms.exception.BusinessLogicRunTimeException;
 import com.kingdee.eas.hrp.sms.model.Sendcargo;
+import com.kingdee.eas.hrp.sms.model.SendcargoExample;
 import com.kingdee.eas.hrp.sms.service.api.IWebService;
 import com.kingdee.eas.hrp.sms.service.api.sendcargo.ISendcargoService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
@@ -142,5 +143,60 @@ public class SendcargoService extends BaseService implements ISendcargoService {
         } else {
             throw new BusinessLogicRunTimeException(rps.getString("msg"));
         }
+    }
+
+    /**
+     * 撤回发送到医院的发货单
+     *
+     * @param id 发货单id
+     */
+    @Override
+    public void undoSendHrp(String id) {
+
+        SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
+
+        SendcargoExample example = new SendcargoExample();
+        SendcargoExample.Criteria criteria = example.createCriteria();
+        criteria.andTypeEqualTo((byte) 0);
+        criteria.andIdEqualTo(id);
+
+        List<Sendcargo> sendcargos = sendcargoMapper.selectByExample(example);
+        if (sendcargos != null && sendcargos.size() > 0) {
+            throw new BusinessLogicRunTimeException("该发货单还未发送到医院，不可撤回!");
+        }
+
+        String response = IWebService.webService(id, "delSms2hrpPurReceival");
+
+        // for test
+        //String response = "{\"code\": \"200\",\"data\": \"\",\"msg\": \"62ac59075b964b07152d234b7\"}";
+        JSONObject rps = JSONObject.parseObject(response);
+
+        if (rps == null || "".equals(rps)) {
+            throw new BusinessLogicRunTimeException("网络错误!请稍后再试");
+        }
+
+        if (rps.get("code").equals("200")) {
+
+            PlatformTransactionManager txManager = Environ.getBean(PlatformTransactionManager.class);
+            TransactionTemplate template = new TransactionTemplate(txManager);
+            template.execute(new TransactionCallback<Object>() {
+
+                @Override
+                public Object doInTransaction(TransactionStatus status) {
+
+                    Sendcargo sendcargo = new Sendcargo();
+                    sendcargo.setType((byte) 0);
+                    sendcargo.setId(id);
+
+                    sendcargoMapper.updateByPrimaryKeySelective(sendcargo);
+
+                    return "success";
+                }
+            });
+
+        } else {
+            throw new BusinessLogicRunTimeException(rps.getString("msg"));
+        }
+
     }
 }

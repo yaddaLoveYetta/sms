@@ -129,6 +129,23 @@ define('List/Operation', function (require, module, exports) {
             'items': items,
         }, fn);
     }
+    
+    function undoSend(classId, list, fn) {
+
+        var items = '';
+        for (var item in list) {
+            if (list[item]) {
+                items += (',' + list[item].primaryValue);
+            }
+        }
+
+        items = items.substr(1);
+
+        post('sendcargo/undoSend', {
+            'id': items
+        }, fn);
+
+    }
 
     return {
         del: del,
@@ -136,6 +153,7 @@ define('List/Operation', function (require, module, exports) {
         review: review,
         unReview: unReview,
         send: send,
+        undoSend:undoSend
     };
 
 });
