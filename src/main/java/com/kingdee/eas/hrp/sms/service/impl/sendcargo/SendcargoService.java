@@ -164,8 +164,10 @@ public class SendcargoService extends BaseService implements ISendcargoService {
         if (sendcargos != null && sendcargos.size() > 0) {
             throw new BusinessLogicRunTimeException("该发货单还未发送到医院，不可撤回!");
         }
+        JSONObject param=new JSONObject();
+        param.put("id",id);
 
-        String response = IWebService.webService(id, "delSms2hrpPurReceival");
+        String response = IWebService.webService(param.toString(), "delSms2hrpPurReceival");
 
         // for test
         //String response = "{\"code\": \"200\",\"data\": \"\",\"msg\": \"62ac59075b964b07152d234b7\"}";
