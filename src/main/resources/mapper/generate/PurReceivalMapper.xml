@@ -8,6 +8,7 @@
     <result column="baseStatus" jdbcType="TINYINT" property="baseStatus" />
     <result column="sourceBillType" jdbcType="VARCHAR" property="sourceBillType" />
     <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="sendCargoId" jdbcType="VARCHAR" property="sendCargoId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, [number], bizDate, baseStatus, sourceBillType, supplier
+    id, [number], bizDate, baseStatus, sourceBillType, supplier, sendCargoId
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.PurReceivalExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.PurReceival">
     insert into t_sms_purreceival (id, [number], bizDate, 
-      baseStatus, sourceBillType, supplier
-      )
+      baseStatus, sourceBillType, supplier, 
+      sendCargoId)
     values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{bizDate,jdbcType=TIMESTAMP}, 
-      #{baseStatus,jdbcType=TINYINT}, #{sourceBillType,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}
-      )
+      #{baseStatus,jdbcType=TINYINT}, #{sourceBillType,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, 
+      #{sendCargoId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.PurReceival">
     insert into t_sms_purreceival
@@ -129,6 +130,9 @@
       <if test="supplier != null">
         supplier,
       </if>
+      <if test="sendCargoId != null">
+        sendCargoId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +152,9 @@
       </if>
       <if test="supplier != null">
         #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="sendCargoId != null">
+        #{sendCargoId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.supplier != null">
         supplier = #{record.supplier,jdbcType=VARCHAR},
       </if>
+      <if test="record.sendCargoId != null">
+        sendCargoId = #{record.sendCargoId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       bizDate = #{record.bizDate,jdbcType=TIMESTAMP},
       baseStatus = #{record.baseStatus,jdbcType=TINYINT},
       sourceBillType = #{record.sourceBillType,jdbcType=VARCHAR},
-      supplier = #{record.supplier,jdbcType=VARCHAR}
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      sendCargoId = #{record.sendCargoId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="supplier != null">
         supplier = #{supplier,jdbcType=VARCHAR},
       </if>
+      <if test="sendCargoId != null">
+        sendCargoId = #{sendCargoId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -222,7 +236,8 @@
       bizDate = #{bizDate,jdbcType=TIMESTAMP},
       baseStatus = #{baseStatus,jdbcType=TINYINT},
       sourceBillType = #{sourceBillType,jdbcType=VARCHAR},
-      supplier = #{supplier,jdbcType=VARCHAR}
+      supplier = #{supplier,jdbcType=VARCHAR},
+      sendCargoId = #{sendCargoId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

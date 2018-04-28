@@ -3,6 +3,7 @@ package com.kingdee.eas.hrp.sms.service.plugin.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.kingdee.eas.hrp.sms.dao.customize.OrderDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.customize.SendcargoDaoMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.ItemMapper;
 import com.kingdee.eas.hrp.sms.dao.generate.OrderEntryMapper;
@@ -37,7 +38,10 @@ public class BillPlugin extends PlugInAdpter {
     @Override
     @Transactional
     public PlugInRet afterSave(int classId, String id, JSONObject data) {
+
         if (classId == 2020) {
+            // 记录发货单关联的订单id
+            Set<String> orderIds = new HashSet<>(8);
             ITemplateService temp = Environ.getBean(ITemplateService.class);
             ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
             Map<String, Object> item = temp.getItemById(classId, id);
@@ -60,11 +64,10 @@ public class BillPlugin extends PlugInAdpter {
 
                     entry = isInList(list, orderId, seq);
 
-                    if (null != entry) {
+                    if (entry != null) {
                         // 在不在list
                         entry.put("invoiceQty", qty.add((BigDecimal) entry.get("invoiceQty")));
-                    }
-                    if (entry == null) {
+                    } else {
                         Map<String, Object> entry1 = new HashMap<String, Object>();
                         entry1.put("seq", invoiceEntry.get("orderSeq"));
                         entry1.put("parent", invoiceEntry.get("orderId"));
@@ -73,10 +76,11 @@ public class BillPlugin extends PlugInAdpter {
                     }
 
                 }
+                orderIds.add(invoiceEntry.get("orderId").toString());
             }
             OrderEntry orderEntry = new OrderEntry();
             SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
-            OrderEntryMapper orderEntryMapper = (OrderEntryMapper) sqlSession.getMapper(OrderEntryMapper.class);
+            OrderEntryMapper orderEntryMapper = sqlSession.getMapper(OrderEntryMapper.class);
             for (int i = 0; i < list.size(); i++) {
                 Map<String, Object> lists = list.get(i);
                 OrderEntryExample e = new OrderEntryExample();
@@ -93,9 +97,34 @@ public class BillPlugin extends PlugInAdpter {
                     orderEntryMapper.updateByPrimaryKeySelective(orderEntry);
                 }
             }
+
+            dealOrderDeliverStatus(orderIds);
         }
 
         return super.afterSave(classId, id, data);
+    }
+
+    /**
+     * 订单发货时更新订单的发货完成状态(如果分录发货数量都等于确认数量则发货完成，否则未完成)
+     *
+     * @param orderIds 订单id集合
+     */
+    private void dealOrderDeliverStatus(Set<String> orderIds) {
+
+        StringBuilder sbIds = new StringBuilder();
+
+        if (orderIds == null || orderIds.size() == 0) {
+            return;
+        }
+        for (String orderId : orderIds) {
+            sbIds.append(String.format(",'%s'", orderId));
+        }
+
+        String ids = String.format("(%s)", sbIds.toString().substring(1));
+
+        SqlSession sqlSession = (SqlSession) Environ.getBean("sqlSession");
+        OrderDaoMapper mapper = sqlSession.getMapper(OrderDaoMapper.class);
+        mapper.delaWithDeliverStatus(ids);
     }
 
     private Map<String, Object> isInList(List<Map<String, Object>> list, String currentOrderId, int currentSeq) {

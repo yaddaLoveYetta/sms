@@ -504,6 +504,76 @@ public class PurReceivalExample {
             addCriterion("supplier not between", value1, value2, "supplier");
             return (Criteria) this;
         }
+
+        public Criteria andSendCargoIdIsNull() {
+            addCriterion("sendCargoId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdIsNotNull() {
+            addCriterion("sendCargoId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdEqualTo(String value) {
+            addCriterion("sendCargoId =", value, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdNotEqualTo(String value) {
+            addCriterion("sendCargoId <>", value, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdGreaterThan(String value) {
+            addCriterion("sendCargoId >", value, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdGreaterThanOrEqualTo(String value) {
+            addCriterion("sendCargoId >=", value, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdLessThan(String value) {
+            addCriterion("sendCargoId <", value, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdLessThanOrEqualTo(String value) {
+            addCriterion("sendCargoId <=", value, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdLike(String value) {
+            addCriterion("sendCargoId like", value, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdNotLike(String value) {
+            addCriterion("sendCargoId not like", value, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdIn(List<String> values) {
+            addCriterion("sendCargoId in", values, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdNotIn(List<String> values) {
+            addCriterion("sendCargoId not in", values, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdBetween(String value1, String value2) {
+            addCriterion("sendCargoId between", value1, value2, "sendCargoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendCargoIdNotBetween(String value1, String value2) {
+            addCriterion("sendCargoId not between", value1, value2, "sendCargoId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

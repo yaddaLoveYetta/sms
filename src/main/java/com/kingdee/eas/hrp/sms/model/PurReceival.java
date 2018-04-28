@@ -15,6 +15,8 @@ public class PurReceival {
 
     private String supplier;
 
+    private String sendCargoId;
+
     public String getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class PurReceival {
 
     public void setSupplier(String supplier) {
         this.supplier = supplier == null ? null : supplier.trim();
+    }
+
+    public String getSendCargoId() {
+        return sendCargoId;
+    }
+
+    public void setSendCargoId(String sendCargoId) {
+        this.sendCargoId = sendCargoId == null ? null : sendCargoId.trim();
     }
 }
