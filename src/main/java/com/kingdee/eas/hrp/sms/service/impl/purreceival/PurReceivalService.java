@@ -8,7 +8,6 @@ import com.kingdee.eas.hrp.sms.dao.generate.SendcargoMapper;
 import com.kingdee.eas.hrp.sms.model.PurReceival;
 import com.kingdee.eas.hrp.sms.model.PurReceivalEntry;
 import com.kingdee.eas.hrp.sms.model.Sendcargo;
-import com.kingdee.eas.hrp.sms.model.SendcargoExample;
 import com.kingdee.eas.hrp.sms.service.api.ITemplateService;
 import com.kingdee.eas.hrp.sms.service.api.purreceival.IPurReceivalService;
 import com.kingdee.eas.hrp.sms.service.impl.BaseService;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -103,7 +103,7 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
         if (!sendCarGoCheckIds.isEmpty()) {
 
             // add by yadda HRP收货单审核后，将供应商平台上关联的发货单设置为签收状态 禅道bug#5589
-            Sendcargo sendcargo = new Sendcargo();
+/*            Sendcargo sendcargo = new Sendcargo();
             sendcargo.setStatus(101);
 
             SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
@@ -111,15 +111,22 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
             SendcargoExample.Criteria sendcargoExampleCriteria = sendcargoExample.createCriteria();
             sendcargoExampleCriteria.andIdIn(new ArrayList<>(sendCarGoCheckIds));
             // 更新发货单发货状态为已签收
-            sendcargoMapper.updateByExampleSelective(sendcargo, sendcargoExample);
+            sendcargoMapper.updateByExampleSelective(sendcargo, sendcargoExample);*/
 
+            SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
+            for (String sendCarGoCheckId : sendCarGoCheckIds) {
+                Sendcargo sendcargo = new Sendcargo();
+                sendcargo.setStatus(101);
+                sendcargo.setId(sendCarGoCheckId);
+                sendcargoMapper.updateByPrimaryKeySelective(sendcargo);
+            }
 
         }
 
         if (!sendCarGoUnCheckIds.isEmpty()) {
 
             // add by yadda HRP收货单反审核后，将供应商平台上关联的发货单设置为签收状态 禅道bug#5589
-            Sendcargo sendcargo = new Sendcargo();
+/*            Sendcargo sendcargo = new Sendcargo();
             sendcargo.setStatus(100);
 
             SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
@@ -127,11 +134,31 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
             SendcargoExample.Criteria sendcargoExampleCriteria = sendcargoExample.createCriteria();
             sendcargoExampleCriteria.andIdIn(new ArrayList<>(sendCarGoUnCheckIds));
             // 更新发货单发货状态为未签收
-            sendcargoMapper.updateByExampleSelective(sendcargo, sendcargoExample);
+            sendcargoMapper.updateByExampleSelective(sendcargo, sendcargoExample);*/
+
+            SendcargoMapper sendcargoMapper = sqlSession.getMapper(SendcargoMapper.class);
+            for (String sendCarGoUnCheckId : sendCarGoUnCheckIds) {
+                Sendcargo sendcargo = new Sendcargo();
+                sendcargo.setStatus(100);
+                sendcargo.setId(sendCarGoUnCheckId);
+                sendcargoMapper.updateByPrimaryKeySelective(sendcargo);
+            }
 
         }
 
         return "success";
+    }
+
+    public static void main(String[] args) {
+
+        Set<String> sendCarGoCheckIds = new HashSet<String>(8);
+        sendCarGoCheckIds.add("12345");
+        sendCarGoCheckIds.add("23456");
+        sendCarGoCheckIds.add("12345");
+
+        List<String> ss = new ArrayList<String>(sendCarGoCheckIds);
+
+        System.out.println(ss.toString());
     }
 
 }
