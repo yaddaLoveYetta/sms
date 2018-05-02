@@ -35,7 +35,6 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
 
         PurReceival purReceival = new PurReceival();
         PurReceivalEntry purReceivalEntry = new PurReceivalEntry();
-
         // add by yadda HRP收货单审核后，将供应商平台上关联的发货单设置为签收状态（完成状态）
         // 审核或审核后状态的发货单id
         Set<String> sendCarGoCheckIds = new HashSet<String>(8);
@@ -52,7 +51,12 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
             purReceival.setBaseStatus(jsonObject.getByte("baseStatus"));
             // 发货单id-add by yadda
             purReceival.setSendCargoId(jsonObject.getString("sendCargoID"));
-
+            // add by yadda HRP收货单审核后，将供应商平台上关联的发货单设置为签收状态
+            if (jsonObject.getIntValue("baseStatus") >= 4) {
+                sendCarGoCheckIds.add(jsonObject.getString("sendCargoID"));
+            } else {
+                sendCarGoUnCheckIds.add(jsonObject.getString("sendCargoID"));
+            }
             purReceival.setSourceBillType(jsonObject.getString("sourceBillType"));
             purReceival.setSupplier(jsonObject.getString("supplier"));
             PurReceivalMapper purReceivalMapper = sqlSession.getMapper(PurReceivalMapper.class);
@@ -67,14 +71,6 @@ public class PurReceivalService extends BaseService implements IPurReceivalServi
                 purReceivalEntry.setId(purEntryObject.getString("id"));
                 purReceivalEntry.setParent(purEntryObject.getString("parent"));
                 purReceivalEntry.setSeq(purEntryObject.getInteger("seq"));
-
-                // add by yadda HRP收货单审核后，将供应商平台上关联的发货单设置为签收状态
-                if (jsonObject.getIntValue("baseStatus") >= 4) {
-                    sendCarGoCheckIds.add(purEntryObject.getString("orderId"));
-                } else {
-                    sendCarGoUnCheckIds.add(purEntryObject.getString("orderId"));
-                }
-
 
                 purReceivalEntry.setOrderId(purEntryObject.getString("orderId"));
                 purReceivalEntry.setOrderSeq(purEntryObject.getString("orderSeq"));
