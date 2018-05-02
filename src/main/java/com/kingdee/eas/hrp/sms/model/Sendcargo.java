@@ -21,14 +21,6 @@ public class Sendcargo {
 
     private Integer status;
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public String getId() {
         return id;
     }
@@ -91,5 +83,13 @@ public class Sendcargo {
 
     public void setType(Byte type) {
         this.type = type;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

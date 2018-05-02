@@ -10,6 +10,7 @@
     <result column="logisticsNo" jdbcType="VARCHAR" property="logisticsNo" />
     <result column="saleProxy" jdbcType="TINYINT" property="saleProxy" />
     <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, [number], [Date], supplier, logistics, logisticsNo, saleProxy, [type]
+    id, [number], [Date], supplier, logistics, logisticsNo, saleProxy, [type], [status]
   </sql>
   <select id="selectByExample" parameterType="com.kingdee.eas.hrp.sms.model.SendcargoExample" resultMap="BaseResultMap">
     select
@@ -105,10 +106,12 @@
   <insert id="insert" parameterType="com.kingdee.eas.hrp.sms.model.Sendcargo">
     insert into t_sms_sendcargo (id, [number], [Date], 
       supplier, logistics, logisticsNo, 
-      saleProxy, [type])
+      saleProxy, [type], [status]
+      )
     values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
       #{supplier,jdbcType=VARCHAR}, #{logistics,jdbcType=VARCHAR}, #{logisticsNo,jdbcType=VARCHAR}, 
-      #{saleProxy,jdbcType=TINYINT}, #{type,jdbcType=TINYINT})
+      #{saleProxy,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{status,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kingdee.eas.hrp.sms.model.Sendcargo">
     insert into t_sms_sendcargo
@@ -137,6 +140,9 @@
       <if test="type != null">
         [type],
       </if>
+      <if test="status != null">
+        [status],
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -162,6 +168,9 @@
       </if>
       <if test="type != null">
         #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -198,6 +207,9 @@
       <if test="record.type != null">
         [type] = #{record.type,jdbcType=TINYINT},
       </if>
+      <if test="record.status != null">
+        [status] = #{record.status,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +224,8 @@
       logistics = #{record.logistics,jdbcType=VARCHAR},
       logisticsNo = #{record.logisticsNo,jdbcType=VARCHAR},
       saleProxy = #{record.saleProxy,jdbcType=TINYINT},
-      [type] = #{record.type,jdbcType=TINYINT}
+      [type] = #{record.type,jdbcType=TINYINT},
+      [status] = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +254,9 @@
       <if test="type != null">
         [type] = #{type,jdbcType=TINYINT},
       </if>
+      <if test="status != null">
+        [status] = #{status,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -252,7 +268,8 @@
       logistics = #{logistics,jdbcType=VARCHAR},
       logisticsNo = #{logisticsNo,jdbcType=VARCHAR},
       saleProxy = #{saleProxy,jdbcType=TINYINT},
-      [type] = #{type,jdbcType=TINYINT}
+      [type] = #{type,jdbcType=TINYINT},
+      [status] = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
