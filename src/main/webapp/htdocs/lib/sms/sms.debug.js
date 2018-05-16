@@ -6446,7 +6446,6 @@
                     if (row[primaryKey]) {
                         deleteRows.push(row);
                     }
-                    ;
 
                     bdGrid.jqGrid("clearGridData");
                     bdGrid.jqGrid('addRowData', 'num_1', {
@@ -6461,6 +6460,9 @@
                 if (su && row[primaryKey]) {
                     deleteRows.push(row);
                 }
+
+                bdGrid.trigger("reloadGrid")
+
 
             });
 
