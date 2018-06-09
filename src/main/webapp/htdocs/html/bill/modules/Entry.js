@@ -84,7 +84,7 @@ define('Entry', function (require, module, exports) {
                             // 1：获取物料单价
                             var price = billGrid.getCell(rowid, 'price');
                             console.log("price=" + price);
-                            var amount = (value * price).toFixed(2);
+                            var amount = (value * price).toFixed(3);
                             billGrid.setCell(rowid, 'amount', amount);
                             break;
                     }

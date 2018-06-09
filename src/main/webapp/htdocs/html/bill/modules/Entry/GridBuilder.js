@@ -113,7 +113,7 @@ define('Entry/GridBuilder', function (require, module, exports) {
             model.formatoptions = {
                 decimalSeparator: ".",
                 thousandsSeparator: " ",
-                decimalPlaces: 2,
+                decimalPlaces: 3,
                 defaulValue: 0
             };
         }
